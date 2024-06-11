@@ -13,7 +13,6 @@ import { reducers, metaReducers } from './shared/store/app.store';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './shared/store/auth/auth.effects';
 import { WebStorageService, TitleStrategyService } from './shared/services';
-import { tokenInterceptor } from './shared/interceptors/token.interceptor';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';

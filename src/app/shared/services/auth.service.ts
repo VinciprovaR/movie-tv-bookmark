@@ -1,13 +1,10 @@
-import { Inject, Injectable, inject } from '@angular/core';
-import { Observable, from, map, of, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Observable, from } from 'rxjs';
 import { WebStorageService } from './web-storage.service';
 import { LoginPayload, RegisterPayload } from '../models/auth-models';
 import {
-  AuthError,
   AuthResponse,
   AuthTokenResponsePassword,
-  Session,
   SupabaseClient,
 } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../provider';
@@ -16,10 +13,7 @@ import { SUPABASE_CLIENT } from '../../provider';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private webStorageService: WebStorageService,
-    @Inject(SUPABASE_CLIENT) private supabase: SupabaseClient
-  ) {}
+  constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
 
   login(credentials: LoginPayload): Observable<AuthTokenResponsePassword> {
     return from(
@@ -45,19 +39,5 @@ export class AuthService {
 
   getCurrentUser(): Observable<any> {
     return from(this.supabase.auth.getSession());
-  }
-
-  setAuth(jwtToken: string, remember = false): void {
-    this.webStorageService.saveJwtToken(jwtToken);
-    //this.webStorageService.saveRememberMe(remember);
-  }
-
-  setAuthValidation(jwtToken: string): void {
-    this.webStorageService.saveJwtToken(jwtToken);
-  }
-
-  purgeAuth(): void {
-    this.webStorageService.destroyJwtToken();
-    this.webStorageService.destroyRemember();
   }
 }

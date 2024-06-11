@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-
 import { AuthActions, AuthSelectors } from '../../shared/store/auth';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -22,7 +21,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { RouterModule } from '@angular/router';
 import { FormErrorComponent } from '../../shared/ui/form.error/form.error.component';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-page',

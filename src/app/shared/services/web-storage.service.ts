@@ -5,18 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class WebStorageService {
   constructor() {}
-  getJwtToken(): string {
-    return window.localStorage['jwtToken'];
-  }
-
-  saveJwtToken(jwtToken: string): void {
-    window.localStorage['jwtToken'] = jwtToken;
-  }
-
-  destroyJwtToken(): void {
-    window.localStorage.removeItem('jwtToken');
-  }
-
   getRememberMe(): boolean {
     return 'true' === window.localStorage['remember-me'];
   }

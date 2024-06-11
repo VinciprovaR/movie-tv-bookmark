@@ -2,8 +2,6 @@ import { Routes } from '@angular/router';
 import { authGuard, nonAuthGuard } from './shared/guards';
 import { redirectGuard } from './shared/guards/redirect.guard';
 
-//runGuardsAndResolvers: 'always',
-
 export const routes: Routes = [
   {
     path: 'user-profile',

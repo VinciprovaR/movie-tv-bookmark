@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '@supabase/supabase-js';
-
 import { LoginPayload, RegisterPayload } from '../../models/auth-models';
 
 export const login = createAction(
@@ -33,6 +32,7 @@ export const authFailure = createAction(
 );
 
 export const logout = createAction('[Logout/API] User Logout');
+
 export const logoutSuccess = createAction('[Logout/API] Logout success');
 
 export const cleanError = createAction('[Error Handling] Clean Error');

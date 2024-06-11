@@ -1,11 +1,5 @@
 import { FormControl } from '@angular/forms';
 
-// export interface ErrorResponse {
-//   errors: Record<string, string>;
-// }
-
-//export type ErrorResponse = Record<string, string>
-
 export interface ErrorResponse {
   [key: string]: string;
 }

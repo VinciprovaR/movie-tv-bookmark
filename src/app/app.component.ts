@@ -1,23 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ActivatedRoute,
-  ActivationStart,
-  NavigationCancel,
-  NavigationStart,
-  Route,
-  Router,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/layout/header/header.component';
-import { AuthSelectors, AuthActions } from './shared/store/auth';
+import { AuthSelectors } from './shared/store/auth';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
@@ -37,12 +22,5 @@ export class AppComponent implements OnInit {
 
   constructor(private store: Store, private router: Router) {}
 
-  ngOnInit(): void {
-    // this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationStart) {
-    //     console.dir(event);
-    //     console.dir(this.router);
-    //   }
-    // });
-  }
+  ngOnInit(): void {}
 }

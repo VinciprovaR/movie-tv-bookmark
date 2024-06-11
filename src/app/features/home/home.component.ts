@@ -4,7 +4,6 @@ import { AuthSelectors } from '../../shared/store/auth';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { User } from '@supabase/supabase-js/';
-import { AuthService } from '../../shared/services';
 
 @Component({
   selector: 'app-home',

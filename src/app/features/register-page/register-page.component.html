@@ -1,9 +1,3 @@
-<!-- <lib-register
-  (doRegister)="handleRegister($event)"
-  [isLoading]="selectIsLoading$ | async"
-  [authErrors]="authSelectError$ | async"
-  [loginLink]="'/login'"
-></lib-register> -->
 <app-form-error [errors]="authSelectError$ | async"></app-form-error>
 <form
   nz-form
@@ -21,9 +15,6 @@
             formControlName="username"
             placeholder="Username"
           />
-          <!-- <ng-template #usernameErrorTps let-control>
-            @if (control.errors?.['required']) { Please input your username! }
-          </ng-template> -->
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
@@ -54,7 +45,6 @@
             formControlName="password"
             placeholder="Password"
           />
-          <!-- <span nz-icon nzType="info-circle" nzTheme="fill"></span> -->
           <ng-template #pswErrorTpl let-control>
             @if (control.errors?.['pswError'] || control.errors?.['pattern']) {
             Password must contains no spaces, at least one letter and one

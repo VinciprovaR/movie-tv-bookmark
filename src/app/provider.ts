@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { SupabaseClient, createClient, AuthError } from '@supabase/supabase-js';
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(

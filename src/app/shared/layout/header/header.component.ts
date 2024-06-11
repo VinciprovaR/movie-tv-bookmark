@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AuthSelectors, AuthActions } from '../../../shared/store/auth';

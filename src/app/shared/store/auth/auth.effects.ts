@@ -1,25 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
-import {
-  catchError,
-  delay,
-  from,
-  map,
-  of,
-  switchMap,
-  tap,
-  throwError,
-} from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../services';
-
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   AuthError,
   AuthResponse,
   AuthTokenResponsePassword,
-  User,
 } from '@supabase/supabase-js/';
 import { ErrorResponse } from '../../models/auth-models';
 

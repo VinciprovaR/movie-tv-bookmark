@@ -6,11 +6,3 @@ export interface AuthState {
   error: ErrorResponse | null;
   user: User | null;
 }
-
-// export interface User {
-//   email: string;
-//   jwtToken?: string;
-//   username: string;
-//   bio?: string;
-//   image?: string;
-// }
