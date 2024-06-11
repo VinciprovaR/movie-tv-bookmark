@@ -1,0 +1,122 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import {
+  ErrorResponse,
+  RegisterPayload,
+  RegisterForm,
+} from '../../shared/models/auth-models';
+import { Observable } from 'rxjs';
+import { AuthSelectors, AuthActions } from '../../shared/store/auth';
+import { FormErrorComponent } from '../../shared/ui/form.error/form.error.component';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-register-page',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormErrorComponent,
+    NzButtonModule,
+    NzInputModule,
+    NzFormModule,
+    NzIconModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NzToolTipModule,
+  ],
+  templateUrl: './register-page.component.html',
+  styleUrl: './register-page.component.css',
+})
+export class RegisterPageComponent {
+  title: string = 'register';
+  registerForm!: FormGroup<RegisterForm>;
+
+  authSelectError$: Observable<ErrorResponse | null> = this.store.select(
+    AuthSelectors.selectError
+  );
+
+  selectIsLoading$: Observable<boolean> = this.store.select(
+    AuthSelectors.selectIsLoading
+  );
+
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    this.registerForm = new FormGroup<RegisterForm>({
+      username: new FormControl<string>('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      email: new FormControl<string>('', {
+        validators: [Validators.required, Validators.email],
+        nonNullable: true,
+      }),
+      password: new FormControl<string>('', {
+        validators: [
+          this.pswLength.bind(this),
+          Validators.pattern(/(?=.*\d)(?=.*[A-Za-z])^[^ ]+$/),
+          Validators.required,
+        ],
+        nonNullable: true,
+      }),
+      confirmPassword: new FormControl<string>('', {
+        validators: [Validators.required, this.diffPsw.bind(this)],
+        nonNullable: true,
+      }),
+    });
+  }
+
+  pswLength(control: AbstractControl): ValidationErrors | null {
+    return control.value.length > 0 &&
+      (control.value.length < 6 || control.value.length > 15)
+      ? { pswError: true }
+      : null;
+  }
+
+  diffPsw(control: AbstractControl): ValidationErrors | null {
+    //
+    return control.value.length > 0 &&
+      control.value !== this.registerForm?.value.password
+      ? { diffPswErr: true }
+      : null;
+  }
+
+  submitForm(): void {
+    if (this.registerForm.valid) {
+      this.handleRegister(this.registerForm.value as RegisterPayload);
+    } else {
+      Object.values(this.registerForm.controls).forEach(
+        (control: AbstractControl) => {
+          if (control.invalid) {
+            control.markAsDirty();
+            control.updateValueAndValidity({ onlySelf: true });
+          }
+        }
+      );
+    }
+  }
+
+  handleRegister(registerPayload: RegisterPayload) {
+    this.store.dispatch(AuthActions.register(registerPayload));
+  }
+
+  ngOnDestroy(): void {
+    //to-do check if there are error
+    this.store.dispatch(AuthActions.cleanError());
+  }
+}
