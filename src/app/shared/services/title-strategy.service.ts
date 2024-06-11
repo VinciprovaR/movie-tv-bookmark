@@ -11,7 +11,7 @@ export class TitleStrategyService extends TitleStrategy {
   updateTitle(snapshot: RouterStateSnapshot): void {
     const title = this.buildTitle(snapshot);
     if (title) {
-      this.titleService.setTitle(`${title} - Dreams Unveiler`);
+      this.titleService.setTitle(`${title} - Bookmark Movie`);
     }
   }
 }

@@ -14,7 +14,7 @@ import { map } from 'rxjs';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title = 'dreams_unveiler';
+  title = 'bookmark_movie';
 
   readonly isUserAuthenticated$ = this.store
     .select(AuthSelectors.selectUser)
