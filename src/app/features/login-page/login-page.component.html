@@ -1,13 +1,12 @@
-<app-form-error [errors]="authSelectError$ | async"></app-form-error>
 <form
   nz-form
   [formGroup]="loginForm"
   class="login-form"
-  (ngSubmit)="submitForm()"
+  (ngSubmit)="onSubmit()"
 >
   <fieldset [disabled]="selectIsLoading$ | async">
     <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your email!">
+      <nz-form-control [nzErrorTip]="emailErrorTpl">
         <nz-input-group nzPrefixIcon="user">
           <input
             type="text"
@@ -15,6 +14,10 @@
             formControlName="email"
             placeholder="Email"
           />
+          <ng-template #emailErrorTpl let-control>
+            @if (control.errors?.['email']) { The input is not valid E-mail! }
+            @if (control.errors?.['required']) { Please input your E-mail! }
+          </ng-template>
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
@@ -31,13 +34,13 @@
       </nz-form-control>
     </nz-form-item>
     <div nz-row class="login-form-margin">
-      <div nz-col [nzSpan]="12">
+      <!-- <div nz-col [nzSpan]="12">
         <label nz-checkbox formControlName="stayConnected">
           <span>Stay Connected</span>
         </label>
-      </div>
-      <div nz-col [nzSpan]="12">
-        <a class="login-form-forgot">Forgot password</a>
+      </div> -->
+      <div nz-col [nzSpan]="24">
+        <a [routerLink]="'/reset-password'">Forgot password</a>
       </div>
     </div>
     <button
@@ -45,6 +48,7 @@
       nz-button
       class="login-form-button login-form-margin"
       [nzType]="'primary'"
+      [nzLoading]="selectIsLoading$ | async "
     >
       Log in
     </button>

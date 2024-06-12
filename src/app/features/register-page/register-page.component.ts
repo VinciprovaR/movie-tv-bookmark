@@ -57,10 +57,10 @@ export class RegisterPageComponent {
 
   ngOnInit(): void {
     this.registerForm = new FormGroup<RegisterForm>({
-      username: new FormControl<string>('', {
-        validators: [Validators.required],
-        nonNullable: true,
-      }),
+      // username: new FormControl<string>('', {
+      //   validators: [Validators.required],
+      //   nonNullable: true,
+      // }),
       email: new FormControl<string>('', {
         validators: [Validators.required, Validators.email],
         nonNullable: true,
@@ -95,23 +95,12 @@ export class RegisterPageComponent {
       : null;
   }
 
-  submitForm(): void {
+  onSubmit(): void {
     if (this.registerForm.valid) {
-      this.handleRegister(this.registerForm.value as RegisterPayload);
-    } else {
-      Object.values(this.registerForm.controls).forEach(
-        (control: AbstractControl) => {
-          if (control.invalid) {
-            control.markAsDirty();
-            control.updateValueAndValidity({ onlySelf: true });
-          }
-        }
+      this.store.dispatch(
+        AuthActions.register(this.registerForm.value as RegisterPayload)
       );
     }
-  }
-
-  handleRegister(registerPayload: RegisterPayload) {
-    this.store.dispatch(AuthActions.register(registerPayload));
   }
 
   ngOnDestroy(): void {

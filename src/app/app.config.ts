@@ -19,7 +19,7 @@ import en from '@angular/common/locales/en';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { provideAppInitializer, provideSupabaseClient } from './provider';
+import { provideAppInitializer, provideSupabaseClient } from './providers';
 
 registerLocaleData(en);
 

@@ -115,6 +115,30 @@ export class AuthEffects {
     );
   });
 
+  requestResetPassword$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.requestResetPassword),
+      switchMap((credentials) => {
+        return this.authService.sendMailResetPassword(credentials).pipe(
+          tap((result: any) => {
+            if (result.error) {
+              throw result.error;
+            } else {
+              this.router.navigate(['/reset-password-sent']);
+            }
+          }),
+          map(() => {
+            return AuthActions.requestResetPasswordSuccess();
+          }),
+          catchError((httpErrorResponse: ErrorResponse) => {
+            console.error(httpErrorResponse);
+            return of(AuthActions.authFailure({ httpErrorResponse }));
+          })
+        );
+      })
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private authService: AuthService,

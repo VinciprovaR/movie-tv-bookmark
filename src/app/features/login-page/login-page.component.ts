@@ -9,6 +9,7 @@ import {
   LoginPayload,
 } from '../../shared/models/auth-models';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -43,10 +44,6 @@ export class LoginPageComponent {
   title: string = 'login';
   loginForm!: FormGroup<LoginForm>;
 
-  authSelectError$: Observable<ErrorResponse | null> = this.store.select(
-    AuthSelectors.selectError
-  );
-
   selectIsLoading$: Observable<boolean> = this.store.select(
     AuthSelectors.selectIsLoading
   );
@@ -56,23 +53,23 @@ export class LoginPageComponent {
   ngOnInit(): void {
     this.loginForm = new FormGroup<LoginForm>({
       email: new FormControl<string>('', {
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.email],
         nonNullable: true,
       }),
       password: new FormControl<string>('', {
         validators: [Validators.required],
         nonNullable: true,
       }),
-      stayConnected: new FormControl<boolean>(false),
+      // stayConnected: new FormControl<boolean>(false),
     });
   }
 
-  submitForm(): void {
-    this.handleLogin(this.loginForm.value as LoginPayload);
-  }
-
-  handleLogin(loginPayload: LoginPayload) {
-    this.store.dispatch(AuthActions.login(loginPayload));
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      this.store.dispatch(
+        AuthActions.login(this.loginForm.value as LoginPayload)
+      );
+    }
   }
 
   ngOnDestroy(): void {

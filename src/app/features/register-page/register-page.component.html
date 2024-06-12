@@ -3,10 +3,10 @@
   nz-form
   [formGroup]="registerForm"
   class="register-form"
-  (ngSubmit)="submitForm()"
+  (ngSubmit)="onSubmit()"
 >
   <fieldset [disabled]="selectIsLoading$ | async">
-    <nz-form-item>
+    <!-- <nz-form-item>
       <nz-form-control [nzErrorTip]="'Please input your username!'">
         <nz-input-group nzPrefixIcon="user">
           <input
@@ -17,7 +17,7 @@
           />
         </nz-input-group>
       </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
 
     <nz-form-item>
       <nz-form-control [nzErrorTip]="emailErrorTpl">
@@ -76,7 +76,7 @@
       nz-button
       class="register-form-button register-form-margin"
       nzType="primary"
-      [nzLoading]="selectIsLoading$ | async"
+      [nzLoading]="selectIsLoading$ | async "
     >
       Register
     </button>

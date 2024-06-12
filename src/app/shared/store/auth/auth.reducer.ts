@@ -16,6 +16,8 @@ export const authReducer = createReducer(
     AuthActions.login,
     AuthActions.register,
     AuthActions.currentUser,
+    AuthActions.requestResetPassword,
+    AuthActions.logout,
     (state) => {
       return {
         ...state,
@@ -55,20 +57,19 @@ export const authReducer = createReducer(
       error: null,
     };
   }),
-  on(AuthActions.logout, (state) => {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }),
-  on(AuthActions.logoutSuccess, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      user: null,
-    };
-  })
+  on(
+    AuthActions.logoutSuccess,
+    AuthActions.requestResetPasswordSuccess,
+    (state) => {
+      //to-do check se necessario qui
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        user: null,
+      };
+    }
+  )
 );
 export const getAuthState = (state: AuthState) => state;
 export const getIsLoading = (state: AuthState) => state.isLoading;

@@ -30,6 +30,24 @@ export const routes: Routes = [
     title: 'Login',
   },
   {
+    path: 'reset-password',
+    loadComponent: () =>
+      import(
+        './features/reset-password/reset-password-request/reset-password-request.component'
+      ).then((m) => m.ResetPasswordRequestComponent),
+    canActivate: [nonAuthGuard],
+    title: 'Reset Password',
+  },
+  {
+    path: 'reset-password-sent',
+    loadComponent: () =>
+      import(
+        './features/reset-password/reset-password-sent/reset-password-sent.component'
+      ).then((m) => m.ResetPasswordSentComponent),
+    canActivate: [nonAuthGuard],
+    title: 'Reset Password Sent',
+  },
+  {
     path: 'register',
     loadComponent: () =>
       import('./features/register-page/register-page.component').then(
