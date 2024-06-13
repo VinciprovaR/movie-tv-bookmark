@@ -6,7 +6,24 @@ import { AuthActions } from './shared/store/auth';
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
 );
-export const DRE_UNV_API = new InjectionToken<string>('dre_unv_api');
+//Temporary test api key
+export const TMDB_API_KEY = new InjectionToken<string>('TMDB_API_KEY');
+
+export const TMDB_BASE_URL = new InjectionToken<string>('TMDB_BASE_URL');
+
+export function provideTMDBApiKey() {
+  return {
+    provide: TMDB_API_KEY,
+    useValue: '752d0986327eafd63e68291a07153a54',
+  };
+}
+
+export function provideTMDBBaseUrl() {
+  return {
+    provide: TMDB_BASE_URL,
+    useValue: 'https://api.themoviedb.org/3',
+  };
+}
 
 export function provideAppInitializer() {
   return {

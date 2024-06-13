@@ -8,7 +8,6 @@ import {
 } from '../../shared/models/auth-models';
 import { Observable } from 'rxjs';
 import { AuthSelectors, AuthActions } from '../../shared/store/auth';
-import { FormErrorComponent } from '../../shared/ui/form.error/form.error.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -29,7 +28,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [
     CommonModule,
-    FormErrorComponent,
     NzButtonModule,
     NzInputModule,
     NzFormModule,
@@ -44,10 +42,6 @@ import { RouterModule } from '@angular/router';
 export class RegisterPageComponent {
   title: string = 'register';
   registerForm!: FormGroup<RegisterForm>;
-
-  authSelectError$: Observable<ErrorResponse | null> = this.store.select(
-    AuthSelectors.selectError
-  );
 
   selectIsLoading$: Observable<boolean> = this.store.select(
     AuthSelectors.selectIsLoading

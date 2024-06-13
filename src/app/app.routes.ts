@@ -65,6 +65,15 @@ export const routes: Routes = [
     title: 'Register Success',
   },
   {
+    path: 'search-multi',
+    loadComponent: () =>
+      import('./features/search-multi/search-multi.component').then(
+        (m) => m.SearchMultiComponent
+      ),
+    canActivate: [authGuard],
+    title: 'Search Movie and TV Show',
+  },
+  {
     path: '',
     pathMatch: 'full',
     canActivate: [redirectGuard],

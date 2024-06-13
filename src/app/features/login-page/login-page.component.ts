@@ -21,7 +21,6 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { RouterModule } from '@angular/router';
-import { FormErrorComponent } from '../../shared/ui/form.error/form.error.component';
 
 @Component({
   selector: 'app-login-page',
@@ -35,7 +34,6 @@ import { FormErrorComponent } from '../../shared/ui/form.error/form.error.compon
     NzIconModule,
     NzCheckboxModule,
     RouterModule,
-    FormErrorComponent,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',

@@ -19,7 +19,13 @@ import en from '@angular/common/locales/en';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { provideAppInitializer, provideSupabaseClient } from './providers';
+import {
+  provideAppInitializer,
+  provideSupabaseClient,
+  provideTMDBApiKey,
+  provideTMDBBaseUrl,
+} from './providers';
+import { SearchMultiEffects } from './shared/store/search-multi/search-multi.effects';
 
 registerLocaleData(en);
 
@@ -28,10 +34,12 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(),
     provideSupabaseClient(),
     provideAnimations(),
+    provideTMDBApiKey(),
+    provideTMDBBaseUrl(),
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects, SearchMultiEffects]),
     WebStorageService,
     {
       provide: TitleStrategy,
