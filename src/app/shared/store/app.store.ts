@@ -2,18 +2,18 @@ import { isDevMode } from '@angular/core';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { AuthReducers } from './auth';
-import { SearchMultiReducers } from './search-multi';
-import { AuthState, SearchMultiState } from '../models';
+import { SearchMovieReducers } from './search-movie';
+import { AuthState, SearchMovieState } from '../models';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;
-  [SearchMultiReducers.searchMultiFeatureKey]: SearchMultiState;
+  [SearchMovieReducers.searchMovieFeatureKey]: SearchMovieState;
 }
 
 export const reducers: ActionReducerMap<State> = {
   [AuthReducers.authFeatureKey]: AuthReducers.authReducer,
-  [SearchMultiReducers.searchMultiFeatureKey]:
-    SearchMultiReducers.searchMultiReducer,
+  [SearchMovieReducers.searchMovieFeatureKey]:
+    SearchMovieReducers.searchMovieReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production

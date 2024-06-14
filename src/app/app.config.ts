@@ -25,7 +25,7 @@ import {
   provideTMDBApiKey,
   provideTMDBBaseUrl,
 } from './providers';
-import { SearchMultiEffects } from './shared/store/search-multi/search-multi.effects';
+import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 
 registerLocaleData(en);
 
@@ -39,7 +39,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),
-    provideEffects([AuthEffects, SearchMultiEffects]),
+    provideEffects([AuthEffects, SearchMovieEffects]),
     WebStorageService,
     {
       provide: TitleStrategy,

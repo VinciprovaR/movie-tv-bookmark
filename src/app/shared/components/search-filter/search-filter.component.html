@@ -1,1 +1,18 @@
-<p>search-filter works!</p>
+<fieldset>
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="searchErrorTpl">
+      <nz-input-group nzPrefixIcon="user">
+        <input
+          type="text"
+          nz-input
+          maxlength="20"
+          [formControl]="searchControl"
+          placeholder="Search"
+        />
+        <ng-template #searchErrorTpl let-control>
+          <!-- @if (control.errors?.['email']) { The input is not valid E-mail! } -->
+        </ng-template>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</fieldset>

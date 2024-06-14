@@ -1,1 +1,8 @@
-<p>list-container works!</p>
+@if(movies$ | async; as movies){ @for(movie of movies; track movie.id){
+<app-item
+  [itemOverview]="movie.overview"
+  [itemTitle]="movie.title"
+  itemType="Movie"
+></app-item>
+
+} }

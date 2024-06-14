@@ -1,4 +1,8 @@
 <h1>search-multi works!</h1>
-<button type="button" (click)="searchMovie()">Search Movie</button>
-<app-search-filter></app-search-filter>
-<app-list-container></app-list-container>
+
+<app-search-filter (querySearch)="searchMulti($event)"></app-search-filter>
+<app-list-container
+  appScrollNearEnd
+  [sneIsLoading]="(selectIsLoading$ | async) ? true : false"
+  (nearEnd)="searchAdditionalMulti()"
+></app-list-container>
