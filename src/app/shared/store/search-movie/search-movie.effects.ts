@@ -5,7 +5,7 @@ import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { TmdbSearchService } from '../../services/tmdb-search.service';
 import { Router } from '@angular/router';
 import { ErrorResponse } from '../../models/auth-models';
-import { MovieResult } from '../../models';
+import { MovieDetail, MovieResult } from '../../models';
 import { Store } from '@ngrx/store';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class SearchMovieEffects {
     return this.actions$.pipe(
       ofType(SearchMovieActions.searchMovie),
       switchMap((searchMetadata) => {
-        return this.tmdbSearchService.searchInitMovie(searchMetadata).pipe(
+        return this.tmdbSearchService.searchInitMovies(searchMetadata).pipe(
           map((movieResult: MovieResult) => {
             return SearchMovieActions.searchMovieSuccess({
               movieResult: movieResult,
@@ -42,7 +42,7 @@ export class SearchMovieEffects {
       switchMap((metadata) => {
         if (metadata[1] < metadata[2]) {
           return this.tmdbSearchService
-            .searchAdditionalMovie(metadata[1] + 1, metadata[3])
+            .searchAdditionalMovies(metadata[1] + 1, metadata[3])
             .pipe(
               map((movieResult: MovieResult) => {
                 return SearchMovieActions.searchAdditionalMovieSuccess({
@@ -59,6 +59,27 @@ export class SearchMovieEffects {
         } else {
           return of(SearchMovieActions.noAdditionalMovie());
         }
+      })
+    );
+  });
+
+  searchMovieDetail$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SearchMovieActions.searchMovieDetail),
+      switchMap((metadata) => {
+        return this.tmdbSearchService.searchMovieDetail(metadata.movieId).pipe(
+          map((movieDetail: MovieDetail) => {
+            return SearchMovieActions.searchMovieDetailSuccess({
+              movieDetail: movieDetail,
+            });
+          }),
+          catchError((httpErrorResponse: ErrorResponse) => {
+            console.error(httpErrorResponse);
+            return of(
+              SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+            );
+          })
+        );
       })
     );
   });

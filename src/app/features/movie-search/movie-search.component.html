@@ -1,0 +1,12 @@
+<app-media-title-search
+  (querySearch)="searchMovie($event)"
+></app-media-title-search>
+
+<app-media-list-container
+  appScrollNearEnd
+  [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
+  [isLoading]="(selectIsLoading$ | async) ?? false"
+  [mediaList]="movies$ | async"
+  (nearEnd)="searchAdditionalMovie()"
+  [mediaType]="'Movie'"
+></app-media-list-container>

@@ -22,5 +22,9 @@ export class AppComponent implements OnInit {
 
   constructor(private store: Store, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      console.log(event);
+    });
+  }
 }

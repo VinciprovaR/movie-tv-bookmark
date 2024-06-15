@@ -12,6 +12,7 @@ export const redirectGuard: CanMatchFn = () => {
   return store.select(AuthSelectors.selectAuth).pipe(
     skipWhile((authState: AuthState) => authState.isLoading),
     map((authState: AuthState) => {
+      console.log('redirectGuard ...');
       if (!!authState.user && authState.user?.confirmed_at) {
         return router.parseUrl('/home');
       } else {

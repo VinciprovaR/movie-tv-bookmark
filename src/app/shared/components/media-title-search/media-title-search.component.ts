@@ -13,10 +13,11 @@ import {
 } from '@angular/forms';
 import { SearchMovieActions } from '../../store/search-movie';
 import { Store } from '@ngrx/store';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, skipWhile, tap } from 'rxjs';
+import { SearchMovieSelectors } from '../../../shared/store/search-movie';
 
 @Component({
-  selector: 'app-search-filter',
+  selector: 'app-media-title-search',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,13 +28,15 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
     NzIconModule,
     NzCheckboxModule,
   ],
-  templateUrl: './search-filter.component.html',
-  styleUrl: './search-filter.component.css',
+  templateUrl: './media-title-search.component.html',
+  styleUrl: './media-title-search.component.css',
 })
-export class SearchFilterComponent implements OnInit {
+export class MediaTitleSearchComponent implements OnInit {
   searchControl!: FormControl<string>;
   @Output()
   querySearch: EventEmitter<string> = new EventEmitter<string>();
+
+  query$ = this.store.select(SearchMovieSelectors.selectQuery);
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
@@ -43,10 +46,18 @@ export class SearchFilterComponent implements OnInit {
       nonNullable: true,
     });
     this.searchControl.valueChanges
-      .pipe(debounceTime(500))
+      .pipe(
+        debounceTime(500),
+        skipWhile((query) => !query),
+        distinctUntilChanged()
+      )
       .subscribe((query) => {
         this.querySearch.emit(query);
       });
+
+    this.query$.subscribe((query) => {
+      this.searchControl.setValue(query, { emitEvent: false });
+    });
   }
 
   ngOnDestroy(): void {

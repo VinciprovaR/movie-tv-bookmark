@@ -1,8 +1,0 @@
-<h1>search-multi works!</h1>
-
-<app-search-filter (querySearch)="searchMulti($event)"></app-search-filter>
-<app-list-container
-  appScrollNearEnd
-  [sneIsLoading]="(selectIsLoading$ | async) ? true : false"
-  (nearEnd)="searchAdditionalMulti()"
-></app-list-container>

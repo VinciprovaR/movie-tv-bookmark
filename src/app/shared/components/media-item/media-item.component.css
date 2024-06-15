@@ -1,0 +1,10 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.box-media-item {
+  margin-bottom: 40px;
+  border: 2px;
+  border-style: solid;
+}

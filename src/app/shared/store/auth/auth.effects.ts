@@ -73,8 +73,6 @@ export class AuthEffects {
           tap((result: any) => {
             if (result.error) {
               throw result.error;
-            } else if (result.data.session?.user) {
-              this.router.navigate(['/home']);
             }
           }),
           map((result: any) => {

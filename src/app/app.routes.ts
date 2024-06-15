@@ -65,13 +65,22 @@ export const routes: Routes = [
     title: 'Register Success',
   },
   {
-    path: 'search-multi',
+    path: 'movie-search',
     loadComponent: () =>
-      import('./features/search-multi/search-multi.component').then(
-        (m) => m.SearchMultiComponent
+      import('./features/movie-search/movie-search.component').then(
+        (m) => m.MovieSearchComponent
       ),
     canActivate: [authGuard],
-    title: 'Search Movie and TV Show',
+    title: 'Search Movie',
+  },
+  {
+    path: 'movie-detail/:id',
+    loadComponent: () =>
+      import(
+        './shared/components/media-item-detail/media-item-detail.component'
+      ).then((m) => m.MediaItemDetailComponent),
+    canActivate: [authGuard],
+    title: 'Movie Detail',
   },
   {
     path: '',

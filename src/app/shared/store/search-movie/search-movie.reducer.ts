@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import * as SearchMultiActions from './search-movie.actions';
+import * as SearchMovieActions from './search-movie.actions';
 import { SearchMovieState } from '../../models/search-movie-state';
 
 export const searchMovieFeatureKey = 'search-movie';
@@ -8,12 +8,13 @@ export const initialState: SearchMovieState = {
   isLoading: false,
   query: '',
   error: null,
-  movieResult: null,
+  movieResult: { page: 1, results: [], total_pages: 1, total_results: 0 },
+  movieDetail: {},
 };
 
 export const searchMovieReducer = createReducer(
   initialState,
-  on(SearchMultiActions.searchMovie, (state, { query }) => {
+  on(SearchMovieActions.searchMovie, (state, { query }) => {
     return {
       ...state,
       query,
@@ -21,14 +22,14 @@ export const searchMovieReducer = createReducer(
       isLoading: true,
     };
   }),
-  on(SearchMultiActions.searchAdditionalMovie, (state) => {
+  on(SearchMovieActions.searchAdditionalMovie, (state) => {
     return {
       ...state,
       error: null,
       isLoading: true,
     };
   }),
-  on(SearchMultiActions.searchMovieSuccess, (state, { movieResult }) => {
+  on(SearchMovieActions.searchMovieSuccess, (state, { movieResult }) => {
     return {
       ...state,
       error: null,
@@ -37,7 +38,7 @@ export const searchMovieReducer = createReducer(
     };
   }),
   on(
-    SearchMultiActions.searchAdditionalMovieSuccess,
+    SearchMovieActions.searchAdditionalMovieSuccess,
     (state, { movieResult }) => {
       let currMovies = state.movieResult?.results
         ? state.movieResult.results
@@ -58,7 +59,7 @@ export const searchMovieReducer = createReducer(
       };
     }
   ),
-  on(SearchMultiActions.cleanError, (state) => {
+  on(SearchMovieActions.cleanError, (state) => {
     return {
       ...state,
       error: null,
@@ -68,6 +69,7 @@ export const searchMovieReducer = createReducer(
 export const getSearchMovieState = (state: SearchMovieState) => state;
 export const getIsLoading = (state: SearchMovieState) => state.isLoading;
 export const getMovieResult = (state: SearchMovieState) => state.movieResult;
+export const getMovieDetail = (state: SearchMovieState) => state.movieDetail;
 export const getQuery = (state: SearchMovieState) => state.query;
 export const getMovieResultPage = (state: SearchMovieState) =>
   state.movieResult?.page ? state.movieResult.page : 0;

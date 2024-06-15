@@ -1,0 +1,9 @@
+@if(mediaList){ @for(media of mediaList; track media.id){
+<app-media-item
+  [mediaItemOverview]="media.overview"
+  [mediaItemTitle]="media.title"
+  [mediaItemType]="mediaType"
+  [idMedia]="media.id"
+></app-media-item>
+
+} }

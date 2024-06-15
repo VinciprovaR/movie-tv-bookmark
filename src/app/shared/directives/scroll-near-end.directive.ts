@@ -18,7 +18,7 @@ export class ScrollNearEndDirective {
    * threshold in PX when to emit before page end scroll
    */
   @Input() threshold = 100;
-  @Input() sneIsLoading: boolean = false;
+  @Input() scrollIsLoading: boolean = false;
 
   private window!: Window;
 
@@ -31,7 +31,7 @@ export class ScrollNearEndDirective {
 
   @HostListener('window:scroll', ['$event.target'])
   windowScrollEvent(event: KeyboardEvent) {
-    if (!this.sneIsLoading) {
+    if (!this.scrollIsLoading) {
       // height of whole window page
       const heightOfWholePage =
         this.window.document.documentElement.scrollHeight;
