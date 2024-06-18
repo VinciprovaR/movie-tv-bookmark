@@ -5,7 +5,7 @@ import {
   ErrorResponse,
   RegisterPayload,
   RegisterForm,
-} from '../../shared/models/auth-models';
+} from '../../shared/models/auth.models';
 import { Observable } from 'rxjs';
 import { AuthSelectors, AuthActions } from '../../shared/store/auth';
 import { NzFormModule } from 'ng-zorro-antd/form';

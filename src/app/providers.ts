@@ -8,8 +8,13 @@ export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
 );
 //Temporary test api key
 export const TMDB_API_KEY = new InjectionToken<string>('TMDB_API_KEY');
-
 export const TMDB_BASE_URL = new InjectionToken<string>('TMDB_BASE_URL');
+export const TMDB_ORIGINAL_IMG_URL = new InjectionToken<string>(
+  'TMDB_ORIGINAL_IMG_URL'
+);
+export const TMDB_RESIZED_IMG_URL = new InjectionToken<string>(
+  'TMDB_RESIZED_IMG_URL'
+);
 
 export function provideTMDBApiKey() {
   return {
@@ -23,6 +28,19 @@ export function provideTMDBBaseUrl() {
     provide: TMDB_BASE_URL,
     useValue: 'https://api.themoviedb.org/3',
   };
+}
+
+export function provideImgUrl() {
+  return [
+    {
+      provide: TMDB_ORIGINAL_IMG_URL,
+      useValue: 'https://media.themoviedb.org/t/p/original',
+    },
+    {
+      provide: TMDB_RESIZED_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2',
+    },
+  ];
 }
 
 export function provideAppInitializer() {

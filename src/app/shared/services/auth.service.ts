@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { LoginPayload, RegisterPayload } from '../models/auth-models';
+import { LoginPayload, RegisterPayload } from '../models/auth.models';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   sendMailResetPassword(credentials: { email: string }): Observable<any> {
-    return from(this.supabase.auth.resetPasswordForEmail(credentials.email));//to-do captcha e redirect to
+    return from(this.supabase.auth.resetPasswordForEmail(credentials.email)); //to-do captcha e redirect to
   }
 
   logout(): Observable<any> {

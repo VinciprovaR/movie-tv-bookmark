@@ -36,6 +36,30 @@ export const searchMovieFailure = createAction(
   props<{ httpErrorResponse: any }>()
 );
 
+//Movie lifecycle
+
+export const changeMovieLifecycle = createAction(
+  '[Movie-Lifecycle/API] Change Movie Lifecycle',
+  props<{ movieId: number; lifecycleId: number; index: number }>()
+);
+export const changeMovieLifecycleSuccess = createAction(
+  '[Movie-Lifecycle/API] Change Movie Lifecycle Success',
+  props<{ lifeCycleId: number }>()
+);
+
+export const deleteMovieLifecycle = createAction(
+  '[Movie-Lifecycle/API] Delete Movie Lifecycle',
+  props<{ movieId: number }>()
+);
+export const deleteMovieLifecycleSuccess = createAction(
+  '[Movie-Lifecycle/API] Delete Movie Lifecycle Success'
+);
+
+export const movieLifecycleFailure = createAction(
+  '[Movie-Lifecycle/API] Movie-Lifecycle Failure',
+  props<{ httpErrorResponse: any }>()
+);
+
 export const cleanError = createAction(
   '[Search-movie/Error Handling] Clean Error'
 );

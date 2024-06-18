@@ -9,7 +9,7 @@ import {
   AuthResponse,
   AuthTokenResponsePassword,
 } from '@supabase/supabase-js/';
-import { ErrorResponse } from '../../models/auth-models';
+import { ErrorResponse } from '../../models/auth.models';
 
 @Injectable()
 export class AuthEffects {

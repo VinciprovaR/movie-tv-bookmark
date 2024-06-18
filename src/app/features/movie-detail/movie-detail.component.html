@@ -1,0 +1,16 @@
+<p>movie-detail works!</p>
+
+@if(movieDetail$ | async; as movieDetail){
+<div style="margin: 10px">
+  <div style="display: flex">
+    <div>
+      <img [src]="resizedImgUrl + movieDetail.poster_path" width="100%" />
+    </div>
+    <div>
+      <h1>{{ movieDetail.title }}</h1>
+      <h3>{{ movieDetail.tagline }}</h3>
+      <p>{{ movieDetail.overview }}</p>
+    </div>
+  </div>
+</div>
+}

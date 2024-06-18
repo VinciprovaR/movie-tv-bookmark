@@ -5,6 +5,7 @@ import { HeaderComponent } from './shared/layout/header/header.component';
 import { AuthSelectors } from './shared/store/auth';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
+import { LifecycleService } from './shared/services/lifecycle.service';
 
 @Component({
   selector: 'app-root',
@@ -20,11 +21,15 @@ export class AppComponent implements OnInit {
     .select(AuthSelectors.selectUser)
     .pipe(map((user) => !!user));
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private lifeCycle: LifecycleService
+  ) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      console.log(event);
-    });
+    // this.router.events.subscribe((event) => {
+    //   console.log(event);
+    // });
   }
 }

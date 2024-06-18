@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -13,7 +13,13 @@ import {
 } from '@angular/forms';
 import { SearchMovieActions } from '../../store/search-movie';
 import { Store } from '@ngrx/store';
-import { debounceTime, distinctUntilChanged, skipWhile, tap } from 'rxjs';
+import {
+  Subject,
+  debounceTime,
+  distinctUntilChanged,
+  skipWhile,
+  tap,
+} from 'rxjs';
 import { SearchMovieSelectors } from '../../../shared/store/search-movie';
 
 @Component({
@@ -37,6 +43,8 @@ export class MediaTitleSearchComponent implements OnInit {
   querySearch: EventEmitter<string> = new EventEmitter<string>();
 
   query$ = this.store.select(SearchMovieSelectors.selectQuery);
+  @Input()
+  searchMovie$!: Subject<string>;
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
@@ -52,7 +60,8 @@ export class MediaTitleSearchComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe((query) => {
-        this.querySearch.emit(query);
+        this.searchMovie$.next(query);
+        //this.querySearch.emit(query);
       });
 
     this.query$.subscribe((query) => {

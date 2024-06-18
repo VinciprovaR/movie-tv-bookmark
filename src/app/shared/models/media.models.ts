@@ -1,4 +1,15 @@
-export interface Movie {
+export type MediaType = 'movie' | 'tv';
+
+export interface MediaResult {
+  page: number;
+  total_pages: number;
+  total_results: number;
+}
+
+export interface MediaLifecycle {
+  lifeCycleId: number;
+}
+export interface Media extends MediaLifecycle {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -15,33 +26,17 @@ export interface Movie {
   vote_count: number;
 }
 
-export interface MovieResult {
-  page: number;
-  results: Movie[] | [];
-  total_pages: number;
-  total_results: number;
-}
-
-export interface MovieDetail {
+export interface MediaDetail {
   adult: boolean;
   backdrop_path: string;
-  belongs_to_collection: {
-    id: number;
-    name: string;
-    poster_path: string;
-    backdrop_path: string;
-  };
-  budget: number;
   genres: {
     id: number;
     name: string;
   }[];
   homepage: string;
   id: number;
-  imdb_id: string;
   origin_country: string[];
   original_language: string;
-  original_title: string;
   overview: string;
   popularity: number;
   poster_path: string;
@@ -57,9 +52,6 @@ export interface MovieDetail {
       name: string;
     }
   ];
-  release_date: string;
-  revenue: number;
-  runtime: number;
   spoken_languages: {
     english_name: string;
     iso_639_1: string;
@@ -67,8 +59,6 @@ export interface MovieDetail {
   }[];
   status: string;
   tagline: string;
-  title: string;
-  video: boolean;
   vote_average: number;
   vote_count: number;
 }

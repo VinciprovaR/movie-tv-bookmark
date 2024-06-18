@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SearchMovieActions from './search-movie.actions';
-import { SearchMovieState } from '../../models/search-movie-state';
+import { SearchMovieState } from '../../models/movie.models';
 
 export const searchMovieFeatureKey = 'search-movie';
 
@@ -9,7 +9,7 @@ export const initialState: SearchMovieState = {
   query: '',
   error: null,
   movieResult: { page: 1, results: [], total_pages: 1, total_results: 0 },
-  movieDetail: {},
+  movieDetail: null,
 };
 
 export const searchMovieReducer = createReducer(
@@ -59,6 +59,22 @@ export const searchMovieReducer = createReducer(
       };
     }
   ),
+  on(SearchMovieActions.searchMovieDetail, (state) => {
+    return {
+      ...state,
+      movieDetail: null,
+      error: null,
+      isLoading: true,
+    };
+  }),
+  on(SearchMovieActions.searchMovieDetailSuccess, (state, { movieDetail }) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      movieDetail,
+    };
+  }),
   on(SearchMovieActions.cleanError, (state) => {
     return {
       ...state,

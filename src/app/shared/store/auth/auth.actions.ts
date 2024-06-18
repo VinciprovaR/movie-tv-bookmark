@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '@supabase/supabase-js';
-import { LoginPayload, RegisterPayload } from '../../models/auth-models';
+import { LoginPayload, RegisterPayload } from '../../models/auth.models';
 
 export const login = createAction(
   '[Auth/API] User Login',
@@ -21,7 +21,9 @@ export const requestResetPassword = createAction(
   '[Auth/API] Request Reset Password',
   props<{ email: string }>()
 );
-export const requestResetPasswordSuccess = createAction('[Auth/API] Request Reset Password Success');
+export const requestResetPasswordSuccess = createAction(
+  '[Auth/API] Request Reset Password Success'
+);
 
 export const currentUser = createAction('[Auth/API] Current User');
 export const currentUserSuccess = createAction(

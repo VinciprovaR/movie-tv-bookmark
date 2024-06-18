@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { MediaLifecycle, MediaType } from '../../models/media.models';
+import { Subject } from 'rxjs';
+import { Movie, TV } from '../../models';
 
 @Component({
   selector: 'app-media-item',
@@ -10,19 +13,35 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class MediaItemComponent implements OnInit {
   @Input()
-  mediaItemTitle!: string;
+  media!: Movie | TV;
   @Input()
-  mediaItemOverview!: string;
+  mediaType!: MediaType;
   @Input()
-  mediaItemType!: string;
+  index: number = 0;
   @Input()
-  idMedia: number = 0;
+  changeLifecycle$!: Subject<{
+    mediaId: number;
+    lifeCycleId: number;
+    index: number;
+  }>;
 
-  detailRouterLink: string = '/movie-detail';
+  moviePath: string = '/movie-detail';
+  tvPath: string = '/tv-detail';
+  detailMediaPath: string = '';
 
   constructor(private router: Router) {}
   ngOnInit(): void {
-    this.detailRouterLink = this.detailRouterLink.concat(`/${this.idMedia}`);
+    this.detailMediaPath = this.detailMediaPath.concat(
+      `/${this.mediaType}-detail/${this.media.id}`
+    );
+  }
+
+  changeLifeCycle() {
+    this.changeLifecycle$.next({
+      mediaId: this.media.id,
+      lifeCycleId: 1,
+      index: this.index,
+    });
   }
 
   goToDetail() {

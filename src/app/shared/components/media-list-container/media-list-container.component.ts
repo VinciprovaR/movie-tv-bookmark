@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import {
   SearchMovieActions,
   SearchMovieSelectors,
@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../models';
 import { MediaItemComponent } from '../media-item/media-item.component';
+import { MediaType } from '../../models/media.models';
 
 @Component({
   selector: 'app-media-list-container',
@@ -22,7 +23,13 @@ export class MediaListContainerComponent implements OnInit, OnDestroy {
   @Input()
   mediaList!: Movie[] | TV[] | null;
   @Input()
-  mediaType: string = '';
+  mediaType!: MediaType;
+  @Input()
+  changeLifecycle$!: Subject<{
+    mediaId: number;
+    lifeCycleId: number;
+    index: number;
+  }>;
 
   constructor(private store: Store) {}
   ngOnInit(): void {}

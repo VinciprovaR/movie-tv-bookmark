@@ -74,11 +74,11 @@ export const routes: Routes = [
     title: 'Search Movie',
   },
   {
-    path: 'movie-detail/:id',
+    path: 'movie-detail/:movieId',
     loadComponent: () =>
-      import(
-        './shared/components/media-item-detail/media-item-detail.component'
-      ).then((m) => m.MediaItemDetailComponent),
+      import('./features/movie-detail/movie-detail.component').then(
+        (m) => m.MovieDetailComponent
+      ),
     canActivate: [authGuard],
     title: 'Movie Detail',
   },

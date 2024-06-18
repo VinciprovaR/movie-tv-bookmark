@@ -24,6 +24,7 @@ import {
   provideSupabaseClient,
   provideTMDBApiKey,
   provideTMDBBaseUrl,
+  provideImgUrl,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 
@@ -36,6 +37,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideTMDBApiKey(),
     provideTMDBBaseUrl(),
+    provideImgUrl(),
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),
