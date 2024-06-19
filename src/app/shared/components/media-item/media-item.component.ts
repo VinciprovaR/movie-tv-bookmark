@@ -3,27 +3,22 @@ import { Router, RouterModule } from '@angular/router';
 import { MediaLifecycle, MediaType } from '../../models/media.models';
 import { Subject } from 'rxjs';
 import { Movie, TV } from '../../models';
+import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
 
 @Component({
   selector: 'app-media-item',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, LifecycleSelectorComponent],
   templateUrl: './media-item.component.html',
   styleUrl: './media-item.component.css',
 })
 export class MediaItemComponent implements OnInit {
-  @Input()
+  @Input({ required: true })
   media!: Movie | TV;
-  @Input()
+  @Input({ required: true })
   mediaType!: MediaType;
-  @Input()
+  @Input({ required: true })
   index: number = 0;
-  @Input()
-  changeLifecycle$!: Subject<{
-    mediaId: number;
-    lifeCycleId: number;
-    index: number;
-  }>;
 
   moviePath: string = '/movie-detail';
   tvPath: string = '/tv-detail';
@@ -34,14 +29,6 @@ export class MediaItemComponent implements OnInit {
     this.detailMediaPath = this.detailMediaPath.concat(
       `/${this.mediaType}-detail/${this.media.id}`
     );
-  }
-
-  changeLifeCycle() {
-    this.changeLifecycle$.next({
-      mediaId: this.media.id,
-      lifeCycleId: 1,
-      index: this.index,
-    });
   }
 
   goToDetail() {

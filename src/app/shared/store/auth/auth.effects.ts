@@ -19,11 +19,7 @@ export class AuthEffects {
       switchMap((credentials) => {
         return this.authService.login(credentials).pipe(
           tap((result: AuthTokenResponsePassword) => {
-            if (result.error) {
-              throw result.error;
-            } else {
-              this.router.navigate(['/home']);
-            }
+            this.router.navigate(['/home']);
           }),
           map((result: AuthTokenResponsePassword) => {
             return AuthActions.loginSuccess({
@@ -45,13 +41,9 @@ export class AuthEffects {
       switchMap((credentials) => {
         return this.authService.register(credentials).pipe(
           tap((result: AuthResponse) => {
-            if (result.error) {
-              throw result.error;
-            } else {
-              this.router.navigate(['/register-success'], {
-                queryParams: { email: result.data.user?.email },
-              });
-            }
+            this.router.navigate(['/register-success'], {
+              queryParams: { email: result.data.user?.email },
+            });
           }),
           map(() => {
             return AuthActions.registerSuccess();
@@ -70,11 +62,6 @@ export class AuthEffects {
       ofType(AuthActions.currentUser),
       switchMap(() => {
         return this.authService.getCurrentUser().pipe(
-          tap((result: any) => {
-            if (result.error) {
-              throw result.error;
-            }
-          }),
           map((result: any) => {
             return AuthActions.currentUserSuccess({
               user: result.data.session?.user,
@@ -94,12 +81,8 @@ export class AuthEffects {
       ofType(AuthActions.logout),
       switchMap(() => {
         return this.authService.logout().pipe(
-          tap((result: { error: AuthError | null }) => {
-            if (result.error) {
-              throw result.error;
-            } else {
-              this.router.navigate(['/login']);
-            }
+          tap(() => {
+            this.router.navigate(['/login']);
           }),
           map(() => {
             return AuthActions.logoutSuccess();
@@ -119,11 +102,7 @@ export class AuthEffects {
       switchMap((credentials) => {
         return this.authService.sendMailResetPassword(credentials).pipe(
           tap((result: any) => {
-            if (result.error) {
-              throw result.error;
-            } else {
-              this.router.navigate(['/reset-password-sent']);
-            }
+            this.router.navigate(['/reset-password-sent']);
           }),
           map(() => {
             return AuthActions.requestResetPasswordSuccess();

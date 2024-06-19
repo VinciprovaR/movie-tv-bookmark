@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MediaTitleSearchComponent } from '../../shared/components/media-title-search/media-title-search.component';
+import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, defaultIfEmpty, filter, map } from 'rxjs';
@@ -16,7 +16,7 @@ import { MediaType } from '../../shared/models/media.models';
   standalone: true,
   imports: [
     CommonModule,
-    MediaTitleSearchComponent,
+    InputQueryComponent,
     MediaListContainerComponent,
     ScrollNearEndDirective,
   ],
@@ -39,31 +39,13 @@ export class MovieSearchComponent implements OnInit {
     })
   );
 
-  searchMovie$: Subject<string> = new Subject<string>();
-  changeLifecycle$: Subject<any> = new Subject<{
-    mediaId: number;
-    lifeCycleId: number;
-    index: number;
-  }>();
-
   constructor(private store: Store) {}
-  ngOnInit(): void {
-    this.searchMovie$.subscribe((query) => {
-      this.store.dispatch(SearchMovieActions.searchMovie({ query }));
-    });
 
-    this.changeLifecycle$.subscribe(
-      (lifecycle: { mediaId: number; index: number }) => {
-        // this.store.dispatch(
-        //   SearchMovieActions.changeMovieLifecycle({ lifecycle })
-        // );
-      }
-    );
+  ngOnInit(): void {}
+
+  searchMovie(query: string) {
+    this.store.dispatch(SearchMovieActions.searchMovie({ query }));
   }
-
-  // searchMovie(query: string) {
-  //   this.store.dispatch(SearchMovieActions.searchMovie({ query }));
-  // }
 
   searchAdditionalMovie() {
     this.store.dispatch(SearchMovieActions.searchAdditionalMovie());

@@ -20,10 +20,10 @@ import {
   skipWhile,
   tap,
 } from 'rxjs';
-import { SearchMovieSelectors } from '../../../shared/store/search-movie';
+import { SearchMovieSelectors } from '../../store/search-movie';
 
 @Component({
-  selector: 'app-media-title-search',
+  selector: 'app-input-query',
   standalone: true,
   imports: [
     CommonModule,
@@ -34,17 +34,16 @@ import { SearchMovieSelectors } from '../../../shared/store/search-movie';
     NzIconModule,
     NzCheckboxModule,
   ],
-  templateUrl: './media-title-search.component.html',
-  styleUrl: './media-title-search.component.css',
+  templateUrl: './input-query.component.html',
+  styleUrl: './input-query.component.css',
 })
-export class MediaTitleSearchComponent implements OnInit {
+export class InputQueryComponent implements OnInit {
   searchControl!: FormControl<string>;
+
   @Output()
-  querySearch: EventEmitter<string> = new EventEmitter<string>();
+  queryEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   query$ = this.store.select(SearchMovieSelectors.selectQuery);
-  @Input()
-  searchMovie$!: Subject<string>;
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
@@ -60,8 +59,7 @@ export class MediaTitleSearchComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe((query) => {
-        this.searchMovie$.next(query);
-        //this.querySearch.emit(query);
+        this.queryEmitter.emit(query);
       });
 
     this.query$.subscribe((query) => {

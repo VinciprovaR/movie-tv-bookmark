@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { MovieDetail, MovieResult } from '../../models';
+import { MovieDetail, MovieLifecycle, MovieResult } from '../../models';
+import { Movie_Life_Cycle } from '../../models/supabase/movie_life_cycle.model';
 
 export const searchMovie = createAction(
   '[Search-movie/API] Search Movie',
@@ -38,15 +39,15 @@ export const searchMovieFailure = createAction(
 
 //Movie lifecycle
 
-export const changeMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Change Movie Lifecycle',
-  props<{ movieId: number; lifecycleId: number; index: number }>()
+export const createOrUpdateOrDeleteMovieLifecycleLifecycle = createAction(
+  '[Movie-Lifecycle/API] Create or Update Movie Lifecycle',
+  props<MovieLifecycle>()
 );
-export const changeMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Change Movie Lifecycle Success',
-  props<{ lifeCycleId: number }>()
+export const createOrUpdateOrDeleteMovieLifecycleSuccess = createAction(
+  '[Movie-Lifecycle/API] Create or Update Movie Lifecycle Success',
+  props<{ movieLifeCycleResultDB: Movie_Life_Cycle; index: number }>()
 );
-
+//{ movieLifeCycleResultDB: Movie_Life_Cycle; index: number }
 export const deleteMovieLifecycle = createAction(
   '[Movie-Lifecycle/API] Delete Movie Lifecycle',
   props<{ movieId: number }>()

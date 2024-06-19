@@ -20,16 +20,10 @@ import { MediaType } from '../../models/media.models';
 export class MediaListContainerComponent implements OnInit, OnDestroy {
   @Input()
   isLoading: boolean = false;
-  @Input()
+  @Input({ required: true })
   mediaList!: Movie[] | TV[] | null;
-  @Input()
+  @Input({ required: true })
   mediaType!: MediaType;
-  @Input()
-  changeLifecycle$!: Subject<{
-    mediaId: number;
-    lifeCycleId: number;
-    index: number;
-  }>;
 
   constructor(private store: Store) {}
   ngOnInit(): void {}

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable, from, tap } from 'rxjs';
 import { LoginPayload, RegisterPayload } from '../models/auth.models';
 import {
   AuthResponse,
@@ -20,6 +20,12 @@ export class AuthService {
         email: credentials.email,
         password: credentials.password,
       })
+    ).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          throw result.error;
+        }
+      })
     );
   }
 
@@ -29,18 +35,44 @@ export class AuthService {
         email: credentials.email,
         password: credentials.password,
       })
+    ).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          throw result.error;
+        }
+      })
     );
   }
 
   sendMailResetPassword(credentials: { email: string }): Observable<any> {
-    return from(this.supabase.auth.resetPasswordForEmail(credentials.email)); //to-do captcha e redirect to
+    return from(
+      this.supabase.auth.resetPasswordForEmail(credentials.email)
+    ).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          throw result.error;
+        }
+      })
+    ); //to-do captcha e redirect to
   }
 
   logout(): Observable<any> {
-    return from(this.supabase.auth.signOut());
+    return from(this.supabase.auth.signOut()).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          throw result.error;
+        }
+      })
+    );
   }
 
   getCurrentUser(): Observable<any> {
-    return from(this.supabase.auth.getSession());
+    return from(this.supabase.auth.getSession()).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          throw result.error;
+        }
+      })
+    );
   }
 }

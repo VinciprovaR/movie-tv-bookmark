@@ -1,3 +1,5 @@
+import { lifeCycleId } from './movie.models';
+
 export type MediaType = 'movie' | 'tv';
 
 export interface MediaResult {

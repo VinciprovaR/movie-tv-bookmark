@@ -31,3 +31,20 @@ export interface MovieDetail extends MediaDetail {
   title: string;
   video: boolean;
 }
+
+export type noLifecycle = 0;
+export type watchListLifecycle = 1;
+export type watchedLifecycle = 2;
+export type rewatchLifecycle = 3;
+
+export type lifeCycleId =
+  | noLifecycle
+  | watchListLifecycle
+  | watchedLifecycle
+  | rewatchLifecycle;
+
+export interface MovieLifecycle {
+  movieId: number;
+  lifecycleId: number;
+  index: number;
+}

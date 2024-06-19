@@ -5,7 +5,7 @@ import { HeaderComponent } from './shared/layout/header/header.component';
 import { AuthSelectors } from './shared/store/auth';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
-import { LifecycleService } from './shared/services/lifecycle.service';
+import { SupabaseMovieLifecycleService } from './shared/services/supabase.movie_life_cycle.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   constructor(
     private store: Store,
     private router: Router,
-    private lifeCycle: LifecycleService
+    private lifeCycle: SupabaseMovieLifecycleService
   ) {}
 
   ngOnInit(): void {

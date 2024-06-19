@@ -10,5 +10,10 @@
       <p>{{ media.overview }}</p>
     </div>
   </a>
-  <button (click)="changeLifeCycle()">changeLifeCycle</button>
+  <app-lifecycle-selector
+    [mediaId]="media.id"
+    [lifecycleId]="media.lifeCycleId"
+    [index]="index"
+    [mediaType]="mediaType"
+  ></app-lifecycle-selector>
 </div>

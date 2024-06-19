@@ -1,4 +1,4 @@
-<app-media-title-search [searchMovie$]="searchMovie$"></app-media-title-search>
+<app-input-query (queryEmitter)="searchMovie($event)"></app-input-query>
 
 <app-media-list-container
   appScrollNearEnd
@@ -7,6 +7,5 @@
   [mediaList]="movies$ | async"
   (nearEnd)="searchAdditionalMovie()"
   [mediaType]="mediaType"
-  [changeLifecycle$]="changeLifecycle$"
 ></app-media-list-container>
 <!--   (querySearch)="searchMovie($event)" -->

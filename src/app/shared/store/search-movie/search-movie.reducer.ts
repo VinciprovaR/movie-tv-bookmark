@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SearchMovieActions from './search-movie.actions';
-import { SearchMovieState } from '../../models/movie.models';
+import { MovieResult, SearchMovieState } from '../../models/movie.models';
 
 export const searchMovieFeatureKey = 'search-movie';
 
@@ -56,6 +56,43 @@ export const searchMovieReducer = createReducer(
             : 0,
           results: [...currMovies, ...nextMovies],
         },
+      };
+    }
+  ),
+  on(
+    SearchMovieActions.createOrUpdateOrDeleteMovieLifecycleLifecycle,
+    (state) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+      };
+    }
+  ),
+  on(
+    SearchMovieActions.createOrUpdateOrDeleteMovieLifecycleSuccess,
+    (state, { movieLifeCycleResultDB, index }) => {
+      let movieResultCl = JSON.parse(JSON.stringify({ ...state.movieResult }));
+      if (movieLifeCycleResultDB) {
+        if (
+          movieResultCl.results[index].id === movieLifeCycleResultDB.movie_id
+        ) {
+          movieResultCl.results[index].lifeCycleId =
+            movieLifeCycleResultDB.lifecycle_id
+              ? movieLifeCycleResultDB.lifecycle_id
+              : 0;
+        } else {
+          /*to-do problem, index not in synch with the actual object,
+        do a binary search to find the movie id in all the objs of the state. If not found again, throw error
+        */
+        }
+      }
+
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        movieResult: movieResultCl,
       };
     }
   ),
