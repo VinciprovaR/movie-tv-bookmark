@@ -1,9 +1,11 @@
 <nz-form-item>
-  <nz-form-label [nzSpan]="4" nzFor="mySelect">Lifecycle</nz-form-label>
+  <nz-form-label [nzSpan]="4" [nzFor]="'mySelect-' + mediaId"
+    >Lifecycle</nz-form-label
+  >
   <nz-form-control [nzSpan]="8">
-    <nz-select [formControl]="lifeCycleControl" id="mySelect">
+    <nz-select [formControl]="lifeCycleControl" [nzId]="'mySelect-' + mediaId">
       <nz-option
-        *ngFor="let option of options"
+        *ngFor="let option of options$ | async"
         [nzLabel]="option.label"
         [nzValue]="option.value"
       ></nz-option>

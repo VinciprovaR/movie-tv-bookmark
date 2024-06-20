@@ -41,6 +41,11 @@ export const selectMoviesTotalPages = createSelector(
   SearchMovieReducer.getMovieResultTotalPages
 );
 
+export const selectMediaLifecycleEnum = createSelector(
+  searchMovieFeatureSelector,
+  SearchMovieReducer.getLifecycleEnum
+);
+
 export const selectError = createSelector(
   searchMovieFeatureSelector,
   SearchMovieReducer.getSearchMovieError

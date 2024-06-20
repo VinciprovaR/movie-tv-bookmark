@@ -18,20 +18,17 @@ export class TmdbSearchService {
     private httpClient: HttpClient
   ) {}
 
-  searchInitMovies(searchMetadata: { query: string }) {
-    return this.searchMovies(1, searchMetadata);
+  searchMoviesInit(query: string) {
+    return this.searchMovies(1, query);
   }
 
   searchAdditionalMovies(page: number, query: string) {
-    return this.searchMovies(page, { query });
+    return this.searchMovies(page + 1, query);
   }
 
-  searchMovies(
-    page: number,
-    searchMetadata: { query: string }
-  ): Observable<MovieResult> {
+  searchMovies(page: number, query: string): Observable<MovieResult> {
     return this.httpClient.get<MovieResult>(
-      `${this.tmdbBaseUrl}${this.SEARCH_MOVIE_PATH}?include_adult=false&language=en-US&query=${searchMetadata.query}&page=${page}&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}${this.SEARCH_MOVIE_PATH}?include_adult=false&language=en-US&query=${query}&page=${page}&api_key=${this.tmdbApiKey}`
     );
   }
 

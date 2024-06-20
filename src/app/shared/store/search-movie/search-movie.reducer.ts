@@ -10,6 +10,8 @@ export const initialState: SearchMovieState = {
   error: null,
   movieResult: { page: 1, results: [], total_pages: 1, total_results: 0 },
   movieDetail: null,
+  broadcastChannel: false,
+  lifecycleEnum: [],
 };
 
 export const searchMovieReducer = createReducer(
@@ -20,6 +22,7 @@ export const searchMovieReducer = createReducer(
       query,
       error: null,
       isLoading: true,
+      broadcastChannel: true,
     };
   }),
   on(SearchMovieActions.searchAdditionalMovie, (state) => {
@@ -27,6 +30,7 @@ export const searchMovieReducer = createReducer(
       ...state,
       error: null,
       isLoading: true,
+      broadcastChannel: true,
     };
   }),
   on(SearchMovieActions.searchMovieSuccess, (state, { movieResult }) => {
@@ -35,6 +39,7 @@ export const searchMovieReducer = createReducer(
       error: null,
       isLoading: false,
       movieResult,
+      broadcastChannel: true,
     };
   }),
   on(
@@ -66,12 +71,15 @@ export const searchMovieReducer = createReducer(
         ...state,
         error: null,
         isLoading: true,
+        broadcastChannel: true,
       };
     }
   ),
   on(
     SearchMovieActions.createOrUpdateOrDeleteMovieLifecycleSuccess,
     (state, { movieLifeCycleResultDB, index }) => {
+      let movieState;
+
       let movieResultCl = JSON.parse(JSON.stringify({ ...state.movieResult }));
       if (movieLifeCycleResultDB) {
         if (
@@ -93,6 +101,7 @@ export const searchMovieReducer = createReducer(
         error: null,
         isLoading: false,
         movieResult: movieResultCl,
+        broadcastChannel: true,
       };
     }
   ),
@@ -102,6 +111,7 @@ export const searchMovieReducer = createReducer(
       movieDetail: null,
       error: null,
       isLoading: true,
+      broadcastChannel: true,
     };
   }),
   on(SearchMovieActions.searchMovieDetailSuccess, (state, { movieDetail }) => {
@@ -110,14 +120,34 @@ export const searchMovieReducer = createReducer(
       error: null,
       isLoading: false,
       movieDetail,
+      broadcastChannel: true,
     };
   }),
   on(SearchMovieActions.cleanError, (state) => {
     return {
       ...state,
       error: null,
+      broadcastChannel: true,
     };
-  })
+  }),
+  on(SearchMovieActions.getMediaLifecycleEnum, (state) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: true,
+    };
+  }),
+  on(
+    SearchMovieActions.getMediaLifecycleEnumSuccess,
+    (state, { lifecycleEnum }) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        lifecycleEnum,
+      };
+    }
+  )
 );
 export const getSearchMovieState = (state: SearchMovieState) => state;
 export const getIsLoading = (state: SearchMovieState) => state.isLoading;
@@ -128,4 +158,6 @@ export const getMovieResultPage = (state: SearchMovieState) =>
   state.movieResult?.page ? state.movieResult.page : 0;
 export const getMovieResultTotalPages = (state: SearchMovieState) =>
   state.movieResult?.total_pages ? state.movieResult.total_pages : 0;
+export const getLifecycleEnum = (state: SearchMovieState) =>
+  state.lifecycleEnum;
 export const getSearchMovieError = (state: SearchMovieState) => state.error;

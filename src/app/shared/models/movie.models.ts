@@ -1,5 +1,6 @@
 import { Media, MediaDetail, MediaResult } from './media.models';
 import { ErrorResponse } from './auth.models';
+import { Lifecycle_Enum } from './supabase/movie_life_cycle.model';
 
 export interface SearchMovieState {
   isLoading: boolean;
@@ -7,6 +8,8 @@ export interface SearchMovieState {
   error: ErrorResponse | null;
   movieResult: MovieResult;
   movieDetail: MovieDetail | null;
+  broadcastChannel: boolean;
+  lifecycleEnum: Lifecycle_Enum[] | [];
 }
 
 export interface Movie extends Media {}

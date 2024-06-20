@@ -1,9 +1,10 @@
 <fieldset>
   <nz-form-item>
     <nz-form-control [nzErrorTip]="searchErrorTpl">
-      <nz-input-group nzPrefixIcon="user">
+      <nz-input-group nzPrefixIcon="search">
         <input
           type="text"
+          id="search"
           nz-input
           maxlength="20"
           [formControl]="searchControl"

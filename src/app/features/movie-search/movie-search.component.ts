@@ -11,6 +11,7 @@ import {
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
 import { MovieResult, Movie } from '../../shared/models';
 import { MediaType } from '../../shared/models/media.models';
+
 @Component({
   selector: 'app-movie-search',
   standalone: true,

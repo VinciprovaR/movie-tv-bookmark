@@ -2,6 +2,9 @@ import { APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
+import { Lifecycle_Enum } from './shared/models/supabase/movie_life_cycle.model';
+import { SupabaseMovieLifecycleService } from './shared/services/supabase.movie_life_cycle.service';
+import { SearchMovieActions } from './shared/store/search-movie';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -14,6 +17,10 @@ export const TMDB_ORIGINAL_IMG_URL = new InjectionToken<string>(
 );
 export const TMDB_RESIZED_IMG_URL = new InjectionToken<string>(
   'TMDB_RESIZED_IMG_URL'
+);
+
+export const LIFECYCLE_ENUM = new InjectionToken<Lifecycle_Enum>(
+  'LIFECYCLE_ENUM'
 );
 
 export function provideTMDBApiKey() {
@@ -61,5 +68,15 @@ export function provideSupabaseClient() {
         'https://fahpcnjaykumnjwfmkdy.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhaHBjbmpheWt1bW5qd2Zta2R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTgwMjYzOTUsImV4cCI6MjAzMzYwMjM5NX0.wq98GdUuiqA1e_9aYJlQC1TKyoLeRdh_IP2mALY7mCc'
       ),
+  };
+}
+
+export function provideLifecycleEnum() {
+  return {
+    provide: APP_INITIALIZER,
+    useFactory: (store: Store) => () =>
+      store.dispatch(SearchMovieActions.getMediaLifecycleEnum()),
+    deps: [Store],
+    multi: true,
   };
 }

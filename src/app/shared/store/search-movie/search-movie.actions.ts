@@ -1,6 +1,14 @@
 import { createAction, props } from '@ngrx/store';
-import { MovieDetail, MovieLifecycle, MovieResult } from '../../models';
-import { Movie_Life_Cycle } from '../../models/supabase/movie_life_cycle.model';
+import {
+  MovieDetail,
+  MovieLifecycle,
+  MovieResult,
+  SearchMovieState,
+} from '../../models';
+import {
+  Lifecycle_Enum,
+  Movie_Life_Cycle,
+} from '../../models/supabase/movie_life_cycle.model';
 
 export const searchMovie = createAction(
   '[Search-movie/API] Search Movie',
@@ -37,7 +45,16 @@ export const searchMovieFailure = createAction(
   props<{ httpErrorResponse: any }>()
 );
 
-//Movie lifecycle
+//Media... lifecycle
+
+export const getMediaLifecycleEnum = createAction(
+  '[Search-media/API] Get Media Lifecycle Enum'
+);
+
+export const getMediaLifecycleEnumSuccess = createAction(
+  '[Search-media/API] Get Media Lifecycle Enum Success',
+  props<{ lifecycleEnum: Lifecycle_Enum[] }>()
+);
 
 export const createOrUpdateOrDeleteMovieLifecycleLifecycle = createAction(
   '[Movie-Lifecycle/API] Create or Update Movie Lifecycle',

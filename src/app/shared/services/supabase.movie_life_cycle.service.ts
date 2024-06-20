@@ -1,7 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { SupabaseClient, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../providers';
-import { Movie_Life_Cycle } from '../models/supabase/movie_life_cycle.model';
+import {
+  Lifecycle_Enum,
+  Movie_Life_Cycle,
+} from '../models/supabase/movie_life_cycle.model';
 import { Observable, from, map, of, switchMap, tap } from 'rxjs';
 import { MovieLifecycle, MovieResult, noLifecycle } from '../models';
 
@@ -34,26 +37,30 @@ export class SupabaseMovieLifecycleService {
 
   createOrUpdateOrDeleteMovieLifecycle(
     movieLifecycle: MovieLifecycle,
-    movieResult: MovieResult,
     user: User | null
-  ) {
+  ): Observable<Movie_Life_Cycle> {
     return this.findLifecycleListByMovieIds([movieLifecycle.movieId]).pipe(
       switchMap((movieLifecycleFromDB) => {
+        if (movieLifecycleFromDB.data.length > 1) {
+          /*Case #0 - more than one same movie lifecycle with the same user, shouldn't be possible. 
+          E.G.: 2 copies of "Avengers: Infinity War" in the lifecycle for the same user, one with lifecycle id to 1 and the other with 3. The same movie for a specific user could have only one row with the lifecycle id assigned*/
+          // console.error(
+          //   'only one lifecycle per movie and per user, more than one is wrong'
+          // );
+          // throw new Error(
+          //   'only one lifecycle per movie and per user, more than one is wrong'
+          // );
+        }
+
         if (movieLifecycleFromDB.data.length === 0) {
           if (movieLifecycle.lifecycleId > 0) {
-            //movieId in db non presente e lifecycle selezionato > 0, devo creare l'oggetto
+            //Case #1 - Movie doesn't have its own lifecycle and lifecycle selected is > 0, must create the lifecycle item
             return this.createMovieLifeCycle(
               movieLifecycle.lifecycleId,
               movieLifecycle.movieId,
               user
             ).pipe(
-              tap((result: any) => {
-                if (result.error) {
-                  throw result.error;
-                }
-              }),
               map((createLifecycleResult) => {
-                //modificare movieResult settare il lifecycle del movie al lifecycle selezionato
                 return createLifecycleResult.data.length > 0
                   ? createLifecycleResult.data[0]
                   : null;
@@ -62,27 +69,27 @@ export class SupabaseMovieLifecycleService {
           }
         } else {
           if (movieLifecycle.lifecycleId === 0) {
-            //movieId in db presente e lifecycle selezionato 0, devo eliminare l'oggetto
+            //Case #2 - Movie has its own lifecycle and lifecycle selected is == 0, must delete the lifecycle item
             return this.deleteMovieLifeCycle(movieLifecycle.movieId).pipe(
               map((deleteLifecycleResult) => {
-                //modificare movieResult, settare il lifecycle del movie a 0
                 deleteLifecycleResult.data[0].lifecycle_id = 0;
                 return deleteLifecycleResult.data[0];
               })
             );
           } else if (movieLifecycle.lifecycleId > 0) {
-            //movieId in db presente e lifecycle selezionato > 0, devo modificare l'oggetto
+            if (
+              movieLifecycle.lifecycleId ===
+              movieLifecycleFromDB.data[0].lifecycle_id
+            ) {
+              /*Case #3 - Movie has its own lifecycle and lifecycle selected is equal to the db lifecycle, no update is needed (this happens when 2 tabs at the same time are open and the movie state is not shared)*/
+              return of(null);
+            }
+            //Case #4 - Movie has its own lifecycle and lifecycle selected is > 0, must update the lifecycle item
             return this.updateMovieLifeCycle(
               movieLifecycle.lifecycleId,
               movieLifecycle.movieId
             ).pipe(
-              tap((result: any) => {
-                if (result.error) {
-                  throw result.error;
-                }
-              }),
               map((updateLifecycleResult) => {
-                //modificare movieResult, settare il lifecycle del movie  al lifecycle selezionato
                 return updateLifecycleResult.data.length > 0
                   ? updateLifecycleResult.data[0]
                   : null;
@@ -91,7 +98,9 @@ export class SupabaseMovieLifecycleService {
           }
         }
 
-        //movieId in db non presente e lifecycle selezionato 0, non devo fare nulla
+        /*Case #5 - Movie doesn't have its own lifecycle and lifecycle selected is == 0, must do nothing (this happens when 2 tabs at the same time are open and the 
+        movie state is not shared)
+        */
         return of(null);
       })
     );
@@ -168,29 +177,18 @@ export class SupabaseMovieLifecycleService {
       })
     );
   }
-}
-/*
 
-  mergeMovieLifecycle(movieResult: MovieResult): Observable<MovieResult> {
-    let movieIdList: number[] = [];
-    let movieIdMapIndex: any = {};
-    for (let i = 0; i < movieResult.results.length; i++) {
-      movieIdList.push(movieResult.results[i].id);
-      movieIdMapIndex[movieResult.results[i].id] = i;
-    }
-    return this.findLifecycleListByMovieIds(movieIdList).pipe(
-      map((movieLifecycle) => {
-        // console.log('movieLifecycle', movieLifecycle);
-        // console.log('movieIdList', movieIdList);
-        // console.log('movieIdMapIndex', movieIdMapIndex);
-        movieLifecycle.data.forEach((mlc: any) => {
-          movieResult.results[movieIdMapIndex[mlc.movie_id]].lifeCycleId =
-            mlc.id;
-        });
-
-        return movieResult;
+  findLifecycleEnum(): Observable<any> {
+    return from(
+      this.supabase
+        .from('test_life_cycle_enum')
+        .select('{id, enum, description, label}')
+    ).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          throw result.error;
+        }
       })
     );
   }
-
-  */
+}

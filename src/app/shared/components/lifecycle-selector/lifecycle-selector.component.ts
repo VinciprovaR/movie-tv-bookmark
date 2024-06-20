@@ -1,7 +1,17 @@
-import { Component, Input, OnInit, input } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  input,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { SearchMovieActions } from '../../store/search-movie';
+import {
+  SearchMovieActions,
+  SearchMovieSelectors,
+} from '../../store/search-movie';
 import { MediaType } from '../../models/media.models';
 import {
   FormBuilder,
@@ -13,7 +23,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { CommonModule } from '@angular/common';
-import { distinctUntilChanged } from 'rxjs';
+import { Observable, distinctUntilChanged, map } from 'rxjs';
+import { LIFECYCLE_ENUM } from '../../../providers';
+import { Lifecycle_Enum } from '../../models/supabase/movie_life_cycle.model';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -37,7 +49,20 @@ export class LifecycleSelectorComponent implements OnInit {
   index!: number;
   @Input({ required: true })
   mediaType!: MediaType;
+
   lifeCycleControl!: FormControl;
+
+  lifeCycleEnum$: Observable<Lifecycle_Enum[] | []> = this.store.select(
+    SearchMovieSelectors.selectMediaLifecycleEnum
+  );
+
+  options$: Observable<any> = this.lifeCycleEnum$.pipe(
+    map((lifecycleEnum) => {
+      return lifecycleEnum.map((lc) => {
+        return { label: lc.label, value: lc.id };
+      });
+    })
+  );
 
   options = [
     { label: 'No lifecycle', value: 0 },
@@ -52,8 +77,6 @@ export class LifecycleSelectorComponent implements OnInit {
     this.lifeCycleControl = this.fb.control(
       this.lifecycleId ? this.lifecycleId : 0
     );
-
-    // this.lifeCycleControl.setValue(this.options[0], { emitEvent: false });
 
     this.lifeCycleControl.valueChanges
       .pipe(distinctUntilChanged())
