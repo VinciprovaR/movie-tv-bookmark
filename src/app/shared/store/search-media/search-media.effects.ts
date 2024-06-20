@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { SearchMovieActions, SearchMovieSelectors } from '.';
+import { SearchMediaActions, SearchMediaSelectors } from '.';
 import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { TmdbSearchService } from '../../services/tmdb-search.service';
 import { ErrorResponse } from '../../models/auth.models';
-import { MovieDetail, MovieLifecycle, MovieResult } from '../../models';
+import { MovieDetail, MovieResult, TVResult } from '../../models';
 import { Store } from '@ngrx/store';
 import { SupabaseMovieLifecycleService } from '../../services/supabase.movie_life_cycle.service';
 import { AuthSelectors } from '../auth';
@@ -12,32 +12,36 @@ import { User } from '@supabase/supabase-js';
 import {
   Lifecycle_Enum,
   Movie_Life_Cycle,
-} from '../../models/supabase/movie_life_cycle.model';
-import { BroadcastChannelService } from '../../services/broadcast-channel.service';
+} from '../../models/supabase/entities/movie_life_cycle.entity.ts';
 
 @Injectable()
 export class SearchMovieEffects {
-  searchMovie$ = createEffect(() => {
+  searchMedia$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchMovie),
+      ofType(SearchMediaActions.searchMedia),
       switchMap((actionParams) => {
+        let { query, mediaType } = actionParams;
+        console.log(query, mediaType);
         return this.tmdbSearchService
-          .searchMoviesInit(actionParams.query)
+          .mediaSearchInit(query, mediaType)
           .pipe(
-            switchMap((movieResult) => {
-              return this.lifecycleService.initMovieLifecycle(movieResult);
+            switchMap((mediaResult) => {
+              return this.lifecycleService.initMediaLifecycle(
+                mediaResult,
+                mediaType
+              );
             })
           )
           .pipe(
-            map((movieResult: MovieResult) => {
-              return SearchMovieActions.searchMovieSuccess({
-                movieResult: movieResult,
+            map((mediaResult: MovieResult | TVResult) => {
+              return SearchMediaActions.searchMediaSuccess({
+                mediaResult: mediaResult,
               });
             }),
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+                SearchMediaActions.searchMediaFailure({ httpErrorResponse })
               );
             })
           );
@@ -45,13 +49,13 @@ export class SearchMovieEffects {
     );
   });
 
-  searchAdditionalMovie$ = createEffect(() => {
+  searchAdditionalMedia$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchAdditionalMovie),
+      ofType(SearchMediaActions.searchAdditionalMedia),
       withLatestFrom(
-        this.store.select(SearchMovieSelectors.selectMoviesPage),
-        this.store.select(SearchMovieSelectors.selectMoviesTotalPages),
-        this.store.select(SearchMovieSelectors.selectQuery)
+        this.store.select(SearchMediaSelectors.selectMediaPage),
+        this.store.select(SearchMediaSelectors.selectMediaTotalPages),
+        this.store.select(SearchMediaSelectors.selectQuery)
       ),
       switchMap((actionParams) => {
         let [action, currPage, totalPages, query] = actionParams;
@@ -64,14 +68,14 @@ export class SearchMovieEffects {
                   .initMovieLifecycle(movieResult)
                   .pipe(
                     map((movieResult: MovieResult) => {
-                      return SearchMovieActions.searchAdditionalMovieSuccess({
+                      return SearchMediaActions.searchAdditionalMovieSuccess({
                         movieResult: movieResult,
                       });
                     }),
                     catchError((httpErrorResponse: ErrorResponse) => {
                       console.error(httpErrorResponse);
                       return of(
-                        SearchMovieActions.searchMovieFailure({
+                        SearchMediaActions.searchMovieFailure({
                           httpErrorResponse,
                         })
                       );
@@ -80,7 +84,7 @@ export class SearchMovieEffects {
               })
             );
         } else {
-          return of(SearchMovieActions.noAdditionalMovie());
+          return of(SearchMediaActions.noAdditionalMovie());
         }
       })
     );
@@ -88,20 +92,20 @@ export class SearchMovieEffects {
 
   searchMovieDetail$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchMovieDetail),
+      ofType(SearchMediaActions.searchMovieDetail),
       switchMap((actionParams) => {
         return this.tmdbSearchService
           .searchMovieDetail(actionParams.movieId)
           .pipe(
             map((movieDetail: MovieDetail) => {
-              return SearchMovieActions.searchMovieDetailSuccess({
+              return SearchMediaActions.searchMovieDetailSuccess({
                 movieDetail: movieDetail,
               });
             }),
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+                SearchMediaActions.searchMovieFailure({ httpErrorResponse })
               );
             })
           );
@@ -111,7 +115,7 @@ export class SearchMovieEffects {
 
   setMovieLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.createOrUpdateOrDeleteMovieLifecycleLifecycle),
+      ofType(SearchMediaActions.createOrUpdateOrDeleteMovieLifecycleLifecycle),
       withLatestFrom(this.store.select(AuthSelectors.selectUser)),
       switchMap((actionParams) => {
         let [movieLifecycle, user]: [MovieLifecycle, User | null] =
@@ -120,7 +124,7 @@ export class SearchMovieEffects {
           .createOrUpdateOrDeleteMovieLifecycle(movieLifecycle, user)
           .pipe(
             map((movieLifeCycleResultDB: Movie_Life_Cycle) => {
-              return SearchMovieActions.createOrUpdateOrDeleteMovieLifecycleSuccess(
+              return SearchMediaActions.createOrUpdateOrDeleteMovieLifecycleSuccess(
                 {
                   movieLifeCycleResultDB,
                   index: movieLifecycle.index,
@@ -130,7 +134,7 @@ export class SearchMovieEffects {
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+                SearchMediaActions.searchMovieFailure({ httpErrorResponse })
               );
             })
           );
@@ -140,18 +144,18 @@ export class SearchMovieEffects {
 
   getMediaLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.getMediaLifecycleEnum),
+      ofType(SearchMediaActions.getMediaLifecycleEnum),
       switchMap((actionParams) => {
         return this.lifecycleService.findLifecycleEnum().pipe(
           map((lifecycleEnum: any) => {
-            return SearchMovieActions.getMediaLifecycleEnumSuccess({
+            return SearchMediaActions.getMediaLifecycleEnumSuccess({
               lifecycleEnum: lifecycleEnum.data,
             });
           }),
           catchError((httpErrorResponse: ErrorResponse) => {
             console.error(httpErrorResponse);
             return of(
-              SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+              SearchMediaActions.searchMovieFailure({ httpErrorResponse })
             );
           })
         );
@@ -163,14 +167,13 @@ export class SearchMovieEffects {
     private actions$: Actions,
     private tmdbSearchService: TmdbSearchService,
     private store: Store,
-    private lifecycleService: SupabaseMovieLifecycleService,
-    private broadcastChannelService: BroadcastChannelService
+    private lifecycleService: SupabaseMovieLifecycleService
   ) {}
 }
 /*
     searchAdditionalMovie$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchAdditionalMovie),
+      ofType(SearchMediaActions.searchAdditionalMovie),
       withLatestFrom(
         this.store.select(SearchMovieSelectors.selectMoviesPage),
         this.store.select(SearchMovieSelectors.selectMoviesTotalPages),
@@ -187,14 +190,14 @@ export class SearchMovieEffects {
                   .initMovieLifecycle(movieResult)
                   .pipe(
                     map((movieResult: MovieResult) => {
-                      return SearchMovieActions.searchAdditionalMovieSuccess({
+                      return SearchMediaActions.searchAdditionalMovieSuccess({
                         movieResult: movieResult,
                       });
                     }),
                     catchError((httpErrorResponse: ErrorResponse) => {
                       console.error(httpErrorResponse);
                       return of(
-                        SearchMovieActions.searchMovieFailure({
+                        SearchMediaActions.searchMovieFailure({
                           httpErrorResponse,
                         })
                       );
@@ -203,7 +206,7 @@ export class SearchMovieEffects {
               })
             );
         } else {
-          return of(SearchMovieActions.noAdditionalMovie());
+          return of(SearchMediaActions.noAdditionalMovie());
         }
       })
     );
@@ -221,7 +224,7 @@ export class SearchMovieEffects {
 
   searchMovie$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchMovie),
+      ofType(SearchMediaActions.searchMovie),
       switchMap((searchMetadata) => {
         return this.tmdbSearchService
           .searchInitMovies(searchMetadata)
@@ -253,14 +256,14 @@ export class SearchMovieEffects {
           )
           .pipe(
             map((movieResult: MovieResult) => {
-              return SearchMovieActions.searchMovieSuccess({
+              return SearchMediaActions.searchMovieSuccess({
                 movieResult: movieResult,
               });
             }),
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+                SearchMediaActions.searchMovieFailure({ httpErrorResponse })
               );
             })
           );

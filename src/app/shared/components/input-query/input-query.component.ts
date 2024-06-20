@@ -11,7 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { SearchMovieActions } from '../../store/search-movie';
+import { SearchMovieActions } from '../../store/search-media';
 import { Store } from '@ngrx/store';
 import {
   Subject,
@@ -20,7 +20,7 @@ import {
   skipWhile,
   tap,
 } from 'rxjs';
-import { SearchMovieSelectors } from '../../store/search-movie';
+import { SearchMovieSelectors } from '../../store/search-media';
 
 @Component({
   selector: 'app-input-query',

@@ -2,9 +2,9 @@ import { APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
-import { Lifecycle_Enum } from './shared/models/supabase/movie_life_cycle.model';
+import { Lifecycle_Enum } from './shared/models/supabase/entities/movie_life_cycle.entity.ts';
 import { SupabaseMovieLifecycleService } from './shared/services/supabase.movie_life_cycle.service';
-import { SearchMovieActions } from './shared/store/search-movie';
+import { SearchMovieActions } from './shared/store/search-media';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'

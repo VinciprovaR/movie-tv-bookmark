@@ -7,7 +7,7 @@ import { Observable, Subject, defaultIfEmpty, filter, map } from 'rxjs';
 import {
   SearchMovieActions,
   SearchMovieSelectors,
-} from '../../shared/store/search-movie';
+} from '../../shared/store/search-media';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
 import { MovieResult, Movie } from '../../shared/models';
 import { MediaType } from '../../shared/models/media.models';
@@ -45,7 +45,9 @@ export class MovieSearchComponent implements OnInit {
   ngOnInit(): void {}
 
   searchMovie(query: string) {
-    this.store.dispatch(SearchMovieActions.searchMovie({ query }));
+    this.store.dispatch(
+      SearchMovieActions.searchMedia({ query, mediaType: this.mediaType })
+    );
   }
 
   searchAdditionalMovie() {

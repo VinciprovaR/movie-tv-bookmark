@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import {
   SearchMovieActions,
   SearchMovieSelectors,
-} from '../../store/search-movie';
+} from '../../store/search-media';
 import { MediaType } from '../../models/media.models';
 import {
   FormBuilder,
@@ -25,7 +25,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { CommonModule } from '@angular/common';
 import { Observable, distinctUntilChanged, map } from 'rxjs';
 import { LIFECYCLE_ENUM } from '../../../providers';
-import { Lifecycle_Enum } from '../../models/supabase/movie_life_cycle.model';
+import { Lifecycle_Enum } from '../../models/supabase/entities/movie_life_cycle.entity.ts';
 
 @Component({
   selector: 'app-lifecycle-selector',

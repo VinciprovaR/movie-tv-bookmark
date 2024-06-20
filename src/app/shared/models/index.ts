@@ -1,3 +1,2 @@
 export * from './auth.models';
-export * from './movie.models';
-export * from './tv.models';
+export * from './media.models';

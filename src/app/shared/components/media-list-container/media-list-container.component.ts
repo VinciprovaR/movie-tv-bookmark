@@ -3,7 +3,7 @@ import { Observable, Subject, map } from 'rxjs';
 import {
   SearchMovieActions,
   SearchMovieSelectors,
-} from '../../store/search-movie';
+} from '../../store/search-media';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../models';

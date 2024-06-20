@@ -2,7 +2,7 @@ import { isDevMode } from '@angular/core';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { AuthReducers } from './auth';
-import { SearchMovieReducers } from './search-movie';
+import { SearchMovieReducers } from './search-media';
 import { AuthState, SearchMovieState } from '../models';
 
 interface State {

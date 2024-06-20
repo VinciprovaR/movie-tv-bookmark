@@ -1,12 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { SupabaseClient, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../providers';
-import {
-  Lifecycle_Enum,
-  Movie_Life_Cycle,
-} from '../models/supabase/movie_life_cycle.model';
+
 import { Observable, from, map, of, switchMap, tap } from 'rxjs';
-import { MovieLifecycle, MovieResult, noLifecycle } from '../models';
+import { MovieResult, TVResult, noLifecycle } from '../models';
+import { MediaType } from '../models/media.models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,23 +12,27 @@ import { MovieLifecycle, MovieResult, noLifecycle } from '../models';
 export class SupabaseMovieLifecycleService {
   constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
 
-  initMovieLifecycle(movieResult: MovieResult): Observable<MovieResult> {
-    let movieIdList: number[] = [];
-    let movieIdMapIndex: any = {};
-    for (let i = 0; i < movieResult.results.length; i++) {
-      movieIdList.push(movieResult.results[i].id);
-      movieIdMapIndex[movieResult.results[i].id] = i;
+  initMediaLifecycle(
+    mediaResult: MovieResult | TVResult,
+    mediaType: MediaType
+  ): Observable<MovieResult | TVResult> {
+    let mediaIdList: number[] = [];
+    let mediaIdMapIndex: any = {};
+    for (let i = 0; i < mediaResult.results.length; i++) {
+      mediaIdList.push(mediaResult.results[i].id);
+      mediaIdMapIndex[mediaResult.results[i].id] = i;
     }
-    return this.findLifecycleListByMovieIds(movieIdList).pipe(
-      map((movieLifecycle) => {
+    return this.findLifecycleListByMediaIds(mediaIdList, mediaType).pipe(
+      map((mediaLifecycleSupabase) => {
         // console.log('movieLifecycle', movieLifecycle);
         // console.log('movieIdList', movieIdList);
         // console.log('movieIdMapIndex', movieIdMapIndex);
-        movieLifecycle.data.forEach((mlc: any) => {
-          movieResult.results[movieIdMapIndex[mlc.movie_id]].lifeCycleId =
-            mlc.lifecycle_id;
+        mediaLifecycleSupabase.data.forEach((mlc: any) => {
+          mediaResult.results[
+            mediaIdMapIndex[`mlc.${mediaType}_id`]
+          ].lifecycleId = mlc.lifecycle_id;
         });
-        return movieResult;
+        return mediaResult;
       })
     );
   }
@@ -106,12 +108,15 @@ export class SupabaseMovieLifecycleService {
     );
   }
 
-  findLifecycleListByMovieIds(movieIdList: number[]): Observable<any> {
+  findLifecycleListByMediaIds(
+    mediaIdList: number[],
+    mediaType: MediaType
+  ): Observable<any> {
     return from(
       this.supabase
-        .from('test_movie_life_cycle')
-        .select('{movie_id, lifecycle_id}')
-        .in('movie_id', movieIdList)
+        .from(`test_${mediaType}_life_cycle`)
+        .select(`{${mediaType}_id, lifecycle_id}`)
+        .in(`${mediaType}_id`, mediaIdList)
     ).pipe(
       tap((result: any) => {
         if (result.error) {

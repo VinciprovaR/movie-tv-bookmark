@@ -27,7 +27,7 @@ import {
   provideImgUrl,
   provideLifecycleEnum,
 } from './providers';
-import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
+import { SearchMovieEffects } from './shared/store/search-media/search-media.effects';
 
 registerLocaleData(en);
 
