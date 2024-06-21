@@ -2,9 +2,10 @@ import { APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
-import { Lifecycle_Enum } from './shared/models/supabase/entities/movie_life_cycle.entity.ts';
+
 import { SupabaseMovieLifecycleService } from './shared/services/supabase.movie_life_cycle.service';
-import { SearchMovieActions } from './shared/store/search-media';
+import { SearchMediaActions } from './shared/store/search-media';
+import { Media_Lifecycle_Enum } from './shared/models/supabase/entities/media_life_cycle_enum.entity';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -19,7 +20,7 @@ export const TMDB_RESIZED_IMG_URL = new InjectionToken<string>(
   'TMDB_RESIZED_IMG_URL'
 );
 
-export const LIFECYCLE_ENUM = new InjectionToken<Lifecycle_Enum>(
+export const LIFECYCLE_ENUM = new InjectionToken<Media_Lifecycle_Enum>(
   'LIFECYCLE_ENUM'
 );
 
@@ -75,7 +76,7 @@ export function provideLifecycleEnum() {
   return {
     provide: APP_INITIALIZER,
     useFactory: (store: Store) => () =>
-      store.dispatch(SearchMovieActions.getMediaLifecycleEnum()),
+      store.dispatch(SearchMediaActions.getMediaLifecycleEnum()),
     deps: [Store],
     multi: true,
   };

@@ -9,12 +9,14 @@ import {
 } from '../../models';
 import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
 import { Movie_Life_Cycle } from '../../models/supabase/entities/movie_life_cycle.entity';
+
 export interface SearchMediaState {
   isLoading: boolean;
   query: string;
   error: ErrorResponse | null;
   mediaResult: MovieResult | TVResult;
-  mediaDetail: MovieDetail | TVDetail | null;
+  movieDetail: MovieDetail | null;
+  tvDetail: TVDetail | null;
   broadcastChannel: boolean;
   lifecycleEnum: Media_Lifecycle_Enum[] | [];
 }
@@ -26,7 +28,8 @@ export const initialState: SearchMediaState = {
   query: '',
   error: null,
   mediaResult: { page: 1, results: [], total_pages: 1, total_results: 0 },
-  mediaDetail: null,
+  movieDetail: null,
+  tvDetail: null,
   broadcastChannel: false,
   lifecycleEnum: [],
 };
@@ -126,18 +129,28 @@ export const searchMediaReducer = createReducer(
   on(SearchMediaActions.searchMediaDetail, (state) => {
     return {
       ...state,
-      mediaDetail: null,
+      movieDetail: null,
+      tvDetail: null,
       error: null,
       isLoading: true,
       broadcastChannel: true,
     };
   }),
-  on(SearchMediaActions.searchMediaDetailSuccess, (state, { mediaDetail }) => {
+  on(SearchMediaActions.searchMovieDetailSuccess, (state, { movieDetail }) => {
     return {
       ...state,
       error: null,
       isLoading: false,
-      mediaDetail,
+      movieDetail,
+      broadcastChannel: true,
+    };
+  }),
+  on(SearchMediaActions.searchTVDetailSuccess, (state, { tvDetail }) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      tvDetail,
       broadcastChannel: true,
     };
   }),
@@ -176,7 +189,8 @@ const isMovieEntity = (
 export const getSearchMediaState = (state: SearchMediaState) => state;
 export const getIsLoading = (state: SearchMediaState) => state.isLoading;
 export const getMediaResult = (state: SearchMediaState) => state.mediaResult;
-export const getMediaDetail = (state: SearchMediaState) => state.mediaDetail;
+export const getMovieDetail = (state: SearchMediaState) => state.movieDetail;
+export const getTVDetail = (state: SearchMediaState) => state.tvDetail;
 export const getQuery = (state: SearchMediaState) => state.query;
 export const getMediaResultPage = (state: SearchMediaState) =>
   state.mediaResult?.page ? state.mediaResult.page : 0;

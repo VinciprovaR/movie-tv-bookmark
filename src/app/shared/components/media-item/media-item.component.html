@@ -4,7 +4,7 @@
       <div style="display: flex">
         <h2>{{ media.title }}</h2>
         <span> {{ mediaType }} </span>
-        <span> Lifecycle ID: {{ media.lifeCycleId }}</span>
+        <span> Lifecycle ID: {{ media.lifecycleId }}</span>
       </div>
 
       <p>{{ media.overview }}</p>
@@ -12,7 +12,7 @@
   </a>
   <app-lifecycle-selector
     [mediaId]="media.id"
-    [lifecycleId]="media.lifeCycleId"
+    [lifecycleId]="media.lifecycleId"
     [index]="index"
     [mediaType]="mediaType"
   ></app-lifecycle-selector>

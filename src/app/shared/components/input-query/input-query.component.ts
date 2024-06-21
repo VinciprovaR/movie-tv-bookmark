@@ -11,7 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { SearchMovieActions } from '../../store/search-media';
+import { SearchMediaActions } from '../../store/search-media';
 import { Store } from '@ngrx/store';
 import {
   Subject,
@@ -20,7 +20,7 @@ import {
   skipWhile,
   tap,
 } from 'rxjs';
-import { SearchMovieSelectors } from '../../store/search-media';
+import { SearchMediaSelectors } from '../../store/search-media';
 
 @Component({
   selector: 'app-input-query',
@@ -43,7 +43,7 @@ export class InputQueryComponent implements OnInit {
   @Output()
   queryEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  query$ = this.store.select(SearchMovieSelectors.selectQuery);
+  query$ = this.store.select(SearchMediaSelectors.selectQuery);
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
@@ -69,6 +69,6 @@ export class InputQueryComponent implements OnInit {
 
   ngOnDestroy(): void {
     //to-do check if there are error
-    this.store.dispatch(SearchMovieActions.cleanError());
+    this.store.dispatch(SearchMediaActions.cleanError());
   }
 }

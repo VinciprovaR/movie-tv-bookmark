@@ -1,16 +1,16 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
-  SearchMovieActions,
-  SearchMovieSelectors,
+  SearchMediaActions,
+  SearchMediaSelectors,
 } from '../../shared/store/search-media';
-import { Observable } from 'rxjs';
-import { MovieDetail } from '../../shared/models';
+import { Observable, map } from 'rxjs';
+import { MediaType, MovieDetail, TVDetail } from '../../shared/models';
 import { CommonModule } from '@angular/common';
 import { TMDB_RESIZED_IMG_URL } from '../../providers';
 
 @Component({
-  selector: 'app-movie-detail',
+  selector: 'app-media-detail',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './movie-detail.component.html',
@@ -18,10 +18,11 @@ import { TMDB_RESIZED_IMG_URL } from '../../providers';
 })
 export class MovieDetailComponent {
   @Input()
-  movieId: number = 0;
+  mediaId: number = 0;
   resizedImgUrl: string = '';
+  mediaType: MediaType = 'movie';
   movieDetail$: Observable<MovieDetail | null> = this.store.select(
-    SearchMovieSelectors.selectMovieDetail
+    SearchMediaSelectors.selectMovieDetail
   );
 
   constructor(
@@ -33,7 +34,10 @@ export class MovieDetailComponent {
 
   ngOnInit(): void {
     this.store.dispatch(
-      SearchMovieActions.searchMovieDetail({ movieId: this.movieId })
+      SearchMediaActions.searchMediaDetail({
+        mediaId: this.mediaId,
+        mediaType: this.mediaType,
+      })
     );
   }
 }

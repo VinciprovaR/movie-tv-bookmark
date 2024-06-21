@@ -74,7 +74,7 @@ export const routes: Routes = [
     title: 'Search Movie',
   },
   {
-    path: 'movie-detail/:movieId',
+    path: 'movie-detail/:mediaId',
     loadComponent: () =>
       import('./features/movie-detail/movie-detail.component').then(
         (m) => m.MovieDetailComponent

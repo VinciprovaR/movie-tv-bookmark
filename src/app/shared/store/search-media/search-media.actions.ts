@@ -28,9 +28,14 @@ export const searchMediaDetail = createAction(
   '[Search-media/API] Search Media Detail',
   props<{ mediaId: number; mediaType: MediaType }>()
 );
-export const searchMediaDetailSuccess = createAction(
-  '[Search-media/API] Search Media Detail Success',
-  props<{ mediaDetail: MovieDetail | TVDetail }>()
+export const searchMovieDetailSuccess = createAction(
+  '[Search-media/API] Search Movie Detail Success',
+  props<{ movieDetail: MovieDetail }>()
+);
+
+export const searchTVDetailSuccess = createAction(
+  '[Search-media/API] Search TV Detail Success',
+  props<{ tvDetail: TVDetail }>()
 );
 
 export const noAdditionalMedia = createAction(
@@ -45,8 +50,7 @@ export const searchMediaFailure = createAction(
 //Media... lifecycle
 
 export const getMediaLifecycleEnum = createAction(
-  '[Search-media/API] Get Media Lifecycle Enum',
-  props<{ mediaType: MediaType }>()
+  '[Search-media/API] Get Media Lifecycle Enum'
 );
 
 export const getMediaLifecycleEnumSuccess = createAction(
@@ -56,7 +60,7 @@ export const getMediaLifecycleEnumSuccess = createAction(
 
 export const createUpdateDeleteMediaLifecycle = createAction(
   '[Media-Lifecycle/API] Create or Update or Delete Media Lifecycle',
-  props<{ mediaLifecycle: MediaLifecycleDTO; mediaType: MediaType }>()
+  props<{ mediaLifecycleDTO: MediaLifecycleDTO; mediaType: MediaType }>()
 );
 export const createUpdateDeleteMediaLifecycleSuccess = createAction(
   '[Media-Lifecycle/API] Create or Update or Delete Media Lifecycle Success',

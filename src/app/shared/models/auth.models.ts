@@ -1,13 +1,5 @@
 import { FormControl } from '@angular/forms';
 
-import { User } from '@supabase/supabase-js';
-
-export interface AuthState {
-  isLoading: boolean;
-  error: ErrorResponse | null;
-  user: User | null;
-}
-
 export interface ErrorResponse {
   [key: string]: string;
 }

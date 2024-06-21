@@ -3,7 +3,7 @@ import { CanMatchFn, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, skipWhile } from 'rxjs';
 import { AuthSelectors } from '../store/auth';
-import { AuthState } from '../models/auth.models';
+import { AuthState } from '../store/auth/auth.reducer';
 
 export const redirectGuard: CanMatchFn = () => {
   const store = inject(Store);

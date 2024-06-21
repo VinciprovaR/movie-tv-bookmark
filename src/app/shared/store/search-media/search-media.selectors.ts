@@ -26,9 +26,14 @@ export const selectMediaResult = createSelector(
   SearchMediaReducer.getMediaResult
 );
 
-export const selectMediaDetail = createSelector(
+export const selectMovieDetail = createSelector(
   searchMediaFeatureSelector,
-  SearchMediaReducer.getMediaDetail
+  SearchMediaReducer.getMovieDetail
+);
+
+export const selectTVDetail = createSelector(
+  searchMediaFeatureSelector,
+  SearchMediaReducer.getTVDetail
 );
 
 export const selectMediaPage = createSelector(

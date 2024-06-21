@@ -9,8 +9,8 @@ import {
 import { Store } from '@ngrx/store';
 
 import {
-  SearchMovieActions,
-  SearchMovieSelectors,
+  SearchMediaActions,
+  SearchMediaSelectors,
 } from '../../store/search-media';
 import { MediaType } from '../../models/media.models';
 import {
@@ -25,7 +25,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { CommonModule } from '@angular/common';
 import { Observable, distinctUntilChanged, map } from 'rxjs';
 import { LIFECYCLE_ENUM } from '../../../providers';
-import { Lifecycle_Enum } from '../../models/supabase/entities/movie_life_cycle.entity.ts';
+import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -44,7 +44,7 @@ export class LifecycleSelectorComponent implements OnInit {
   @Input({ required: true })
   mediaId!: number;
   @Input({ required: true })
-  lifecycleId!: number;
+  lifecycleId!: number | undefined;
   @Input({ required: true })
   index!: number;
   @Input({ required: true })
@@ -52,8 +52,8 @@ export class LifecycleSelectorComponent implements OnInit {
 
   lifeCycleControl!: FormControl;
 
-  lifeCycleEnum$: Observable<Lifecycle_Enum[] | []> = this.store.select(
-    SearchMovieSelectors.selectMediaLifecycleEnum
+  lifeCycleEnum$: Observable<Media_Lifecycle_Enum[] | []> = this.store.select(
+    SearchMediaSelectors.selectMediaLifecycleEnum
   );
 
   options$: Observable<any> = this.lifeCycleEnum$.pipe(
@@ -86,15 +86,15 @@ export class LifecycleSelectorComponent implements OnInit {
   }
 
   setLifeCycle(lifecycleId: number) {
-    if (this.mediaType === 'movie') {
-      this.store.dispatch(
-        SearchMovieActions.createOrUpdateOrDeleteMovieLifecycleLifecycle({
-          movieId: this.mediaId,
+    this.store.dispatch(
+      SearchMediaActions.createUpdateDeleteMediaLifecycle({
+        mediaLifecycleDTO: {
+          mediaId: this.mediaId,
           lifecycleId: lifecycleId,
           index: this.index,
-        })
-      );
-    } else if (this.mediaType === 'tv') {
-    }
+        },
+        mediaType: this.mediaType,
+      })
+    );
   }
 }

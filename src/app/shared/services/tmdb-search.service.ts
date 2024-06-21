@@ -34,9 +34,23 @@ export class TmdbSearchService {
     );
   }
 
+  searchMediaDetail(mediaId: number, mediaType: MediaType) {
+    if (mediaType === 'movie') {
+      return this.searchMovieDetail(mediaId);
+    } else {
+      return this.searchTVDetail(mediaId);
+    }
+  }
+
   private searchMovieDetail(movieId: number): Observable<MovieDetail> {
     return this.httpClient.get<MovieDetail>(
-      `${this.tmdbBaseUrl}${this.MOVIE_DETAIL_PATH}/${movieId}?language=en-US&&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}/movie/${movieId}?language=en-US&&api_key=${this.tmdbApiKey}`
+    );
+  }
+
+  private searchTVDetail(tvId: number) {
+    return this.httpClient.get<MovieDetail>(
+      `${this.tmdbBaseUrl}/tv/${tvId}?language=en-US&&api_key=${this.tmdbApiKey}`
     );
   }
 }

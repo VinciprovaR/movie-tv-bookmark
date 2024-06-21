@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { MediaLifecycle, MediaType } from '../../models/media.models';
+import { MediaType } from '../../models/media.models';
 import { Subject } from 'rxjs';
 import { Movie, TV } from '../../models';
 import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
@@ -26,6 +26,7 @@ export class MediaItemComponent implements OnInit {
 
   constructor(private router: Router) {}
   ngOnInit(): void {
+    console.log('item media', this.media);
     this.detailMediaPath = this.detailMediaPath.concat(
       `/${this.mediaType}-detail/${this.media.id}`
     );
