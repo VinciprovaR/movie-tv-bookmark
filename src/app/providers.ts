@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
 
-import { SupabaseMovieLifecycleService } from './shared/services/supabase.movie_life_cycle.service';
-import { SearchMediaActions } from './shared/store/search-media';
+import { LifecycleEnumActions } from './shared/store/lifecycle-enum';
 import { Media_Lifecycle_Enum } from './shared/models/supabase/entities/media_life_cycle_enum.entity';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
@@ -76,7 +75,7 @@ export function provideLifecycleEnum() {
   return {
     provide: APP_INITIALIZER,
     useFactory: (store: Store) => () =>
-      store.dispatch(SearchMediaActions.getMediaLifecycleEnum()),
+      store.dispatch(LifecycleEnumActions.lifecycleEnum()),
     deps: [Store],
     multi: true,
   };

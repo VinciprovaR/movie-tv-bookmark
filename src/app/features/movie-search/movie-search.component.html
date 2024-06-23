@@ -1,10 +1,13 @@
-<app-input-query (queryEmitter)="searchMovie($event)"></app-input-query>
+<app-input-query
+  [mediaType]="mediaType"
+  (queryEmitter)="searchMovie($event)"
+></app-input-query>
 
 <app-media-list-container
   appScrollNearEnd
   [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
   [isLoading]="(selectIsLoading$ | async) ?? false"
-  [mediaList]="movies$ | async"
+  [mediaList]="movie$ | async"
   (nearEnd)="searchAdditionalMovie()"
   [mediaType]="mediaType"
 ></app-media-list-container>

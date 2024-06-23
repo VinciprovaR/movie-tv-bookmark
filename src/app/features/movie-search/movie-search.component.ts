@@ -3,14 +3,22 @@ import { Component, OnInit } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, defaultIfEmpty, filter, map } from 'rxjs';
 import {
-  SearchMediaActions,
-  SearchMediaSelectors,
-} from '../../shared/store/search-media';
+  Observable,
+  Subject,
+  defaultIfEmpty,
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs';
+import {
+  SearchMovieActions,
+  SearchMovieSelectors,
+} from '../../shared/store/search-movie';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
 import { MovieResult, Movie } from '../../shared/models';
-import { MediaType } from '../../shared/models/media.models';
+import { MediaType, TV } from '../../shared/models/media.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-search',
@@ -26,33 +34,30 @@ import { MediaType } from '../../shared/models/media.models';
 })
 export class MovieSearchComponent implements OnInit {
   mediaType: MediaType = 'movie';
+
   selectIsLoading$: Observable<boolean> = this.store.select(
-    SearchMediaSelectors.selectIsLoading
+    SearchMovieSelectors.selectIsLoading
   );
 
-  selectMoviesResult$: Observable<MovieResult> = this.store.select(
-    SearchMediaSelectors.selectMediaResult
+  selectMovieResult$: Observable<MovieResult> = this.store.select(
+    SearchMovieSelectors.selectMovieResult
   );
 
-  movies$: Observable<Movie[]> = this.selectMoviesResult$.pipe(
+  movie$: Observable<Movie[] | TV[]> = this.selectMovieResult$.pipe(
     map((movieResult) => {
       return movieResult.results;
     })
   );
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {}
 
   searchMovie(query: string) {
-    this.store.dispatch(
-      SearchMediaActions.searchMedia({ query, mediaType: this.mediaType })
-    );
+    this.store.dispatch(SearchMovieActions.searchMovie({ query }));
   }
 
   searchAdditionalMovie() {
-    this.store.dispatch(
-      SearchMediaActions.searchAdditionalMedia({ mediaType: this.mediaType })
-    );
+    this.store.dispatch(SearchMovieActions.searchAdditionalMovie());
   }
 }

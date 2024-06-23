@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, map } from 'rxjs';
-import { SearchMediaActions } from '../../store/search-media';
+import { SearchMovieActions } from '../../store/search-movie';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../models';
@@ -27,6 +27,6 @@ export class MediaListContainerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     //to-do check if there are error
-    this.store.dispatch(SearchMediaActions.cleanError());
+    this.store.dispatch(SearchMovieActions.cleanError());
   }
 }

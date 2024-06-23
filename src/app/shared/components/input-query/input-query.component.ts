@@ -11,16 +11,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { SearchMediaActions } from '../../store/search-media';
+import { SearchMovieSelectors } from '../../store/search-movie';
 import { Store } from '@ngrx/store';
 import {
+  Observable,
   Subject,
   debounceTime,
   distinctUntilChanged,
   skipWhile,
   tap,
 } from 'rxjs';
-import { SearchMediaSelectors } from '../../store/search-media';
+
+import { MediaType } from '../../models';
 
 @Component({
   selector: 'app-input-query',
@@ -43,11 +45,27 @@ export class InputQueryComponent implements OnInit {
   @Output()
   queryEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  query$ = this.store.select(SearchMediaSelectors.selectQuery);
+  query$!: Observable<string>;
+
+  @Input({ required: true })
+  mediaType!: MediaType;
+
+  placeholder!: string;
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
+    if (this.mediaType === 'movie') {
+      this.query$ = this.store.select(SearchMovieSelectors.selectQuery);
+    } else if (this.mediaType === 'tv') {
+      //this.query$ = this.store.select(SearchTVSelectors.selectQuery);
+    }
+
+    this.placeholder =
+      this.mediaType === 'movie'
+        ? 'Search for a movie'
+        : 'Search for a tv show';
+
     this.searchControl = this.fb.control<string>('', {
       validators: [],
       nonNullable: true,
@@ -65,10 +83,5 @@ export class InputQueryComponent implements OnInit {
     this.query$.subscribe((query) => {
       this.searchControl.setValue(query, { emitEvent: false });
     });
-  }
-
-  ngOnDestroy(): void {
-    //to-do check if there are error
-    this.store.dispatch(SearchMediaActions.cleanError());
   }
 }

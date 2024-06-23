@@ -27,7 +27,8 @@ import {
   provideImgUrl,
   provideLifecycleEnum,
 } from './providers';
-import { SearchMovieEffects } from './shared/store/search-media/search-media.effects';
+import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
+import { LifecycleEnumEffects } from './shared/store/lifecycle-enum/lifecycle.effects';
 
 registerLocaleData(en);
 
@@ -43,7 +44,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),
-    provideEffects([AuthEffects, SearchMovieEffects]),
+    provideEffects([AuthEffects, SearchMovieEffects, LifecycleEnumEffects]),
     WebStorageService,
     {
       provide: TitleStrategy,

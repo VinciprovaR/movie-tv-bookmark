@@ -3,7 +3,7 @@ import { TMDB_API_KEY, TMDB_BASE_URL } from '../../providers';
 import { HttpClient } from '@angular/common/http';
 import { Observable, from, of } from 'rxjs';
 import { MovieDetail, MovieResult, TVResult } from '../models';
-import { MediaType } from '../models/media.models';
+import { MediaType, TVDetail } from '../models/media.models';
 //https://api.themoviedb.org/3/search/movie?query=sam&include_adult=false&language=en-US&api_key=752d0986327eafd63e68291a07153a54
 //https://api.themoviedb.org/3/search/movie?query=avenger&include_adult=false&language=en-US&page=1
 @Injectable({
@@ -16,12 +16,16 @@ export class TmdbSearchService {
     private httpClient: HttpClient
   ) {}
 
-  mediaSearchInit(query: string, mediaType: MediaType) {
-    return this.mediaSearch(1, query, mediaType);
+  movieSearchInit(query: string) {
+    return this.mediaSearch(1, query, 'movie') as Observable<MovieResult>;
   }
 
-  additionalMediaSearch(page: number, query: string, mediaType: MediaType) {
-    return this.mediaSearch(page + 1, query, mediaType);
+  additionalMovieSearch(page: number, query: string) {
+    return this.mediaSearch(
+      page + 1,
+      query,
+      'movie'
+    ) as Observable<MovieResult>;
   }
 
   private mediaSearch(
@@ -34,23 +38,20 @@ export class TmdbSearchService {
     );
   }
 
-  searchMediaDetail(mediaId: number, mediaType: MediaType) {
-    if (mediaType === 'movie') {
-      return this.searchMovieDetail(mediaId);
-    } else {
-      return this.searchTVDetail(mediaId);
-    }
+  searchMovieDetail(movieId: number) {
+    return this.searchMediaDetail(movieId, 'movie') as Observable<MovieDetail>;
   }
 
-  private searchMovieDetail(movieId: number): Observable<MovieDetail> {
-    return this.httpClient.get<MovieDetail>(
-      `${this.tmdbBaseUrl}/movie/${movieId}?language=en-US&&api_key=${this.tmdbApiKey}`
-    );
+  searchTVDetail(movieId: number) {
+    return this.searchMediaDetail(movieId, 'tv') as Observable<TVDetail>;
   }
 
-  private searchTVDetail(tvId: number) {
+  private searchMediaDetail(
+    mediaId: number,
+    mediaType: MediaType
+  ): Observable<MovieDetail | TVDetail> {
     return this.httpClient.get<MovieDetail>(
-      `${this.tmdbBaseUrl}/tv/${tvId}?language=en-US&&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}/${mediaType}/${mediaId}?language=en-US&&api_key=${this.tmdbApiKey}`
     );
   }
 }

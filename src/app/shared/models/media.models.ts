@@ -17,7 +17,7 @@ export interface Media {
   popularity: number;
   poster_path: string;
   release_date: string;
-  title: string;
+
   video: boolean;
   vote_average: number;
   vote_count: number;
@@ -62,7 +62,9 @@ export interface MediaDetail {
   vote_count: number;
 }
 
-export interface Movie extends Media {}
+export interface Movie extends Media {
+  title: string;
+}
 
 export interface MovieResult extends MediaResult {
   results: Movie[] | [];
@@ -156,5 +158,6 @@ export interface TVResult extends MediaResult {
 }
 
 export interface TV extends Media {
+  name: string;
   first_air_date: string;
 }

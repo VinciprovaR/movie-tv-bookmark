@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   SearchMovieSelectors,
   SearchMovieActions,
-} from '../store/search-media';
+} from '../store/search-movie';
 import { Store } from '@ngrx/store';
 
 @Injectable({

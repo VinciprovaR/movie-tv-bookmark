@@ -65,7 +65,7 @@ export const routes: Routes = [
     title: 'Register Success',
   },
   {
-    path: 'movie-search',
+    path: 'movie',
     loadComponent: () =>
       import('./features/movie-search/movie-search.component').then(
         (m) => m.MovieSearchComponent
@@ -73,8 +73,17 @@ export const routes: Routes = [
     canActivate: [authGuard],
     title: 'Search Movie',
   },
+  // {
+  //   path: 'tv',
+  //   loadComponent: () =>
+  //     import('./features/movie-search/movie-search.component').then(
+  //       (m) => m.MediaSearchComponent
+  //     ),
+  //   canActivate: [authGuard],
+  //   title: 'Search TV',
+  // },
   {
-    path: 'movie-detail/:mediaId',
+    path: 'movie-detail/:movieId',
     loadComponent: () =>
       import('./features/movie-detail/movie-detail.component').then(
         (m) => m.MovieDetailComponent
@@ -82,6 +91,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     title: 'Movie Detail',
   },
+
   {
     path: '',
     pathMatch: 'full',

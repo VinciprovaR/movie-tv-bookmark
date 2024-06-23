@@ -2,19 +2,24 @@ import { isDevMode } from '@angular/core';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { AuthReducers } from './auth';
-import { SearchMediaReducers } from './search-media';
+import { SearchMovieReducers } from './search-movie';
 import { AuthState } from './auth/auth.reducer';
-import { SearchMediaState } from './search-media/search-media.reducer';
+import { SearchMovieState } from './search-movie/search-movie.reducer';
+import { LifecycleEnumState } from './lifecycle-enum/lifecycle.reducer';
+import { LifecycleEnumReducers } from './lifecycle-enum';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;
-  [SearchMediaReducers.searchMediaFeatureKey]: SearchMediaState;
+  [SearchMovieReducers.searchMovieFeatureKey]: SearchMovieState;
+  [LifecycleEnumReducers.lifecycleEnumFeatureKey]: LifecycleEnumState;
 }
 
 export const reducers: ActionReducerMap<State> = {
   [AuthReducers.authFeatureKey]: AuthReducers.authReducer,
-  [SearchMediaReducers.searchMediaFeatureKey]:
-    SearchMediaReducers.searchMediaReducer,
+  [SearchMovieReducers.searchMovieFeatureKey]:
+    SearchMovieReducers.searchMovieReducer,
+  [LifecycleEnumReducers.lifecycleEnumFeatureKey]:
+    LifecycleEnumReducers.lifecycleEnumReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production

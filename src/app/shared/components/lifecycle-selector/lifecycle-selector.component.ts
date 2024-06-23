@@ -8,10 +8,8 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import {
-  SearchMediaActions,
-  SearchMediaSelectors,
-} from '../../store/search-media';
+import { LifecycleEnumSelectors } from '../../store/lifecycle-enum';
+import { SearchMovieActions } from '../../store/search-movie';
 import { MediaType } from '../../models/media.models';
 import {
   FormBuilder,
@@ -52,17 +50,9 @@ export class LifecycleSelectorComponent implements OnInit {
 
   lifeCycleControl!: FormControl;
 
-  lifeCycleEnum$: Observable<Media_Lifecycle_Enum[] | []> = this.store.select(
-    SearchMediaSelectors.selectMediaLifecycleEnum
-  );
+  lifeCycleEnum$!: Observable<Media_Lifecycle_Enum[] | []>;
 
-  options$: Observable<any> = this.lifeCycleEnum$.pipe(
-    map((lifecycleEnum) => {
-      return lifecycleEnum.map((lc) => {
-        return { label: lc.label, value: lc.id };
-      });
-    })
-  );
+  options$!: Observable<any>;
 
   options = [
     { label: 'No lifecycle', value: 0 },
@@ -72,8 +62,20 @@ export class LifecycleSelectorComponent implements OnInit {
   ];
 
   constructor(private store: Store, private fb: FormBuilder) {}
-
+  //to-do enum a parte, non movie o tv
   ngOnInit(): void {
+    this.lifeCycleEnum$ = this.store.select(
+      LifecycleEnumSelectors.selectMovieLifecycleEnum
+    );
+
+    this.options$ = this.lifeCycleEnum$.pipe(
+      map((lifecycleEnum) => {
+        return lifecycleEnum.map((lc) => {
+          return { label: lc.label, value: lc.id };
+        });
+      })
+    );
+
     this.lifeCycleControl = this.fb.control(
       this.lifecycleId ? this.lifecycleId : 0
     );
@@ -86,15 +88,17 @@ export class LifecycleSelectorComponent implements OnInit {
   }
 
   setLifeCycle(lifecycleId: number) {
-    this.store.dispatch(
-      SearchMediaActions.createUpdateDeleteMediaLifecycle({
-        mediaLifecycleDTO: {
-          mediaId: this.mediaId,
-          lifecycleId: lifecycleId,
-          index: this.index,
-        },
-        mediaType: this.mediaType,
-      })
-    );
+    if (this.mediaType === 'movie') {
+      this.store.dispatch(
+        SearchMovieActions.createUpdateDeleteMovieLifecycle({
+          mediaLifecycleDTO: {
+            mediaId: this.mediaId,
+            lifecycleId: lifecycleId,
+            index: this.index,
+          },
+        })
+      );
+    } else if (this.mediaType === 'tv') {
+    }
   }
 }

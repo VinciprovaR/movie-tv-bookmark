@@ -8,7 +8,7 @@
           nz-input
           maxlength="20"
           [formControl]="searchControl"
-          placeholder="Search"
+          [placeholder]="placeholder"
         />
         <ng-template #searchErrorTpl let-control>
           <!-- @if (control.errors?.['email']) { The input is not valid E-mail! } -->

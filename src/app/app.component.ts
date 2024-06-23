@@ -5,7 +5,6 @@ import { HeaderComponent } from './shared/layout/header/header.component';
 import { AuthSelectors } from './shared/store/auth';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
-import { SupabaseMovieLifecycleService } from './shared/services/supabase.movie_life_cycle.service';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +20,7 @@ export class AppComponent implements OnInit {
     .select(AuthSelectors.selectUser)
     .pipe(map((user) => !!user));
 
-  constructor(
-    private store: Store,
-    private router: Router,
-    private lifeCycle: SupabaseMovieLifecycleService
-  ) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     // this.router.events.subscribe((event) => {

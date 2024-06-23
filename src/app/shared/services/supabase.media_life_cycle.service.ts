@@ -12,10 +12,27 @@ import { TV_Life_Cycle } from '../models/supabase/entities/tv_life_cycle.entity'
 @Injectable({
   providedIn: 'root',
 })
-export class SupabaseMovieLifecycleService {
+export class SupabaseMediaLifecycleService {
   constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
 
-  initMediaLifecycle(
+  injectMovieLifecycle(movieResult: MovieResult): Observable<MovieResult> {
+    return this.injectMediaLifecycle(
+      movieResult,
+      'movie'
+    ) as Observable<MovieResult>;
+  }
+
+  injectTVLifecycle(
+    mediaResult: MovieResult | TVResult,
+    mediaType: MediaType
+  ): Observable<TVResult> {
+    return this.injectMediaLifecycle(
+      mediaResult,
+      mediaType
+    ) as Observable<TVResult>;
+  }
+
+  injectMediaLifecycle(
     mediaResult: MovieResult | TVResult,
     mediaType: MediaType
   ): Observable<MovieResult | TVResult> {
@@ -38,6 +55,17 @@ export class SupabaseMovieLifecycleService {
         return mediaResult;
       })
     );
+  }
+
+  createOrUpdateOrDeleteMovieLifecycle(
+    mediaLifecycleDTO: MediaLifecycleDTO,
+    user: User | null
+  ) {
+    return this.createOrUpdateOrDeleteMediaLifecycle(
+      mediaLifecycleDTO,
+      'movie',
+      user
+    ) as Observable<Movie_Life_Cycle>;
   }
 
   createOrUpdateOrDeleteMediaLifecycle(

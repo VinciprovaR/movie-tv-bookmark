@@ -20,16 +20,27 @@ export class MediaItemComponent implements OnInit {
   @Input({ required: true })
   index: number = 0;
 
+  mediaTitleOrName!: string;
+
   moviePath: string = '/movie-detail';
   tvPath: string = '/tv-detail';
   detailMediaPath: string = '';
 
   constructor(private router: Router) {}
   ngOnInit(): void {
-    console.log('item media', this.media);
+    if (this.isMovieEntity(this.media)) {
+      this.mediaTitleOrName = this.media.title;
+    } else {
+      this.mediaTitleOrName = this.media.name;
+    }
+
     this.detailMediaPath = this.detailMediaPath.concat(
       `/${this.mediaType}-detail/${this.media.id}`
     );
+  }
+
+  isMovieEntity(movie: object): movie is Movie {
+    return (movie as Movie).title !== undefined;
   }
 
   goToDetail() {
