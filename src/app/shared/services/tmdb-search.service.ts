@@ -20,12 +20,20 @@ export class TmdbSearchService {
     return this.mediaSearch(1, query, 'movie') as Observable<MovieResult>;
   }
 
-  additionalMovieSearch(page: number, query: string) {
+  tvSearchInit(query: string) {
+    return this.mediaSearch(1, query, 'tv') as Observable<TVResult>;
+  }
+
+  additionalMovieSearch(page: number, query: string): Observable<MovieResult> {
     return this.mediaSearch(
       page + 1,
       query,
       'movie'
     ) as Observable<MovieResult>;
+  }
+
+  additionalTVSearch(page: number, query: string): Observable<TVResult> {
+    return this.mediaSearch(page + 1, query, 'tv') as Observable<TVResult>;
   }
 
   private mediaSearch(

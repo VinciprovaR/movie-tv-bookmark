@@ -22,14 +22,8 @@ export class SupabaseMediaLifecycleService {
     ) as Observable<MovieResult>;
   }
 
-  injectTVLifecycle(
-    mediaResult: MovieResult | TVResult,
-    mediaType: MediaType
-  ): Observable<TVResult> {
-    return this.injectMediaLifecycle(
-      mediaResult,
-      mediaType
-    ) as Observable<TVResult>;
+  injectTVLifecycle(mediaResult: TVResult): Observable<TVResult> {
+    return this.injectMediaLifecycle(mediaResult, 'tv') as Observable<TVResult>;
   }
 
   injectMediaLifecycle(
@@ -68,7 +62,18 @@ export class SupabaseMediaLifecycleService {
     ) as Observable<Movie_Life_Cycle>;
   }
 
-  createOrUpdateOrDeleteMediaLifecycle(
+  createOrUpdateOrDeleteTVLifecycle(
+    mediaLifecycleDTO: MediaLifecycleDTO,
+    user: User | null
+  ) {
+    return this.createOrUpdateOrDeleteMediaLifecycle(
+      mediaLifecycleDTO,
+      'tv',
+      user
+    ) as Observable<TV_Life_Cycle>;
+  }
+
+  private createOrUpdateOrDeleteMediaLifecycle(
     mediaLifecycleDTO: MediaLifecycleDTO,
     mediaType: MediaType,
     user: User | null
@@ -148,7 +153,7 @@ export class SupabaseMediaLifecycleService {
     );
   }
 
-  findLifecycleListByMediaIds(
+  private findLifecycleListByMediaIds(
     mediaIdList: number[],
     mediaType: MediaType
   ): Observable<any> {
@@ -166,7 +171,7 @@ export class SupabaseMediaLifecycleService {
     );
   }
 
-  createMediaLifeCycle(
+  private createMediaLifeCycle(
     lifecycleId: number,
     mediaId: number,
     mediaType: MediaType,
@@ -202,7 +207,7 @@ export class SupabaseMediaLifecycleService {
     );
   }
 
-  updateMediaLifeCycle(
+  private updateMediaLifeCycle(
     lifecycleId: number,
     mediaType: MediaType,
     mediaId: number
@@ -224,7 +229,10 @@ export class SupabaseMediaLifecycleService {
     );
   }
 
-  deleteMediaLifeCycle(mediaId: number, mediaType: MediaType): Observable<any> {
+  private deleteMediaLifeCycle(
+    mediaId: number,
+    mediaType: MediaType
+  ): Observable<any> {
     return from(
       this.supabase
         .from(`${mediaType}_life_cycle`)
@@ -245,6 +253,7 @@ export class SupabaseMediaLifecycleService {
       this.supabase
         .from('media_life_cycle_enum')
         .select('{id, enum, description, label}')
+        .order('order', { ascending: true })
     ).pipe(
       tap((result: any) => {
         if (result.error) {

@@ -73,15 +73,15 @@ export const routes: Routes = [
     canActivate: [authGuard],
     title: 'Search Movie',
   },
-  // {
-  //   path: 'tv',
-  //   loadComponent: () =>
-  //     import('./features/movie-search/movie-search.component').then(
-  //       (m) => m.MediaSearchComponent
-  //     ),
-  //   canActivate: [authGuard],
-  //   title: 'Search TV',
-  // },
+  {
+    path: 'tv',
+    loadComponent: () =>
+      import('./features/tv-search/tv-search.component').then(
+        (m) => m.TVSearchComponent
+      ),
+    canActivate: [authGuard],
+    title: 'Search TV',
+  },
   {
     path: 'movie-detail/:movieId',
     loadComponent: () =>
@@ -91,7 +91,15 @@ export const routes: Routes = [
     canActivate: [authGuard],
     title: 'Movie Detail',
   },
-
+  {
+    path: 'tv-detail/:tvId',
+    loadComponent: () =>
+      import('./features/tv-detail/tv-detail.component').then(
+        (m) => m.TVDetailComponent
+      ),
+    canActivate: [authGuard],
+    title: 'TV Detail',
+  },
   {
     path: '',
     pathMatch: 'full',

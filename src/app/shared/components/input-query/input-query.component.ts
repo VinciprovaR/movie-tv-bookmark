@@ -23,6 +23,7 @@ import {
 } from 'rxjs';
 
 import { MediaType } from '../../models';
+import { SearchTVSelectors } from '../../store/search-tv';
 
 @Component({
   selector: 'app-input-query',
@@ -58,7 +59,7 @@ export class InputQueryComponent implements OnInit {
     if (this.mediaType === 'movie') {
       this.query$ = this.store.select(SearchMovieSelectors.selectQuery);
     } else if (this.mediaType === 'tv') {
-      //this.query$ = this.store.select(SearchTVSelectors.selectQuery);
+      this.query$ = this.store.select(SearchTVSelectors.selectQuery);
     }
 
     this.placeholder =

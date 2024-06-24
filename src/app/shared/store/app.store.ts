@@ -7,10 +7,13 @@ import { AuthState } from './auth/auth.reducer';
 import { SearchMovieState } from './search-movie/search-movie.reducer';
 import { LifecycleEnumState } from './lifecycle-enum/lifecycle.reducer';
 import { LifecycleEnumReducers } from './lifecycle-enum';
+import { SearchTVReducers } from './search-tv';
+import { SearchTVState } from './search-tv/search-tv.reducer';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;
   [SearchMovieReducers.searchMovieFeatureKey]: SearchMovieState;
+  [SearchTVReducers.searchTVFeatureKey]: SearchTVState;
   [LifecycleEnumReducers.lifecycleEnumFeatureKey]: LifecycleEnumState;
 }
 
@@ -18,6 +21,7 @@ export const reducers: ActionReducerMap<State> = {
   [AuthReducers.authFeatureKey]: AuthReducers.authReducer,
   [SearchMovieReducers.searchMovieFeatureKey]:
     SearchMovieReducers.searchMovieReducer,
+  [SearchTVReducers.searchTVFeatureKey]: SearchTVReducers.searchTVReducer,
   [LifecycleEnumReducers.lifecycleEnumFeatureKey]:
     LifecycleEnumReducers.lifecycleEnumReducer,
 };

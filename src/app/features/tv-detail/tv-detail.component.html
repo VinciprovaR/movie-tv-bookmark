@@ -1,0 +1,16 @@
+<p>tv-detail works!</p>
+
+@if(tvDetail$ | async; as tvDetail){
+<div style="margin: 10px">
+  <div style="display: flex">
+    <div>
+      <img [src]="resizedImgUrl + tvDetail.poster_path" width="100%" />
+    </div>
+    <div>
+      <h1>{{ tvDetail.name }}</h1>
+      <h3>{{ tvDetail.tagline }}</h3>
+      <p>{{ tvDetail.overview }}</p>
+    </div>
+  </div>
+</div>
+}

@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
 import { Observable, distinctUntilChanged, map } from 'rxjs';
 import { LIFECYCLE_ENUM } from '../../../providers';
 import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
+import { SearchTVActions } from '../../store/search-tv';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -62,7 +63,7 @@ export class LifecycleSelectorComponent implements OnInit {
   ];
 
   constructor(private store: Store, private fb: FormBuilder) {}
-  //to-do enum a parte, non movie o tv
+  //to-do refractor? no selector, hardcoded, più leggero
   ngOnInit(): void {
     this.lifeCycleEnum$ = this.store.select(
       LifecycleEnumSelectors.selectMovieLifecycleEnum
@@ -88,17 +89,23 @@ export class LifecycleSelectorComponent implements OnInit {
   }
 
   setLifeCycle(lifecycleId: number) {
+    let mediaLifecycleDTO = {
+      mediaId: this.mediaId,
+      lifecycleId: lifecycleId,
+      index: this.index,
+    };
     if (this.mediaType === 'movie') {
       this.store.dispatch(
         SearchMovieActions.createUpdateDeleteMovieLifecycle({
-          mediaLifecycleDTO: {
-            mediaId: this.mediaId,
-            lifecycleId: lifecycleId,
-            index: this.index,
-          },
+          mediaLifecycleDTO,
         })
       );
     } else if (this.mediaType === 'tv') {
+      this.store.dispatch(
+        SearchTVActions.createUpdateDeleteTVLifecycle({
+          mediaLifecycleDTO,
+        })
+      );
     }
   }
 }

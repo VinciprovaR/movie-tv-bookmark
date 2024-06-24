@@ -1,0 +1,13 @@
+<app-input-query
+  [mediaType]="mediaType"
+  (queryEmitter)="searchTV($event)"
+></app-input-query>
+
+<app-media-list-container
+  appScrollNearEnd
+  [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
+  [isLoading]="(selectIsLoading$ | async) ?? false"
+  [mediaList]="tv$ | async"
+  (nearEnd)="searchAdditionalTV()"
+  [mediaType]="mediaType"
+></app-media-list-container>
