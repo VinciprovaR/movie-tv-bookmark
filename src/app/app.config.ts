@@ -57,6 +57,6 @@ export const appConfig: ApplicationConfig = {
       useClass: TitleStrategyService,
     },
     provideNzI18n(en_US),
-    provideAnimationsAsync(),
+    provideAnimationsAsync(), provideAnimationsAsync(),
   ],
 };

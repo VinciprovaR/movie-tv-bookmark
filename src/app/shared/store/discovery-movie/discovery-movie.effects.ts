@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { SearchMovieActions, SearchMovieSelectors } from '.';
+import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '.';
 import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { TmdbSearchService } from '../../services/tmdb-search.service';
+import { TmdbDiscoveryService } from '../../services/tmdb-discovery.service';
 import { ErrorResponse } from '../../models/auth.models';
 import { Movie, MovieDetail, MovieResult } from '../../models';
 import { Store } from '@ngrx/store';
@@ -13,14 +13,14 @@ import { Movie_Life_Cycle } from '../../models/supabase/entities/movie_life_cycl
 import { MediaLifecycleDTO } from '../../models/supabase/DTO/media-lifecycle.DTO';
 
 @Injectable()
-export class SearchMovieEffects {
-  searchMovie$ = createEffect(() => {
+export class DiscoveryMovieEffects {
+  discoveryMovie$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchMovie),
+      ofType(DiscoveryMovieActions.discoveryMovie),
       switchMap((actionParams) => {
-        let { query } = actionParams;
-        return this.tmdbSearchService
-          .movieSearchInit(query)
+        let { payload } = actionParams;
+        return this.tmdbDiscoveryService
+          .movieDiscoveryInit(payload)
           .pipe(
             switchMap((movieResult) => {
               return this.supabaseMediaLifecycleService.injectMovieLifecycle(
@@ -30,14 +30,16 @@ export class SearchMovieEffects {
           )
           .pipe(
             map((movieResult: MovieResult) => {
-              return SearchMovieActions.searchMovieSuccess({
+              return DiscoveryMovieActions.discoveryMovieSuccess({
                 movieResult: movieResult,
               });
             }),
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+                DiscoveryMovieActions.discoveryMovieFailure({
+                  httpErrorResponse,
+                })
               );
             })
           );
@@ -45,33 +47,35 @@ export class SearchMovieEffects {
     );
   });
 
-  searchAdditionalMovie$ = createEffect(() => {
+  discoveryAdditionalMovie$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchAdditionalMovie),
+      ofType(DiscoveryMovieActions.discoveryAdditionalMovie),
       withLatestFrom(
-        this.store.select(SearchMovieSelectors.selectMoviePage),
-        this.store.select(SearchMovieSelectors.selectMovieTotalPages),
-        this.store.select(SearchMovieSelectors.selectQuery)
+        this.store.select(DiscoveryMovieSelectors.selectMoviePage),
+        this.store.select(DiscoveryMovieSelectors.selectMovieTotalPages),
+        this.store.select(DiscoveryMovieSelectors.selectQuery)
       ),
       switchMap((actionParams) => {
-        let [action, currPage, totalPages, query] = actionParams;
+        let [action, currPage, totalPages, payload] = actionParams;
         if (currPage < totalPages) {
-          return this.tmdbSearchService
-            .additionalMovieSearch(currPage, query)
+          return this.tmdbDiscoveryService
+            .additionalMovieDiscovery(currPage, payload)
             .pipe(
               switchMap((movieResult) => {
                 return this.supabaseMediaLifecycleService
                   .injectMovieLifecycle(movieResult)
                   .pipe(
                     map((movieResult: MovieResult) => {
-                      return SearchMovieActions.searchAdditionalMovieSuccess({
-                        movieResult: movieResult,
-                      });
+                      return DiscoveryMovieActions.discoveryAdditionalMovieSuccess(
+                        {
+                          movieResult: movieResult,
+                        }
+                      );
                     }),
                     catchError((httpErrorResponse: ErrorResponse) => {
                       console.error(httpErrorResponse);
                       return of(
-                        SearchMovieActions.searchMovieFailure({
+                        DiscoveryMovieActions.discoveryMovieFailure({
                           httpErrorResponse,
                         })
                       );
@@ -80,27 +84,27 @@ export class SearchMovieEffects {
               })
             );
         } else {
-          return of(SearchMovieActions.noAdditionalMovie());
+          return of(DiscoveryMovieActions.noAdditionalMovie());
         }
       })
     );
   });
 
-  searchMovieDetail$ = createEffect(() => {
+  discoveryMovieDetail$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchMovieDetail),
+      ofType(DiscoveryMovieActions.discoveryMovieDetail),
       switchMap((actionParams) => {
         let { movieId } = actionParams;
-        return this.tmdbSearchService.searchMovieDetail(movieId).pipe(
+        return this.tmdbDiscoveryService.searchMovieDetail(movieId).pipe(
           map((movieDetail: MovieDetail) => {
-            return SearchMovieActions.searchMovieDetailSuccess({
+            return DiscoveryMovieActions.discoveryMovieDetailSuccess({
               movieDetail: movieDetail,
             });
           }),
           catchError((httpErrorResponse: ErrorResponse) => {
             console.error(httpErrorResponse);
             return of(
-              SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+              DiscoveryMovieActions.discoveryMovieFailure({ httpErrorResponse })
             );
           })
         );
@@ -110,7 +114,7 @@ export class SearchMovieEffects {
 
   createUpdateDeleteMovieLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.createUpdateDeleteMovieLifecycle),
+      ofType(DiscoveryMovieActions.createUpdateDeleteMovieLifecycle),
       withLatestFrom(this.store.select(AuthSelectors.selectUser)),
       switchMap((actionParams) => {
         let [{ mediaLifecycleDTO }, user]: [
@@ -121,7 +125,7 @@ export class SearchMovieEffects {
           .createOrUpdateOrDeleteMovieLifecycle(mediaLifecycleDTO, user)
           .pipe(
             withLatestFrom(
-              this.store.select(SearchMovieSelectors.selectMovieResult)
+              this.store.select(DiscoveryMovieSelectors.selectMovieResult)
             ),
             map((actionParams) => {
               let [entityMovieLifeCycle, movieResultState]: [
@@ -134,7 +138,7 @@ export class SearchMovieEffects {
                   movieResultState,
                   mediaLifecycleDTO
                 );
-              return SearchMovieActions.createUpdateDeleteMovieLifecycleSuccess(
+              return DiscoveryMovieActions.createUpdateDeleteMovieLifecycleSuccess(
                 {
                   movieResult,
                 }
@@ -143,7 +147,9 @@ export class SearchMovieEffects {
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+                DiscoveryMovieActions.discoveryMovieFailure({
+                  httpErrorResponse,
+                })
               );
             })
           );
@@ -153,7 +159,7 @@ export class SearchMovieEffects {
 
   constructor(
     private actions$: Actions,
-    private tmdbSearchService: TmdbSearchService,
+    private tmdbDiscoveryService: TmdbDiscoveryService,
     private store: Store,
     private supabaseMediaLifecycleService: SupabaseMediaLifecycleService
   ) {}

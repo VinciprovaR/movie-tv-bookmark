@@ -8,3 +8,23 @@ a {
   border: 2px;
   border-style: solid;
 }
+
+img {
+  cursor: pointer;
+}
+
+.words {
+  font-size: 1em;
+  margin: 0;
+  width: 100%;
+  word-wrap: normal;
+  overflow-wrap: break-word;
+}
+
+.example-card {
+  width: 240px;
+}
+
+h2 {
+  overflow-wrap: break-word;
+}

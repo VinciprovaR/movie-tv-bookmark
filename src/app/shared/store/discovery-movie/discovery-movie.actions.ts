@@ -5,34 +5,34 @@ import { Movie_Life_Cycle } from '../../models/supabase/entities/movie_life_cycl
 import { MediaLifecycleDTO } from '../../models/supabase/DTO/media-lifecycle.DTO';
 
 //movie
-export const searchMovie = createAction(
-  '[Search-movie/API] Search Movie',
-  props<{ query: string }>()
+export const discoveryMovie = createAction(
+  '[Discovery-movie/API] Discovery Movie',
+  props<{ payload: any }>()
 );
-export const searchMovieSuccess = createAction(
-  '[Search-movie/API] Search Movie Success',
+export const discoveryMovieSuccess = createAction(
+  '[Discovery-movie/API] Discovery Movie Success',
   props<{ movieResult: MovieResult }>()
 );
-export const searchAdditionalMovie = createAction(
-  '[Search-movie/API] Search Additional Movie'
+export const discoveryAdditionalMovie = createAction(
+  '[Discovery-movie/API] Discovery Additional Movie'
 );
-export const searchAdditionalMovieSuccess = createAction(
-  '[Search-movie/API] Search Movie Additional Success',
+export const discoveryAdditionalMovieSuccess = createAction(
+  '[Discovery-movie/API] Discovery Movie Additional Success',
   props<{ movieResult: MovieResult | null }>()
 );
 export const noAdditionalMovie = createAction(
-  '[Search-movie/API] No Additional Movie'
+  '[Discovery-movie/API] No Additional Movie'
 );
-export const searchMovieDetail = createAction(
-  '[Search-movie/API] Search Movie Detail',
+export const discoveryMovieDetail = createAction(
+  '[Discovery-movie/API] Discovery Movie Detail',
   props<{ movieId: number }>()
 );
 export const cleanMovieDetail = createAction(
-  '[Search-movie/API] Clean Movie Detail'
+  '[Discovery-movie/API] Clean Movie Detail'
 );
 
-export const searchMovieDetailSuccess = createAction(
-  '[Search-movie/API] Search Movie Detail Success',
+export const discoveryMovieDetailSuccess = createAction(
+  '[Discovery-movie/API] Discovery Movie Detail Success',
   props<{ movieDetail: MovieDetail }>()
 );
 export const createUpdateDeleteMovieLifecycle = createAction(
@@ -51,11 +51,11 @@ export const deleteMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Delete Movie Lifecycle Success'
 );
 
-export const searchMovieFailure = createAction(
-  '[Search-Movie/API] Search Movie Failure',
+export const discoveryMovieFailure = createAction(
+  '[Discovery-Movie/API] Discovery Movie Failure',
   props<{ httpErrorResponse: any }>()
 );
 
 export const cleanError = createAction(
-  '[Search-movie/Error Handling] Clean Error'
+  '[Discovery-movie/Error Handling] Clean Error'
 );

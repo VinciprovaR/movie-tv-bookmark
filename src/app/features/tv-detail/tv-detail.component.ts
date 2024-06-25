@@ -39,4 +39,8 @@ export class TVDetailComponent {
       })
     );
   }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(SearchTVActions.cleanTVDetail());
+  }
 }

@@ -1,8 +1,24 @@
-@if(mediaList){ @for(media of mediaList; track media.id){
-<app-media-item
-  [media]="media"
-  [mediaType]="mediaType"
-  [index]="$index"
-></app-media-item>
+<!-- <div class="btn-wrapper" nz-flex [nzGap]="'middle'" [nzWrap]="'wrap'">
+  @if(mediaList){ @for(media of mediaList; track media.id){
 
-} }
+  <app-media-item
+    [media]="media"
+    [mediaType]="mediaType"
+    [index]="$index"
+  ></app-media-item>
+
+  } }
+</div> -->
+
+<div class="flex flex-wrap bg-white p-6 justify-between">
+  @if(mediaList){ @for(media of mediaList; track media.id){
+
+  <app-media-item
+    class="mt-5"
+    [media]="media"
+    [mediaType]="mediaType"
+    [index]="$index"
+  ></app-media-item>
+
+  } }
+</div>

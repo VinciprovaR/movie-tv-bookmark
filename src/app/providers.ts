@@ -18,6 +18,12 @@ export const TMDB_ORIGINAL_IMG_URL = new InjectionToken<string>(
 export const TMDB_RESIZED_IMG_URL = new InjectionToken<string>(
   'TMDB_RESIZED_IMG_URL'
 );
+export const TMDB_CARD_1X_IMG_URL = new InjectionToken<string>(
+  'TMDB_CARD_1X_IMG_URL'
+);
+export const TMDB_CARD_2X_IMG_URL = new InjectionToken<string>(
+  'TMDB_CARD_2X_IMG_URL'
+);
 
 export const LIFECYCLE_ENUM = new InjectionToken<Media_Lifecycle_Enum>(
   'LIFECYCLE_ENUM'
@@ -41,11 +47,19 @@ export function provideImgUrl() {
   return [
     {
       provide: TMDB_ORIGINAL_IMG_URL,
-      useValue: 'https://media.themoviedb.org/t/p/original',
+      useValue: 'https://image.tmdb.org/t/p/original',
     },
     {
       provide: TMDB_RESIZED_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2',
+    },
+    {
+      provide: TMDB_CARD_1X_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w220_and_h330_face',
+    },
+    {
+      provide: TMDB_CARD_2X_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w440_and_h660_face',
     },
   ];
 }

@@ -116,10 +116,20 @@ export class SearchTVEffects {
         return this.supabaseMediaLifecycleService
           .createOrUpdateOrDeleteTVLifecycle(mediaLifecycleDTO, user)
           .pipe(
-            map((entityTVLifeCycle: TV_Life_Cycle) => {
+            withLatestFrom(this.store.select(SearchTVSelectors.selectTVResult)),
+            map((actionParams) => {
+              let [entityTVLifeCycle, tvResultState]: [
+                TV_Life_Cycle,
+                TVResult
+              ] = actionParams;
+              let tvResult =
+                this.supabaseMediaLifecycleService.injectUpdatedTVLifecycle(
+                  entityTVLifeCycle,
+                  tvResultState,
+                  mediaLifecycleDTO
+                );
               return SearchTVActions.createUpdateDeleteTVLifecycleSuccess({
-                entityTVLifeCycle,
-                index: mediaLifecycleDTO.index,
+                tvResult,
               });
             }),
             catchError((httpErrorResponse: ErrorResponse) => {

@@ -27,16 +27,14 @@ export const searchTVDetailSuccess = createAction(
   '[Search-tv/API] Search TV Detail Success',
   props<{ tvDetail: TVDetail }>()
 );
+export const cleanTVDetail = createAction('[Search-tv/API] Clean TV Detail');
 export const createUpdateDeleteTVLifecycle = createAction(
   '[TV-Lifecycle/API] Create or Update or Delete TV Lifecycle',
   props<{ mediaLifecycleDTO: MediaLifecycleDTO }>()
 );
 export const createUpdateDeleteTVLifecycleSuccess = createAction(
   '[TV-Lifecycle/API] Create or Update or Delete TV Lifecycle Success',
-  props<{
-    entityTVLifeCycle: TV_Life_Cycle;
-    index: number;
-  }>()
+  props<{ tvResult: TVResult }>()
 );
 export const deleteTVLifecycle = createAction(
   '[TV-Lifecycle/API] Delete TV Lifecycle',

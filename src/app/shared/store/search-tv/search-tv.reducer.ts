@@ -88,6 +88,14 @@ export const searchTVReducer = createReducer(
       tvDetail,
     };
   }),
+  on(SearchTVActions.cleanTVDetail, (state) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      tvDetail: null,
+    };
+  }),
   on(SearchTVActions.createUpdateDeleteTVLifecycle, (state) => {
     return {
       ...state,
@@ -97,24 +105,12 @@ export const searchTVReducer = createReducer(
   }),
   on(
     SearchTVActions.createUpdateDeleteTVLifecycleSuccess,
-    (state, { entityTVLifeCycle, index }) => {
-      let tvResultCl = JSON.parse(JSON.stringify({ ...state.tvResult }));
-      if (entityTVLifeCycle) {
-        if (tvResultCl.results[index].id === entityTVLifeCycle.tv_id) {
-          tvResultCl.results[index].lifecycleId = entityTVLifeCycle.lifecycle_id
-            ? entityTVLifeCycle.lifecycle_id
-            : 0;
-        } else {
-          /*to-do problem, index not in synch with the actual object,
-        do a binary search to find the tv id in all the objs of the state. If not found again, throw error
-        */
-        }
-      }
+    (state, { tvResult }) => {
       return {
         ...state,
         error: null,
         isLoading: false,
-        tvResult: tvResultCl,
+        tvResult,
       };
     }
   ),

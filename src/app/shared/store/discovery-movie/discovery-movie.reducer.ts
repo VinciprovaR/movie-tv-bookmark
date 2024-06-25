@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import * as SearchMovieActions from './search-movie.actions';
+import * as DiscoveryMovieActions from './discovery-movie.actions';
 import {
   ErrorResponse,
   TVResult,
@@ -10,19 +10,19 @@ import {
 import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
 import { Movie_Life_Cycle } from '../../models/supabase/entities/movie_life_cycle.entity';
 
-export interface SearchMovieState {
+export interface DiscoveryMovieState {
   isLoading: boolean;
-  query: string;
+  payload: any;
   error: ErrorResponse | null;
   movieResult: MovieResult;
   movieDetail: MovieDetail | null;
 }
 
-export const searchMovieFeatureKey = 'search-movie';
+export const discoveryMovieFeatureKey = 'discovery-movie';
 
-export const initialState: SearchMovieState = {
+export const initialState: DiscoveryMovieState = {
   isLoading: false,
-  query: '',
+  payload: {},
   error: null,
   movieResult: {
     page: 1,
@@ -33,17 +33,17 @@ export const initialState: SearchMovieState = {
   movieDetail: null,
 };
 
-export const searchMovieReducer = createReducer(
+export const discoveryMovieReducer = createReducer(
   initialState,
-  on(SearchMovieActions.searchMovie, (state, { query }) => {
+  on(DiscoveryMovieActions.discoveryMovie, (state, { payload }) => {
     return {
       ...state,
-      query,
+      payload,
       error: null,
       isLoading: true,
     };
   }),
-  on(SearchMovieActions.searchMovieSuccess, (state, { movieResult }) => {
+  on(DiscoveryMovieActions.discoveryMovieSuccess, (state, { movieResult }) => {
     return {
       ...state,
       error: null,
@@ -51,7 +51,7 @@ export const searchMovieReducer = createReducer(
       movieResult,
     };
   }),
-  on(SearchMovieActions.searchAdditionalMovie, (state) => {
+  on(DiscoveryMovieActions.discoveryAdditionalMovie, (state) => {
     return {
       ...state,
       error: null,
@@ -59,7 +59,7 @@ export const searchMovieReducer = createReducer(
     };
   }),
   on(
-    SearchMovieActions.searchAdditionalMovieSuccess,
+    DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
     (state, { movieResult }) => {
       let currMovies = state.movieResult?.results
         ? state.movieResult.results
@@ -80,14 +80,14 @@ export const searchMovieReducer = createReducer(
       };
     }
   ),
-  on(SearchMovieActions.noAdditionalMovie, (state) => {
+  on(DiscoveryMovieActions.noAdditionalMovie, (state) => {
     return {
       ...state,
       error: null,
       isLoading: false,
     };
   }),
-  on(SearchMovieActions.searchMovieDetail, (state) => {
+  on(DiscoveryMovieActions.discoveryMovieDetail, (state) => {
     return {
       ...state,
       movieDetail: null,
@@ -95,15 +95,18 @@ export const searchMovieReducer = createReducer(
       isLoading: true,
     };
   }),
-  on(SearchMovieActions.searchMovieDetailSuccess, (state, { movieDetail }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      movieDetail,
-    };
-  }),
-  on(SearchMovieActions.cleanMovieDetail, (state) => {
+  on(
+    DiscoveryMovieActions.discoveryMovieDetailSuccess,
+    (state, { movieDetail }) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        movieDetail,
+      };
+    }
+  ),
+  on(DiscoveryMovieActions.cleanMovieDetail, (state) => {
     return {
       ...state,
       error: null,
@@ -111,7 +114,7 @@ export const searchMovieReducer = createReducer(
       movieDetail: null,
     };
   }),
-  on(SearchMovieActions.createUpdateDeleteMovieLifecycle, (state) => {
+  on(DiscoveryMovieActions.createUpdateDeleteMovieLifecycle, (state) => {
     return {
       ...state,
       error: null,
@@ -119,7 +122,7 @@ export const searchMovieReducer = createReducer(
     };
   }),
   on(
-    SearchMovieActions.createUpdateDeleteMovieLifecycleSuccess,
+    DiscoveryMovieActions.createUpdateDeleteMovieLifecycleSuccess,
     (state, { movieResult }) => {
       return {
         ...state,
@@ -129,13 +132,16 @@ export const searchMovieReducer = createReducer(
       };
     }
   ),
-  on(SearchMovieActions.searchMovieFailure, (state, { httpErrorResponse }) => {
-    return {
-      ...state,
-      error: httpErrorResponse,
-    };
-  }),
-  on(SearchMovieActions.cleanError, (state) => {
+  on(
+    DiscoveryMovieActions.discoveryMovieFailure,
+    (state, { httpErrorResponse }) => {
+      return {
+        ...state,
+        error: httpErrorResponse,
+      };
+    }
+  ),
+  on(DiscoveryMovieActions.cleanError, (state) => {
     return {
       ...state,
       error: null,
@@ -143,15 +149,16 @@ export const searchMovieReducer = createReducer(
   })
 );
 
-export const getSearchMovieState = (state: SearchMovieState) => state;
-export const getIsLoading = (state: SearchMovieState) => state.isLoading;
-export const getQuery = (state: SearchMovieState) => state.query;
-export const getSearchMovieError = (state: SearchMovieState) => state.error;
+export const getDiscoveryMovieState = (state: DiscoveryMovieState) => state;
+export const getIsLoading = (state: DiscoveryMovieState) => state.isLoading;
+export const getPayload = (state: DiscoveryMovieState) => state.payload;
+export const getDiscoveryMovieError = (state: DiscoveryMovieState) =>
+  state.error;
 
 //movie
-export const getMovieResult = (state: SearchMovieState) => state.movieResult;
-export const getMovieDetail = (state: SearchMovieState) => state.movieDetail;
-export const getMovieResultPage = (state: SearchMovieState) =>
+export const getMovieResult = (state: DiscoveryMovieState) => state.movieResult;
+export const getMovieDetail = (state: DiscoveryMovieState) => state.movieDetail;
+export const getMovieResultPage = (state: DiscoveryMovieState) =>
   state.movieResult?.page ? state.movieResult.page : 0;
-export const getMovieResultTotalPages = (state: SearchMovieState) =>
+export const getMovieResultTotalPages = (state: DiscoveryMovieState) =>
   state.movieResult?.total_pages ? state.movieResult.total_pages : 0;

@@ -1,0 +1,8 @@
+<app-media-list-container
+  appScrollNearEnd
+  [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
+  [isLoading]="(selectIsLoading$ | async) ?? false"
+  [mediaList]="movie$ | async"
+  (nearEnd)="discoveryAdditionalMovie()"
+  [mediaType]="mediaType"
+></app-media-list-container>

@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   SearchMovieActions,
@@ -16,7 +16,7 @@ import { TMDB_RESIZED_IMG_URL } from '../../providers';
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
-export class MovieDetailComponent {
+export class MovieDetailComponent implements OnDestroy {
   @Input()
   movieId: number = 0;
   resizedImgUrl: string = '';
@@ -38,5 +38,9 @@ export class MovieDetailComponent {
         movieId: this.movieId,
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(SearchMovieActions.cleanMovieDetail());
   }
 }

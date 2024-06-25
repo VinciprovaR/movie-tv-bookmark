@@ -83,6 +83,15 @@ export const routes: Routes = [
     title: 'Search TV',
   },
   {
+    path: 'discovery-movie',
+    loadComponent: () =>
+      import('./features/movie-discovery/movie-discovery.component').then(
+        (m) => m.MovieDiscoveryComponent
+      ),
+    canActivate: [authGuard],
+    title: 'Discovery Movie',
+  },
+  {
     path: 'movie-detail/:movieId',
     loadComponent: () =>
       import('./features/movie-detail/movie-detail.component').then(

@@ -26,7 +26,7 @@ export class SupabaseMediaLifecycleService {
     return this.injectMediaLifecycle(mediaResult, 'tv') as Observable<TVResult>;
   }
 
-  injectMediaLifecycle(
+  private injectMediaLifecycle(
     mediaResult: MovieResult | TVResult,
     mediaType: MediaType
   ): Observable<MovieResult | TVResult> {
@@ -50,6 +50,58 @@ export class SupabaseMediaLifecycleService {
       })
     );
   }
+  injectUpdatedMovieLifecycle(
+    entityMediaLifeCycle: Movie_Life_Cycle,
+    movieResultState: MovieResult,
+    mediaLifecycleDTO: MediaLifecycleDTO
+  ) {
+    return this.injectUpdatedMediaLifecycle(
+      entityMediaLifeCycle,
+      movieResultState,
+      mediaLifecycleDTO,
+      entityMediaLifeCycle.movie_id
+    ) as MovieResult;
+  }
+
+  injectUpdatedTVLifecycle(
+    entityMediaLifeCycle: TV_Life_Cycle,
+    movieResultState: TVResult,
+    mediaLifecycleDTO: MediaLifecycleDTO
+  ) {
+    return this.injectUpdatedMediaLifecycle(
+      entityMediaLifeCycle,
+      movieResultState,
+      mediaLifecycleDTO,
+      entityMediaLifeCycle.tv_id
+    ) as TVResult;
+  }
+
+  injectUpdatedMediaLifecycle(
+    entityMediaLifeCycle: Movie_Life_Cycle | TV_Life_Cycle,
+    mediaResultState: MovieResult | TVResult,
+    mediaLifecycleDTO: MediaLifecycleDTO,
+    mediaId: number
+  ): MovieResult | TVResult {
+    let mediaResult = JSON.parse(JSON.stringify({ ...mediaResultState }));
+    if (entityMediaLifeCycle) {
+      if (mediaResult.results[mediaLifecycleDTO.index].id === mediaId) {
+        mediaResult.results[mediaLifecycleDTO.index].lifecycleId =
+          entityMediaLifeCycle.lifecycle_id
+            ? entityMediaLifeCycle.lifecycle_id
+            : 0;
+      } else {
+        /*to-do problem, index not in synch with the actual object,
+      do a binary search to find the movie id in all the objs of the state. If not found again, throw error
+      */
+      }
+    }
+    return mediaResult;
+  }
+
+  injectUpdateMediaLifecycle(
+    movie_Life_Cycle: Movie_Life_Cycle,
+    movieResult: MovieResult
+  ) {}
 
   createOrUpdateOrDeleteMovieLifecycle(
     mediaLifecycleDTO: MediaLifecycleDTO,

@@ -1,19 +1,23 @@
-<div class="box-media-item">
-  <a id="card" [routerLink]="detailMediaPath">
-    <div style="margin: 10px">
-      <div style="display: flex">
-        <h2>{{ mediaTitleOrName }}</h2>
-        <span> {{ mediaType }} </span>
-        <span> Lifecycle ID: {{ media.lifecycleId }}</span>
-      </div>
-
-      <p>{{ media.overview }}</p>
-    </div>
-  </a>
+<mat-card
+  class="w-52 sm:w-74 md:w-86 lg:w-92 xl:w-110 2xl:w-122 h-full overflow-hidden"
+  appearance="outlined"
+>
+  <img
+    mat-card-image
+    alt="example"
+    [srcset]="card1or2xImgUrl"
+    [routerLink]="detailMediaPath"
+    loading="lazy"
+  />
+  <mat-card-content>
+    <h2>
+      <a [routerLink]="detailMediaPath">{{ mediaTitleOrName }}</a>
+    </h2>
+  </mat-card-content>
   <app-lifecycle-selector
     [mediaId]="media.id"
     [lifecycleId]="media.lifecycleId"
     [index]="index"
     [mediaType]="mediaType"
   ></app-lifecycle-selector>
-</div>
+</mat-card>

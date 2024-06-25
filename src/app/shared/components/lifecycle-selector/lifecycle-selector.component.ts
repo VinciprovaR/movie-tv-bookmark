@@ -17,14 +17,15 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+
 import { CommonModule } from '@angular/common';
 import { Observable, distinctUntilChanged, map } from 'rxjs';
 import { LIFECYCLE_ENUM } from '../../../providers';
 import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
 import { SearchTVActions } from '../../store/search-tv';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -32,9 +33,9 @@ import { SearchTVActions } from '../../store/search-tv';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NzSelectModule,
-    NzFormModule,
-    NzIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
   ],
   templateUrl: './lifecycle-selector.component.html',
   styleUrl: './lifecycle-selector.component.css',

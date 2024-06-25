@@ -1,14 +1,9 @@
-<nz-form-item>
-  <nz-form-label [nzSpan]="4" [nzFor]="'mySelect-' + mediaId"
-    >Lifecycle</nz-form-label
-  >
-  <nz-form-control [nzSpan]="8">
-    <nz-select [formControl]="lifeCycleControl" [nzId]="'mySelect-' + mediaId">
-      <nz-option
-        *ngFor="let option of options$ | async"
-        [nzLabel]="option.label"
-        [nzValue]="option.value"
-      ></nz-option>
-    </nz-select>
-  </nz-form-control>
-</nz-form-item>
+<!-- lc-selector-container -->
+<mat-form-field class="">
+  <!-- <mat-label>Favorite food</mat-label> -->
+  <mat-select [formControl]="lifeCycleControl">
+    @for (option of options$ | async; track option) {
+    <mat-option [value]="option.value">{{ option.label }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

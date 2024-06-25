@@ -6,11 +6,14 @@ import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../models';
 import { MediaItemComponent } from '../media-item/media-item.component';
 import { MediaType } from '../../models/media.models';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+
+import { NzWrap } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'app-media-list-container',
   standalone: true,
-  imports: [CommonModule, MediaItemComponent],
+  imports: [CommonModule, MediaItemComponent, NzFlexModule],
   templateUrl: './media-list-container.component.html',
   styleUrl: './media-list-container.component.css',
 })
