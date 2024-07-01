@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as DiscoveryMovieReducer from './discovery-movie.reducer';
-import { DiscoveryMovieState } from './discovery-movie.reducer';
+import { DiscoveryMovieState } from '../../models/store/discovery-movie-state.models';
 
 const discoveryMovieFeatureSelector =
   createFeatureSelector<DiscoveryMovieState>(
@@ -17,7 +17,7 @@ export const selectIsLoading = createSelector(
   DiscoveryMovieReducer.getIsLoading
 );
 
-export const selectQuery = createSelector(
+export const selectPayload = createSelector(
   discoveryMovieFeatureSelector,
   DiscoveryMovieReducer.getPayload
 );
@@ -35,6 +35,11 @@ export const selectMovieDetail = createSelector(
 export const selectMoviePage = createSelector(
   discoveryMovieFeatureSelector,
   DiscoveryMovieReducer.getMovieResultPage
+);
+
+export const selectGenreList = createSelector(
+  discoveryMovieFeatureSelector,
+  DiscoveryMovieReducer.getGenreList
 );
 
 export const selectMovieTotalPages = createSelector(

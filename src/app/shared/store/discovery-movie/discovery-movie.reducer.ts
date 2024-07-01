@@ -1,28 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import * as DiscoveryMovieActions from './discovery-movie.actions';
-import {
-  ErrorResponse,
-  TVResult,
-  TVDetail,
-  MovieDetail,
-  MovieResult,
-} from '../../models';
-import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
-import { Movie_Life_Cycle } from '../../models/supabase/entities/movie_life_cycle.entity';
-
-export interface DiscoveryMovieState {
-  isLoading: boolean;
-  payload: any;
-  error: ErrorResponse | null;
-  movieResult: MovieResult;
-  movieDetail: MovieDetail | null;
-}
+import { DiscoveryMovieState } from '../../models/store/discovery-movie-state.models';
 
 export const discoveryMovieFeatureKey = 'discovery-movie';
 
 export const initialState: DiscoveryMovieState = {
   isLoading: false,
-  payload: {},
+  payload: { genresSelectedId: [], sortBy: 'popularity.desc' },
   error: null,
   movieResult: {
     page: 1,
@@ -30,11 +14,40 @@ export const initialState: DiscoveryMovieState = {
     total_pages: 1,
     total_results: 0,
   },
+  peopleResult: {
+    page: 1,
+    results: [],
+    total_pages: 1,
+    total_results: 0,
+  },
   movieDetail: null,
+  genreList: [],
 };
 
 export const discoveryMovieReducer = createReducer(
   initialState,
+  on(
+    DiscoveryMovieActions.discoveryAdditionalMovie,
+    DiscoveryMovieActions.createUpdateDeleteMovieLifecycle,
+    DiscoveryMovieActions.searchAdditionalPeople,
+    DiscoveryMovieActions.searchPeople,
+    DiscoveryMovieActions.getGenreList,
+    (state) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+      };
+    }
+  ),
+  on(DiscoveryMovieActions.getGenreListSuccess, (state, { genreList }) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      genreList,
+    };
+  }),
   on(DiscoveryMovieActions.discoveryMovie, (state, { payload }) => {
     return {
       ...state,
@@ -51,13 +64,36 @@ export const discoveryMovieReducer = createReducer(
       movieResult,
     };
   }),
-  on(DiscoveryMovieActions.discoveryAdditionalMovie, (state) => {
+  on(DiscoveryMovieActions.searchPeopleSuccess, (state, { peopleResult }) => {
     return {
       ...state,
       error: null,
-      isLoading: true,
+      isLoading: false,
+      peopleResult,
     };
   }),
+  on(
+    DiscoveryMovieActions.searchAdditionalPeopleSuccess,
+    (state, { peopleResult }) => {
+      let currpeople = state.peopleResult?.results
+        ? state.peopleResult.results
+        : [];
+      let nextPeople = peopleResult?.results ? peopleResult.results : [];
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        peopleResult: {
+          page: peopleResult?.page ? peopleResult.page : 0,
+          total_pages: peopleResult?.total_pages ? peopleResult.total_pages : 0,
+          total_results: peopleResult?.total_results
+            ? peopleResult.total_results
+            : 0,
+          results: [...currpeople, ...nextPeople],
+        },
+      };
+    }
+  ),
   on(
     DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
     (state, { movieResult }) => {
@@ -80,13 +116,17 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-  on(DiscoveryMovieActions.noAdditionalMovie, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-    };
-  }),
+  on(
+    DiscoveryMovieActions.noAdditionalMovie,
+    DiscoveryMovieActions.noAdditionalPeople,
+    (state) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+      };
+    }
+  ),
   on(DiscoveryMovieActions.discoveryMovieDetail, (state) => {
     return {
       ...state,
@@ -114,21 +154,18 @@ export const discoveryMovieReducer = createReducer(
       movieDetail: null,
     };
   }),
-  on(DiscoveryMovieActions.createUpdateDeleteMovieLifecycle, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: true,
-    };
-  }),
   on(
     DiscoveryMovieActions.createUpdateDeleteMovieLifecycleSuccess,
-    (state, { movieResult }) => {
+    (state, { movie, index }) => {
+      let movieResultClone = JSON.parse(
+        JSON.stringify({ ...state.movieResult })
+      );
+      movieResultClone.results[index] = movie;
       return {
         ...state,
         error: null,
         isLoading: false,
-        movieResult,
+        movieResult: movieResultClone,
       };
     }
   ),
@@ -150,12 +187,11 @@ export const discoveryMovieReducer = createReducer(
 );
 
 export const getDiscoveryMovieState = (state: DiscoveryMovieState) => state;
+export const getGenreList = (state: DiscoveryMovieState) => state.genreList;
 export const getIsLoading = (state: DiscoveryMovieState) => state.isLoading;
 export const getPayload = (state: DiscoveryMovieState) => state.payload;
 export const getDiscoveryMovieError = (state: DiscoveryMovieState) =>
   state.error;
-
-//movie
 export const getMovieResult = (state: DiscoveryMovieState) => state.movieResult;
 export const getMovieDetail = (state: DiscoveryMovieState) => state.movieDetail;
 export const getMovieResultPage = (state: DiscoveryMovieState) =>

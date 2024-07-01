@@ -1,22 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SearchMovieActions from './search-movie.actions';
-import {
-  ErrorResponse,
-  TVResult,
-  TVDetail,
-  MovieDetail,
-  MovieResult,
-} from '../../models';
-import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
-import { Movie_Life_Cycle } from '../../models/supabase/entities/movie_life_cycle.entity';
-
-export interface SearchMovieState {
-  isLoading: boolean;
-  query: string;
-  error: ErrorResponse | null;
-  movieResult: MovieResult;
-  movieDetail: MovieDetail | null;
-}
+import { SearchMovieState } from '../../models/store/search-movie-state.models';
 
 export const searchMovieFeatureKey = 'search-movie';
 
@@ -35,6 +19,18 @@ export const initialState: SearchMovieState = {
 
 export const searchMovieReducer = createReducer(
   initialState,
+  on(
+    SearchMovieActions.searchAdditionalMovie,
+    SearchMovieActions.createUpdateDeleteMovieLifecycle,
+    (state) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+      };
+    }
+  ),
+
   on(SearchMovieActions.searchMovie, (state, { query }) => {
     return {
       ...state,
@@ -49,13 +45,6 @@ export const searchMovieReducer = createReducer(
       error: null,
       isLoading: false,
       movieResult,
-    };
-  }),
-  on(SearchMovieActions.searchAdditionalMovie, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: true,
     };
   }),
   on(
@@ -111,21 +100,20 @@ export const searchMovieReducer = createReducer(
       movieDetail: null,
     };
   }),
-  on(SearchMovieActions.createUpdateDeleteMovieLifecycle, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: true,
-    };
-  }),
   on(
     SearchMovieActions.createUpdateDeleteMovieLifecycleSuccess,
-    (state, { movieResult }) => {
+    (state, { movie, index }) => {
+      let movieResultClone = JSON.parse(
+        JSON.stringify({ ...state.movieResult })
+      );
+
+      movieResultClone.results[index] = movie;
+
       return {
         ...state,
         error: null,
         isLoading: false,
-        movieResult,
+        movieResult: movieResultClone,
       };
     }
   ),
@@ -147,8 +135,6 @@ export const getSearchMovieState = (state: SearchMovieState) => state;
 export const getIsLoading = (state: SearchMovieState) => state.isLoading;
 export const getQuery = (state: SearchMovieState) => state.query;
 export const getSearchMovieError = (state: SearchMovieState) => state.error;
-
-//movie
 export const getMovieResult = (state: SearchMovieState) => state.movieResult;
 export const getMovieDetail = (state: SearchMovieState) => state.movieDetail;
 export const getMovieResultPage = (state: SearchMovieState) =>

@@ -1,13 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
-import { User } from '@supabase/supabase-js';
-import { ErrorResponse } from '../../models';
-
-export interface AuthState {
-  isLoading: boolean;
-  error: ErrorResponse | null;
-  user: User | null;
-}
+import { AuthState } from '../../models/store/auth-state.models';
 
 export const authFeatureKey = 'auth';
 

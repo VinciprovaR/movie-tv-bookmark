@@ -1,0 +1,8 @@
+<div [formGroup]="filterForm">
+  <h2 class="">Sort Results By</h2>
+  <select [formControlName]="'sortBy'">
+    @for (sort of sortEnum | keyvalue; track sort.key) {
+    <option [value]="sort.key">{{ sort.value }}</option>
+    }
+  </select>
+</div>

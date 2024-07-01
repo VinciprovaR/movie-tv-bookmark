@@ -1,5 +1,6 @@
 <app-input-query
-  [mediaType]="mediaType"
+  [placeholder]="'Search for a tv show'"
+  [query]="query$ | async"
   (queryEmitter)="searchTV($event)"
 ></app-input-query>
 

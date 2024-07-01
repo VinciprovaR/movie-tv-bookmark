@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchTVActions, SearchTVSelectors } from '.';
 import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { TmdbSearchService } from '../../services/tmdb-search.service';
-import { ErrorResponse } from '../../models/auth.models';
-import { TVDetail, TVResult } from '../../models';
+import { TMDBSearchService } from '../../services/tmdb';
+import { TV, TVDetail, TVResult } from '../../models/media.models';
 import { Store } from '@ngrx/store';
-import { SupabaseMediaLifecycleService } from '../../services/supabase.media_life_cycle.service';
+import {
+  SupabaseLifecycleDAO,
+  SupabaseLifecycleService,
+} from '../../services/supabase';
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
-import { TV_Life_Cycle } from '../../models/supabase/entities/tv_life_cycle.entity';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO/media-lifecycle.DTO';
+import { TV_Life_Cycle } from '../../models/supabase/entities';
+import { MediaLifecycleDTO } from '../../models/supabase/DTO/';
+import { ErrorResponse } from '../../models/error.models';
+import { SupabaseDecouplingService } from '../../services/supabase/supabase-decoupling.service';
 
 @Injectable()
 export class SearchTVEffects {
@@ -19,13 +23,10 @@ export class SearchTVEffects {
       ofType(SearchTVActions.searchTV),
       switchMap((actionParams) => {
         let { query } = actionParams;
-        return this.tmdbSearchService
-          .tvSearchInit(query)
+        return this.TMDBSearchService.tvSearchInit(query)
           .pipe(
             switchMap((tvResult) => {
-              return this.supabaseMediaLifecycleService.injectTVLifecycle(
-                tvResult
-              );
+              return this.supabaseLifecycleService.injectTVLifecycle(tvResult);
             })
           )
           .pipe(
@@ -54,29 +55,30 @@ export class SearchTVEffects {
       switchMap((actionParams) => {
         let [action, currPage, totalPages, query] = actionParams;
         if (currPage < totalPages) {
-          return this.tmdbSearchService
-            .additionalTVSearch(currPage, query)
-            .pipe(
-              switchMap((tvResult) => {
-                return this.supabaseMediaLifecycleService
-                  .injectTVLifecycle(tvResult)
-                  .pipe(
-                    map((tvResult: TVResult) => {
-                      return SearchTVActions.searchAdditionalTVSuccess({
-                        tvResult: tvResult,
-                      });
-                    }),
-                    catchError((httpErrorResponse: ErrorResponse) => {
-                      console.error(httpErrorResponse);
-                      return of(
-                        SearchTVActions.searchTVFailure({
-                          httpErrorResponse,
-                        })
-                      );
-                    })
-                  );
-              })
-            );
+          return this.TMDBSearchService.additionalTVSearch(
+            currPage,
+            query
+          ).pipe(
+            switchMap((tvResult) => {
+              return this.supabaseLifecycleService
+                .injectTVLifecycle(tvResult)
+                .pipe(
+                  map((tvResult: TVResult) => {
+                    return SearchTVActions.searchAdditionalTVSuccess({
+                      tvResult: tvResult,
+                    });
+                  }),
+                  catchError((httpErrorResponse: ErrorResponse) => {
+                    console.error(httpErrorResponse);
+                    return of(
+                      SearchTVActions.searchTVFailure({
+                        httpErrorResponse,
+                      })
+                    );
+                  })
+                );
+            })
+          );
         } else {
           return of(SearchTVActions.noAdditionalTV());
         }
@@ -89,7 +91,7 @@ export class SearchTVEffects {
       ofType(SearchTVActions.searchTVDetail),
       switchMap((actionParams) => {
         let { tvId } = actionParams;
-        return this.tmdbSearchService.searchTVDetail(tvId).pipe(
+        return this.TMDBSearchService.searchTVDetail(tvId).pipe(
           map((tvDetail: TVDetail) => {
             return SearchTVActions.searchTVDetailSuccess({
               tvDetail: tvDetail,
@@ -113,23 +115,29 @@ export class SearchTVEffects {
           { mediaLifecycleDTO: MediaLifecycleDTO },
           User | null
         ] = actionParams;
-        return this.supabaseMediaLifecycleService
+        return this.supabaseLifecycleService
           .createOrUpdateOrDeleteTVLifecycle(mediaLifecycleDTO, user)
           .pipe(
-            withLatestFrom(this.store.select(SearchTVSelectors.selectTVResult)),
+            withLatestFrom(
+              this.store
+                .select(SearchTVSelectors.selectTVResult)
+                .pipe(
+                  map(
+                    (tvResult: TVResult) =>
+                      tvResult.results[mediaLifecycleDTO.index]
+                  )
+                )
+            ),
             map((actionParams) => {
-              let [entityTVLifeCycle, tvResultState]: [
-                TV_Life_Cycle,
-                TVResult
-              ] = actionParams;
-              let tvResult =
-                this.supabaseMediaLifecycleService.injectUpdatedTVLifecycle(
-                  entityTVLifeCycle,
-                  tvResultState,
-                  mediaLifecycleDTO
-                );
+              let [entityTVLifeCycle, tvState]: [TV_Life_Cycle, TV] =
+                actionParams;
+              let tv = this.supabaseDecouplingService.injectUpdatedTVLifecycle(
+                entityTVLifeCycle,
+                tvState
+              );
               return SearchTVActions.createUpdateDeleteTVLifecycleSuccess({
-                tvResult,
+                tv,
+                index: mediaLifecycleDTO.index,
               });
             }),
             catchError((httpErrorResponse: ErrorResponse) => {
@@ -143,8 +151,9 @@ export class SearchTVEffects {
 
   constructor(
     private actions$: Actions,
-    private tmdbSearchService: TmdbSearchService,
+    private TMDBSearchService: TMDBSearchService,
     private store: Store,
-    private supabaseMediaLifecycleService: SupabaseMediaLifecycleService
+    private supabaseLifecycleService: SupabaseLifecycleService,
+    private supabaseDecouplingService: SupabaseDecouplingService
   ) {}
 }

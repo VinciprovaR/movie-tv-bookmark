@@ -1,19 +1,17 @@
-<fieldset>
-  <nz-form-item>
-    <nz-form-control [nzErrorTip]="searchErrorTpl">
-      <nz-input-group nzPrefixIcon="search">
-        <input
-          type="text"
-          id="search"
-          nz-input
-          maxlength="20"
-          [formControl]="searchControl"
-          [placeholder]="placeholder"
-        />
-        <ng-template #searchErrorTpl let-control>
-          <!-- @if (control.errors?.['email']) { The input is not valid E-mail! } -->
-        </ng-template>
-      </nz-input-group>
-    </nz-form-control>
-  </nz-form-item>
-</fieldset>
+<div class="relative w-96">
+  <input
+    matInput
+    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    type="text"
+    id="search"
+    maxlength="50"
+    [formControl]="searchControl"
+    [placeholder]="placeholder"
+  />
+
+  <div
+    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+  >
+    <mat-icon aria-hidden="false" aria-label="" fontIcon="search"></mat-icon>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+@if(filterForm){
+
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="">
+  <div class="mt-10">
+    <app-genre-filter [filterForm]="filterForm"></app-genre-filter>
+  </div>
+
+  <div class="mt-10">
+    <app-order-by-filter [filterForm]="filterForm"></app-order-by-filter>
+  </div>
+
+  <button type="submit" class="mt-5">Submit</button>
+</form>
+}

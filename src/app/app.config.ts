@@ -12,7 +12,7 @@ import { provideStore } from '@ngrx/store';
 import { reducers, metaReducers } from './shared/store/app.store';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './shared/store/auth/auth.effects';
-import { WebStorageService, TitleStrategyService } from './shared/services';
+import { WebStorageService } from './shared/services/web-storage.service';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
@@ -25,11 +25,13 @@ import {
   provideTMDBApiKey,
   provideTMDBBaseUrl,
   provideImgUrl,
-  provideLifecycleEnum,
+  provideSortEnum,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
-import { LifecycleEnumEffects } from './shared/store/lifecycle-enum/lifecycle.effects';
+
 import { SearchTVEffects } from './shared/store/search-tv/search-tv.effects';
+import { DiscoveryMovieEffects } from './shared/store/discovery-movie/discovery-movie.effects';
+import { TitleStrategyService } from './shared/services/title-strategy.service';
 
 registerLocaleData(en);
 
@@ -41,15 +43,16 @@ export const appConfig: ApplicationConfig = {
     provideTMDBApiKey(),
     provideTMDBBaseUrl(),
     provideImgUrl(),
-    provideLifecycleEnum(),
+    provideSortEnum(),
+
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),
     provideEffects([
       AuthEffects,
       SearchMovieEffects,
-      LifecycleEnumEffects,
       SearchTVEffects,
+      DiscoveryMovieEffects,
     ]),
     WebStorageService,
     {
@@ -57,6 +60,7 @@ export const appConfig: ApplicationConfig = {
       useClass: TitleStrategyService,
     },
     provideNzI18n(en_US),
-    provideAnimationsAsync(), provideAnimationsAsync(),
+    provideAnimationsAsync(),
+    provideAnimationsAsync(),
   ],
 };

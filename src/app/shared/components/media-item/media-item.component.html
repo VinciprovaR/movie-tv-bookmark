@@ -11,12 +11,12 @@
   />
   <mat-card-content>
     <h2>
-      <a [routerLink]="detailMediaPath">{{ mediaTitleOrName }}</a>
+      <a [routerLink]="detailMediaPath">{{ mediaTitle }}</a>
     </h2>
   </mat-card-content>
   <app-lifecycle-selector
-    [mediaId]="media.id"
-    [lifecycleId]="media.lifecycleId"
+    [mediaId]="mediaId"
+    [lifecycleId]="mediaLifecycleId"
     [index]="index"
     [mediaType]="mediaType"
   ></app-lifecycle-selector>

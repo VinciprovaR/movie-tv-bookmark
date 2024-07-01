@@ -1,14 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SearchTVActions from './search-tv.actions';
-import { ErrorResponse, TVResult, TVDetail } from '../../models';
-
-export interface SearchTVState {
-  isLoading: boolean;
-  query: string;
-  error: ErrorResponse | null;
-  tvResult: TVResult;
-  tvDetail: TVDetail | null;
-}
+import { SearchTVState } from '../../models/store/search-tv-state.models';
 
 export const searchTVFeatureKey = 'search-tv';
 
@@ -27,6 +19,17 @@ export const initialState: SearchTVState = {
 
 export const searchTVReducer = createReducer(
   initialState,
+  on(
+    SearchTVActions.searchAdditionalTV,
+    SearchTVActions.createUpdateDeleteTVLifecycle,
+    (state) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+      };
+    }
+  ),
   on(SearchTVActions.searchTV, (state, { query }) => {
     return {
       ...state,
@@ -41,13 +44,6 @@ export const searchTVReducer = createReducer(
       error: null,
       isLoading: false,
       tvResult,
-    };
-  }),
-  on(SearchTVActions.searchAdditionalTV, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: true,
     };
   }),
   on(SearchTVActions.searchAdditionalTVSuccess, (state, { tvResult }) => {
@@ -96,21 +92,17 @@ export const searchTVReducer = createReducer(
       tvDetail: null,
     };
   }),
-  on(SearchTVActions.createUpdateDeleteTVLifecycle, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: true,
-    };
-  }),
+
   on(
     SearchTVActions.createUpdateDeleteTVLifecycleSuccess,
-    (state, { tvResult }) => {
+    (state, { tv, index }) => {
+      let tvResultClone = JSON.parse(JSON.stringify({ ...state.tvResult }));
+      tvResultClone.results[index] = tv;
       return {
         ...state,
         error: null,
         isLoading: false,
-        tvResult,
+        tvResult: tvResultClone,
       };
     }
   ),
@@ -132,8 +124,6 @@ export const getSearchTVState = (state: SearchTVState) => state;
 export const getIsLoading = (state: SearchTVState) => state.isLoading;
 export const getQuery = (state: SearchTVState) => state.query;
 export const getSearchTVError = (state: SearchTVState) => state.error;
-
-//tv
 export const getTVResult = (state: SearchTVState) => state.tvResult;
 export const getTVDetail = (state: SearchTVState) => state.tvDetail;
 export const getTVResultPage = (state: SearchTVState) =>

@@ -5,7 +5,7 @@ import {
   SearchMovieSelectors,
 } from '../../shared/store/search-movie';
 import { Observable, map } from 'rxjs';
-import { MediaType, MovieDetail, TVDetail } from '../../shared/models';
+import { MediaType, MovieDetail } from '../../shared/models/media.models';
 import { CommonModule } from '@angular/common';
 import { TMDB_RESIZED_IMG_URL } from '../../providers';
 
@@ -16,7 +16,7 @@ import { TMDB_RESIZED_IMG_URL } from '../../providers';
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
-export class MovieDetailComponent implements OnDestroy {
+export class MovieDetailComponent {
   @Input()
   movieId: number = 0;
   resizedImgUrl: string = '';
@@ -38,9 +38,5 @@ export class MovieDetailComponent implements OnDestroy {
         movieId: this.movieId,
       })
     );
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(SearchMovieActions.cleanMovieDetail());
   }
 }

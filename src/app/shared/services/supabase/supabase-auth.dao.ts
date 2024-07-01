@@ -1,20 +1,22 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable, from, tap } from 'rxjs';
-import { LoginPayload, RegisterPayload } from '../models/auth.models';
+import { LoginPayload, RegisterPayload } from '../../models/auth.models';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
   SupabaseClient,
 } from '@supabase/supabase-js';
-import { SUPABASE_CLIENT } from '../../providers';
+import { SUPABASE_CLIENT } from '../../../providers';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class SupabaseAuthDAO {
   constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
 
-  login(credentials: LoginPayload): Observable<AuthTokenResponsePassword> {
+  signInWithPassword(
+    credentials: LoginPayload
+  ): Observable<AuthTokenResponsePassword> {
     return from(
       this.supabase.auth.signInWithPassword({
         email: credentials.email,
@@ -29,7 +31,7 @@ export class AuthService {
     );
   }
 
-  register(credentials: RegisterPayload): Observable<AuthResponse> {
+  signUp(credentials: RegisterPayload): Observable<AuthResponse> {
     return from(
       this.supabase.auth.signUp({
         email: credentials.email,
@@ -44,7 +46,7 @@ export class AuthService {
     );
   }
 
-  sendMailResetPassword(credentials: { email: string }): Observable<any> {
+  resetPasswordForEmail(credentials: { email: string }): Observable<any> {
     return from(
       this.supabase.auth.resetPasswordForEmail(credentials.email)
     ).pipe(
@@ -56,7 +58,7 @@ export class AuthService {
     ); //to-do captcha e redirect to
   }
 
-  logout(): Observable<any> {
+  signOut(): Observable<any> {
     return from(this.supabase.auth.signOut()).pipe(
       tap((result: any) => {
         if (result.error) {
@@ -66,7 +68,7 @@ export class AuthService {
     );
   }
 
-  getCurrentUser(): Observable<any> {
+  getSession(): Observable<any> {
     return from(this.supabase.auth.getSession()).pipe(
       tap((result: any) => {
         if (result.error) {

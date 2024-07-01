@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { TVDetail, TVResult } from '../../models';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO/media-lifecycle.DTO';
-import { TV_Life_Cycle } from '../../models/supabase/entities/tv_life_cycle.entity';
+import { TV, TVDetail, TVResult } from '../../models/media.models';
+import { MediaLifecycleDTO } from '../../models/supabase/DTO';
 
+//search
 export const searchTV = createAction(
   '[Search-tv/API] Search TV',
   props<{ query: string }>()
@@ -28,13 +28,15 @@ export const searchTVDetailSuccess = createAction(
   props<{ tvDetail: TVDetail }>()
 );
 export const cleanTVDetail = createAction('[Search-tv/API] Clean TV Detail');
+
+//lifecycle
 export const createUpdateDeleteTVLifecycle = createAction(
   '[TV-Lifecycle/API] Create or Update or Delete TV Lifecycle',
   props<{ mediaLifecycleDTO: MediaLifecycleDTO }>()
 );
 export const createUpdateDeleteTVLifecycleSuccess = createAction(
   '[TV-Lifecycle/API] Create or Update or Delete TV Lifecycle Success',
-  props<{ tvResult: TVResult }>()
+  props<{ tv: TV; index: number }>()
 );
 export const deleteTVLifecycle = createAction(
   '[TV-Lifecycle/API] Delete TV Lifecycle',
@@ -44,6 +46,7 @@ export const deleteTVLifecycleSuccess = createAction(
   '[TV-Lifecycle/API] Delete TV Lifecycle Success'
 );
 
+//error
 export const searchTVFailure = createAction(
   '[Search-TV/API] Search TV Failure',
   props<{ httpErrorResponse: any }>()

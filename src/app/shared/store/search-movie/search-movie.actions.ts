@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { MovieDetail, MovieResult, TVDetail, TVResult } from '../../models';
-import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
-import { Movie_Life_Cycle } from '../../models/supabase/entities/movie_life_cycle.entity';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO/media-lifecycle.DTO';
+import { Movie, MovieDetail, MovieResult } from '../../models/media.models';
+import {
+  MediaLifecycleDTO,
+  SelectLifecycleDTO,
+} from '../../models/supabase/DTO/';
 
-//movie
+//search
 export const searchMovie = createAction(
   '[Search-movie/API] Search Movie',
   props<{ query: string }>()
@@ -30,18 +31,19 @@ export const searchMovieDetail = createAction(
 export const cleanMovieDetail = createAction(
   '[Search-movie/API] Clean Movie Detail'
 );
-
 export const searchMovieDetailSuccess = createAction(
   '[Search-movie/API] Search Movie Detail Success',
   props<{ movieDetail: MovieDetail }>()
 );
+
+//lifecycle
 export const createUpdateDeleteMovieLifecycle = createAction(
   '[Movie-Lifecycle/API] Create or Update or Delete Movie Lifecycle',
   props<{ mediaLifecycleDTO: MediaLifecycleDTO }>()
 );
 export const createUpdateDeleteMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Create or Update or Delete Movie Lifecycle Success',
-  props<{ movieResult: MovieResult }>()
+  props<{ movie: Movie; index: number }>()
 );
 export const deleteMovieLifecycle = createAction(
   '[Movie-Lifecycle/API] Delete Movie Lifecycle',
@@ -51,11 +53,11 @@ export const deleteMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Delete Movie Lifecycle Success'
 );
 
+//error
 export const searchMovieFailure = createAction(
   '[Search-Movie/API] Search Movie Failure',
   props<{ httpErrorResponse: any }>()
 );
-
 export const cleanError = createAction(
   '[Search-movie/Error Handling] Clean Error'
 );

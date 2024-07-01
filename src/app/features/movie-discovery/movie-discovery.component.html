@@ -1,3 +1,10 @@
+<app-discovery-filters
+  [genreList$]="selectGenreList$"
+  [payload$]="payload$"
+  [mediaType]="mediaType"
+  (payloadEmitter)="discoveryMovie($event)"
+></app-discovery-filters>
+
 <app-media-list-container
   appScrollNearEnd
   [scrollIsLoading]="(selectIsLoading$ | async) ?? false"

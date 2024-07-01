@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { AuthService } from '../../services';
+import { SupabaseAuthService } from '../../services/supabase';
 import { Router } from '@angular/router';
 import {
-  AuthError,
   AuthResponse,
   AuthTokenResponsePassword,
 } from '@supabase/supabase-js/';
-import { ErrorResponse } from '../../models/auth.models';
+import { ErrorResponse } from '../../models/error.models';
 
 @Injectable()
 export class AuthEffects {
@@ -17,7 +16,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.login),
       switchMap((credentials) => {
-        return this.authService.login(credentials).pipe(
+        return this.supabaseAuthService.login(credentials).pipe(
           tap((result: AuthTokenResponsePassword) => {
             this.router.navigate(['/home']);
           }),
@@ -39,7 +38,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.register),
       switchMap((credentials) => {
-        return this.authService.register(credentials).pipe(
+        return this.supabaseAuthService.register(credentials).pipe(
           tap((result: AuthResponse) => {
             this.router.navigate(['/register-success'], {
               queryParams: { email: result.data.user?.email },
@@ -61,7 +60,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.currentUser),
       switchMap(() => {
-        return this.authService.getCurrentUser().pipe(
+        return this.supabaseAuthService.getCurrentUser().pipe(
           map((result: any) => {
             return AuthActions.currentUserSuccess({
               user: result.data.session?.user,
@@ -80,7 +79,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.logout),
       switchMap(() => {
-        return this.authService.logout().pipe(
+        return this.supabaseAuthService.logout().pipe(
           tap(() => {
             this.router.navigate(['/login']);
           }),
@@ -100,7 +99,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.requestResetPassword),
       switchMap((credentials) => {
-        return this.authService.sendMailResetPassword(credentials).pipe(
+        return this.supabaseAuthService.sendMailResetPassword(credentials).pipe(
           tap((result: any) => {
             this.router.navigate(['/reset-password-sent']);
           }),
@@ -118,7 +117,7 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions,
-    private authService: AuthService,
+    private supabaseAuthService: SupabaseAuthService,
     private router: Router
   ) {}
 }

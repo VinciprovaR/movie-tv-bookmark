@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as SearchMovieReducer from './search-movie.reducer';
-import { SearchMovieState } from './search-movie.reducer';
+import { SearchMovieState } from '../../models/store/search-movie-state.models';
 
 const searchMovieFeatureSelector = createFeatureSelector<SearchMovieState>(
   SearchMovieReducer.searchMovieFeatureKey

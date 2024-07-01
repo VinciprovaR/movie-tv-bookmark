@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  ErrorResponse,
-  RegisterPayload,
-  RegisterForm,
-} from '../../shared/models/auth.models';
+import { RegisterPayload, RegisterForm } from '../../shared/models/auth.models';
 import { Observable } from 'rxjs';
 import { AuthSelectors, AuthActions } from '../../shared/store/auth';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -95,10 +91,5 @@ export class RegisterPageComponent {
         AuthActions.register(this.registerForm.value as RegisterPayload)
       );
     }
-  }
-
-  ngOnDestroy(): void {
-    //to-do check if there are error
-    this.store.dispatch(AuthActions.cleanError());
   }
 }

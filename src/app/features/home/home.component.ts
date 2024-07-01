@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthSelectors } from '../../shared/store/auth';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { User } from '@supabase/supabase-js/';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   selectUser$!: Observable<User | null>;
 
   constructor(private store: Store) {}
@@ -20,9 +20,5 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.log('init home');
     this.selectUser$ = this.store.select(AuthSelectors.selectUser);
-  }
-
-  ngOnDestroy(): void {
-    console.log('destroy home');
   }
 }

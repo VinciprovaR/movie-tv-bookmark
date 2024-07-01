@@ -1,9 +1,5 @@
 import { FormControl } from '@angular/forms';
 
-export interface ErrorResponse {
-  [key: string]: string;
-}
-
 export interface RegisterForm {
   email: FormControl<string>;
   password: FormControl<string>;

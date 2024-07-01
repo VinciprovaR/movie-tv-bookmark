@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
-import { MovieDetail, TVDetail, MediaType } from '../models';
+import { MovieDetail, TVDetail, MediaType } from '../../models/media.models';
 import { HttpClient } from '@angular/common/http';
 import { Inject, inject } from '@angular/core';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../providers';
+import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 
-export class TmdbService {
+export abstract class TMDBService {
   tmdbApiKey: string = inject(TMDB_API_KEY);
   tmdbBaseUrl: string = inject(TMDB_BASE_URL);
   httpClient = inject(HttpClient);

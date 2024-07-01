@@ -1,9 +1,8 @@
 <!-- lc-selector-container -->
-<mat-form-field class="">
-  <!-- <mat-label>Favorite food</mat-label> -->
-  <mat-select [formControl]="lifeCycleControl">
-    @for (option of options$ | async; track option) {
-    <mat-option [value]="option.value">{{ option.label }}</mat-option>
-    }
-  </mat-select>
-</mat-form-field>
+
+<!-- <mat-label>Favorite food</mat-label> -->
+<select [formControl]="lifecycleControl">
+  @for (option of options$ | async; track option) {
+  <option [value]="option.value">{{ option.label }}</option>
+  }
+</select>

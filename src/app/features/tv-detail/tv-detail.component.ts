@@ -1,11 +1,11 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   SearchTVActions,
   SearchTVSelectors,
 } from '../../shared/store/search-tv';
-import { Observable, map } from 'rxjs';
-import { MediaType, TVDetail } from '../../shared/models';
+import { Observable } from 'rxjs';
+import { MediaType, TVDetail } from '../../shared/models/media.models';
 import { CommonModule } from '@angular/common';
 import { TMDB_RESIZED_IMG_URL } from '../../providers';
 

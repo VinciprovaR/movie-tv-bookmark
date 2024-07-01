@@ -29,7 +29,7 @@
             ],
             "styles": [
               "src/custom-theme.scss",
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/output.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -82,10 +82,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "src/styles.css"
-            ],
+            "styles": ["src/output.css", "src/styles.css"],
             "scripts": []
           }
         }

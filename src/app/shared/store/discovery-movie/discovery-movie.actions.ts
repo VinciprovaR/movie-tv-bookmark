@@ -1,13 +1,18 @@
 import { createAction, props } from '@ngrx/store';
-import { MovieDetail, MovieResult, TVDetail, TVResult } from '../../models';
-import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
-import { Movie_Life_Cycle } from '../../models/supabase/entities/movie_life_cycle.entity';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO/media-lifecycle.DTO';
+import {
+  Movie,
+  MovieDetail,
+  MovieResult,
+  PeopleResult,
+} from '../../models/media.models';
+import { MediaLifecycleDTO } from '../../models/supabase/DTO/';
+import { PayloadDiscoveryMovie } from '../../models/store/discovery-movie-state.models';
+import { Genre } from '../../models/tmdb-filters.models';
 
-//movie
+//search
 export const discoveryMovie = createAction(
   '[Discovery-movie/API] Discovery Movie',
-  props<{ payload: any }>()
+  props<{ payload: PayloadDiscoveryMovie }>()
 );
 export const discoveryMovieSuccess = createAction(
   '[Discovery-movie/API] Discovery Movie Success',
@@ -30,32 +35,62 @@ export const discoveryMovieDetail = createAction(
 export const cleanMovieDetail = createAction(
   '[Discovery-movie/API] Clean Movie Detail'
 );
-
 export const discoveryMovieDetailSuccess = createAction(
   '[Discovery-movie/API] Discovery Movie Detail Success',
   props<{ movieDetail: MovieDetail }>()
 );
+
+//lifecycle
 export const createUpdateDeleteMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Create or Update or Delete Movie Lifecycle',
+  '[Discovery-Lifecycle/API] Create or Update or Delete Discovery Movie Lifecycle',
   props<{ mediaLifecycleDTO: MediaLifecycleDTO }>()
 );
 export const createUpdateDeleteMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Create or Update or Delete Movie Lifecycle Success',
-  props<{ movieResult: MovieResult }>()
+  '[Discovery-Lifecycle/API] Create or Update or Delete Discovery Movie Lifecycle Success',
+  props<{ movie: Movie; index: number }>()
 );
 export const deleteMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Delete Movie Lifecycle',
+  '[Discovery-Lifecycle/API] Delete Discovery Movie Lifecycle',
   props<{ movieId: number }>()
 );
 export const deleteMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Delete Movie Lifecycle Success'
+  '[Discovery-Lifecycle/API] Delete Discovery Movie Lifecycle Success'
 );
 
+//genres
+export const getGenreList = createAction(
+  '[Discovery-movie/API] Get Genre List'
+);
+export const getGenreListSuccess = createAction(
+  '[Discovery-movie/API] Get Genre List Success',
+  props<{ genreList: Genre[] | [] }>()
+);
+
+//people
+export const searchPeople = createAction(
+  '[Discovery-movie/API] Search People',
+  props<{ queryPeople: string }>()
+);
+export const searchPeopleSuccess = createAction(
+  '[Discovery-movie/API] Search People Success',
+  props<{ peopleResult: PeopleResult }>()
+);
+export const searchAdditionalPeople = createAction(
+  '[Discovery-movie/API] Search Additional People'
+);
+export const searchAdditionalPeopleSuccess = createAction(
+  '[Discovery-movie/API] Search People Additional Success',
+  props<{ peopleResult: PeopleResult | null }>()
+);
+export const noAdditionalPeople = createAction(
+  '[Discovery-movie/API] No Additional People'
+);
+
+//error
 export const discoveryMovieFailure = createAction(
   '[Discovery-Movie/API] Discovery Movie Failure',
   props<{ httpErrorResponse: any }>()
 );
-
 export const cleanError = createAction(
   '[Discovery-movie/Error Handling] Clean Error'
 );

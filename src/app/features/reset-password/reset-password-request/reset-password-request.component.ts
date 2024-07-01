@@ -49,9 +49,4 @@ export class ResetPasswordRequestComponent {
       );
     }
   }
-
-  ngOnDestroy(): void {
-    //to-do check if there are error
-    this.store.dispatch(AuthActions.cleanError());
-  }
 }

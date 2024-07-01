@@ -3,20 +3,17 @@ import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { AuthReducers } from './auth';
 import { SearchMovieReducers } from './search-movie';
-import { AuthState } from './auth/auth.reducer';
-import { SearchMovieState } from './search-movie/search-movie.reducer';
-import { LifecycleEnumState } from './lifecycle-enum/lifecycle.reducer';
-import { LifecycleEnumReducers } from './lifecycle-enum';
 import { SearchTVReducers } from './search-tv';
-import { SearchTVState } from './search-tv/search-tv.reducer';
 import { DiscoveryMovieReducers } from './discovery-movie';
-import { DiscoveryMovieState } from './discovery-movie/discovery-movie.reducer';
+import { AuthState } from '../models/store/auth-state.models';
+import { DiscoveryMovieState } from '../models/store/discovery-movie-state.models';
+import { SearchMovieState } from '../models/store/search-movie-state.models';
+import { SearchTVState } from '../models/store/search-tv-state.models';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;
   [SearchMovieReducers.searchMovieFeatureKey]: SearchMovieState;
   [SearchTVReducers.searchTVFeatureKey]: SearchTVState;
-  [LifecycleEnumReducers.lifecycleEnumFeatureKey]: LifecycleEnumState;
   [DiscoveryMovieReducers.discoveryMovieFeatureKey]: DiscoveryMovieState;
 }
 
@@ -25,8 +22,6 @@ export const reducers: ActionReducerMap<State> = {
   [SearchMovieReducers.searchMovieFeatureKey]:
     SearchMovieReducers.searchMovieReducer,
   [SearchTVReducers.searchTVFeatureKey]: SearchTVReducers.searchTVReducer,
-  [LifecycleEnumReducers.lifecycleEnumFeatureKey]:
-    LifecycleEnumReducers.lifecycleEnumReducer,
   [DiscoveryMovieReducers.discoveryMovieFeatureKey]:
     DiscoveryMovieReducers.discoveryMovieReducer,
 };

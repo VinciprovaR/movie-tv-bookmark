@@ -3,3 +3,8 @@ export interface MediaLifecycleDTO {
   lifecycleId: number;
   index: number;
 }
+
+export interface SelectLifecycleDTO {
+  label: string;
+  value: number;
+}

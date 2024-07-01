@@ -2,9 +2,7 @@ import { APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
-
-import { LifecycleEnumActions } from './shared/store/lifecycle-enum';
-import { Media_Lifecycle_Enum } from './shared/models/supabase/entities/media_life_cycle_enum.entity';
+import { SupabaseLifecycleService } from './shared/services/supabase';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -24,10 +22,11 @@ export const TMDB_CARD_1X_IMG_URL = new InjectionToken<string>(
 export const TMDB_CARD_2X_IMG_URL = new InjectionToken<string>(
   'TMDB_CARD_2X_IMG_URL'
 );
-
-export const LIFECYCLE_ENUM = new InjectionToken<Media_Lifecycle_Enum>(
-  'LIFECYCLE_ENUM'
+export const SORT_ENUM = new InjectionToken<{ [key: string]: string }>(
+  'SORT_ENUM'
 );
+
+export const LIFECYCLE_OPTIONS$ = new InjectionToken<any>('LIFECYCLE_OPTIONS');
 
 export function provideTMDBApiKey() {
   return {
@@ -64,6 +63,24 @@ export function provideImgUrl() {
   ];
 }
 
+export function provideSortEnum() {
+  return [
+    {
+      provide: SORT_ENUM,
+      useValue: {
+        'popularity.desc': 'Popularity Descending',
+        'popularity.asc': 'Popularity Ascending',
+        'vote_average.desc': 'Rating Descending',
+        'vote_average.asc': 'Rating Ascending',
+        'primary_release_date.desc': 'Release Date Descending',
+        'primary_release_date.asc': 'Release Date Ascending',
+        'title.asc': 'Title (A-Z)',
+        'title.desc': 'Title (Z-A)',
+      },
+    },
+  ];
+}
+
 export function provideAppInitializer() {
   return {
     provide: APP_INITIALIZER,
@@ -74,6 +91,16 @@ export function provideAppInitializer() {
   };
 }
 
+// export function provideLifecycleOptions() {
+//   return {
+//     provide: APP_INITIALIZER,
+//     useFactory: (supabaseLifecycleService: SupabaseLifecycleService) => () =>
+//       supabaseLifecycleService.retriveLifecycleOptions(),
+//     deps: [SupabaseLifecycleService],
+//     multi: true,
+//   };
+// }
+
 export function provideSupabaseClient() {
   return {
     provide: SUPABASE_CLIENT,
@@ -82,15 +109,5 @@ export function provideSupabaseClient() {
         'https://fahpcnjaykumnjwfmkdy.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhaHBjbmpheWt1bW5qd2Zta2R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTgwMjYzOTUsImV4cCI6MjAzMzYwMjM5NX0.wq98GdUuiqA1e_9aYJlQC1TKyoLeRdh_IP2mALY7mCc'
       ),
-  };
-}
-
-export function provideLifecycleEnum() {
-  return {
-    provide: APP_INITIALIZER,
-    useFactory: (store: Store) => () =>
-      store.dispatch(LifecycleEnumActions.lifecycleEnum()),
-    deps: [Store],
-    multi: true,
   };
 }

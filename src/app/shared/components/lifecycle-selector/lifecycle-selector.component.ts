@@ -1,31 +1,24 @@
 import {
-  APP_INITIALIZER,
   Component,
+  DestroyRef,
   Inject,
   Input,
   OnInit,
-  input,
+  inject,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
-
-import { LifecycleEnumSelectors } from '../../store/lifecycle-enum';
-import { SearchMovieActions } from '../../store/search-movie';
 import { MediaType } from '../../models/media.models';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
-
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Observable, distinctUntilChanged, map } from 'rxjs';
-import { LIFECYCLE_ENUM } from '../../../providers';
-import { Media_Lifecycle_Enum } from '../../models/supabase/entities/media_life_cycle_enum.entity';
-import { SearchTVActions } from '../../store/search-tv';
+import { Observable, Subject, distinctUntilChanged, takeUntil } from 'rxjs';
+import { Media_Lifecycle_Options } from '../../models/supabase/entities/media_life_cycle_enum.entity';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BridgeDataService } from '../../services/bridge-data.service';
+import {
+  MediaLifecycleDTO,
+  SelectLifecycleDTO,
+} from '../../models/supabase/DTO';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -41,6 +34,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './lifecycle-selector.component.css',
 })
 export class LifecycleSelectorComponent implements OnInit {
+  destroyed$ = new Subject();
+
   @Input({ required: true })
   mediaId!: number;
   @Input({ required: true })
@@ -49,64 +44,42 @@ export class LifecycleSelectorComponent implements OnInit {
   index!: number;
   @Input({ required: true })
   mediaType!: MediaType;
+  lifecycleControl!: FormControl;
+  options$!: Observable<SelectLifecycleDTO[] | []>;
+  lifecycleOptions$!: Observable<Media_Lifecycle_Options[] | []>;
 
-  lifeCycleControl!: FormControl;
+  constructor(
+    private fb: FormBuilder,
+    private bridgeDataService: BridgeDataService
+  ) {
+    inject(DestroyRef).onDestroy(() => {
+      this.destroyed$.next(true);
+      this.destroyed$.complete();
+    });
+  }
 
-  lifeCycleEnum$!: Observable<Media_Lifecycle_Enum[] | []>;
-
-  options$!: Observable<any>;
-
-  options = [
-    { label: 'No lifecycle', value: 0 },
-    { label: 'Watchlist', value: 1 },
-    { label: 'Watched ', value: 2 },
-    { label: 'Rewatch', value: 3 },
-  ];
-
-  constructor(private store: Store, private fb: FormBuilder) {}
   //to-do refractor? no selector, hardcoded, più leggero
   ngOnInit(): void {
-    this.lifeCycleEnum$ = this.store.select(
-      LifecycleEnumSelectors.selectMovieLifecycleEnum
-    );
+    this.options$ = this.bridgeDataService.selectLifecycleOptionsObs$;
 
-    this.options$ = this.lifeCycleEnum$.pipe(
-      map((lifecycleEnum) => {
-        return lifecycleEnum.map((lc) => {
-          return { label: lc.label, value: lc.id };
-        });
-      })
-    );
-
-    this.lifeCycleControl = this.fb.control(
+    this.lifecycleControl = this.fb.control(
       this.lifecycleId ? this.lifecycleId : 0
     );
 
-    this.lifeCycleControl.valueChanges
-      .pipe(distinctUntilChanged())
+    this.lifecycleControl.valueChanges
+      .pipe(takeUntil(this.destroyed$), distinctUntilChanged())
       .subscribe((lifecycleId) => {
         this.setLifeCycle(lifecycleId);
       });
   }
 
   setLifeCycle(lifecycleId: number) {
-    let mediaLifecycleDTO = {
+    let mediaLifecycleDTO: MediaLifecycleDTO = {
       mediaId: this.mediaId,
-      lifecycleId: lifecycleId,
+      lifecycleId: +lifecycleId,
       index: this.index,
     };
-    if (this.mediaType === 'movie') {
-      this.store.dispatch(
-        SearchMovieActions.createUpdateDeleteMovieLifecycle({
-          mediaLifecycleDTO,
-        })
-      );
-    } else if (this.mediaType === 'tv') {
-      this.store.dispatch(
-        SearchTVActions.createUpdateDeleteTVLifecycle({
-          mediaLifecycleDTO,
-        })
-      );
-    }
+
+    this.bridgeDataService.pushInputLifecycleOptions(mediaLifecycleDTO);
   }
 }

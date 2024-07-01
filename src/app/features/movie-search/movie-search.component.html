@@ -1,5 +1,6 @@
 <app-input-query
-  [mediaType]="mediaType"
+  [placeholder]="'Search for a movie'"
+  [query]="query$ | async"
   (queryEmitter)="searchMovie($event)"
 ></app-input-query>
 
@@ -11,4 +12,3 @@
   (nearEnd)="searchAdditionalMovie()"
   [mediaType]="mediaType"
 ></app-media-list-container>
-<!--   (querySearch)="searchMovie($event)" -->

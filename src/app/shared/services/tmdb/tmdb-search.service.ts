@@ -1,15 +1,13 @@
-import { Inject, Injectable } from '@angular/core';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../providers';
-import { HttpClient } from '@angular/common/http';
-import { Observable, from, of } from 'rxjs';
-import { MovieDetail, MovieResult, TVResult } from '../models';
-import { MediaType, TVDetail } from '../models/media.models';
-import { TmdbService } from './tmdb.service';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { MovieResult, TVResult } from '../../models/media.models';
+import { MediaType } from '../../models/media.models';
+import { TMDBService } from './tmdb.abstract.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TmdbSearchService extends TmdbService {
+export class TMDBSearchService extends TMDBService {
   constructor() {
     super();
   }
