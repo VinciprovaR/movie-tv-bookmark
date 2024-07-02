@@ -23,7 +23,7 @@ export class SearchMovieEffects {
         return this.TMDBSearchService.movieSearchInit(query)
           .pipe(
             switchMap((movieResult) => {
-              return this.supabaseLifecycleService.injectMovieLifecycle(
+              return this.supabaseLifecycleService.findLifecycleListByMovieIds(
                 movieResult
               );
             })
@@ -62,7 +62,7 @@ export class SearchMovieEffects {
           ).pipe(
             switchMap((movieResult) => {
               return this.supabaseLifecycleService
-                .injectMovieLifecycle(movieResult)
+                .findLifecycleListByMovieIds(movieResult)
                 .pipe(
                   map((movieResult: MovieResult) => {
                     return SearchMovieActions.searchAdditionalMovieSuccess({
@@ -112,35 +112,24 @@ export class SearchMovieEffects {
   createUpdateDeleteMovieLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SearchMovieActions.createUpdateDeleteMovieLifecycle),
-      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      withLatestFrom(
+        this.store.select(AuthSelectors.selectUser),
+        this.store.select(SearchMovieSelectors.selectMovieResult)
+      ),
       switchMap((actionParams) => {
-        let [{ mediaLifecycleDTO }, user]: [
+        let [{ mediaLifecycleDTO }, user, movieResultState]: [
           { mediaLifecycleDTO: MediaLifecycleDTO },
-          User | null
+          User | null,
+          MovieResult
         ] = actionParams;
         return this.supabaseLifecycleService
-          .createOrUpdateOrDeleteMovieLifecycle(mediaLifecycleDTO, user)
+          .createOrUpdateOrDeleteMovieLifecycle(
+            mediaLifecycleDTO,
+            user,
+            movieResultState.results[mediaLifecycleDTO.index]
+          )
           .pipe(
-            withLatestFrom(
-              this.store
-                .select(SearchMovieSelectors.selectMovieResult)
-                .pipe(
-                  map(
-                    (movieState: MovieResult) =>
-                      movieState.results[mediaLifecycleDTO.index]
-                  )
-                )
-            ),
-            map((actionParams) => {
-              let [entityMovieLifeCycle, movieState]: [
-                Movie_Life_Cycle,
-                Movie
-              ] = actionParams;
-              let movie =
-                this.supabaseDecouplingService.injectUpdatedMovieLifecycle(
-                  entityMovieLifeCycle,
-                  movieState
-                );
+            map((movie) => {
               return SearchMovieActions.createUpdateDeleteMovieLifecycleSuccess(
                 {
                   movie,
@@ -151,7 +140,9 @@ export class SearchMovieEffects {
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+                SearchMovieActions.searchMovieFailure({
+                  httpErrorResponse,
+                })
               );
             })
           );

@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, Input } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SORT_ENUM } from '../../../providers';
-import { SortEnum } from '../../models/tmdb-filters.models';
+import {
+  DiscoveryFilterForm,
+  SortEnum,
+} from '../../models/tmdb-filters.models';
 
 @Component({
   selector: 'app-order-by-filter',
@@ -17,5 +20,9 @@ export class OrderByFilterComponent {
     this.sortEnum = this.SORT_ENUM;
   }
   @Input({ required: true })
-  filterForm!: FormGroup;
+  filterForm!: FormGroup<DiscoveryFilterForm>;
+
+  get orderByControl(): FormControl {
+    return this.filterForm.controls['sortBy'] as FormControl;
+  }
 }

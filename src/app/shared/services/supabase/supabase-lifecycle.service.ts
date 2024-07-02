@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { User } from '@supabase/supabase-js';
 import { Observable, map, switchMap, of } from 'rxjs';
-import { MovieResult, TVResult, MediaType } from '../../models/media.models';
+import {
+  MovieResult,
+  TVResult,
+  MediaType,
+  Movie,
+  TV,
+} from '../../models/media.models';
 import {
   MediaLifecycleDTO,
   SelectLifecycleDTO,
@@ -38,64 +44,98 @@ export class SupabaseLifecycleService {
       );
   }
 
-  injectMovieLifecycle(movieResult: MovieResult): Observable<MovieResult> {
-    return this.injectMediaLifecycle(
-      movieResult,
-      'movie'
-    ) as Observable<MovieResult>;
-  }
+  findLifecycleListByMovieIds(
+    movieResult: MovieResult
+  ): Observable<MovieResult> {
+    let mediaType: MediaType = 'movie';
 
-  injectTVLifecycle(mediaResult: TVResult): Observable<TVResult> {
-    return this.injectMediaLifecycle(mediaResult, 'tv') as Observable<TVResult>;
-  }
-  //to-do decoupling?
-  private injectMediaLifecycle(
-    mediaResult: MovieResult | TVResult,
-    mediaType: MediaType
-  ): Observable<MovieResult | TVResult> {
-    let mediaIdList: number[] = [];
-    let mediaIdMapIndex: any = {};
-    for (let i = 0; i < mediaResult.results.length; i++) {
-      mediaIdList.push(mediaResult.results[i].id);
-      mediaIdMapIndex[mediaResult.results[i].id] = i;
-    }
+    let { mediaIdList, mediaIdMapIndex } =
+      this.buildMediaIdListMap(movieResult);
+
     return this.supabaseLifecycleDAO
       .findLifecycleListByMediaIds(mediaIdList, mediaType)
       .pipe(
-        map((mediaLifecycleSupabase) => {
-          // console.log('movieLifecycle', movieLifecycle);
-          // console.log('movieIdList', movieIdList);
-          // console.log('movieIdMapIndex', movieIdMapIndex);
-          mediaLifecycleSupabase.data.forEach((mlc: any) => {
-            mediaResult.results[mediaIdMapIndex[mlc[`${mediaType}_id`]]][
-              'lifecycleId'
-            ] = mlc.lifecycle_id;
-          });
-          return mediaResult;
+        map((entityMovieLifecycle) => {
+          return this.supabaseDecouplingService.injectMovieLifecycle(
+            entityMovieLifecycle.data,
+            movieResult,
+            mediaType,
+            mediaIdMapIndex
+          );
         })
       );
   }
 
+  findLifecycleListByTVIds(tvResult: TVResult): Observable<TVResult> {
+    let mediaType: MediaType = 'tv';
+    let { mediaIdList, mediaIdMapIndex } = this.buildMediaIdListMap(tvResult);
+
+    return this.supabaseLifecycleDAO
+      .findLifecycleListByMediaIds(mediaIdList, mediaType)
+      .pipe(
+        map((entityTVLifecycle) => {
+          return this.supabaseDecouplingService.injectTVLifecycle(
+            entityTVLifecycle.data,
+            tvResult,
+            mediaType,
+            mediaIdMapIndex
+          );
+        })
+      );
+  }
+
+  buildMediaIdListMap(mediaResult: MovieResult | TVResult): {
+    mediaIdList: number[];
+    mediaIdMapIndex: { [key: string]: number };
+  } {
+    let mediaIdList: number[] = [];
+    let mediaIdMapIndex: { [key: string]: number } = {};
+    for (let i = 0; i < mediaResult.results.length; i++) {
+      mediaIdList.push(mediaResult.results[i].id);
+      mediaIdMapIndex[mediaResult.results[i].id] = i;
+    }
+
+    return { mediaIdList, mediaIdMapIndex };
+  }
+
   createOrUpdateOrDeleteMovieLifecycle(
     mediaLifecycleDTO: MediaLifecycleDTO,
-    user: User | null
-  ) {
+    user: User | null,
+    movieResultState: Movie
+  ): Observable<Movie> {
     return this.createOrUpdateOrDeleteMediaLifecycle(
       mediaLifecycleDTO,
       'movie',
       user
-    ) as Observable<Movie_Life_Cycle>;
+    ).pipe(
+      map((entityMovieLifecycle) => {
+        entityMovieLifecycle = entityMovieLifecycle as Movie_Life_Cycle;
+        return this.supabaseDecouplingService.injectUpdatedMovieLifecycle(
+          entityMovieLifecycle,
+          movieResultState
+        );
+      })
+    );
   }
 
   createOrUpdateOrDeleteTVLifecycle(
     mediaLifecycleDTO: MediaLifecycleDTO,
-    user: User | null
-  ) {
+    user: User | null,
+    tvResultState: TV
+  ): Observable<TV> {
     return this.createOrUpdateOrDeleteMediaLifecycle(
       mediaLifecycleDTO,
       'tv',
       user
-    ) as Observable<TV_Life_Cycle>;
+    ).pipe(
+      map((entityTVLifecycle) => {
+        entityTVLifecycle = entityTVLifecycle as TV_Life_Cycle;
+        return this.supabaseDecouplingService.injectUpdatedTVLifecycle(
+          entityTVLifecycle,
+          tvResultState
+        );
+      })
+    );
   }
 
   private createOrUpdateOrDeleteMediaLifecycle(

@@ -1,14 +1,21 @@
 @if(filterForm){
 
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="">
-  <div class="mt-10">
-    <app-genre-filter [filterForm]="filterForm"></app-genre-filter>
-  </div>
-
-  <div class="mt-10">
+  <app-genre-filter class="mt-16" [filterForm]="filterForm"></app-genre-filter>
+  <div class="mt-16">
     <app-order-by-filter [filterForm]="filterForm"></app-order-by-filter>
   </div>
-
+  <div class="mt-16">
+    <app-release-date-filter class="mt-16" [filterForm]="filterForm">
+    </app-release-date-filter>
+  </div>
+  <div class="mt-16">
+    <app-include-lifecycle-filter
+      class="mt-16"
+      [filterForm]="filterForm"
+      [mediaType]="mediaType"
+    ></app-include-lifecycle-filter>
+  </div>
   <button type="submit" class="mt-5">Submit</button>
 </form>
 }

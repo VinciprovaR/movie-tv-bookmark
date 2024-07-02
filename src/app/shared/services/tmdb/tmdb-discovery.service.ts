@@ -51,9 +51,9 @@ export class TMDBDiscoveryService extends TMDBService {
 
   buildFiltersParam(payload: PayloadDiscoveryMovie) {
     let filetrsQueryParams = '';
-    if (payload.genresSelectedId.length > 0) {
+    if (payload.genreIdList.length > 0) {
       filetrsQueryParams = filetrsQueryParams.concat(
-        this.buildGenresIdParam(payload.genresSelectedId)
+        this.buildGenresIdParam(payload.genreIdList)
       );
     }
     if (payload.sortBy) {
@@ -61,7 +61,28 @@ export class TMDBDiscoveryService extends TMDBService {
         `&sort_by=${payload.sortBy}`
       );
     }
+    if (payload.releaseDate.from || payload.releaseDate.to) {
+      filetrsQueryParams = filetrsQueryParams.concat(
+        this.buildReleaseDateParams(payload.releaseDate)
+      );
+    }
     return filetrsQueryParams;
+  }
+
+  buildReleaseDateParams(releaseDate: { from: string; to: string }) {
+    let releaseDateQueryParams = '';
+    if (releaseDate.from) {
+      releaseDateQueryParams = releaseDateQueryParams.concat(
+        `&primary_release_date.gte=${releaseDate.from}`
+      );
+    }
+    if (releaseDate.to) {
+      releaseDateQueryParams = releaseDateQueryParams.concat(
+        `&primary_release_date.lte=${releaseDate.to}`
+      );
+    }
+
+    return releaseDateQueryParams;
   }
 
   buildGenresIdParam(genresSelectedId: number[]) {

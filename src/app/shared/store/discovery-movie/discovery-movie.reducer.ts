@@ -6,7 +6,12 @@ export const discoveryMovieFeatureKey = 'discovery-movie';
 
 export const initialState: DiscoveryMovieState = {
   isLoading: false,
-  payload: { genresSelectedId: [], sortBy: 'popularity.desc' },
+  payload: {
+    genreIdList: [],
+    sortBy: 'popularity.desc',
+    releaseDate: { from: '', to: '' },
+    includeLifecycle: false,
+  },
   error: null,
   movieResult: {
     page: 1,

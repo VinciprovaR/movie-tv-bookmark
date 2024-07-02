@@ -5,10 +5,7 @@ import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { TMDBSearchService } from '../../services/tmdb';
 import { TV, TVDetail, TVResult } from '../../models/media.models';
 import { Store } from '@ngrx/store';
-import {
-  SupabaseLifecycleDAO,
-  SupabaseLifecycleService,
-} from '../../services/supabase';
+import { SupabaseLifecycleService } from '../../services/supabase';
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
 import { TV_Life_Cycle } from '../../models/supabase/entities';
@@ -26,7 +23,9 @@ export class SearchTVEffects {
         return this.TMDBSearchService.tvSearchInit(query)
           .pipe(
             switchMap((tvResult) => {
-              return this.supabaseLifecycleService.injectTVLifecycle(tvResult);
+              return this.supabaseLifecycleService.findLifecycleListByTVIds(
+                tvResult
+              );
             })
           )
           .pipe(
@@ -61,7 +60,7 @@ export class SearchTVEffects {
           ).pipe(
             switchMap((tvResult) => {
               return this.supabaseLifecycleService
-                .injectTVLifecycle(tvResult)
+                .findLifecycleListByTVIds(tvResult)
                 .pipe(
                   map((tvResult: TVResult) => {
                     return SearchTVActions.searchAdditionalTVSuccess({
@@ -109,32 +108,24 @@ export class SearchTVEffects {
   createUpdateDeleteTVLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SearchTVActions.createUpdateDeleteTVLifecycle),
-      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      withLatestFrom(
+        this.store.select(AuthSelectors.selectUser),
+        this.store.select(SearchTVSelectors.selectTVResult)
+      ),
       switchMap((actionParams) => {
-        let [{ mediaLifecycleDTO }, user]: [
+        let [{ mediaLifecycleDTO }, user, TVResultState]: [
           { mediaLifecycleDTO: MediaLifecycleDTO },
-          User | null
+          User | null,
+          TVResult
         ] = actionParams;
         return this.supabaseLifecycleService
-          .createOrUpdateOrDeleteTVLifecycle(mediaLifecycleDTO, user)
+          .createOrUpdateOrDeleteTVLifecycle(
+            mediaLifecycleDTO,
+            user,
+            TVResultState.results[mediaLifecycleDTO.index]
+          )
           .pipe(
-            withLatestFrom(
-              this.store
-                .select(SearchTVSelectors.selectTVResult)
-                .pipe(
-                  map(
-                    (tvResult: TVResult) =>
-                      tvResult.results[mediaLifecycleDTO.index]
-                  )
-                )
-            ),
-            map((actionParams) => {
-              let [entityTVLifeCycle, tvState]: [TV_Life_Cycle, TV] =
-                actionParams;
-              let tv = this.supabaseDecouplingService.injectUpdatedTVLifecycle(
-                entityTVLifeCycle,
-                tvState
-              );
+            map((tv) => {
               return SearchTVActions.createUpdateDeleteTVLifecycleSuccess({
                 tv,
                 index: mediaLifecycleDTO.index,
@@ -142,7 +133,11 @@ export class SearchTVEffects {
             }),
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
-              return of(SearchTVActions.searchTVFailure({ httpErrorResponse }));
+              return of(
+                SearchTVActions.searchTVFailure({
+                  httpErrorResponse,
+                })
+              );
             })
           );
       })

@@ -1,8 +1,6 @@
-<!-- GENRES -->
-
 <div [formGroup]="filterForm">
   <h2>Genres</h2>
-  <div formGroupName="genres" class="flex flex-wrap justify-between">
+  <div [formGroup]="genresGroup" class="flex flex-wrap justify-between">
     @for(genre of genresGroup.controls | keyvalue; track genre){
 
     <app-genre-tag

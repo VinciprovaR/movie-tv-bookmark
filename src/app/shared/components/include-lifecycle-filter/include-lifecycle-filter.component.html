@@ -1,0 +1,10 @@
+<div [formGroup]="filterForm" class="w-80">
+  <div class="flex">
+    <label for="includeLifecycle">Include {{ mediaType }}s in lifecycle </label>
+    <input
+      type="checkbox"
+      [formControlName]="'includeLifecycle'"
+      id="includeLifecycle"
+    />
+  </div>
+</div>

@@ -44,7 +44,6 @@ export const appConfig: ApplicationConfig = {
     provideTMDBBaseUrl(),
     provideImgUrl(),
     provideSortEnum(),
-
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),

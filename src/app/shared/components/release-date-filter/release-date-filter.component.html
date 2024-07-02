@@ -1,0 +1,40 @@
+<div [formGroup]="filterForm" class="w-80">
+  <h2>Release Date</h2>
+  <div [formGroup]="realeaseDateGroup">
+    <div class="flex flex-wrap justify-between">
+      <label for="fromDate" class="">From</label>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerFrom"
+          [formControlName]="'from'"
+          id="fromDate"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerFrom">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-wrap justify-between">
+      <label for="toDate" class="">To</label>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerTo"
+          [formControlName]="'to'"
+          id="toDate"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="pickerTo">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

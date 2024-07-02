@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Movie, MovieResult, TV, TVResult } from '../../models/media.models';
+import {
+  MediaResult,
+  MediaType,
+  Movie,
+  MovieResult,
+  TV,
+  TVResult,
+} from '../../models/media.models';
 import {
   MediaLifecycleDTO,
   SelectLifecycleDTO,
@@ -9,12 +16,58 @@ import {
   Movie_Life_Cycle,
   TV_Life_Cycle,
 } from '../../models/supabase/entities';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseDecouplingService {
   constructor() {}
+
+  injectMovieLifecycle(
+    entityMovieLifecycle: Movie_Life_Cycle[],
+    movieResult: MovieResult,
+    mediaType: MediaType,
+    mediaIdMapIndex: { [key: string]: number }
+  ): MovieResult {
+    return this.injectMediaLifecycle(
+      movieResult,
+      entityMovieLifecycle,
+      mediaType,
+      mediaIdMapIndex
+    ) as MovieResult;
+  }
+
+  injectTVLifecycle(
+    entityTVLifecycle: TV_Life_Cycle[],
+    tvResult: TVResult,
+    mediaType: MediaType,
+    mediaIdMapIndex: { [key: string]: number }
+  ): TVResult {
+    return this.injectMediaLifecycle(
+      tvResult,
+      entityTVLifecycle,
+      mediaType,
+      mediaIdMapIndex
+    ) as TVResult;
+  }
+
+  private injectMediaLifecycle(
+    mediaResult: MovieResult | TVResult,
+    entityMediaLifecycle: Movie_Life_Cycle[] | TV_Life_Cycle[],
+    mediaType: MediaType,
+    mediaIdMapIndex: { [key: string]: number }
+  ) {
+    // console.log('movieLifecycle', movieLifecycle);
+    // console.log('movieIdList', movieIdList);
+    // console.log('movieIdMapIndex', movieIdMapIndex);
+    entityMediaLifecycle.forEach((mlc: any) => {
+      mediaResult.results[mediaIdMapIndex[mlc[`${mediaType}_id`]]][
+        'lifecycleId'
+      ] = mlc.lifecycle_id;
+    });
+    return mediaResult;
+  }
 
   injectUpdatedMovieLifecycle(
     entityMediaLifeCycle: Movie_Life_Cycle | null,
@@ -57,6 +110,9 @@ export class SupabaseDecouplingService {
         ? entityMediaLifeCycle.lifecycle_id
         : 0;
     } else {
+      console.error(
+        'mediaId selezionato non corrisponde con mediaId media state. Binary search... (?)'
+      );
       /*to-do problem, index not in synch with the actual object,
       do a binary search to find the movie id in all the objs of the state. If not found again, throw error
       */
