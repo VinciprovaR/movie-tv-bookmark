@@ -6,6 +6,7 @@ import {
   Observable,
   Subject,
   distinctUntilChanged,
+  filter,
   map,
   takeUntil,
 } from 'rxjs';
@@ -70,20 +71,19 @@ export class LifecycleSelectorComponent implements OnInit {
           return mediaLifecycleMap && mediaLifecycleMap[this.mediaId]
             ? mediaLifecycleMap[this.mediaId]
             : 0;
-        })
+        }),
+        filter((lifeCycleId) => lifeCycleId > LifecycleIdEnum.NoLifecycle)
       )
       .subscribe((lifecycleId) => {
-        // console.log(lifecycleId);
-
-        this.lifecycleControl.valueChanges.subscribe((lifecycleId) => {
-          this.setLifeCycle(lifecycleId);
-        });
-
         this.lifecycleControl.setValue(
           lifecycleId ? lifecycleId : LifecycleIdEnum.NoLifecycle,
           { emitEvent: false }
         );
       });
+
+    this.lifecycleControl.valueChanges.subscribe((lifecycleId) => {
+      this.setLifeCycle(lifecycleId);
+    });
   }
 
   setLifeCycle(lifecycleId: lifeCycleId) {

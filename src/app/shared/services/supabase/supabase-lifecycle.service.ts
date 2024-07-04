@@ -136,6 +136,7 @@ export class SupabaseLifecycleService {
           });
 
           indexListToRemove.forEach((indexToRemove) => {
+            console.log('devo rimuovere ', mediaResult.results[indexToRemove]);
             mediaResult.results.splice(indexToRemove, 1);
           });
           return mediaResult;
@@ -270,21 +271,27 @@ export class SupabaseLifecycleService {
     mediaLifecycleFromDB: Movie_Life_Cycle[] | TV_Life_Cycle[],
     mediaLifecycleDTO: MediaLifecycleDTO
   ): number {
-    let oneEntity = mediaLifecycleFromDB.length === 1;
-    let noEntity = mediaLifecycleFromDB.length === 0;
-    let inLifecycle =
+    let isEntity = mediaLifecycleFromDB.length === 1;
+    let isLifecycle =
       mediaLifecycleDTO.lifecycleId > LifecycleIdEnum.NoLifecycle;
-    let noLifecycle =
-      mediaLifecycleDTO.lifecycleId === LifecycleIdEnum.NoLifecycle;
+    let isEntityExceed = mediaLifecycleFromDB.length > 1;
 
     let condition =
-      (noEntity && inLifecycle ? 'noEtityANDInLifecycle' : false) ||
-      (oneEntity && noLifecycle ? 'oneEntityANDNoLifecycle' : false) ||
-      (oneEntity && inLifecycle ? 'oneEntityANDInLifecycle' : false) ||
-      (noEntity && noLifecycle ? 'noEntityANDNoLifecycle' : false) ||
-      (mediaLifecycleFromDB.length > 1 ? 'isEntityExceed' : 'default');
+      (!isEntity && isLifecycle && !isEntityExceed
+        ? 'noEtityANDInLifecycle'
+        : false) ||
+      (isEntity && !isLifecycle && !isEntityExceed
+        ? 'oneEntityANDNoLifecycle'
+        : false) ||
+      (isEntity && isLifecycle && !isEntityExceed
+        ? 'oneEntityANDInLifecycle'
+        : false) ||
+      (!isLifecycle && !isLifecycle && !isEntityExceed
+        ? 'noEntityANDNoLifecycle'
+        : false) ||
+      (isEntityExceed ? 'isEntityExceed' : 'default');
 
-    console.log(this.LIFECYCLE_CASES[condition]);
+    console.log('case: ' + this.LIFECYCLE_CASES[condition]);
     return this.LIFECYCLE_CASES[condition];
   }
 }
