@@ -14,6 +14,10 @@ import { MediaType, TV, TVResult } from '../../shared/models/media.models';
 import { MediaLifecycleDTO } from '../../shared/models/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { SupabaseLifecycleService } from '../../shared/services/supabase';
+import {
+  TVLifecycleActions,
+  TVLifecycleSelectors,
+} from '../../shared/store/tv-lifecycle';
 
 @Component({
   selector: 'app-tv-search',
@@ -24,10 +28,13 @@ import { SupabaseLifecycleService } from '../../shared/services/supabase';
     MediaListContainerComponent,
     ScrollNearEndDirective,
   ],
+  providers: [BridgeDataService],
   templateUrl: './tv-search.component.html',
   styleUrl: './tv-search.component.css',
 })
 export class TVSearchComponent implements OnInit {
+  tvListLength: number = 0;
+
   destroyed$ = new Subject();
 
   mediaType: MediaType = 'tv';
@@ -44,6 +51,7 @@ export class TVSearchComponent implements OnInit {
 
   tv$: Observable<TV[]> = this.selectTVResult$.pipe(
     map((TVResult) => {
+      this.tvListLength = TVResult.results.length;
       return TVResult.results;
     })
   );
@@ -61,11 +69,19 @@ export class TVSearchComponent implements OnInit {
   ngAfterViewInit(): void {}
 
   ngOnInit(): void {
-    //data to lifecycle-selector
+    //data to lifecycle-selector, options
     this.supabaseLifecycleService.lifeCycleOptions$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((lifecycleOptions) => {
         this.bridgeDataService.pushSelectLifecycleOptions(lifecycleOptions);
+      });
+
+    //data to lifecycle-selector, lifecycle selected
+    this.store
+      .select(TVLifecycleSelectors.selectTVLifecycleMap)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((tvLifecycleMap) => {
+        this.bridgeDataService.pushMediaLifecycleMap(tvLifecycleMap);
       });
 
     // data from lifecycle-selector
@@ -78,7 +94,7 @@ export class TVSearchComponent implements OnInit {
 
   createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
     this.store.dispatch(
-      SearchTVActions.createUpdateDeleteTVLifecycle({
+      TVLifecycleActions.createUpdateDeleteTVLifecycle({
         mediaLifecycleDTO,
       })
     );
@@ -89,6 +105,8 @@ export class TVSearchComponent implements OnInit {
   }
 
   searchAdditionalTV() {
-    this.store.dispatch(SearchTVActions.searchAdditionalTV());
+    if (this.tvListLength > 0) {
+      this.store.dispatch(SearchTVActions.searchAdditionalTV());
+    }
   }
 }

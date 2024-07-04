@@ -1,15 +1,14 @@
-import {
-  Component,
-  DestroyRef,
-  Inject,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
-import { MediaType } from '../../models/media.models';
+import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
+import { LifecycleIdEnum, lifeCycleId } from '../../models/lifecycle.models';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Observable, Subject, distinctUntilChanged, takeUntil } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  distinctUntilChanged,
+  map,
+  takeUntil,
+} from 'rxjs';
 import { Media_Lifecycle_Options } from '../../models/supabase/entities/media_life_cycle_enum.entity';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,6 +18,9 @@ import {
   MediaLifecycleDTO,
   SelectLifecycleDTO,
 } from '../../models/supabase/DTO';
+import { MovieLifecycleMap } from '../../models/store/movie-lifecycle-state.models';
+import { TVLifecycleMap } from '../../models/store/tv-lifecycle-state.models';
+import { MediaType } from '../../models/media.models';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -39,15 +41,14 @@ export class LifecycleSelectorComponent implements OnInit {
   @Input({ required: true })
   mediaId!: number;
   @Input({ required: true })
-  lifecycleId!: number | undefined;
-  @Input({ required: true })
   index!: number;
   @Input({ required: true })
   mediaType!: MediaType;
-  lifecycleControl!: FormControl;
   options$!: Observable<SelectLifecycleDTO[] | []>;
   lifecycleOptions$!: Observable<Media_Lifecycle_Options[] | []>;
-
+  lifecycleControl: FormControl<lifeCycleId> = this.fb.control(0, {
+    nonNullable: true,
+  });
   constructor(
     private fb: FormBuilder,
     private bridgeDataService: BridgeDataService
@@ -58,25 +59,37 @@ export class LifecycleSelectorComponent implements OnInit {
     });
   }
 
-  //to-do refractor? no selector, hardcoded, più leggero
   ngOnInit(): void {
     this.options$ = this.bridgeDataService.selectLifecycleOptionsObs$;
 
-    this.lifecycleControl = this.fb.control(
-      this.lifecycleId ? this.lifecycleId : 0
-    );
-
-    this.lifecycleControl.valueChanges
-      .pipe(takeUntil(this.destroyed$), distinctUntilChanged())
+    this.bridgeDataService.mediaLifecycleMapObs$
+      .pipe(
+        takeUntil(this.destroyed$),
+        distinctUntilChanged(),
+        map((mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap | null) => {
+          return mediaLifecycleMap && mediaLifecycleMap[this.mediaId]
+            ? mediaLifecycleMap[this.mediaId]
+            : 0;
+        })
+      )
       .subscribe((lifecycleId) => {
-        this.setLifeCycle(lifecycleId);
+        // console.log(lifecycleId);
+
+        this.lifecycleControl.valueChanges.subscribe((lifecycleId) => {
+          this.setLifeCycle(lifecycleId);
+        });
+
+        this.lifecycleControl.setValue(
+          lifecycleId ? lifecycleId : LifecycleIdEnum.NoLifecycle,
+          { emitEvent: false }
+        );
       });
   }
 
-  setLifeCycle(lifecycleId: number) {
+  setLifeCycle(lifecycleId: lifeCycleId) {
     let mediaLifecycleDTO: MediaLifecycleDTO = {
       mediaId: this.mediaId,
-      lifecycleId: +lifecycleId,
+      lifecycleId: +lifecycleId as lifeCycleId,
       index: this.index,
     };
 

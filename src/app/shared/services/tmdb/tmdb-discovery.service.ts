@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 import { TMDBService } from './tmdb.abstract.service';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { MovieResult, TVResult, MediaType } from '../../models/media.models';
 import { PayloadDiscoveryMovie } from '../../models/store/discovery-movie-state.models';
 

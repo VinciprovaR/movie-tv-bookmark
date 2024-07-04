@@ -19,17 +19,13 @@ export const initialState: SearchTVState = {
 
 export const searchTVReducer = createReducer(
   initialState,
-  on(
-    SearchTVActions.searchAdditionalTV,
-    SearchTVActions.createUpdateDeleteTVLifecycle,
-    (state) => {
-      return {
-        ...state,
-        error: null,
-        isLoading: true,
-      };
-    }
-  ),
+  on(SearchTVActions.searchAdditionalTV, (state) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: true,
+    };
+  }),
   on(SearchTVActions.searchTV, (state, { query }) => {
     return {
       ...state,
@@ -92,23 +88,10 @@ export const searchTVReducer = createReducer(
       tvDetail: null,
     };
   }),
-
-  on(
-    SearchTVActions.createUpdateDeleteTVLifecycleSuccess,
-    (state, { tv, index }) => {
-      let tvResultClone = JSON.parse(JSON.stringify({ ...state.tvResult }));
-      tvResultClone.results[index] = tv;
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        tvResult: tvResultClone,
-      };
-    }
-  ),
   on(SearchTVActions.searchTVFailure, (state, { httpErrorResponse }) => {
     return {
       ...state,
+      isLoading: false,
       error: httpErrorResponse,
     };
   }),

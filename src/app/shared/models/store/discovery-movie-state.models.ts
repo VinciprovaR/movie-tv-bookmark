@@ -12,7 +12,7 @@ export interface PayloadDiscoveryMovie {
   genreIdList: number[];
   sortBy: string;
   releaseDate: ReleaseDate;
-  includeLifecycle: boolean;
+  includeMediaWithLifecycle: boolean;
 }
 
 export interface DiscoveryMovieState {

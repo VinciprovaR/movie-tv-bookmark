@@ -10,7 +10,7 @@ export const initialState: DiscoveryMovieState = {
     genreIdList: [],
     sortBy: 'popularity.desc',
     releaseDate: { from: '', to: '' },
-    includeLifecycle: false,
+    includeMediaWithLifecycle: false,
   },
   error: null,
   movieResult: {
@@ -32,7 +32,6 @@ export const initialState: DiscoveryMovieState = {
 export const discoveryMovieReducer = createReducer(
   initialState,
   on(
-    DiscoveryMovieActions.discoveryAdditionalMovie,
     DiscoveryMovieActions.createUpdateDeleteMovieLifecycle,
     DiscoveryMovieActions.searchAdditionalPeople,
     DiscoveryMovieActions.searchPeople,
@@ -53,14 +52,18 @@ export const discoveryMovieReducer = createReducer(
       genreList,
     };
   }),
-  on(DiscoveryMovieActions.discoveryMovie, (state, { payload }) => {
-    return {
-      ...state,
-      payload,
-      error: null,
-      isLoading: true,
-    };
-  }),
+  on(
+    DiscoveryMovieActions.discoveryMovie,
+    DiscoveryMovieActions.discoveryAdditionalMovie,
+    (state, { payload }) => {
+      return {
+        ...state,
+        payload,
+        error: null,
+        isLoading: true,
+      };
+    }
+  ),
   on(DiscoveryMovieActions.discoveryMovieSuccess, (state, { movieResult }) => {
     return {
       ...state,
@@ -179,6 +182,7 @@ export const discoveryMovieReducer = createReducer(
     (state, { httpErrorResponse }) => {
       return {
         ...state,
+        isLoading: false,
         error: httpErrorResponse,
       };
     }

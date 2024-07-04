@@ -25,6 +25,10 @@ import {
   SelectLifecycleDTO,
 } from '../../shared/models/supabase/DTO';
 import { SupabaseLifecycleService } from '../../shared/services/supabase';
+import {
+  MovieLifecycleActions,
+  MovieLifecycleSelectors,
+} from '../../shared/store/movie-lifecycle';
 
 @Component({
   selector: 'app-movie-search',
@@ -35,10 +39,13 @@ import { SupabaseLifecycleService } from '../../shared/services/supabase';
     MediaListContainerComponent,
     ScrollNearEndDirective,
   ],
+  providers: [BridgeDataService],
   templateUrl: './movie-search.component.html',
   styleUrl: './movie-search.component.css',
 })
 export class MovieSearchComponent implements OnInit {
+  movieListLength: number = 0;
+
   destroyed$ = new Subject();
 
   mediaType: MediaType = 'movie';
@@ -55,6 +62,7 @@ export class MovieSearchComponent implements OnInit {
 
   movie$: Observable<Movie[]> = this.selectMovieResult$.pipe(
     map((movieResult) => {
+      this.movieListLength = movieResult.results.length;
       return movieResult.results;
     })
   );
@@ -71,24 +79,35 @@ export class MovieSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //data to lifecycle-selector
+    //data to lifecycle-selector, options
     this.supabaseLifecycleService.lifeCycleOptions$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((lifecycleOptions) => {
         this.bridgeDataService.pushSelectLifecycleOptions(lifecycleOptions);
       });
 
+    //data to lifecycle-selector, lifecycle selected
+    this.store
+      .select(MovieLifecycleSelectors.selectMovieLifecycleMap)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((movieLifecycleMap) => {
+        this.bridgeDataService.pushMediaLifecycleMap(movieLifecycleMap);
+      });
+
     // data from lifecycle-selector
     this.bridgeDataService.inputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
+        //this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
         this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
       });
+
+    // this.searchMovie(this.query);
   }
 
   createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
     this.store.dispatch(
-      SearchMovieActions.createUpdateDeleteMovieLifecycle({
+      MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
         mediaLifecycleDTO,
       })
     );
@@ -99,6 +118,8 @@ export class MovieSearchComponent implements OnInit {
   }
 
   searchAdditionalMovie() {
-    this.store.dispatch(SearchMovieActions.searchAdditionalMovie());
+    if (this.movieListLength > 0) {
+      this.store.dispatch(SearchMovieActions.searchAdditionalMovie());
+    }
   }
 }

@@ -3,7 +3,7 @@ import { RouterLinkActive, RouterModule } from '@angular/router';
 import { map } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { AuthSelectors, AuthActions } from '../../shared/store/auth';
+import { AuthSelectors, AuthActions } from '../../store/auth';
 @Component({
   selector: 'app-navigator',
   standalone: true,

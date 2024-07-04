@@ -19,17 +19,13 @@ export const initialState: SearchMovieState = {
 
 export const searchMovieReducer = createReducer(
   initialState,
-  on(
-    SearchMovieActions.searchAdditionalMovie,
-    SearchMovieActions.createUpdateDeleteMovieLifecycle,
-    (state) => {
-      return {
-        ...state,
-        error: null,
-        isLoading: true,
-      };
-    }
-  ),
+  on(SearchMovieActions.searchAdditionalMovie, (state) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: true,
+    };
+  }),
 
   on(SearchMovieActions.searchMovie, (state, { query }) => {
     return {
@@ -100,26 +96,10 @@ export const searchMovieReducer = createReducer(
       movieDetail: null,
     };
   }),
-  on(
-    SearchMovieActions.createUpdateDeleteMovieLifecycleSuccess,
-    (state, { movie, index }) => {
-      let movieResultClone = JSON.parse(
-        JSON.stringify({ ...state.movieResult })
-      );
-
-      movieResultClone.results[index] = movie;
-
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        movieResult: movieResultClone,
-      };
-    }
-  ),
   on(SearchMovieActions.searchMovieFailure, (state, { httpErrorResponse }) => {
     return {
       ...state,
+      isLoading: false,
       error: httpErrorResponse,
     };
   }),

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { NavigatorComponent } from '../../../features/navigator/navigator.component';
+import { NavigatorComponent } from '../../components/navigator/navigator.component';
 
 @Component({
   selector: 'app-header',

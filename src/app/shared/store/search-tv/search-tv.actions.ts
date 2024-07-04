@@ -29,23 +29,6 @@ export const searchTVDetailSuccess = createAction(
 );
 export const cleanTVDetail = createAction('[Search-tv/API] Clean TV Detail');
 
-//lifecycle
-export const createUpdateDeleteTVLifecycle = createAction(
-  '[TV-Lifecycle/API] Create or Update or Delete TV Lifecycle',
-  props<{ mediaLifecycleDTO: MediaLifecycleDTO }>()
-);
-export const createUpdateDeleteTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle/API] Create or Update or Delete TV Lifecycle Success',
-  props<{ tv: TV; index: number }>()
-);
-export const deleteTVLifecycle = createAction(
-  '[TV-Lifecycle/API] Delete TV Lifecycle',
-  props<{ tvId: number }>()
-);
-export const deleteTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle/API] Delete TV Lifecycle Success'
-);
-
 //error
 export const searchTVFailure = createAction(
   '[Search-TV/API] Search TV Failure',

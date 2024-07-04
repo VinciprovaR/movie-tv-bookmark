@@ -20,7 +20,6 @@ export interface Media {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  lifecycleId?: number;
   index?: number;
 }
 
@@ -85,17 +84,6 @@ export interface MovieDetail extends MediaDetail {
   title: string;
   video: boolean;
 }
-
-export type noLifecycle = 0;
-export type watchListLifecycle = 1;
-export type watchedLifecycle = 2;
-export type rewatchLifecycle = 3;
-
-export type lifeCycleId =
-  | noLifecycle
-  | watchListLifecycle
-  | watchedLifecycle
-  | rewatchLifecycle;
 
 interface Episode {
   id: number;

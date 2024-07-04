@@ -19,7 +19,8 @@ export const discoveryMovieSuccess = createAction(
   props<{ movieResult: MovieResult }>()
 );
 export const discoveryAdditionalMovie = createAction(
-  '[Discovery-movie/API] Discovery Additional Movie'
+  '[Discovery-movie/API] Discovery Additional Movie',
+  props<{ payload: PayloadDiscoveryMovie }>()
 );
 export const discoveryAdditionalMovieSuccess = createAction(
   '[Discovery-movie/API] Discovery Movie Additional Success',

@@ -57,13 +57,20 @@ export class DiscoveryFiltersComponent implements OnInit {
   filterForm!: FormGroup<DiscoveryFilterForm>;
 
   @Input({ required: true })
+  signalAdditionalMovieObs$!: Observable<void>;
+
+  @Input({ required: true })
   mediaType!: MediaType;
 
   @Input({ required: true })
   payload$!: Observable<PayloadDiscoveryMovie>;
 
   @Output()
-  payloadEmitter: EventEmitter<PayloadDiscoveryMovie> =
+  payloadEmitterOnSubmit: EventEmitter<PayloadDiscoveryMovie> =
+    new EventEmitter<PayloadDiscoveryMovie>();
+
+  @Output()
+  payloadEmitterAdditionalMovie: EventEmitter<PayloadDiscoveryMovie> =
     new EventEmitter<PayloadDiscoveryMovie>();
 
   @Input({ required: true })
@@ -77,6 +84,12 @@ export class DiscoveryFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.signalAdditionalMovieObs$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(() => {
+        this.onAdditionalMovie();
+      });
+
     combineLatest([this.payload$, this.genreList$])
       .pipe(takeUntil(this.destroyed$))
       .subscribe((formData) => {
@@ -90,7 +103,7 @@ export class DiscoveryFiltersComponent implements OnInit {
       genreIdList: genreIdListSelected,
       sortBy: sortBySelected,
       releaseDate: releaseDateSelected,
-      includeLifecycle: includeLifecycleSelected,
+      includeMediaWithLifecycle: includeMediaWithLifecycleSelected,
     } = filterSelected;
 
     const genresGroup = this.fb.group<GenreGroup>({
@@ -100,13 +113,13 @@ export class DiscoveryFiltersComponent implements OnInit {
     const sortByControl = this.fb.control<string>(sortBySelected, {
       nonNullable: true,
     });
-
+    //to-do validatori from non maggiore di to
     const releaseDateGroup = this.fb.group<ReleaseDateGroup>(
       this.initReleaseDateGroup(releaseDateSelected)
     );
 
     const includeLifecycleControl = this.fb.control<boolean>(
-      includeLifecycleSelected,
+      includeMediaWithLifecycleSelected,
       {
         nonNullable: true,
       }
@@ -152,11 +165,19 @@ export class DiscoveryFiltersComponent implements OnInit {
     };
   }
 
-  onSubmit(): void {
-    console.log(this.filterForm.value);
+  onAdditionalMovie() {
+    // console.log(this.filterForm.value);
     if (this.filterForm.valid) {
       let payload: PayloadDiscoveryMovie = this.buildPayload();
-      this.payloadEmitter.emit(payload);
+      this.payloadEmitterAdditionalMovie.emit(payload);
+    }
+  }
+
+  onSubmit(): void {
+    // console.log(this.filterForm.value);
+    if (this.filterForm.valid) {
+      let payload: PayloadDiscoveryMovie = this.buildPayload();
+      this.payloadEmitterOnSubmit.emit(payload);
     }
   }
 
@@ -165,7 +186,7 @@ export class DiscoveryFiltersComponent implements OnInit {
       genreIdList: this.buildGenresSelectedListPayload(),
       sortBy: this.buildSortBy(),
       releaseDate: this.buildReleaseDatePayload(),
-      includeLifecycle: this.buildIncludeLifecyclePayload(),
+      includeMediaWithLifecycle: this.buildIncludeLifecyclePayload(),
     };
   }
 

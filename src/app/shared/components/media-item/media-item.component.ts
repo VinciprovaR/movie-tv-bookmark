@@ -29,8 +29,6 @@ export class MediaItemComponent implements OnInit {
   @Input({ required: true })
   mediaTitle!: string;
   @Input({ required: true })
-  mediaLifecycleId: number = 0;
-  @Input({ required: true })
   poster_path!: string;
 
   detailMediaPath: string = '';

@@ -1,8 +1,10 @@
 <app-discovery-filters
+  [signalAdditionalMovieObs$]="signalAdditionalMovieObs$"
   [genreList$]="selectGenreList$"
   [payload$]="payload$"
   [mediaType]="mediaType"
-  (payloadEmitter)="discoveryMovie($event)"
+  (payloadEmitterOnSubmit)="discoveryMovie($event)"
+  (payloadEmitterAdditionalMovie)="discoveryAdditionalMovieWithFilters($event)"
 ></app-discovery-filters>
 
 <app-media-list-container
