@@ -24,9 +24,7 @@ export class SupabaseAuthDAO {
       })
     ).pipe(
       tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
+        if (result.error) throw new Error(result.error.message);
       })
     );
   }
@@ -40,7 +38,7 @@ export class SupabaseAuthDAO {
     ).pipe(
       tap((result: any) => {
         if (result.error) {
-          throw result.error;
+          if (result.error) throw new Error(result.error.message);
         }
       })
     );
@@ -52,7 +50,7 @@ export class SupabaseAuthDAO {
     ).pipe(
       tap((result: any) => {
         if (result.error) {
-          throw result.error;
+          if (result.error) throw new Error(result.error.message);
         }
       })
     ); //to-do captcha e redirect to
@@ -62,7 +60,7 @@ export class SupabaseAuthDAO {
     return from(this.supabase.auth.signOut()).pipe(
       tap((result: any) => {
         if (result.error) {
-          throw result.error;
+          if (result.error) throw new Error(result.error.message);
         }
       })
     );
@@ -72,7 +70,7 @@ export class SupabaseAuthDAO {
     return from(this.supabase.auth.getSession()).pipe(
       tap((result: any) => {
         if (result.error) {
-          throw result.error;
+          if (result.error) throw new Error(result.error.message);
         }
       })
     );

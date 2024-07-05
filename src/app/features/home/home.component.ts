@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    console.log('init home');
     this.selectUser$ = this.store.select(AuthSelectors.selectUser);
   }
 }

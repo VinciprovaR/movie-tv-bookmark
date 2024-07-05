@@ -41,23 +41,6 @@ export const discoveryMovieDetailSuccess = createAction(
   props<{ movieDetail: MovieDetail }>()
 );
 
-//lifecycle
-export const createUpdateDeleteMovieLifecycle = createAction(
-  '[Discovery-Lifecycle/API] Create or Update or Delete Discovery Movie Lifecycle',
-  props<{ mediaLifecycleDTO: MediaLifecycleDTO }>()
-);
-export const createUpdateDeleteMovieLifecycleSuccess = createAction(
-  '[Discovery-Lifecycle/API] Create or Update or Delete Discovery Movie Lifecycle Success',
-  props<{ movie: Movie; index: number }>()
-);
-export const deleteMovieLifecycle = createAction(
-  '[Discovery-Lifecycle/API] Delete Discovery Movie Lifecycle',
-  props<{ movieId: number }>()
-);
-export const deleteMovieLifecycleSuccess = createAction(
-  '[Discovery-Lifecycle/API] Delete Discovery Movie Lifecycle Success'
-);
-
 //genres
 export const getGenreList = createAction(
   '[Discovery-movie/API] Get Genre List'

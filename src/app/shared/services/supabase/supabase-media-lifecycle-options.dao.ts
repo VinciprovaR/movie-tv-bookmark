@@ -17,12 +17,8 @@ export class SupabaseMediaLifecycleOptionsDAO {
         .order('order', { ascending: true })
     ).pipe(
       map((result: any) => {
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }

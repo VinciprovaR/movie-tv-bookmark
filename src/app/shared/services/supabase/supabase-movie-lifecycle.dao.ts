@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { SupabaseClient, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { Observable, from, map, tap } from 'rxjs';
+import { Observable, catchError, from, map, tap } from 'rxjs';
 import { lifeCycleId } from '../../models/lifecycle.models';
 import {
   ACTION_DB_ENUM,
   Movie_Life_Cycle,
 } from '../../models/supabase/entities';
+import { ErrorResponse } from '../../models/error.models';
 
 @Injectable({
   providedIn: 'root',
@@ -20,16 +21,12 @@ export class SupabaseMovieLifecycleDAO {
     return from(
       this.supabase
         .from(`movie_life_cycle`)
-        .select(`{movie_id, lifecycle_id}`)
+        .select()
         .in(`movie_id`, movieIdList)
     ).pipe(
       map((result: any) => {
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }
@@ -39,27 +36,21 @@ export class SupabaseMovieLifecycleDAO {
   createMovieLifeCycle(
     lifecycleId: lifeCycleId,
     mediaId: number,
-    user: User | null
+    user: User
   ): Observable<Movie_Life_Cycle[]> {
-    let mediaLifecycle: Movie_Life_Cycle = {
-      user_id: user?.id,
-      lifecycle_id: lifecycleId,
-      movie_id: mediaId,
-    };
-
     return from(
       this.supabase
         .from(`movie_life_cycle`)
-        .insert<Movie_Life_Cycle>(mediaLifecycle)
+        .insert<any>({
+          user_id: user.id,
+          lifecycle_id: lifecycleId,
+          movie_id: mediaId,
+        })
         .select()
     ).pipe(
       map((result: any) => {
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }
@@ -78,12 +69,8 @@ export class SupabaseMovieLifecycleDAO {
         .select()
     ).pipe(
       map((result: any) => {
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }
@@ -102,13 +89,8 @@ export class SupabaseMovieLifecycleDAO {
         .select()
     ).pipe(
       map((result: any) => {
-        result.data[0].actionDb = ACTION_DB_ENUM.ActionDelete;
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }

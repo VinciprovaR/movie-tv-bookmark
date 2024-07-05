@@ -34,21 +34,17 @@ import {
 })
 export class TVSearchComponent implements OnInit {
   tvListLength: number = 0;
+  mediaType: MediaType = 'tv';
 
   destroyed$ = new Subject();
 
-  mediaType: MediaType = 'tv';
-
   query$ = this.store.select(SearchTVSelectors.selectQuery);
-
   selectIsLoading$: Observable<boolean> = this.store.select(
     SearchTVSelectors.selectIsLoading
   );
-
   selectTVResult$: Observable<TVResult> = this.store.select(
     SearchTVSelectors.selectTVResult
   );
-
   tv$: Observable<TV[]> = this.selectTVResult$.pipe(
     map((TVResult) => {
       this.tvListLength = TVResult.results.length;

@@ -25,9 +25,8 @@ export class DiscoveryMovieEffects {
         return this.TMDBDiscoveryService.movieDiscoveryInit(payload).pipe(
           switchMap((movieResult: MovieResult) => {
             if (!payload.includeMediaWithLifecycle) {
-              return this.supabaseLifecycleService.removeMovieWithNoLifecycle(
-                movieResult,
-                'movie'
+              return this.supabaseLifecycleService.removeMovieWithLifecycle(
+                movieResult
               );
             }
             return of(movieResult);
@@ -66,9 +65,8 @@ export class DiscoveryMovieEffects {
           ).pipe(
             switchMap((movieResult: MovieResult) => {
               if (!payload.includeMediaWithLifecycle) {
-                return this.supabaseLifecycleService.removeMovieWithNoLifecycle(
-                  movieResult,
-                  'movie'
+                return this.supabaseLifecycleService.removeMovieWithLifecycle(
+                  movieResult
                 );
               }
               return of(movieResult);

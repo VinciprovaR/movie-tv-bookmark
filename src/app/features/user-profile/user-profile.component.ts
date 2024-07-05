@@ -20,7 +20,6 @@ export class UserProfileComponent implements OnInit {
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
-    console.log('init user profile');
     this.userSelector$ = this.store.select(AuthSelectors.selectUser);
   }
 }

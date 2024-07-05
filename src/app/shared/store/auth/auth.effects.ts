@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
+  User,
 } from '@supabase/supabase-js/';
 import { ErrorResponse } from '../../models/error.models';
 
@@ -22,7 +23,7 @@ export class AuthEffects {
           }),
           map((result: AuthTokenResponsePassword) => {
             return AuthActions.loginSuccess({
-              user: result.data.user,
+              user: result.data.user as User,
             });
           }),
           catchError((httpErrorResponse: ErrorResponse) => {

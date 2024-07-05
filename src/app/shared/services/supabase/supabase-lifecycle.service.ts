@@ -11,7 +11,7 @@ import {
   TV_Life_Cycle,
 } from '../../models/supabase/entities';
 import { SupabaseTVLifecycleDAO } from './supabase-tv-lifecycle.dao';
-import { SupabaseDecouplingService } from './supabase-decoupling.service';
+import { SupabaseUtilsService } from './supabase-utils.service';
 import { SupabaseMediaLifecycleOptionsDAO } from './supabase-media-lifecycle-options.dao';
 import { SupabaseMovieLifecycleDAO } from './supabase-movie-lifecycle.dao';
 import { TVLifecycleMap } from '../../models/store/tv-lifecycle-state.models';
@@ -24,26 +24,11 @@ import { LifecycleIdEnum } from '../../models/lifecycle.models';
 export class SupabaseLifecycleService {
   lifeCycleOptions$!: Observable<SelectLifecycleDTO[]>;
 
-  private readonly LIFECYCLE_CASES: any = {
-    noEtityANDInLifecycle: 0, //Case #0 - Movie doesn't have its own lifecycle and lifecycle selected is > 0, must create the lifecycle item
-    //
-    oneEntityANDNoLifecycle: 1, //Case #1 - Movie has its own lifecycle and lifecycle selected is == 0, must fake delete the lifecycle item , update the lifecycle to 0
-    //
-    oneEntityANDInLifecycle: 2, //Case #2 - Movie has its own lifecycle and lifecycle selected is > 0, must update the lifecycle item
-    //
-    noEntityANDNoLifecycle: 3, //Case #3 -  Movie doesn't have its own lifecycle and lifecycle selected is == 0, must do nothing, return lifecycle 0
-    //
-    isEntityExceed: -1, //Case #-1 - more than one same movie lifecycle with the same user, shouldn't be possible. User and movie/tv_id are both unique in db
-    //
-    default: -99, //#Case #-99/Default - Something went wrong
-    //
-  };
-
   constructor(
     private supabaseMediaLifecycleOptionsDAO: SupabaseMediaLifecycleOptionsDAO,
     private supabaseMovieLifecycleDAO: SupabaseMovieLifecycleDAO,
     private supabaseTVLifecycleDAO: SupabaseTVLifecycleDAO,
-    private supabaseDecouplingService: SupabaseDecouplingService
+    private supabaseUtilsService: SupabaseUtilsService
   ) {
     this.retriveLifecycleOptions();
   }
@@ -53,7 +38,7 @@ export class SupabaseLifecycleService {
       .findLifecycleOptions()
       .pipe(
         map((lifecycleOptionsResult) => {
-          return this.supabaseDecouplingService.fromMediaLifecycleOptionsToSelectLifecycleDTO(
+          return this.supabaseUtilsService.fromMediaLifecycleOptionsToSelectLifecycleDTO(
             lifecycleOptionsResult
           );
         })
@@ -64,14 +49,83 @@ export class SupabaseLifecycleService {
     movieResult: MovieResult,
     movieLifecycleMap: MovieLifecycleMap
   ): Observable<MovieLifecycleMap> {
-    //to-do rimuovere mediaIdMapIndex
-    let mediaIdList = this.buildMediaIdListMap(movieResult);
+    let mediaIdList =
+      this.supabaseUtilsService.buildMediaIdListMap(movieResult);
     return this.supabaseMovieLifecycleDAO
       .findLifecycleListByMovieIds(mediaIdList)
       .pipe(
         map((entityMovieLifeCycleList: Movie_Life_Cycle[]) => {
-          return this.supabaseDecouplingService.fromEntityMovieLifecycleListToMovieLifecycleMap(
+          return this.supabaseUtilsService.injectInMovieLifecycleMap(
             entityMovieLifeCycleList,
+            movieLifecycleMap
+          );
+        })
+      );
+  }
+
+  removeMovieWithLifecycle(movieResult: MovieResult) {
+    let { mediaIdList, mediaIdMapIndex } =
+      this.supabaseUtilsService.buildMediaIdListMapIndex(movieResult);
+    return this.supabaseMovieLifecycleDAO
+      .findLifecycleListByMovieIds(mediaIdList)
+      .pipe(
+        map((entityMediaLifecycle: Movie_Life_Cycle[]) => {
+          console.log(entityMediaLifecycle);
+          return this.supabaseUtilsService.removeMediaWithLifecycle(
+            entityMediaLifecycle,
+            mediaIdMapIndex,
+            'movie',
+            movieResult
+          ) as MovieResult;
+        })
+      );
+  }
+
+  createOrUpdateOrDeleteMovieLifecycle(
+    movieLifecycleDTO: MediaLifecycleDTO,
+    user: User,
+    movieLifecycleMap: MovieLifecycleMap
+  ): Observable<MovieLifecycleMap> {
+    return this.supabaseMovieLifecycleDAO
+      .findLifecycleListByMovieIds([movieLifecycleDTO.mediaId])
+      .pipe(
+        switchMap((movieLifecycleFromDB: Movie_Life_Cycle[]) => {
+          switch (
+            this.supabaseUtilsService.checkCase(
+              movieLifecycleFromDB,
+              movieLifecycleDTO
+            )
+          ) {
+            case 0:
+              return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
+                movieLifecycleDTO.lifecycleId,
+                movieLifecycleDTO.mediaId,
+                user
+              );
+            case 1:
+              return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
+                movieLifecycleDTO.mediaId,
+                movieLifecycleDTO.lifecycleId
+              );
+            case 2:
+              return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
+                movieLifecycleDTO.lifecycleId,
+                movieLifecycleDTO.mediaId
+              );
+            case 3:
+              let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
+                lifecycle_id: 0,
+                movie_id: movieLifecycleDTO.mediaId,
+                user_id: user.id,
+              };
+              return of([movieLifecycleFromDBCustom]);
+            default:
+              throw new Error('Something went wrong. Case -1'); //to-do traccia errore su db, anche se impossibile che passi qui
+          }
+        }),
+        map((movieMovieLifecycle: Movie_Life_Cycle[]) => {
+          return this.supabaseUtilsService.injectInMovieLifecycleMap(
+            movieMovieLifecycle,
             movieLifecycleMap
           );
         })
@@ -82,12 +136,12 @@ export class SupabaseLifecycleService {
     tvResult: TVResult,
     tvLifecycleMap: TVLifecycleMap
   ): Observable<MovieLifecycleMap> {
-    let mediaIdList = this.buildMediaIdListMap(tvResult);
+    let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(tvResult);
     return this.supabaseTVLifecycleDAO
       .findLifecycleListByTVIds(mediaIdList)
       .pipe(
         map((entityTVLifeCycleList: TV_Life_Cycle[]) => {
-          return this.supabaseDecouplingService.fromEntityTVLifecycleListToTVLifecycleMap(
+          return this.supabaseUtilsService.injectInTVLifecycleMap(
             entityTVLifeCycleList,
             tvLifecycleMap
           );
@@ -95,65 +149,38 @@ export class SupabaseLifecycleService {
       );
   }
 
-  removeMovieWithNoLifecycle(
-    movieResult: MovieResult,
-    mediaType: MediaType
-  ): Observable<MovieResult> {
-    return this.removeMediaWithLifecycle(
-      movieResult,
-      mediaType
-    ) as Observable<MovieResult>;
-  }
-
-  removeTVWithNoLifecycle(
-    tvResult: TVResult,
-    mediaType: MediaType
-  ): Observable<TVResult> {
-    return this.removeMediaWithLifecycle(
-      tvResult,
-      mediaType
-    ) as Observable<TVResult>;
-  }
-
-  private removeMediaWithLifecycle(
-    mediaResult: MovieResult | TVResult,
-    mediaType: MediaType
-  ) {
+  removeTVWithLifecycle(tvResult: TVResult) {
     let { mediaIdList, mediaIdMapIndex } =
-      this.buildMediaIdListMapIndex(mediaResult);
-    return this.supabaseMovieLifecycleDAO
-      .findLifecycleListByMovieIds(mediaIdList)
+      this.supabaseUtilsService.buildMediaIdListMapIndex(tvResult);
+    return this.supabaseTVLifecycleDAO
+      .findLifecycleListByTVIds(mediaIdList)
       .pipe(
-        map((entityMediaLifecycle: Movie_Life_Cycle[] | TV_Life_Cycle[]) => {
-          let indexListToRemove: number[] = [];
-          entityMediaLifecycle.forEach((mlc: any) => {
-            if (mlc[`lifecycle_id`] != LifecycleIdEnum.NoLifecycle) {
-              indexListToRemove.push(mediaIdMapIndex[mlc[`${mediaType}_id`]]);
-            }
-          });
-          indexListToRemove = indexListToRemove.sort(function (a, b) {
-            return b - a;
-          });
-
-          indexListToRemove.forEach((indexToRemove) => {
-            console.log('devo rimuovere ', mediaResult.results[indexToRemove]);
-            mediaResult.results.splice(indexToRemove, 1);
-          });
-          return mediaResult;
+        map((entityMediaLifecycle: TV_Life_Cycle[]) => {
+          return this.supabaseUtilsService.removeMediaWithLifecycle(
+            entityMediaLifecycle,
+            mediaIdMapIndex,
+            'tv',
+            tvResult
+          ) as TVResult;
         })
       );
   }
 
   createOrUpdateOrDeleteTVLifecycle(
     tvLifecycleDTO: MediaLifecycleDTO,
-    user: User | null,
+    user: User,
     tvLifecycleMap: TVLifecycleMap
   ): Observable<TVLifecycleMap> {
     return this.supabaseTVLifecycleDAO
       .findLifecycleListByTVIds([tvLifecycleDTO.mediaId])
       .pipe(
         switchMap((tvLifecycleFromDB: TV_Life_Cycle[]) => {
-          switch (this.checkCase(tvLifecycleFromDB, tvLifecycleDTO)) {
+          switch (
+            this.supabaseUtilsService.checkCase(
+              tvLifecycleFromDB,
+              tvLifecycleDTO
+            )
+          ) {
             case 0:
               return this.supabaseTVLifecycleDAO.createTVLifeCycle(
                 tvLifecycleDTO.lifecycleId,
@@ -176,122 +203,20 @@ export class SupabaseLifecycleService {
               let tvLifecycleFromDBCustom: TV_Life_Cycle = {
                 lifecycle_id: 0,
                 tv_id: tvLifecycleDTO.mediaId,
+                user_id: user.id,
               };
               return of([tvLifecycleFromDBCustom]);
-            case -1:
-              throw new Error(
-                `Duplicated row of the same tv for user ${tvLifecycleFromDB[0].user_id} and tv_id ${tvLifecycleFromDB[0].tv_id}`
-              );
             default:
-              throw new Error('Something went wrong. Case -99');
+              throw new Error('Something went wrong. Case -1');
           }
         }),
         map((entityTVLifecycle) => {
           entityTVLifecycle = entityTVLifecycle as TV_Life_Cycle[];
-          return this.supabaseDecouplingService.fromEntityTVLifecycleListToTVLifecycleMap(
+          return this.supabaseUtilsService.injectInTVLifecycleMap(
             entityTVLifecycle,
             tvLifecycleMap
           );
         })
       );
-  }
-
-  createOrUpdateOrDeleteMovieLifecycle(
-    movieLifecycleDTO: MediaLifecycleDTO,
-    user: User | null,
-    movieLifecycleMap: MovieLifecycleMap
-  ): Observable<MovieLifecycleMap> {
-    return this.supabaseMovieLifecycleDAO
-      .findLifecycleListByMovieIds([movieLifecycleDTO.mediaId])
-      .pipe(
-        switchMap((movieLifecycleFromDB: Movie_Life_Cycle[]) => {
-          switch (this.checkCase(movieLifecycleFromDB, movieLifecycleDTO)) {
-            case 0:
-              return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
-                movieLifecycleDTO.lifecycleId,
-                movieLifecycleDTO.mediaId,
-                user
-              );
-            case 1:
-              return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
-                movieLifecycleDTO.mediaId,
-                movieLifecycleDTO.lifecycleId
-              );
-            case 2:
-              return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
-                movieLifecycleDTO.lifecycleId,
-                movieLifecycleDTO.mediaId
-              );
-
-            case 3:
-              let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
-                lifecycle_id: 0,
-                movie_id: movieLifecycleDTO.mediaId,
-              };
-              return of([movieLifecycleFromDBCustom]);
-            case -1:
-              throw new Error(
-                `Duplicated row of the same movie for user ${movieLifecycleFromDB[0].user_id} and movie_id ${movieLifecycleFromDB[0].movie_id}`
-              );
-            default:
-              throw new Error('Something went wrong. Case -99');
-          }
-        }),
-        map((movieMovieLifecycle: Movie_Life_Cycle[]) => {
-          return this.supabaseDecouplingService.fromEntityMovieLifecycleListToMovieLifecycleMap(
-            movieMovieLifecycle,
-            movieLifecycleMap
-          );
-        })
-      );
-  }
-
-  private buildMediaIdListMap(mediaResult: MovieResult | TVResult): number[] {
-    let mediaIdList: number[] = [];
-    for (let i = 0; i < mediaResult.results.length; i++) {
-      mediaIdList.push(mediaResult.results[i].id);
-    }
-    return mediaIdList;
-  }
-
-  private buildMediaIdListMapIndex(mediaResult: MovieResult | TVResult): {
-    mediaIdList: number[];
-    mediaIdMapIndex: { [key: number]: number };
-  } {
-    let mediaIdList: number[] = [];
-    let mediaIdMapIndex: { [key: number]: number } = {};
-    for (let i = 0; i < mediaResult.results.length; i++) {
-      mediaIdList.push(mediaResult.results[i].id);
-      mediaIdMapIndex[mediaResult.results[i].id] = i;
-    }
-    return { mediaIdList, mediaIdMapIndex };
-  }
-
-  private checkCase(
-    mediaLifecycleFromDB: Movie_Life_Cycle[] | TV_Life_Cycle[],
-    mediaLifecycleDTO: MediaLifecycleDTO
-  ): number {
-    let isEntity = mediaLifecycleFromDB.length === 1;
-    let isLifecycle =
-      mediaLifecycleDTO.lifecycleId > LifecycleIdEnum.NoLifecycle;
-    let isEntityExceed = mediaLifecycleFromDB.length > 1;
-
-    let condition =
-      (!isEntity && isLifecycle && !isEntityExceed
-        ? 'noEtityANDInLifecycle'
-        : false) ||
-      (isEntity && !isLifecycle && !isEntityExceed
-        ? 'oneEntityANDNoLifecycle'
-        : false) ||
-      (isEntity && isLifecycle && !isEntityExceed
-        ? 'oneEntityANDInLifecycle'
-        : false) ||
-      (!isLifecycle && !isLifecycle && !isEntityExceed
-        ? 'noEntityANDNoLifecycle'
-        : false) ||
-      (isEntityExceed ? 'isEntityExceed' : 'default');
-
-    console.log('case: ' + this.LIFECYCLE_CASES[condition]);
-    return this.LIFECYCLE_CASES[condition];
   }
 }

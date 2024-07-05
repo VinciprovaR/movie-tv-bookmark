@@ -32,7 +32,6 @@ export const initialState: DiscoveryMovieState = {
 export const discoveryMovieReducer = createReducer(
   initialState,
   on(
-    DiscoveryMovieActions.createUpdateDeleteMovieLifecycle,
     DiscoveryMovieActions.searchAdditionalPeople,
     DiscoveryMovieActions.searchPeople,
     DiscoveryMovieActions.getGenreList,
@@ -162,21 +161,7 @@ export const discoveryMovieReducer = createReducer(
       movieDetail: null,
     };
   }),
-  on(
-    DiscoveryMovieActions.createUpdateDeleteMovieLifecycleSuccess,
-    (state, { movie, index }) => {
-      let movieResultClone = JSON.parse(
-        JSON.stringify({ ...state.movieResult })
-      );
-      movieResultClone.results[index] = movie;
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        movieResult: movieResultClone,
-      };
-    }
-  ),
+
   on(
     DiscoveryMovieActions.discoveryMovieFailure,
     (state, { httpErrorResponse }) => {

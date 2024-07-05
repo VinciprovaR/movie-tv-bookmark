@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { TMDBSearchService } from '../../services/tmdb';
+import {
+  catchError,
+  filter,
+  map,
+  of,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { MovieResult } from '../../models/media.models';
 import { Store } from '@ngrx/store';
 import { SupabaseLifecycleService } from '../../services/supabase';
@@ -62,18 +69,15 @@ export class MovieLifecycleEffects {
         this.store.select(MovieLifecycleSelectors.selectMovieLifecycleMap)
       ),
       switchMap((actionParams) => {
-        let [{ mediaLifecycleDTO }, user, movieLifecycleMap]: [
-          { mediaLifecycleDTO: MediaLifecycleDTO },
-          User | null,
-          MovieLifecycleMap
-        ] = actionParams;
+        let [{ mediaLifecycleDTO }, user, movieLifecycleMap] = actionParams;
+
         let movieLifecycleMapClone = JSON.parse(
           JSON.stringify({ ...movieLifecycleMap })
         );
         return this.supabaseLifecycleService
           .createOrUpdateOrDeleteMovieLifecycle(
             mediaLifecycleDTO,
-            user,
+            user as User,
             movieLifecycleMapClone
           )
           .pipe(
@@ -97,7 +101,6 @@ export class MovieLifecycleEffects {
 
   constructor(
     private actions$: Actions,
-    private TMDBSearchService: TMDBSearchService,
     private store: Store,
     private supabaseLifecycleService: SupabaseLifecycleService
   ) {}

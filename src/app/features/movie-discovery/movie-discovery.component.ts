@@ -42,11 +42,9 @@ import {
 })
 export class MovieDiscoveryComponent implements OnInit {
   movieListLength: number = 0;
-
-  destroyed$ = new Subject();
-
   mediaType: MediaType = 'movie';
 
+  destroyed$ = new Subject();
   signalAdditionalMovie$: Subject<void> = new Subject();
   signalAdditionalMovieObs$: Observable<void> =
     this.signalAdditionalMovie$.asObservable();
@@ -54,19 +52,15 @@ export class MovieDiscoveryComponent implements OnInit {
   payload$: Observable<PayloadDiscoveryMovie> = this.store.select(
     DiscoveryMovieSelectors.selectPayload
   );
-
   selectIsLoading$: Observable<boolean> = this.store.select(
     DiscoveryMovieSelectors.selectIsLoading
   );
-
   selectMovieResult$: Observable<MovieResult> = this.store.select(
     DiscoveryMovieSelectors.selectMovieResult
   );
-
   selectGenreList$: Observable<Genre[] | []> = this.store.select(
     DiscoveryMovieSelectors.selectGenreList
   );
-
   movie$: Observable<Movie[]> = this.selectMovieResult$.pipe(
     map((movieResult) => {
       this.movieListLength = movieResult.results.length;
@@ -100,8 +94,7 @@ export class MovieDiscoveryComponent implements OnInit {
     this.bridgeDataService.inputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
-        //this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
-        this.createUpdateDeleteMovieLifecycleSeparated(mediaLifecycleDTO);
+        this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
       });
     this.populateGenreList();
   }
@@ -110,21 +103,9 @@ export class MovieDiscoveryComponent implements OnInit {
     this.store.dispatch(DiscoveryMovieActions.getGenreList());
   }
 
-  //Nuovo flusso
-  createUpdateDeleteMovieLifecycleSeparated(
-    mediaLifecycleDTO: MediaLifecycleDTO
-  ) {
+  createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
     this.store.dispatch(
       MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
-        mediaLifecycleDTO,
-      })
-    );
-  }
-
-  createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
-    console.log('createUpdateDeleteMovieLifecycle');
-    this.store.dispatch(
-      DiscoveryMovieActions.createUpdateDeleteMovieLifecycle({
         mediaLifecycleDTO,
       })
     );

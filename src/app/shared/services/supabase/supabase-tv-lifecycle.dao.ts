@@ -19,12 +19,8 @@ export class SupabaseTVLifecycleDAO {
         .in(`tv_id`, tvIdList)
     ).pipe(
       map((result: any) => {
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }
@@ -34,7 +30,7 @@ export class SupabaseTVLifecycleDAO {
   createTVLifeCycle(
     lifecycleId: lifeCycleId,
     tvId: number,
-    user: User | null
+    user: User
   ): Observable<TV_Life_Cycle[]> {
     let tvLifecycle: TV_Life_Cycle = {
       user_id: user?.id,
@@ -49,12 +45,8 @@ export class SupabaseTVLifecycleDAO {
         .select()
     ).pipe(
       map((result: any) => {
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }
@@ -73,12 +65,8 @@ export class SupabaseTVLifecycleDAO {
         .select()
     ).pipe(
       map((result: any) => {
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }
@@ -97,13 +85,8 @@ export class SupabaseTVLifecycleDAO {
         .select()
     ).pipe(
       map((result: any) => {
-        result.data[0].actionDb = ACTION_DB_ENUM.ActionDelete;
+        if (result.error) throw new Error(result.error.message);
         return result.data;
-      }),
-      tap((result: any) => {
-        if (result.error) {
-          throw result.error;
-        }
       })
     );
   }

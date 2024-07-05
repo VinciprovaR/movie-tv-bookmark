@@ -45,21 +45,17 @@ import {
 })
 export class MovieSearchComponent implements OnInit {
   movieListLength: number = 0;
+  mediaType: MediaType = 'movie';
 
   destroyed$ = new Subject();
 
-  mediaType: MediaType = 'movie';
-
   query$ = this.store.select(SearchMovieSelectors.selectQuery);
-
   selectIsLoading$: Observable<boolean> = this.store.select(
     SearchMovieSelectors.selectIsLoading
   );
-
   selectMovieResult$: Observable<MovieResult> = this.store.select(
     SearchMovieSelectors.selectMovieResult
   );
-
   movie$: Observable<Movie[]> = this.selectMovieResult$.pipe(
     map((movieResult) => {
       this.movieListLength = movieResult.results.length;
@@ -98,11 +94,8 @@ export class MovieSearchComponent implements OnInit {
     this.bridgeDataService.inputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
-        //this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
         this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
       });
-
-    // this.searchMovie(this.query);
   }
 
   createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {

@@ -42,31 +42,31 @@ export class TMDBDiscoveryService extends TMDBService {
     payload: PayloadDiscoveryMovie,
     mediaType: MediaType
   ): Observable<MovieResult | TVResult | null> {
-    let filetrsQueryParams = this.buildFiltersParam(payload);
+    let filtersQueryParams = this.buildFiltersParam(payload);
 
     return this.httpClient.get<MovieResult | TVResult>(
-      `${this.tmdbBaseUrl}/discover/${mediaType}?include_adult=false${filetrsQueryParams}&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}/discover/${mediaType}?include_adult=false${filtersQueryParams}&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
     );
   }
 
   buildFiltersParam(payload: PayloadDiscoveryMovie) {
-    let filetrsQueryParams = '';
+    let filtersQueryParams = '';
     if (payload.genreIdList.length > 0) {
-      filetrsQueryParams = filetrsQueryParams.concat(
+      filtersQueryParams = filtersQueryParams.concat(
         this.buildGenresIdParam(payload.genreIdList)
       );
     }
     if (payload.sortBy) {
-      filetrsQueryParams = filetrsQueryParams.concat(
+      filtersQueryParams = filtersQueryParams.concat(
         `&sort_by=${payload.sortBy}`
       );
     }
     if (payload.releaseDate.from || payload.releaseDate.to) {
-      filetrsQueryParams = filetrsQueryParams.concat(
+      filtersQueryParams = filtersQueryParams.concat(
         this.buildReleaseDateParams(payload.releaseDate)
       );
     }
-    return filetrsQueryParams;
+    return filtersQueryParams;
   }
 
   buildReleaseDateParams(releaseDate: { from: string; to: string }) {

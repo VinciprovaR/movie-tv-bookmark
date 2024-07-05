@@ -28,10 +28,7 @@ export class TVLifecycleEffects {
         this.store.select(TVLifecycleSelectors.selectTVLifecycleMap)
       ),
       switchMap((actionParams) => {
-        let [{ tvResult }, tvLifecycleMap]: [
-          { tvResult: TVResult },
-          TVLifecycleMap
-        ] = actionParams;
+        let [{ tvResult }, tvLifecycleMap] = actionParams;
         let tvLifecycleMapClone = JSON.parse(
           JSON.stringify({ ...tvLifecycleMap })
         );
@@ -62,24 +59,18 @@ export class TVLifecycleEffects {
         this.store.select(TVLifecycleSelectors.selectTVLifecycleMap)
       ),
       switchMap((actionParams) => {
-        console.log('switch map');
-        let [{ mediaLifecycleDTO }, user, tvLifecycleMap]: [
-          { mediaLifecycleDTO: MediaLifecycleDTO },
-          User | null,
-          TVLifecycleMap
-        ] = actionParams;
+        let [{ mediaLifecycleDTO }, user, tvLifecycleMap] = actionParams;
         let tvLifecycleMapClone = JSON.parse(
           JSON.stringify({ ...tvLifecycleMap })
         );
         return this.supabaseLifecycleService
           .createOrUpdateOrDeleteTVLifecycle(
             mediaLifecycleDTO,
-            user,
+            user as User,
             tvLifecycleMapClone
           )
           .pipe(
             map((tvLifecycleMap: TVLifecycleMap) => {
-              console.log(tvLifecycleMap);
               return TVLifecycleActions.createUpdateDeleteTVLifecycleSuccess({
                 tvLifecycleMap,
               });
