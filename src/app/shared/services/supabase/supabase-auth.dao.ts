@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable, from, tap } from 'rxjs';
-import { LoginPayload, RegisterPayload } from '../../models/auth.models';
+import { LoginPayload, RegisterPayload } from '../../interfaces/auth.interface';
 import {
   AuthResponse,
   AuthTokenResponsePassword,

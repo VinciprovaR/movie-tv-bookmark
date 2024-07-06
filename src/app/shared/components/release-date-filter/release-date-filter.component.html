@@ -37,4 +37,7 @@
       </mat-form-field>
     </div>
   </div>
+  @if(realeaseDateGroup.controls.from.hasError('invalidFromDate')){
+  <p style="color: red">From date cannot be after to date</p>
+  }
 </div>

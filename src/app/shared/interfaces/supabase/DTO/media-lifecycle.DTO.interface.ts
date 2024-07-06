@@ -1,4 +1,4 @@
-import { lifeCycleId } from '../../lifecycle.models';
+import { lifeCycleId } from '../../lifecycle.interface';
 
 export interface MediaLifecycleDTO {
   mediaId: number;

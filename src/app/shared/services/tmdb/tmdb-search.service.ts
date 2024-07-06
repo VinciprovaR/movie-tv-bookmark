@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MovieResult, TVResult } from '../../models/media.models';
-import { MediaType } from '../../models/media.models';
+import { MovieResult, TVResult } from '../../interfaces/media.interface';
+import { MediaType } from '../../interfaces/media.interface';
 import { TMDBService } from './tmdb.abstract.service';
 
 @Injectable({

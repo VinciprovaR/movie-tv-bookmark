@@ -8,12 +8,16 @@ import {
   MovieDetail,
   MovieResult,
   PeopleResult,
-} from '../../models/media.models';
+} from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseLifecycleService } from '../../services/supabase';
 import { TMDBFilterListService } from '../../services/tmdb';
-import { ErrorResponse } from '../../models/error.models';
-import { GenresResult } from '../../models/tmdb-filters.models';
+import { ErrorResponse } from '../../interfaces/error.interface';
+import {
+  Certification,
+  Certifications,
+  GenresResult,
+} from '../../interfaces/tmdb-filters.interface';
 
 @Injectable()
 export class DiscoveryMovieEffects {
@@ -54,10 +58,11 @@ export class DiscoveryMovieEffects {
       ofType(DiscoveryMovieActions.discoveryAdditionalMovie),
       withLatestFrom(
         this.store.select(DiscoveryMovieSelectors.selectMoviePage),
-        this.store.select(DiscoveryMovieSelectors.selectMovieTotalPages)
+        this.store.select(DiscoveryMovieSelectors.selectMovieTotalPages),
+        this.store.select(DiscoveryMovieSelectors.selectPayload)
       ),
       switchMap((actionParams) => {
-        let [{ payload }, currPage, totalPages] = actionParams;
+        let [action, currPage, totalPages, payload] = actionParams;
         if (currPage < totalPages) {
           return this.TMDBDiscoveryService.additionalMovieDiscovery(
             currPage,
@@ -146,6 +151,27 @@ export class DiscoveryMovieEffects {
           map((genresResult: GenresResult) => {
             return DiscoveryMovieActions.getGenreListSuccess({
               genreList: genresResult.genres,
+            });
+          }),
+          catchError((httpErrorResponse: ErrorResponse) => {
+            console.error(httpErrorResponse);
+            return of(
+              DiscoveryMovieActions.discoveryMovieFailure({ httpErrorResponse })
+            );
+          })
+        );
+      })
+    );
+  });
+
+  getCertifications$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DiscoveryMovieActions.getCertificationList),
+      switchMap(() => {
+        return this.TMDBFilterListService.retriveCertificationMovieList().pipe(
+          map((certifications: Certification[]) => {
+            return DiscoveryMovieActions.getCertificationListSuccess({
+              certifications,
             });
           }),
           catchError((httpErrorResponse: ErrorResponse) => {

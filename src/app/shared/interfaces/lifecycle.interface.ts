@@ -10,11 +10,3 @@ export type lifeCycleId =
   | watchedLifecycle
   | rewatchLifecycle
   | stillWatchingLifecycle;
-
-export const LifecycleIdEnum = {
-  NoLifecycle: 0 as noLifecycle,
-  WatchListLifecycle: 1 as watchListLifecycle,
-  WatchedLifecycle: 2 as watchedLifecycle,
-  RewatchLifecycle: 3 as rewatchLifecycle,
-  StillWatchingLifecycle: 4 as stillWatchingLifecycle,
-};

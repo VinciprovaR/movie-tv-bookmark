@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as MovieLifecycleActions from './movie-lifecycle.actions';
-import { MovieLifecycleState } from '../../models/store/movie-lifecycle-state.models';
+import { MovieLifecycleState } from '../../interfaces/store/movie-lifecycle-state.interface';
 
 export const movieLifecycleStateFeatureKey = 'movie-lifecycle';
 

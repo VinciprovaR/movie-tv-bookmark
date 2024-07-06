@@ -2,12 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import { SupabaseClient, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, catchError, from, map, tap } from 'rxjs';
-import { lifeCycleId } from '../../models/lifecycle.models';
-import {
-  ACTION_DB_ENUM,
-  Movie_Life_Cycle,
-} from '../../models/supabase/entities';
-import { ErrorResponse } from '../../models/error.models';
+import { lifeCycleId } from '../../interfaces/lifecycle.interface';
+import { Movie_Life_Cycle } from '../../interfaces/supabase/entities';
+import { ErrorResponse } from '../../interfaces/error.interface';
 
 @Injectable({
   providedIn: 'root',

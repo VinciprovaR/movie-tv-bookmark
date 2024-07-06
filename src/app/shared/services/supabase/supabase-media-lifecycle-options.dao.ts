@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
-import { Media_Lifecycle_Options } from '../../models/supabase/entities';
+import { Media_Lifecycle_Options } from '../../interfaces/supabase/entities';
 
 @Injectable({
   providedIn: 'root',

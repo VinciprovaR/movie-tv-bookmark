@@ -3,10 +3,10 @@
   <div [formGroup]="genresGroup" class="flex flex-wrap justify-between">
     @for(genre of genresGroup.controls | keyvalue; track genre){
 
-    <app-genre-tag
+    <app-select-tag
       [genre]="genre.value.value"
       [formControlName]="genre.value.value.id"
-    ></app-genre-tag>
+    ></app-select-tag>
 
     }
   </div>

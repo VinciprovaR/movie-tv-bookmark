@@ -4,10 +4,15 @@ import {
   MovieDetail,
   MovieResult,
   PeopleResult,
-} from '../../models/media.models';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO/';
-import { PayloadDiscoveryMovie } from '../../models/store/discovery-movie-state.models';
-import { Genre } from '../../models/tmdb-filters.models';
+} from '../../interfaces/media.interface';
+import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO/';
+import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
+import {
+  Certification,
+  CertificationResult,
+  Certifications,
+  Genre,
+} from '../../interfaces/tmdb-filters.interface';
 
 //search
 export const discoveryMovie = createAction(
@@ -19,8 +24,7 @@ export const discoveryMovieSuccess = createAction(
   props<{ movieResult: MovieResult }>()
 );
 export const discoveryAdditionalMovie = createAction(
-  '[Discovery-movie/API] Discovery Additional Movie',
-  props<{ payload: PayloadDiscoveryMovie }>()
+  '[Discovery-movie/API] Discovery Additional Movie'
 );
 export const discoveryAdditionalMovieSuccess = createAction(
   '[Discovery-movie/API] Discovery Movie Additional Success',
@@ -48,6 +52,15 @@ export const getGenreList = createAction(
 export const getGenreListSuccess = createAction(
   '[Discovery-movie/API] Get Genre List Success',
   props<{ genreList: Genre[] | [] }>()
+);
+
+//certification
+export const getCertificationList = createAction(
+  '[Discovery-movie/API] Get Certification List'
+);
+export const getCertificationListSuccess = createAction(
+  '[Discovery-movie/API] Get Certification List Success',
+  props<{ certifications: Certification[] }>()
 );
 
 //people

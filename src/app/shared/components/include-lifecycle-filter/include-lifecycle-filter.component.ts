@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DiscoveryFilterForm } from '../../models/tmdb-filters.models';
+import { DiscoveryFilterForm } from '../../interfaces/tmdb-filters.interface';
 import { CommonModule } from '@angular/common';
-import { MediaType } from '../../models/media.models';
+import { MediaType } from '../../interfaces/media.interface';
 
 @Component({
   selector: 'app-include-lifecycle-filter',

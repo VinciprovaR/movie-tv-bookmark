@@ -5,7 +5,10 @@ import {
   SearchMovieSelectors,
 } from '../../shared/store/search-movie';
 import { Observable, map } from 'rxjs';
-import { MediaType, MovieDetail } from '../../shared/models/media.models';
+import {
+  MediaType,
+  MovieDetail,
+} from '../../shared/interfaces/media.interface';
 import { CommonModule } from '@angular/common';
 import { TMDB_RESIZED_IMG_URL } from '../../providers';
 

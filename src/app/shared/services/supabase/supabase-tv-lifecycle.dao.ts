@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { SupabaseClient, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
-import { ACTION_DB_ENUM, TV_Life_Cycle } from '../../models/supabase/entities';
-import { lifeCycleId } from '../../models/lifecycle.models';
+import { TV_Life_Cycle } from '../../interfaces/supabase/entities';
+import { lifeCycleId } from '../../interfaces/lifecycle.interface';
 
 @Injectable({
   providedIn: 'root',

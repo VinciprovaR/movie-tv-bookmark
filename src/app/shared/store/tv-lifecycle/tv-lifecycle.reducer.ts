@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as TVLifecycleActions from './tv-lifecycle.actions';
-import { TVLifecycleState } from '../../models/store/tv-lifecycle-state.models';
+import { TVLifecycleState } from '../../interfaces/store/tv-lifecycle-state.interface';
 
 export const tvLifecycleStateFeatureKey = 'tv-lifecycle';
 

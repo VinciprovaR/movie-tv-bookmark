@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as DiscoveryMovieReducer from './discovery-movie.reducer';
-import { DiscoveryMovieState } from '../../models/store/discovery-movie-state.models';
+import { DiscoveryMovieState } from '../../interfaces/store/discovery-movie-state.interface';
 
 const discoveryMovieFeatureSelector =
   createFeatureSelector<DiscoveryMovieState>(
@@ -27,6 +27,11 @@ export const selectMovieResult = createSelector(
   DiscoveryMovieReducer.getMovieResult
 );
 
+export const selectMovieList = createSelector(
+  discoveryMovieFeatureSelector,
+  DiscoveryMovieReducer.getMovieList
+);
+
 export const selectMovieDetail = createSelector(
   discoveryMovieFeatureSelector,
   DiscoveryMovieReducer.getMovieDetail
@@ -40,6 +45,11 @@ export const selectMoviePage = createSelector(
 export const selectGenreList = createSelector(
   discoveryMovieFeatureSelector,
   DiscoveryMovieReducer.getGenreList
+);
+
+export const selectCertifications = createSelector(
+  discoveryMovieFeatureSelector,
+  DiscoveryMovieReducer.getCertifications
 );
 
 export const selectMovieTotalPages = createSelector(

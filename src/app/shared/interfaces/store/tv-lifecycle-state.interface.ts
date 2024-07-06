@@ -1,6 +1,6 @@
-import { ErrorResponse } from '../error.models';
-import { lifeCycleId } from '../lifecycle.models';
-import { MediaType } from '../media.models';
+import { ErrorResponse } from '../error.interface';
+import { lifeCycleId } from '../lifecycle.interface';
+import { MediaType } from '../media.interface';
 
 export interface TVLifecycleMap {
   type: MediaType;

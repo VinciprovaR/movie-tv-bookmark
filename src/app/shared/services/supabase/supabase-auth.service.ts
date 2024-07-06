@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SupabaseAuthDAO } from './supabase-auth.dao';
 import { AuthTokenResponsePassword, AuthResponse } from '@supabase/supabase-js';
 import { Observable, from, tap } from 'rxjs';
-import { LoginPayload, RegisterPayload } from '../../models/auth.models';
+import { LoginPayload, RegisterPayload } from '../../interfaces/auth.interface';
 
 @Injectable({
   providedIn: 'root',

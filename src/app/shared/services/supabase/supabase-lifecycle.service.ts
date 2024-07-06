@@ -1,48 +1,46 @@
 import { Injectable } from '@angular/core';
 import { User } from '@supabase/supabase-js';
 import { Observable, map, switchMap, of, catchError } from 'rxjs';
-import { MediaType, MovieResult, TVResult } from '../../models/media.models';
+import {
+  MediaType,
+  MovieResult,
+  TVResult,
+} from '../../interfaces/media.interface';
 import {
   MediaLifecycleDTO,
   SelectLifecycleDTO,
-} from '../../models/supabase/DTO';
+} from '../../interfaces/supabase/DTO';
 import {
+  Media_Lifecycle_Options,
   Movie_Life_Cycle,
   TV_Life_Cycle,
-} from '../../models/supabase/entities';
+} from '../../interfaces/supabase/entities';
 import { SupabaseTVLifecycleDAO } from './supabase-tv-lifecycle.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
 import { SupabaseMediaLifecycleOptionsDAO } from './supabase-media-lifecycle-options.dao';
 import { SupabaseMovieLifecycleDAO } from './supabase-movie-lifecycle.dao';
-import { TVLifecycleMap } from '../../models/store/tv-lifecycle-state.models';
-import { MovieLifecycleMap } from '../../models/store/movie-lifecycle-state.models';
-import { LifecycleIdEnum } from '../../models/lifecycle.models';
+import { TVLifecycleMap } from '../../interfaces/store/tv-lifecycle-state.interface';
+import { MovieLifecycleMap } from '../../interfaces/store/movie-lifecycle-state.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseLifecycleService {
-  lifeCycleOptions$!: Observable<SelectLifecycleDTO[]>;
-
   constructor(
     private supabaseMediaLifecycleOptionsDAO: SupabaseMediaLifecycleOptionsDAO,
     private supabaseMovieLifecycleDAO: SupabaseMovieLifecycleDAO,
     private supabaseTVLifecycleDAO: SupabaseTVLifecycleDAO,
     private supabaseUtilsService: SupabaseUtilsService
-  ) {
-    this.retriveLifecycleOptions();
-  }
+  ) {}
 
-  retriveLifecycleOptions() {
-    this.lifeCycleOptions$ = this.supabaseMediaLifecycleOptionsDAO
-      .findLifecycleOptions()
-      .pipe(
-        map((lifecycleOptionsResult) => {
-          return this.supabaseUtilsService.fromMediaLifecycleOptionsToSelectLifecycleDTO(
-            lifecycleOptionsResult
-          );
-        })
-      );
+  retriveLifecycleOptions(): Observable<SelectLifecycleDTO[]> {
+    return this.supabaseMediaLifecycleOptionsDAO.findLifecycleOptions().pipe(
+      map((lifecycleOptionsResult: Media_Lifecycle_Options[]) => {
+        return this.supabaseUtilsService.fromMediaLifecycleOptionsToSelectLifecycleDTO(
+          lifecycleOptionsResult
+        );
+      })
+    );
   }
 
   initMovieLifecycleMap(
@@ -70,7 +68,6 @@ export class SupabaseLifecycleService {
       .findLifecycleListByMovieIds(mediaIdList)
       .pipe(
         map((entityMediaLifecycle: Movie_Life_Cycle[]) => {
-          console.log(entityMediaLifecycle);
           return this.supabaseUtilsService.removeMediaWithLifecycle(
             entityMediaLifecycle,
             mediaIdMapIndex,

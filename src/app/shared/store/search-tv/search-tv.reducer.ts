@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SearchTVActions from './search-tv.actions';
-import { SearchTVState } from '../../models/store/search-tv-state.models';
+import { SearchTVState } from '../../interfaces/store/search-tv-state.interface';
 
 export const searchTVFeatureKey = 'search-tv';
 
@@ -108,8 +108,9 @@ export const getIsLoading = (state: SearchTVState) => state.isLoading;
 export const getQuery = (state: SearchTVState) => state.query;
 export const getSearchTVError = (state: SearchTVState) => state.error;
 export const getTVResult = (state: SearchTVState) => state.tvResult;
+export const getTVList = (state: SearchTVState) => state.tvResult.results;
 export const getTVDetail = (state: SearchTVState) => state.tvDetail;
-export const getTVResultPage = (state: SearchTVState) =>
-  state.tvResult?.page ? state.tvResult.page : 0;
+export const getTVResultPage = (state: SearchTVState) => state.tvResult.page;
+
 export const getTVResultTotalPages = (state: SearchTVState) =>
-  state.tvResult?.total_pages ? state.tvResult.total_pages : 0;
+  state.tvResult.total_pages;

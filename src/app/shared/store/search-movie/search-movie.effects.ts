@@ -3,9 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchMovieActions, SearchMovieSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchService } from '../../services/tmdb';
-import { MovieDetail, MovieResult } from '../../models/media.models';
+import { MovieDetail, MovieResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
-import { ErrorResponse } from '../../models/error.models';
+import { ErrorResponse } from '../../interfaces/error.interface';
 import { SupabaseLifecycleService } from '../../services/supabase';
 
 @Injectable()

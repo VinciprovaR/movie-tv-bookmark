@@ -3,13 +3,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchTVActions, SearchTVSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchService } from '../../services/tmdb';
-import { TVDetail, TVResult } from '../../models/media.models';
+import { TVDetail, TVResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseLifecycleService } from '../../services/supabase';
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO/';
-import { ErrorResponse } from '../../models/error.models';
+import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO/';
+import { ErrorResponse } from '../../interfaces/error.interface';
 
 @Injectable()
 export class SearchTVEffects {

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { TV, TVDetail, TVResult } from '../../models/media.models';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO';
+import { TV, TVDetail, TVResult } from '../../interfaces/media.interface';
+import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 
 //search
 export const searchTV = createAction(

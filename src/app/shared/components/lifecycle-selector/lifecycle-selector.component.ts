@@ -1,5 +1,5 @@
 import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
-import { LifecycleIdEnum, lifeCycleId } from '../../models/lifecycle.models';
+import { lifeCycleId } from '../../interfaces/lifecycle.interface';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
@@ -9,8 +9,9 @@ import {
   filter,
   map,
   takeUntil,
+  tap,
 } from 'rxjs';
-import { Media_Lifecycle_Options } from '../../models/supabase/entities/media_life_cycle_enum.entity';
+import { Media_Lifecycle_Options } from '../../interfaces/supabase/entities/media_life_cycle_enum.entity.interface';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,10 +19,11 @@ import { BridgeDataService } from '../../services/bridge-data.service';
 import {
   MediaLifecycleDTO,
   SelectLifecycleDTO,
-} from '../../models/supabase/DTO';
-import { MovieLifecycleMap } from '../../models/store/movie-lifecycle-state.models';
-import { TVLifecycleMap } from '../../models/store/tv-lifecycle-state.models';
-import { MediaType } from '../../models/media.models';
+} from '../../interfaces/supabase/DTO';
+import { MovieLifecycleMap } from '../../interfaces/store/movie-lifecycle-state.interface';
+import { TVLifecycleMap } from '../../interfaces/store/tv-lifecycle-state.interface';
+import { MediaType } from '../../interfaces/media.interface';
+import { LifecycleEnum } from '../../enums/lifecycle.enum';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -45,11 +47,20 @@ export class LifecycleSelectorComponent implements OnInit {
   index!: number;
   @Input({ required: true })
   mediaType!: MediaType;
-  options$!: Observable<SelectLifecycleDTO[] | []>;
+
+  lifecycleOptions: SelectLifecycleDTO[] = [
+    { label: 'No lifecycle', value: LifecycleEnum.NoLifecycle },
+    { label: 'Watchlist', value: LifecycleEnum.WatchListLifecycle },
+    { label: 'Watched', value: LifecycleEnum.WatchedLifecycle },
+    { label: 'Rewatch', value: LifecycleEnum.RewatchLifecycle },
+    { label: 'Still Watching', value: LifecycleEnum.StillWatchingLifecycle },
+  ];
+
   lifecycleOptions$!: Observable<Media_Lifecycle_Options[] | []>;
   lifecycleControl: FormControl<lifeCycleId> = this.fb.control(0, {
     nonNullable: true,
   });
+
   constructor(
     private fb: FormBuilder,
     private bridgeDataService: BridgeDataService
@@ -61,8 +72,6 @@ export class LifecycleSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.options$ = this.bridgeDataService.selectLifecycleOptionsObs$;
-
     this.bridgeDataService.mediaLifecycleMapObs$
       .pipe(
         takeUntil(this.destroyed$),
@@ -72,11 +81,11 @@ export class LifecycleSelectorComponent implements OnInit {
             ? mediaLifecycleMap[this.mediaId]
             : 0;
         }),
-        filter((lifeCycleId) => lifeCycleId > LifecycleIdEnum.NoLifecycle)
+        filter((lifeCycleId) => lifeCycleId > LifecycleEnum.NoLifecycle)
       )
       .subscribe((lifecycleId) => {
         this.lifecycleControl.setValue(
-          lifecycleId ? lifecycleId : LifecycleIdEnum.NoLifecycle,
+          lifecycleId ? lifecycleId : LifecycleEnum.NoLifecycle,
           { emitEvent: false }
         );
       });

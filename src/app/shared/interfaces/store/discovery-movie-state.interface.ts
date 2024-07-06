@@ -1,7 +1,11 @@
-import { ErrorResponse } from '../error.models';
-import { MovieResult, PeopleResult, MovieDetail } from '../media.models';
+import { ErrorResponse } from '../error.interface';
+import { MovieResult, PeopleResult, MovieDetail } from '../media.interface';
 import { SelectLifecycleDTO } from '../supabase/DTO';
-import { Genre } from '../tmdb-filters.models';
+import {
+  Certification,
+  Certifications,
+  Genre,
+} from '../tmdb-filters.interface';
 
 export interface ReleaseDate {
   from: string;
@@ -13,6 +17,7 @@ export interface PayloadDiscoveryMovie {
   sortBy: string;
   releaseDate: ReleaseDate;
   includeMediaWithLifecycle: boolean;
+  certification: string;
 }
 
 export interface DiscoveryMovieState {
@@ -22,5 +27,6 @@ export interface DiscoveryMovieState {
   movieResult: MovieResult;
   peopleResult: PeopleResult;
   movieDetail: MovieDetail | null;
-  genreList: Genre[] | [];
+  genreList: Genre[];
+  certifications: Certification[];
 }

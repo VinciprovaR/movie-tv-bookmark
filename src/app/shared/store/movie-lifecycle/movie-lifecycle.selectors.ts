@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as MovieLifecycleReducer from './movie-lifecycle.reducer';
-import { MovieLifecycleState } from '../../models/store/movie-lifecycle-state.models';
+import { MovieLifecycleState } from '../../interfaces/store/movie-lifecycle-state.interface';
 
 const MovieLifecycleFeatureSelector =
   createFeatureSelector<MovieLifecycleState>(

@@ -3,17 +3,17 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchService } from '../../services/tmdb';
-import { TVDetail, TVResult } from '../../models/media.models';
+import { TVDetail, TVResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseLifecycleService } from '../../services/supabase';
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO';
-import { ErrorResponse } from '../../models/error.models';
+import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
+import { ErrorResponse } from '../../interfaces/error.interface';
 import { TVLifecycleActions, TVLifecycleSelectors } from '.';
 
 import { SearchTVActions } from '../search-tv';
-import { TVLifecycleMap } from '../../models/store/tv-lifecycle-state.models';
+import { TVLifecycleMap } from '../../interfaces/store/tv-lifecycle-state.interface';
 // import { DiscoveryTVActions } from '../discovery-tv';
 
 @Injectable()

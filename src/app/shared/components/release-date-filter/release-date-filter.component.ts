@@ -5,6 +5,10 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import {
+  DiscoveryFilterForm,
+  ReleaseDateGroup,
+} from '../../interfaces/tmdb-filters.interface';
 
 @Component({
   selector: 'app-release-date-filter',
@@ -22,10 +26,12 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class ReleaseDateFilterComponent {
   @Input({ required: true })
-  filterForm!: FormGroup;
+  filterForm!: FormGroup<DiscoveryFilterForm>;
 
   constructor() {}
-  get realeaseDateGroup(): FormGroup {
-    return this.filterForm.controls['releaseDate'] as FormGroup;
+  get realeaseDateGroup(): FormGroup<ReleaseDateGroup> {
+    return this.filterForm.controls[
+      'releaseDate'
+    ] as FormGroup<ReleaseDateGroup>;
   }
 }

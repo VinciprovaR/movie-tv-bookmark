@@ -16,6 +16,16 @@
       [mediaType]="mediaType"
     ></app-include-lifecycle-filter>
   </div>
-  <button type="submit" class="mt-5">Submit</button>
+
+  <div class="mt-16">
+    <app-certification-filter
+      [filterForm]="filterForm"
+      [certificationOptions]="certificationList"
+    >
+    </app-certification-filter>
+  </div>
+  <button type="submit" class="mt-5" [disabled]="!filterForm.valid">
+    Submit
+  </button>
 </form>
 }

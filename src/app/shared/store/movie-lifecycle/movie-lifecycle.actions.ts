@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO';
-import { MovieLifecycleMap } from '../../models/store/movie-lifecycle-state.models';
+import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
+import { MovieLifecycleMap } from '../../interfaces/store/movie-lifecycle-state.interface';
 
 export const initMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle-C/API] Init Movie Lifecycle Success',

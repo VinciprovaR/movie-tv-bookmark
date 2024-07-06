@@ -65,7 +65,7 @@ export interface Movie extends Media {
 }
 
 export interface MovieResult extends MediaResult {
-  results: Movie[] | [];
+  results: Movie[];
 }
 
 export interface MovieDetail extends MediaDetail {

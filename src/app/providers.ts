@@ -22,11 +22,10 @@ export const TMDB_CARD_1X_IMG_URL = new InjectionToken<string>(
 export const TMDB_CARD_2X_IMG_URL = new InjectionToken<string>(
   'TMDB_CARD_2X_IMG_URL'
 );
-export const SORT_ENUM = new InjectionToken<{ [key: string]: string }>(
-  'SORT_ENUM'
-);
 
 export const LIFECYCLE_OPTIONS$ = new InjectionToken<any>('LIFECYCLE_OPTIONS');
+
+export const I18E = new InjectionToken<string>('I18E');
 
 export function provideTMDBApiKey() {
   return {
@@ -63,24 +62,6 @@ export function provideImgUrl() {
   ];
 }
 
-export function provideSortEnum() {
-  return [
-    {
-      provide: SORT_ENUM,
-      useValue: {
-        'popularity.desc': 'Popularity Descending',
-        'popularity.asc': 'Popularity Ascending',
-        'vote_average.desc': 'Rating Descending',
-        'vote_average.asc': 'Rating Ascending',
-        'primary_release_date.desc': 'Release Date Descending',
-        'primary_release_date.asc': 'Release Date Ascending',
-        'title.asc': 'Title (A-Z)',
-        'title.desc': 'Title (Z-A)',
-      },
-    },
-  ];
-}
-
 export function provideAppInitializer() {
   return {
     provide: APP_INITIALIZER,
@@ -100,6 +81,14 @@ export function provideAppInitializer() {
 //     multi: true,
 //   };
 // }
+
+//to-do hardcoded, cambiare in i18e corretto
+export function provideI18E() {
+  return {
+    provide: I18E,
+    useValue: 'IT',
+  };
+}
 
 export function provideSupabaseClient() {
   return {

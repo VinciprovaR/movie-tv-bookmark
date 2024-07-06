@@ -1,5 +1,5 @@
-import { ErrorResponse } from '../error.models';
-import { TVResult, TVDetail } from '../media.models';
+import { ErrorResponse } from '../error.interface';
+import { TVResult, TVDetail } from '../media.interface';
 import { SelectLifecycleDTO } from '../supabase/DTO';
 
 export interface SearchTVState {

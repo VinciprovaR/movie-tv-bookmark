@@ -10,18 +10,18 @@ import {
   tap,
   withLatestFrom,
 } from 'rxjs';
-import { MovieResult } from '../../models/media.models';
+import { MovieResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseLifecycleService } from '../../services/supabase';
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO';
-import { ErrorResponse } from '../../models/error.models';
+import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
+import { ErrorResponse } from '../../interfaces/error.interface';
 import { MovieLifecycleActions, MovieLifecycleSelectors } from '.';
 
 import { SearchMovieActions } from '../search-movie';
 import { DiscoveryMovieActions } from '../discovery-movie';
-import { MovieLifecycleMap } from '../../models/store/movie-lifecycle-state.models';
+import { MovieLifecycleMap } from '../../interfaces/store/movie-lifecycle-state.interface';
 
 @Injectable()
 export class MovieLifecycleEffects {

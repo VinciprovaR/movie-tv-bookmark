@@ -1,14 +1,19 @@
 <app-input-query
   [placeholder]="'Search for a movie'"
-  [query]="query$ | async"
+  [query]="selectQuery$ | async"
   (queryEmitter)="searchMovie($event)"
 ></app-input-query>
 
 <app-media-list-container
+  #mediaListContainer
   appScrollNearEnd
   [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
   [isLoading]="(selectIsLoading$ | async) ?? false"
-  [mediaList]="movie$ | async"
-  (nearEnd)="searchAdditionalMovie()"
+  [mediaList]="(selectMovieList$ | async) ?? []"
+  (nearEnd)="
+    mediaListContainer.mediaList.length
+      ? searchAdditionalMovie(mediaListContainer.mediaList.length)
+      : null
+  "
   [mediaType]="mediaType"
 ></app-media-list-container>

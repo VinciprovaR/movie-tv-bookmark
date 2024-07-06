@@ -1,0 +1,14 @@
+<div [formGroup]="filterForm">
+  <h2 class="">Certifications</h2>
+
+  <select [formControlName]="'certifications'" id="certifications">
+    <option></option>
+    @if(certificationOptions.length > 0){ @for (certification of
+    certificationOptions ; track certification.certification) {
+
+    <option [value]="certification.certification">
+      {{ certification.certification }}
+    </option>
+    }}
+  </select>
+</div>

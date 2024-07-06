@@ -1,5 +1,9 @@
 import { Observable } from 'rxjs';
-import { MovieDetail, TVDetail, MediaType } from '../../models/media.models';
+import {
+  MovieDetail,
+  TVDetail,
+  MediaType,
+} from '../../interfaces/media.interface';
 import { HttpClient } from '@angular/common/http';
 import { Inject, inject } from '@angular/core';
 import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';

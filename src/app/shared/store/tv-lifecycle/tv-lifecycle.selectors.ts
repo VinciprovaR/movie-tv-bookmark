@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as TVLifecycleReducer from './tv-lifecycle.reducer';
-import { TVLifecycleState } from '../../models/store/tv-lifecycle-state.models';
+import { TVLifecycleState } from '../../interfaces/store/tv-lifecycle-state.interface';
 
 const TVLifecycleFeatureSelector = createFeatureSelector<TVLifecycleState>(
   TVLifecycleReducer.tvLifecycleStateFeatureKey

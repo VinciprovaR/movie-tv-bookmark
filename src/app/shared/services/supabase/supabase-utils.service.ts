@@ -2,16 +2,21 @@ import { Injectable } from '@angular/core';
 import {
   MediaLifecycleDTO,
   SelectLifecycleDTO,
-} from '../../models/supabase/DTO';
+} from '../../interfaces/supabase/DTO';
 import {
   Media_Lifecycle_Options,
   Movie_Life_Cycle,
   TV_Life_Cycle,
-} from '../../models/supabase/entities';
-import { MovieLifecycleMap } from '../../models/store/movie-lifecycle-state.models';
-import { TVLifecycleMap } from '../../models/store/tv-lifecycle-state.models';
-import { LifecycleIdEnum, lifeCycleId } from '../../models/lifecycle.models';
-import { MediaType, MovieResult, TVResult } from '../../models/media.models';
+} from '../../interfaces/supabase/entities';
+import { MovieLifecycleMap } from '../../interfaces/store/movie-lifecycle-state.interface';
+import { TVLifecycleMap } from '../../interfaces/store/tv-lifecycle-state.interface';
+import { lifeCycleId } from '../../interfaces/lifecycle.interface';
+import {
+  MediaType,
+  MovieResult,
+  TVResult,
+} from '../../interfaces/media.interface';
+import { LifecycleEnum } from '../../enums/lifecycle.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +70,7 @@ export class SupabaseUtilsService {
   ): MovieResult | TVResult {
     let indexListToRemove: number[] = [];
     entityMediaLifecycle.forEach((mlc: any) => {
-      if (mlc[`lifecycle_id`] != LifecycleIdEnum.NoLifecycle) {
+      if (mlc[`lifecycle_id`] != LifecycleEnum.NoLifecycle) {
         indexListToRemove.push(mediaIdMapIndex[mlc[`${mediaType}_id`]]);
       }
     });
@@ -103,8 +108,7 @@ export class SupabaseUtilsService {
     mediaLifecycleDTO: MediaLifecycleDTO
   ): number {
     let isEntity = mediaLifecycleFromDB.length === 1;
-    let isLifecycle =
-      mediaLifecycleDTO.lifecycleId > LifecycleIdEnum.NoLifecycle;
+    let isLifecycle = mediaLifecycleDTO.lifecycleId > LifecycleEnum.NoLifecycle;
 
     let condition =
       (!isEntity && isLifecycle ? 'noEntityANDInLifecycle' : false) ||

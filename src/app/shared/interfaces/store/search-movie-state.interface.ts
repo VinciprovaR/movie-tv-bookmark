@@ -1,5 +1,5 @@
-import { ErrorResponse } from '../error.models';
-import { MovieResult, MovieDetail } from '../media.models';
+import { ErrorResponse } from '../error.interface';
+import { MovieResult, MovieDetail } from '../media.interface';
 
 export interface SearchMovieState {
   isLoading: boolean;

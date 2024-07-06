@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Movie, TV } from '../../models/media.models';
+import { Movie, TV } from '../../interfaces/media.interface';
 import { MediaItemComponent } from '../media-item/media-item.component';
-import { MediaType } from '../../models/media.models';
+import { MediaType } from '../../interfaces/media.interface';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
@@ -16,7 +16,7 @@ export class MediaListContainerComponent implements OnInit {
   @Input()
   isLoading: boolean = false;
   @Input({ required: true })
-  mediaList!: Movie[] | TV[] | null;
+  mediaList!: Movie[] | TV[];
   @Input({ required: true })
   mediaType!: MediaType;
 

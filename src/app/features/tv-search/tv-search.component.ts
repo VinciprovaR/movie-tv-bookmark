@@ -3,17 +3,16 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, map, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import {
   SearchTVActions,
   SearchTVSelectors,
 } from '../../shared/store/search-tv';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
 
-import { MediaType, TV, TVResult } from '../../shared/models/media.models';
-import { MediaLifecycleDTO } from '../../shared/models/supabase/DTO';
+import { MediaType, TV } from '../../shared/interfaces/media.interface';
+import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { SupabaseLifecycleService } from '../../shared/services/supabase';
 import {
   TVLifecycleActions,
   TVLifecycleSelectors,
@@ -33,29 +32,17 @@ import {
   styleUrl: './tv-search.component.css',
 })
 export class TVSearchComponent implements OnInit {
-  tvListLength: number = 0;
   mediaType: MediaType = 'tv';
 
   destroyed$ = new Subject();
 
-  query$ = this.store.select(SearchTVSelectors.selectQuery);
-  selectIsLoading$: Observable<boolean> = this.store.select(
-    SearchTVSelectors.selectIsLoading
-  );
-  selectTVResult$: Observable<TVResult> = this.store.select(
-    SearchTVSelectors.selectTVResult
-  );
-  tv$: Observable<TV[]> = this.selectTVResult$.pipe(
-    map((TVResult) => {
-      this.tvListLength = TVResult.results.length;
-      return TVResult.results;
-    })
-  );
+  selectQuery$!: Observable<string>;
+  selectIsLoading$!: Observable<boolean>;
+  selectTVList$!: Observable<TV[]>;
 
   constructor(
     private store: Store,
-    private bridgeDataService: BridgeDataService,
-    private supabaseLifecycleService: SupabaseLifecycleService
+    private bridgeDataService: BridgeDataService
   ) {
     inject(DestroyRef).onDestroy(() => {
       this.destroyed$.next(true);
@@ -65,13 +52,18 @@ export class TVSearchComponent implements OnInit {
   ngAfterViewInit(): void {}
 
   ngOnInit(): void {
-    //data to lifecycle-selector, options
-    this.supabaseLifecycleService.lifeCycleOptions$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((lifecycleOptions) => {
-        this.bridgeDataService.pushSelectLifecycleOptions(lifecycleOptions);
-      });
+    this.initSelectors();
+    this.initDataBridge();
+  }
+  initSelectors() {
+    this.selectQuery$ = this.store.select(SearchTVSelectors.selectQuery);
+    this.selectIsLoading$ = this.store.select(
+      SearchTVSelectors.selectIsLoading
+    );
+    this.selectTVList$ = this.store.select(SearchTVSelectors.selectTVList);
+  }
 
+  initDataBridge() {
     //data to lifecycle-selector, lifecycle selected
     this.store
       .select(TVLifecycleSelectors.selectTVLifecycleMap)
@@ -87,7 +79,6 @@ export class TVSearchComponent implements OnInit {
         this.createUpdateDeleteTVLifecycle(mediaLifecycleDTO);
       });
   }
-
   createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
     this.store.dispatch(
       TVLifecycleActions.createUpdateDeleteTVLifecycle({
@@ -100,8 +91,8 @@ export class TVSearchComponent implements OnInit {
     this.store.dispatch(SearchTVActions.searchTV({ query }));
   }
 
-  searchAdditionalTV() {
-    if (this.tvListLength > 0) {
+  searchAdditionalTV(movieListLength: number = 0) {
+    if (movieListLength) {
       this.store.dispatch(SearchTVActions.searchAdditionalTV());
     }
   }

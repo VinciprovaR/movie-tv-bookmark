@@ -1,15 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
+import { inject, Inject, Injectable } from '@angular/core';
+import { I18E, TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 import { TMDBService } from './tmdb.abstract.service';
 import { Observable, map, of } from 'rxjs';
-import { MovieResult, TVResult, MediaType } from '../../models/media.models';
-import { PayloadDiscoveryMovie } from '../../models/store/discovery-movie-state.models';
+import {
+  MovieResult,
+  TVResult,
+  MediaType,
+} from '../../interfaces/media.interface';
+import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TMDBDiscoveryService extends TMDBService {
+  i18e: string = inject(I18E);
+
   constructor() {
     super();
   }
@@ -45,7 +51,7 @@ export class TMDBDiscoveryService extends TMDBService {
     let filtersQueryParams = this.buildFiltersParam(payload);
 
     return this.httpClient.get<MovieResult | TVResult>(
-      `${this.tmdbBaseUrl}/discover/${mediaType}?include_adult=false${filtersQueryParams}&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}/discover/${mediaType}?include_adult=false${filtersQueryParams}&certification_country=${this.i18e}&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
     );
   }
 
@@ -58,12 +64,17 @@ export class TMDBDiscoveryService extends TMDBService {
     }
     if (payload.sortBy) {
       filtersQueryParams = filtersQueryParams.concat(
-        `&sort_by=${payload.sortBy}`
+        this.buildSortBy(payload.sortBy)
       );
     }
     if (payload.releaseDate.from || payload.releaseDate.to) {
       filtersQueryParams = filtersQueryParams.concat(
         this.buildReleaseDateParams(payload.releaseDate)
+      );
+    }
+    if (payload.certification) {
+      filtersQueryParams = filtersQueryParams.concat(
+        this.buildCertification(payload.certification)
       );
     }
     return filtersQueryParams;
@@ -85,6 +96,10 @@ export class TMDBDiscoveryService extends TMDBService {
     return releaseDateQueryParams;
   }
 
+  buildSortBy(sortBy: string) {
+    return `&sort_by=${sortBy}`;
+  }
+
   buildGenresIdParam(genresSelectedId: number[]) {
     let genresQueryParam: string = '&with_genres=';
 
@@ -95,5 +110,9 @@ export class TMDBDiscoveryService extends TMDBService {
       }
     });
     return genresQueryParam;
+  }
+
+  buildCertification(certification: string) {
+    return `&certification=${encodeURIComponent(certification)}`;
   }
 }

@@ -1,9 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Movie, MovieDetail, MovieResult } from '../../models/media.models';
-import {
-  MediaLifecycleDTO,
-  SelectLifecycleDTO,
-} from '../../models/supabase/DTO/';
+import { MovieDetail, MovieResult } from '../../interfaces/media.interface';
 
 //search
 export const searchMovie = createAction(

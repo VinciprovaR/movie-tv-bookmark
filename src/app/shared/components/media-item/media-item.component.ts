@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MediaType } from '../../models/media.models';
+import { MediaType } from '../../interfaces/media.interface';
 import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
 import { TMDB_CARD_1X_IMG_URL, TMDB_CARD_2X_IMG_URL } from '../../../providers';
 import { MatButtonModule } from '@angular/material/button';

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { MediaLifecycleDTO } from '../../models/supabase/DTO';
-import { TVLifecycleMap } from '../../models/store/tv-lifecycle-state.models';
+import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
+import { TVLifecycleMap } from '../../interfaces/store/tv-lifecycle-state.interface';
 
 export const initTVLifecycleSuccess = createAction(
   '[TV-Lifecycle-C/API] Init TV Lifecycle Success',

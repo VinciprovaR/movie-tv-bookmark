@@ -8,31 +8,39 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { Observable, Subject, combineLatest, map, takeUntil } from 'rxjs';
+import { Observable, Subject, combineLatest, map, takeUntil, tap } from 'rxjs';
 import {
+  Certification,
+  Certifications,
   DiscoveryFilterForm,
   Genre,
   GenreControl,
   GenreGroup,
   ReleaseDateGroup,
-} from '../../models/tmdb-filters.models';
-import { MediaType } from '../../models/media.models';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+} from '../../interfaces/tmdb-filters.interface';
+import { MediaType } from '../../interfaces/media.interface';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidatorFn,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { GenreTagComponent } from '../genre-tag/genre-tag.component';
+
 import {
   PayloadDiscoveryMovie,
   ReleaseDate,
-} from '../../models/store/discovery-movie-state.models';
+} from '../../interfaces/store/discovery-movie-state.interface';
 import { GenreFilterComponent } from '../genre-filter/genre-filter.component';
 import { OrderByFilterComponent } from '../order-by-filter/order-by-filter.component';
 import { ReleaseDateFilterComponent } from '../release-date-filter/release-date-filter.component';
 import { IncludeLifecycleFilterComponent } from '../include-lifecycle-filter/include-lifecycle-filter.component';
+import { CertificationFilterComponent } from '../certification-filter/certification-filter.component';
 
 /*
 Filtri da fare: 
-  - Escludi/includi già in lifecycle
-  - Certification
   - Language
   - User Score
 */
@@ -43,38 +51,30 @@ Filtri da fare:
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    GenreTagComponent,
     GenreFilterComponent,
     OrderByFilterComponent,
     ReleaseDateFilterComponent,
     IncludeLifecycleFilterComponent,
+    CertificationFilterComponent,
   ],
   templateUrl: './discovery-filters.component.html',
   styleUrl: './discovery-filters.component.css',
 })
 export class DiscoveryFiltersComponent implements OnInit {
-  destroyed$ = new Subject();
-  filterForm!: FormGroup<DiscoveryFilterForm>;
-
-  @Input({ required: true })
-  signalAdditionalMovieObs$!: Observable<void>;
-
   @Input({ required: true })
   mediaType!: MediaType;
-
   @Input({ required: true })
-  payload$!: Observable<PayloadDiscoveryMovie>;
+  combinedDiscoveryFilters$!: Observable<[PayloadDiscoveryMovie, Genre[]]>;
+  @Input({ required: true })
+  certificationList!: Certification[];
 
   @Output()
   payloadEmitterOnSubmit: EventEmitter<PayloadDiscoveryMovie> =
     new EventEmitter<PayloadDiscoveryMovie>();
 
-  @Output()
-  payloadEmitterAdditionalMovie: EventEmitter<PayloadDiscoveryMovie> =
-    new EventEmitter<PayloadDiscoveryMovie>();
+  filterForm!: FormGroup<DiscoveryFilterForm>;
 
-  @Input({ required: true })
-  genreList$!: Observable<Genre[] | []>;
+  destroyed$ = new Subject();
 
   constructor(private fb: FormBuilder) {
     inject(DestroyRef).onDestroy(() => {
@@ -84,13 +84,7 @@ export class DiscoveryFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.signalAdditionalMovieObs$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        this.onAdditionalMovie();
-      });
-
-    combineLatest([this.payload$, this.genreList$])
+    this.combinedDiscoveryFilters$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((formData) => {
         const [filterSelected, genreList] = formData;
@@ -99,30 +93,23 @@ export class DiscoveryFiltersComponent implements OnInit {
   }
 
   buildForm(filterSelected: PayloadDiscoveryMovie, genreList: Genre[]): void {
-    const {
-      genreIdList: genreIdListSelected,
-      sortBy: sortBySelected,
-      releaseDate: releaseDateSelected,
-      includeMediaWithLifecycle: includeMediaWithLifecycleSelected,
-    } = filterSelected;
-
-    const genresGroup = this.fb.group<GenreGroup>({
-      ...this.initGenreGroup(genreIdListSelected, genreList),
-    });
-
-    const sortByControl = this.fb.control<string>(sortBySelected, {
-      nonNullable: true,
-    });
-    //to-do validatori from non maggiore di to
-    const releaseDateGroup = this.fb.group<ReleaseDateGroup>(
-      this.initReleaseDateGroup(releaseDateSelected)
+    const genresGroup = this.initGenreGroup(
+      filterSelected.genreIdList,
+      genreList
     );
 
-    const includeLifecycleControl = this.fb.control<boolean>(
-      includeMediaWithLifecycleSelected,
-      {
-        nonNullable: true,
-      }
+    const sortByControl = this.initSortByControl(filterSelected.sortBy);
+
+    const releaseDateGroup = this.initReleaseDateGroup(
+      filterSelected.releaseDate
+    );
+
+    const includeLifecycleControl = this.initIncludeLifecycleControl(
+      filterSelected.includeMediaWithLifecycle
+    );
+
+    const certificationsControl = this.initCertificationsControl(
+      filterSelected.certification
     );
 
     this.filterForm = this.fb.group<DiscoveryFilterForm>({
@@ -130,10 +117,18 @@ export class DiscoveryFiltersComponent implements OnInit {
       sortBy: sortByControl,
       releaseDate: releaseDateGroup,
       includeLifecycle: includeLifecycleControl,
+      certifications: certificationsControl,
     });
+
+    this.filterForm.controls['releaseDate'].addValidators(
+      this.releaseDateValidatorFactory()
+    );
   }
 
-  initGenreGroup(genresSelected: number[], genreList: Genre[]): GenreGroup {
+  initGenreGroup(
+    genresSelected: number[],
+    genreList: Genre[]
+  ): FormGroup<GenreGroup> {
     let genreGroup: GenreGroup = {};
     genreList.forEach((genre) => {
       genreGroup[genre.id] = this.fb.control<GenreControl>(
@@ -146,10 +141,20 @@ export class DiscoveryFiltersComponent implements OnInit {
       );
     });
 
-    return genreGroup;
+    return this.fb.group<GenreGroup>({
+      ...genreGroup,
+    });
   }
 
-  initReleaseDateGroup(releaseDateSelected: ReleaseDate): ReleaseDateGroup {
+  initSortByControl(sortBySelected: string): FormControl<string> {
+    return this.fb.control<string>(sortBySelected, {
+      nonNullable: true,
+    });
+  }
+
+  initReleaseDateGroup(
+    releaseDateSelected: ReleaseDate
+  ): FormGroup<ReleaseDateGroup> {
     const fromSelected = releaseDateSelected.from
       ? new Date(releaseDateSelected.from)
       : null;
@@ -157,20 +162,46 @@ export class DiscoveryFiltersComponent implements OnInit {
     const toSelected = releaseDateSelected.to
       ? new Date(releaseDateSelected.to)
       : new Date(new Date().setFullYear(new Date().getFullYear() + 1));
-    return {
-      from: this.fb.control<Date | null>(fromSelected, { nonNullable: true }),
-      to: this.fb.control<Date>(toSelected, {
-        nonNullable: true,
-      }),
-    };
+
+    return this.fb.group<ReleaseDateGroup>({
+      from: this.fb.control<Date | null>(fromSelected),
+      to: this.fb.control<Date>(toSelected),
+    });
   }
 
-  onAdditionalMovie() {
-    // console.log(this.filterForm.value);
-    if (this.filterForm.valid) {
-      let payload: PayloadDiscoveryMovie = this.buildPayload();
-      this.payloadEmitterAdditionalMovie.emit(payload);
-    }
+  initIncludeLifecycleControl(
+    includeMediaWithLifecycleSelected: boolean
+  ): FormControl<boolean> {
+    return this.fb.control<boolean>(includeMediaWithLifecycleSelected, {
+      nonNullable: true,
+    });
+  }
+
+  initCertificationsControl(
+    certificationSelected: string
+  ): FormControl<string | null> {
+    return this.fb.control<string>(certificationSelected);
+  }
+
+  releaseDateValidatorFactory() {
+    return (group: AbstractControl): any => {
+      let releaseGroup = group as FormGroup<ReleaseDateGroup>;
+      let toControl = releaseGroup.controls.to;
+      let fromControl = releaseGroup.controls.from;
+
+      if (
+        toControl.value &&
+        fromControl.value &&
+        fromControl.value > toControl.value
+      ) {
+        fromControl.setErrors({
+          invalidFromDate: true,
+        });
+      } else {
+        fromControl.setErrors(null);
+      }
+      return null;
+    };
   }
 
   onSubmit(): void {
@@ -187,6 +218,7 @@ export class DiscoveryFiltersComponent implements OnInit {
       sortBy: this.buildSortBy(),
       releaseDate: this.buildReleaseDatePayload(),
       includeMediaWithLifecycle: this.buildIncludeLifecyclePayload(),
+      certification: this.buildCertification(),
     };
   }
 
@@ -220,6 +252,12 @@ export class DiscoveryFiltersComponent implements OnInit {
     return this.filterForm.value?.includeLifecycle
       ? this.filterForm.value?.includeLifecycle
       : false;
+  }
+
+  buildCertification(): string {
+    return this.filterForm.value?.certifications
+      ? this.filterForm.value.certifications
+      : '';
   }
 
   formatDate(date: Date | null | undefined): string {

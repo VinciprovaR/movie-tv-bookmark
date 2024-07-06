@@ -1,26 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
+import { Observable, Subject, combineLatest, takeUntil } from 'rxjs';
 import {
   DiscoveryMovieActions,
   DiscoveryMovieSelectors,
 } from '../../shared/store/discovery-movie';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
-import { MovieResult, Movie } from '../../shared/models/media.models';
-import { MediaType } from '../../shared/models/media.models';
-import { Router } from '@angular/router';
+import { Movie } from '../../shared/interfaces/media.interface';
+import { MediaType } from '../../shared/interfaces/media.interface';
 import { DiscoveryFiltersComponent } from '../../shared/components/discovery-filters/discovery-filters.component';
-import {
-  MediaLifecycleDTO,
-  SelectLifecycleDTO,
-} from '../../shared/models/supabase/DTO';
+import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { PayloadDiscoveryMovie } from '../../shared/models/store/discovery-movie-state.models';
-import { Genre } from '../../shared/models/tmdb-filters.models';
-import { SupabaseLifecycleService } from '../../shared/services/supabase';
+import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-movie-state.interface';
+import {
+  Certification,
+  Genre,
+} from '../../shared/interfaces/tmdb-filters.interface';
 import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
@@ -40,51 +38,57 @@ import {
   templateUrl: './movie-discovery.component.html',
   styleUrl: './movie-discovery.component.css',
 })
-export class MovieDiscoveryComponent implements OnInit {
-  movieListLength: number = 0;
+export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
   mediaType: MediaType = 'movie';
 
   destroyed$ = new Subject();
-  signalAdditionalMovie$: Subject<void> = new Subject();
-  signalAdditionalMovieObs$: Observable<void> =
-    this.signalAdditionalMovie$.asObservable();
 
-  payload$: Observable<PayloadDiscoveryMovie> = this.store.select(
-    DiscoveryMovieSelectors.selectPayload
-  );
-  selectIsLoading$: Observable<boolean> = this.store.select(
-    DiscoveryMovieSelectors.selectIsLoading
-  );
-  selectMovieResult$: Observable<MovieResult> = this.store.select(
-    DiscoveryMovieSelectors.selectMovieResult
-  );
-  selectGenreList$: Observable<Genre[] | []> = this.store.select(
-    DiscoveryMovieSelectors.selectGenreList
-  );
-  movie$: Observable<Movie[]> = this.selectMovieResult$.pipe(
-    map((movieResult) => {
-      this.movieListLength = movieResult.results.length;
-      return movieResult.results;
-    })
-  );
+  selectIsLoading$!: Observable<boolean>;
+  selectMovieList$!: Observable<Movie[]>;
+  selectMovieLifecycleMap$!: Observable<any>;
+  selectCombinedDiscoveryFilters$!: Observable<
+    [PayloadDiscoveryMovie, Genre[]]
+  >;
+  selectCertificationList$!: Observable<Certification[]>;
 
   constructor(
     private store: Store,
-    private bridgeDataService: BridgeDataService,
-    private supabaseLifecycleService: SupabaseLifecycleService
+    private bridgeDataService: BridgeDataService
   ) {}
+  ngAfterViewInit(): void {}
 
   ngOnInit(): void {
-    //data to lifecycle-selector, options
-    this.supabaseLifecycleService.lifeCycleOptions$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((lifecycleOptions) => {
-        this.bridgeDataService.pushSelectLifecycleOptions(lifecycleOptions);
-      });
+    this.initSelectors();
+    this.initDataBridge();
+    this.populateFiltersSelections();
+  }
 
+  initSelectors() {
+    this.selectIsLoading$ = this.store.select(
+      DiscoveryMovieSelectors.selectIsLoading
+    );
+
+    this.selectMovieLifecycleMap$ = this.store.select(
+      MovieLifecycleSelectors.selectMovieLifecycleMap
+    );
+
+    this.selectMovieList$ = this.store.select(
+      DiscoveryMovieSelectors.selectMovieList
+    );
+
+    this.selectCombinedDiscoveryFilters$ = combineLatest([
+      this.store.select(DiscoveryMovieSelectors.selectPayload),
+      this.store.select(DiscoveryMovieSelectors.selectGenreList),
+    ]);
+
+    this.selectCertificationList$ = this.store.select(
+      DiscoveryMovieSelectors.selectCertifications
+    );
+  }
+
+  initDataBridge() {
     //data to lifecycle-selector, lifecycle selected
-    this.store
-      .select(MovieLifecycleSelectors.selectMovieLifecycleMap)
+    this.selectMovieLifecycleMap$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((movieLifecycleMap) => {
         this.bridgeDataService.pushMediaLifecycleMap(movieLifecycleMap);
@@ -96,11 +100,19 @@ export class MovieDiscoveryComponent implements OnInit {
       .subscribe((mediaLifecycleDTO) => {
         this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
       });
+  }
+
+  populateFiltersSelections() {
     this.populateGenreList();
+    this.populateCertifications();
   }
 
   populateGenreList() {
     this.store.dispatch(DiscoveryMovieActions.getGenreList());
+  }
+
+  populateCertifications() {
+    this.store.dispatch(DiscoveryMovieActions.getCertificationList());
   }
 
   createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
@@ -119,15 +131,9 @@ export class MovieDiscoveryComponent implements OnInit {
     );
   }
 
-  discoveryAdditionalMovie() {
-    if (this.movieListLength > 0) {
-      this.signalAdditionalMovie$.next();
+  discoveryAdditionalMovie(movieListLength: number = 0) {
+    if (movieListLength) {
+      this.store.dispatch(DiscoveryMovieActions.discoveryAdditionalMovie());
     }
-  }
-
-  discoveryAdditionalMovieWithFilters(payload: PayloadDiscoveryMovie) {
-    this.store.dispatch(
-      DiscoveryMovieActions.discoveryAdditionalMovie({ payload })
-    );
   }
 }

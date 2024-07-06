@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SORT_ENUM } from '../../../providers';
+
 import {
   DiscoveryFilterForm,
-  SortEnum,
-} from '../../models/tmdb-filters.models';
+  SortBySelect,
+} from '../../interfaces/tmdb-filters.interface';
 
 @Component({
   selector: 'app-order-by-filter',
@@ -15,12 +15,20 @@ import {
   styleUrl: './order-by-filter.component.css',
 })
 export class OrderByFilterComponent {
-  sortEnum!: SortEnum;
-  constructor(@Inject(SORT_ENUM) private SORT_ENUM: any) {
-    this.sortEnum = this.SORT_ENUM;
-  }
   @Input({ required: true })
   filterForm!: FormGroup<DiscoveryFilterForm>;
+  sortBySelect: SortBySelect = {
+    'popularity.desc': 'Popularity Descending',
+    'popularity.asc': 'Popularity Ascending',
+    'vote_average.desc': 'Rating Descending',
+    'vote_average.asc': 'Rating Ascending',
+    'primary_release_date.desc': 'Release Date Descending',
+    'primary_release_date.asc': 'Release Date Ascending',
+    'title.asc': 'Title (A-Z)',
+    'title.desc': 'Title (Z-A)',
+  };
+
+  constructor() {}
 
   get orderByControl(): FormControl {
     return this.filterForm.controls['sortBy'] as FormControl;

@@ -3,7 +3,10 @@ import { Component } from '@angular/core';
 import { AuthActions, AuthSelectors } from '../../shared/store/auth';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { LoginForm, LoginPayload } from '../../shared/models/auth.models';
+import {
+  LoginForm,
+  LoginPayload,
+} from '../../shared/interfaces/auth.interface';
 import {
   FormControl,
   FormGroup,

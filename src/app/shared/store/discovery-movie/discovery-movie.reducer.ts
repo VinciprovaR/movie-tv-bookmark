@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as DiscoveryMovieActions from './discovery-movie.actions';
-import { DiscoveryMovieState } from '../../models/store/discovery-movie-state.models';
+import { DiscoveryMovieState } from '../../interfaces/store/discovery-movie-state.interface';
 
 export const discoveryMovieFeatureKey = 'discovery-movie';
 
@@ -11,6 +11,7 @@ export const initialState: DiscoveryMovieState = {
     sortBy: 'popularity.desc',
     releaseDate: { from: '', to: '' },
     includeMediaWithLifecycle: false,
+    certification: '',
   },
   error: null,
   movieResult: {
@@ -27,6 +28,7 @@ export const initialState: DiscoveryMovieState = {
   },
   movieDetail: null,
   genreList: [],
+  certifications: [],
 };
 
 export const discoveryMovieReducer = createReducer(
@@ -35,6 +37,8 @@ export const discoveryMovieReducer = createReducer(
     DiscoveryMovieActions.searchAdditionalPeople,
     DiscoveryMovieActions.searchPeople,
     DiscoveryMovieActions.getGenreList,
+    DiscoveryMovieActions.getCertificationList,
+    DiscoveryMovieActions.discoveryAdditionalMovie,
     (state) => {
       return {
         ...state,
@@ -52,8 +56,19 @@ export const discoveryMovieReducer = createReducer(
     };
   }),
   on(
+    DiscoveryMovieActions.getCertificationListSuccess,
+    (state, { certifications }) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        certifications,
+      };
+    }
+  ),
+  on(
     DiscoveryMovieActions.discoveryMovie,
-    DiscoveryMovieActions.discoveryAdditionalMovie,
+
     (state, { payload }) => {
       return {
         ...state,
@@ -182,13 +197,17 @@ export const discoveryMovieReducer = createReducer(
 
 export const getDiscoveryMovieState = (state: DiscoveryMovieState) => state;
 export const getGenreList = (state: DiscoveryMovieState) => state.genreList;
+export const getCertifications = (state: DiscoveryMovieState) =>
+  state.certifications;
 export const getIsLoading = (state: DiscoveryMovieState) => state.isLoading;
 export const getPayload = (state: DiscoveryMovieState) => state.payload;
 export const getDiscoveryMovieError = (state: DiscoveryMovieState) =>
   state.error;
 export const getMovieResult = (state: DiscoveryMovieState) => state.movieResult;
+export const getMovieList = (state: DiscoveryMovieState) =>
+  state.movieResult.results;
 export const getMovieDetail = (state: DiscoveryMovieState) => state.movieDetail;
 export const getMovieResultPage = (state: DiscoveryMovieState) =>
-  state.movieResult?.page ? state.movieResult.page : 0;
+  state.movieResult.page;
 export const getMovieResultTotalPages = (state: DiscoveryMovieState) =>
-  state.movieResult?.total_pages ? state.movieResult.total_pages : 0;
+  state.movieResult.total_pages;

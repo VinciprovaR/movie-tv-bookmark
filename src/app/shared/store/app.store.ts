@@ -5,15 +5,15 @@ import { AuthReducers } from './auth';
 import { SearchMovieReducers } from './search-movie';
 import { SearchTVReducers } from './search-tv';
 import { DiscoveryMovieReducers } from './discovery-movie';
-import { AuthState } from '../models/store/auth-state.models';
-import { DiscoveryMovieState } from '../models/store/discovery-movie-state.models';
-import { SearchMovieState } from '../models/store/search-movie-state.models';
-import { SearchTVState } from '../models/store/search-tv-state.models';
+import { AuthState } from '../interfaces/store/auth-state.interface';
+import { DiscoveryMovieState } from '../interfaces/store/discovery-movie-state.interface';
+import { SearchMovieState } from '../interfaces/store/search-movie-state.interface';
+import { SearchTVState } from '../interfaces/store/search-tv-state.interface';
 import { MovieLifecycleReducers } from './movie-lifecycle';
 
 import { TVLifecycleReducers } from './tv-lifecycle';
-import { MovieLifecycleState } from '../models/store/movie-lifecycle-state.models';
-import { TVLifecycleState } from '../models/store/tv-lifecycle-state.models';
+import { MovieLifecycleState } from '../interfaces/store/movie-lifecycle-state.interface';
+import { TVLifecycleState } from '../interfaces/store/tv-lifecycle-state.interface';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;

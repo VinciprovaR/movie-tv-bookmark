@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as SearchMovieReducer from './search-movie.reducer';
-import { SearchMovieState } from '../../models/store/search-movie-state.models';
+import { SearchMovieState } from '../../interfaces/store/search-movie-state.interface';
 
 const searchMovieFeatureSelector = createFeatureSelector<SearchMovieState>(
   SearchMovieReducer.searchMovieFeatureKey
@@ -24,6 +24,11 @@ export const selectQuery = createSelector(
 export const selectMovieResult = createSelector(
   searchMovieFeatureSelector,
   SearchMovieReducer.getMovieResult
+);
+
+export const selectMovieList = createSelector(
+  searchMovieFeatureSelector,
+  SearchMovieReducer.getMovieList
 );
 
 export const selectMovieDetail = createSelector(

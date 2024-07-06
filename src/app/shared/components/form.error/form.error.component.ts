@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ErrorResponse } from '../../models/auth.models';
+import { ErrorResponse } from '../../interfaces/auth.interface';
 import { CommonModule } from '@angular/common';
 
 @Component({

@@ -15,20 +15,20 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-genre-tag',
+  selector: 'app-select-tag',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatButtonModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => GenreTagComponent),
+      useExisting: forwardRef(() => SelectTagComponent),
       multi: true,
     },
   ],
-  templateUrl: './genre-tag.component.html',
-  styleUrl: './genre-tag.component.css',
+  templateUrl: './select-tag.component.html',
+  styleUrl: './select-tag.component.css',
 })
-export class GenreTagComponent implements ControlValueAccessor {
+export class SelectTagComponent implements ControlValueAccessor {
   @Input({ required: true })
   genre!: any;
 

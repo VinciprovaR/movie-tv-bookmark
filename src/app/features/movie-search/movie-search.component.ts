@@ -1,30 +1,18 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  DestroyRef,
-  Inject,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, map, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
 import {
   SearchMovieActions,
   SearchMovieSelectors,
 } from '../../shared/store/search-movie';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
-import { MovieResult, Movie } from '../../shared/models/media.models';
-import { MediaType } from '../../shared/models/media.models';
-import { Router } from '@angular/router';
+import { MovieResult, Movie } from '../../shared/interfaces/media.interface';
+import { MediaType } from '../../shared/interfaces/media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import {
-  MediaLifecycleDTO,
-  SelectLifecycleDTO,
-} from '../../shared/models/supabase/DTO';
-import { SupabaseLifecycleService } from '../../shared/services/supabase';
+import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
@@ -49,24 +37,13 @@ export class MovieSearchComponent implements OnInit {
 
   destroyed$ = new Subject();
 
-  query$ = this.store.select(SearchMovieSelectors.selectQuery);
-  selectIsLoading$: Observable<boolean> = this.store.select(
-    SearchMovieSelectors.selectIsLoading
-  );
-  selectMovieResult$: Observable<MovieResult> = this.store.select(
-    SearchMovieSelectors.selectMovieResult
-  );
-  movie$: Observable<Movie[]> = this.selectMovieResult$.pipe(
-    map((movieResult) => {
-      this.movieListLength = movieResult.results.length;
-      return movieResult.results;
-    })
-  );
+  selectQuery$!: Observable<string>;
+  selectIsLoading$!: Observable<boolean>;
+  selectMovieList$!: Observable<Movie[]>;
 
   constructor(
     private store: Store,
-    private bridgeDataService: BridgeDataService,
-    private supabaseLifecycleService: SupabaseLifecycleService
+    private bridgeDataService: BridgeDataService
   ) {
     inject(DestroyRef).onDestroy(() => {
       this.destroyed$.next(true);
@@ -75,13 +52,11 @@ export class MovieSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //data to lifecycle-selector, options
-    this.supabaseLifecycleService.lifeCycleOptions$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((lifecycleOptions) => {
-        this.bridgeDataService.pushSelectLifecycleOptions(lifecycleOptions);
-      });
+    this.initSelectors();
+    this.initDataBridge();
+  }
 
+  initDataBridge() {
     //data to lifecycle-selector, lifecycle selected
     this.store
       .select(MovieLifecycleSelectors.selectMovieLifecycleMap)
@@ -98,6 +73,16 @@ export class MovieSearchComponent implements OnInit {
       });
   }
 
+  initSelectors() {
+    this.selectQuery$ = this.store.select(SearchMovieSelectors.selectQuery);
+    this.selectIsLoading$ = this.store.select(
+      SearchMovieSelectors.selectIsLoading
+    );
+    this.selectMovieList$ = this.store.select(
+      SearchMovieSelectors.selectMovieList
+    );
+  }
+
   createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
     this.store.dispatch(
       MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
@@ -110,8 +95,8 @@ export class MovieSearchComponent implements OnInit {
     this.store.dispatch(SearchMovieActions.searchMovie({ query }));
   }
 
-  searchAdditionalMovie() {
-    if (this.movieListLength > 0) {
+  searchAdditionalMovie(movieListLength: number = 0) {
+    if (movieListLength) {
       this.store.dispatch(SearchMovieActions.searchAdditionalMovie());
     }
   }
