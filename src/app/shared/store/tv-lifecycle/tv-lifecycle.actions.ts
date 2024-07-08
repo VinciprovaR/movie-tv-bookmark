@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
-import { TVLifecycleMap } from '../../interfaces/store/tv-lifecycle-state.interface';
+import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
 
 export const initTVLifecycleSuccess = createAction(
   '[TV-Lifecycle-C/API] Init TV Lifecycle Success',
-  props<{ tvLifecycleMap: TVLifecycleMap }>()
+  props<{ tvLifecycleMap: MediaLifecycleMap }>()
 );
 export const createUpdateDeleteTVLifecycle = createAction(
   '[TV-Lifecycle-C/API] Create or Update or Delete TV Lifecycle',
@@ -12,7 +12,7 @@ export const createUpdateDeleteTVLifecycle = createAction(
 );
 export const createUpdateDeleteTVLifecycleSuccess = createAction(
   '[TV-Lifecycle-C/API] Create or Update or Delete TV Lifecycle Success',
-  props<{ tvLifecycleMap: TVLifecycleMap }>()
+  props<{ tvLifecycleMap: MediaLifecycleMap }>()
 );
 export const deleteTVLifecycle = createAction(
   '[TV-Lifecycle-C/API] Delete TV Lifecycle',

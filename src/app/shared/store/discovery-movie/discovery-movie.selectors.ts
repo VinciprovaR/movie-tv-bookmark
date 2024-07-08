@@ -47,9 +47,14 @@ export const selectGenreList = createSelector(
   DiscoveryMovieReducer.getGenreList
 );
 
-export const selectCertifications = createSelector(
+export const selectCertificationList = createSelector(
   discoveryMovieFeatureSelector,
-  DiscoveryMovieReducer.getCertifications
+  DiscoveryMovieReducer.getCertificationList
+);
+
+export const selectLanguageList = createSelector(
+  discoveryMovieFeatureSelector,
+  DiscoveryMovieReducer.getLanguageList
 );
 
 export const selectMovieTotalPages = createSelector(

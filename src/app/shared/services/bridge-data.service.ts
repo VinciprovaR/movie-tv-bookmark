@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { MediaLifecycleDTO } from '../interfaces/supabase/DTO';
-import { MovieLifecycleMap } from '../interfaces/store/movie-lifecycle-state.interface';
-import { TVLifecycleMap } from '../interfaces/store/tv-lifecycle-state.interface';
+import { MediaLifecycleMap } from '../interfaces/lifecycle.interface';
 
 //to-do refractor with signals?
 @Injectable()
 export class BridgeDataService {
   //mediaLifecycleMap
-  private readonly mediaLifecycleMap$ = new BehaviorSubject<
-    MovieLifecycleMap | TVLifecycleMap | null
-  >(null);
-  readonly mediaLifecycleMapObs$: Observable<
-    MovieLifecycleMap | TVLifecycleMap | null
-  > = this.mediaLifecycleMap$.asObservable();
+  private readonly mediaLifecycleMap$ =
+    new BehaviorSubject<MediaLifecycleMap | null>(null);
+  readonly mediaLifecycleMapObs$: Observable<MediaLifecycleMap | null> =
+    this.mediaLifecycleMap$.asObservable();
 
   //inputLifecycleOptions
   private readonly inputLifecycleOptions$ = new Subject<MediaLifecycleDTO>();
@@ -26,7 +23,7 @@ export class BridgeDataService {
     this.inputLifecycleOptions$.next(mediaLifecycleDTO);
   }
 
-  pushMediaLifecycleMap(mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) {
+  pushMediaLifecycleMap(mediaLifecycleMap: MediaLifecycleMap) {
     this.mediaLifecycleMap$.next(mediaLifecycleMap);
   }
 }

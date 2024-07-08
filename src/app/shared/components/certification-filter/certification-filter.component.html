@@ -2,7 +2,7 @@
   <h2 class="">Certifications</h2>
 
   <select [formControlName]="'certifications'" id="certifications">
-    <option></option>
+    <option [value]="''">No certification selected</option>
     @if(certificationOptions.length > 0){ @for (certification of
     certificationOptions ; track certification.certification) {
 

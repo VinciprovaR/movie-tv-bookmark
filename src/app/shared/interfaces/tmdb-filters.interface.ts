@@ -28,12 +28,19 @@ export interface DiscoveryFilterForm {
   sortBy: FormControl<string>;
   releaseDate: FormGroup<ReleaseDateGroup>;
   includeLifecycle: FormControl<boolean>;
-  certifications: FormControl<string | null>;
+  certifications: FormControl<string>;
+  languages: FormControl<string>;
+  voteAverage: FormGroup<VoteAverageGroup>;
 }
 
 export interface ReleaseDateGroup {
   from: FormControl<Date | null>;
   to: FormControl<Date | null>;
+}
+
+export interface VoteAverageGroup {
+  voteAverageMin: FormControl<number>;
+  voteAverageMax: FormControl<number>;
 }
 
 export interface GenreGroup {
@@ -47,4 +54,10 @@ export interface GenreControl {
 
 export interface SortBySelect {
   [key: string]: string;
+}
+
+export interface Language {
+  iso_639_1: string;
+  english_name: string;
+  name: string;
 }

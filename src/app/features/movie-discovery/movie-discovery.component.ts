@@ -18,11 +18,13 @@ import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-m
 import {
   Certification,
   Genre,
+  Language,
 } from '../../shared/interfaces/tmdb-filters.interface';
 import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
 } from '../../shared/store/movie-lifecycle';
+import { MediaLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
 
 @Component({
   selector: 'app-movie-discovery',
@@ -45,11 +47,12 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
 
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
-  selectMovieLifecycleMap$!: Observable<any>;
+  selectMovieLifecycleMap$!: Observable<MediaLifecycleMap>;
   selectCombinedDiscoveryFilters$!: Observable<
     [PayloadDiscoveryMovie, Genre[]]
   >;
   selectCertificationList$!: Observable<Certification[]>;
+  selectLanguageList$!: Observable<Language[]>;
 
   constructor(
     private store: Store,
@@ -60,7 +63,7 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initSelectors();
     this.initDataBridge();
-    this.populateFiltersSelections();
+    this.initFilterSelections();
   }
 
   initSelectors() {
@@ -82,7 +85,11 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
     ]);
 
     this.selectCertificationList$ = this.store.select(
-      DiscoveryMovieSelectors.selectCertifications
+      DiscoveryMovieSelectors.selectCertificationList
+    );
+
+    this.selectLanguageList$ = this.store.select(
+      DiscoveryMovieSelectors.selectLanguageList
     );
   }
 
@@ -102,17 +109,10 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
       });
   }
 
-  populateFiltersSelections() {
-    this.populateGenreList();
-    this.populateCertifications();
-  }
-
-  populateGenreList() {
+  initFilterSelections() {
     this.store.dispatch(DiscoveryMovieActions.getGenreList());
-  }
-
-  populateCertifications() {
     this.store.dispatch(DiscoveryMovieActions.getCertificationList());
+    this.store.dispatch(DiscoveryMovieActions.getLanguagesList());
   }
 
   createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {

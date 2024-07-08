@@ -17,6 +17,7 @@ import {
   Certification,
   Certifications,
   GenresResult,
+  Language,
 } from '../../interfaces/tmdb-filters.interface';
 
 @Injectable()
@@ -169,9 +170,30 @@ export class DiscoveryMovieEffects {
       ofType(DiscoveryMovieActions.getCertificationList),
       switchMap(() => {
         return this.TMDBFilterListService.retriveCertificationMovieList().pipe(
-          map((certifications: Certification[]) => {
+          map((certificationList: Certification[]) => {
             return DiscoveryMovieActions.getCertificationListSuccess({
-              certifications,
+              certificationList,
+            });
+          }),
+          catchError((httpErrorResponse: ErrorResponse) => {
+            console.error(httpErrorResponse);
+            return of(
+              DiscoveryMovieActions.discoveryMovieFailure({ httpErrorResponse })
+            );
+          })
+        );
+      })
+    );
+  });
+
+  getLanguages$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DiscoveryMovieActions.getLanguagesList),
+      switchMap(() => {
+        return this.TMDBFilterListService.retriveLanguagesList().pipe(
+          map((languageList: Language[]) => {
+            return DiscoveryMovieActions.getLanguagesListSuccess({
+              languageList,
             });
           }),
           catchError((httpErrorResponse: ErrorResponse) => {

@@ -6,6 +6,7 @@ import {
   CertificationResult,
   Certifications,
   GenresResult,
+  Language,
 } from '../../interfaces/tmdb-filters.interface';
 import { MediaType, PeopleResult } from '../../interfaces/media.interface';
 import { Observable, filter, map } from 'rxjs';
@@ -39,7 +40,7 @@ export class TMDBFilterListService {
     mediaType: MediaType
   ): Observable<GenresResult> {
     return this.httpClient.get<GenresResult>(
-      `${this.tmdbBaseUrl}/genre/${mediaType}/list?language=en-US&&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}/genre/${mediaType}/list?language=en-US&api_key=${this.tmdbApiKey}`
     );
   }
 
@@ -53,9 +54,14 @@ export class TMDBFilterListService {
       .pipe(
         map((certificationResult: CertificationResult) => {
           //to-do i18e inietta origin
-
           return certificationResult.certifications[this.i18e];
         })
       );
+  }
+
+  retriveLanguagesList(): Observable<Language[]> {
+    return this.httpClient.get<Language[]>(
+      `${this.tmdbBaseUrl}/configuration/languages?api_key=${this.tmdbApiKey}`
+    );
   }
 }

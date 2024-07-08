@@ -13,7 +13,8 @@ import { ErrorResponse } from '../../interfaces/error.interface';
 import { TVLifecycleActions, TVLifecycleSelectors } from '.';
 
 import { SearchTVActions } from '../search-tv';
-import { TVLifecycleMap } from '../../interfaces/store/tv-lifecycle-state.interface';
+import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
+
 // import { DiscoveryTVActions } from '../discovery-tv';
 
 @Injectable()
@@ -35,7 +36,7 @@ export class TVLifecycleEffects {
         return this.supabaseLifecycleService
           .initTVLifecycleMap(tvResult, tvLifecycleMapClone)
           .pipe(
-            map((tvLifecycleMapResult: TVLifecycleMap) => {
+            map((tvLifecycleMapResult: MediaLifecycleMap) => {
               return TVLifecycleActions.initTVLifecycleSuccess({
                 tvLifecycleMap: tvLifecycleMapResult,
               });
@@ -70,7 +71,7 @@ export class TVLifecycleEffects {
             tvLifecycleMapClone
           )
           .pipe(
-            map((tvLifecycleMap: TVLifecycleMap) => {
+            map((tvLifecycleMap: MediaLifecycleMap) => {
               return TVLifecycleActions.createUpdateDeleteTVLifecycleSuccess({
                 tvLifecycleMap,
               });

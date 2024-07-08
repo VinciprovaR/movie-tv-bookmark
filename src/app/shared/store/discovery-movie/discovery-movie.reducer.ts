@@ -12,6 +12,8 @@ export const initialState: DiscoveryMovieState = {
     releaseDate: { from: '', to: '' },
     includeMediaWithLifecycle: false,
     certification: '',
+    language: '',
+    voteAverage: { voteAverageMin: 0, voteAverageMax: 10 },
   },
   error: null,
   movieResult: {
@@ -28,7 +30,8 @@ export const initialState: DiscoveryMovieState = {
   },
   movieDetail: null,
   genreList: [],
-  certifications: [],
+  certificationList: [],
+  languageList: [],
 };
 
 export const discoveryMovieReducer = createReducer(
@@ -39,7 +42,8 @@ export const discoveryMovieReducer = createReducer(
     DiscoveryMovieActions.getGenreList,
     DiscoveryMovieActions.getCertificationList,
     DiscoveryMovieActions.discoveryAdditionalMovie,
-    (state) => {
+    DiscoveryMovieActions.getLanguagesList,
+    (state): DiscoveryMovieState => {
       return {
         ...state,
         error: null,
@@ -47,29 +51,43 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-  on(DiscoveryMovieActions.getGenreListSuccess, (state, { genreList }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      genreList,
-    };
-  }),
   on(
-    DiscoveryMovieActions.getCertificationListSuccess,
-    (state, { certifications }) => {
+    DiscoveryMovieActions.getGenreListSuccess,
+    (state, { genreList }): DiscoveryMovieState => {
       return {
         ...state,
         error: null,
         isLoading: false,
-        certifications,
+        genreList,
+      };
+    }
+  ),
+  on(
+    DiscoveryMovieActions.getCertificationListSuccess,
+    (state, { certificationList }): DiscoveryMovieState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        certificationList,
+      };
+    }
+  ),
+  on(
+    DiscoveryMovieActions.getLanguagesListSuccess,
+    (state, { languageList }): DiscoveryMovieState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        languageList,
       };
     }
   ),
   on(
     DiscoveryMovieActions.discoveryMovie,
 
-    (state, { payload }) => {
+    (state, { payload }): DiscoveryMovieState => {
       return {
         ...state,
         payload,
@@ -78,25 +96,31 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-  on(DiscoveryMovieActions.discoveryMovieSuccess, (state, { movieResult }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      movieResult,
-    };
-  }),
-  on(DiscoveryMovieActions.searchPeopleSuccess, (state, { peopleResult }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      peopleResult,
-    };
-  }),
+  on(
+    DiscoveryMovieActions.discoveryMovieSuccess,
+    (state, { movieResult }): DiscoveryMovieState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        movieResult,
+      };
+    }
+  ),
+  on(
+    DiscoveryMovieActions.searchPeopleSuccess,
+    (state, { peopleResult }): DiscoveryMovieState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        peopleResult,
+      };
+    }
+  ),
   on(
     DiscoveryMovieActions.searchAdditionalPeopleSuccess,
-    (state, { peopleResult }) => {
+    (state, { peopleResult }): DiscoveryMovieState => {
       let currpeople = state.peopleResult?.results
         ? state.peopleResult.results
         : [];
@@ -118,7 +142,7 @@ export const discoveryMovieReducer = createReducer(
   ),
   on(
     DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
-    (state, { movieResult }) => {
+    (state, { movieResult }): DiscoveryMovieState => {
       let currMovies = state.movieResult?.results
         ? state.movieResult.results
         : [];
@@ -141,7 +165,7 @@ export const discoveryMovieReducer = createReducer(
   on(
     DiscoveryMovieActions.noAdditionalMovie,
     DiscoveryMovieActions.noAdditionalPeople,
-    (state) => {
+    (state): DiscoveryMovieState => {
       return {
         ...state,
         error: null,
@@ -149,17 +173,20 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-  on(DiscoveryMovieActions.discoveryMovieDetail, (state) => {
-    return {
-      ...state,
-      movieDetail: null,
-      error: null,
-      isLoading: true,
-    };
-  }),
+  on(
+    DiscoveryMovieActions.discoveryMovieDetail,
+    (state): DiscoveryMovieState => {
+      return {
+        ...state,
+        movieDetail: null,
+        error: null,
+        isLoading: true,
+      };
+    }
+  ),
   on(
     DiscoveryMovieActions.discoveryMovieDetailSuccess,
-    (state, { movieDetail }) => {
+    (state, { movieDetail }): DiscoveryMovieState => {
       return {
         ...state,
         error: null,
@@ -168,7 +195,7 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-  on(DiscoveryMovieActions.cleanMovieDetail, (state) => {
+  on(DiscoveryMovieActions.cleanMovieDetail, (state): DiscoveryMovieState => {
     return {
       ...state,
       error: null,
@@ -179,7 +206,7 @@ export const discoveryMovieReducer = createReducer(
 
   on(
     DiscoveryMovieActions.discoveryMovieFailure,
-    (state, { httpErrorResponse }) => {
+    (state, { httpErrorResponse }): DiscoveryMovieState => {
       return {
         ...state,
         isLoading: false,
@@ -187,7 +214,7 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-  on(DiscoveryMovieActions.cleanError, (state) => {
+  on(DiscoveryMovieActions.cleanError, (state): DiscoveryMovieState => {
     return {
       ...state,
       error: null,
@@ -197,8 +224,10 @@ export const discoveryMovieReducer = createReducer(
 
 export const getDiscoveryMovieState = (state: DiscoveryMovieState) => state;
 export const getGenreList = (state: DiscoveryMovieState) => state.genreList;
-export const getCertifications = (state: DiscoveryMovieState) =>
-  state.certifications;
+export const getLanguageList = (state: DiscoveryMovieState) =>
+  state.languageList;
+export const getCertificationList = (state: DiscoveryMovieState) =>
+  state.certificationList;
 export const getIsLoading = (state: DiscoveryMovieState) => state.isLoading;
 export const getPayload = (state: DiscoveryMovieState) => state.payload;
 export const getDiscoveryMovieError = (state: DiscoveryMovieState) =>

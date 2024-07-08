@@ -2,7 +2,7 @@
 
 <!-- <mat-label>Favorite food</mat-label> -->
 <select [formControl]="lifecycleControl" [id]="mediaId">
-  @for (option of lifecycleOptions; track option) {
+  @for (option of lifecycleOptions$|async; track option) {
   <option [value]="option.value">{{ option.label }}</option>
   }
 </select>

@@ -12,6 +12,7 @@ import {
   CertificationResult,
   Certifications,
   Genre,
+  Language,
 } from '../../interfaces/tmdb-filters.interface';
 
 //search
@@ -60,7 +61,16 @@ export const getCertificationList = createAction(
 );
 export const getCertificationListSuccess = createAction(
   '[Discovery-movie/API] Get Certification List Success',
-  props<{ certifications: Certification[] }>()
+  props<{ certificationList: Certification[] }>()
+);
+
+//languages
+export const getLanguagesList = createAction(
+  '[Discovery-movie/API] Get Languages List'
+);
+export const getLanguagesListSuccess = createAction(
+  '[Discovery-movie/API] Get Certification Languages Success',
+  props<{ languageList: Language[] }>()
 );
 
 //people

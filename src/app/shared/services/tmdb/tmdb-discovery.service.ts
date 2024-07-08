@@ -8,7 +8,11 @@ import {
   TVResult,
   MediaType,
 } from '../../interfaces/media.interface';
-import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
+import {
+  PayloadDiscoveryMovie,
+  ReleaseDate,
+  VoteAverage,
+} from '../../interfaces/store/discovery-movie-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +59,7 @@ export class TMDBDiscoveryService extends TMDBService {
     );
   }
 
-  buildFiltersParam(payload: PayloadDiscoveryMovie) {
+  private buildFiltersParam(payload: PayloadDiscoveryMovie) {
     let filtersQueryParams = '';
     if (payload.genreIdList.length > 0) {
       filtersQueryParams = filtersQueryParams.concat(
@@ -77,10 +81,20 @@ export class TMDBDiscoveryService extends TMDBService {
         this.buildCertification(payload.certification)
       );
     }
+    if (payload.language) {
+      filtersQueryParams = filtersQueryParams.concat(
+        this.buildLanguage(payload.language)
+      );
+    }
+    if (payload.voteAverage) {
+      filtersQueryParams = filtersQueryParams.concat(
+        this.buildVoteAverageParams(payload.voteAverage)
+      );
+    }
     return filtersQueryParams;
   }
 
-  buildReleaseDateParams(releaseDate: { from: string; to: string }) {
+  private buildReleaseDateParams(releaseDate: ReleaseDate) {
     let releaseDateQueryParams = '';
     if (releaseDate.from) {
       releaseDateQueryParams = releaseDateQueryParams.concat(
@@ -96,11 +110,11 @@ export class TMDBDiscoveryService extends TMDBService {
     return releaseDateQueryParams;
   }
 
-  buildSortBy(sortBy: string) {
+  private buildSortBy(sortBy: string) {
     return `&sort_by=${sortBy}`;
   }
 
-  buildGenresIdParam(genresSelectedId: number[]) {
+  private buildGenresIdParam(genresSelectedId: number[]) {
     let genresQueryParam: string = '&with_genres=';
 
     genresSelectedId.forEach((genreId, i) => {
@@ -112,7 +126,15 @@ export class TMDBDiscoveryService extends TMDBService {
     return genresQueryParam;
   }
 
-  buildCertification(certification: string) {
+  private buildCertification(certification: string) {
     return `&certification=${encodeURIComponent(certification)}`;
+  }
+
+  private buildLanguage(language: string) {
+    return `&with_original_language=${language}`;
+  }
+
+  private buildVoteAverageParams(voteAverage: VoteAverage) {
+    return `&vote_average.gte=${voteAverage.voteAverageMin}&vote_average.lte=${voteAverage.voteAverageMax}`;
   }
 }

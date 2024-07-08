@@ -1,27 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import {
-  catchError,
-  filter,
-  map,
-  of,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs';
+import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { MovieResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseLifecycleService } from '../../services/supabase';
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
-import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 import { ErrorResponse } from '../../interfaces/error.interface';
 import { MovieLifecycleActions, MovieLifecycleSelectors } from '.';
 
 import { SearchMovieActions } from '../search-movie';
 import { DiscoveryMovieActions } from '../discovery-movie';
-import { MovieLifecycleMap } from '../../interfaces/store/movie-lifecycle-state.interface';
+import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
 
 @Injectable()
 export class MovieLifecycleEffects {
@@ -37,7 +28,7 @@ export class MovieLifecycleEffects {
       switchMap((actionParams) => {
         let [{ movieResult }, movieLifecycleMap]: [
           { movieResult: MovieResult },
-          MovieLifecycleMap
+          MediaLifecycleMap
         ] = actionParams;
         let movieLifecycleMapClone = JSON.parse(
           JSON.stringify({ ...movieLifecycleMap })
@@ -45,7 +36,7 @@ export class MovieLifecycleEffects {
         return this.supabaseLifecycleService
           .initMovieLifecycleMap(movieResult, movieLifecycleMapClone)
           .pipe(
-            map((movieLifecycleMapResult: MovieLifecycleMap) => {
+            map((movieLifecycleMapResult: MediaLifecycleMap) => {
               return MovieLifecycleActions.initMovieLifecycleSuccess({
                 movieLifecycleMap: movieLifecycleMapResult,
               });
@@ -81,7 +72,7 @@ export class MovieLifecycleEffects {
             movieLifecycleMapClone
           )
           .pipe(
-            map((movieLifecycleMap: MovieLifecycleMap) => {
+            map((movieLifecycleMap: MediaLifecycleMap) => {
               return MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess(
                 { movieLifecycleMap }
               );

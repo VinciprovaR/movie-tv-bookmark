@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
-import { MovieLifecycleMap } from '../../interfaces/store/movie-lifecycle-state.interface';
+import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
 
 export const initMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle-C/API] Init Movie Lifecycle Success',
-  props<{ movieLifecycleMap: MovieLifecycleMap }>()
+  props<{ movieLifecycleMap: MediaLifecycleMap }>()
 );
 export const createUpdateDeleteMovieLifecycle = createAction(
   '[Movie-Lifecycle-C/API] Create or Update or Delete Movie Lifecycle',
@@ -12,7 +12,7 @@ export const createUpdateDeleteMovieLifecycle = createAction(
 );
 export const createUpdateDeleteMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle-C/API] Create or Update or Delete Movie Lifecycle Success',
-  props<{ movieLifecycleMap: MovieLifecycleMap }>()
+  props<{ movieLifecycleMap: MediaLifecycleMap }>()
 );
 export const deleteMovieLifecycle = createAction(
   '[Movie-Lifecycle-C/API] Delete Movie Lifecycle',

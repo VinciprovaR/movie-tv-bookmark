@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as MovieLifecycleReducer from './movie-lifecycle.reducer';
 import { MovieLifecycleState } from '../../interfaces/store/movie-lifecycle-state.interface';
+import { selectTVLifecycleMap } from '../tv-lifecycle/tv-lifecycle.selectors';
 
 const MovieLifecycleFeatureSelector =
   createFeatureSelector<MovieLifecycleState>(

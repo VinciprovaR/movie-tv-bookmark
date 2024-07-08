@@ -1,0 +1,255 @@
+################ GENERIC ################
+
+- Refractor index models export
+- Clean error sicuro/generalizzato
+- Spinner loading e disattivare roba
+- [Violation] 'setTimeout' handler took 345ms
+- Eliminare zorro (auth, altro cercare)
+- Scroll infinito quando non ci sono media in lista
+- Scroll infinito solo verticale
+- Cache immagini card
+- Proxy con action supabase per nascondere chiave API
+- html semantico
+- aria accessibility
+- i18e (anche date filter)
+- approccio ifless 
+- costruttori nelle interfacce per valori default enum
+- movie e tv lifecycle, movie/tv_id e user_id uniche in coppia
+- rimuovere switch in supabase lifecycle service?
+- actionDB?
+- Interceptor cache chiamate come genrelist, certifications...
+- check for change detection on push
+- tipizzare valore ritorno reducer
+
+################ AUTH ################
+
+- Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)
+quindi pushare l'utente nei reducer da sessione (da verificare)
+
+- Test form input/accessibility etc.;
+
+-Login
+    - Test flow;
+    - Forgot Password
+        - Password Reset capcta
+    - Validators;
+    - Refractor form builder
+
+-Register
+    - User already registered(?);
+    - Validators;
+    - Verification message + landing page;
+    - Test flow;
+    - Register success flow + mail + style
+    - Refractor form builder
+
+!!!DONE!!!
+   - Insert user name?; NO
+   - Stay connected ?; NO
+
+
+################ DISCOVERY FILTERS ################
+  - Certifications i18e, servizio filters 
+
+
+################ Search Filter ################
+  - Validators and control on search digit (number, symbol, length...) 
+  - Refractor to angular material
+
+################ MOVIE DETAILS ################
+
+- Sanificazione elementi null nella risposta
+- Se img non presente, caricare img placeholder
+- Clean detail nello stato in destroy
+
+
+################ LIFECYCLE SELECTOR ################
+
+- Quando l'azione va in errore, la selector deve riprendersi il lifecycle id nello state movie/tv-lifecycle
+
+################ Search TV ################
+
+
+
+
+################ Discover Media ################
+
+  - validatori from non maggiore di to
+
+
+################ HANDLING ERRORS ################
+
+- Clean Error generic, only one time;
+- Alert/popup errors detail generic;
+<app-form-error [errors]="authSelectError$ | async"></app-form-error>
+  authSelectError$: Observable<ErrorResponse | null> = this.store.select(
+    AuthSelectors.selectError
+  );
+
+################ LAZY LOAD ################
+
+- Immagini media-item card
+
+################ CACHING ################
+
+- Cache dettagli movie/tv
+
+
+
+
+
+
+
+
+
+  isMovieEntity(
+    entityMediaLifeCycle: object
+  ): entityMediaLifeCycle is Movie_Life_Cycle {
+    return (entityMediaLifeCycle as Movie_Life_Cycle).movie_id !== undefined;
+  }
+
+
+
+
+
+          // let caseResult:number = this.supabaseUtilsService.checkCase(
+          //   movieLifecycleFromDB,
+          //   movieLifecycleDTO
+          // )
+          //  return this.CUSTOM[1]({movieLifecycleDTO, user})
+  // readonly CUSTOM = {
+  //   0: (params: { movieLifecycleDTO: MediaLifecycleDTO; user: User }) => {
+  //     let { movieLifecycleDTO, user } = params;
+  //     return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
+  //       movieLifecycleDTO.lifecycleId,
+  //       movieLifecycleDTO.mediaId,
+  //       user
+  //     );
+  //   },
+  //   1: (params: {
+  //     movieLifecycleDTO: MediaLifecycleDTO;
+  //     user: User;
+  //   }): Observable<Movie_Life_Cycle[]> => {
+  //     let { movieLifecycleDTO } = params;
+  //     return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
+  //       movieLifecycleDTO.mediaId,
+  //       movieLifecycleDTO.lifecycleId
+  //     );
+  //   },
+  //   2: (movieLifecycleDTO: MediaLifecycleDTO) => {
+  //     return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
+  //       movieLifecycleDTO.lifecycleId,
+  //       movieLifecycleDTO.mediaId
+  //     );
+  //   },
+  //   3: (movieLifecycleDTO: MediaLifecycleDTO) => {
+  //     let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
+  //       lifecycle_id: 0,
+  //       movie_id: movieLifecycleDTO.mediaId,
+  //     };
+  //     return of([movieLifecycleFromDBCustom]);
+  //   },
+  //   99: () => {
+  //     throw new Error('Something went wrong. Case 99'); //to-do traccia errore su db, anche se impossibile che passi qui
+  //   },
+  // };
+
+
+
+  
+  private readonly COND_MOVIE: {
+    [key: number]: (props: any) => Observable<Movie_Life_Cycle[]>;
+  } = {
+    0: (props: any) => {
+      return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
+        props.lifecycleId,
+        props.mediaId,
+        props.user
+      );
+    },
+    1: (props: any) => {
+      return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
+        props.lifecycleId,
+        props.mediaId
+      );
+    },
+    2: (props: any) => {
+      return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
+        props.lifecycleId,
+        props.mediaId
+      );
+    },
+    3: (props: any) => {
+      return of([props.movieLifecycleFromDBCustom]);
+    },
+    99: (props: any) => {
+      throw new Error('Something went wrong. Case -99');
+    },
+  };
+
+
+    // createOrUpdateOrDeleteMovieLifecycle(
+  //   movieLifecycleDTO: MediaLifecycleDTO,
+  //   user: User,
+  //   movieLifecycleMap: MediaLifecycleMap
+  // ): Observable<MediaLifecycleMap> {
+  //   return this.supabaseMovieLifecycleDAO
+  //     .findLifecycleListByMovieIds([movieLifecycleDTO.mediaId])
+  //     .pipe(
+  //       switchMap((movieLifecycleFromDB: Movie_Life_Cycle[]) => {
+  //         let c = this.supabaseUtilsService.checkCase(
+  //           movieLifecycleFromDB,
+  //           movieLifecycleDTO
+  //         );
+  //         return this.COND_MOVIE[c]({
+  //           lifecycleId: movieLifecycleDTO.lifecycleId,
+  //           mediaId: movieLifecycleDTO.mediaId,
+  //           user: user,
+  //           movieLifecycleFromDBCustom: {
+  //             lifecycle_id: 0,
+  //             movie_id: movieLifecycleDTO.mediaId,
+  //             user_id: user.id,
+  //           },
+  //         });
+
+  //       }),
+  //       map((movieMovieLifecycle: Movie_Life_Cycle[]) => {
+  //         return this.supabaseUtilsService.injectInMovieLifecycleMap(
+  //           movieMovieLifecycle,
+  //           movieLifecycleMap
+  //         );
+  //       })
+  //     );
+  // }
+
+            let c: number = this.supabaseUtilsService.checkCase(
+            tvLifecycleFromDB,
+            tvLifecycleDTO
+          );
+
+          if (c === 0) {
+            return this.supabaseTVLifecycleDAO.createTVLifeCycle(
+              tvLifecycleDTO.lifecycleId,
+              tvLifecycleDTO.mediaId,
+              user
+            );
+          } else if (c === 1) {
+            return this.supabaseTVLifecycleDAO.deleteTVLifeCycle(
+              tvLifecycleDTO.mediaId,
+              tvLifecycleDTO.lifecycleId
+            );
+          } else if (c === 2) {
+            return this.supabaseTVLifecycleDAO.updateTVLifeCycle(
+              tvLifecycleDTO.lifecycleId,
+              tvLifecycleDTO.mediaId
+            );
+          } else if (c === 3) {
+            let tvLifecycleFromDBCustom: TV_Life_Cycle = {
+              lifecycle_id: 0,
+              tv_id: tvLifecycleDTO.mediaId,
+              user_id: user.id,
+            };
+            return of([tvLifecycleFromDBCustom]);
+          } else {
+            throw new Error('Something went wrong. Case -99');
+          }

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
 import { SupabaseLifecycleService } from './shared/services/supabase';
+import { LifecycleOption } from './shared/interfaces/supabase/DTO';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -26,6 +27,10 @@ export const TMDB_CARD_2X_IMG_URL = new InjectionToken<string>(
 export const LIFECYCLE_OPTIONS$ = new InjectionToken<any>('LIFECYCLE_OPTIONS');
 
 export const I18E = new InjectionToken<string>('I18E');
+
+export const LIFECYCLE_OPTIONS = new InjectionToken<LifecycleOption[]>(
+  'LIFECYCLE_OPTIONS'
+);
 
 export function provideTMDBApiKey() {
   return {
@@ -63,24 +68,27 @@ export function provideImgUrl() {
 }
 
 export function provideAppInitializer() {
-  return {
-    provide: APP_INITIALIZER,
-    useFactory: (store: Store) => () =>
-      store.dispatch(AuthActions.currentUser()),
-    deps: [Store],
-    multi: true,
-  };
+  return [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (store: Store) => () => {
+        console.log('currentUser');
+        store.dispatch(AuthActions.currentUser());
+      },
+      deps: [Store],
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory:
+        (supabaseLifecycleService: SupabaseLifecycleService) => () => {
+          supabaseLifecycleService.retriveLifecycleOptions();
+        },
+      deps: [SupabaseLifecycleService],
+      multi: true,
+    },
+  ];
 }
-
-// export function provideLifecycleOptions() {
-//   return {
-//     provide: APP_INITIALIZER,
-//     useFactory: (supabaseLifecycleService: SupabaseLifecycleService) => () =>
-//       supabaseLifecycleService.retriveLifecycleOptions(),
-//     deps: [SupabaseLifecycleService],
-//     multi: true,
-//   };
-// }
 
 //to-do hardcoded, cambiare in i18e corretto
 export function provideI18E() {

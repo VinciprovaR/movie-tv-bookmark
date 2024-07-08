@@ -6,7 +6,7 @@ export interface MediaLifecycleDTO {
   index: number;
 }
 
-export interface SelectLifecycleDTO {
+export interface LifecycleOption {
   label: string;
   value: lifeCycleId;
 }

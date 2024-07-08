@@ -16,7 +16,9 @@ import {
   Genre,
   GenreControl,
   GenreGroup,
+  Language,
   ReleaseDateGroup,
+  VoteAverageGroup,
 } from '../../interfaces/tmdb-filters.interface';
 import { MediaType } from '../../interfaces/media.interface';
 import {
@@ -32,17 +34,19 @@ import { CommonModule } from '@angular/common';
 import {
   PayloadDiscoveryMovie,
   ReleaseDate,
+  VoteAverage,
 } from '../../interfaces/store/discovery-movie-state.interface';
 import { GenreFilterComponent } from '../genre-filter/genre-filter.component';
 import { OrderByFilterComponent } from '../order-by-filter/order-by-filter.component';
 import { ReleaseDateFilterComponent } from '../release-date-filter/release-date-filter.component';
 import { IncludeLifecycleFilterComponent } from '../include-lifecycle-filter/include-lifecycle-filter.component';
 import { CertificationFilterComponent } from '../certification-filter/certification-filter.component';
+import { LanguageFilterComponent } from '../language-filter/language-filter.component';
+import { VoteAverageFilterComponent } from '../vote-average-filter/vote-average-filter.component';
 
 /*
 Filtri da fare: 
-  - Language
-  - User Score
+
 */
 
 @Component({
@@ -56,6 +60,8 @@ Filtri da fare:
     ReleaseDateFilterComponent,
     IncludeLifecycleFilterComponent,
     CertificationFilterComponent,
+    LanguageFilterComponent,
+    VoteAverageFilterComponent,
   ],
   templateUrl: './discovery-filters.component.html',
   styleUrl: './discovery-filters.component.css',
@@ -67,6 +73,8 @@ export class DiscoveryFiltersComponent implements OnInit {
   combinedDiscoveryFilters$!: Observable<[PayloadDiscoveryMovie, Genre[]]>;
   @Input({ required: true })
   certificationList!: Certification[];
+  @Input({ required: true })
+  languageList!: Language[];
 
   @Output()
   payloadEmitterOnSubmit: EventEmitter<PayloadDiscoveryMovie> =
@@ -112,12 +120,20 @@ export class DiscoveryFiltersComponent implements OnInit {
       filterSelected.certification
     );
 
+    const languagesControl = this.initLanguagesControl(filterSelected.language);
+
+    const voteAverageGroup = this.initVoteAverageGroup(
+      filterSelected.voteAverage
+    );
+
     this.filterForm = this.fb.group<DiscoveryFilterForm>({
       genres: genresGroup,
       sortBy: sortByControl,
       releaseDate: releaseDateGroup,
       includeLifecycle: includeLifecycleControl,
       certifications: certificationsControl,
+      languages: languagesControl,
+      voteAverage: voteAverageGroup,
     });
 
     this.filterForm.controls['releaseDate'].addValidators(
@@ -179,8 +195,36 @@ export class DiscoveryFiltersComponent implements OnInit {
 
   initCertificationsControl(
     certificationSelected: string
-  ): FormControl<string | null> {
-    return this.fb.control<string>(certificationSelected);
+  ): FormControl<string> {
+    console.log('certificationSelected', certificationSelected);
+    return this.fb.control<string>(certificationSelected, {
+      nonNullable: true,
+    });
+  }
+
+  initLanguagesControl(languageSelected: string): FormControl<string> {
+    return this.fb.control<string>(languageSelected, {
+      nonNullable: true,
+    });
+  }
+
+  initVoteAverageGroup(
+    voteAverageSelected: VoteAverage
+  ): FormGroup<VoteAverageGroup> {
+    return this.fb.group<VoteAverageGroup>({
+      voteAverageMin: this.fb.control<number>(
+        voteAverageSelected.voteAverageMin * 10,
+        {
+          nonNullable: true,
+        }
+      ),
+      voteAverageMax: this.fb.control<number>(
+        voteAverageSelected.voteAverageMax * 10,
+        {
+          nonNullable: true,
+        }
+      ),
+    });
   }
 
   releaseDateValidatorFactory() {
@@ -218,7 +262,9 @@ export class DiscoveryFiltersComponent implements OnInit {
       sortBy: this.buildSortBy(),
       releaseDate: this.buildReleaseDatePayload(),
       includeMediaWithLifecycle: this.buildIncludeLifecyclePayload(),
-      certification: this.buildCertification(),
+      certification: this.buildCertificationPayload(),
+      language: this.buildLanguagePayload(),
+      voteAverage: this.buildVoteAveragePayload(),
     };
   }
 
@@ -241,23 +287,52 @@ export class DiscoveryFiltersComponent implements OnInit {
     return this.filterForm.value?.sortBy ? this.filterForm.value.sortBy : '';
   }
 
-  buildReleaseDatePayload() {
+  buildReleaseDatePayload(): ReleaseDate {
     return {
       from: this.formatDate(this.filterForm.value?.releaseDate?.from),
       to: this.formatDate(this.filterForm.value?.releaseDate?.to),
     };
   }
 
-  buildIncludeLifecyclePayload() {
+  buildIncludeLifecyclePayload(): boolean {
     return this.filterForm.value?.includeLifecycle
       ? this.filterForm.value?.includeLifecycle
       : false;
   }
 
-  buildCertification(): string {
+  buildCertificationPayload(): string {
     return this.filterForm.value?.certifications
       ? this.filterForm.value.certifications
       : '';
+  }
+
+  buildLanguagePayload(): string {
+    return this.filterForm.value?.languages
+      ? this.filterForm.value.languages
+      : '';
+  }
+
+  buildVoteAveragePayload(): VoteAverage {
+    let voteAverageMin = 0;
+    let voteAverageMax = 100;
+    if (this.filterForm.value.voteAverage) {
+      if (this.filterForm.value.voteAverage.voteAverageMin) {
+        voteAverageMin =
+          this.filterForm.value.voteAverage.voteAverageMin > 0
+            ? this.filterForm.value.voteAverage.voteAverageMin / 10
+            : 0;
+      }
+      if (this.filterForm.value.voteAverage.voteAverageMax) {
+        voteAverageMax =
+          this.filterForm.value.voteAverage.voteAverageMax > 0
+            ? this.filterForm.value.voteAverage.voteAverageMax / 10
+            : 0;
+      }
+    }
+    return {
+      voteAverageMin: voteAverageMin,
+      voteAverageMax: voteAverageMax,
+    };
   }
 
   formatDate(date: Date | null | undefined): string {

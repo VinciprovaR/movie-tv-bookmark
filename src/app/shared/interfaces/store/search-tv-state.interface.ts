@@ -1,6 +1,6 @@
 import { ErrorResponse } from '../error.interface';
 import { TVResult, TVDetail } from '../media.interface';
-import { SelectLifecycleDTO } from '../supabase/DTO';
+import { LifecycleOption } from '../supabase/DTO';
 
 export interface SearchTVState {
   isLoading: boolean;

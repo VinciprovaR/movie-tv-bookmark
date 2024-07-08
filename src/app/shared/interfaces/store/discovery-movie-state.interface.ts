@@ -1,15 +1,21 @@
 import { ErrorResponse } from '../error.interface';
 import { MovieResult, PeopleResult, MovieDetail } from '../media.interface';
-import { SelectLifecycleDTO } from '../supabase/DTO';
+import { LifecycleOption } from '../supabase/DTO';
 import {
   Certification,
   Certifications,
   Genre,
+  Language,
 } from '../tmdb-filters.interface';
 
 export interface ReleaseDate {
   from: string;
   to: string;
+}
+
+export interface VoteAverage {
+  voteAverageMin: number;
+  voteAverageMax: number;
 }
 
 export interface PayloadDiscoveryMovie {
@@ -18,6 +24,8 @@ export interface PayloadDiscoveryMovie {
   releaseDate: ReleaseDate;
   includeMediaWithLifecycle: boolean;
   certification: string;
+  language: string;
+  voteAverage: VoteAverage;
 }
 
 export interface DiscoveryMovieState {
@@ -28,5 +36,6 @@ export interface DiscoveryMovieState {
   peopleResult: PeopleResult;
   movieDetail: MovieDetail | null;
   genreList: Genre[];
-  certifications: Certification[];
+  certificationList: Certification[];
+  languageList: Language[];
 }

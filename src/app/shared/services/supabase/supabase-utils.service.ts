@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
   MediaLifecycleDTO,
-  SelectLifecycleDTO,
+  LifecycleOption,
 } from '../../interfaces/supabase/DTO';
 import {
   Media_Lifecycle_Options,
   Movie_Life_Cycle,
   TV_Life_Cycle,
 } from '../../interfaces/supabase/entities';
-import { MovieLifecycleMap } from '../../interfaces/store/movie-lifecycle-state.interface';
-import { TVLifecycleMap } from '../../interfaces/store/tv-lifecycle-state.interface';
-import { lifeCycleId } from '../../interfaces/lifecycle.interface';
+import {
+  lifeCycleId,
+  MediaLifecycleMap,
+} from '../../interfaces/lifecycle.interface';
 import {
   MediaType,
   MovieResult,
@@ -32,9 +33,9 @@ export class SupabaseUtilsService {
 
   constructor() {}
 
-  fromMediaLifecycleOptionsToSelectLifecycleDTO(
+  fromMediaLifecycleOptionsToLifecycleOption(
     mediaLifecycleOptions: Media_Lifecycle_Options[]
-  ): SelectLifecycleDTO[] {
+  ): LifecycleOption[] {
     return mediaLifecycleOptions.map((lc) => {
       return { label: lc.label, value: lc.id as lifeCycleId };
     });
@@ -42,8 +43,8 @@ export class SupabaseUtilsService {
 
   injectInMovieLifecycleMap(
     entityMovieLifeCycleList: Movie_Life_Cycle[],
-    movieLifecycleMap: MovieLifecycleMap
-  ): MovieLifecycleMap {
+    movieLifecycleMap: MediaLifecycleMap
+  ): MediaLifecycleMap {
     entityMovieLifeCycleList.forEach((entityMovieLifeCycle) => {
       movieLifecycleMap[entityMovieLifeCycle.movie_id] =
         entityMovieLifeCycle.lifecycle_id;
@@ -53,8 +54,8 @@ export class SupabaseUtilsService {
 
   injectInTVLifecycleMap(
     entityTVLifeCycleList: TV_Life_Cycle[],
-    tvLifecycleMap: TVLifecycleMap
-  ): TVLifecycleMap {
+    tvLifecycleMap: MediaLifecycleMap
+  ): MediaLifecycleMap {
     entityTVLifeCycleList.forEach((entityTVLifeCycle) => {
       tvLifecycleMap[entityTVLifeCycle.tv_id] = entityTVLifeCycle.lifecycle_id;
     });

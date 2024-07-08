@@ -1,3 +1,5 @@
+import { MediaType } from './media.interface';
+
 export type noLifecycle = 0;
 export type watchListLifecycle = 1;
 export type watchedLifecycle = 2;
@@ -10,3 +12,8 @@ export type lifeCycleId =
   | watchedLifecycle
   | rewatchLifecycle
   | stillWatchingLifecycle;
+
+export interface MediaLifecycleMap {
+  type: MediaType;
+  [key: number]: lifeCycleId;
+}
