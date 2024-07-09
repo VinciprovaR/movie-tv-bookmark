@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '.';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { TMDBDiscoveryService } from '../../services/tmdb/tmdb-discovery.service';
+import { catchError, delay, map, of, switchMap, withLatestFrom } from 'rxjs';
 
-import {
-  MovieDetail,
-  MovieResult,
-  PeopleResult,
-} from '../../interfaces/media.interface';
+import { MovieDetail, MovieResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseLifecycleService } from '../../services/supabase';
-import { TMDBFilterListService } from '../../services/tmdb';
+import {
+  TMDBFilterMovieService,
+  TMDBDiscoveryMovieService,
+} from '../../services/tmdb';
 import { ErrorResponse } from '../../interfaces/error.interface';
 import {
   Certification,
-  Certifications,
   GenresResult,
   Language,
 } from '../../interfaces/tmdb-filters.interface';
@@ -27,7 +24,7 @@ export class DiscoveryMovieEffects {
       ofType(DiscoveryMovieActions.discoveryMovie),
       switchMap((actionParams) => {
         let { payload } = actionParams;
-        return this.TMDBDiscoveryService.movieDiscoveryInit(payload).pipe(
+        return this.TMDBDiscoveryMovieService.movieDiscoveryInit(payload).pipe(
           switchMap((movieResult: MovieResult) => {
             if (!payload.includeMediaWithLifecycle) {
               return this.supabaseLifecycleService.removeMovieWithLifecycle(
@@ -65,7 +62,7 @@ export class DiscoveryMovieEffects {
       switchMap((actionParams) => {
         let [action, currPage, totalPages, payload] = actionParams;
         if (currPage < totalPages) {
-          return this.TMDBDiscoveryService.additionalMovieDiscovery(
+          return this.TMDBDiscoveryMovieService.additionalMovieDiscovery(
             currPage,
             payload
           ).pipe(
@@ -103,7 +100,7 @@ export class DiscoveryMovieEffects {
       ofType(DiscoveryMovieActions.discoveryMovieDetail),
       switchMap((actionParams) => {
         let { movieId } = actionParams;
-        return this.TMDBDiscoveryService.searchMovieDetail(movieId).pipe(
+        return this.TMDBDiscoveryMovieService.movieDetail(movieId).pipe(
           map((movieDetail: MovieDetail) => {
             return DiscoveryMovieActions.discoveryMovieDetailSuccess({
               movieDetail: movieDetail,
@@ -120,35 +117,11 @@ export class DiscoveryMovieEffects {
     );
   });
 
-  searchPeople$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(DiscoveryMovieActions.searchPeople),
-      switchMap((actionParams) => {
-        let { queryPeople } = actionParams;
-        return this.TMDBFilterListService.retrivePeopleList(queryPeople).pipe(
-          map((peopleResult: PeopleResult) => {
-            return DiscoveryMovieActions.searchPeopleSuccess({
-              peopleResult: peopleResult,
-            });
-          }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
-            return of(
-              DiscoveryMovieActions.discoveryMovieFailure({
-                httpErrorResponse,
-              })
-            );
-          })
-        );
-      })
-    );
-  });
-
   getGenreList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DiscoveryMovieActions.getGenreList),
       switchMap(() => {
-        return this.TMDBFilterListService.retriveGenreMovieList().pipe(
+        return this.TMDBFilterMovieService.retriveGenreMovieList().pipe(
           map((genresResult: GenresResult) => {
             return DiscoveryMovieActions.getGenreListSuccess({
               genreList: genresResult.genres,
@@ -169,7 +142,7 @@ export class DiscoveryMovieEffects {
     return this.actions$.pipe(
       ofType(DiscoveryMovieActions.getCertificationList),
       switchMap(() => {
-        return this.TMDBFilterListService.retriveCertificationMovieList().pipe(
+        return this.TMDBFilterMovieService.retriveCertificationMovieList().pipe(
           map((certificationList: Certification[]) => {
             return DiscoveryMovieActions.getCertificationListSuccess({
               certificationList,
@@ -190,7 +163,7 @@ export class DiscoveryMovieEffects {
     return this.actions$.pipe(
       ofType(DiscoveryMovieActions.getLanguagesList),
       switchMap(() => {
-        return this.TMDBFilterListService.retriveLanguagesList().pipe(
+        return this.TMDBFilterMovieService.retriveLanguagesList().pipe(
           map((languageList: Language[]) => {
             return DiscoveryMovieActions.getLanguagesListSuccess({
               languageList,
@@ -209,8 +182,8 @@ export class DiscoveryMovieEffects {
 
   constructor(
     private actions$: Actions,
-    private TMDBDiscoveryService: TMDBDiscoveryService,
-    private TMDBFilterListService: TMDBFilterListService,
+    private TMDBDiscoveryMovieService: TMDBDiscoveryMovieService,
+    private TMDBFilterMovieService: TMDBFilterMovieService,
     private store: Store,
     private supabaseLifecycleService: SupabaseLifecycleService
   ) {}

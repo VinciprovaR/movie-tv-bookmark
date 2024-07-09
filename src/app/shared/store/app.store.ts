@@ -14,12 +14,15 @@ import { MovieLifecycleReducers } from './movie-lifecycle';
 import { TVLifecycleReducers } from './tv-lifecycle';
 import { MovieLifecycleState } from '../interfaces/store/movie-lifecycle-state.interface';
 import { TVLifecycleState } from '../interfaces/store/tv-lifecycle-state.interface';
+import { DiscoveryTVState } from '../interfaces/store/discovery-tv-state.interface';
+import { DiscoveryTVReducers } from './discovery-tv';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;
   [SearchMovieReducers.searchMovieFeatureKey]: SearchMovieState;
   [SearchTVReducers.searchTVFeatureKey]: SearchTVState;
   [DiscoveryMovieReducers.discoveryMovieFeatureKey]: DiscoveryMovieState;
+  [DiscoveryTVReducers.discoveryTVFeatureKey]: DiscoveryTVState;
   [MovieLifecycleReducers.movieLifecycleStateFeatureKey]: MovieLifecycleState;
   [TVLifecycleReducers.tvLifecycleStateFeatureKey]: TVLifecycleState;
 }
@@ -31,6 +34,8 @@ export const reducers: ActionReducerMap<State> = {
   [SearchTVReducers.searchTVFeatureKey]: SearchTVReducers.searchTVReducer,
   [DiscoveryMovieReducers.discoveryMovieFeatureKey]:
     DiscoveryMovieReducers.discoveryMovieReducer,
+  [DiscoveryTVReducers.discoveryTVFeatureKey]:
+    DiscoveryTVReducers.discoveryTVReducer,
   [MovieLifecycleReducers.movieLifecycleStateFeatureKey]:
     MovieLifecycleReducers.movieLifecycleReducer,
   [TVLifecycleReducers.tvLifecycleStateFeatureKey]:

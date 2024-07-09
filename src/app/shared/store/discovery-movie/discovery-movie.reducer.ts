@@ -22,12 +22,6 @@ export const initialState: DiscoveryMovieState = {
     total_pages: 1,
     total_results: 0,
   },
-  peopleResult: {
-    page: 1,
-    results: [],
-    total_pages: 1,
-    total_results: 0,
-  },
   movieDetail: null,
   genreList: [],
   certificationList: [],
@@ -37,8 +31,6 @@ export const initialState: DiscoveryMovieState = {
 export const discoveryMovieReducer = createReducer(
   initialState,
   on(
-    DiscoveryMovieActions.searchAdditionalPeople,
-    DiscoveryMovieActions.searchPeople,
     DiscoveryMovieActions.getGenreList,
     DiscoveryMovieActions.getCertificationList,
     DiscoveryMovieActions.discoveryAdditionalMovie,
@@ -108,39 +100,6 @@ export const discoveryMovieReducer = createReducer(
     }
   ),
   on(
-    DiscoveryMovieActions.searchPeopleSuccess,
-    (state, { peopleResult }): DiscoveryMovieState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        peopleResult,
-      };
-    }
-  ),
-  on(
-    DiscoveryMovieActions.searchAdditionalPeopleSuccess,
-    (state, { peopleResult }): DiscoveryMovieState => {
-      let currpeople = state.peopleResult?.results
-        ? state.peopleResult.results
-        : [];
-      let nextPeople = peopleResult?.results ? peopleResult.results : [];
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        peopleResult: {
-          page: peopleResult?.page ? peopleResult.page : 0,
-          total_pages: peopleResult?.total_pages ? peopleResult.total_pages : 0,
-          total_results: peopleResult?.total_results
-            ? peopleResult.total_results
-            : 0,
-          results: [...currpeople, ...nextPeople],
-        },
-      };
-    }
-  ),
-  on(
     DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
     (state, { movieResult }): DiscoveryMovieState => {
       let currMovies = state.movieResult?.results
@@ -162,17 +121,13 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-  on(
-    DiscoveryMovieActions.noAdditionalMovie,
-    DiscoveryMovieActions.noAdditionalPeople,
-    (state): DiscoveryMovieState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-      };
-    }
-  ),
+  on(DiscoveryMovieActions.noAdditionalMovie, (state): DiscoveryMovieState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+    };
+  }),
   on(
     DiscoveryMovieActions.discoveryMovieDetail,
     (state): DiscoveryMovieState => {

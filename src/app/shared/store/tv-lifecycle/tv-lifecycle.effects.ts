@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { TMDBSearchService } from '../../services/tmdb';
 import { TVDetail, TVResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseLifecycleService } from '../../services/supabase';
@@ -14,6 +13,7 @@ import { TVLifecycleActions, TVLifecycleSelectors } from '.';
 
 import { SearchTVActions } from '../search-tv';
 import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
+import { DiscoveryTVActions } from '../discovery-tv';
 
 // import { DiscoveryTVActions } from '../discovery-tv';
 
@@ -22,8 +22,10 @@ export class TVLifecycleEffects {
   initTVLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
-        SearchTVActions.searchTVSuccess
-        // DiscoveryTVActions.discoveryTVSuccess
+        SearchTVActions.searchTVSuccess,
+        SearchTVActions.searchAdditionalTVSuccess,
+        DiscoveryTVActions.discoveryTVSuccess,
+        DiscoveryTVActions.discoveryAdditionalTVSuccess
       ),
       withLatestFrom(
         this.store.select(TVLifecycleSelectors.selectTVLifecycleMap)
@@ -91,7 +93,6 @@ export class TVLifecycleEffects {
 
   constructor(
     private actions$: Actions,
-    private TMDBSearchService: TMDBSearchService,
     private store: Store,
     private supabaseLifecycleService: SupabaseLifecycleService
   ) {}

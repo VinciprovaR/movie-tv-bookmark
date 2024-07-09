@@ -6,12 +6,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {
-  DiscoveryFilterForm,
-  ReleaseDateGroup,
+  DateRangeGroup,
+  DiscoveryMovieFilterForm,
 } from '../../interfaces/tmdb-filters.interface';
 
 @Component({
-  selector: 'app-release-date-filter',
+  selector: 'app-range-date-filter',
   standalone: true,
   imports: [
     CommonModule,
@@ -21,17 +21,23 @@ import {
     ReactiveFormsModule,
   ],
   providers: [provideNativeDateAdapter()],
-  templateUrl: './release-date-filter.component.html',
-  styleUrl: './release-date-filter.component.css',
+  templateUrl: './range-date-filter.component.html',
+  styleUrl: './range-date-filter.component.css',
 })
-export class ReleaseDateFilterComponent {
+export class RangeDateFilterComponent {
   @Input({ required: true })
-  filterForm!: FormGroup<DiscoveryFilterForm>;
+  filterForm!: FormGroup<any>;
+
+  @Input({ required: true })
+  rangeDateGroupName!: string;
+
+  @Input({ required: true })
+  rangeDateLabel!: string;
 
   constructor() {}
-  get realeaseDateGroup(): FormGroup<ReleaseDateGroup> {
+  get realeaseDateGroup(): FormGroup<DateRangeGroup> {
     return this.filterForm.controls[
-      'releaseDate'
-    ] as FormGroup<ReleaseDateGroup>;
+      this.rangeDateGroupName
+    ] as FormGroup<DateRangeGroup>;
   }
 }

@@ -34,6 +34,7 @@ import { DiscoveryMovieEffects } from './shared/store/discovery-movie/discovery-
 import { TitleStrategyService } from './shared/services/title-strategy.service';
 import { MovieLifecycleEffects } from './shared/store/movie-lifecycle/movie-lifecycle.effects';
 import { TVLifecycleEffects } from './shared/store/tv-lifecycle/tv-lifecycle.effects';
+import { DiscoveryTVEffects } from './shared/store/discovery-tv/discovery-tv.effects';
 
 registerLocaleData(en);
 
@@ -55,6 +56,7 @@ export const appConfig: ApplicationConfig = {
       SearchMovieEffects,
       SearchTVEffects,
       DiscoveryMovieEffects,
+      DiscoveryTVEffects,
       MovieLifecycleEffects,
       TVLifecycleEffects,
     ]),

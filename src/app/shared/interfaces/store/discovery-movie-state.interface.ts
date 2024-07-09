@@ -1,17 +1,7 @@
-import { ErrorResponse } from '../error.interface';
-import { MovieResult, PeopleResult, MovieDetail } from '../media.interface';
-import { LifecycleOption } from '../supabase/DTO';
-import {
-  Certification,
-  Certifications,
-  Genre,
-  Language,
-} from '../tmdb-filters.interface';
-
-export interface ReleaseDate {
-  from: string;
-  to: string;
-}
+import { MovieResult, MovieDetail } from '../media.interface';
+import { Certification, Genre, Language } from '../tmdb-filters.interface';
+import { DateRange } from './discovery-state.interface';
+import { StateMovieBookmark } from './state-movie-bookmark.interface';
 
 export interface VoteAverage {
   voteAverageMin: number;
@@ -21,19 +11,16 @@ export interface VoteAverage {
 export interface PayloadDiscoveryMovie {
   genreIdList: number[];
   sortBy: string;
-  releaseDate: ReleaseDate;
   includeMediaWithLifecycle: boolean;
-  certification: string;
   language: string;
   voteAverage: VoteAverage;
+  releaseDate: DateRange;
+  certification: string;
 }
 
-export interface DiscoveryMovieState {
-  isLoading: boolean;
+export interface DiscoveryMovieState extends StateMovieBookmark {
   payload: PayloadDiscoveryMovie;
-  error: ErrorResponse | null;
   movieResult: MovieResult;
-  peopleResult: PeopleResult;
   movieDetail: MovieDetail | null;
   genreList: Genre[];
   certificationList: Certification[];

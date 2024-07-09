@@ -3,7 +3,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import {
-  DiscoveryFilterForm,
+  DiscoveryMovieFilterForm,
   SortBySelect,
 } from '../../interfaces/tmdb-filters.interface';
 
@@ -16,7 +16,7 @@ import {
 })
 export class OrderByFilterComponent {
   @Input({ required: true })
-  filterForm!: FormGroup<DiscoveryFilterForm>;
+  filterForm!: FormGroup<any>;
   sortBySelect: SortBySelect = {
     'popularity.desc': 'Popularity Descending',
     'popularity.asc': 'Popularity Ascending',

@@ -15,7 +15,7 @@ export const searchAdditionalMovie = createAction(
 );
 export const searchAdditionalMovieSuccess = createAction(
   '[Search-movie/API] Search Movie Additional Success',
-  props<{ movieResult: MovieResult | null }>()
+  props<{ movieResult: MovieResult }>()
 );
 export const noAdditionalMovie = createAction(
   '[Search-movie/API] No Additional Movie'

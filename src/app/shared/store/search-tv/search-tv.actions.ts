@@ -16,7 +16,7 @@ export const searchAdditionalTV = createAction(
 );
 export const searchAdditionalTVSuccess = createAction(
   '[Search-tv/API] Search TV Additional Success',
-  props<{ tvResult: TVResult | null }>()
+  props<{ tvResult: TVResult }>()
 );
 export const noAdditionalTV = createAction('[Search-tv/API] No Additional TV');
 export const searchTVDetail = createAction(

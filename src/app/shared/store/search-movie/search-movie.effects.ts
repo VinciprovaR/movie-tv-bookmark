@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchMovieActions, SearchMovieSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { TMDBSearchService } from '../../services/tmdb';
+import { TMDBSearchMovieService } from '../../services/tmdb';
 import { MovieDetail, MovieResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
 import { ErrorResponse } from '../../interfaces/error.interface';
-import { SupabaseLifecycleService } from '../../services/supabase';
 
 @Injectable()
 export class SearchMovieEffects {
@@ -15,7 +14,7 @@ export class SearchMovieEffects {
       ofType(SearchMovieActions.searchMovie),
       switchMap((actionParams) => {
         let { query } = actionParams;
-        return this.TMDBSearchService.movieSearchInit(query).pipe(
+        return this.TMDBSearchMovieService.movieSearchInit(query).pipe(
           map((movieResult: MovieResult) => {
             return SearchMovieActions.searchMovieSuccess({
               movieResult: movieResult,
@@ -43,7 +42,7 @@ export class SearchMovieEffects {
       switchMap((actionParams) => {
         let [action, currPage, totalPages, query] = actionParams;
         if (currPage < totalPages) {
-          return this.TMDBSearchService.additionalMovieSearch(
+          return this.TMDBSearchMovieService.additionalMovieSearch(
             currPage,
             query
           ).pipe(
@@ -73,7 +72,7 @@ export class SearchMovieEffects {
       ofType(SearchMovieActions.searchMovieDetail),
       switchMap((actionParams) => {
         let { movieId } = actionParams;
-        return this.TMDBSearchService.searchMovieDetail(movieId).pipe(
+        return this.TMDBSearchMovieService.movieDetail(movieId).pipe(
           map((movieDetail: MovieDetail) => {
             return SearchMovieActions.searchMovieDetailSuccess({
               movieDetail: movieDetail,
@@ -92,8 +91,7 @@ export class SearchMovieEffects {
 
   constructor(
     private actions$: Actions,
-    private TMDBSearchService: TMDBSearchService,
-    private store: Store,
-    private supabaseLifecycleService: SupabaseLifecycleService
+    private TMDBSearchMovieService: TMDBSearchMovieService,
+    private store: Store
   ) {}
 }

@@ -1,11 +1,8 @@
-import { ErrorResponse } from '../error.interface';
 import { TVResult, TVDetail } from '../media.interface';
-import { LifecycleOption } from '../supabase/DTO';
+import { StateMovieBookmark } from './state-movie-bookmark.interface';
 
-export interface SearchTVState {
-  isLoading: boolean;
+export interface SearchTVState extends StateMovieBookmark {
   query: string;
-  error: ErrorResponse | null;
   tvResult: TVResult;
   tvDetail: TVDetail | null;
 }

@@ -5,24 +5,37 @@
   <div class="mt-16">
     <app-order-by-filter [filterForm]="filterForm"></app-order-by-filter>
   </div>
+
   <div class="mt-16">
-    <app-release-date-filter class="mt-16" [filterForm]="filterForm">
-    </app-release-date-filter>
-  </div>
-  <div class="mt-16">
-    <app-include-lifecycle-filter
-      class="mt-16"
+    <h2>Air Date</h2>
+    <app-checkbox-filter
       [filterForm]="filterForm"
       [mediaType]="mediaType"
-    ></app-include-lifecycle-filter>
+      [formControlName]="'allEpisode'"
+      [label]="'Cerchi tutti gli episodi?'"
+    ></app-checkbox-filter>
+
+    <div class="mt-4">
+      <app-range-date-filter
+        [rangeDateGroupName]="'airDate'"
+        [rangeDateLabel]="
+          getAllEpisodeControlValue()
+            ? 'Tutti gli episodi'
+            : 'Prima messa in onda'
+        "
+        [filterForm]="filterForm"
+      >
+      </app-range-date-filter>
+    </div>
   </div>
 
   <div class="mt-16">
-    <app-certification-filter
+    <app-checkbox-filter
       [filterForm]="filterForm"
-      [certificationOptions]="certificationList"
-    >
-    </app-certification-filter>
+      [mediaType]="mediaType"
+      [formControlName]="'includeLifecycle'"
+      [label]="'Include tvs in lifecycle'"
+    ></app-checkbox-filter>
   </div>
 
   <div class="mt-16">

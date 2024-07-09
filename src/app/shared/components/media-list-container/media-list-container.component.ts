@@ -23,6 +23,7 @@ export class MediaListContainerComponent implements OnInit {
   constructor() {}
   ngOnInit(): void {}
 
+  //to-do cambiare
   retriveMediaTitle(media: TV | Movie) {
     if (this.isMovieEntity(media)) {
       return media.title;

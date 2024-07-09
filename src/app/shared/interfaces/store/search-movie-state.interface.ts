@@ -1,10 +1,8 @@
-import { ErrorResponse } from '../error.interface';
 import { MovieResult, MovieDetail } from '../media.interface';
+import { StateMovieBookmark } from './state-movie-bookmark.interface';
 
-export interface SearchMovieState {
-  isLoading: boolean;
+export interface SearchMovieState extends StateMovieBookmark {
   query: string;
-  error: ErrorResponse | null;
   movieResult: MovieResult;
   movieDetail: MovieDetail | null;
 }

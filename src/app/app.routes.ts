@@ -92,6 +92,15 @@ export const routes: Routes = [
     title: 'Discovery Movie',
   },
   {
+    path: 'discovery-tv',
+    loadComponent: () =>
+      import('./features/tv-discovery/tv-discovery.component').then(
+        (m) => m.TVDiscoveryComponent
+      ),
+    canActivate: [authGuard],
+    title: 'Discovery TV',
+  },
+  {
     path: 'movie-detail/:movieId',
     loadComponent: () =>
       import('./features/movie-detail/movie-detail.component').then(

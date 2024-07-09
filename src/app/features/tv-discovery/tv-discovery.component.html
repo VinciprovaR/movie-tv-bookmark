@@ -1,0 +1,20 @@
+<app-discovery-tv-filters
+  [languageList]="(selectLanguageList$ | async) ?? []"
+  [combinedDiscoveryFilters$]="selectCombinedDiscoveryFilters$"
+  [mediaType]="mediaType"
+  (payloadEmitterOnSubmit)="discoveryTV($event)"
+></app-discovery-tv-filters>
+
+<app-media-list-container
+  #mediaListContainer
+  appScrollNearEnd
+  [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
+  [isLoading]="(selectIsLoading$ | async) ?? false"
+  [mediaList]="(selectTVList$ | async) ?? []"
+  (nearEnd)="
+    mediaListContainer.mediaList.length
+      ? discoveryAdditionalTV(mediaListContainer.mediaList.length)
+      : null
+  "
+  [mediaType]="mediaType"
+></app-media-list-container>

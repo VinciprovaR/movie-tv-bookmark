@@ -29,7 +29,7 @@ export const discoveryAdditionalMovie = createAction(
 );
 export const discoveryAdditionalMovieSuccess = createAction(
   '[Discovery-movie/API] Discovery Movie Additional Success',
-  props<{ movieResult: MovieResult | null }>()
+  props<{ movieResult: MovieResult }>()
 );
 export const noAdditionalMovie = createAction(
   '[Discovery-movie/API] No Additional Movie'
@@ -71,26 +71,6 @@ export const getLanguagesList = createAction(
 export const getLanguagesListSuccess = createAction(
   '[Discovery-movie/API] Get Certification Languages Success',
   props<{ languageList: Language[] }>()
-);
-
-//people
-export const searchPeople = createAction(
-  '[Discovery-movie/API] Search People',
-  props<{ queryPeople: string }>()
-);
-export const searchPeopleSuccess = createAction(
-  '[Discovery-movie/API] Search People Success',
-  props<{ peopleResult: PeopleResult }>()
-);
-export const searchAdditionalPeople = createAction(
-  '[Discovery-movie/API] Search Additional People'
-);
-export const searchAdditionalPeopleSuccess = createAction(
-  '[Discovery-movie/API] Search People Additional Success',
-  props<{ peopleResult: PeopleResult | null }>()
-);
-export const noAdditionalPeople = createAction(
-  '[Discovery-movie/API] No Additional People'
 );
 
 //error

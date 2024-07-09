@@ -1,8 +1,6 @@
 import { User } from '@supabase/supabase-js';
-import { ErrorResponse } from '../error.interface';
+import { StateMovieBookmark } from './state-movie-bookmark.interface';
 
-export interface AuthState {
-  isLoading: boolean;
-  error: ErrorResponse | null;
+export interface AuthState extends StateMovieBookmark {
   user: User | null;
 }

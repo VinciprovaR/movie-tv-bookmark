@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
   Certification,
-  DiscoveryFilterForm,
+  DiscoveryMovieFilterForm,
 } from '../../interfaces/tmdb-filters.interface';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CertificationFilterComponent implements OnInit, AfterViewInit {
   @Input({ required: true })
-  filterForm!: FormGroup<DiscoveryFilterForm>;
+  filterForm!: FormGroup<any>;
 
   @Input({ required: true })
   certificationOptions!: Certification[];

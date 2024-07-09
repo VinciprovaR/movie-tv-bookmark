@@ -1,0 +1,10 @@
+<div [formGroup]="filterForm" class="w-80">
+  <div class="flex">
+    <label [for]="formControlName">{{ label }} </label>
+    <input
+      type="checkbox"
+      [formControlName]="formControlName"
+      [id]="formControlName"
+    />
+  </div>
+</div>

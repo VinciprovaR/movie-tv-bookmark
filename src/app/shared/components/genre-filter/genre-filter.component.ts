@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { SelectTagComponent } from '../select-tag/select-tag.component';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { DiscoveryFilterForm } from '../../interfaces/tmdb-filters.interface';
+import {
+  Genre,
+  GenreControl,
+  GenreGroup,
+} from '../../interfaces/tmdb-filters.interface';
 
 @Component({
   selector: 'app-genre-filter',
@@ -13,10 +17,11 @@ import { DiscoveryFilterForm } from '../../interfaces/tmdb-filters.interface';
 })
 export class GenreFilterComponent {
   @Input({ required: true })
-  filterForm!: FormGroup<DiscoveryFilterForm>;
-
+  filterForm!: FormGroup<any>;
+  protected readonly fb = inject(FormBuilder);
   constructor() {}
-  get genresGroup(): FormGroup {
-    return this.filterForm.controls['genres'] as FormGroup;
+
+  get genresGroup(): FormGroup<GenreGroup> {
+    return this.filterForm.controls['genres'] as FormGroup<GenreGroup>;
   }
 }

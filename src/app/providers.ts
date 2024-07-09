@@ -72,7 +72,6 @@ export function provideAppInitializer() {
     {
       provide: APP_INITIALIZER,
       useFactory: (store: Store) => () => {
-        console.log('currentUser');
         store.dispatch(AuthActions.currentUser());
       },
       deps: [Store],

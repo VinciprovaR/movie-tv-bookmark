@@ -20,7 +20,9 @@ export class MovieLifecycleEffects {
     return this.actions$.pipe(
       ofType(
         SearchMovieActions.searchMovieSuccess,
-        DiscoveryMovieActions.discoveryMovieSuccess
+        SearchMovieActions.searchAdditionalMovieSuccess,
+        DiscoveryMovieActions.discoveryMovieSuccess,
+        DiscoveryMovieActions.discoveryAdditionalMovieSuccess
       ),
       withLatestFrom(
         this.store.select(MovieLifecycleSelectors.selectMovieLifecycleMap)

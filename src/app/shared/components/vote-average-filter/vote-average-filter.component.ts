@@ -4,10 +4,9 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 
 import {
-  DiscoveryFilterForm,
+  DiscoveryMovieFilterForm,
   VoteAverageGroup,
 } from '../../interfaces/tmdb-filters.interface';
-import { VoteAverage } from '../../interfaces/store/discovery-movie-state.interface';
 
 @Component({
   selector: 'app-vote-average-filter',
@@ -18,7 +17,7 @@ import { VoteAverage } from '../../interfaces/store/discovery-movie-state.interf
 })
 export class VoteAverageFilterComponent {
   @Input({ required: true })
-  filterForm!: FormGroup<DiscoveryFilterForm>;
+  filterForm!: FormGroup<any>;
 
   constructor() {}
   get voteAverageGroup(): FormGroup<VoteAverageGroup> {

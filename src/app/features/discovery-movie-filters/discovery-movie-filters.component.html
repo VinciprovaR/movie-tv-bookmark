@@ -1,0 +1,51 @@
+@if(filterForm){
+
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="">
+  <app-genre-filter class="mt-16" [filterForm]="filterForm"></app-genre-filter>
+  <div class="mt-16">
+    <app-order-by-filter [filterForm]="filterForm"></app-order-by-filter>
+  </div>
+  <div class="mt-16">
+    <app-range-date-filter
+      [rangeDateLabel]="'Release Date'"
+      [rangeDateGroupName]="'releaseDate'"
+      class="mt-16"
+      [filterForm]="filterForm"
+    >
+    </app-range-date-filter>
+  </div>
+  <div class="mt-16">
+    <app-checkbox-filter
+      [filterForm]="filterForm"
+      [mediaType]="mediaType"
+      [formControlName]="'includeLifecycle'"
+      [label]="'Include movies in lifecycle'"
+    ></app-checkbox-filter>
+  </div>
+
+  <div class="mt-16">
+    <app-certification-filter
+      [filterForm]="filterForm"
+      [certificationOptions]="certificationList"
+    >
+    </app-certification-filter>
+  </div>
+
+  <div class="mt-16">
+    <app-language-filter
+      [filterForm]="filterForm"
+      [languagesOptions]="languageList"
+    >
+    </app-language-filter>
+  </div>
+
+  <div class="mt-16">
+    <app-vote-average-filter [filterForm]="filterForm">
+    </app-vote-average-filter>
+  </div>
+
+  <button type="submit" class="mt-5" [disabled]="!filterForm.valid">
+    Submit
+  </button>
+</form>
+}
