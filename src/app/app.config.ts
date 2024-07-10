@@ -20,12 +20,15 @@ import en from '@angular/common/locales/en';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import {
-  provideAppInitializer,
   provideSupabaseClient,
   provideTMDBApiKey,
   provideTMDBBaseUrl,
   provideImgUrl,
   provideI18E,
+  provideSortBySelect,
+  provideCurrentUser,
+  provideLifecycleSelect,
+  provideSelectFilters,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 
@@ -40,14 +43,16 @@ registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAppInitializer(),
+    provideCurrentUser(),
+    provideLifecycleSelect(),
+    provideSelectFilters(),
     provideSupabaseClient(),
     provideAnimations(),
     provideTMDBApiKey(),
     provideTMDBBaseUrl(),
     provideImgUrl(),
     provideI18E(),
-
+    provideSortBySelect(),
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),

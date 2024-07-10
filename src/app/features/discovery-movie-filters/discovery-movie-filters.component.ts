@@ -1,22 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import {
   Certification,
   DiscoveryMovieFilterForm,
   Genre,
+  OptionFilter,
+  SelectTransformConfig,
 } from '../../shared/interfaces/tmdb-filters.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-movie-state.interface';
 import { GenreFilterComponent } from '../../shared/components/genre-filter/genre-filter.component';
-import { OrderByFilterComponent } from '../../shared/components/order-by-filter/order-by-filter.component';
 import { RangeDateFilterComponent } from '../../shared/components/range-date-filter/range-date-filter.component';
 import { CheckboxFilterComponent } from '../../shared/components/checkbox-filter/checkbox-filter.component';
-import { CertificationFilterComponent } from '../../shared/components/certification-filter/certification-filter.component';
-import { LanguageFilterComponent } from '../../shared/components/language-filter/language-filter.component';
 import { VoteAverageFilterComponent } from '../../shared/components/vote-average-filter/vote-average-filter.component';
 import { filter, takeUntil } from 'rxjs';
-
 import { DiscoveryFilter } from '../../shared/directives/discovery.filter.directive';
+import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
+import { SORT_BY_SELECT_MOVIE } from '../../providers';
 
 @Component({
   selector: 'app-discovery-movie-filters',
@@ -25,12 +25,10 @@ import { DiscoveryFilter } from '../../shared/directives/discovery.filter.direct
     ReactiveFormsModule,
     CommonModule,
     GenreFilterComponent,
-    OrderByFilterComponent,
     RangeDateFilterComponent,
     CheckboxFilterComponent,
-    CertificationFilterComponent,
-    LanguageFilterComponent,
     VoteAverageFilterComponent,
+    SelectFilterComponent,
   ],
   templateUrl: './discovery-movie-filters.component.html',
   styleUrl: './discovery-movie-filters.component.css',
@@ -41,6 +39,16 @@ export class DiscoveryMovieFiltersComponent
 {
   @Input({ required: true })
   certificationList!: Certification[];
+  certificationsTransformConfig: SelectTransformConfig = {
+    labelKey: 'certification',
+    valueKey: 'certification',
+  };
+  certificationsDefaultOption: OptionFilter = {
+    label: 'No certification selected',
+    value: '',
+  };
+
+  sortBySelect: OptionFilter[] = inject(SORT_BY_SELECT_MOVIE);
 
   constructor() {
     super();

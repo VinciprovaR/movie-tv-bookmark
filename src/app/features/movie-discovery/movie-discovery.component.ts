@@ -24,7 +24,7 @@ import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
 } from '../../shared/store/movie-lifecycle';
-import { MediaLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
+import { MovieLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
 
 @Component({
   selector: 'app-movie-discovery',
@@ -47,7 +47,7 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
 
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
-  selectMovieLifecycleMap$!: Observable<MediaLifecycleMap>;
+  selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
   selectCombinedDiscoveryFilters$!: Observable<
     [PayloadDiscoveryMovie, Genre[]]
   >;
@@ -63,7 +63,6 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initSelectors();
     this.initDataBridge();
-    this.initFilterSelections();
   }
 
   initSelectors() {
@@ -107,12 +106,6 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
       .subscribe((mediaLifecycleDTO) => {
         this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
       });
-  }
-
-  initFilterSelections() {
-    this.store.dispatch(DiscoveryMovieActions.getGenreList());
-    this.store.dispatch(DiscoveryMovieActions.getCertificationList());
-    this.store.dispatch(DiscoveryMovieActions.getLanguagesList());
   }
 
   createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {

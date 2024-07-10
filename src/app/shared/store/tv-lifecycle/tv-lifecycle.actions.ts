@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
-import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
+import { TVLifecycleMap } from '../../interfaces/lifecycle.interface';
 
 export const initTVLifecycleSuccess = createAction(
   '[TV-Lifecycle-C/API] Init TV Lifecycle Success',
-  props<{ tvLifecycleMap: MediaLifecycleMap }>()
+  props<{ tvLifecycleMap: TVLifecycleMap }>()
 );
 export const createUpdateDeleteTVLifecycle = createAction(
   '[TV-Lifecycle-C/API] Create or Update or Delete TV Lifecycle',
@@ -12,7 +12,7 @@ export const createUpdateDeleteTVLifecycle = createAction(
 );
 export const createUpdateDeleteTVLifecycleSuccess = createAction(
   '[TV-Lifecycle-C/API] Create or Update or Delete TV Lifecycle Success',
-  props<{ tvLifecycleMap: MediaLifecycleMap }>()
+  props<{ tvLifecycleMap: TVLifecycleMap }>()
 );
 export const deleteTVLifecycle = createAction(
   '[TV-Lifecycle-C/API] Delete TV Lifecycle',
@@ -25,7 +25,7 @@ export const deleteTVLifecycleSuccess = createAction(
 //error
 export const lifecycleFailure = createAction(
   '[TV-Lifecycle-C/API] Search TV Failure',
-  props<{ httpErrorResponse: any }>()
+  props<{ httpErrorResponse: any; tvLifecycleMap: TVLifecycleMap }>()
 );
 export const cleanError = createAction(
   '[TV-Lifecycle-C/Error Handling] Clean Error'

@@ -1,3 +1,8 @@
+################ FATTO, RICONTROLLARE ################
+ 
+ - Quando l'azione va in errore, la selector deve riprendersi il lifecycle id nello state movie/tv-lifecycle
+
+
 ################ GENERIC ################
 
 - Refractor index models export
@@ -16,10 +21,11 @@
 - costruttori nelle interfacce per valori default enum
 - movie e tv lifecycle, movie/tv_id e user_id uniche in coppia
 - rimuovere switch in supabase lifecycle service?
-- actionDB?
 - Interceptor cache chiamate come genrelist, certifications...
 - check for change detection on push
 - tipizzare valore ritorno reducer
+- Genre List/Languages/Certifications valorizzazione in app initializer
+- lifecycle 0 eliminare o fake eliminare?
 
 ################ AUTH ################
 
@@ -65,7 +71,7 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
 
 ################ LIFECYCLE SELECTOR ################
 
-- Quando l'azione va in errore, la selector deve riprendersi il lifecycle id nello state movie/tv-lifecycle
+-
 
 ################ Search TV ################
 

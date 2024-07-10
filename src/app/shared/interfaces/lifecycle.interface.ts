@@ -13,7 +13,9 @@ export type lifeCycleId =
   | rewatchLifecycle
   | stillWatchingLifecycle;
 
-export interface MediaLifecycleMap {
-  type: MediaType;
+interface MediaLifecycleMap {
   [key: number]: lifeCycleId;
 }
+
+export type MovieLifecycleMap = MediaLifecycleMap;
+export type TVLifecycleMap = MediaLifecycleMap;

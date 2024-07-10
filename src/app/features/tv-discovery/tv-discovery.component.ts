@@ -24,7 +24,7 @@ import {
   TVLifecycleActions,
   TVLifecycleSelectors,
 } from '../../shared/store/tv-lifecycle';
-import { MediaLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
+import { TVLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
 import { DiscoveryTVFiltersComponent } from '../discovery-tv-filters/discovery-tv-filters.component';
 
 @Component({
@@ -48,7 +48,7 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
 
   selectIsLoading$!: Observable<boolean>;
   selectTVList$!: Observable<TV[]>;
-  selectTVLifecycleMap$!: Observable<MediaLifecycleMap>;
+  selectTVLifecycleMap$!: Observable<TVLifecycleMap>;
   selectCombinedDiscoveryFilters$!: Observable<[PayloadDiscoveryTV, Genre[]]>;
   selectCertificationList$!: Observable<Certification[]>;
   selectLanguageList$!: Observable<Language[]>;
@@ -62,7 +62,6 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initSelectors();
     this.initDataBridge();
-    this.initFilterSelections();
   }
 
   initSelectors() {
@@ -100,11 +99,6 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
       .subscribe((mediaLifecycleDTO) => {
         this.createUpdateDeleteTVLifecycle(mediaLifecycleDTO);
       });
-  }
-
-  initFilterSelections() {
-    this.store.dispatch(DiscoveryTVActions.getGenreList());
-    this.store.dispatch(DiscoveryTVActions.getLanguagesList());
   }
 
   createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {

@@ -3,12 +3,17 @@
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="">
   <app-genre-filter class="mt-16" [filterForm]="filterForm"></app-genre-filter>
   <div class="mt-16">
-    <app-order-by-filter [filterForm]="filterForm"></app-order-by-filter>
+    <app-select-filter
+      [filterForm]="filterForm"
+      [controlName]="'sortBy'"
+      [title]="'Sort Results By'"
+      [selectObject]="sortBySelect"
+    ></app-select-filter>
   </div>
   <div class="mt-16">
     <app-range-date-filter
       [rangeDateLabel]="'Release Date'"
-      [rangeDateGroupName]="'releaseDate'"
+      [customGroupName]="'releaseDate'"
       class="mt-16"
       [filterForm]="filterForm"
     >
@@ -18,25 +23,31 @@
     <app-checkbox-filter
       [filterForm]="filterForm"
       [mediaType]="mediaType"
-      [formControlName]="'includeLifecycle'"
+      [controlName]="'includeLifecycle'"
       [label]="'Include movies in lifecycle'"
     ></app-checkbox-filter>
   </div>
 
   <div class="mt-16">
-    <app-certification-filter
+    <app-select-filter
       [filterForm]="filterForm"
-      [certificationOptions]="certificationList"
-    >
-    </app-certification-filter>
+      [controlName]="'certifications'"
+      [title]="'Certification'"
+      [selectObject]="certificationList"
+      [selectTransformConfig]="certificationsTransformConfig"
+      [defaultOption]="certificationsDefaultOption"
+    ></app-select-filter>
   </div>
 
   <div class="mt-16">
-    <app-language-filter
+    <app-select-filter
       [filterForm]="filterForm"
-      [languagesOptions]="languageList"
-    >
-    </app-language-filter>
+      [controlName]="'languages'"
+      [title]="'Language'"
+      [selectObject]="languageList"
+      [selectTransformConfig]="languagesTransformConfig"
+      [defaultOption]="languagesDefaultOption"
+    ></app-select-filter>
   </div>
 
   <div class="mt-16">

@@ -29,15 +29,15 @@ export class RangeDateFilterComponent {
   filterForm!: FormGroup<any>;
 
   @Input({ required: true })
-  rangeDateGroupName!: string;
+  customGroupName!: string;
 
   @Input({ required: true })
   rangeDateLabel!: string;
 
   constructor() {}
-  get realeaseDateGroup(): FormGroup<DateRangeGroup> {
+  get dateRangeGroup(): FormGroup<DateRangeGroup> {
     return this.filterForm.controls[
-      this.rangeDateGroupName
+      this.customGroupName
     ] as FormGroup<DateRangeGroup>;
   }
 }

@@ -1,0 +1,13 @@
+<div [formGroup]="filterForm">
+  <h2 class="">{{ title }}</h2>
+  <select [formControlName]="controlName" [id]="controlName">
+    @if(defaultOption){
+    <option [value]="defaultOption.value">{{ defaultOption.label }}</option>
+    } @if(selectObject.length > 0){ @for (option of getSelectObject() ; track
+    option.value) {
+    <option [value]="option.value">
+      {{ option.label }}
+    </option>
+    }}
+  </select>
+</div>

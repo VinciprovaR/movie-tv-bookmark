@@ -1,6 +1,6 @@
 <div [formGroup]="filterForm" class="w-80">
   <h2>{{ rangeDateLabel }}</h2>
-  <div [formGroup]="realeaseDateGroup">
+  <div [formGroupName]="customGroupName">
     <div class="flex flex-wrap justify-between">
       <label for="fromDate" class="">From</label>
       <mat-form-field>
@@ -37,7 +37,7 @@
       </mat-form-field>
     </div>
   </div>
-  @if(realeaseDateGroup.controls.from.hasError('invalidFromDate')){
+  @if(dateRangeGroup.controls.from.hasError('invalidFromDate')){
   <p style="color: red">From date cannot be after to date</p>
   }
 </div>

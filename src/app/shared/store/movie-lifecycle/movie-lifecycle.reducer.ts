@@ -7,7 +7,7 @@ export const movieLifecycleStateFeatureKey = 'movie-lifecycle';
 export const initialState: MovieLifecycleState = {
   isLoading: false,
   error: null,
-  movieLifecycleMap: { type: 'movie' },
+  movieLifecycleMap: {},
 };
 
 export const movieLifecycleReducer = createReducer(
@@ -27,17 +27,21 @@ export const movieLifecycleReducer = createReducer(
         ...state,
         error: null,
         isLoading: false,
-        movieLifecycleMap,
+        movieLifecycleMap: { ...state.movieLifecycleMap, ...movieLifecycleMap },
       };
     }
   ),
-  on(MovieLifecycleActions.lifecycleFailure, (state, { httpErrorResponse }) => {
-    return {
-      ...state,
-      isLoading: false,
-      error: httpErrorResponse,
-    };
-  }),
+  on(
+    MovieLifecycleActions.lifecycleFailureRevert,
+    (state, { httpErrorResponse, movieLifecycleMap }) => {
+      return {
+        ...state,
+        isLoading: false,
+        error: httpErrorResponse,
+        movieLifecycleMap: { ...state.movieLifecycleMap, ...movieLifecycleMap },
+      };
+    }
+  ),
   on(MovieLifecycleActions.cleanError, (state) => {
     return {
       ...state,

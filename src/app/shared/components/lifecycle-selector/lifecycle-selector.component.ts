@@ -1,7 +1,8 @@
 import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import {
   lifeCycleId,
-  MediaLifecycleMap,
+  MovieLifecycleMap,
+  TVLifecycleMap,
 } from '../../interfaces/lifecycle.interface';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -72,13 +73,15 @@ export class LifecycleSelectorComponent implements OnInit {
       .pipe(
         takeUntil(this.destroyed$),
         distinctUntilChanged(),
-        map((mediaLifecycleMap: MediaLifecycleMap | null) => {
-          return mediaLifecycleMap && mediaLifecycleMap[this.mediaId]
-            ? mediaLifecycleMap[this.mediaId]
-            : 0;
+        filter((mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) => {
+          return mediaLifecycleMap &&
+            (mediaLifecycleMap[this.mediaId] != null ||
+              mediaLifecycleMap[this.mediaId] != undefined)
+            ? true
+            : false;
         }),
-        filter((lifeCycleId) => {
-          return lifeCycleId > LifecycleEnum.NoLifecycle;
+        map((mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) => {
+          return mediaLifecycleMap[this.mediaId];
         })
       )
       .subscribe((lifecycleId) => {

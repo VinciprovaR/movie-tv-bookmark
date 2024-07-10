@@ -12,7 +12,7 @@ import { MovieLifecycleActions, MovieLifecycleSelectors } from '.';
 
 import { SearchMovieActions } from '../search-movie';
 import { DiscoveryMovieActions } from '../discovery-movie';
-import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
+import { MovieLifecycleMap } from '../../interfaces/lifecycle.interface';
 
 @Injectable()
 export class MovieLifecycleEffects {
@@ -24,21 +24,12 @@ export class MovieLifecycleEffects {
         DiscoveryMovieActions.discoveryMovieSuccess,
         DiscoveryMovieActions.discoveryAdditionalMovieSuccess
       ),
-      withLatestFrom(
-        this.store.select(MovieLifecycleSelectors.selectMovieLifecycleMap)
-      ),
       switchMap((actionParams) => {
-        let [{ movieResult }, movieLifecycleMap]: [
-          { movieResult: MovieResult },
-          MediaLifecycleMap
-        ] = actionParams;
-        let movieLifecycleMapClone = JSON.parse(
-          JSON.stringify({ ...movieLifecycleMap })
-        );
+        let { movieResult }: { movieResult: MovieResult } = actionParams;
         return this.supabaseLifecycleService
-          .initMovieLifecycleMap(movieResult, movieLifecycleMapClone)
+          .initMovieLifecycleMapFromMovieResult(movieResult)
           .pipe(
-            map((movieLifecycleMapResult: MediaLifecycleMap) => {
+            map((movieLifecycleMapResult: MovieLifecycleMap) => {
               return MovieLifecycleActions.initMovieLifecycleSuccess({
                 movieLifecycleMap: movieLifecycleMapResult,
               });
@@ -46,7 +37,10 @@ export class MovieLifecycleEffects {
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                MovieLifecycleActions.lifecycleFailure({ httpErrorResponse })
+                MovieLifecycleActions.initLifecycleFailure({
+                  httpErrorResponse,
+                  movieResult,
+                })
               );
             })
           );
@@ -57,24 +51,13 @@ export class MovieLifecycleEffects {
   createUpdateDeleteMovieLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(MovieLifecycleActions.createUpdateDeleteMovieLifecycle),
-      withLatestFrom(
-        this.store.select(AuthSelectors.selectUser),
-        this.store.select(MovieLifecycleSelectors.selectMovieLifecycleMap)
-      ),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
       switchMap((actionParams) => {
-        let [{ mediaLifecycleDTO }, user, movieLifecycleMap] = actionParams;
-
-        let movieLifecycleMapClone = JSON.parse(
-          JSON.stringify({ ...movieLifecycleMap })
-        );
+        let [{ mediaLifecycleDTO }, user] = actionParams;
         return this.supabaseLifecycleService
-          .createOrUpdateOrDeleteMovieLifecycle(
-            mediaLifecycleDTO,
-            user as User,
-            movieLifecycleMapClone
-          )
+          .createOrUpdateOrDeleteMovieLifecycle(mediaLifecycleDTO, user as User)
           .pipe(
-            map((movieLifecycleMap: MediaLifecycleMap) => {
+            map((movieLifecycleMap: MovieLifecycleMap) => {
               return MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess(
                 { movieLifecycleMap }
               );
@@ -82,7 +65,35 @@ export class MovieLifecycleEffects {
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                MovieLifecycleActions.lifecycleFailure({
+                MovieLifecycleActions.crudLifecycleFailure({
+                  httpErrorResponse,
+                  movieId: mediaLifecycleDTO.mediaId,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  movieLifecycleCRUDFailure$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MovieLifecycleActions.crudLifecycleFailure),
+      switchMap((actionParams) => {
+        let { movieId, httpErrorResponse } = actionParams;
+        return this.supabaseLifecycleService
+          .initMovieLifecycleMapFromId(movieId)
+          .pipe(
+            map((movieLifecycleMapResult: MovieLifecycleMap) => {
+              return MovieLifecycleActions.lifecycleFailureRevert({
+                httpErrorResponse,
+                movieLifecycleMap: movieLifecycleMapResult,
+              });
+            }),
+            catchError((httpErrorResponse: ErrorResponse) => {
+              console.error(httpErrorResponse);
+              return of(
+                MovieLifecycleActions.lifecycleFailureRevertError({
                   httpErrorResponse,
                 })
               );

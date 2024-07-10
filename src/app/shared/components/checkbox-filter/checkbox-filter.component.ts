@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
@@ -11,17 +11,21 @@ import { MediaType } from '../../interfaces/media.interface';
   templateUrl: './checkbox-filter.component.html',
   styleUrl: './checkbox-filter.component.css',
 })
-export class CheckboxFilterComponent {
+export class CheckboxFilterComponent implements OnInit {
   @Input({ required: true })
   filterForm!: FormGroup<any>;
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
-  formControlName!: string;
+  controlName!: string;
   @Input({ required: true })
   label!: string;
 
+  ngOnInit(): void {
+    // console.log(this.formControlName);
+  }
+
   get checkBoxControl(): FormControl {
-    return this.filterForm.controls[this.formControlName] as FormControl;
+    return this.filterForm.controls[this.controlName] as FormControl;
   }
 }

@@ -27,6 +27,8 @@ import {
   GenreControl,
   DateRangeGroup,
   VoteAverageGroup,
+  SelectTransformConfig,
+  OptionFilter,
 } from '../interfaces/tmdb-filters.interface';
 
 @Directive()
@@ -35,7 +37,8 @@ export abstract class DiscoveryFilter<
   T2 extends { [K in keyof T2]: AbstractControl<any, any> }
 > implements OnInit
 {
-  protected readonly fb = inject(FormBuilder);
+  readonly fb = inject(FormBuilder);
+
   destroyed$ = new Subject();
 
   @Input({ required: true })
@@ -49,6 +52,15 @@ export abstract class DiscoveryFilter<
   payloadEmitterOnSubmit: EventEmitter<T1> = new EventEmitter<T1>();
 
   filterForm!: FormGroup<T2>;
+
+  languagesTransformConfig: SelectTransformConfig = {
+    labelKey: 'english_name',
+    valueKey: 'iso_639_1',
+  };
+  languagesDefaultOption: OptionFilter = {
+    label: 'No languages selected',
+    value: '',
+  };
 
   constructor() {
     inject(DestroyRef).onDestroy(() => {

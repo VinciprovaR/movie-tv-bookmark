@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  inject,
   Input,
   OnInit,
   ViewChild,
@@ -10,20 +11,20 @@ import {
   Certification,
   DiscoveryTVFilterForm,
   Genre,
+  OptionFilter,
 } from '../../shared/interfaces/tmdb-filters.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PayloadDiscoveryTV } from '../../shared/interfaces/store/discovery-tv-state.interface';
 import { GenreFilterComponent } from '../../shared/components/genre-filter/genre-filter.component';
-import { OrderByFilterComponent } from '../../shared/components/order-by-filter/order-by-filter.component';
 import { RangeDateFilterComponent } from '../../shared/components/range-date-filter/range-date-filter.component';
 import { CheckboxFilterComponent } from '../../shared/components/checkbox-filter/checkbox-filter.component';
-import { CertificationFilterComponent } from '../../shared/components/certification-filter/certification-filter.component';
-import { LanguageFilterComponent } from '../../shared/components/language-filter/language-filter.component';
 import { VoteAverageFilterComponent } from '../../shared/components/vote-average-filter/vote-average-filter.component';
 import { filter, takeUntil } from 'rxjs';
 
 import { DiscoveryFilter } from '../../shared/directives/discovery.filter.directive';
+import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
+import { SORT_BY_SELECT_TV } from '../../providers';
 
 @Component({
   selector: 'app-discovery-tv-filters',
@@ -32,11 +33,9 @@ import { DiscoveryFilter } from '../../shared/directives/discovery.filter.direct
     ReactiveFormsModule,
     CommonModule,
     GenreFilterComponent,
-    OrderByFilterComponent,
+    SelectFilterComponent,
     RangeDateFilterComponent,
     CheckboxFilterComponent,
-    CertificationFilterComponent,
-    LanguageFilterComponent,
     VoteAverageFilterComponent,
   ],
   templateUrl: './discovery-tv-filters.component.html',
@@ -46,6 +45,8 @@ export class DiscoveryTVFiltersComponent
   extends DiscoveryFilter<PayloadDiscoveryTV, DiscoveryTVFilterForm>
   implements OnInit
 {
+  sortBySelect: OptionFilter[] = inject(SORT_BY_SELECT_TV);
+
   constructor() {
     super();
   }

@@ -15,7 +15,10 @@ import { SupabaseTVLifecycleDAO } from './supabase-tv-lifecycle.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
 import { SupabaseMediaLifecycleOptionsDAO } from './supabase-media-lifecycle-options.dao';
 import { SupabaseMovieLifecycleDAO } from './supabase-movie-lifecycle.dao';
-import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
+import {
+  MovieLifecycleMap,
+  TVLifecycleMap,
+} from '../../interfaces/lifecycle.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -46,19 +49,29 @@ export class SupabaseLifecycleService {
       });
   }
 
-  initMovieLifecycleMap(
-    movieResult: MovieResult,
-    movieLifecycleMap: MediaLifecycleMap
-  ): Observable<MediaLifecycleMap> {
+  initMovieLifecycleMapFromMovieResult(
+    movieResult: MovieResult
+  ): Observable<MovieLifecycleMap> {
     let mediaIdList =
       this.supabaseUtilsService.buildMediaIdListMap(movieResult);
     return this.supabaseMovieLifecycleDAO
       .findLifecycleListByMovieIds(mediaIdList)
       .pipe(
-        map((entityMovieLifeCycleList: Movie_Life_Cycle[]) => {
-          return this.supabaseUtilsService.injectInMovieLifecycleMap(
-            entityMovieLifeCycleList,
-            movieLifecycleMap
+        map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
+          return this.supabaseUtilsService.movieLifecycleMapFactory(
+            movieLifecycleEntityList
+          );
+        })
+      );
+  }
+
+  initMovieLifecycleMapFromId(movieId: number): Observable<MovieLifecycleMap> {
+    return this.supabaseMovieLifecycleDAO
+      .findLifecycleListByMovieIds([movieId])
+      .pipe(
+        map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
+          return this.supabaseUtilsService.movieLifecycleMapFactory(
+            movieLifecycleEntityList
           );
         })
       );
@@ -83,9 +96,8 @@ export class SupabaseLifecycleService {
 
   createOrUpdateOrDeleteMovieLifecycle(
     movieLifecycleDTO: MediaLifecycleDTO,
-    user: User,
-    movieLifecycleMap: MediaLifecycleMap
-  ): Observable<MediaLifecycleMap> {
+    user: User
+  ): Observable<MovieLifecycleMap> {
     return this.supabaseMovieLifecycleDAO
       .findLifecycleListByMovieIds([movieLifecycleDTO.mediaId])
       .pipe(
@@ -123,27 +135,22 @@ export class SupabaseLifecycleService {
               throw new Error('Something went wrong. Case -99'); //to-do traccia errore su db, anche se impossibile che passi qui
           }
         }),
-        map((movieMovieLifecycle: Movie_Life_Cycle[]) => {
-          return this.supabaseUtilsService.injectInMovieLifecycleMap(
-            movieMovieLifecycle,
-            movieLifecycleMap
+        map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
+          return this.supabaseUtilsService.movieLifecycleMapFactory(
+            movieLifecycleEntityList
           );
         })
       );
   }
 
-  initTVLifecycleMap(
-    tvResult: TVResult,
-    tvLifecycleMap: MediaLifecycleMap
-  ): Observable<MediaLifecycleMap> {
+  initTVLifecycleMap(tvResult: TVResult): Observable<TVLifecycleMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(tvResult);
     return this.supabaseTVLifecycleDAO
       .findLifecycleListByTVIds(mediaIdList)
       .pipe(
-        map((entityTVLifeCycleList: TV_Life_Cycle[]) => {
-          return this.supabaseUtilsService.injectInTVLifecycleMap(
-            entityTVLifeCycleList,
-            tvLifecycleMap
+        map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
+          return this.supabaseUtilsService.tvLifecycleMapFactory(
+            tvLifecycleEntityList
           );
         })
       );
@@ -168,9 +175,8 @@ export class SupabaseLifecycleService {
 
   createOrUpdateOrDeleteTVLifecycle(
     tvLifecycleDTO: MediaLifecycleDTO,
-    user: User,
-    tvLifecycleMap: MediaLifecycleMap
-  ): Observable<MediaLifecycleMap> {
+    user: User
+  ): Observable<TVLifecycleMap> {
     return this.supabaseTVLifecycleDAO
       .findLifecycleListByTVIds([tvLifecycleDTO.mediaId])
       .pipe(
@@ -208,11 +214,9 @@ export class SupabaseLifecycleService {
               throw new Error('Something went wrong. Case -99');
           }
         }),
-        map((entityTVLifecycle) => {
-          entityTVLifecycle = entityTVLifecycle as TV_Life_Cycle[];
-          return this.supabaseUtilsService.injectInTVLifecycleMap(
-            entityTVLifecycle,
-            tvLifecycleMap
+        map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
+          return this.supabaseUtilsService.tvLifecycleMapFactory(
+            tvLifecycleEntityList
           );
         })
       );

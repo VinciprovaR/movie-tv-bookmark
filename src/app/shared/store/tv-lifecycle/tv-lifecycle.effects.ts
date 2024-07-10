@@ -12,7 +12,7 @@ import { ErrorResponse } from '../../interfaces/error.interface';
 import { TVLifecycleActions, TVLifecycleSelectors } from '.';
 
 import { SearchTVActions } from '../search-tv';
-import { MediaLifecycleMap } from '../../interfaces/lifecycle.interface';
+import { TVLifecycleMap } from '../../interfaces/lifecycle.interface';
 import { DiscoveryTVActions } from '../discovery-tv';
 
 // import { DiscoveryTVActions } from '../discovery-tv';
@@ -35,21 +35,22 @@ export class TVLifecycleEffects {
         let tvLifecycleMapClone = JSON.parse(
           JSON.stringify({ ...tvLifecycleMap })
         );
-        return this.supabaseLifecycleService
-          .initTVLifecycleMap(tvResult, tvLifecycleMapClone)
-          .pipe(
-            map((tvLifecycleMapResult: MediaLifecycleMap) => {
-              return TVLifecycleActions.initTVLifecycleSuccess({
-                tvLifecycleMap: tvLifecycleMapResult,
-              });
-            }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
-              return of(
-                TVLifecycleActions.lifecycleFailure({ httpErrorResponse })
-              );
-            })
-          );
+        return this.supabaseLifecycleService.initTVLifecycleMap(tvResult).pipe(
+          map((tvLifecycleMapResult: TVLifecycleMap) => {
+            return TVLifecycleActions.initTVLifecycleSuccess({
+              tvLifecycleMap: tvLifecycleMapResult,
+            });
+          }),
+          catchError((httpErrorResponse: ErrorResponse) => {
+            console.error(httpErrorResponse);
+            return of(
+              TVLifecycleActions.lifecycleFailure({
+                httpErrorResponse,
+                tvLifecycleMap: tvLifecycleMapClone, //to-do ciò che c'è in db
+              })
+            );
+          })
+        );
       })
     );
   });
@@ -67,13 +68,9 @@ export class TVLifecycleEffects {
           JSON.stringify({ ...tvLifecycleMap })
         );
         return this.supabaseLifecycleService
-          .createOrUpdateOrDeleteTVLifecycle(
-            mediaLifecycleDTO,
-            user as User,
-            tvLifecycleMapClone
-          )
+          .createOrUpdateOrDeleteTVLifecycle(mediaLifecycleDTO, user as User)
           .pipe(
-            map((tvLifecycleMap: MediaLifecycleMap) => {
+            map((tvLifecycleMap: TVLifecycleMap) => {
               return TVLifecycleActions.createUpdateDeleteTVLifecycleSuccess({
                 tvLifecycleMap,
               });
@@ -83,6 +80,7 @@ export class TVLifecycleEffects {
               return of(
                 TVLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
+                  tvLifecycleMap: tvLifecycleMapClone,
                 })
               );
             })

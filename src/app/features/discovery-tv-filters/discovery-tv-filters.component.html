@@ -3,7 +3,12 @@
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="">
   <app-genre-filter class="mt-16" [filterForm]="filterForm"></app-genre-filter>
   <div class="mt-16">
-    <app-order-by-filter [filterForm]="filterForm"></app-order-by-filter>
+    <app-select-filter
+      [filterForm]="filterForm"
+      [controlName]="'sortBy'"
+      [title]="'Sort Results By'"
+      [selectObject]="sortBySelect"
+    ></app-select-filter>
   </div>
 
   <div class="mt-16">
@@ -11,15 +16,15 @@
     <app-checkbox-filter
       [filterForm]="filterForm"
       [mediaType]="mediaType"
-      [formControlName]="'allEpisode'"
+      [controlName]="'allEpisode'"
       [label]="'Cerchi tutti gli episodi?'"
     ></app-checkbox-filter>
 
     <div class="mt-4">
       <app-range-date-filter
-        [rangeDateGroupName]="'airDate'"
+        [customGroupName]="'airDate'"
         [rangeDateLabel]="
-          getAllEpisodeControlValue()
+          filterForm.value.allEpisode
             ? 'Tutti gli episodi'
             : 'Prima messa in onda'
         "
@@ -33,17 +38,20 @@
     <app-checkbox-filter
       [filterForm]="filterForm"
       [mediaType]="mediaType"
-      [formControlName]="'includeLifecycle'"
+      [controlName]="'includeLifecycle'"
       [label]="'Include tvs in lifecycle'"
     ></app-checkbox-filter>
   </div>
 
   <div class="mt-16">
-    <app-language-filter
+    <app-select-filter
       [filterForm]="filterForm"
-      [languagesOptions]="languageList"
-    >
-    </app-language-filter>
+      [controlName]="'languages'"
+      [title]="'Language'"
+      [selectObject]="languageList"
+      [selectTransformConfig]="languagesTransformConfig"
+      [defaultOption]="languagesDefaultOption"
+    ></app-select-filter>
   </div>
 
   <div class="mt-16">

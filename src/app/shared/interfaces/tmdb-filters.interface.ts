@@ -62,12 +62,18 @@ export interface GenreControl {
   isSelected: boolean;
 }
 
-export interface SortBySelect {
-  [key: string]: string;
-}
-
 export interface Language {
   iso_639_1: string;
   english_name: string;
   name: string;
+}
+
+export interface OptionFilter {
+  value: string;
+  label: string;
+}
+
+export interface SelectTransformConfig {
+  valueKey: string;
+  labelKey: string;
 }

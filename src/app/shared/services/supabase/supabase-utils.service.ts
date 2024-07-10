@@ -10,7 +10,8 @@ import {
 } from '../../interfaces/supabase/entities';
 import {
   lifeCycleId,
-  MediaLifecycleMap,
+  MovieLifecycleMap,
+  TVLifecycleMap,
 } from '../../interfaces/lifecycle.interface';
 import {
   MediaType,
@@ -41,25 +42,24 @@ export class SupabaseUtilsService {
     });
   }
 
-  injectInMovieLifecycleMap(
-    entityMovieLifeCycleList: Movie_Life_Cycle[],
-    movieLifecycleMap: MediaLifecycleMap
-  ): MediaLifecycleMap {
-    entityMovieLifeCycleList.forEach((entityMovieLifeCycle) => {
-      movieLifecycleMap[entityMovieLifeCycle.movie_id] =
-        entityMovieLifeCycle.lifecycle_id;
+  movieLifecycleMapFactory(
+    movieLifecycleEntityList: Movie_Life_Cycle[]
+  ): MovieLifecycleMap {
+    let movieLifecycleMap: MovieLifecycleMap = {};
+    movieLifecycleEntityList.forEach((movieLifecycleEntity) => {
+      movieLifecycleMap[movieLifecycleEntity.movie_id] =
+        movieLifecycleEntity.lifecycle_id;
     });
     return movieLifecycleMap;
   }
 
-  injectInTVLifecycleMap(
-    entityTVLifeCycleList: TV_Life_Cycle[],
-    tvLifecycleMap: MediaLifecycleMap
-  ): MediaLifecycleMap {
-    entityTVLifeCycleList.forEach((entityTVLifeCycle) => {
-      tvLifecycleMap[entityTVLifeCycle.tv_id] = entityTVLifeCycle.lifecycle_id;
+  tvLifecycleMapFactory(
+    tvLifecycleEntityList: TV_Life_Cycle[]
+  ): TVLifecycleMap {
+    let tvLifecycleMap: TVLifecycleMap = {};
+    tvLifecycleEntityList.forEach((tvLifecycleEntity) => {
+      tvLifecycleMap[tvLifecycleEntity.tv_id] = tvLifecycleEntity.lifecycle_id;
     });
-
     return tvLifecycleMap;
   }
 

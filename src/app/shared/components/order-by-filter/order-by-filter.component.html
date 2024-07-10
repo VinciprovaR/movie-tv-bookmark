@@ -1,8 +1,0 @@
-<div [formGroup]="filterForm">
-  <h2 class="">Sort Results By</h2>
-  <select [formControlName]="'sortBy'" id="sortBy">
-    @for (sort of sortBySelect | keyvalue; track sort.key) {
-    <option [value]="sort.key">{{ sort.value }}</option>
-    }
-  </select>
-</div>

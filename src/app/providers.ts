@@ -4,6 +4,9 @@ import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
 import { SupabaseLifecycleService } from './shared/services/supabase';
 import { LifecycleOption } from './shared/interfaces/supabase/DTO';
+import { OptionFilter } from './shared/interfaces/tmdb-filters.interface';
+import { DiscoveryMovieActions } from './shared/store/discovery-movie';
+import { DiscoveryTVActions } from './shared/store/discovery-tv';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -24,12 +27,14 @@ export const TMDB_CARD_2X_IMG_URL = new InjectionToken<string>(
   'TMDB_CARD_2X_IMG_URL'
 );
 
-export const LIFECYCLE_OPTIONS$ = new InjectionToken<any>('LIFECYCLE_OPTIONS');
-
 export const I18E = new InjectionToken<string>('I18E');
 
-export const LIFECYCLE_OPTIONS = new InjectionToken<LifecycleOption[]>(
-  'LIFECYCLE_OPTIONS'
+export const SORT_BY_SELECT_MOVIE = new InjectionToken<OptionFilter[]>(
+  'SORT_BY_SELECT_MOVIE'
+);
+
+export const SORT_BY_SELECT_TV = new InjectionToken<OptionFilter[]>(
+  'SORT_BY_SELECT_TV'
 );
 
 export function provideTMDBApiKey() {
@@ -67,26 +72,41 @@ export function provideImgUrl() {
   ];
 }
 
-export function provideAppInitializer() {
-  return [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (store: Store) => () => {
-        store.dispatch(AuthActions.currentUser());
-      },
-      deps: [Store],
-      multi: true,
+export function provideCurrentUser() {
+  return {
+    provide: APP_INITIALIZER,
+    useFactory: (store: Store) => () => {
+      store.dispatch(AuthActions.currentUser());
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory:
-        (supabaseLifecycleService: SupabaseLifecycleService) => () => {
-          supabaseLifecycleService.retriveLifecycleOptions();
-        },
-      deps: [SupabaseLifecycleService],
-      multi: true,
+    deps: [Store],
+    multi: true,
+  };
+}
+
+export function provideLifecycleSelect() {
+  return {
+    provide: APP_INITIALIZER,
+    useFactory: (supabaseLifecycleService: SupabaseLifecycleService) => () => {
+      supabaseLifecycleService.retriveLifecycleOptions();
     },
-  ];
+    deps: [SupabaseLifecycleService],
+    multi: true,
+  };
+}
+
+export function provideSelectFilters() {
+  return {
+    provide: APP_INITIALIZER,
+    useFactory: (store: Store) => () => {
+      store.dispatch(DiscoveryMovieActions.getGenreList());
+      store.dispatch(DiscoveryMovieActions.getCertificationList());
+      store.dispatch(DiscoveryMovieActions.getLanguagesList());
+      store.dispatch(DiscoveryTVActions.getGenreList());
+      store.dispatch(DiscoveryTVActions.getLanguagesList());
+    },
+    deps: [Store],
+    multi: true,
+  };
 }
 
 //to-do hardcoded, cambiare in i18e corretto
@@ -95,6 +115,40 @@ export function provideI18E() {
     provide: I18E,
     useValue: 'IT',
   };
+}
+
+export function provideSortBySelect() {
+  return [
+    {
+      provide: SORT_BY_SELECT_MOVIE,
+      useValue: [
+        { value: 'popularity.desc', label: 'Popularity Descending' },
+        { value: 'popularity.asc', label: 'Popularity Ascending' },
+        { value: 'vote_average.desc', label: 'Rating Descending' },
+        { value: 'vote_average.asc', label: 'Rating Ascending' },
+        {
+          value: 'primary_release_date.desc',
+          label: 'Release Date Descending',
+        },
+        { value: 'primary_release_date.asc', label: 'Release Date Ascending' },
+        { value: 'title.asc', label: 'Title (A-Z)' },
+        { value: 'title.desc', label: 'Title (Z-A)' },
+      ],
+    },
+    {
+      provide: SORT_BY_SELECT_TV,
+      useValue: [
+        { value: 'popularity.desc', label: 'Popularity Descending' },
+        { value: 'popularity.asc', label: 'Popularity Ascending' },
+        { value: 'vote_average.desc', label: 'Rating Descending' },
+        { value: 'vote_average.asc', label: 'Rating Ascending' },
+        { value: 'first_air_date.desc', label: 'First Air Date Descending' },
+        { value: 'first_air_date.asc', label: 'First Air Date Ascending' },
+        { value: 'name.asc', label: 'Name (A-Z)' },
+        { value: 'name.desc', label: 'Name (Z-A)' },
+      ],
+    },
+  ];
 }
 
 export function provideSupabaseClient() {
