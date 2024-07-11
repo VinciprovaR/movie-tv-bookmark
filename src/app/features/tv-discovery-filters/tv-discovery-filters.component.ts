@@ -38,10 +38,10 @@ import { SORT_BY_SELECT_TV } from '../../providers';
     CheckboxFilterComponent,
     VoteAverageFilterComponent,
   ],
-  templateUrl: './discovery-tv-filters.component.html',
-  styleUrl: './discovery-tv-filters.component.css',
+  templateUrl: './tv-discovery-filters.component.html',
+  styleUrl: './tv-discovery-filters.component.css',
 })
-export class DiscoveryTVFiltersComponent
+export class TVDiscoveryFiltersComponent
   extends DiscoveryFilter<PayloadDiscoveryTV, DiscoveryTVFilterForm>
   implements OnInit
 {

@@ -27,14 +27,10 @@ export class TVLifecycleEffects {
         DiscoveryTVActions.discoveryTVSuccess,
         DiscoveryTVActions.discoveryAdditionalTVSuccess
       ),
-      withLatestFrom(
-        this.store.select(TVLifecycleSelectors.selectTVLifecycleMap)
-      ),
+
       switchMap((actionParams) => {
-        let [{ tvResult }, tvLifecycleMap] = actionParams;
-        let tvLifecycleMapClone = JSON.parse(
-          JSON.stringify({ ...tvLifecycleMap })
-        );
+        let { tvResult } = actionParams;
+
         return this.supabaseLifecycleService.initTVLifecycleMap(tvResult).pipe(
           map((tvLifecycleMapResult: TVLifecycleMap) => {
             return TVLifecycleActions.initTVLifecycleSuccess({
@@ -46,7 +42,6 @@ export class TVLifecycleEffects {
             return of(
               TVLifecycleActions.lifecycleFailure({
                 httpErrorResponse,
-                tvLifecycleMap: tvLifecycleMapClone, //to-do ciò che c'è in db
               })
             );
           })
@@ -58,15 +53,10 @@ export class TVLifecycleEffects {
   createUpdateDeleteTVLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TVLifecycleActions.createUpdateDeleteTVLifecycle),
-      withLatestFrom(
-        this.store.select(AuthSelectors.selectUser),
-        this.store.select(TVLifecycleSelectors.selectTVLifecycleMap)
-      ),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
       switchMap((actionParams) => {
-        let [{ mediaLifecycleDTO }, user, tvLifecycleMap] = actionParams;
-        let tvLifecycleMapClone = JSON.parse(
-          JSON.stringify({ ...tvLifecycleMap })
-        );
+        let [{ mediaLifecycleDTO }, user] = actionParams;
+
         return this.supabaseLifecycleService
           .createOrUpdateOrDeleteTVLifecycle(mediaLifecycleDTO, user as User)
           .pipe(
@@ -80,7 +70,6 @@ export class TVLifecycleEffects {
               return of(
                 TVLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
-                  tvLifecycleMap: tvLifecycleMapClone,
                 })
               );
             })

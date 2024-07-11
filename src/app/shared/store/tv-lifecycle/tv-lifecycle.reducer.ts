@@ -7,6 +7,7 @@ export const tvLifecycleStateFeatureKey = 'tv-lifecycle';
 export const initialState: TVLifecycleState = {
   isLoading: false,
   error: null,
+
   tvLifecycleMap: {},
 };
 
@@ -31,17 +32,14 @@ export const tvLifecycleReducer = createReducer(
       };
     }
   ),
-  on(
-    TVLifecycleActions.lifecycleFailure,
-    (state, { httpErrorResponse, tvLifecycleMap }) => {
-      return {
-        ...state,
-        isLoading: false,
-        error: httpErrorResponse,
-        tvLifecycleMap: { ...state.tvLifecycleMap, ...tvLifecycleMap },
-      };
-    }
-  ),
+  on(TVLifecycleActions.lifecycleFailure, (state, { httpErrorResponse }) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: httpErrorResponse,
+      tvLifecycleMap: { ...state.tvLifecycleMap },
+    };
+  }),
   on(TVLifecycleActions.cleanError, (state) => {
     return {
       ...state,

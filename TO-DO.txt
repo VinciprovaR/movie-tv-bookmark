@@ -26,6 +26,10 @@
 - tipizzare valore ritorno reducer
 - Genre List/Languages/Certifications valorizzazione in app initializer
 - lifecycle 0 eliminare o fake eliminare?
+- Gestione timeout
+- Spinner async
+- Error notification
+- Success notification
 
 ################ AUTH ################
 

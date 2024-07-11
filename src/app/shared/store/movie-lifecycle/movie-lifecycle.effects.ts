@@ -37,9 +37,8 @@ export class MovieLifecycleEffects {
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                MovieLifecycleActions.initLifecycleFailure({
+                MovieLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
-                  movieResult,
                 })
               );
             })
@@ -65,35 +64,7 @@ export class MovieLifecycleEffects {
             catchError((httpErrorResponse: ErrorResponse) => {
               console.error(httpErrorResponse);
               return of(
-                MovieLifecycleActions.crudLifecycleFailure({
-                  httpErrorResponse,
-                  movieId: mediaLifecycleDTO.mediaId,
-                })
-              );
-            })
-          );
-      })
-    );
-  });
-
-  movieLifecycleCRUDFailure$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(MovieLifecycleActions.crudLifecycleFailure),
-      switchMap((actionParams) => {
-        let { movieId, httpErrorResponse } = actionParams;
-        return this.supabaseLifecycleService
-          .initMovieLifecycleMapFromId(movieId)
-          .pipe(
-            map((movieLifecycleMapResult: MovieLifecycleMap) => {
-              return MovieLifecycleActions.lifecycleFailureRevert({
-                httpErrorResponse,
-                movieLifecycleMap: movieLifecycleMapResult,
-              });
-            }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
-              return of(
-                MovieLifecycleActions.lifecycleFailureRevertError({
+                MovieLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
                 })
               );

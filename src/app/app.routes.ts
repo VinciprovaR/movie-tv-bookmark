@@ -101,6 +101,26 @@ export const routes: Routes = [
     title: 'Discovery TV',
   },
   {
+    path: 'movie-lifecycle',
+    loadComponent: () =>
+      import(
+        './features/movie-lifecycle-list/movie-lifecycle-list.component'
+      ).then((m) => m.MovieLifecycleListComponent),
+    canActivate: [authGuard],
+    title: 'Movie Lifecycle',
+    children: [
+      {
+        path: 'lifecycle/:lifecycleId',
+        loadComponent: () =>
+          import(
+            './shared/components/lifecycle-list-container/lifecycle-list-container.component'
+          ).then((m) => m.LifecycleContainerComponent),
+        canActivate: [authGuard],
+        title: 'Lifecycle List',
+      },
+    ], //to-do lifecycle list con variabile
+  },
+  {
     path: 'movie-detail/:movieId',
     loadComponent: () =>
       import('./features/movie-detail/movie-detail.component').then(

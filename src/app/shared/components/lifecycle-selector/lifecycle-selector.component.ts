@@ -18,9 +18,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BridgeDataService } from '../../services/bridge-data.service';
-import { LifecycleOption } from '../../interfaces/supabase/DTO';
+import { LifecycleOption, MediaDataDTO } from '../../interfaces/supabase/DTO';
 
-import { MediaType } from '../../interfaces/media.interface';
+import { MediaType, Movie, TV } from '../../interfaces/media.interface';
 import { LifecycleEnum } from '../../enums/lifecycle.enum';
 import { SupabaseLifecycleService } from '../../services/supabase';
 
@@ -43,11 +43,11 @@ export class LifecycleSelectorComponent implements OnInit {
   lifecycleOptions!: LifecycleOption[];
 
   @Input({ required: true })
-  mediaId!: number;
-  @Input({ required: true })
   index!: number;
   @Input({ required: true })
   mediaType!: MediaType;
+  @Input({ required: true })
+  mediaData!: MediaDataDTO;
 
   lifecycleControl!: FormControl<lifeCycleId>;
 
@@ -75,13 +75,13 @@ export class LifecycleSelectorComponent implements OnInit {
         distinctUntilChanged(),
         filter((mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) => {
           return mediaLifecycleMap &&
-            (mediaLifecycleMap[this.mediaId] != null ||
-              mediaLifecycleMap[this.mediaId] != undefined)
+            (mediaLifecycleMap[this.mediaData.mediaId] != null ||
+              mediaLifecycleMap[this.mediaData.mediaId] != undefined)
             ? true
             : false;
         }),
         map((mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) => {
-          return mediaLifecycleMap[this.mediaId];
+          return mediaLifecycleMap[this.mediaData.mediaId];
         })
       )
       .subscribe((lifecycleId) => {
@@ -104,7 +104,7 @@ export class LifecycleSelectorComponent implements OnInit {
 
   setLifeCycle(lifecycleId: lifeCycleId) {
     this.bridgeDataService.pushInputLifecycleOptions({
-      mediaId: this.mediaId,
+      mediaDataDTO: this.mediaData,
       lifecycleId: lifecycleId,
       index: this.index,
     });

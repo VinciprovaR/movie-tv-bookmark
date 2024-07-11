@@ -31,17 +31,14 @@ export const movieLifecycleReducer = createReducer(
       };
     }
   ),
-  on(
-    MovieLifecycleActions.lifecycleFailureRevert,
-    (state, { httpErrorResponse, movieLifecycleMap }) => {
-      return {
-        ...state,
-        isLoading: false,
-        error: httpErrorResponse,
-        movieLifecycleMap: { ...state.movieLifecycleMap, ...movieLifecycleMap },
-      };
-    }
-  ),
+  on(MovieLifecycleActions.lifecycleFailure, (state, { httpErrorResponse }) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: httpErrorResponse,
+      movieLifecycleMap: { ...state.movieLifecycleMap },
+    };
+  }),
   on(MovieLifecycleActions.cleanError, (state) => {
     return {
       ...state,

@@ -19,6 +19,10 @@ import {
   MovieLifecycleMap,
   TVLifecycleMap,
 } from '../../interfaces/lifecycle.interface';
+import { SupabaseMovieDataDAO } from './supabase-movie-data.dao';
+import { Movie_Data } from '../../interfaces/supabase/entities/movie_data.entity.interface';
+import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
+import { TV_Data } from '../../interfaces/supabase/entities/tv_data.entity.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +35,9 @@ export class SupabaseLifecycleService {
     private supabaseMediaLifecycleOptionsDAO: SupabaseMediaLifecycleOptionsDAO,
     private supabaseMovieLifecycleDAO: SupabaseMovieLifecycleDAO,
     private supabaseTVLifecycleDAO: SupabaseTVLifecycleDAO,
-    private supabaseUtilsService: SupabaseUtilsService
+    private supabaseUtilsService: SupabaseUtilsService,
+    private supabaseMovieDataDAO: SupabaseMovieDataDAO,
+    private supabaseTVDataDAO: SupabaseTVDataDAO
   ) {}
 
   retriveLifecycleOptions(): void {
@@ -65,18 +71,6 @@ export class SupabaseLifecycleService {
       );
   }
 
-  initMovieLifecycleMapFromId(movieId: number): Observable<MovieLifecycleMap> {
-    return this.supabaseMovieLifecycleDAO
-      .findLifecycleListByMovieIds([movieId])
-      .pipe(
-        map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
-          return this.supabaseUtilsService.movieLifecycleMapFactory(
-            movieLifecycleEntityList
-          );
-        })
-      );
-  }
-
   removeMovieWithLifecycle(movieResult: MovieResult) {
     let { mediaIdList, mediaIdMapIndex } =
       this.supabaseUtilsService.buildMediaIdListMapIndex(movieResult);
@@ -99,7 +93,7 @@ export class SupabaseLifecycleService {
     user: User
   ): Observable<MovieLifecycleMap> {
     return this.supabaseMovieLifecycleDAO
-      .findLifecycleListByMovieIds([movieLifecycleDTO.mediaId])
+      .findLifecycleListByMovieIds([movieLifecycleDTO.mediaDataDTO.mediaId])
       .pipe(
         switchMap((movieLifecycleFromDB: Movie_Life_Cycle[]) => {
           switch (
@@ -109,25 +103,40 @@ export class SupabaseLifecycleService {
             )
           ) {
             case 0:
-              return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
-                movieLifecycleDTO.lifecycleId,
-                movieLifecycleDTO.mediaId,
-                user
-              );
+              return this.supabaseMovieDataDAO
+                .findByMovieId(movieLifecycleDTO.mediaDataDTO.mediaId)
+                .pipe(
+                  switchMap((movieDataEntityList: Movie_Data[]) => {
+                    if (movieDataEntityList.length === 0) {
+                      return this.supabaseMovieDataDAO.createMovieData(
+                        movieLifecycleDTO.mediaDataDTO
+                      );
+                    }
+                    return of(movieDataEntityList);
+                  }),
+                  switchMap((movieDataEntityList: Movie_Data[]) => {
+                    return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
+                      movieLifecycleDTO.lifecycleId,
+                      movieLifecycleDTO.mediaDataDTO.mediaId,
+                      user
+                    );
+                  })
+                );
+
             case 1:
               return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
-                movieLifecycleDTO.mediaId,
+                movieLifecycleDTO.mediaDataDTO.mediaId,
                 movieLifecycleDTO.lifecycleId
               );
             case 2:
               return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
                 movieLifecycleDTO.lifecycleId,
-                movieLifecycleDTO.mediaId
+                movieLifecycleDTO.mediaDataDTO.mediaId
               );
             case 3:
               let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
                 lifecycle_id: 0,
-                movie_id: movieLifecycleDTO.mediaId,
+                movie_id: movieLifecycleDTO.mediaDataDTO.mediaId,
                 user_id: user.id,
               };
               return of([movieLifecycleFromDBCustom]);
@@ -178,7 +187,7 @@ export class SupabaseLifecycleService {
     user: User
   ): Observable<TVLifecycleMap> {
     return this.supabaseTVLifecycleDAO
-      .findLifecycleListByTVIds([tvLifecycleDTO.mediaId])
+      .findLifecycleListByTVIds([tvLifecycleDTO.mediaDataDTO.mediaId])
       .pipe(
         switchMap((tvLifecycleFromDB: TV_Life_Cycle[]) => {
           switch (
@@ -188,25 +197,40 @@ export class SupabaseLifecycleService {
             )
           ) {
             case 0:
-              return this.supabaseTVLifecycleDAO.createTVLifeCycle(
-                tvLifecycleDTO.lifecycleId,
-                tvLifecycleDTO.mediaId,
-                user
-              );
+              return this.supabaseTVDataDAO
+                .findByTVId(tvLifecycleDTO.mediaDataDTO.mediaId)
+                .pipe(
+                  switchMap((tvDataEntityList: TV_Data[]) => {
+                    if (tvDataEntityList.length === 0) {
+                      return this.supabaseTVDataDAO.createTVData(
+                        tvLifecycleDTO.mediaDataDTO
+                      );
+                    }
+                    return of(tvDataEntityList);
+                  }),
+                  switchMap((tvDataEntityList: TV_Data[]) => {
+                    return this.supabaseTVLifecycleDAO.createTVLifeCycle(
+                      tvLifecycleDTO.lifecycleId,
+                      tvLifecycleDTO.mediaDataDTO.mediaId,
+                      user
+                    );
+                  })
+                );
+
             case 1:
               return this.supabaseTVLifecycleDAO.deleteTVLifeCycle(
-                tvLifecycleDTO.mediaId,
+                tvLifecycleDTO.mediaDataDTO.mediaId,
                 tvLifecycleDTO.lifecycleId
               );
             case 2:
               return this.supabaseTVLifecycleDAO.updateTVLifeCycle(
                 tvLifecycleDTO.lifecycleId,
-                tvLifecycleDTO.mediaId
+                tvLifecycleDTO.mediaDataDTO.mediaId
               );
             case 3:
               let tvLifecycleFromDBCustom: TV_Life_Cycle = {
                 lifecycle_id: 0,
-                tv_id: tvLifecycleDTO.mediaId,
+                tv_id: tvLifecycleDTO.mediaDataDTO.mediaId,
                 user_id: user.id,
               };
               return of([tvLifecycleFromDBCustom]);

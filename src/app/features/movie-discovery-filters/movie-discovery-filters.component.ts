@@ -30,10 +30,10 @@ import { SORT_BY_SELECT_MOVIE } from '../../providers';
     VoteAverageFilterComponent,
     SelectFilterComponent,
   ],
-  templateUrl: './discovery-movie-filters.component.html',
-  styleUrl: './discovery-movie-filters.component.css',
+  templateUrl: './movie-discovery-filters.component.html',
+  styleUrl: './movie-discovery-filters.component.css',
 })
-export class DiscoveryMovieFiltersComponent
+export class MovieDiscoveryFiltersComponent
   extends DiscoveryFilter<PayloadDiscoveryMovie, DiscoveryMovieFilterForm>
   implements OnInit
 {

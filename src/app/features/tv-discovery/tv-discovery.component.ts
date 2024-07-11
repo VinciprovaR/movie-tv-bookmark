@@ -25,7 +25,7 @@ import {
   TVLifecycleSelectors,
 } from '../../shared/store/tv-lifecycle';
 import { TVLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
-import { DiscoveryTVFiltersComponent } from '../discovery-tv-filters/discovery-tv-filters.component';
+import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discovery-filters.component';
 
 @Component({
   selector: 'app-tv-discovery',
@@ -35,7 +35,7 @@ import { DiscoveryTVFiltersComponent } from '../discovery-tv-filters/discovery-t
     InputQueryComponent,
     MediaListContainerComponent,
     ScrollNearEndDirective,
-    DiscoveryTVFiltersComponent,
+    TVDiscoveryFiltersComponent,
   ],
   providers: [BridgeDataService],
   templateUrl: './tv-discovery.component.html',

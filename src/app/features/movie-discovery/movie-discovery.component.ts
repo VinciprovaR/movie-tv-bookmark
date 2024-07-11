@@ -11,7 +11,7 @@ import {
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
 import { Movie } from '../../shared/interfaces/media.interface';
 import { MediaType } from '../../shared/interfaces/media.interface';
-import { DiscoveryMovieFiltersComponent } from '../discovery-movie-filters/discovery-movie-filters.component';
+import { MovieDiscoveryFiltersComponent } from '../movie-discovery-filters/movie-discovery-filters.component';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-movie-state.interface';
@@ -34,7 +34,7 @@ import { MovieLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
     InputQueryComponent,
     MediaListContainerComponent,
     ScrollNearEndDirective,
-    DiscoveryMovieFiltersComponent,
+    MovieDiscoveryFiltersComponent,
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-discovery.component.html',

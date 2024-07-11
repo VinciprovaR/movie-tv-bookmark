@@ -3,9 +3,7 @@
 
   <app-media-item
     class="mt-5"
-    [mediaId]="media.id"
-    [mediaTitle]="retriveMediaTitle(media)"
-    [poster_path]="media.poster_path"
+    [mediaData]="retriveMediaData(media)"
     [mediaType]="mediaType"
     [index]="$index"
   ></app-media-item>

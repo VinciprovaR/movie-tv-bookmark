@@ -10,6 +10,8 @@ import { ErrorResponse } from '../../interfaces/error.interface';
   providedIn: 'root',
 })
 export class SupabaseMovieLifecycleDAO {
+  private readonly TABLE = 'movie_life_cycle';
+
   constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
 
   findLifecycleListByMovieIds(
@@ -17,8 +19,8 @@ export class SupabaseMovieLifecycleDAO {
   ): Observable<Movie_Life_Cycle[]> {
     return from(
       this.supabase
-        .from(`movie_life_cycle`)
-        .select()
+        .from(this.TABLE)
+        .select('*, movie_data(*)')
         .in(`movie_id`, movieIdList)
     ).pipe(
       map((result: any) => {
@@ -32,16 +34,16 @@ export class SupabaseMovieLifecycleDAO {
   //to-do tipizzare ritorni
   createMovieLifeCycle(
     lifecycleId: lifeCycleId,
-    mediaId: number,
+    movieId: number,
     user: User
   ): Observable<Movie_Life_Cycle[]> {
     return from(
       this.supabase
-        .from(`movie_life_cycle`)
+        .from(this.TABLE)
         .insert<any>({
           user_id: user.id,
           lifecycle_id: lifecycleId,
-          movie_id: mediaId,
+          movie_id: movieId,
         })
         .select()
     ).pipe(
@@ -58,7 +60,7 @@ export class SupabaseMovieLifecycleDAO {
   ): Observable<Movie_Life_Cycle[]> {
     return from(
       this.supabase
-        .from(`movie_life_cycle`)
+        .from(this.TABLE)
         .update({
           lifecycle_id: lifecycleId,
         })
@@ -78,7 +80,7 @@ export class SupabaseMovieLifecycleDAO {
   ): Observable<Movie_Life_Cycle[]> {
     return from(
       this.supabase
-        .from(`movie_life_cycle`)
+        .from(this.TABLE)
         .update({
           lifecycle_id: lifecycleId,
         })

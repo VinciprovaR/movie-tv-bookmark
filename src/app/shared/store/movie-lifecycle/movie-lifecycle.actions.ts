@@ -24,31 +24,8 @@ export const deleteMovieLifecycleSuccess = createAction(
 );
 
 //error
-export const initLifecycleFailure = createAction(
-  '[Movie-Lifecycle/API] Init Movie Lifecycle Failure',
-  props<{
-    httpErrorResponse: any;
-    movieResult: MovieResult;
-  }>()
-);
-export const crudLifecycleFailure = createAction(
-  '[Movie-Lifecycle/API] CRUD Movie Lifecycle Failure',
-  props<{
-    httpErrorResponse: any;
-    movieId: number;
-  }>()
-);
-
-export const lifecycleFailureRevert = createAction(
-  '[Movie-Lifecycle/API] Movie Lifecycle Failure Revert',
-  props<{
-    httpErrorResponse: any;
-    movieLifecycleMap: MovieLifecycleMap;
-  }>()
-);
-
-export const lifecycleFailureRevertError = createAction(
-  '[Movie-Lifecycle/API] Movie Lifecycle Failure Revert Error',
+export const lifecycleFailure = createAction(
+  '[Movie-Lifecycle/API] Movie Lifecycle Failure',
   props<{
     httpErrorResponse: any;
   }>()

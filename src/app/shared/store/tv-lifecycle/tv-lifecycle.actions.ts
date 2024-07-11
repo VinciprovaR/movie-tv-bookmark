@@ -25,7 +25,7 @@ export const deleteTVLifecycleSuccess = createAction(
 //error
 export const lifecycleFailure = createAction(
   '[TV-Lifecycle-C/API] Search TV Failure',
-  props<{ httpErrorResponse: any; tvLifecycleMap: TVLifecycleMap }>()
+  props<{ httpErrorResponse: any }>()
 );
 export const cleanError = createAction(
   '[TV-Lifecycle-C/Error Handling] Clean Error'

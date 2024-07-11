@@ -19,7 +19,7 @@ import {
 } from '../../shared/store/movie-lifecycle';
 
 @Component({
-  selector: 'app-movie-search',
+  selector: 'app-search-movie',
   standalone: true,
   imports: [
     CommonModule,

@@ -4,6 +4,7 @@ import { Movie, TV } from '../../interfaces/media.interface';
 import { MediaItemComponent } from '../media-item/media-item.component';
 import { MediaType } from '../../interfaces/media.interface';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { MediaDataDTO } from '../../interfaces/supabase/DTO';
 
 @Component({
   selector: 'app-media-list-container',
@@ -23,6 +24,15 @@ export class MediaListContainerComponent implements OnInit {
   constructor() {}
   ngOnInit(): void {}
 
+  retriveMediaData(media: Movie | TV): MediaDataDTO {
+    return {
+      mediaId: media.id,
+      poster_path: media.poster_path,
+      release_date: this.retriveReleaseDate(media),
+      title: this.retriveMediaTitle(media),
+    };
+  }
+
   //to-do cambiare
   retriveMediaTitle(media: TV | Movie) {
     if (this.isMovieEntity(media)) {
@@ -32,7 +42,18 @@ export class MediaListContainerComponent implements OnInit {
     }
   }
 
+  retriveReleaseDate(media: TV | Movie) {
+    if (this.isMovieEntity(media)) {
+      return media.release_date;
+    } else {
+      return media.first_air_date;
+    }
+  }
+
   isMovieEntity(movie: object): movie is Movie {
-    return (movie as Movie).title !== undefined;
+    return (
+      (movie as Movie).title !== undefined &&
+      (movie as Movie).release_date !== undefined
+    );
   }
 }
