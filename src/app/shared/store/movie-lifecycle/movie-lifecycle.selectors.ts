@@ -22,3 +22,13 @@ export const selectMovieLifecycleMap = createSelector(
   MovieLifecycleFeatureSelector,
   MovieLifecycleReducer.getMovieLifecycleMap
 );
+
+export const selectMovieList = createSelector(
+  MovieLifecycleFeatureSelector,
+  MovieLifecycleReducer.getMovieList
+);
+
+export const selectMovieLifecycleError = createSelector(
+  MovieLifecycleFeatureSelector,
+  MovieLifecycleReducer.getSearchMovieLifecycleError
+);

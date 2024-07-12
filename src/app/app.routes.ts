@@ -104,21 +104,26 @@ export const routes: Routes = [
     path: 'movie-lifecycle',
     loadComponent: () =>
       import(
-        './features/movie-lifecycle-list/movie-lifecycle-list.component'
-      ).then((m) => m.MovieLifecycleListComponent),
+        './features/movie-lifecycle-lists/movie-lifecycle-lists.component'
+      ).then((m) => m.MovieLifecycleListsComponent),
     canActivate: [authGuard],
     title: 'Movie Lifecycle',
     children: [
       {
-        path: 'lifecycle/:lifecycleId',
+        path: '',
+        redirectTo: 'watchlist',
+        pathMatch: 'full',
+      },
+      {
+        path: ':lifecycleType',
         loadComponent: () =>
           import(
-            './shared/components/lifecycle-list-container/lifecycle-list-container.component'
-          ).then((m) => m.LifecycleContainerComponent),
+            './shared/components/media-lifecycle-list-container/media-lifecycle-list-container.component'
+          ).then((m) => m.MediaLifecycleContainerComponent),
         canActivate: [authGuard],
-        title: 'Lifecycle List',
+        title: 'Lifecycle List', //to-do lifecycle list con variabile
       },
-    ], //to-do lifecycle list con variabile
+    ],
   },
   {
     path: 'movie-detail/:movieId',

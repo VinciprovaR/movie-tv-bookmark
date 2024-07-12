@@ -5,7 +5,7 @@ import { catchError, delay, map, of, switchMap, withLatestFrom } from 'rxjs';
 
 import { MovieDetail, MovieResult } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
-import { SupabaseLifecycleService } from '../../services/supabase';
+import { SupabaseMovieLifecycleService } from '../../services/supabase';
 import {
   TMDBFilterMovieService,
   TMDBDiscoveryMovieService,
@@ -27,7 +27,7 @@ export class DiscoveryMovieEffects {
         return this.TMDBDiscoveryMovieService.movieDiscoveryInit(payload).pipe(
           switchMap((movieResult: MovieResult) => {
             if (!payload.includeMediaWithLifecycle) {
-              return this.supabaseLifecycleService.removeMovieWithLifecycle(
+              return this.supabaseMovieLifecycleService.removeMovieWithLifecycle(
                 movieResult
               );
             }
@@ -68,7 +68,7 @@ export class DiscoveryMovieEffects {
           ).pipe(
             switchMap((movieResult: MovieResult) => {
               if (!payload.includeMediaWithLifecycle) {
-                return this.supabaseLifecycleService.removeMovieWithLifecycle(
+                return this.supabaseMovieLifecycleService.removeMovieWithLifecycle(
                   movieResult
                 );
               }
@@ -185,6 +185,6 @@ export class DiscoveryMovieEffects {
     private TMDBDiscoveryMovieService: TMDBDiscoveryMovieService,
     private TMDBFilterMovieService: TMDBFilterMovieService,
     private store: Store,
-    private supabaseLifecycleService: SupabaseLifecycleService
+    private supabaseMovieLifecycleService: SupabaseMovieLifecycleService
   ) {}
 }

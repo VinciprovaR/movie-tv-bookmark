@@ -2,17 +2,17 @@ import { Inject, Injectable } from '@angular/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
-import { Media_Lifecycle_Options } from '../../interfaces/supabase/entities';
+import { Lifecycle_Metadata } from '../../interfaces/supabase/entities';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SupabaseMediaLifecycleOptionsDAO {
+export class SupabaseMediaLifecycleMetadataDAO {
   constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
-  findLifecycleOptions(): Observable<Media_Lifecycle_Options[]> {
+  findLifecycleMetadata(): Observable<Lifecycle_Metadata[]> {
     return from(
       this.supabase
-        .from('media_life_cycle_options')
+        .from('life_cycle_metadata')
         .select('{id, enum, description, label}')
         .order('order', { ascending: true })
     ).pipe(

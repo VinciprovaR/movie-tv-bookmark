@@ -19,10 +19,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BridgeDataService } from '../../services/bridge-data.service';
 import { LifecycleOption, MediaDataDTO } from '../../interfaces/supabase/DTO';
-
-import { MediaType, Movie, TV } from '../../interfaces/media.interface';
+import { MediaType } from '../../interfaces/media.interface';
 import { LifecycleEnum } from '../../enums/lifecycle.enum';
-import { SupabaseLifecycleService } from '../../services/supabase';
+import { Store } from '@ngrx/store';
+import { LifecycleMetadataSelectors } from '../../store/lifecycle-metadata';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -38,9 +38,12 @@ import { SupabaseLifecycleService } from '../../services/supabase';
   styleUrl: './lifecycle-selector.component.css',
 })
 export class LifecycleSelectorComponent implements OnInit {
+  private readonly store = inject(Store);
+  private readonly fb = inject(FormBuilder);
+  private readonly bridgeDataService = inject(BridgeDataService);
+
   destroyed$ = new Subject();
   lifecycleOptions$!: Observable<LifecycleOption[]>;
-  lifecycleOptions!: LifecycleOption[];
 
   @Input({ required: true })
   index!: number;
@@ -51,11 +54,7 @@ export class LifecycleSelectorComponent implements OnInit {
 
   lifecycleControl!: FormControl<lifeCycleId>;
 
-  constructor(
-    private fb: FormBuilder,
-    private bridgeDataService: BridgeDataService,
-    private supabaseLifecycleService: SupabaseLifecycleService
-  ) {
+  constructor() {
     inject(DestroyRef).onDestroy(() => {
       this.destroyed$.next(true);
       this.destroyed$.complete();
@@ -63,9 +62,15 @@ export class LifecycleSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lifecycleOptions$ = this.supabaseLifecycleService.lifecycleOptions$;
+    this.initSelectors();
     this.buildControl();
     this.initDataBridge();
+  }
+
+  initSelectors() {
+    this.lifecycleOptions$ = this.store.select(
+      LifecycleMetadataSelectors.selectLifecycleOptions
+    );
   }
 
   initDataBridge() {
@@ -86,14 +91,14 @@ export class LifecycleSelectorComponent implements OnInit {
       )
       .subscribe((lifecycleId) => {
         this.lifecycleControl.setValue(
-          lifecycleId ? lifecycleId : LifecycleEnum.NoLifecycle,
+          lifecycleId ? lifecycleId : LifecycleEnum.noLifecycle,
           { emitEvent: false }
         );
       });
   }
 
   buildControl() {
-    this.lifecycleControl = this.fb.control(LifecycleEnum.NoLifecycle, {
+    this.lifecycleControl = this.fb.control(LifecycleEnum.noLifecycle, {
       nonNullable: true,
     });
 

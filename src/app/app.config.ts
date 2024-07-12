@@ -38,6 +38,7 @@ import { TitleStrategyService } from './shared/services/title-strategy.service';
 import { MovieLifecycleEffects } from './shared/store/movie-lifecycle/movie-lifecycle.effects';
 import { TVLifecycleEffects } from './shared/store/tv-lifecycle/tv-lifecycle.effects';
 import { DiscoveryTVEffects } from './shared/store/discovery-tv/discovery-tv.effects';
+import { LifecycleMetadataEffects } from './shared/store/lifecycle-metadata/lifecycle-metadata.effects';
 
 registerLocaleData(en);
 
@@ -64,6 +65,7 @@ export const appConfig: ApplicationConfig = {
       DiscoveryTVEffects,
       MovieLifecycleEffects,
       TVLifecycleEffects,
+      LifecycleMetadataEffects,
     ]),
     WebStorageService,
     {

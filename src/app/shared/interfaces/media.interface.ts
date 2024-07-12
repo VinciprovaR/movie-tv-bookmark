@@ -1,3 +1,5 @@
+//to-do rinominare file in tmdb-media
+
 export type MediaType = 'movie' | 'tv';
 
 export interface MediaResult {

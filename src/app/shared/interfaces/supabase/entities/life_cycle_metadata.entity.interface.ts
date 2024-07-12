@@ -1,4 +1,4 @@
-export interface Media_Lifecycle_Options {
+export interface Lifecycle_Metadata {
   id: number;
   enum: string;
   description: string;

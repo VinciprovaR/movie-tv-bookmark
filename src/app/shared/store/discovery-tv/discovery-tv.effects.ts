@@ -9,7 +9,7 @@ import {
   PeopleResult,
 } from '../../interfaces/media.interface';
 import { Store } from '@ngrx/store';
-import { SupabaseLifecycleService } from '../../services/supabase';
+import { SupabaseTVLifecycleService } from '../../services/supabase';
 import {
   TMDBDiscoveryTVService,
   TMDBFilterTVService,
@@ -30,7 +30,7 @@ export class DiscoveryTVEffects {
         return this.TMDBDiscoveryTVService.tvDiscoveryInit(payload).pipe(
           switchMap((tvResult: TVResult) => {
             if (!payload.includeMediaWithLifecycle) {
-              return this.supabaseLifecycleService.removeTVWithLifecycle(
+              return this.supabaseTVLifecycleService.removeTVWithLifecycle(
                 tvResult
               );
             }
@@ -71,7 +71,7 @@ export class DiscoveryTVEffects {
           ).pipe(
             switchMap((tvResult: TVResult) => {
               if (!payload.includeMediaWithLifecycle) {
-                return this.supabaseLifecycleService.removeTVWithLifecycle(
+                return this.supabaseTVLifecycleService.removeTVWithLifecycle(
                   tvResult
                 );
               }
@@ -167,6 +167,6 @@ export class DiscoveryTVEffects {
     private TMDBDiscoveryTVService: TMDBDiscoveryTVService,
     private TMDBFilterTVService: TMDBFilterTVService,
     private store: Store,
-    private supabaseLifecycleService: SupabaseLifecycleService
+    private supabaseTVLifecycleService: SupabaseTVLifecycleService
   ) {}
 }

@@ -4,7 +4,7 @@ import {
   LifecycleOption,
 } from '../../interfaces/supabase/DTO';
 import {
-  Media_Lifecycle_Options,
+  Lifecycle_Metadata,
   Movie_Life_Cycle,
   TV_Life_Cycle,
 } from '../../interfaces/supabase/entities';
@@ -15,10 +15,15 @@ import {
 } from '../../interfaces/lifecycle.interface';
 import {
   MediaType,
+  Movie,
   MovieResult,
+  TV,
   TVResult,
 } from '../../interfaces/media.interface';
 import { LifecycleEnum } from '../../enums/lifecycle.enum';
+import { LifecycleTypeIdMap } from '../../interfaces/store/lifecycle-metadata-state.interface';
+import { Movie_Data } from '../../interfaces/supabase/entities/movie_data.entity.interface';
+import { TV_Data } from '../../interfaces/supabase/entities/tv_data.entity.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -34,12 +39,18 @@ export class SupabaseUtilsService {
 
   constructor() {}
 
-  fromMediaLifecycleOptionsToLifecycleOption(
-    mediaLifecycleOptions: Media_Lifecycle_Options[]
-  ): LifecycleOption[] {
-    return mediaLifecycleOptions.map((lc) => {
-      return { label: lc.label, value: lc.id as lifeCycleId };
+  transformLifecycleMetadata(mediaLifecycleOptions: Lifecycle_Metadata[]): {
+    lifecycleOptions: LifecycleOption[];
+    lifecycleTypeIdMap: LifecycleTypeIdMap;
+  } {
+    let lifecycleOptions: LifecycleOption[] = [];
+    let lifecycleTypeIdMap: LifecycleTypeIdMap = {};
+    mediaLifecycleOptions.forEach((lc) => {
+      lifecycleOptions.push({ label: lc.label, value: lc.id as lifeCycleId });
+      lifecycleTypeIdMap[lc.enum] = lc.id as lifeCycleId;
     });
+
+    return { lifecycleOptions, lifecycleTypeIdMap };
   }
 
   movieLifecycleMapFactory(
@@ -71,7 +82,7 @@ export class SupabaseUtilsService {
   ): MovieResult | TVResult {
     let indexListToRemove: number[] = [];
     entityMediaLifecycle.forEach((mlc: any) => {
-      if (mlc[`lifecycle_id`] != LifecycleEnum.NoLifecycle) {
+      if (mlc[`lifecycle_id`] != LifecycleEnum.noLifecycle) {
         indexListToRemove.push(mediaIdMapIndex[mlc[`${mediaType}_id`]]);
       }
     });
@@ -83,10 +94,12 @@ export class SupabaseUtilsService {
     return mediaResult;
   }
 
-  buildMediaIdListMap(mediaResult: MovieResult | TVResult): number[] {
+  buildMediaIdListMap(
+    mediaResult: Movie[] | TV[] | Movie_Data[] | TV_Data[]
+  ): number[] {
     let mediaIdList: number[] = [];
-    for (let i = 0; i < mediaResult.results.length; i++) {
-      mediaIdList.push(mediaResult.results[i].id);
+    for (let i = 0; i < mediaResult.length; i++) {
+      mediaIdList.push(mediaResult[i].id);
     }
     return mediaIdList;
   }
@@ -109,7 +122,7 @@ export class SupabaseUtilsService {
     mediaLifecycleDTO: MediaLifecycleDTO
   ): number {
     let isEntity = mediaLifecycleFromDB.length === 1;
-    let isLifecycle = mediaLifecycleDTO.lifecycleId > LifecycleEnum.NoLifecycle;
+    let isLifecycle = mediaLifecycleDTO.lifecycleId > LifecycleEnum.noLifecycle;
 
     let condition =
       (!isEntity && isLifecycle ? 'noEntityANDInLifecycle' : false) ||

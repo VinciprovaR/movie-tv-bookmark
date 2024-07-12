@@ -8,17 +8,22 @@ export const initialState: MovieLifecycleState = {
   isLoading: false,
   error: null,
   movieLifecycleMap: {},
+  movieList: [],
 };
 
 export const movieLifecycleReducer = createReducer(
   initialState,
-  on(MovieLifecycleActions.createUpdateDeleteMovieLifecycle, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: true,
-    };
-  }),
+  on(
+    MovieLifecycleActions.createUpdateDeleteMovieLifecycle,
+    MovieLifecycleActions.searchMovieByLifecycle,
+    (state) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+      };
+    }
+  ),
   on(
     MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess,
     MovieLifecycleActions.initMovieLifecycleSuccess,
@@ -28,6 +33,17 @@ export const movieLifecycleReducer = createReducer(
         error: null,
         isLoading: false,
         movieLifecycleMap: { ...state.movieLifecycleMap, ...movieLifecycleMap },
+      };
+    }
+  ),
+  on(
+    MovieLifecycleActions.searchMovieByLifecycleSuccess,
+    (state, { movieList }) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        movieList,
       };
     }
   ),
@@ -53,3 +69,4 @@ export const getMovieLifecycleMap = (state: MovieLifecycleState) =>
   state.movieLifecycleMap;
 export const getSearchMovieLifecycleError = (state: MovieLifecycleState) =>
   state.error;
+export const getMovieList = (state: MovieLifecycleState) => state.movieList;

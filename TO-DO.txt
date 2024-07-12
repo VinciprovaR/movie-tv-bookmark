@@ -30,6 +30,7 @@
 - Spinner async
 - Error notification
 - Success notification
+- refractor inject with method (anche i destroy ref)
 
 ################ AUTH ################
 
