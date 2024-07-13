@@ -7,20 +7,14 @@ import {
   ActivatedRoute,
 } from '@angular/router';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { filter, Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
 } from '../../shared/store/movie-lifecycle';
-import { LifecycleMetadataSelectors } from '../../shared/store/lifecycle-metadata';
-import { LifecycleTypeIdMap } from '../../shared/interfaces/store/lifecycle-metadata-state.interface';
 import { LifecycleEnum } from '../../shared/enums/lifecycle.enum';
-import {
-  lifeCycleId,
-  MovieLifecycleMap,
-} from '../../shared/interfaces/lifecycle.interface';
-import { Movie_Life_Cycle } from '../../shared/interfaces/supabase/entities';
+import { MovieLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
 import { Movie_Data } from '../../shared/interfaces/supabase/entities/movie_data.entity.interface';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 
@@ -42,6 +36,8 @@ export class MovieLifecycleListsComponent implements OnInit {
   destroyed$ = new Subject();
 
   selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
+
+  lifecycleType: string = '';
 
   constructor() {
     this.destroyRef$.onDestroy(() => {
@@ -93,6 +89,7 @@ export class MovieLifecycleListsComponent implements OnInit {
   }
 
   searchMovieByLifecycle(lifecycleType: string) {
+    this.lifecycleType = lifecycleType;
     let lifecycleId = LifecycleEnum[lifecycleType];
     this.store.dispatch(
       MovieLifecycleActions.searchMovieByLifecycle({
