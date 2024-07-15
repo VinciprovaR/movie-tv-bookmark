@@ -12,6 +12,7 @@ import {
 import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
 
 import { SupabaseUtilsService } from './supabase-utils.service';
+import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -64,9 +65,13 @@ export class SupabaseTVLifecycleService {
   }
 
   findTVByLifecycleId(
-    lifecycleId: lifeCycleId
+    lifecycleId: lifeCycleId,
+    payload: PayloadMediaLifecycle
   ): Observable<TV_Life_Cycle[] & TV_Data[]> {
-    return this.supabaseTVLifecycleDAO.findTVByLifecycleId(lifecycleId);
+    return this.supabaseTVLifecycleDAO.findTVByLifecycleId(
+      lifecycleId,
+      payload
+    );
   }
 
   createOrUpdateOrDeleteTVLifecycle(

@@ -10,13 +10,14 @@ export const initialState: TVLifecycleState = {
   tvLifecycleMap: {},
   tvList: [],
   updateSearch: false,
+  payload: { genreIdList: [], sortBy: 'first_air_date.desc' },
 };
 
 export const tvLifecycleReducer = createReducer(
   initialState,
   on(
     TVLifecycleActions.createUpdateDeleteTVLifecycle,
-    TVLifecycleActions.searchTVByLifecycle,
+    TVLifecycleActions.searchTVByLifecycleLanding,
     (state) => {
       return {
         ...state,
@@ -26,6 +27,15 @@ export const tvLifecycleReducer = createReducer(
       };
     }
   ),
+  on(TVLifecycleActions.searchTVByLifecycleSubmit, (state, { payload }) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: true,
+      updateSearch: false,
+      payload,
+    };
+  }),
   on(TVLifecycleActions.updateSearchTVByLifecycle, (state) => {
     return {
       ...state,
@@ -70,6 +80,7 @@ export const tvLifecycleReducer = createReducer(
 
 export const getTVLifecycleState = (state: TVLifecycleState) => state;
 export const getIsLoading = (state: TVLifecycleState) => state.isLoading;
+export const getPayload = (state: TVLifecycleState) => state.payload;
 export const getTVLifecycleMap = (state: TVLifecycleState) =>
   state.tvLifecycleMap;
 export const getSearchTVLifecycleError = (state: TVLifecycleState) =>

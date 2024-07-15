@@ -6,6 +6,7 @@ import {
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
+import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 
 export const initTVLifecycleSuccess = createAction(
   '[TV-Lifecycle-C/API] Init TV Lifecycle Success',
@@ -27,10 +28,15 @@ export const deleteTVLifecycleSuccess = createAction(
   '[TV-Lifecycle-C/API] Delete TV Lifecycle Success'
 );
 
-export const searchTVByLifecycle = createAction(
-  '[TV-Lifecycle/API] Search TV By Lifecycle ',
-  props<{ lifecycleId: lifeCycleId }>()
+export const searchTVByLifecycleLanding = createAction(
+  '[TV-Lifecycle/API] Search TV By Lifecycle Landing',
+  props<{ payload: null; lifecycleId: lifeCycleId }>()
 );
+export const searchTVByLifecycleSubmit = createAction(
+  '[TV-Lifecycle/API] Search TV By Lifecycle Submit',
+  props<{ lifecycleId: lifeCycleId; payload: PayloadMediaLifecycle }>()
+);
+
 export const searchTVByLifecycleSuccess = createAction(
   '[TV-Lifecycle/API] Search TV By Lifecycle Success',
   props<{ tvList: TV_Life_Cycle[] & TV_Data[] }>()

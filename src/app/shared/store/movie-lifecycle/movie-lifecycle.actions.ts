@@ -9,6 +9,7 @@ import {
   Movie_Data,
   Movie_Life_Cycle,
 } from '../../interfaces/supabase/entities';
+import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 
 export const initMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Init Movie Lifecycle Map Success',
@@ -30,18 +31,21 @@ export const deleteMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Delete Movie Lifecycle Success'
 );
 
-export const searchMovieByLifecycle = createAction(
-  '[Movie-Lifecycle/API] Search Movie By Lifecycle ',
-  props<{ lifecycleId: lifeCycleId }>()
+export const searchMovieByLifecycleLanding = createAction(
+  '[Movie-Lifecycle/API] Search Movie By Lifecycle Landing',
+  props<{ payload: null; lifecycleId: lifeCycleId }>()
+);
+export const searchMovieByLifecycleSubmit = createAction(
+  '[Movie-Lifecycle/API] Search Movie By Lifecycle Submit',
+  props<{ lifecycleId: lifeCycleId; payload: PayloadMediaLifecycle }>()
+);
+export const updateSearchMovieByLifecycle = createAction(
+  '[Movie-Lifecycle/API] Update Search Movie By Lifecycle '
 );
 export const searchMovieByLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Search Movie By Lifecycle Success',
   props<{ movieList: Movie_Life_Cycle[] & Movie_Data[] }>()
 );
-export const updateSearchMovieByLifecycle = createAction(
-  '[Movie-Lifecycle/API] Update Search Movie By Lifecycle '
-);
-
 //error
 export const lifecycleFailure = createAction(
   '[Movie-Lifecycle/API] Movie Lifecycle Failure',

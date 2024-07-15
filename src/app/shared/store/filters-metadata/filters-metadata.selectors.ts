@@ -15,17 +15,25 @@ export const selectGenreListMovie = createSelector(
   FiltersMetadataFeatureSelector,
   FiltersMetadataReducer.getGenreListMovie
 );
-export const selectSortByMovie = createSelector(
+export const selectSortByDiscoveryMovie = createSelector(
   FiltersMetadataFeatureSelector,
-  FiltersMetadataReducer.getSortyByMovie
+  FiltersMetadataReducer.getSortyByDiscoveryMovie
+);
+export const selectSortByLifecycleMovie = createSelector(
+  FiltersMetadataFeatureSelector,
+  FiltersMetadataReducer.getSortyByLifecycleMovie
 );
 export const selectGenreListTV = createSelector(
   FiltersMetadataFeatureSelector,
   FiltersMetadataReducer.getGenreListTV
 );
-export const selectSortByTV = createSelector(
+export const selectSortByDiscoveryTV = createSelector(
   FiltersMetadataFeatureSelector,
-  FiltersMetadataReducer.getSortyByTV
+  FiltersMetadataReducer.getSortyByDiscoveryTV
+);
+export const selectSortByLifecycleTV = createSelector(
+  FiltersMetadataFeatureSelector,
+  FiltersMetadataReducer.getSortyByLifecycleTV
 );
 export const selectLanguageListMedia = createSelector(
   FiltersMetadataFeatureSelector,

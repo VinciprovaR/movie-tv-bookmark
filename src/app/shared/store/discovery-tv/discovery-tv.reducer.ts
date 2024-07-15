@@ -39,18 +39,14 @@ export const discoveryTVReducer = createReducer(
       };
     }
   ),
-  on(
-    DiscoveryTVActions.discoveryTV,
-
-    (state, { payload }): DiscoveryTVState => {
-      return {
-        ...state,
-        payload,
-        error: null,
-        isLoading: true,
-      };
-    }
-  ),
+  on(DiscoveryTVActions.discoveryTV, (state, { payload }): DiscoveryTVState => {
+    return {
+      ...state,
+      payload,
+      error: null,
+      isLoading: true,
+    };
+  }),
   on(
     DiscoveryTVActions.discoveryTVSuccess,
     (state, { tvResult }): DiscoveryTVState => {
@@ -80,17 +76,13 @@ export const discoveryTVReducer = createReducer(
       };
     }
   ),
-  on(
-    DiscoveryTVActions.noAdditionalTV,
-
-    (state): DiscoveryTVState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-      };
-    }
-  ),
+  on(DiscoveryTVActions.noAdditionalTV, (state): DiscoveryTVState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+    };
+  }),
   on(DiscoveryTVActions.discoveryTVDetail, (state): DiscoveryTVState => {
     return {
       ...state,

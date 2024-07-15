@@ -24,11 +24,10 @@ import {
   Genre,
   OptionFilter,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
-import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
-import { SORT_BY_SELECT_MOVIE } from '../../../providers';
-import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 import { GenreFilterComponent } from '../genre-filter/genre-filter.component';
 import { SelectFilterComponent } from '../select-filter/select-filter.component';
+import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
+import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 
 @Component({
   selector: 'app-media-lifecycle-filters',
@@ -42,7 +41,7 @@ import { SelectFilterComponent } from '../select-filter/select-filter.component'
   templateUrl: './media-lifecycle-filters.component.html',
   styleUrl: './media-lifecycle-filters.component.css',
 })
-export class MovieDiscoveryFiltersComponent implements OnInit {
+export class MediaLifecycleFiltersComponent implements OnInit {
   readonly fb = inject(FormBuilder);
 
   destroyed$ = new Subject();
@@ -50,16 +49,15 @@ export class MovieDiscoveryFiltersComponent implements OnInit {
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
-  languageList!: Language[];
-  @Input({ required: true })
-  combinedDiscoveryFilters$!: Observable<[any, Genre[]]>;
+  combinedLifecycleFilters$!: Observable<[PayloadMediaLifecycle, Genre[]]>;
 
   @Output()
-  payloadEmitterOnSubmit: EventEmitter<any> = new EventEmitter<any>();
+  payloadEmitterOnSubmit = new EventEmitter<PayloadMediaLifecycle>();
 
   filterForm!: FormGroup<LifecycleMediaFilterForm>;
 
-  sortBySelect: OptionFilter[] = inject(SORT_BY_SELECT_MOVIE);
+  @Input({ required: true })
+  sortBySelect!: OptionFilter[];
 
   constructor() {
     inject(DestroyRef).onDestroy(() => {
@@ -69,7 +67,7 @@ export class MovieDiscoveryFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.combinedDiscoveryFilters$
+    this.combinedLifecycleFilters$
       .pipe(
         takeUntil(this.destroyed$),
         filter((formData) => formData[1].length > 0)
@@ -78,13 +76,6 @@ export class MovieDiscoveryFiltersComponent implements OnInit {
         const [filterSelected, genreList] = formData;
         this.buildForm(filterSelected, genreList);
       });
-  }
-
-  buildForm(filterSelected: PayloadDiscoveryMovie, genreList: Genre[]): void {
-    this.filterForm = this.fb.group<LifecycleMediaFilterForm>({
-      genres: this.initGenreGroup(filterSelected.genreIdList, genreList),
-      sortBy: this.initSortByControl(filterSelected.sortBy),
-    });
   }
 
   initGenreGroup(
@@ -107,16 +98,24 @@ export class MovieDiscoveryFiltersComponent implements OnInit {
       ...genreGroup,
     });
   }
+
   initSortByControl(sortBySelected: string): FormControl<string> {
     return this.fb.control<string>(sortBySelected, {
       nonNullable: true,
     });
   }
 
+  buildForm(filterSelected: PayloadMediaLifecycle, genreList: Genre[]): void {
+    this.filterForm = this.fb.group<LifecycleMediaFilterForm>({
+      genres: this.initGenreGroup(filterSelected.genreIdList, genreList),
+      sortBy: this.initSortByControl(filterSelected.sortBy),
+    });
+  }
+
   onSubmit(): void {
     // console.log(this.filterForm.value);
     if (this.filterForm.valid) {
-      let payload: PayloadDiscoveryMovie = this.buildPayload();
+      let payload: PayloadMediaLifecycle = this.buildPayload();
       this.payloadEmitterOnSubmit.emit(payload);
     }
   }
@@ -127,22 +126,8 @@ export class MovieDiscoveryFiltersComponent implements OnInit {
         this.filterForm.controls.genres
       ),
       sortBy: this.buildSortByPayload(this.filterForm.controls.sortBy),
-      releaseDate: this.buildDateRangePayload(
-        this.filterForm.controls.releaseDate
-      ),
-      includeMediaWithLifecycle: this.buildIncludeLifecyclePayload(
-        this.filterForm.controls.includeLifecycle
-      ),
-      certification: this.buildCertificationPayload(
-        this.filterForm.controls.certifications
-      ),
-      language: this.buildLanguagePayload(this.filterForm.controls.languages),
-      voteAverage: this.buildVoteAveragePayload(
-        this.filterForm.controls.voteAverage
-      ),
     };
   }
-
   buildGenresSelectedListPayload(genresGroup: FormGroup<GenreGroup>): number[] {
     let genresSelectedId: number[] = [];
     Object.entries(genresGroup.value).forEach((entries) => {

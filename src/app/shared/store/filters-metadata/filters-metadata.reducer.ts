@@ -10,7 +10,7 @@ export const initialState: FiltersMetadataState = {
   movie: {
     certificationList: [],
     genreList: [],
-    sortBy: [
+    sortByDiscovery: [
       { value: 'popularity.desc', label: 'Popularity Descending' },
       { value: 'popularity.asc', label: 'Popularity Ascending' },
       { value: 'vote_average.desc', label: 'Rating Descending' },
@@ -23,14 +23,29 @@ export const initialState: FiltersMetadataState = {
       { value: 'title.asc', label: 'Title (A-Z)' },
       { value: 'title.desc', label: 'Title (Z-A)' },
     ],
+    sortByLifecycle: [
+      {
+        value: 'primary_release_date.desc',
+        label: 'Release Date Descending',
+      },
+      { value: 'primary_release_date.asc', label: 'Release Date Ascending' },
+      { value: 'title.asc', label: 'Title (A-Z)' },
+      { value: 'title.desc', label: 'Title (Z-A)' },
+    ],
   },
   tv: {
     genreList: [],
-    sortBy: [
+    sortByDiscovery: [
       { value: 'popularity.desc', label: 'Popularity Descending' },
       { value: 'popularity.asc', label: 'Popularity Ascending' },
       { value: 'vote_average.desc', label: 'Rating Descending' },
       { value: 'vote_average.asc', label: 'Rating Ascending' },
+      { value: 'first_air_date.desc', label: 'First Air Date Descending' },
+      { value: 'first_air_date.asc', label: 'First Air Date Ascending' },
+      { value: 'name.asc', label: 'Name (A-Z)' },
+      { value: 'name.desc', label: 'Name (Z-A)' },
+    ],
+    sortByLifecycle: [
       { value: 'first_air_date.desc', label: 'First Air Date Descending' },
       { value: 'first_air_date.asc', label: 'First Air Date Ascending' },
       { value: 'name.asc', label: 'Name (A-Z)' },
@@ -123,9 +138,14 @@ export const getLanguageListMedia = (state: FiltersMetadataState) =>
   state.media.languageList;
 export const getCertificationListMovie = (state: FiltersMetadataState) =>
   state.movie.certificationList;
-export const getSortyByMovie = (state: FiltersMetadataState) =>
-  state.movie.sortBy;
-export const getSortyByTV = (state: FiltersMetadataState) => state.tv.sortBy;
+export const getSortyByDiscoveryMovie = (state: FiltersMetadataState) =>
+  state.movie.sortByDiscovery;
+export const getSortyByLifecycleMovie = (state: FiltersMetadataState) =>
+  state.movie.sortByLifecycle;
+export const getSortyByDiscoveryTV = (state: FiltersMetadataState) =>
+  state.tv.sortByDiscovery;
+export const getSortyByLifecycleTV = (state: FiltersMetadataState) =>
+  state.tv.sortByLifecycle;
 export const getIsLoading = (state: FiltersMetadataState) => state.isLoading;
 export const getFiltersMetadataError = (state: FiltersMetadataState) =>
   state.error;

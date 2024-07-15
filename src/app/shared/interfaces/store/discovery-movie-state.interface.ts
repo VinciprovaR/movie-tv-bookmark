@@ -1,12 +1,6 @@
 import { MovieResult, MovieDetail } from '../TMDB/tmdb-media.interface';
-import { Certification, Genre, Language } from '../TMDB/tmdb-filters.interface';
-import { DateRange } from './discovery-state.interface';
+import { DateRange, VoteAverage } from './discovery-state.interface';
 import { StateMediaBookmark } from './state-media-bookmark.interface';
-
-export interface VoteAverage {
-  voteAverageMin: number;
-  voteAverageMax: number;
-}
 
 export interface PayloadDiscoveryMovie {
   genreIdList: number[];

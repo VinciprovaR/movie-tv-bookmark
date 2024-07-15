@@ -14,6 +14,7 @@ import {
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { SupabaseMovieDataDAO } from './supabase-movie-data.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
+import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -73,9 +74,13 @@ export class SupabaseMovieLifecycleService {
   }
 
   findMovieByLifecycleId(
-    lifecycleId: lifeCycleId
+    lifecycleId: lifeCycleId,
+    payload: PayloadMediaLifecycle
   ): Observable<Movie_Life_Cycle[] & Movie_Data[]> {
-    return this.supabaseMovieLifecycleDAO.findMovieByLifecycleId(lifecycleId);
+    return this.supabaseMovieLifecycleDAO.findMovieByLifecycleId(
+      lifecycleId,
+      payload
+    );
   }
 
   createOrUpdateOrDeleteMovieLifecycle(

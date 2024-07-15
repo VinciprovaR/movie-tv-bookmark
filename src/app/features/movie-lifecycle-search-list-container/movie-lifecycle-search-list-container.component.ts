@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { filter, Observable, Subject, takeUntil } from 'rxjs';
+import { combineLatest, filter, Observable, Subject, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { CommonModule } from '@angular/common';
 import {
@@ -17,11 +17,22 @@ import { Store } from '@ngrx/store';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { LifecycleEnum } from '../../shared/enums/lifecycle.enum';
 import { Movie_Data } from '../../shared/interfaces/supabase/entities';
+import { MediaLifecycleFiltersComponent } from '../../shared/components/media-lifecycle-filters/media-lifecycle-filters.component';
+import {
+  Genre,
+  OptionFilter,
+} from '../../shared/interfaces/TMDB/tmdb-filters.interface';
+import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
+import { PayloadMediaLifecycle } from '../../shared/interfaces/store/media-lifecycle-state.interface';
 
 @Component({
   selector: 'app-movie-lifecycle-search-list-container',
   standalone: true,
-  imports: [MediaListContainerComponent, CommonModule],
+  imports: [
+    MediaListContainerComponent,
+    CommonModule,
+    MediaLifecycleFiltersComponent,
+  ],
 
   templateUrl: './movie-lifecycle-search-list-container.component.html',
   styleUrl: './movie-lifecycle-search-list-container.component.css',
@@ -42,6 +53,11 @@ export class MovieLifecycleListsContainerComponent implements OnInit {
   selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
   selectMovieList$!: Observable<Movie_Data[]>;
 
+  selectSortBy$!: Observable<OptionFilter[]>;
+  selectCombinedLifecycleFilters$!: Observable<
+    [PayloadMediaLifecycle, Genre[]]
+  >;
+
   constructor() {
     this.destroyRef$.onDestroy(() => {
       this.destroyed$.next(true);
@@ -61,6 +77,15 @@ export class MovieLifecycleListsContainerComponent implements OnInit {
   }
 
   initSelectors() {
+    this.selectSortBy$ = this.store.select(
+      FiltersMetadataSelectors.selectSortByLifecycleMovie
+    );
+
+    this.selectCombinedLifecycleFilters$ = combineLatest([
+      this.store.select(MovieLifecycleSelectors.selectPayload),
+      this.store.select(FiltersMetadataSelectors.selectGenreListMovie),
+    ]);
+
     this.selectMovieList$ = this.store.select(
       MovieLifecycleSelectors.selectMovieList
     );
@@ -76,7 +101,7 @@ export class MovieLifecycleListsContainerComponent implements OnInit {
         filter((isUpdateSearch) => isUpdateSearch)
       )
       .subscribe(() => {
-        this.searchMovieByLifecycle();
+        this.searchMovieByLifecycleLanding();
       });
   }
 
@@ -108,14 +133,25 @@ export class MovieLifecycleListsContainerComponent implements OnInit {
 
   searchMovie(lifecycleType: string) {
     this.lifecycleType = lifecycleType;
-    this.searchMovieByLifecycle();
+    this.searchMovieByLifecycleLanding();
   }
 
-  searchMovieByLifecycle() {
+  searchMovieByLifecycleLanding() {
     let lifecycleId = LifecycleEnum[this.lifecycleType];
     this.store.dispatch(
-      MovieLifecycleActions.searchMovieByLifecycle({
+      MovieLifecycleActions.searchMovieByLifecycleLanding({
+        payload: null,
         lifecycleId,
+      })
+    );
+  }
+
+  searchMovieByLifecycleSubmit(payload: PayloadMediaLifecycle) {
+    let lifecycleId = LifecycleEnum[this.lifecycleType];
+    this.store.dispatch(
+      MovieLifecycleActions.searchMovieByLifecycleSubmit({
+        lifecycleId,
+        payload,
       })
     );
   }

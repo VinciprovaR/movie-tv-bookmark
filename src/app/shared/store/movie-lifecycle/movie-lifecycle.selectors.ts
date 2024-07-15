@@ -18,6 +18,11 @@ export const selectIsLoading = createSelector(
   MovieLifecycleReducer.getIsLoading
 );
 
+export const selectPayload = createSelector(
+  MovieLifecycleFeatureSelector,
+  MovieLifecycleReducer.getPayload
+);
+
 export const selectMovieLifecycleMap = createSelector(
   MovieLifecycleFeatureSelector,
   MovieLifecycleReducer.getMovieLifecycleMap

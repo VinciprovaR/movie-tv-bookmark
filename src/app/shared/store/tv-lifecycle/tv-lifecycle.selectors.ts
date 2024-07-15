@@ -16,6 +16,11 @@ export const selectIsLoading = createSelector(
   TVLifecycleReducer.getIsLoading
 );
 
+export const selectPayload = createSelector(
+  TVLifecycleFeatureSelector,
+  TVLifecycleReducer.getPayload
+);
+
 export const selectTVLifecycleMap = createSelector(
   TVLifecycleFeatureSelector,
   TVLifecycleReducer.getTVLifecycleMap

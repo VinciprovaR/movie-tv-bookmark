@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TMDBParamsUtilsAbstractService } from './abstract/tmdb-params-utils.abstract.service';
-import {
-  AirDate,
-  PayloadDiscoveryTV,
-} from '../../interfaces/store/discovery-tv-state.interface';
+import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
+import { DateRange } from '../../interfaces/store/discovery-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +42,7 @@ export class TMDBTVParamsUtilsService extends TMDBParamsUtilsAbstractService {
     return filtersQueryParams;
   }
 
-  private buildAirDateParams(airDate: AirDate, allEpisode: boolean) {
+  private buildAirDateParams(airDate: DateRange, allEpisode: boolean) {
     let releaseDateQueryParams = '';
     let airType = allEpisode ? 'air_date' : 'first_air_date';
     if (airDate.from) {

@@ -10,8 +10,13 @@ export interface FiltersMetadataState extends StateMediaBookmark {
   movie: {
     genreList: Genre[];
     certificationList: Certification[];
-    sortBy: OptionFilter[];
+    sortByDiscovery: OptionFilter[];
+    sortByLifecycle: OptionFilter[];
   };
-  tv: { genreList: Genre[]; sortBy: OptionFilter[] };
+  tv: {
+    genreList: Genre[];
+    sortByDiscovery: OptionFilter[];
+    sortByLifecycle: OptionFilter[];
+  };
   media: { languageList: Language[] };
 }

@@ -87,7 +87,7 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
     );
 
     this.selectSortBy$ = this.store.select(
-      FiltersMetadataSelectors.selectSortByTV
+      FiltersMetadataSelectors.selectSortByDiscoveryTV
     );
   }
 

@@ -95,7 +95,7 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
     );
 
     this.selectSortBy$ = this.store.select(
-      FiltersMetadataSelectors.selectSortByMovie
+      FiltersMetadataSelectors.selectSortByDiscoveryMovie
     );
   }
 

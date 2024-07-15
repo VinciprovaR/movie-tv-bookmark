@@ -43,7 +43,6 @@ export const discoveryMovieReducer = createReducer(
 
   on(
     DiscoveryMovieActions.discoveryMovie,
-
     (state, { payload }): DiscoveryMovieState => {
       return {
         ...state,

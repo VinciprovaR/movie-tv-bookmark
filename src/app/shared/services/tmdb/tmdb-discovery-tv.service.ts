@@ -4,10 +4,7 @@ import { Observable } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TMDBTVParamsUtilsService } from './tmdb-tv-params-utils.service';
 import { TMDBTVService } from './abstract/tmdb-tv.abstract.service';
-import {
-  AirDate,
-  PayloadDiscoveryTV,
-} from '../../interfaces/store/discovery-tv-state.interface';
+import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
 
 @Injectable({
   providedIn: 'root',

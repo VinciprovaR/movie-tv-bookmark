@@ -9,12 +9,27 @@ import { Observable, from, map, tap } from 'rxjs';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { lifeCycleId } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
+import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
+import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseTVLifecycleDAO {
   private readonly TABLE = 'tv_life_cycle';
+
+  readonly orderByConfigSupabase: SortyByConfig = {
+    'first_air_date.desc': {
+      field: 'tv_data(first_air_date)',
+      rule: { ascending: false },
+    },
+    'first_air_date.asc': {
+      field: 'tv_data(first_air_date)',
+      rule: { ascending: true },
+    },
+    'name.desc': { field: 'tv_data(name)', rule: { ascending: false } },
+    'name.asc': { field: 'tv_data(name)', rule: { ascending: true } },
+  };
 
   constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
 
@@ -30,13 +45,21 @@ export class SupabaseTVLifecycleDAO {
   }
 
   findTVByLifecycleId(
-    lifecycleId: lifeCycleId
+    lifecycleId: lifeCycleId,
+    payload: PayloadMediaLifecycle
   ): Observable<TV_Life_Cycle[] & TV_Data[]> {
     return from(
       this.supabase
         .from(this.TABLE)
-        .select('*, ...tv_data(id, poster_path, first_air_date, name)')
+        .select(
+          '*, ...tv_data!inner(id, poster_path, first_air_date, name, genre_ids)'
+        )
+        .contains('tv_data.genre_ids', payload.genreIdList)
         .eq(`lifecycle_id`, lifecycleId)
+        .order(
+          this.orderByConfigSupabase[payload.sortBy].field,
+          this.orderByConfigSupabase[payload.sortBy].rule
+        )
     ).pipe(
       map((result: PostgrestSingleResponse<TV_Life_Cycle[] & TV_Data[]>) => {
         if (result.error) throw new Error(result.error.message);

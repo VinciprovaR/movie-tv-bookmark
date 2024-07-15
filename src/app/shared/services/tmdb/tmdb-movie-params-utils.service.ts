@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  PayloadDiscoveryMovie,
-  VoteAverage,
-} from '../../interfaces/store/discovery-movie-state.interface';
+import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 import { TMDBParamsUtilsAbstractService } from './abstract/tmdb-params-utils.abstract.service';
 import { DateRange } from '../../interfaces/store/discovery-state.interface';
 

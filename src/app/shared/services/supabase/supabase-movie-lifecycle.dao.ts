@@ -11,11 +11,26 @@ import {
   Movie_Data,
   Movie_Life_Cycle,
 } from '../../interfaces/supabase/entities';
+import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseMovieLifecycleDAO {
+  readonly orderByConfigSupabase: SortyByConfig = {
+    'primary_release_date.desc': {
+      field: 'movie_data(release_date)',
+      rule: { ascending: false },
+    },
+    'primary_release_date.asc': {
+      field: 'movie_data(release_date)',
+      rule: { ascending: true },
+    },
+    'title.desc': { field: 'movie_data(title)', rule: { ascending: false } },
+    'title.asc': { field: 'movie_data(title)', rule: { ascending: true } },
+  };
+
   private readonly TABLE = 'movie_life_cycle';
 
   constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
@@ -34,15 +49,21 @@ export class SupabaseMovieLifecycleDAO {
   }
 
   findMovieByLifecycleId(
-    lifecycleId: lifeCycleId
+    lifecycleId: lifeCycleId,
+    payload: PayloadMediaLifecycle
   ): Observable<Movie_Life_Cycle[] & Movie_Data[]> {
     return from(
       this.supabase
         .from(this.TABLE)
         .select(
-          '*, ...movie_data(id, poster_path, release_date, title, genre_ids)'
+          '*, ...movie_data!inner(id, poster_path, release_date, title, genre_ids)'
         )
+        .contains('movie_data.genre_ids', payload.genreIdList)
         .eq(`lifecycle_id`, lifecycleId)
+        .order(
+          this.orderByConfigSupabase[payload.sortBy].field,
+          this.orderByConfigSupabase[payload.sortBy].rule
+        )
     ).pipe(
       map(
         (

@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
 import { ErrorResponse } from '../../interfaces/error.interface';
-import { MovieLifecycleActions } from '.';
+import { MovieLifecycleActions, MovieLifecycleSelectors } from '.';
 
 import { SearchMovieActions } from '../search-movie';
 import { DiscoveryMovieActions } from '../discovery-movie';
@@ -90,11 +90,16 @@ export class MovieLifecycleEffects {
 
   searchMovieByLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(MovieLifecycleActions.searchMovieByLifecycle),
+      ofType(
+        MovieLifecycleActions.searchMovieByLifecycleLanding,
+        MovieLifecycleActions.searchMovieByLifecycleSubmit
+      ),
+      withLatestFrom(this.store.select(MovieLifecycleSelectors.selectPayload)),
       switchMap((action) => {
-        let { lifecycleId } = action;
+        let [{ lifecycleId, payload: payloadSubmit }, payloadState] = action;
+        let payload = payloadSubmit ? payloadSubmit : payloadState;
         return this.supabaseMovieLifecycleService
-          .findMovieByLifecycleId(lifecycleId)
+          .findMovieByLifecycleId(lifecycleId, payload)
           .pipe(
             map((movieList: Movie_Life_Cycle[] & Movie_Data[]) => {
               return MovieLifecycleActions.searchMovieByLifecycleSuccess({

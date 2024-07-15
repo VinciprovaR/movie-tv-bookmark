@@ -94,11 +94,16 @@ export class TVLifecycleEffects {
 
   searchTVByLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(TVLifecycleActions.searchTVByLifecycle),
+      ofType(
+        TVLifecycleActions.searchTVByLifecycleLanding,
+        TVLifecycleActions.searchTVByLifecycleSubmit
+      ),
+      withLatestFrom(this.store.select(TVLifecycleSelectors.selectPayload)),
       switchMap((action) => {
-        let { lifecycleId } = action;
+        let [{ lifecycleId, payload: payloadSubmit }, payloadState] = action;
+        let payload = payloadSubmit ? payloadSubmit : payloadState;
         return this.supabaseTVLifecycleService
-          .findTVByLifecycleId(lifecycleId)
+          .findTVByLifecycleId(lifecycleId, payload)
           .pipe(
             map((tvList: TV_Life_Cycle[] & TV_Data[]) => {
               return TVLifecycleActions.searchTVByLifecycleSuccess({

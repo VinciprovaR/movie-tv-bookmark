@@ -12,22 +12,33 @@ export const initialState: MovieLifecycleState = {
   updateSearch: false,
   payload: {
     genreIdList: [],
-    sortBy: 'popularity.desc',
+    sortBy: 'primary_release_date.desc',
   },
-  genreList: [],
 };
 
 export const movieLifecycleReducer = createReducer(
   initialState,
   on(
     MovieLifecycleActions.createUpdateDeleteMovieLifecycle,
-    MovieLifecycleActions.searchMovieByLifecycle,
+    MovieLifecycleActions.searchMovieByLifecycleLanding,
     (state) => {
       return {
         ...state,
         error: null,
         isLoading: true,
         updateSearch: false,
+      };
+    }
+  ),
+  on(
+    MovieLifecycleActions.searchMovieByLifecycleSubmit,
+    (state, { payload }) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+        updateSearch: false,
+        payload,
       };
     }
   ),
@@ -78,6 +89,7 @@ export const movieLifecycleReducer = createReducer(
 
 export const getMovieLifecycleState = (state: MovieLifecycleState) => state;
 export const getIsLoading = (state: MovieLifecycleState) => state.isLoading;
+export const getPayload = (state: MovieLifecycleState) => state.payload;
 export const getMovieLifecycleMap = (state: MovieLifecycleState) =>
   state.movieLifecycleMap;
 export const getSearchMovieLifecycleError = (state: MovieLifecycleState) =>

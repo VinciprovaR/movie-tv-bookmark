@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VoteAverage } from '../../../interfaces/store/discovery-movie-state.interface';
+import { VoteAverage } from '../../../interfaces/store/discovery-state.interface';
 
 @Injectable({
   providedIn: 'root',
