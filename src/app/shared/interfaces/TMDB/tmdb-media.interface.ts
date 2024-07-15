@@ -18,11 +18,9 @@ export interface Media {
   overview: string;
   popularity: number;
   poster_path: string;
-  release_date: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
-  index?: number;
 }
 
 export interface MediaDetail {
@@ -64,6 +62,7 @@ export interface MediaDetail {
 
 export interface Movie extends Media {
   title: string;
+  release_date: string;
 }
 
 export interface MovieResult extends MediaResult {

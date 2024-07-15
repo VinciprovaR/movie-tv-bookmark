@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 
 import { Subject, Observable } from 'rxjs';
-import { MediaType } from '../interfaces/media.interface';
+import { MediaType } from '../interfaces/TMDB/tmdb-media.interface';
 import {
   DateRange,
   VoteAverage,
@@ -29,7 +29,7 @@ import {
   VoteAverageGroup,
   SelectTransformConfig,
   OptionFilter,
-} from '../interfaces/tmdb-filters.interface';
+} from '../interfaces/TMDB/tmdb-filters.interface';
 
 @Directive()
 export abstract class DiscoveryFilter<

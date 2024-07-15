@@ -1,9 +1,0 @@
-<p>lifecycle-list-container works!</p>
-{{ lifecycleType }}
-
-<app-media-list-container
-  #mediaListContainer
-  [mediaList]="(mediaListResultByLifecycle$ | async) ?? []"
-  [mediaType]="'movie'"
-></app-media-list-container>
-<!-- [isLoading]="(selectIsLoading$ | async) ?? false" -->

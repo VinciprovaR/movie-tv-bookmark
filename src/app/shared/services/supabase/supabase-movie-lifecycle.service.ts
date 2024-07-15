@@ -1,16 +1,18 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '@supabase/supabase-js';
 import { Observable, map, switchMap, of } from 'rxjs';
-import { Movie, MovieResult } from '../../interfaces/media.interface';
+import { Movie, MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
-import { Movie_Life_Cycle } from '../../interfaces/supabase/entities';
+import {
+  Movie_Data,
+  Movie_Life_Cycle,
+} from '../../interfaces/supabase/entities';
 import { SupabaseMovieLifecycleDAO } from './supabase-movie-lifecycle.dao';
 import {
   lifeCycleId,
   MovieLifecycleMap,
-} from '../../interfaces/lifecycle.interface';
+} from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { SupabaseMovieDataDAO } from './supabase-movie-data.dao';
-import { Movie_Data } from '../../interfaces/supabase/entities/movie_data.entity.interface';
 import { SupabaseUtilsService } from './supabase-utils.service';
 
 @Injectable({
@@ -27,7 +29,7 @@ export class SupabaseMovieLifecycleService {
   constructor() {}
 
   initMovieLifecycleMapFromMovieResult(
-    movieList: Movie[] | Movie_Data[]
+    movieList: Movie_Data[]
   ): Observable<MovieLifecycleMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(movieList);
     return this.supabaseMovieLifecycleDAO
@@ -39,6 +41,18 @@ export class SupabaseMovieLifecycleService {
           );
         })
       );
+  }
+
+  initMovieLifecycleMapFromMovieResultSupabase(
+    movieLifecycleEntityList:
+      | Movie_Life_Cycle[]
+      | (Movie_Life_Cycle[] & Movie_Data[])
+  ): Observable<MovieLifecycleMap> {
+    return of(
+      this.supabaseUtilsService.movieLifecycleMapFactory(
+        movieLifecycleEntityList
+      )
+    );
   }
 
   removeMovieWithLifecycle(movieResult: MovieResult) {
@@ -58,16 +72,18 @@ export class SupabaseMovieLifecycleService {
       );
   }
 
-  findMovieByLifecycleId(lifecycleId: lifeCycleId): Observable<Movie_Data[]> {
+  findMovieByLifecycleId(
+    lifecycleId: lifeCycleId
+  ): Observable<Movie_Life_Cycle[] & Movie_Data[]> {
     return this.supabaseMovieLifecycleDAO.findMovieByLifecycleId(lifecycleId);
   }
 
   createOrUpdateOrDeleteMovieLifecycle(
-    movieLifecycleDTO: MediaLifecycleDTO,
+    movieLifecycleDTO: MediaLifecycleDTO<Movie>,
     user: User
   ): Observable<MovieLifecycleMap> {
     return this.supabaseMovieLifecycleDAO
-      .findLifecycleListByMovieIds([movieLifecycleDTO.mediaDataDTO.mediaId])
+      .findLifecycleListByMovieIds([movieLifecycleDTO.mediaDataDTO.id])
       .pipe(
         switchMap((movieLifecycleFromDB: Movie_Life_Cycle[]) => {
           switch (
@@ -78,7 +94,7 @@ export class SupabaseMovieLifecycleService {
           ) {
             case 0:
               return this.supabaseMovieDataDAO
-                .findByMovieId(movieLifecycleDTO.mediaDataDTO.mediaId)
+                .findByMovieId(movieLifecycleDTO.mediaDataDTO.id)
                 .pipe(
                   switchMap((movieDataEntityList: Movie_Data[]) => {
                     if (movieDataEntityList.length === 0) {
@@ -88,10 +104,10 @@ export class SupabaseMovieLifecycleService {
                     }
                     return of(movieDataEntityList);
                   }),
-                  switchMap((movieDataEntityList: Movie_Data[]) => {
+                  switchMap(() => {
                     return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
                       movieLifecycleDTO.lifecycleId,
-                      movieLifecycleDTO.mediaDataDTO.mediaId,
+                      movieLifecycleDTO.mediaDataDTO.id,
                       user
                     );
                   })
@@ -99,18 +115,18 @@ export class SupabaseMovieLifecycleService {
 
             case 1:
               return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
-                movieLifecycleDTO.mediaDataDTO.mediaId,
+                movieLifecycleDTO.mediaDataDTO.id,
                 movieLifecycleDTO.lifecycleId
               );
             case 2:
               return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
                 movieLifecycleDTO.lifecycleId,
-                movieLifecycleDTO.mediaDataDTO.mediaId
+                movieLifecycleDTO.mediaDataDTO.id
               );
             case 3:
               let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
                 lifecycle_id: 0,
-                movie_id: movieLifecycleDTO.mediaDataDTO.mediaId,
+                movie_id: movieLifecycleDTO.mediaDataDTO.id,
                 user_id: user.id,
               };
               return of([movieLifecycleFromDBCustom]);

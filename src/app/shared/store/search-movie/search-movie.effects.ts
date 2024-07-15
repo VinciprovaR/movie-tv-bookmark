@@ -3,7 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchMovieActions, SearchMovieSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchMovieService } from '../../services/tmdb';
-import { MovieDetail, MovieResult } from '../../interfaces/media.interface';
+import {
+  MovieDetail,
+  MovieResult,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { ErrorResponse } from '../../interfaces/error.interface';
 
@@ -12,8 +15,8 @@ export class SearchMovieEffects {
   searchMovie$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SearchMovieActions.searchMovie),
-      switchMap((actionParams) => {
-        let { query } = actionParams;
+      switchMap((action) => {
+        let { query } = action;
         return this.TMDBSearchMovieService.movieSearchInit(query).pipe(
           map((movieResult: MovieResult) => {
             return SearchMovieActions.searchMovieSuccess({
@@ -39,8 +42,8 @@ export class SearchMovieEffects {
         this.store.select(SearchMovieSelectors.selectMovieTotalPages),
         this.store.select(SearchMovieSelectors.selectQuery)
       ),
-      switchMap((actionParams) => {
-        let [action, currPage, totalPages, query] = actionParams;
+      switchMap((action) => {
+        let [type, currPage, totalPages, query] = action;
         if (currPage < totalPages) {
           return this.TMDBSearchMovieService.additionalMovieSearch(
             currPage,
@@ -70,8 +73,8 @@ export class SearchMovieEffects {
   searchMovieDetail$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SearchMovieActions.searchMovieDetail),
-      switchMap((actionParams) => {
-        let { movieId } = actionParams;
+      switchMap((action) => {
+        let { movieId } = action;
         return this.TMDBSearchMovieService.movieDetail(movieId).pipe(
           map((movieDetail: MovieDetail) => {
             return SearchMovieActions.searchMovieDetailSuccess({

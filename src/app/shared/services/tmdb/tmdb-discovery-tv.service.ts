@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { I18E } from '../../../providers';
 import { Observable } from 'rxjs';
-import { TVResult } from '../../interfaces/media.interface';
+import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TMDBTVParamsUtilsService } from './tmdb-tv-params-utils.service';
 import { TMDBTVService } from './abstract/tmdb-tv.abstract.service';
 import {

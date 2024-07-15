@@ -3,9 +3,9 @@ import {
   TVDetail,
   TVResult,
   PeopleResult,
-} from '../../interfaces/media.interface';
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
-import { Genre, Language } from '../../interfaces/tmdb-filters.interface';
+import { Genre, Language } from '../../interfaces/TMDB/tmdb-filters.interface';
 
 //search
 export const discoveryTV = createAction(

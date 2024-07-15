@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import {
   LoginForm,
   LoginPayload,
-} from '../../shared/interfaces/auth.interface';
+} from '../../shared/interfaces/supabase/supabase-auth.interface';
 import {
   FormControl,
   FormGroup,

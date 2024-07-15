@@ -6,7 +6,7 @@ import {
   Genre,
   GenreControl,
   GenreGroup,
-} from '../../interfaces/tmdb-filters.interface';
+} from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-genre-filter',

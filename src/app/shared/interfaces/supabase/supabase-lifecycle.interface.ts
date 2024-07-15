@@ -1,5 +1,3 @@
-import { MediaType } from './media.interface';
-
 export type noLifecycle = 0;
 export type watchListLifecycle = 1;
 export type watchedLifecycle = 2;

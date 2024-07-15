@@ -1,37 +1,13 @@
+@if(linkPathList){
 <nav>
   <div class="container my-3">
-    @if(isUserAuthenticated$ | async ){
     <ul class="flex">
-      <li
-        class="flex-1"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a routerLink="/home">Home</a>
-      </li>
+      @for(linkPath of linkPathList; track linkPath.path){
       <li class="flex-1" routerLinkActive="active">
-        <a routerLink="user-profile">User Profile</a>
+        <a [routerLink]="linkPath.path">{{ linkPath.label }}</a>
       </li>
-      <li class="flex-1" routerLinkActive="active">
-        <a routerLink="movie">Search Movie</a>
-      </li>
-      <li class="flex-1" routerLinkActive="active">
-        <a routerLink="tv">Search TV show</a>
-      </li>
-      <li class="flex-1" routerLinkActive="active">
-        <a routerLink="discovery-movie">Discovery Movie</a>
-      </li>
-      <li class="flex-1" routerLinkActive="active">
-        <a routerLink="discovery-tv">Discovery TV</a>
-      </li>
-      <li class="flex-1" routerLinkActive="active">
-        <a routerLink="movie-lifecycle">Movie Lifecycle</a>
-      </li>
-      <li class="flex-1" routerLinkActive="active">
-        <button (click)="logout()">Log out</button>
-      </li>
+      }
     </ul>
-
-    }
   </div>
 </nav>
+}

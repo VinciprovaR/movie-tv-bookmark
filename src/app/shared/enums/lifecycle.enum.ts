@@ -5,7 +5,7 @@ import {
   stillWatchingLifecycle,
   watchedLifecycle,
   watchListLifecycle,
-} from '../interfaces/lifecycle.interface';
+} from '../interfaces/supabase/supabase-lifecycle.interface';
 
 const NO_LIFECYCLE: noLifecycle = 0;
 const WATCHLIST_LIFECYCLE: watchListLifecycle = 1;

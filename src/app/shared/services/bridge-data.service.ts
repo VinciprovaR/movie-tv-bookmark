@@ -4,10 +4,9 @@ import { MediaLifecycleDTO } from '../interfaces/supabase/DTO';
 import {
   MovieLifecycleMap,
   TVLifecycleMap,
-} from '../interfaces/lifecycle.interface';
-import { Movie_Life_Cycle } from '../interfaces/supabase/entities/movie_life_cycle.entity.interface';
-import { Movie_Data } from '../interfaces/supabase/entities/movie_data.entity.interface';
-import { TV_Data } from '../interfaces/supabase/entities/tv_data.entity.interface';
+} from '../interfaces/supabase/supabase-lifecycle.interface';
+import { MediaType, Movie, TV } from '../interfaces/TMDB/tmdb-media.interface';
+import { Movie_Data, TV_Data } from '../interfaces/supabase/entities';
 
 //to-do refractor with signals?
 @Injectable()
@@ -20,41 +19,46 @@ export class BridgeDataService {
     MovieLifecycleMap | TVLifecycleMap
   > = this.mediaLifecycleMap$.asObservable();
 
-  //inputLifecycleOptions
-  private readonly inputLifecycleOptions$ = new Subject<MediaLifecycleDTO>();
-  readonly inputLifecycleOptionsObs$: Observable<MediaLifecycleDTO> =
-    this.inputLifecycleOptions$.asObservable();
-
-  //lifecycleTypeSearch
-  private readonly lifecycleTypeSearch$ = new Subject<string>();
-  readonly lifecycleTypeSearchObs$: Observable<string> =
-    this.lifecycleTypeSearch$.asObservable();
-
-  //mediaListResultByLifecycle
-  private readonly mediaListResultByLifecycle$ = new Subject<
-    Movie_Data[] | TV_Data[]
+  //inputLifecycleOptions TV
+  private readonly tvInputLifecycleOptions$ = new Subject<
+    MediaLifecycleDTO<TV>
   >();
-  readonly mediaListResultByLifecycleObs$: Observable<
-    Movie_Data[] | TV_Data[]
-  > = this.mediaListResultByLifecycle$.asObservable();
+  readonly tvInputLifecycleOptionsObs$: Observable<MediaLifecycleDTO<TV>> =
+    this.tvInputLifecycleOptions$.asObservable();
+
+  //inputLifecycleOptions Movie
+  private readonly movieInputLifecycleOptions$ = new Subject<
+    MediaLifecycleDTO<Movie>
+  >();
+  readonly movieInputLifecycleOptionsObs$: Observable<
+    MediaLifecycleDTO<Movie>
+  > = this.movieInputLifecycleOptions$.asObservable();
 
   constructor() {}
-
-  pushInputLifecycleOptions(mediaLifecycleDTO: MediaLifecycleDTO) {
-    this.inputLifecycleOptions$.next(mediaLifecycleDTO);
-  }
 
   pushMediaLifecycleMap(mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) {
     this.mediaLifecycleMap$.next(mediaLifecycleMap);
   }
 
-  pushLifecycleTypeSearch(lifecycleType: string) {
-    this.lifecycleTypeSearch$.next(lifecycleType);
+  pushInputLifecycleOptions(
+    mediaType: MediaType,
+    mediaLifecycleDTO: MediaLifecycleDTO<TV | Movie | Movie_Data | TV_Data>
+  ) {
+    if (mediaType === 'movie') {
+      let mediaLifecycleDTOMovie =
+        mediaLifecycleDTO as MediaLifecycleDTO<Movie>;
+      this.pushMovieInputLifecycleOptions(mediaLifecycleDTOMovie);
+    } else if (mediaType === 'tv') {
+      let mediaLifecycleDTOTV = mediaLifecycleDTO as MediaLifecycleDTO<TV>;
+      this.pushTVInputLifecycleOptions(mediaLifecycleDTOTV);
+    }
   }
 
-  pushMediaListResultByLifecycle(
-    mediaListResultByLifecycle: Movie_Data[] | TV_Data[]
-  ) {
-    this.mediaListResultByLifecycle$.next(mediaListResultByLifecycle);
+  pushTVInputLifecycleOptions(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {
+    this.tvInputLifecycleOptions$.next(mediaLifecycleDTO);
+  }
+
+  pushMovieInputLifecycleOptions(mediaLifecycleDTO: MediaLifecycleDTO<Movie>) {
+    this.movieInputLifecycleOptions$.next(mediaLifecycleDTO);
   }
 }

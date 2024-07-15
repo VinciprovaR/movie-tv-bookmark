@@ -6,7 +6,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import {
   DiscoveryMovieFilterForm,
   VoteAverageGroup,
-} from '../../interfaces/tmdb-filters.interface';
+} from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-vote-average-filter',

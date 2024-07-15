@@ -1,16 +1,9 @@
-import { lifeCycleId } from '../../lifecycle.interface';
+import { lifeCycleId } from '../supabase-lifecycle.interface';
 
-export interface MediaDataDTO {
-  mediaId: number;
-  poster_path: string;
-  release_date: string;
-  title: string;
-}
-
-export interface MediaLifecycleDTO {
+export interface MediaLifecycleDTO<T> {
   lifecycleId: lifeCycleId;
   index: number;
-  mediaDataDTO: MediaDataDTO;
+  mediaDataDTO: T;
 }
 
 export interface LifecycleOption {

@@ -9,8 +9,11 @@ import {
   SearchMovieSelectors,
 } from '../../shared/store/search-movie';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
-import { MovieResult, Movie } from '../../shared/interfaces/media.interface';
-import { MediaType } from '../../shared/interfaces/media.interface';
+import {
+  MovieResult,
+  Movie,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import {
@@ -66,7 +69,7 @@ export class MovieSearchComponent implements OnInit {
       });
 
     // data from lifecycle-selector
-    this.bridgeDataService.inputLifecycleOptionsObs$
+    this.bridgeDataService.movieInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
         this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
@@ -83,7 +86,9 @@ export class MovieSearchComponent implements OnInit {
     );
   }
 
-  createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
+  createUpdateDeleteMovieLifecycle(
+    mediaLifecycleDTO: MediaLifecycleDTO<Movie>
+  ) {
     this.store.dispatch(
       MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
         mediaLifecycleDTO,

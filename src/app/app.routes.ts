@@ -101,11 +101,11 @@ export const routes: Routes = [
     title: 'Discovery TV',
   },
   {
-    path: 'movie-lifecycle',
+    path: 'movie-lifecycle-search',
     loadComponent: () =>
       import(
-        './features/movie-lifecycle-lists/movie-lifecycle-lists.component'
-      ).then((m) => m.MovieLifecycleListsComponent),
+        './shared/components/media-lifecycle-search/media-lifecycle-search.component'
+      ).then((m) => m.MediaLifecycleSearchComponent),
     canActivate: [authGuard],
     title: 'Movie Lifecycle',
     children: [
@@ -118,10 +118,35 @@ export const routes: Routes = [
         path: ':lifecycleType',
         loadComponent: () =>
           import(
-            './shared/components/media-lifecycle-list-container/media-lifecycle-list-container.component'
-          ).then((m) => m.MediaLifecycleContainerComponent),
+            './features/movie-lifecycle-search-list-container/movie-lifecycle-search-list-container.component'
+          ).then((m) => m.MovieLifecycleListsContainerComponent),
         canActivate: [authGuard],
-        title: 'Lifecycle List', //to-do lifecycle list con variabile
+        title: 'Movie Lifecycle List', //to-do lifecycle list con variabile
+      },
+    ],
+  },
+  {
+    path: 'tv-lifecycle-search',
+    loadComponent: () =>
+      import(
+        './shared/components/media-lifecycle-search/media-lifecycle-search.component'
+      ).then((m) => m.MediaLifecycleSearchComponent),
+    canActivate: [authGuard],
+    title: 'TV Lifecycle',
+    children: [
+      {
+        path: '',
+        redirectTo: 'watchlist',
+        pathMatch: 'full',
+      },
+      {
+        path: ':lifecycleType',
+        loadComponent: () =>
+          import(
+            './features/tv-lifecycle-search-list-container/tv-lifecycle-search-list-container.component'
+          ).then((m) => m.TVLifecycleListsContainerComponent),
+        canActivate: [authGuard],
+        title: 'TV Lifecycle List', //to-do lifecycle list con variabile
       },
     ],
   },

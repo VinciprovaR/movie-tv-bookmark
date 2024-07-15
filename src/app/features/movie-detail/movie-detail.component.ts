@@ -8,7 +8,7 @@ import { Observable, map } from 'rxjs';
 import {
   MediaType,
   MovieDetail,
-} from '../../shared/interfaces/media.interface';
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { CommonModule } from '@angular/common';
 import { TMDB_RESIZED_IMG_URL } from '../../providers';
 

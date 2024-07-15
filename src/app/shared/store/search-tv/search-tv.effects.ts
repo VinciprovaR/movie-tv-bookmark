@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchTVActions, SearchTVSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchTVService } from '../../services/tmdb';
-import { TVDetail, TVResult } from '../../interfaces/media.interface';
+import { TVDetail, TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { ErrorResponse } from '../../interfaces/error.interface';
 
@@ -12,8 +12,8 @@ export class SearchTVEffects {
   searchTV$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SearchTVActions.searchTV),
-      switchMap((actionParams) => {
-        let { query } = actionParams;
+      switchMap((action) => {
+        let { query } = action;
         return this.TMDBSearchTVService.tvSearchInit(query).pipe(
           map((tvResult: TVResult) => {
             return SearchTVActions.searchTVSuccess({
@@ -37,8 +37,8 @@ export class SearchTVEffects {
         this.store.select(SearchTVSelectors.selectTVTotalPages),
         this.store.select(SearchTVSelectors.selectQuery)
       ),
-      switchMap((actionParams) => {
-        let [action, currPage, totalPages, query] = actionParams;
+      switchMap((action) => {
+        let [type, currPage, totalPages, query] = action;
         if (currPage < totalPages) {
           return this.TMDBSearchTVService.additionalTVSearch(
             currPage,
@@ -68,8 +68,8 @@ export class SearchTVEffects {
   searchTVDetail$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SearchTVActions.searchTVDetail),
-      switchMap((actionParams) => {
-        let { tvId } = actionParams;
+      switchMap((action) => {
+        let { tvId } = action;
         return this.TMDBSearchTVService.tvDetail(tvId).pipe(
           map((tvDetail: TVDetail) => {
             return SearchTVActions.searchTVDetailSuccess({

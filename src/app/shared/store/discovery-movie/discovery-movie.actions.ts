@@ -4,7 +4,7 @@ import {
   MovieDetail,
   MovieResult,
   PeopleResult,
-} from '../../interfaces/media.interface';
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO/';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 import {
@@ -13,7 +13,7 @@ import {
   Certifications,
   Genre,
   Language,
-} from '../../interfaces/tmdb-filters.interface';
+} from '../../interfaces/TMDB/tmdb-filters.interface';
 
 //search
 export const discoveryMovie = createAction(

@@ -41,16 +41,6 @@ export const selectTVPage = createSelector(
   DiscoveryTVReducer.getTVResultPage
 );
 
-export const selectGenreList = createSelector(
-  discoveryTVFeatureSelector,
-  DiscoveryTVReducer.getGenreList
-);
-
-export const selectLanguageList = createSelector(
-  discoveryTVFeatureSelector,
-  DiscoveryTVReducer.getLanguageList
-);
-
 export const selectTVTotalPages = createSelector(
   discoveryTVFeatureSelector,
   DiscoveryTVReducer.getTVResultTotalPages

@@ -1,6 +1,6 @@
 import { User } from '@supabase/supabase-js';
-import { StateMovieBookmark } from './state-movie-bookmark.interface';
+import { StateMediaBookmark } from './state-media-bookmark.interface';
 
-export interface AuthState extends StateMovieBookmark {
+export interface AuthState extends StateMediaBookmark {
   user: User | null;
 }

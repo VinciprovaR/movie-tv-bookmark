@@ -3,10 +3,12 @@ import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 import {
   lifeCycleId,
   MovieLifecycleMap,
-} from '../../interfaces/lifecycle.interface';
-import { Movie } from '../../interfaces/media.interface';
-import { Movie_Life_Cycle } from '../../interfaces/supabase/entities';
-import { Movie_Data } from '../../interfaces/supabase/entities/movie_data.entity.interface';
+} from '../../interfaces/supabase/supabase-lifecycle.interface';
+import { Movie } from '../../interfaces/TMDB/tmdb-media.interface';
+import {
+  Movie_Data,
+  Movie_Life_Cycle,
+} from '../../interfaces/supabase/entities';
 
 export const initMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Init Movie Lifecycle Map Success',
@@ -14,7 +16,7 @@ export const initMovieLifecycleSuccess = createAction(
 );
 export const createUpdateDeleteMovieLifecycle = createAction(
   '[Movie-Lifecycle/API] Create or Update or Delete Movie Lifecycle',
-  props<{ mediaLifecycleDTO: MediaLifecycleDTO }>()
+  props<{ mediaLifecycleDTO: MediaLifecycleDTO<Movie> }>()
 );
 export const createUpdateDeleteMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Create or Update or Delete Movie Lifecycle Success',
@@ -32,12 +34,14 @@ export const searchMovieByLifecycle = createAction(
   '[Movie-Lifecycle/API] Search Movie By Lifecycle ',
   props<{ lifecycleId: lifeCycleId }>()
 );
-
 export const searchMovieByLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Search Movie By Lifecycle Success',
-  props<{ movieList: Movie_Data[] }>()
+  props<{ movieList: Movie_Life_Cycle[] & Movie_Data[] }>()
 );
-// Partial<Movie[]>
+export const updateSearchMovieByLifecycle = createAction(
+  '[Movie-Lifecycle/API] Update Search Movie By Lifecycle '
+);
+
 //error
 export const lifecycleFailure = createAction(
   '[Movie-Lifecycle/API] Movie Lifecycle Failure',

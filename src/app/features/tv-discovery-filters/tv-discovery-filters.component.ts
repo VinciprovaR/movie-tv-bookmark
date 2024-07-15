@@ -12,7 +12,7 @@ import {
   DiscoveryTVFilterForm,
   Genre,
   OptionFilter,
-} from '../../shared/interfaces/tmdb-filters.interface';
+} from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PayloadDiscoveryTV } from '../../shared/interfaces/store/discovery-tv-state.interface';
@@ -24,7 +24,6 @@ import { filter, takeUntil } from 'rxjs';
 
 import { DiscoveryFilter } from '../../shared/directives/discovery.filter.directive';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
-import { SORT_BY_SELECT_TV } from '../../providers';
 
 @Component({
   selector: 'app-discovery-tv-filters',
@@ -45,7 +44,8 @@ export class TVDiscoveryFiltersComponent
   extends DiscoveryFilter<PayloadDiscoveryTV, DiscoveryTVFilterForm>
   implements OnInit
 {
-  sortBySelect: OptionFilter[] = inject(SORT_BY_SELECT_TV);
+  @Input({ required: true })
+  sortBySelect!: OptionFilter[];
 
   constructor() {
     super();

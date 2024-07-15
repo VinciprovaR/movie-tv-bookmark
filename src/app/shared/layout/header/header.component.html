@@ -1,1 +1,3 @@
-<app-navigator></app-navigator>
+@if(isUserAuthenticated$ | async ){
+<app-navigator [linkPathList]="LINK_PATH_LIST"></app-navigator>
+}

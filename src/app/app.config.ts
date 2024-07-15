@@ -25,7 +25,6 @@ import {
   provideTMDBBaseUrl,
   provideImgUrl,
   provideI18E,
-  provideSortBySelect,
   provideCurrentUser,
   provideLifecycleSelect,
   provideSelectFilters,
@@ -39,6 +38,7 @@ import { MovieLifecycleEffects } from './shared/store/movie-lifecycle/movie-life
 import { TVLifecycleEffects } from './shared/store/tv-lifecycle/tv-lifecycle.effects';
 import { DiscoveryTVEffects } from './shared/store/discovery-tv/discovery-tv.effects';
 import { LifecycleMetadataEffects } from './shared/store/lifecycle-metadata/lifecycle-metadata.effects';
+import { FiltersMetadataEffects } from './shared/store/filters-metadata/filters-metadata.effects';
 
 registerLocaleData(en);
 
@@ -53,7 +53,6 @@ export const appConfig: ApplicationConfig = {
     provideTMDBBaseUrl(),
     provideImgUrl(),
     provideI18E(),
-    provideSortBySelect(),
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),
@@ -66,6 +65,7 @@ export const appConfig: ApplicationConfig = {
       MovieLifecycleEffects,
       TVLifecycleEffects,
       LifecycleMetadataEffects,
+      FiltersMetadataEffects,
     ]),
     WebStorageService,
     {

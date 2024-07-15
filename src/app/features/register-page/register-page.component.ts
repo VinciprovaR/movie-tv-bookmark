@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import {
   RegisterPayload,
   RegisterForm,
-} from '../../shared/interfaces/auth.interface';
+} from '../../shared/interfaces/supabase/supabase-auth.interface';
 import { Observable } from 'rxjs';
 import { AuthSelectors, AuthActions } from '../../shared/store/auth';
 import { NzFormModule } from 'ng-zorro-antd/form';

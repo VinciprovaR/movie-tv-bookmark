@@ -4,4 +4,5 @@ export interface Movie_Data {
   poster_path: string;
   release_date: string;
   title: string;
+  genre_ids: number[];
 }

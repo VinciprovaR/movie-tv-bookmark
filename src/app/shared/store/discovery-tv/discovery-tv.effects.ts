@@ -7,26 +7,23 @@ import {
   TVDetail,
   TVResult,
   PeopleResult,
-} from '../../interfaces/media.interface';
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseTVLifecycleService } from '../../services/supabase';
-import {
-  TMDBDiscoveryTVService,
-  TMDBFilterTVService,
-} from '../../services/tmdb';
+import { TMDBDiscoveryTVService } from '../../services/tmdb';
 import { ErrorResponse } from '../../interfaces/error.interface';
 import {
   GenresResult,
   Language,
-} from '../../interfaces/tmdb-filters.interface';
+} from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Injectable()
 export class DiscoveryTVEffects {
   discoveryTV$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DiscoveryTVActions.discoveryTV),
-      switchMap((actionParams) => {
-        let { payload } = actionParams;
+      switchMap((action) => {
+        let { payload } = action;
         return this.TMDBDiscoveryTVService.tvDiscoveryInit(payload).pipe(
           switchMap((tvResult: TVResult) => {
             if (!payload.includeMediaWithLifecycle) {
@@ -62,8 +59,8 @@ export class DiscoveryTVEffects {
         this.store.select(DiscoveryTVSelectors.selectTVTotalPages),
         this.store.select(DiscoveryTVSelectors.selectPayload)
       ),
-      switchMap((actionParams) => {
-        let [action, currPage, totalPages, payload] = actionParams;
+      switchMap((action) => {
+        let [type, currPage, totalPages, payload] = action;
         if (currPage < totalPages) {
           return this.TMDBDiscoveryTVService.additionalTVDiscovery(
             currPage,
@@ -101,8 +98,8 @@ export class DiscoveryTVEffects {
   discoveryTVDetail$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DiscoveryTVActions.discoveryTVDetail),
-      switchMap((actionParams) => {
-        let { tvId } = actionParams;
+      switchMap((action) => {
+        let { tvId } = action;
         return this.TMDBDiscoveryTVService.tvDetail(tvId).pipe(
           map((tvDetail: TVDetail) => {
             return DiscoveryTVActions.discoveryTVDetailSuccess({
@@ -120,52 +117,9 @@ export class DiscoveryTVEffects {
     );
   });
 
-  getGenreList$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(DiscoveryTVActions.getGenreList),
-      switchMap(() => {
-        return this.TMDBFilterTVService.retriveGenreTVList().pipe(
-          map((genresResult: GenresResult) => {
-            return DiscoveryTVActions.getGenreListSuccess({
-              genreList: genresResult.genres,
-            });
-          }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
-            return of(
-              DiscoveryTVActions.discoveryTVFailure({ httpErrorResponse })
-            );
-          })
-        );
-      })
-    );
-  });
-
-  getLanguages$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(DiscoveryTVActions.getLanguagesList),
-      switchMap(() => {
-        return this.TMDBFilterTVService.retriveLanguagesList().pipe(
-          map((languageList: Language[]) => {
-            return DiscoveryTVActions.getLanguagesListSuccess({
-              languageList,
-            });
-          }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
-            return of(
-              DiscoveryTVActions.discoveryTVFailure({ httpErrorResponse })
-            );
-          })
-        );
-      })
-    );
-  });
-
   constructor(
     private actions$: Actions,
     private TMDBDiscoveryTVService: TMDBDiscoveryTVService,
-    private TMDBFilterTVService: TMDBFilterTVService,
     private store: Store,
     private supabaseTVLifecycleService: SupabaseTVLifecycleService
   ) {}

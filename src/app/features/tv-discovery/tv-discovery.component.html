@@ -1,6 +1,7 @@
 <app-discovery-tv-filters
   [languageList]="(selectLanguageList$ | async) ?? []"
   [combinedDiscoveryFilters$]="selectCombinedDiscoveryFilters$"
+  [sortBySelect]="(selectSortBy$ | async) ?? []"
   [mediaType]="mediaType"
   (payloadEmitterOnSubmit)="discoveryTV($event)"
 ></app-discovery-tv-filters>

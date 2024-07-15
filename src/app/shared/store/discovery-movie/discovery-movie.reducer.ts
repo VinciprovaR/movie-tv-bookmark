@@ -23,9 +23,6 @@ export const initialState: DiscoveryMovieState = {
     total_results: 0,
   },
   movieDetail: null,
-  genreList: [],
-  certificationList: [],
-  languageList: [],
 };
 
 export const discoveryMovieReducer = createReducer(
@@ -43,39 +40,7 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-  on(
-    DiscoveryMovieActions.getGenreListSuccess,
-    (state, { genreList }): DiscoveryMovieState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        genreList,
-      };
-    }
-  ),
-  on(
-    DiscoveryMovieActions.getCertificationListSuccess,
-    (state, { certificationList }): DiscoveryMovieState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        certificationList,
-      };
-    }
-  ),
-  on(
-    DiscoveryMovieActions.getLanguagesListSuccess,
-    (state, { languageList }): DiscoveryMovieState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        languageList,
-      };
-    }
-  ),
+
   on(
     DiscoveryMovieActions.discoveryMovie,
 
@@ -178,11 +143,6 @@ export const discoveryMovieReducer = createReducer(
 );
 
 export const getDiscoveryMovieState = (state: DiscoveryMovieState) => state;
-export const getGenreList = (state: DiscoveryMovieState) => state.genreList;
-export const getLanguageList = (state: DiscoveryMovieState) =>
-  state.languageList;
-export const getCertificationList = (state: DiscoveryMovieState) =>
-  state.certificationList;
 export const getIsLoading = (state: DiscoveryMovieState) => state.isLoading;
 export const getPayload = (state: DiscoveryMovieState) => state.payload;
 export const getDiscoveryMovieError = (state: DiscoveryMovieState) =>

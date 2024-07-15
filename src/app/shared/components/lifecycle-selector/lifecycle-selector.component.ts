@@ -3,7 +3,7 @@ import {
   lifeCycleId,
   MovieLifecycleMap,
   TVLifecycleMap,
-} from '../../interfaces/lifecycle.interface';
+} from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
@@ -18,11 +18,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BridgeDataService } from '../../services/bridge-data.service';
-import { LifecycleOption, MediaDataDTO } from '../../interfaces/supabase/DTO';
-import { MediaType } from '../../interfaces/media.interface';
+import { LifecycleOption } from '../../interfaces/supabase/DTO';
+import {
+  MediaType,
+  Movie,
+  TV,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { LifecycleEnum } from '../../enums/lifecycle.enum';
 import { Store } from '@ngrx/store';
 import { LifecycleMetadataSelectors } from '../../store/lifecycle-metadata';
+import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -50,7 +55,7 @@ export class LifecycleSelectorComponent implements OnInit {
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
-  mediaData!: MediaDataDTO;
+  mediaData!: Movie | TV | Movie_Data | TV_Data;
 
   lifecycleControl!: FormControl<lifeCycleId>;
 
@@ -80,13 +85,13 @@ export class LifecycleSelectorComponent implements OnInit {
         distinctUntilChanged(),
         filter((mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) => {
           return mediaLifecycleMap &&
-            (mediaLifecycleMap[this.mediaData.mediaId] != null ||
-              mediaLifecycleMap[this.mediaData.mediaId] != undefined)
+            (mediaLifecycleMap[this.mediaData.id] != null ||
+              mediaLifecycleMap[this.mediaData.id] != undefined)
             ? true
             : false;
         }),
         map((mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) => {
-          return mediaLifecycleMap[this.mediaData.mediaId];
+          return mediaLifecycleMap[this.mediaData.id];
         })
       )
       .subscribe((lifecycleId) => {
@@ -108,7 +113,7 @@ export class LifecycleSelectorComponent implements OnInit {
   }
 
   setLifeCycle(lifecycleId: lifeCycleId) {
-    this.bridgeDataService.pushInputLifecycleOptions({
+    this.bridgeDataService.pushInputLifecycleOptions(this.mediaType, {
       mediaDataDTO: this.mediaData,
       lifecycleId: lifecycleId,
       index: this.index,

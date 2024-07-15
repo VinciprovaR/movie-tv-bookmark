@@ -1,0 +1,5 @@
+<app-media-list-container
+  #mediaListContainer
+  [mediaList]="(selectMovieList$ | async) ?? []"
+  [mediaType]="mediaType"
+></app-media-list-container>

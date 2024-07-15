@@ -1,9 +1,17 @@
-import { MovieLifecycleMap } from '../lifecycle.interface';
-import { Movie_Life_Cycle } from '../supabase/entities';
-import { Movie_Data } from '../supabase/entities/movie_data.entity.interface';
-import { StateMovieBookmark } from './state-movie-bookmark.interface';
+import { Movie_Data } from '../supabase/entities';
+import { MovieLifecycleMap } from '../supabase/supabase-lifecycle.interface';
+import { Genre } from '../TMDB/tmdb-filters.interface';
+import { StateMediaBookmark } from './state-media-bookmark.interface';
 
-export interface MovieLifecycleState extends StateMovieBookmark {
+export interface PayloadMovieLifecycle {
+  genreIdList: number[];
+  sortBy: string;
+}
+
+export interface MovieLifecycleState extends StateMediaBookmark {
   movieLifecycleMap: MovieLifecycleMap;
   movieList: Movie_Data[];
+  updateSearch: boolean;
+  payload: PayloadMovieLifecycle;
+  genreList: Genre[];
 }

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { MovieDetail } from '../../../interfaces/media.interface';
+import { MovieDetail } from '../../../interfaces/TMDB/tmdb-media.interface';
 import { TMDBService } from './tmdb.abstract.service';
 
 export abstract class TMDBMovieService extends TMDBService {

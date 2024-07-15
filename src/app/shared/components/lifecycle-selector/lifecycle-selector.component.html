@@ -1,7 +1,4 @@
-<!-- lc-selector-container -->
-
-<!-- <mat-label>Favorite food</mat-label> -->
-<select [formControl]="lifecycleControl" [id]="mediaData.mediaId">
+<select [formControl]="lifecycleControl" [id]="mediaData.id">
   @for (option of lifecycleOptions$|async; track option) {
   <option [value]="option.value">{{ option.label }}</option>
   }

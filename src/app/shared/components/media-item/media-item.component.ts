@@ -1,11 +1,15 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MediaType, Movie, TV } from '../../interfaces/media.interface';
+import {
+  MediaType,
+  Movie,
+  TV,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
 import { TMDB_CARD_1X_IMG_URL, TMDB_CARD_2X_IMG_URL } from '../../../providers';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MediaDataDTO } from '../../interfaces/supabase/DTO';
+import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 
 @Component({
   selector: 'app-media-item',
@@ -13,7 +17,6 @@ import { MediaDataDTO } from '../../interfaces/supabase/DTO';
   imports: [
     RouterModule,
     LifecycleSelectorComponent,
-
     MatCardModule,
     MatButtonModule,
   ],
@@ -22,7 +25,7 @@ import { MediaDataDTO } from '../../interfaces/supabase/DTO';
 })
 export class MediaItemComponent implements OnInit {
   @Input({ required: true })
-  mediaData!: MediaDataDTO;
+  mediaData!: Movie | TV | Movie_Data | TV_Data;
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
@@ -46,7 +49,30 @@ export class MediaItemComponent implements OnInit {
       : `${this.posterNot1xFoundImgUrl} 1x, ${this.posterNot2xFoundImgUrl} 2x`;
 
     this.detailMediaPath = this.detailMediaPath.concat(
-      `/${this.mediaType}-detail/${this.mediaData.mediaId}`
+      `/${this.mediaType}-detail/${this.mediaData.id}`
+    );
+  }
+  //to-do fare pipe
+  retriveMediaTitle() {
+    if (this.isMovieEntity(this.mediaData)) {
+      return this.mediaData.title;
+    } else {
+      return this.mediaData.name;
+    }
+  }
+  //to-do fare pipe
+  retriveMediaRelease() {
+    if (this.isMovieEntity(this.mediaData)) {
+      return this.mediaData.release_date;
+    } else {
+      return this.mediaData.first_air_date;
+    }
+  }
+
+  isMovieEntity(movie: object): movie is Movie | Movie_Data {
+    return (
+      (movie as Movie | Movie_Data).title !== undefined &&
+      (movie as Movie | Movie_Data).release_date !== undefined
     );
   }
 }

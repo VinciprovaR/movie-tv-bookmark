@@ -28,6 +28,11 @@ export const selectMovieList = createSelector(
   MovieLifecycleReducer.getMovieList
 );
 
+export const selectUpdateSearch = createSelector(
+  MovieLifecycleFeatureSelector,
+  MovieLifecycleReducer.getUpdateSearch
+);
+
 export const selectMovieLifecycleError = createSelector(
   MovieLifecycleFeatureSelector,
   MovieLifecycleReducer.getSearchMovieLifecycleError

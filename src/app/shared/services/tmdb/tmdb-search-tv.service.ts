@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TVResult } from '../../interfaces/media.interface';
+import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TMDBTVService } from './abstract/tmdb-tv.abstract.service';
 
 @Injectable({

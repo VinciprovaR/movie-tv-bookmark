@@ -1,6 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable, from, tap } from 'rxjs';
-import { LoginPayload, RegisterPayload } from '../../interfaces/auth.interface';
+import {
+  LoginPayload,
+  RegisterPayload,
+} from '../../interfaces/supabase/supabase-auth.interface';
 import {
   AuthResponse,
   AuthTokenResponsePassword,

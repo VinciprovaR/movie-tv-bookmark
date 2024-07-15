@@ -9,8 +9,8 @@ import {
   DiscoveryMovieSelectors,
 } from '../../shared/store/discovery-movie';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
-import { Movie } from '../../shared/interfaces/media.interface';
-import { MediaType } from '../../shared/interfaces/media.interface';
+import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MovieDiscoveryFiltersComponent } from '../movie-discovery-filters/movie-discovery-filters.component';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
@@ -19,12 +19,14 @@ import {
   Certification,
   Genre,
   Language,
-} from '../../shared/interfaces/tmdb-filters.interface';
+  OptionFilter,
+} from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
 } from '../../shared/store/movie-lifecycle';
-import { MovieLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
+import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 
 @Component({
   selector: 'app-movie-discovery',
@@ -53,6 +55,7 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
   >;
   selectCertificationList$!: Observable<Certification[]>;
   selectLanguageList$!: Observable<Language[]>;
+  selectSortBy$!: Observable<OptionFilter[]>;
 
   constructor(
     private store: Store,
@@ -80,15 +83,19 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
 
     this.selectCombinedDiscoveryFilters$ = combineLatest([
       this.store.select(DiscoveryMovieSelectors.selectPayload),
-      this.store.select(DiscoveryMovieSelectors.selectGenreList),
+      this.store.select(FiltersMetadataSelectors.selectGenreListMovie),
     ]);
 
     this.selectCertificationList$ = this.store.select(
-      DiscoveryMovieSelectors.selectCertificationList
+      FiltersMetadataSelectors.selectCertificationListMovie
     );
 
     this.selectLanguageList$ = this.store.select(
-      DiscoveryMovieSelectors.selectLanguageList
+      FiltersMetadataSelectors.selectLanguageListMedia
+    );
+
+    this.selectSortBy$ = this.store.select(
+      FiltersMetadataSelectors.selectSortByMovie
     );
   }
 
@@ -101,14 +108,16 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
       });
 
     // data from lifecycle-selector
-    this.bridgeDataService.inputLifecycleOptionsObs$
+    this.bridgeDataService.movieInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
         this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
       });
   }
 
-  createUpdateDeleteMovieLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
+  createUpdateDeleteMovieLifecycle(
+    mediaLifecycleDTO: MediaLifecycleDTO<Movie>
+  ) {
     this.store.dispatch(
       MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
         mediaLifecycleDTO,

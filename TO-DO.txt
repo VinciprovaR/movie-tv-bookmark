@@ -4,7 +4,7 @@
 
 
 ################ GENERIC ################
-
+- CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
 - Refractor index models export
 - Clean error sicuro/generalizzato
 - Spinner loading e disattivare roba
@@ -31,6 +31,10 @@
 - Error notification
 - Success notification
 - refractor inject with method (anche i destroy ref)
+- Refractor action, chiavi più comprensibili, ogni action con la feature, quindi per movie-lifecycle esempio, 1 crud per discovery, 1 per search, 1 per lifecycle list
+- generalizzare navigator (usabile per header e sotto route come movie lifecycle)
+- Card e altri componenti con grandezze placeholder mentre aspettano dati async per evitare cambi dimensione
+- Refractor interfaccie, stato confuso, separazione dto entity non ordinato
 
 ################ AUTH ################
 

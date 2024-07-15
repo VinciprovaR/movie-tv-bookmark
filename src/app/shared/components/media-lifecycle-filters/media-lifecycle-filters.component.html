@@ -1,0 +1,18 @@
+@if(filterForm){
+
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="">
+  <app-genre-filter class="mt-16" [filterForm]="filterForm"></app-genre-filter>
+  <div class="mt-16">
+    <app-select-filter
+      [filterForm]="filterForm"
+      [controlName]="'sortBy'"
+      [title]="'Sort Results By'"
+      [selectObject]="sortBySelect"
+    ></app-select-filter>
+  </div>
+
+  <button type="submit" class="mt-5" [disabled]="!filterForm.valid">
+    Submit
+  </button>
+</form>
+}

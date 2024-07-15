@@ -5,7 +5,7 @@ import {
   Genre,
   OptionFilter,
   SelectTransformConfig,
-} from '../../shared/interfaces/tmdb-filters.interface';
+} from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-movie-state.interface';
@@ -13,10 +13,9 @@ import { GenreFilterComponent } from '../../shared/components/genre-filter/genre
 import { RangeDateFilterComponent } from '../../shared/components/range-date-filter/range-date-filter.component';
 import { CheckboxFilterComponent } from '../../shared/components/checkbox-filter/checkbox-filter.component';
 import { VoteAverageFilterComponent } from '../../shared/components/vote-average-filter/vote-average-filter.component';
-import { filter, takeUntil } from 'rxjs';
+import { filter, Observable, takeUntil } from 'rxjs';
 import { DiscoveryFilter } from '../../shared/directives/discovery.filter.directive';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
-import { SORT_BY_SELECT_MOVIE } from '../../providers';
 
 @Component({
   selector: 'app-discovery-movie-filters',
@@ -48,7 +47,8 @@ export class MovieDiscoveryFiltersComponent
     value: '',
   };
 
-  sortBySelect: OptionFilter[] = inject(SORT_BY_SELECT_MOVIE);
+  @Input({ required: true })
+  sortBySelect!: OptionFilter[];
 
   constructor() {
     super();

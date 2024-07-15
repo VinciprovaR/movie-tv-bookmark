@@ -1,13 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '@supabase/supabase-js';
 import { Observable, map, switchMap, of } from 'rxjs';
-import { TV, TVResult } from '../../interfaces/media.interface';
+import { TV, TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
-import { TV_Life_Cycle } from '../../interfaces/supabase/entities';
+import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { SupabaseTVLifecycleDAO } from './supabase-tv-lifecycle.dao';
-import { TVLifecycleMap } from '../../interfaces/lifecycle.interface';
+import {
+  lifeCycleId,
+  TVLifecycleMap,
+} from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
-import { TV_Data } from '../../interfaces/supabase/entities/tv_data.entity.interface';
 
 import { SupabaseUtilsService } from './supabase-utils.service';
 
@@ -21,7 +23,9 @@ export class SupabaseTVLifecycleService {
 
   constructor() {}
 
-  initTVLifecycleMap(tvList: TV[] | TV_Data[]): Observable<TVLifecycleMap> {
+  initTVLifecycleMapFromTVResult(
+    tvList: TV_Data[]
+  ): Observable<TVLifecycleMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(tvList);
     return this.supabaseTVLifecycleDAO
       .findLifecycleListByTVIds(mediaIdList)
@@ -32,6 +36,14 @@ export class SupabaseTVLifecycleService {
           );
         })
       );
+  }
+
+  initTVLifecycleMapFromTVResultSupabase(
+    tvLifecycleEntityList: TV_Life_Cycle[] & TV_Data[]
+  ): Observable<TVLifecycleMap> {
+    return of(
+      this.supabaseUtilsService.tvLifecycleMapFactory(tvLifecycleEntityList)
+    );
   }
 
   removeTVWithLifecycle(tvResult: TVResult) {
@@ -51,12 +63,18 @@ export class SupabaseTVLifecycleService {
       );
   }
 
+  findTVByLifecycleId(
+    lifecycleId: lifeCycleId
+  ): Observable<TV_Life_Cycle[] & TV_Data[]> {
+    return this.supabaseTVLifecycleDAO.findTVByLifecycleId(lifecycleId);
+  }
+
   createOrUpdateOrDeleteTVLifecycle(
-    tvLifecycleDTO: MediaLifecycleDTO,
+    tvLifecycleDTO: MediaLifecycleDTO<TV>,
     user: User
   ): Observable<TVLifecycleMap> {
     return this.supabaseTVLifecycleDAO
-      .findLifecycleListByTVIds([tvLifecycleDTO.mediaDataDTO.mediaId])
+      .findLifecycleListByTVIds([tvLifecycleDTO.mediaDataDTO.id])
       .pipe(
         switchMap((tvLifecycleFromDB: TV_Life_Cycle[]) => {
           switch (
@@ -67,7 +85,7 @@ export class SupabaseTVLifecycleService {
           ) {
             case 0:
               return this.supabaseTVDataDAO
-                .findByTVId(tvLifecycleDTO.mediaDataDTO.mediaId)
+                .findByTVId(tvLifecycleDTO.mediaDataDTO.id)
                 .pipe(
                   switchMap((tvDataEntityList: TV_Data[]) => {
                     if (tvDataEntityList.length === 0) {
@@ -77,10 +95,10 @@ export class SupabaseTVLifecycleService {
                     }
                     return of(tvDataEntityList);
                   }),
-                  switchMap((tvDataEntityList: TV_Data[]) => {
+                  switchMap(() => {
                     return this.supabaseTVLifecycleDAO.createTVLifeCycle(
                       tvLifecycleDTO.lifecycleId,
-                      tvLifecycleDTO.mediaDataDTO.mediaId,
+                      tvLifecycleDTO.mediaDataDTO.id,
                       user
                     );
                   })
@@ -88,18 +106,18 @@ export class SupabaseTVLifecycleService {
 
             case 1:
               return this.supabaseTVLifecycleDAO.deleteTVLifeCycle(
-                tvLifecycleDTO.mediaDataDTO.mediaId,
+                tvLifecycleDTO.mediaDataDTO.id,
                 tvLifecycleDTO.lifecycleId
               );
             case 2:
               return this.supabaseTVLifecycleDAO.updateTVLifeCycle(
                 tvLifecycleDTO.lifecycleId,
-                tvLifecycleDTO.mediaDataDTO.mediaId
+                tvLifecycleDTO.mediaDataDTO.id
               );
             case 3:
               let tvLifecycleFromDBCustom: TV_Life_Cycle = {
                 lifecycle_id: 0,
-                tv_id: tvLifecycleDTO.mediaDataDTO.mediaId,
+                tv_id: tvLifecycleDTO.mediaDataDTO.id,
                 user_id: user.id,
               };
               return of([tvLifecycleFromDBCustom]);

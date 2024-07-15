@@ -23,8 +23,6 @@ export const initialState: DiscoveryTVState = {
     total_results: 0,
   },
   tvDetail: null,
-  genreList: [],
-  languageList: [],
 };
 
 export const discoveryTVReducer = createReducer(
@@ -38,28 +36,6 @@ export const discoveryTVReducer = createReducer(
         ...state,
         error: null,
         isLoading: true,
-      };
-    }
-  ),
-  on(
-    DiscoveryTVActions.getGenreListSuccess,
-    (state, { genreList }): DiscoveryTVState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        genreList,
-      };
-    }
-  ),
-  on(
-    DiscoveryTVActions.getLanguagesListSuccess,
-    (state, { languageList }): DiscoveryTVState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        languageList,
       };
     }
   ),
@@ -162,8 +138,6 @@ export const discoveryTVReducer = createReducer(
 );
 
 export const getDiscoveryTVState = (state: DiscoveryTVState) => state;
-export const getGenreList = (state: DiscoveryTVState) => state.genreList;
-export const getLanguageList = (state: DiscoveryTVState) => state.languageList;
 export const getIsLoading = (state: DiscoveryTVState) => state.isLoading;
 export const getPayload = (state: DiscoveryTVState) => state.payload;
 export const getDiscoveryTVError = (state: DiscoveryTVState) => state.error;

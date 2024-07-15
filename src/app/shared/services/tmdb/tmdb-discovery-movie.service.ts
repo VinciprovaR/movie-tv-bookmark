@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { I18E } from '../../../providers';
 import { Observable } from 'rxjs';
-import { MovieResult } from '../../interfaces/media.interface';
+import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 import { TMDBMovieService } from './abstract/tmdb-movie.abstract.service';
 import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';

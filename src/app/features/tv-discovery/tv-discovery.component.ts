@@ -9,9 +9,8 @@ import {
   DiscoveryTVSelectors,
 } from '../../shared/store/discovery-tv';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
-import { TV } from '../../shared/interfaces/media.interface';
-import { MediaType } from '../../shared/interfaces/media.interface';
-
+import { TV } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { PayloadDiscoveryTV } from '../../shared/interfaces/store/discovery-tv-state.interface';
@@ -19,13 +18,15 @@ import {
   Certification,
   Genre,
   Language,
-} from '../../shared/interfaces/tmdb-filters.interface';
+  OptionFilter,
+} from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import {
   TVLifecycleActions,
   TVLifecycleSelectors,
 } from '../../shared/store/tv-lifecycle';
-import { TVLifecycleMap } from '../../shared/interfaces/lifecycle.interface';
+import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discovery-filters.component';
+import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 
 @Component({
   selector: 'app-tv-discovery',
@@ -52,6 +53,7 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
   selectCombinedDiscoveryFilters$!: Observable<[PayloadDiscoveryTV, Genre[]]>;
   selectCertificationList$!: Observable<Certification[]>;
   selectLanguageList$!: Observable<Language[]>;
+  selectSortBy$!: Observable<OptionFilter[]>;
 
   constructor(
     private store: Store,
@@ -77,11 +79,15 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
 
     this.selectCombinedDiscoveryFilters$ = combineLatest([
       this.store.select(DiscoveryTVSelectors.selectPayload),
-      this.store.select(DiscoveryTVSelectors.selectGenreList),
+      this.store.select(FiltersMetadataSelectors.selectGenreListTV),
     ]);
 
     this.selectLanguageList$ = this.store.select(
-      DiscoveryTVSelectors.selectLanguageList
+      FiltersMetadataSelectors.selectLanguageListMedia
+    );
+
+    this.selectSortBy$ = this.store.select(
+      FiltersMetadataSelectors.selectSortByTV
     );
   }
 
@@ -94,14 +100,14 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
       });
 
     // data from lifecycle-selector
-    this.bridgeDataService.inputLifecycleOptionsObs$
+    this.bridgeDataService.tvInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
         this.createUpdateDeleteTVLifecycle(mediaLifecycleDTO);
       });
   }
 
-  createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
+  createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {
     this.store.dispatch(
       TVLifecycleActions.createUpdateDeleteTVLifecycle({
         mediaLifecycleDTO,

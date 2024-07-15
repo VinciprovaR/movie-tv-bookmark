@@ -4,7 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   OptionFilter,
   SelectTransformConfig,
-} from '../../interfaces/tmdb-filters.interface';
+} from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-select-filter',

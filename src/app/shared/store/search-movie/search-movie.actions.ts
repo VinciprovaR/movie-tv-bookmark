@@ -1,5 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { MovieDetail, MovieResult } from '../../interfaces/media.interface';
+import {
+  MovieDetail,
+  MovieResult,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 
 //search
 export const searchMovie = createAction(

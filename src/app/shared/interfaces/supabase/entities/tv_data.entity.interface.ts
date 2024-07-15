@@ -4,4 +4,5 @@ export interface TV_Data {
   poster_path: string;
   first_air_date: string;
   name: string;
+  genre_ids: number[];
 }

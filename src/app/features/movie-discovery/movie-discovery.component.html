@@ -1,6 +1,7 @@
 <app-discovery-movie-filters
   [certificationList]="(selectCertificationList$ | async) ?? []"
   [languageList]="(selectLanguageList$ | async) ?? []"
+  [sortBySelect]="(selectSortBy$ | async) ?? []"
   [combinedDiscoveryFilters$]="selectCombinedDiscoveryFilters$"
   [mediaType]="mediaType"
   (payloadEmitterOnSubmit)="discoveryMovie($event)"

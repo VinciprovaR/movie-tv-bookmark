@@ -10,6 +10,11 @@ export interface DiscoveryMovieFilterForm {
   voteAverage: FormGroup<VoteAverageGroup>;
 }
 
+export interface LifecycleMediaFilterForm {
+  genres: FormGroup<GenreGroup>;
+  sortBy: FormControl<string>;
+}
+
 export interface DiscoveryTVFilterForm {
   genres: FormGroup<GenreGroup>;
   sortBy: FormControl<string>;

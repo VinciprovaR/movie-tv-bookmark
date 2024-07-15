@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
-import { MediaType } from '../../interfaces/media.interface';
+import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-checkbox-filter',

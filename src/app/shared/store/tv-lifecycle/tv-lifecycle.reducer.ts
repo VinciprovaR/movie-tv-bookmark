@@ -7,17 +7,29 @@ export const tvLifecycleStateFeatureKey = 'tv-lifecycle';
 export const initialState: TVLifecycleState = {
   isLoading: false,
   error: null,
-
   tvLifecycleMap: {},
+  tvList: [],
+  updateSearch: false,
 };
 
 export const tvLifecycleReducer = createReducer(
   initialState,
-  on(TVLifecycleActions.createUpdateDeleteTVLifecycle, (state) => {
+  on(
+    TVLifecycleActions.createUpdateDeleteTVLifecycle,
+    TVLifecycleActions.searchTVByLifecycle,
+    (state) => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+        updateSearch: false,
+      };
+    }
+  ),
+  on(TVLifecycleActions.updateSearchTVByLifecycle, (state) => {
     return {
       ...state,
-      error: null,
-      isLoading: true,
+      updateSearch: true,
     };
   }),
   on(
@@ -32,6 +44,14 @@ export const tvLifecycleReducer = createReducer(
       };
     }
   ),
+  on(TVLifecycleActions.searchTVByLifecycleSuccess, (state, { tvList }) => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      tvList,
+    };
+  }),
   on(TVLifecycleActions.lifecycleFailure, (state, { httpErrorResponse }) => {
     return {
       ...state,
@@ -54,3 +74,5 @@ export const getTVLifecycleMap = (state: TVLifecycleState) =>
   state.tvLifecycleMap;
 export const getSearchTVLifecycleError = (state: TVLifecycleState) =>
   state.error;
+export const getTVList = (state: TVLifecycleState) => state.tvList;
+export const getUpdateSearch = (state: TVLifecycleState) => state.updateSearch;

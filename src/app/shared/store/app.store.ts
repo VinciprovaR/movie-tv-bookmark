@@ -17,6 +17,8 @@ import { DiscoveryTVState } from '../interfaces/store/discovery-tv-state.interfa
 import { DiscoveryTVReducers } from './discovery-tv';
 import { LifecycleMetadataReducers } from './lifecycle-metadata';
 import { LifecycleMetadataState } from '../interfaces/store/lifecycle-metadata-state.interface';
+import { FiltersMetadataReducers } from './filters-metadata';
+import { FiltersMetadataState } from '../interfaces/store/filters-metadata-state.interface';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;
@@ -27,6 +29,7 @@ interface State {
   [MovieLifecycleReducers.movieLifecycleStateFeatureKey]: MovieLifecycleState;
   [TVLifecycleReducers.tvLifecycleStateFeatureKey]: TVLifecycleState;
   [LifecycleMetadataReducers.lifecycleMetadataStateFeatureKey]: LifecycleMetadataState;
+  [FiltersMetadataReducers.filtersMetadataFeatureKey]: FiltersMetadataState;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -44,6 +47,8 @@ export const reducers: ActionReducerMap<State> = {
     TVLifecycleReducers.tvLifecycleReducer,
   [LifecycleMetadataReducers.lifecycleMetadataStateFeatureKey]:
     LifecycleMetadataReducers.LifecycleMetadataReducer,
+  [FiltersMetadataReducers.filtersMetadataFeatureKey]:
+    FiltersMetadataReducers.filtersMetadataReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production

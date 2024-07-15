@@ -21,6 +21,16 @@ export const selectTVLifecycleMap = createSelector(
   TVLifecycleReducer.getTVLifecycleMap
 );
 
+export const selectTVList = createSelector(
+  TVLifecycleFeatureSelector,
+  TVLifecycleReducer.getTVList
+);
+
+export const selectUpdateSearch = createSelector(
+  TVLifecycleFeatureSelector,
+  TVLifecycleReducer.getUpdateSearch
+);
+
 export const selectTVLifecycleError = createSelector(
   TVLifecycleFeatureSelector,
   TVLifecycleReducer.getSearchTVLifecycleError

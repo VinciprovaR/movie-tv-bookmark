@@ -13,7 +13,7 @@ export class LifecycleMetadataEffects {
   retriveLifecycleMetadata$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(LifecycleMetadataActions.retriveLifecycleMetadata),
-      switchMap((actionParams) => {
+      switchMap((action) => {
         return this.supabaseLifecycleMetadataService
           .retriveLifecycleMetadata()
           .pipe(

@@ -10,7 +10,10 @@ import {
 } from '../../shared/store/search-tv';
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
 
-import { MediaType, TV } from '../../shared/interfaces/media.interface';
+import {
+  MediaType,
+  TV,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
@@ -73,13 +76,14 @@ export class TVSearchComponent implements OnInit {
       });
 
     // data from lifecycle-selector
-    this.bridgeDataService.inputLifecycleOptionsObs$
+    this.bridgeDataService.tvInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
         this.createUpdateDeleteTVLifecycle(mediaLifecycleDTO);
       });
   }
-  createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO) {
+
+  createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {
     this.store.dispatch(
       TVLifecycleActions.createUpdateDeleteTVLifecycle({
         mediaLifecycleDTO,

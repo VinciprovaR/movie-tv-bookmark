@@ -5,25 +5,25 @@ import {
 } from '../../interfaces/supabase/DTO';
 import {
   Lifecycle_Metadata,
+  Movie_Data,
   Movie_Life_Cycle,
+  TV_Data,
   TV_Life_Cycle,
 } from '../../interfaces/supabase/entities';
 import {
   lifeCycleId,
   MovieLifecycleMap,
   TVLifecycleMap,
-} from '../../interfaces/lifecycle.interface';
+} from '../../interfaces/supabase/supabase-lifecycle.interface';
 import {
   MediaType,
   Movie,
   MovieResult,
   TV,
   TVResult,
-} from '../../interfaces/media.interface';
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { LifecycleEnum } from '../../enums/lifecycle.enum';
 import { LifecycleTypeIdMap } from '../../interfaces/store/lifecycle-metadata-state.interface';
-import { Movie_Data } from '../../interfaces/supabase/entities/movie_data.entity.interface';
-import { TV_Data } from '../../interfaces/supabase/entities/tv_data.entity.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +54,9 @@ export class SupabaseUtilsService {
   }
 
   movieLifecycleMapFactory(
-    movieLifecycleEntityList: Movie_Life_Cycle[]
+    movieLifecycleEntityList:
+      | Movie_Life_Cycle[]
+      | (Movie_Life_Cycle[] & Movie_Data[])
   ): MovieLifecycleMap {
     let movieLifecycleMap: MovieLifecycleMap = {};
     movieLifecycleEntityList.forEach((movieLifecycleEntity) => {
@@ -65,7 +67,7 @@ export class SupabaseUtilsService {
   }
 
   tvLifecycleMapFactory(
-    tvLifecycleEntityList: TV_Life_Cycle[]
+    tvLifecycleEntityList: TV_Life_Cycle[] | (TV_Life_Cycle[] & TV_Data[])
   ): TVLifecycleMap {
     let tvLifecycleMap: TVLifecycleMap = {};
     tvLifecycleEntityList.forEach((tvLifecycleEntity) => {
@@ -118,8 +120,12 @@ export class SupabaseUtilsService {
   }
 
   checkCase(
-    mediaLifecycleFromDB: Movie_Life_Cycle[] | TV_Life_Cycle[] | any,
-    mediaLifecycleDTO: MediaLifecycleDTO
+    mediaLifecycleFromDB:
+      | Movie_Life_Cycle[]
+      | TV_Life_Cycle[]
+      | (Movie_Life_Cycle[] & Movie_Data[])
+      | (TV_Life_Cycle[] & TV_Data[]),
+    mediaLifecycleDTO: MediaLifecycleDTO<Movie | TV>
   ): number {
     let isEntity = mediaLifecycleFromDB.length === 1;
     let isLifecycle = mediaLifecycleDTO.lifecycleId > LifecycleEnum.noLifecycle;

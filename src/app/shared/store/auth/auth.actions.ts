@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '@supabase/supabase-js';
-import { LoginPayload, RegisterPayload } from '../../interfaces/auth.interface';
+import {
+  LoginPayload,
+  RegisterPayload,
+} from '../../interfaces/supabase/supabase-auth.interface';
 
 export const login = createAction(
   '[Auth/API] User Login',

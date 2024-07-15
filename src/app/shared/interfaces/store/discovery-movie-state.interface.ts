@@ -1,7 +1,7 @@
-import { MovieResult, MovieDetail } from '../media.interface';
-import { Certification, Genre, Language } from '../tmdb-filters.interface';
+import { MovieResult, MovieDetail } from '../TMDB/tmdb-media.interface';
+import { Certification, Genre, Language } from '../TMDB/tmdb-filters.interface';
 import { DateRange } from './discovery-state.interface';
-import { StateMovieBookmark } from './state-movie-bookmark.interface';
+import { StateMediaBookmark } from './state-media-bookmark.interface';
 
 export interface VoteAverage {
   voteAverageMin: number;
@@ -18,11 +18,8 @@ export interface PayloadDiscoveryMovie {
   certification: string;
 }
 
-export interface DiscoveryMovieState extends StateMovieBookmark {
+export interface DiscoveryMovieState extends StateMediaBookmark {
   payload: PayloadDiscoveryMovie;
   movieResult: MovieResult;
   movieDetail: MovieDetail | null;
-  genreList: Genre[];
-  certificationList: Certification[];
-  languageList: Language[];
 }

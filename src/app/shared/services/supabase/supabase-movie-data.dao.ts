@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { PostgrestSingleResponse, SupabaseClient } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
-import { Movie_Data } from '../../interfaces/supabase/entities/movie_data.entity.interface';
-import { MediaDataDTO } from '../../interfaces/supabase/DTO';
+import { Movie } from '../../interfaces/TMDB/tmdb-media.interface';
+import { Movie_Data } from '../../interfaces/supabase/entities';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class SupabaseMovieDataDAO {
     return from(
       this.supabase.from(this.TABLE).select('*').eq(`id`, movieId)
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<Movie_Data[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })
@@ -26,38 +26,39 @@ export class SupabaseMovieDataDAO {
 
   //to-do user null? non possibile
   //to-do tipizzare ritorni
-  createMovieData(mediaDataDTO: MediaDataDTO): Observable<Movie_Data[]> {
+  createMovieData(movieDataDTO: Movie): Observable<Movie_Data[]> {
     return from(
       this.supabase
         .from(this.TABLE)
-        .insert<any>({
-          id: mediaDataDTO.mediaId,
-          poster_path: mediaDataDTO.poster_path,
-          release_date: mediaDataDTO.release_date,
-          title: mediaDataDTO.title,
+        .insert<Movie_Data>({
+          id: movieDataDTO.id,
+          poster_path: movieDataDTO.poster_path,
+          release_date: movieDataDTO.release_date,
+          title: movieDataDTO.title,
+          genre_ids: movieDataDTO.genre_ids,
         })
         .select()
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<Movie_Data[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })
     );
   }
 
-  updateMovieData(mediaDataDTO: MediaDataDTO): Observable<Movie_Data[]> {
+  updateMovieData(movieDataDTO: Movie): Observable<Movie_Data[]> {
     return from(
       this.supabase
         .from(this.TABLE)
         .update({
-          poster_path: mediaDataDTO.poster_path,
-          release_date: mediaDataDTO.release_date,
-          title: mediaDataDTO.title,
+          poster_path: movieDataDTO.poster_path,
+          release_date: movieDataDTO.release_date,
+          title: movieDataDTO.title,
         })
-        .eq(`id`, mediaDataDTO.mediaId)
+        .eq(`id`, movieDataDTO.id)
         .select()
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<Movie_Data[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })

@@ -1,11 +1,16 @@
 import { Inject, Injectable } from '@angular/core';
-import { SupabaseClient, User } from '@supabase/supabase-js';
+import {
+  PostgrestSingleResponse,
+  SupabaseClient,
+  User,
+} from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { Observable, catchError, from, map, tap } from 'rxjs';
-import { lifeCycleId } from '../../interfaces/lifecycle.interface';
-import { Movie_Life_Cycle } from '../../interfaces/supabase/entities';
-import { ErrorResponse } from '../../interfaces/error.interface';
-import { Movie_Data } from '../../interfaces/supabase/entities/movie_data.entity.interface';
+import { Observable, from, map } from 'rxjs';
+import { lifeCycleId } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import {
+  Movie_Data,
+  Movie_Life_Cycle,
+} from '../../interfaces/supabase/entities';
 
 @Injectable({
   providedIn: 'root',
@@ -19,29 +24,34 @@ export class SupabaseMovieLifecycleDAO {
     movieIdList: number[]
   ): Observable<Movie_Life_Cycle[]> {
     return from(
-      this.supabase.from(this.TABLE).select('*').in(`movie_id`, movieIdList)
+      this.supabase.from(this.TABLE).select().in(`movie_id`, movieIdList)
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<Movie_Life_Cycle[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })
     );
   }
 
-  findMovieByLifecycleId(lifecycleId: lifeCycleId): Observable<Movie_Data[]> {
+  findMovieByLifecycleId(
+    lifecycleId: lifeCycleId
+  ): Observable<Movie_Life_Cycle[] & Movie_Data[]> {
     return from(
       this.supabase
         .from(this.TABLE)
-        .select('movie_data(id, poster_path, release_date, title)')
+        .select(
+          '*, ...movie_data(id, poster_path, release_date, title, genre_ids)'
+        )
         .eq(`lifecycle_id`, lifecycleId)
     ).pipe(
-      map((result: any) => {
-        if (result.error) throw new Error(result.error.message);
-        //to-do capire come renderlo veloce e non cosi
-        return result.data.map((result: { movie_data: Movie_Data }) => {
-          return result.movie_data;
-        });
-      })
+      map(
+        (
+          result: PostgrestSingleResponse<Movie_Life_Cycle[] & Movie_Data[]>
+        ) => {
+          if (result.error) throw new Error(result.error.message);
+          return result.data;
+        }
+      )
     );
   }
 
@@ -62,7 +72,7 @@ export class SupabaseMovieLifecycleDAO {
         })
         .select()
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<Movie_Life_Cycle[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })
@@ -82,7 +92,7 @@ export class SupabaseMovieLifecycleDAO {
         .eq(`movie_id`, mediaId)
         .select()
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<Movie_Life_Cycle[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })
@@ -102,7 +112,7 @@ export class SupabaseMovieLifecycleDAO {
         .eq(`movie_id`, mediaId)
         .select()
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<Movie_Life_Cycle[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })

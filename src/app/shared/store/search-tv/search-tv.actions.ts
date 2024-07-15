@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { TV, TVDetail, TVResult } from '../../interfaces/media.interface';
+import {
+  TV,
+  TVDetail,
+  TVResult,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 
 //search

@@ -1,4 +1,4 @@
-import { lifeCycleId } from '../../lifecycle.interface';
+import { lifeCycleId } from '../supabase-lifecycle.interface';
 
 export interface TV_Life_Cycle {
   id?: number;

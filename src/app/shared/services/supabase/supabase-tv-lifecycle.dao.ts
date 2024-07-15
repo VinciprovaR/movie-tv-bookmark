@@ -1,24 +1,44 @@
 import { Inject, Injectable } from '@angular/core';
-import { SupabaseClient, User } from '@supabase/supabase-js';
+import {
+  PostgrestSingleResponse,
+  SupabaseClient,
+  User,
+} from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
-import { TV_Life_Cycle } from '../../interfaces/supabase/entities';
-import { lifeCycleId } from '../../interfaces/lifecycle.interface';
+import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
+import { lifeCycleId } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseTVLifecycleDAO {
+  private readonly TABLE = 'tv_life_cycle';
+
   constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
 
   findLifecycleListByTVIds(tvIdList: number[]): Observable<TV_Life_Cycle[]> {
     return from(
-      this.supabase
-        .from(`tv_life_cycle`)
-        .select(`{tv_id, lifecycle_id}`)
-        .in(`tv_id`, tvIdList)
+      this.supabase.from(this.TABLE).select().in(`tv_id`, tvIdList)
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<TV_Life_Cycle[]>) => {
+        if (result.error) throw new Error(result.error.message);
+        return result.data;
+      })
+    );
+  }
+
+  findTVByLifecycleId(
+    lifecycleId: lifeCycleId
+  ): Observable<TV_Life_Cycle[] & TV_Data[]> {
+    return from(
+      this.supabase
+        .from(this.TABLE)
+        .select('*, ...tv_data(id, poster_path, first_air_date, name)')
+        .eq(`lifecycle_id`, lifecycleId)
+    ).pipe(
+      map((result: PostgrestSingleResponse<TV_Life_Cycle[] & TV_Data[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })
@@ -39,12 +59,9 @@ export class SupabaseTVLifecycleDAO {
     };
 
     return from(
-      this.supabase
-        .from(`tv_life_cycle`)
-        .insert<TV_Life_Cycle>(tvLifecycle)
-        .select()
+      this.supabase.from(this.TABLE).insert<TV_Life_Cycle>(tvLifecycle).select()
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<TV_Life_Cycle[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })
@@ -57,14 +74,14 @@ export class SupabaseTVLifecycleDAO {
   ): Observable<TV_Life_Cycle[]> {
     return from(
       this.supabase
-        .from(`tv_life_cycle`)
+        .from(this.TABLE)
         .update({
           lifecycle_id: lifecycleId,
         })
         .eq(`tv_id`, tvId)
         .select()
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<TV_Life_Cycle[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })
@@ -77,14 +94,14 @@ export class SupabaseTVLifecycleDAO {
   ): Observable<TV_Life_Cycle[]> {
     return from(
       this.supabase
-        .from(`tv_life_cycle`)
+        .from(this.TABLE)
         .update({
           lifecycle_id: lifecycleId,
         })
         .eq(`tv_id`, tvId)
         .select()
     ).pipe(
-      map((result: any) => {
+      map((result: PostgrestSingleResponse<TV_Life_Cycle[]>) => {
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })

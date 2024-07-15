@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import {
   DateRangeGroup,
   DiscoveryMovieFilterForm,
-} from '../../interfaces/tmdb-filters.interface';
+} from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-range-date-filter',

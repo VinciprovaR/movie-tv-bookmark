@@ -1,31 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import {
-  catchError,
-  concatMap,
-  filter,
-  forkJoin,
-  map,
-  of,
-  switchMap,
-  withLatestFrom,
-} from 'rxjs';
-import { Movie, MovieResult } from '../../interfaces/media.interface';
+import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { Movie, MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
 import { ErrorResponse } from '../../interfaces/error.interface';
-import { MovieLifecycleActions, MovieLifecycleSelectors } from '.';
+import { MovieLifecycleActions } from '.';
 
 import { SearchMovieActions } from '../search-movie';
 import { DiscoveryMovieActions } from '../discovery-movie';
-import { MovieLifecycleMap } from '../../interfaces/lifecycle.interface';
-import { LifecycleMetadataSelectors } from '../lifecycle-metadata';
+import { MovieLifecycleMap } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { SupabaseMovieLifecycleService } from '../../services/supabase';
-import { Movie_Life_Cycle } from '../../interfaces/supabase/entities';
-import { Movie_Data } from '../../interfaces/supabase/entities/movie_data.entity.interface';
+import {
+  Movie_Data,
+  Movie_Life_Cycle,
+} from '../../interfaces/supabase/entities';
 
 @Injectable()
 export class MovieLifecycleEffects {
@@ -37,8 +29,8 @@ export class MovieLifecycleEffects {
         DiscoveryMovieActions.discoveryMovieSuccess,
         DiscoveryMovieActions.discoveryAdditionalMovieSuccess
       ),
-      switchMap((actionParams) => {
-        let { movieResult }: { movieResult: MovieResult } = actionParams;
+      switchMap((action) => {
+        let { movieResult }: { movieResult: MovieResult } = action;
         return this.supabaseMovieLifecycleService
           .initMovieLifecycleMapFromMovieResult(movieResult.results)
           .pipe(
@@ -64,8 +56,8 @@ export class MovieLifecycleEffects {
     return this.actions$.pipe(
       ofType(MovieLifecycleActions.createUpdateDeleteMovieLifecycle),
       withLatestFrom(this.store.select(AuthSelectors.selectUser)),
-      switchMap((actionParams) => {
-        let [{ mediaLifecycleDTO }, user] = actionParams;
+      switchMap((action) => {
+        let [{ mediaLifecycleDTO }, user] = action;
         return this.supabaseMovieLifecycleService
           .createOrUpdateOrDeleteMovieLifecycle(mediaLifecycleDTO, user as User)
           .pipe(
@@ -87,15 +79,24 @@ export class MovieLifecycleEffects {
     );
   });
 
+  updateSearchMovieByLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess),
+      switchMap(() => {
+        return of(MovieLifecycleActions.updateSearchMovieByLifecycle());
+      })
+    );
+  });
+
   searchMovieByLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(MovieLifecycleActions.searchMovieByLifecycle),
-      switchMap((actionParams) => {
-        let { lifecycleId } = actionParams;
+      switchMap((action) => {
+        let { lifecycleId } = action;
         return this.supabaseMovieLifecycleService
           .findMovieByLifecycleId(lifecycleId)
           .pipe(
-            map((movieList: Movie_Data[]) => {
+            map((movieList: Movie_Life_Cycle[] & Movie_Data[]) => {
               return MovieLifecycleActions.searchMovieByLifecycleSuccess({
                 movieList,
               });
@@ -116,10 +117,11 @@ export class MovieLifecycleEffects {
   initMovieLifecycleMapFromList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(MovieLifecycleActions.searchMovieByLifecycleSuccess),
-      switchMap((actionParams) => {
-        let { movieList }: { movieList: Movie_Data[] } = actionParams;
+      switchMap((action) => {
+        let { movieList }: { movieList: Movie_Life_Cycle[] & Movie_Data[] } =
+          action;
         return this.supabaseMovieLifecycleService
-          .initMovieLifecycleMapFromMovieResult(movieList)
+          .initMovieLifecycleMapFromMovieResultSupabase(movieList)
           .pipe(
             map((movieLifecycleMapResult: MovieLifecycleMap) => {
               return MovieLifecycleActions.initMovieLifecycleSuccess({
