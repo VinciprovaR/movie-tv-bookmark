@@ -77,7 +77,9 @@ export class SupabaseTVLifecycleService {
   createOrUpdateOrDeleteTVLifecycle(
     tvLifecycleDTO: MediaLifecycleDTO<TV>,
     user: User
-  ): Observable<TVLifecycleMap> {
+  ): Observable<{ tvLifecycleMap: TVLifecycleMap; type: string }> {
+    let type: number = 0;
+
     return this.supabaseTVLifecycleDAO
       .findLifecycleListByTVIds([tvLifecycleDTO.mediaDataDTO.id])
       .pipe(
@@ -89,6 +91,7 @@ export class SupabaseTVLifecycleService {
             )
           ) {
             case 0:
+              type = 0;
               return this.supabaseTVDataDAO
                 .findByTVId(tvLifecycleDTO.mediaDataDTO.id)
                 .pipe(
@@ -110,16 +113,19 @@ export class SupabaseTVLifecycleService {
                 );
 
             case 1:
+              type = 1;
               return this.supabaseTVLifecycleDAO.deleteTVLifeCycle(
                 tvLifecycleDTO.mediaDataDTO.id,
                 tvLifecycleDTO.lifecycleId
               );
             case 2:
+              type = 2;
               return this.supabaseTVLifecycleDAO.updateTVLifeCycle(
                 tvLifecycleDTO.lifecycleId,
                 tvLifecycleDTO.mediaDataDTO.id
               );
             case 3:
+              type = 3;
               let tvLifecycleFromDBCustom: TV_Life_Cycle = {
                 lifecycle_id: 0,
                 tv_id: tvLifecycleDTO.mediaDataDTO.id,
@@ -127,13 +133,17 @@ export class SupabaseTVLifecycleService {
               };
               return of([tvLifecycleFromDBCustom]);
             default:
+              type = -99;
               throw new Error('Something went wrong. Case -99');
           }
         }),
         map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
-          return this.supabaseUtilsService.tvLifecycleMapFactory(
-            tvLifecycleEntityList
-          );
+          return {
+            tvLifecycleMap: this.supabaseUtilsService.tvLifecycleMapFactory(
+              tvLifecycleEntityList
+            ),
+            type: ['create', 'delete', 'update', 'nothing', 'error'][type],
+          };
         })
       );
   }

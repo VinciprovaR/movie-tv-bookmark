@@ -1,0 +1,12 @@
+<div style="position: fixed">
+  @if(alerts$ | async; as alerts){ @for(alert of alerts; track alert){
+
+  <app-alert
+    [message]="alert.message"
+    [type]="alert.type"
+    [id]="alert.id"
+    (closeAlert)="closeAlert($event)"
+  ></app-alert>
+
+  } }
+</div>

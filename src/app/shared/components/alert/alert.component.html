@@ -1,0 +1,9 @@
+<div
+  [ngClass]="{
+    'alert-error': type === 'error',
+    'alert-success': type === 'success'
+  }"
+  (click)="onClose()"
+>
+  {{ message }}
+</div>

@@ -16,6 +16,7 @@ import {
   GenresResult,
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class DiscoveryTVEffects {
@@ -38,8 +39,7 @@ export class DiscoveryTVEffects {
               tvResult: tvResult,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(
               DiscoveryTVActions.discoveryTVFailure({
                 httpErrorResponse,
@@ -79,8 +79,7 @@ export class DiscoveryTVEffects {
                 tvResult: tvResult,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 DiscoveryTVActions.discoveryTVFailure({
                   httpErrorResponse,
@@ -106,8 +105,7 @@ export class DiscoveryTVEffects {
               tvDetail: tvDetail,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(
               DiscoveryTVActions.discoveryTVFailure({ httpErrorResponse })
             );

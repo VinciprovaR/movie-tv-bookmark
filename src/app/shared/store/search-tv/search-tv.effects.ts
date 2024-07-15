@@ -6,6 +6,7 @@ import { TMDBSearchTVService } from '../../services/tmdb';
 import { TVDetail, TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { ErrorResponse } from '../../interfaces/error.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class SearchTVEffects {
@@ -20,8 +21,7 @@ export class SearchTVEffects {
               tvResult: tvResult,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(SearchTVActions.searchTVFailure({ httpErrorResponse }));
           })
         );
@@ -49,8 +49,7 @@ export class SearchTVEffects {
                 tvResult: tvResult,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 SearchTVActions.searchTVFailure({
                   httpErrorResponse,
@@ -76,8 +75,7 @@ export class SearchTVEffects {
               tvDetail: tvDetail,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(SearchTVActions.searchTVFailure({ httpErrorResponse }));
           })
         );

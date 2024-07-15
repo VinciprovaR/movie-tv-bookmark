@@ -17,6 +17,7 @@ import {
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
 import { TMDBFilterMediaService } from '../../services/tmdb/tmdb-filter-media.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class FiltersMetadataEffects {
@@ -79,8 +80,7 @@ export class FiltersMetadataEffects {
             ])
           )
           .pipe(
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 FiltersMetadataActions.filtersMetadataFailure({
                   httpErrorResponse,

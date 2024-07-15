@@ -3,6 +3,8 @@ import {
   MovieDetail,
   MovieResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorResponse } from '../../interfaces/error.interface';
 
 //search
 export const searchMovie = createAction(
@@ -38,7 +40,7 @@ export const searchMovieDetailSuccess = createAction(
 //error
 export const searchMovieFailure = createAction(
   '[Search-Movie/API] Search Movie Failure',
-  props<{ httpErrorResponse: any }>()
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 export const cleanError = createAction(
   '[Search-movie/Error Handling] Clean Error'

@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { SupabaseMovieLifecycleService } from '../../services/supabase';
 import { TMDBDiscoveryMovieService } from '../../services/tmdb';
 import { ErrorResponse } from '../../interfaces/error.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class DiscoveryMovieEffects {
@@ -33,8 +34,7 @@ export class DiscoveryMovieEffects {
               movieResult: movieResult,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(
               DiscoveryMovieActions.discoveryMovieFailure({
                 httpErrorResponse,
@@ -74,8 +74,7 @@ export class DiscoveryMovieEffects {
                 movieResult: movieResult,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 DiscoveryMovieActions.discoveryMovieFailure({
                   httpErrorResponse,
@@ -101,8 +100,7 @@ export class DiscoveryMovieEffects {
               movieDetail: movieDetail,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(
               DiscoveryMovieActions.discoveryMovieFailure({ httpErrorResponse })
             );

@@ -21,15 +21,33 @@ export const createUpdateDeleteMovieLifecycle = createAction(
 );
 export const createUpdateDeleteMovieLifecycleSuccess = createAction(
   '[Movie-Lifecycle/API] Create or Update or Delete Movie Lifecycle Success',
-  props<{ movieLifecycleMap: MovieLifecycleMap }>()
+  props<{ movieLifecycleMap: MovieLifecycleMap; typeAction: string }>()
 );
-export const deleteMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Delete Movie Lifecycle',
-  props<{ movieId: number }>()
-);
-export const deleteMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Delete Movie Lifecycle Success'
-);
+
+// export const createMovieLifecycle = createAction(
+//   '[Movie-Lifecycle/API] Create Movie Lifecycle',
+//   props<{ mediaLifecycleDTO: MediaLifecycleDTO<Movie> }>()
+// );
+// export const createMovieLifecycleSuccess = createAction(
+//   '[Movie-Lifecycle/API] Create Movie Lifecycle Success',
+//   props<{ movieLifecycleMap: MovieLifecycleMap }>()
+// );
+// export const updateMovieLifecycle = createAction(
+//   '[Movie-Lifecycle/API] Update Movie Lifecycle',
+//   props<{ mediaLifecycleDTO: MediaLifecycleDTO<Movie> }>()
+// );
+// export const updateMovieLifecycleSuccess = createAction(
+//   '[Movie-Lifecycle/API] Update Movie Lifecycle Success',
+//   props<{ movieLifecycleMap: MovieLifecycleMap }>()
+// );
+// export const deleteMovieLifecycle = createAction(
+//   '[Movie-Lifecycle/API] Delete Movie Lifecycle',
+//   props<{ mediaLifecycleDTO: MediaLifecycleDTO<Movie> }>()
+// );
+// export const deleteMovieLifecycleSuccess = createAction(
+//   '[Movie-Lifecycle/API] Delete Movie Lifecycle Success',
+//   props<{ movieLifecycleMap: MovieLifecycleMap }>()
+// );
 
 export const searchMovieByLifecycleLanding = createAction(
   '[Movie-Lifecycle/API] Search Movie By Lifecycle Landing',

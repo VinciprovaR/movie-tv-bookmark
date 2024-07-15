@@ -18,7 +18,7 @@ export const createUpdateDeleteTVLifecycle = createAction(
 );
 export const createUpdateDeleteTVLifecycleSuccess = createAction(
   '[TV-Lifecycle-C/API] Create or Update or Delete TV Lifecycle Success',
-  props<{ tvLifecycleMap: TVLifecycleMap }>()
+  props<{ tvLifecycleMap: TVLifecycleMap; typeAction: string }>()
 );
 export const deleteTVLifecycle = createAction(
   '[TV-Lifecycle-C/API] Delete TV Lifecycle',

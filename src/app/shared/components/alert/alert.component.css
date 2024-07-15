@@ -1,0 +1,16 @@
+.alert-error {
+  padding: 16px;
+  margin: 8px;
+  background-color: #f44336;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.alert-success {
+  padding: 16px;
+  margin: 8px;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}

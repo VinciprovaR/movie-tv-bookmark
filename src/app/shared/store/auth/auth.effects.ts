@@ -10,6 +10,7 @@ import {
   User,
 } from '@supabase/supabase-js/';
 import { ErrorResponse } from '../../interfaces/error.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class AuthEffects {
@@ -26,8 +27,7 @@ export class AuthEffects {
               user: result.data.user as User,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );
@@ -48,8 +48,7 @@ export class AuthEffects {
           map(() => {
             return AuthActions.registerSuccess();
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );
@@ -67,8 +66,7 @@ export class AuthEffects {
               user: result.data.session?.user,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );
@@ -87,8 +85,7 @@ export class AuthEffects {
           map(() => {
             return AuthActions.logoutSuccess();
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );
@@ -107,8 +104,7 @@ export class AuthEffects {
           map(() => {
             return AuthActions.requestResetPasswordSuccess();
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );

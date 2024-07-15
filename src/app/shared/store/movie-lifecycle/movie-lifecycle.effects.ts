@@ -18,6 +18,7 @@ import {
   Movie_Data,
   Movie_Life_Cycle,
 } from '../../interfaces/supabase/entities';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class MovieLifecycleEffects {
@@ -39,8 +40,7 @@ export class MovieLifecycleEffects {
                 movieLifecycleMap: movieLifecycleMapResult,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 MovieLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
@@ -61,13 +61,20 @@ export class MovieLifecycleEffects {
         return this.supabaseMovieLifecycleService
           .createOrUpdateOrDeleteMovieLifecycle(mediaLifecycleDTO, user as User)
           .pipe(
-            map((movieLifecycleMap: MovieLifecycleMap) => {
-              return MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess(
-                { movieLifecycleMap }
-              );
-            }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            map(
+              (result: {
+                movieLifecycleMap: MovieLifecycleMap;
+                type: string;
+              }) => {
+                return MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess(
+                  {
+                    movieLifecycleMap: result.movieLifecycleMap,
+                    typeAction: result.type,
+                  }
+                );
+              }
+            ),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 MovieLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
@@ -106,8 +113,7 @@ export class MovieLifecycleEffects {
                 movieList,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 MovieLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
@@ -133,8 +139,7 @@ export class MovieLifecycleEffects {
                 movieLifecycleMap: movieLifecycleMapResult,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 MovieLifecycleActions.lifecycleFailure({
                   httpErrorResponse,

@@ -7,6 +7,7 @@ import { LifecycleMetadataActions } from '.';
 import { LifecycleOption } from '../../interfaces/supabase/DTO';
 import { LifecycleTypeIdMap } from '../../interfaces/store/lifecycle-metadata-state.interface';
 import { SupabaseLifecycleMetadataService } from '../../services/supabase/supabase-lifecycle-metadata.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class LifecycleMetadataEffects {
@@ -27,8 +28,7 @@ export class LifecycleMetadataEffects {
                 );
               }
             ),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 LifecycleMetadataActions.lifecycleMetadataFailure({
                   httpErrorResponse,

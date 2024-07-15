@@ -86,7 +86,9 @@ export class SupabaseMovieLifecycleService {
   createOrUpdateOrDeleteMovieLifecycle(
     movieLifecycleDTO: MediaLifecycleDTO<Movie>,
     user: User
-  ): Observable<MovieLifecycleMap> {
+  ): Observable<{ movieLifecycleMap: MovieLifecycleMap; type: string }> {
+    let type: number = 0;
+
     return this.supabaseMovieLifecycleDAO
       .findLifecycleListByMovieIds([movieLifecycleDTO.mediaDataDTO.id])
       .pipe(
@@ -98,6 +100,7 @@ export class SupabaseMovieLifecycleService {
             )
           ) {
             case 0:
+              type = 0;
               return this.supabaseMovieDataDAO
                 .findByMovieId(movieLifecycleDTO.mediaDataDTO.id)
                 .pipe(
@@ -117,18 +120,20 @@ export class SupabaseMovieLifecycleService {
                     );
                   })
                 );
-
             case 1:
+              type = 1;
               return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
                 movieLifecycleDTO.mediaDataDTO.id,
                 movieLifecycleDTO.lifecycleId
               );
             case 2:
+              type = 2;
               return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
                 movieLifecycleDTO.lifecycleId,
                 movieLifecycleDTO.mediaDataDTO.id
               );
             case 3:
+              type = 3;
               let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
                 lifecycle_id: 0,
                 movie_id: movieLifecycleDTO.mediaDataDTO.id,
@@ -136,13 +141,18 @@ export class SupabaseMovieLifecycleService {
               };
               return of([movieLifecycleFromDBCustom]);
             default:
+              type = -99;
               throw new Error('Something went wrong. Case -99'); //to-do traccia errore su db, anche se impossibile che passi qui
           }
         }),
         map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
-          return this.supabaseUtilsService.movieLifecycleMapFactory(
-            movieLifecycleEntityList
-          );
+          return {
+            movieLifecycleMap:
+              this.supabaseUtilsService.movieLifecycleMapFactory(
+                movieLifecycleEntityList
+              ),
+            type: ['create', 'delete', 'update', 'nothing', 'error'][type],
+          };
         })
       );
   }

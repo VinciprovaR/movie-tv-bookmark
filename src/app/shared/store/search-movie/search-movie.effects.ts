@@ -9,6 +9,7 @@ import {
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { ErrorResponse } from '../../interfaces/error.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class SearchMovieEffects {
@@ -23,8 +24,7 @@ export class SearchMovieEffects {
               movieResult: movieResult,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(
               SearchMovieActions.searchMovieFailure({ httpErrorResponse })
             );
@@ -54,8 +54,7 @@ export class SearchMovieEffects {
                 movieResult: movieResult,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 SearchMovieActions.searchMovieFailure({
                   httpErrorResponse,
@@ -81,8 +80,7 @@ export class SearchMovieEffects {
               movieDetail: movieDetail,
             });
           }),
-          catchError((httpErrorResponse: ErrorResponse) => {
-            console.error(httpErrorResponse);
+          catchError((httpErrorResponse: HttpErrorResponse) => {
             return of(
               SearchMovieActions.searchMovieFailure({ httpErrorResponse })
             );

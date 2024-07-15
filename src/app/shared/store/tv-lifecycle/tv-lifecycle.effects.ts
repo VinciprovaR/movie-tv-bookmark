@@ -19,6 +19,7 @@ import { SearchTVActions } from '../search-tv';
 import { TVLifecycleMap } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { DiscoveryTVActions } from '../discovery-tv';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // import { DiscoveryTVActions } from '../discovery-tv';
 
@@ -42,8 +43,7 @@ export class TVLifecycleEffects {
                 tvLifecycleMap: tvLifecycleMapResult,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 TVLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
@@ -65,13 +65,13 @@ export class TVLifecycleEffects {
         return this.supabaseTVLifecycleService
           .createOrUpdateOrDeleteTVLifecycle(mediaLifecycleDTO, user as User)
           .pipe(
-            map((tvLifecycleMap: TVLifecycleMap) => {
+            map((result: { tvLifecycleMap: TVLifecycleMap; type: string }) => {
               return TVLifecycleActions.createUpdateDeleteTVLifecycleSuccess({
-                tvLifecycleMap,
+                tvLifecycleMap: result.tvLifecycleMap,
+                typeAction: result.type,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 TVLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
@@ -110,8 +110,7 @@ export class TVLifecycleEffects {
                 tvList,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 TVLifecycleActions.lifecycleFailure({
                   httpErrorResponse,
@@ -136,8 +135,7 @@ export class TVLifecycleEffects {
                 tvLifecycleMap: tvLifecycleMapResult,
               });
             }),
-            catchError((httpErrorResponse: ErrorResponse) => {
-              console.error(httpErrorResponse);
+            catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 TVLifecycleActions.lifecycleFailure({
                   httpErrorResponse,

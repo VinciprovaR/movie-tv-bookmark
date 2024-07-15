@@ -6,11 +6,19 @@ import { AuthSelectors } from './shared/store/auth';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { ContentComponent } from './shared/layout/content/content.component';
+import { AlertContainerComponent } from './features/alert-container/alert-container.component';
+import { AlertStore } from './shared/store/component-store/alert-store.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, ContentComponent, HeaderComponent],
+  imports: [
+    CommonModule,
+    ContentComponent,
+    HeaderComponent,
+    AlertContainerComponent,
+  ],
+  providers: [AlertStore],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -21,7 +29,7 @@ export class AppComponent implements OnInit {
     .select(AuthSelectors.selectUser)
     .pipe(map((user) => !!user));
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private alertStore: AlertStore) {}
 
   ngOnInit(): void {
     // this.router.events.subscribe((event) => {
