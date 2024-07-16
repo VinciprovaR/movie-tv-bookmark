@@ -6,6 +6,7 @@ import {
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
 import { Genre, Language } from '../../interfaces/TMDB/tmdb-filters.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 //search
 export const discoveryTV = createAction(
@@ -55,7 +56,7 @@ export const getLanguagesListSuccess = createAction(
 //error
 export const discoveryTVFailure = createAction(
   '[Discovery-TV/API] Discovery TV Failure',
-  props<{ httpErrorResponse: any }>()
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 export const cleanError = createAction(
   '[Discovery-tv/Error Handling] Clean Error'

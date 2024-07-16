@@ -19,6 +19,7 @@ import {
   Movie_Life_Cycle,
 } from '../../interfaces/supabase/entities';
 import { HttpErrorResponse } from '@angular/common/http';
+import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
 
 @Injectable()
 export class MovieLifecycleEffects {
@@ -55,25 +56,17 @@ export class MovieLifecycleEffects {
   createUpdateDeleteMovieLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(MovieLifecycleActions.createUpdateDeleteMovieLifecycle),
-      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
       switchMap((action) => {
-        let [{ mediaLifecycleDTO }, user] = action;
+        let { mediaLifecycleDTO } = action;
         return this.supabaseMovieLifecycleService
-          .createOrUpdateOrDeleteMovieLifecycle(mediaLifecycleDTO, user as User)
+          .crudOperationResolver(mediaLifecycleDTO)
           .pipe(
-            map(
-              (result: {
-                movieLifecycleMap: MovieLifecycleMap;
-                type: string;
-              }) => {
-                return MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess(
-                  {
-                    movieLifecycleMap: result.movieLifecycleMap,
-                    typeAction: result.type,
-                  }
-                );
-              }
-            ),
+            map((operation: crud_operations) => {
+              return MovieLifecycleActions.crudOperationsInit[operation]({
+                operation,
+                mediaLifecycleDTO,
+              });
+            }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
                 MovieLifecycleActions.lifecycleFailure({
@@ -86,10 +79,121 @@ export class MovieLifecycleEffects {
     );
   });
 
+  createMovieLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MovieLifecycleActions.createMovieLifecycle),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      switchMap((action) => {
+        let [{ mediaLifecycleDTO, operation }, user] = action;
+        return this.supabaseMovieLifecycleService
+          .createMovieLifecycle(mediaLifecycleDTO, user as User)
+          .pipe(
+            map((movieLifecycleMap: MovieLifecycleMap) => {
+              return MovieLifecycleActions.createMovieLifecycleSuccess({
+                movieLifecycleMap: movieLifecycleMap,
+                operation,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                MovieLifecycleActions.createMovieLifecycleFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  updateMovieLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MovieLifecycleActions.updateMovieLifecycle),
+      switchMap((action) => {
+        let { mediaLifecycleDTO, operation } = action;
+        return this.supabaseMovieLifecycleService
+          .updateMovieLifecycle(mediaLifecycleDTO)
+          .pipe(
+            map((movieLifecycleMap: MovieLifecycleMap) => {
+              return MovieLifecycleActions.updateMovieLifecycleSuccess({
+                movieLifecycleMap: movieLifecycleMap,
+                operation,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                MovieLifecycleActions.updateMovieLifecycleFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  deleteMovieLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MovieLifecycleActions.deleteMovieLifecycle),
+
+      switchMap((action) => {
+        let { mediaLifecycleDTO, operation } = action;
+        return this.supabaseMovieLifecycleService
+          .deleteMovieLifecycle(mediaLifecycleDTO)
+          .pipe(
+            map((movieLifecycleMap: MovieLifecycleMap) => {
+              return MovieLifecycleActions.deleteMovieLifecycleSuccess({
+                movieLifecycleMap: movieLifecycleMap,
+                operation,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                MovieLifecycleActions.deleteMovieLifecycleFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  unchangedMovieLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MovieLifecycleActions.unchangedMovieLifecycle),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      switchMap((action) => {
+        let [{ mediaLifecycleDTO, operation }, user] = action;
+        return this.supabaseMovieLifecycleService
+          .unchangedMovieLifecycle(mediaLifecycleDTO, user as User)
+          .pipe(
+            map((movieLifecycleMap: MovieLifecycleMap) => {
+              return MovieLifecycleActions.unchangedMovieLifecycleSuccess({
+                movieLifecycleMap: movieLifecycleMap,
+                operation,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                MovieLifecycleActions.unchangedMovieLifecycleFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
   updateSearchMovieByLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess),
-      switchMap(() => {
+      ofType(
+        MovieLifecycleActions.createMovieLifecycleSuccess,
+        MovieLifecycleActions.deleteMovieLifecycleSuccess,
+        MovieLifecycleActions.updateMovieLifecycleSuccess
+      ),
+      switchMap((action) => {
         return of(MovieLifecycleActions.updateSearchMovieByLifecycle());
       })
     );

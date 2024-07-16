@@ -49,7 +49,10 @@ export const movieLifecycleReducer = createReducer(
     };
   }),
   on(
-    MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess,
+    MovieLifecycleActions.createMovieLifecycleSuccess,
+    MovieLifecycleActions.updateMovieLifecycleSuccess,
+    MovieLifecycleActions.deleteMovieLifecycleSuccess,
+    MovieLifecycleActions.unchangedMovieLifecycleSuccess,
     MovieLifecycleActions.initMovieLifecycleSuccess,
     (state, { movieLifecycleMap }) => {
       return {
@@ -71,14 +74,21 @@ export const movieLifecycleReducer = createReducer(
       };
     }
   ),
-  on(MovieLifecycleActions.lifecycleFailure, (state, { httpErrorResponse }) => {
-    return {
-      ...state,
-      isLoading: false,
-      error: httpErrorResponse,
-      movieLifecycleMap: { ...state.movieLifecycleMap },
-    };
-  }),
+  on(
+    MovieLifecycleActions.lifecycleFailure,
+    MovieLifecycleActions.createMovieLifecycleFailure,
+    MovieLifecycleActions.updateMovieLifecycleFailure,
+    MovieLifecycleActions.deleteMovieLifecycleFailure,
+    MovieLifecycleActions.unchangedMovieLifecycleFailure,
+    (state, { httpErrorResponse }) => {
+      return {
+        ...state,
+        isLoading: false,
+        error: httpErrorResponse,
+        movieLifecycleMap: { ...state.movieLifecycleMap },
+      };
+    }
+  ),
   on(MovieLifecycleActions.cleanError, (state) => {
     return {
       ...state,

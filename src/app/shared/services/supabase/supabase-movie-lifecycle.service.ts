@@ -15,6 +15,8 @@ import {
 import { SupabaseMovieDataDAO } from './supabase-movie-data.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
 import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
+import { CRUD_OPERATIONS_ENUM } from '../../enums/crud-operations.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -83,77 +85,104 @@ export class SupabaseMovieLifecycleService {
     );
   }
 
-  createOrUpdateOrDeleteMovieLifecycle(
-    movieLifecycleDTO: MediaLifecycleDTO<Movie>,
-    user: User
-  ): Observable<{ movieLifecycleMap: MovieLifecycleMap; type: string }> {
-    let type: number = 0;
-
+  crudOperationResolver(
+    movieLifecycleDTO: MediaLifecycleDTO<Movie>
+  ): Observable<crud_operations> {
     return this.supabaseMovieLifecycleDAO
       .findLifecycleListByMovieIds([movieLifecycleDTO.mediaDataDTO.id])
       .pipe(
-        switchMap((movieLifecycleFromDB: Movie_Life_Cycle[]) => {
-          switch (
-            this.supabaseUtilsService.checkCase(
-              movieLifecycleFromDB,
-              movieLifecycleDTO
-            )
-          ) {
-            case 0:
-              type = 0;
-              return this.supabaseMovieDataDAO
-                .findByMovieId(movieLifecycleDTO.mediaDataDTO.id)
-                .pipe(
-                  switchMap((movieDataEntityList: Movie_Data[]) => {
-                    if (movieDataEntityList.length === 0) {
-                      return this.supabaseMovieDataDAO.createMovieData(
-                        movieLifecycleDTO.mediaDataDTO
-                      );
-                    }
-                    return of(movieDataEntityList);
-                  }),
-                  switchMap(() => {
-                    return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
-                      movieLifecycleDTO.lifecycleId,
-                      movieLifecycleDTO.mediaDataDTO.id,
-                      user
-                    );
-                  })
-                );
-            case 1:
-              type = 1;
-              return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
-                movieLifecycleDTO.mediaDataDTO.id,
-                movieLifecycleDTO.lifecycleId
-              );
-            case 2:
-              type = 2;
-              return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
-                movieLifecycleDTO.lifecycleId,
-                movieLifecycleDTO.mediaDataDTO.id
-              );
-            case 3:
-              type = 3;
-              let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
-                lifecycle_id: 0,
-                movie_id: movieLifecycleDTO.mediaDataDTO.id,
-                user_id: user.id,
-              };
-              return of([movieLifecycleFromDBCustom]);
-            default:
-              type = -99;
-              throw new Error('Something went wrong. Case -99'); //to-do traccia errore su db, anche se impossibile che passi qui
+        map((movieLifecycleFromDB: Movie_Life_Cycle[]) => {
+          let operation = this.supabaseUtilsService.checkCase(
+            movieLifecycleFromDB,
+            movieLifecycleDTO
+          );
+          if (operation === CRUD_OPERATIONS_ENUM.default) {
+            throw new Error('Something went wrong. Case default'); //to-do traccia errore su db, anche se impossibile che passi qui
           }
-        }),
-        map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
-          return {
-            movieLifecycleMap:
-              this.supabaseUtilsService.movieLifecycleMapFactory(
-                movieLifecycleEntityList
-              ),
-            type: ['create', 'delete', 'update', 'nothing', 'error'][type],
-          };
+          return operation;
         })
       );
+  }
+
+  updateMovieLifecycle(
+    movieLifecycleDTO: MediaLifecycleDTO<Movie>
+  ): Observable<MovieLifecycleMap> {
+    return this.supabaseMovieLifecycleDAO
+      .updateMovieLifeCycle(
+        movieLifecycleDTO.lifecycleId,
+        movieLifecycleDTO.mediaDataDTO.id
+      )
+      .pipe(
+        map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
+          return this.supabaseUtilsService.movieLifecycleMapFactory(
+            movieLifecycleEntityList
+          );
+        })
+      );
+  }
+
+  deleteMovieLifecycle(
+    movieLifecycleDTO: MediaLifecycleDTO<Movie>
+  ): Observable<MovieLifecycleMap> {
+    return this.supabaseMovieLifecycleDAO
+      .deleteMovieLifeCycle(
+        movieLifecycleDTO.mediaDataDTO.id,
+        movieLifecycleDTO.lifecycleId
+      )
+      .pipe(
+        map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
+          return this.supabaseUtilsService.movieLifecycleMapFactory(
+            movieLifecycleEntityList
+          );
+        })
+      );
+  }
+
+  createMovieLifecycle(
+    movieLifecycleDTO: MediaLifecycleDTO<Movie>,
+    user: User
+  ): Observable<MovieLifecycleMap> {
+    return this.supabaseMovieDataDAO
+      .findByMovieId(movieLifecycleDTO.mediaDataDTO.id)
+      .pipe(
+        switchMap((movieDataEntityList: Movie_Data[]) => {
+          if (movieDataEntityList.length === 0) {
+            return this.supabaseMovieDataDAO.createMovieData(
+              movieLifecycleDTO.mediaDataDTO
+            );
+          }
+          return of(movieDataEntityList);
+        }),
+        switchMap(() => {
+          return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
+            movieLifecycleDTO.lifecycleId,
+            movieLifecycleDTO.mediaDataDTO.id,
+            user
+          );
+        }),
+        map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
+          return this.supabaseUtilsService.movieLifecycleMapFactory(
+            movieLifecycleEntityList
+          );
+        })
+      );
+  }
+
+  unchangedMovieLifecycle(
+    movieLifecycleDTO: MediaLifecycleDTO<Movie>,
+    user: User
+  ): Observable<MovieLifecycleMap> {
+    let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
+      lifecycle_id: 0,
+      movie_id: movieLifecycleDTO.mediaDataDTO.id,
+      user_id: user.id,
+    };
+    return of([movieLifecycleFromDBCustom]).pipe(
+      map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
+        return this.supabaseUtilsService.movieLifecycleMapFactory(
+          movieLifecycleEntityList
+        );
+      })
+    );
   }
 }

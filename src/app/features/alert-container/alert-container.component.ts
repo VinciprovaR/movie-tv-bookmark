@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-
-import {
-  Alert,
-  AlertStore,
-} from '../../shared/store/component-store/alert-store.service';
-import { filter, Observable } from 'rxjs';
+import { AlertStore } from '../../shared/store/component-store/alert-store.service';
+import { filter, Observable, timer } from 'rxjs';
 import { AlertComponent } from '../../shared/components/alert/alert.component';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-alert-container',
@@ -17,14 +14,31 @@ import { AlertComponent } from '../../shared/components/alert/alert.component';
   styleUrl: './alert-container.component.css',
 })
 export class AlertContainerComponent implements OnInit {
-  alerts$!: Observable<any>;
+  readonly alertStore = inject(AlertStore);
+  readonly router = inject(Router);
 
-  constructor(private alertStore: AlertStore, private dialog: MatDialog) {}
+  selectAlerts$!: Observable<any>;
+
+  constructor() {}
   ngOnInit(): void {
-    this.alerts$ = this.alertStore.alerts$;
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationStart))
+      .subscribe((event) => {
+        this.cleanAlert();
+      });
+
+    this.initSelectors();
+  }
+
+  initSelectors() {
+    this.selectAlerts$ = this.alertStore.selectAlerts$;
   }
 
   closeAlert(id: number) {
     this.alertStore.closeAlert(id);
+  }
+
+  cleanAlert() {
+    this.alertStore.cleanAlerts();
   }
 }

@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { LifecycleOption } from '../../interfaces/supabase/DTO';
 import { LifecycleTypeIdMap } from '../../interfaces/store/lifecycle-metadata-state.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const retriveLifecycleMetadata = createAction(
   '[Lifecycle-Metadata/API] Retrive Lifecycle Options '
@@ -17,7 +18,7 @@ export const retriveLifecycleMetadataSuccess = createAction(
 export const lifecycleMetadataFailure = createAction(
   '[Lifecycle-Metadata/API] Lifecycle Metadata Failure',
   props<{
-    httpErrorResponse: any;
+    httpErrorResponse: HttpErrorResponse;
   }>()
 );
 

@@ -4,6 +4,7 @@ import {
   LoginPayload,
   RegisterPayload,
 } from '../../interfaces/supabase/supabase-auth.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const login = createAction(
   '[Auth/API] User Login',
@@ -36,7 +37,7 @@ export const currentUserSuccess = createAction(
 
 export const authFailure = createAction(
   '[Auth/API] Auth Failure',
-  props<{ httpErrorResponse: any }>()
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
 export const logout = createAction('[Logout/API] User Logout');

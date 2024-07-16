@@ -13,6 +13,8 @@ import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
 
 import { SupabaseUtilsService } from './supabase-utils.service';
 import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
+import { CRUD_OPERATIONS_ENUM } from '../../enums/crud-operations.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -74,77 +76,104 @@ export class SupabaseTVLifecycleService {
     );
   }
 
-  createOrUpdateOrDeleteTVLifecycle(
-    tvLifecycleDTO: MediaLifecycleDTO<TV>,
-    user: User
-  ): Observable<{ tvLifecycleMap: TVLifecycleMap; type: string }> {
-    let type: number = 0;
-
+  crudOperationResolver(
+    tvLifecycleDTO: MediaLifecycleDTO<TV>
+  ): Observable<crud_operations> {
     return this.supabaseTVLifecycleDAO
       .findLifecycleListByTVIds([tvLifecycleDTO.mediaDataDTO.id])
       .pipe(
-        switchMap((tvLifecycleFromDB: TV_Life_Cycle[]) => {
-          switch (
-            this.supabaseUtilsService.checkCase(
-              tvLifecycleFromDB,
-              tvLifecycleDTO
-            )
-          ) {
-            case 0:
-              type = 0;
-              return this.supabaseTVDataDAO
-                .findByTVId(tvLifecycleDTO.mediaDataDTO.id)
-                .pipe(
-                  switchMap((tvDataEntityList: TV_Data[]) => {
-                    if (tvDataEntityList.length === 0) {
-                      return this.supabaseTVDataDAO.createTVData(
-                        tvLifecycleDTO.mediaDataDTO
-                      );
-                    }
-                    return of(tvDataEntityList);
-                  }),
-                  switchMap(() => {
-                    return this.supabaseTVLifecycleDAO.createTVLifeCycle(
-                      tvLifecycleDTO.lifecycleId,
-                      tvLifecycleDTO.mediaDataDTO.id,
-                      user
-                    );
-                  })
-                );
-
-            case 1:
-              type = 1;
-              return this.supabaseTVLifecycleDAO.deleteTVLifeCycle(
-                tvLifecycleDTO.mediaDataDTO.id,
-                tvLifecycleDTO.lifecycleId
-              );
-            case 2:
-              type = 2;
-              return this.supabaseTVLifecycleDAO.updateTVLifeCycle(
-                tvLifecycleDTO.lifecycleId,
-                tvLifecycleDTO.mediaDataDTO.id
-              );
-            case 3:
-              type = 3;
-              let tvLifecycleFromDBCustom: TV_Life_Cycle = {
-                lifecycle_id: 0,
-                tv_id: tvLifecycleDTO.mediaDataDTO.id,
-                user_id: user.id,
-              };
-              return of([tvLifecycleFromDBCustom]);
-            default:
-              type = -99;
-              throw new Error('Something went wrong. Case -99');
+        map((tvLifecycleFromDB: TV_Life_Cycle[]) => {
+          let operation = this.supabaseUtilsService.checkCase(
+            tvLifecycleFromDB,
+            tvLifecycleDTO
+          );
+          if (operation === CRUD_OPERATIONS_ENUM.default) {
+            throw new Error('Something went wrong. Case default'); //to-do traccia errore su db, anche se impossibile che passi qui
           }
-        }),
-        map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
-          return {
-            tvLifecycleMap: this.supabaseUtilsService.tvLifecycleMapFactory(
-              tvLifecycleEntityList
-            ),
-            type: ['create', 'delete', 'update', 'nothing', 'error'][type],
-          };
+          return operation;
         })
       );
+  }
+
+  updateTVLifecycle(
+    tvLifecycleDTO: MediaLifecycleDTO<TV>
+  ): Observable<TVLifecycleMap> {
+    return this.supabaseTVLifecycleDAO
+      .updateTVLifeCycle(
+        tvLifecycleDTO.lifecycleId,
+        tvLifecycleDTO.mediaDataDTO.id
+      )
+      .pipe(
+        map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
+          return this.supabaseUtilsService.tvLifecycleMapFactory(
+            tvLifecycleEntityList
+          );
+        })
+      );
+  }
+
+  deleteTVLifecycle(
+    tvLifecycleDTO: MediaLifecycleDTO<TV>
+  ): Observable<TVLifecycleMap> {
+    return this.supabaseTVLifecycleDAO
+      .deleteTVLifeCycle(
+        tvLifecycleDTO.mediaDataDTO.id,
+        tvLifecycleDTO.lifecycleId
+      )
+      .pipe(
+        map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
+          return this.supabaseUtilsService.tvLifecycleMapFactory(
+            tvLifecycleEntityList
+          );
+        })
+      );
+  }
+
+  createTVLifecycle(
+    tvLifecycleDTO: MediaLifecycleDTO<TV>,
+    user: User
+  ): Observable<TVLifecycleMap> {
+    return this.supabaseTVDataDAO
+      .findByTVId(tvLifecycleDTO.mediaDataDTO.id)
+      .pipe(
+        switchMap((tvDataEntityList: TV_Data[]) => {
+          if (tvDataEntityList.length === 0) {
+            return this.supabaseTVDataDAO.createTVData(
+              tvLifecycleDTO.mediaDataDTO
+            );
+          }
+          return of(tvDataEntityList);
+        }),
+        switchMap(() => {
+          return this.supabaseTVLifecycleDAO.createTVLifeCycle(
+            tvLifecycleDTO.lifecycleId,
+            tvLifecycleDTO.mediaDataDTO.id,
+            user
+          );
+        }),
+        map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
+          return this.supabaseUtilsService.tvLifecycleMapFactory(
+            tvLifecycleEntityList
+          );
+        })
+      );
+  }
+
+  unchangedTVLifecycle(
+    tvLifecycleDTO: MediaLifecycleDTO<TV>,
+    user: User
+  ): Observable<TVLifecycleMap> {
+    let tvLifecycleFromDBCustom: TV_Life_Cycle = {
+      lifecycle_id: 0,
+      tv_id: tvLifecycleDTO.mediaDataDTO.id,
+      user_id: user.id,
+    };
+    return of([tvLifecycleFromDBCustom]).pipe(
+      map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
+        return this.supabaseUtilsService.tvLifecycleMapFactory(
+          tvLifecycleEntityList
+        );
+      })
+    );
   }
 }

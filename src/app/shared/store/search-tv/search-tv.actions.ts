@@ -5,6 +5,7 @@ import {
   TVResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
+import { HttpErrorResponse } from '@angular/common/http';
 
 //search
 export const searchTV = createAction(
@@ -36,7 +37,7 @@ export const cleanTVDetail = createAction('[Search-tv/API] Clean TV Detail');
 //error
 export const searchTVFailure = createAction(
   '[Search-TV/API] Search TV Failure',
-  props<{ httpErrorResponse: any }>()
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
 export const cleanError = createAction(

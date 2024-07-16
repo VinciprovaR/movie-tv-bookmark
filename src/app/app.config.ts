@@ -7,7 +7,11 @@ import {
 } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { reducers, metaReducers } from './shared/store/app.store';
 import { provideEffects } from '@ngrx/effects';
@@ -39,11 +43,13 @@ import { TVLifecycleEffects } from './shared/store/tv-lifecycle/tv-lifecycle.eff
 import { DiscoveryTVEffects } from './shared/store/discovery-tv/discovery-tv.effects';
 import { LifecycleMetadataEffects } from './shared/store/lifecycle-metadata/lifecycle-metadata.effects';
 import { FiltersMetadataEffects } from './shared/store/filters-metadata/filters-metadata.effects';
+import { ErrorInterceptor } from './shared/interceptors/ErrorInterceptor.interceptor';
 
 registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     provideCurrentUser(),
     provideLifecycleSelect(),
     provideSelectFilters(),

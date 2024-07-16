@@ -35,6 +35,13 @@
 - generalizzare navigator (usabile per header e sotto route come movie lifecycle)
 - Card e altri componenti con grandezze placeholder mentre aspettano dati async per evitare cambi dimensione
 - Refractor interfaccie, stato confuso, separazione dto entity non ordinato
+- constatare se gli enum servono, dato che i valori sono già tipizzati e quindi non arbitrari di base
+- LIFECYCLEENUM COME CRUD CONDITION ENUM
+- http interceptor e/o handling error generalizzato con log (log service)
+- ogni failure ha la sua action di failure (search movie failure, discovery movie failure, create lifecycle failure, update lifecycle failure ecc..)
+- sintassi semplificata con rxjs and ngrx, no return e graffe
+- quando va da nolifecycle a un lifecycle, e il nolifecycle ha cmq il record (perché è una fake delete), alert dice cmq aggiornato, non aggiunto  
+- notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)
 
 ################ AUTH ################
 

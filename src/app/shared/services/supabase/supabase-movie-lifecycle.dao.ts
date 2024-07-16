@@ -13,6 +13,7 @@ import {
 } from '../../interfaces/supabase/entities';
 import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',

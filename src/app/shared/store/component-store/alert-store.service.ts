@@ -2,21 +2,19 @@ import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Actions, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { SearchMovieActions } from '../search-movie';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MovieLifecycleActions } from '../movie-lifecycle';
-import {
-  MovieLifecycleMap,
-  TVLifecycleMap,
-} from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { TVLifecycleActions } from '../tv-lifecycle';
-
-export interface Alert {
-  id: number;
-  message: string;
-  type: 'error' | 'success';
-}
+import { Alert } from '../../interfaces/alert.interface';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '../auth';
+import { DiscoveryMovieActions } from '../discovery-movie';
+import { DiscoveryTVActions } from '../discovery-tv';
+import { FiltersMetadataActions } from '../filters-metadata';
+import { LifecycleMetadataActions } from '../lifecycle-metadata';
+import { SearchTVActions } from '../search-tv';
 
 export interface AlertState {
   alerts: Alert[];
@@ -25,17 +23,25 @@ export interface AlertState {
 @Injectable({ providedIn: 'root' })
 export class AlertStore extends ComponentStore<AlertState> {
   readonly actions$ = inject(Actions);
+  readonly store = inject(Store);
 
+  readonly selectAlerts$ = this.select((state) => state.alerts);
+  //to-do i18e
+  private readonly ALERT_MESSAGE_MAP: any = {
+    update: 'lifecycle aggiornato',
+    createUpdate: 'lifecycle aggiunto',
+    delete: 'lifecycle rimosso',
+    create: 'lifecycle aggiunto',
+    unchanged: 'lifecycle aggiornato',
+  };
   constructor() {
     super({ alerts: [] });
   }
 
-  readonly alerts$ = this.select((state) => state.alerts);
-
   readonly addAlert = this.updater((state, alert: Alert) => {
     const newAlert = {
       id: alert.id,
-      message: alert.message + ' ' + alert.id,
+      message: alert.message,
       type: alert.type,
     };
     return { ...state, alerts: [newAlert, ...state.alerts] };
@@ -45,32 +51,78 @@ export class AlertStore extends ComponentStore<AlertState> {
     return { alerts: state.alerts.filter((alert) => alert.id !== id) };
   });
 
+  readonly cleanAlerts = this.updater((state) => {
+    return { alerts: [] };
+  });
+
+  //to-do action errore generalizzata nel notificator state quando lo refrorerai, ogni sotto stato raggruppa tutte le sue failure e chiama failure global (?)
   readonly showAlertError = this.effect(() => {
     return this.actions$.pipe(
-      ofType(SearchMovieActions.searchMovieFailure),
+      ofType(
+        AuthActions.authFailure,
+        SearchMovieActions.searchMovieFailure,
+        SearchTVActions.searchTVFailure,
+        DiscoveryMovieActions.discoveryMovieFailure,
+        DiscoveryTVActions.discoveryTVFailure,
+        FiltersMetadataActions.filtersMetadataFailure,
+        LifecycleMetadataActions.lifecycleMetadataFailure,
+        MovieLifecycleActions.lifecycleFailure,
+        MovieLifecycleActions.createMovieLifecycleFailure,
+        MovieLifecycleActions.deleteMovieLifecycleFailure,
+        MovieLifecycleActions.updateMovieLifecycleFailure,
+        MovieLifecycleActions.unchangedMovieLifecycleFailure,
+        TVLifecycleActions.lifecycleFailure,
+        TVLifecycleActions.createTVLifecycleFailure,
+        TVLifecycleActions.deleteTVLifecycleFailure,
+        TVLifecycleActions.updateTVLifecycleFailure,
+        TVLifecycleActions.unchangedTVLifecycleFailure
+      ),
       tap((action) => {
         let { httpErrorResponse }: { httpErrorResponse: HttpErrorResponse } =
           action;
+
+        this.handleError(httpErrorResponse);
+
         this.addAlert({
-          message: httpErrorResponse.message,
+          message: "Errore, non è stato possibile eseguire l'operazione",
           type: 'error',
           id: new Date().getTime(),
         });
       })
     );
   });
-  //to-do mappare tipo azione precisa e movie name
-  readonly showAlertSuccess = this.effect(() => {
+
+  readonly showAlertMovieLifecycleSuccess = this.effect(() => {
     return this.actions$.pipe(
       ofType(
-        MovieLifecycleActions.createUpdateDeleteMovieLifecycleSuccess,
-        TVLifecycleActions.createUpdateDeleteTVLifecycleSuccess
+        MovieLifecycleActions.createMovieLifecycleSuccess,
+        MovieLifecycleActions.updateMovieLifecycleSuccess,
+        MovieLifecycleActions.deleteMovieLifecycleSuccess,
+        MovieLifecycleActions.unchangedMovieLifecycleSuccess
       ),
-
       tap((action) => {
-        let { typeAction }: { typeAction: string } = action;
+        let { operation } = action;
         this.addAlert({
-          message: 'CRUD lifecycle ' + typeAction,
+          message: `Movie ${this.ALERT_MESSAGE_MAP[operation]}`,
+          type: 'success',
+          id: new Date().getTime(),
+        });
+      })
+    );
+  });
+
+  readonly showAlertTVLifecycleSuccess = this.effect(() => {
+    return this.actions$.pipe(
+      ofType(
+        TVLifecycleActions.createTVLifecycleSuccess,
+        TVLifecycleActions.updateTVLifecycleSuccess,
+        TVLifecycleActions.deleteTVLifecycleSuccess,
+        TVLifecycleActions.unchangedTVLifecycleSuccess
+      ),
+      tap((action) => {
+        let { operation } = action;
+        this.addAlert({
+          message: `TV ${this.ALERT_MESSAGE_MAP[operation]}`,
           type: 'success',
           id: new Date().getTime(),
         });
@@ -85,4 +137,8 @@ export class AlertStore extends ComponentStore<AlertState> {
       })
     );
   });
+
+  handleError(error: HttpErrorResponse) {
+    console.error(error);
+  }
 }

@@ -1,5 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  inject,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Subject, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-alert',
@@ -8,7 +18,10 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
   templateUrl: 'alert.component.html',
   styleUrl: 'alert.component.css',
 })
-export class AlertComponent {
+export class AlertComponent implements OnInit {
+  private readonly destroyRef$ = inject(DestroyRef);
+  destroyed$ = new Subject();
+
   @Input({ required: true })
   id!: number;
   @Input({ required: true })
@@ -20,6 +33,17 @@ export class AlertComponent {
   closeAlert = new EventEmitter<number>();
 
   constructor() {}
+
+  ngOnInit(): void {
+    this.destroyRef$.onDestroy(() => {
+      this.destroyed$.next(true);
+      this.destroyed$.complete();
+    });
+
+    timer(7000)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(() => this.onClose());
+  }
 
   onClose(): void {
     this.closeAlert.emit(this.id);

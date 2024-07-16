@@ -20,6 +20,7 @@ import { TVLifecycleMap } from '../../interfaces/supabase/supabase-lifecycle.int
 import { DiscoveryTVActions } from '../discovery-tv';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { HttpErrorResponse } from '@angular/common/http';
+import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
 
 // import { DiscoveryTVActions } from '../discovery-tv';
 
@@ -54,21 +55,18 @@ export class TVLifecycleEffects {
       })
     );
   });
-
   createUpdateDeleteTVLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TVLifecycleActions.createUpdateDeleteTVLifecycle),
-      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
       switchMap((action) => {
-        let [{ mediaLifecycleDTO }, user] = action;
-
+        let { mediaLifecycleDTO } = action;
         return this.supabaseTVLifecycleService
-          .createOrUpdateOrDeleteTVLifecycle(mediaLifecycleDTO, user as User)
+          .crudOperationResolver(mediaLifecycleDTO)
           .pipe(
-            map((result: { tvLifecycleMap: TVLifecycleMap; type: string }) => {
-              return TVLifecycleActions.createUpdateDeleteTVLifecycleSuccess({
-                tvLifecycleMap: result.tvLifecycleMap,
-                typeAction: result.type,
+            map((operation: crud_operations) => {
+              return TVLifecycleActions.crudOperationsInit[operation]({
+                operation,
+                mediaLifecycleDTO,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
@@ -83,9 +81,120 @@ export class TVLifecycleEffects {
     );
   });
 
+  createTVLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TVLifecycleActions.createTVLifecycle),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      switchMap((action) => {
+        let [{ mediaLifecycleDTO, operation }, user] = action;
+        return this.supabaseTVLifecycleService
+          .createTVLifecycle(mediaLifecycleDTO, user as User)
+          .pipe(
+            map((tvLifecycleMap: TVLifecycleMap) => {
+              return TVLifecycleActions.createTVLifecycleSuccess({
+                tvLifecycleMap: tvLifecycleMap,
+                operation,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                TVLifecycleActions.createTVLifecycleFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  updateTVLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TVLifecycleActions.updateTVLifecycle),
+      switchMap((action) => {
+        let { mediaLifecycleDTO, operation } = action;
+        return this.supabaseTVLifecycleService
+          .updateTVLifecycle(mediaLifecycleDTO)
+          .pipe(
+            map((tvLifecycleMap: TVLifecycleMap) => {
+              return TVLifecycleActions.updateTVLifecycleSuccess({
+                tvLifecycleMap: tvLifecycleMap,
+                operation,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                TVLifecycleActions.updateTVLifecycleFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  deleteTVLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TVLifecycleActions.deleteTVLifecycle),
+
+      switchMap((action) => {
+        let { mediaLifecycleDTO, operation } = action;
+        return this.supabaseTVLifecycleService
+          .deleteTVLifecycle(mediaLifecycleDTO)
+          .pipe(
+            map((tvLifecycleMap: TVLifecycleMap) => {
+              return TVLifecycleActions.deleteTVLifecycleSuccess({
+                tvLifecycleMap: tvLifecycleMap,
+                operation,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                TVLifecycleActions.deleteTVLifecycleFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  unchangedTVLifecycle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TVLifecycleActions.unchangedTVLifecycle),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      switchMap((action) => {
+        let [{ mediaLifecycleDTO, operation }, user] = action;
+        return this.supabaseTVLifecycleService
+          .unchangedTVLifecycle(mediaLifecycleDTO, user as User)
+          .pipe(
+            map((tvLifecycleMap: TVLifecycleMap) => {
+              return TVLifecycleActions.unchangedTVLifecycleSuccess({
+                tvLifecycleMap: tvLifecycleMap,
+                operation,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                TVLifecycleActions.unchangedTVLifecycleFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
   updateSearchTVByLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(TVLifecycleActions.createUpdateDeleteTVLifecycleSuccess),
+      ofType(
+        TVLifecycleActions.createTVLifecycleSuccess,
+        TVLifecycleActions.deleteTVLifecycleSuccess,
+        TVLifecycleActions.updateTVLifecycleSuccess
+      ),
       switchMap(() => {
         return of(TVLifecycleActions.updateSearchTVByLifecycle());
       })

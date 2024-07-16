@@ -14,6 +14,7 @@ import {
   Genre,
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 //search
 export const discoveryMovie = createAction(
@@ -76,7 +77,7 @@ export const getLanguagesListSuccess = createAction(
 //error
 export const discoveryMovieFailure = createAction(
   '[Discovery-Movie/API] Discovery Movie Failure',
-  props<{ httpErrorResponse: any }>()
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 export const cleanError = createAction(
   '[Discovery-movie/Error Handling] Clean Error'

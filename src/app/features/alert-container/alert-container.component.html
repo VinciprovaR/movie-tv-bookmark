@@ -1,5 +1,5 @@
-<div style="position: fixed">
-  @if(alerts$ | async; as alerts){ @for(alert of alerts; track alert){
+<div class="fixed bottom-4 right-4 space-y-2 z-50 w-full sm:w-auto sm:right-4">
+  @if(selectAlerts$ | async; as alerts){ @for(alert of alerts; track alert){
 
   <app-alert
     [message]="alert.message"

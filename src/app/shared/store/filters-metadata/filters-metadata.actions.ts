@@ -4,6 +4,7 @@ import {
   Genre,
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 //genres movie
 export const getFiltersMetadata = createAction(
@@ -36,7 +37,7 @@ export const getLanguagesListMediaSuccess = createAction(
 //error
 export const filtersMetadataFailure = createAction(
   '[Filters-Metadata/API] Filters-Metadata Failure',
-  props<{ httpErrorResponse: any }>()
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 export const cleanError = createAction(
   '[Filters-Metadata/Error Handling] Clean Error'

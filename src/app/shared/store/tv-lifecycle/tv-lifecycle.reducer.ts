@@ -43,7 +43,10 @@ export const tvLifecycleReducer = createReducer(
     };
   }),
   on(
-    TVLifecycleActions.createUpdateDeleteTVLifecycleSuccess,
+    TVLifecycleActions.createTVLifecycleSuccess,
+    TVLifecycleActions.updateTVLifecycleSuccess,
+    TVLifecycleActions.deleteTVLifecycleSuccess,
+    TVLifecycleActions.unchangedTVLifecycleSuccess,
     TVLifecycleActions.initTVLifecycleSuccess,
     (state, { tvLifecycleMap }) => {
       return {
@@ -62,14 +65,21 @@ export const tvLifecycleReducer = createReducer(
       tvList,
     };
   }),
-  on(TVLifecycleActions.lifecycleFailure, (state, { httpErrorResponse }) => {
-    return {
-      ...state,
-      isLoading: false,
-      error: httpErrorResponse,
-      tvLifecycleMap: { ...state.tvLifecycleMap },
-    };
-  }),
+  on(
+    TVLifecycleActions.lifecycleFailure,
+    TVLifecycleActions.createTVLifecycleFailure,
+    TVLifecycleActions.updateTVLifecycleFailure,
+    TVLifecycleActions.deleteTVLifecycleFailure,
+    TVLifecycleActions.unchangedTVLifecycleFailure,
+    (state, { httpErrorResponse }) => {
+      return {
+        ...state,
+        isLoading: false,
+        error: httpErrorResponse,
+        tvLifecycleMap: { ...state.tvLifecycleMap },
+      };
+    }
+  ),
   on(TVLifecycleActions.cleanError, (state) => {
     return {
       ...state,
