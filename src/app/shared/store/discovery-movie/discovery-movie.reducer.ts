@@ -22,7 +22,6 @@ export const initialState: DiscoveryMovieState = {
     total_pages: 1,
     total_results: 0,
   },
-  movieDetail: null,
 };
 
 export const discoveryMovieReducer = createReducer(
@@ -93,37 +92,6 @@ export const discoveryMovieReducer = createReducer(
     };
   }),
   on(
-    DiscoveryMovieActions.discoveryMovieDetail,
-    (state): DiscoveryMovieState => {
-      return {
-        ...state,
-        movieDetail: null,
-        error: null,
-        isLoading: true,
-      };
-    }
-  ),
-  on(
-    DiscoveryMovieActions.discoveryMovieDetailSuccess,
-    (state, { movieDetail }): DiscoveryMovieState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        movieDetail,
-      };
-    }
-  ),
-  on(DiscoveryMovieActions.cleanMovieDetail, (state): DiscoveryMovieState => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      movieDetail: null,
-    };
-  }),
-
-  on(
     DiscoveryMovieActions.discoveryMovieFailure,
     (state, { httpErrorResponse }): DiscoveryMovieState => {
       return {
@@ -149,7 +117,6 @@ export const getDiscoveryMovieError = (state: DiscoveryMovieState) =>
 export const getMovieResult = (state: DiscoveryMovieState) => state.movieResult;
 export const getMovieList = (state: DiscoveryMovieState) =>
   state.movieResult.results;
-export const getMovieDetail = (state: DiscoveryMovieState) => state.movieDetail;
 export const getMovieResultPage = (state: DiscoveryMovieState) =>
   state.movieResult.page;
 export const getMovieResultTotalPages = (state: DiscoveryMovieState) =>

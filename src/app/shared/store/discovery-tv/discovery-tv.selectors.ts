@@ -31,11 +31,6 @@ export const selectTVList = createSelector(
   DiscoveryTVReducer.getTVList
 );
 
-export const selectTVDetail = createSelector(
-  discoveryTVFeatureSelector,
-  DiscoveryTVReducer.getTVDetail
-);
-
 export const selectTVPage = createSelector(
   discoveryTVFeatureSelector,
   DiscoveryTVReducer.getTVResultPage

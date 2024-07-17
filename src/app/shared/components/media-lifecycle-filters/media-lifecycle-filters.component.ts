@@ -47,8 +47,6 @@ export class MediaLifecycleFiltersComponent implements OnInit {
   destroyed$ = new Subject();
 
   @Input({ required: true })
-  mediaType!: MediaType;
-  @Input({ required: true })
   combinedLifecycleFilters$!: Observable<[PayloadMediaLifecycle, Genre[]]>;
 
   @Output()

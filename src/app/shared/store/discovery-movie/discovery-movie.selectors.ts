@@ -32,11 +32,6 @@ export const selectMovieList = createSelector(
   DiscoveryMovieReducer.getMovieList
 );
 
-export const selectMovieDetail = createSelector(
-  discoveryMovieFeatureSelector,
-  DiscoveryMovieReducer.getMovieDetail
-);
-
 export const selectMoviePage = createSelector(
   discoveryMovieFeatureSelector,
   DiscoveryMovieReducer.getMovieResultPage

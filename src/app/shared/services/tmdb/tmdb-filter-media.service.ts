@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { I18E } from '../../../providers';
+import { I18E, TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 import {
   Certification,
   CertificationResult,
@@ -8,17 +8,18 @@ import {
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
 import { map, Observable } from 'rxjs';
-import { TMDBService } from './abstract/tmdb.abstract.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TMDBFilterMediaService extends TMDBService {
+export class TMDBFilterMediaService {
+  tmdbApiKey: string = inject(TMDB_API_KEY);
+  tmdbBaseUrl: string = inject(TMDB_BASE_URL);
+  httpClient = inject(HttpClient);
   i18e: string = inject(I18E);
 
-  constructor() {
-    super();
-  }
+  constructor() {}
 
   retriveGenreMovieList(): Observable<Genre[]> {
     return this.httpClient

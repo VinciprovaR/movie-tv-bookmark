@@ -42,6 +42,7 @@
 - sintassi semplificata con rxjs and ngrx, no return e graffe
 - quando va da nolifecycle a un lifecycle, e il nolifecycle ha cmq il record (perché è una fake delete), alert dice cmq aggiornato, non aggiunto  
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)
+- tv_data movie_data, decoupling da fare
 
 ################ AUTH ################
 

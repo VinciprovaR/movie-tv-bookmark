@@ -1,12 +1,10 @@
 <app-media-lifecycle-filters
   [sortBySelect]="(selectSortBy$ | async) ?? []"
   [combinedLifecycleFilters$]="selectCombinedLifecycleFilters$"
-  [mediaType]="mediaType"
   (payloadEmitterOnSubmit)="searchMovieByLifecycleSubmit($event)"
 ></app-media-lifecycle-filters>
 
-<app-media-list-container
-  #mediaListContainer
-  [mediaList]="(selectMovieList$ | async) ?? []"
+<app-movie-list-container
+  [movieList]="(selectMovieList$ | async) ?? []"
   [mediaType]="mediaType"
-></app-media-list-container>
+></app-movie-list-container>

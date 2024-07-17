@@ -118,8 +118,8 @@ export const routes: Routes = [
         path: ':lifecycleType',
         loadComponent: () =>
           import(
-            './features/movie-lifecycle-search-list-container/movie-lifecycle-search-list-container.component'
-          ).then((m) => m.MovieLifecycleListsContainerComponent),
+            './features/movie-lifecycle-search/movie-lifecycle-search.component'
+          ).then((m) => m.MovieLifecycleSearchComponent),
         canActivate: [authGuard],
         title: 'Movie Lifecycle List', //to-do lifecycle list con variabile
       },
@@ -143,8 +143,8 @@ export const routes: Routes = [
         path: ':lifecycleType',
         loadComponent: () =>
           import(
-            './features/tv-lifecycle-search-list-container/tv-lifecycle-search-list-container.component'
-          ).then((m) => m.TVLifecycleListsContainerComponent),
+            './features/tv-lifecycle-search/tv-lifecycle-searchcomponent'
+          ).then((m) => m.TVLifecycleSearchComponent),
         canActivate: [authGuard],
         title: 'TV Lifecycle List', //to-do lifecycle list con variabile
       },

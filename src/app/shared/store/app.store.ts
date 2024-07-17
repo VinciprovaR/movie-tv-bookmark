@@ -51,9 +51,7 @@ export const reducers: ActionReducerMap<State> = {
     FiltersMetadataReducers.filtersMetadataReducer,
 };
 
-export const metaReducers: MetaReducer<State>[] = !environment.production
-  ? [logger]
-  : [];
+export const metaReducers: MetaReducer<State>[] = isDevMode() ? [logger] : [];
 
 // console.log all actions
 function logger(reducer: ActionReducer<State>): ActionReducer<State> {

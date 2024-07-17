@@ -31,11 +31,6 @@ export const selectTVList = createSelector(
   SearchTVReducer.getTVList
 );
 
-export const selectTVDetail = createSelector(
-  searchTVFeatureSelector,
-  SearchTVReducer.getTVDetail
-);
-
 export const selectTVPage = createSelector(
   searchTVFeatureSelector,
   SearchTVReducer.getTVResultPage

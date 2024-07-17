@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
-import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
+
 import { Store } from '@ngrx/store';
 import { Observable, Subject, combineLatest, takeUntil } from 'rxjs';
 import {
@@ -27,6 +27,7 @@ import {
 import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discovery-filters.component';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
+import { TVListContainerComponent } from '../../shared/components/tv-list-container/tv-list-container.component';
 
 @Component({
   selector: 'app-tv-discovery',
@@ -34,7 +35,7 @@ import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
   imports: [
     CommonModule,
     InputQueryComponent,
-    MediaListContainerComponent,
+    TVListContainerComponent,
     ScrollNearEndDirective,
     TVDiscoveryFiltersComponent,
   ],

@@ -3,14 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 
-import {
-  MovieDetail,
-  MovieResult,
-} from '../../interfaces/TMDB/tmdb-media.interface';
+import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseMovieLifecycleService } from '../../services/supabase';
 import { TMDBDiscoveryMovieService } from '../../services/tmdb';
-import { ErrorResponse } from '../../interfaces/error.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -85,27 +81,6 @@ export class DiscoveryMovieEffects {
         } else {
           return of(DiscoveryMovieActions.noAdditionalMovie());
         }
-      })
-    );
-  });
-
-  discoveryMovieDetail$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(DiscoveryMovieActions.discoveryMovieDetail),
-      switchMap((action) => {
-        let { movieId } = action;
-        return this.TMDBDiscoveryMovieService.movieDetail(movieId).pipe(
-          map((movieDetail: MovieDetail) => {
-            return DiscoveryMovieActions.discoveryMovieDetailSuccess({
-              movieDetail: movieDetail,
-            });
-          }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of(
-              DiscoveryMovieActions.discoveryMovieFailure({ httpErrorResponse })
-            );
-          })
-        );
       })
     );
   });

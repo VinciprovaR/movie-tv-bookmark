@@ -1,10 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {
-  TV,
-  TVDetail,
-  TVResult,
-} from '../../interfaces/TMDB/tmdb-media.interface';
-import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
+import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
 //search
@@ -24,15 +19,6 @@ export const searchAdditionalTVSuccess = createAction(
   props<{ tvResult: TVResult }>()
 );
 export const noAdditionalTV = createAction('[Search-tv/API] No Additional TV');
-export const searchTVDetail = createAction(
-  '[Search-tv/API] Search TV Detail',
-  props<{ tvId: number }>()
-);
-export const searchTVDetailSuccess = createAction(
-  '[Search-tv/API] Search TV Detail Success',
-  props<{ tvDetail: TVDetail }>()
-);
-export const cleanTVDetail = createAction('[Search-tv/API] Clean TV Detail');
 
 //error
 export const searchTVFailure = createAction(

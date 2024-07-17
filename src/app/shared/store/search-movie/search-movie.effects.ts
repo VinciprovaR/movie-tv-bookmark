@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchMovieActions, SearchMovieSelectors } from '.';
-import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchMovieService } from '../../services/tmdb';
-import {
-  MovieDetail,
-  MovieResult,
-} from '../../interfaces/TMDB/tmdb-media.interface';
+import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -64,27 +61,6 @@ export class SearchMovieEffects {
         } else {
           return of(SearchMovieActions.noAdditionalMovie());
         }
-      })
-    );
-  });
-
-  searchMovieDetail$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(SearchMovieActions.searchMovieDetail),
-      switchMap((action) => {
-        let { movieId } = action;
-        return this.TMDBSearchMovieService.movieDetail(movieId).pipe(
-          map((movieDetail: MovieDetail) => {
-            return SearchMovieActions.searchMovieDetailSuccess({
-              movieDetail: movieDetail,
-            });
-          }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of(
-              SearchMovieActions.searchMovieFailure({ httpErrorResponse })
-            );
-          })
-        );
       })
     );
   });

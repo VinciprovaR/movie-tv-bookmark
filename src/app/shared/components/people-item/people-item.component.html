@@ -1,0 +1,12 @@
+<mat-card
+  class="w-52 sm:w-74 md:w-86 lg:w-92 xl:w-110 2xl:w-122 h-full overflow-hidden"
+  appearance="outlined"
+>
+  <img mat-card-image alt="example" [srcset]="card1or2xImgUrl" loading="lazy" />
+  <mat-card-content>
+    <h2>
+      {{ cast.name }}
+    </h2>
+    <p>{{ cast.character }}</p>
+  </mat-card-content>
+</mat-card>

@@ -14,7 +14,6 @@ export const initialState: SearchMovieState = {
     total_pages: 1,
     total_results: 0,
   },
-  movieDetail: null,
 };
 
 export const searchMovieReducer = createReducer(
@@ -72,30 +71,7 @@ export const searchMovieReducer = createReducer(
       isLoading: false,
     };
   }),
-  on(SearchMovieActions.searchMovieDetail, (state) => {
-    return {
-      ...state,
-      movieDetail: null,
-      error: null,
-      isLoading: true,
-    };
-  }),
-  on(SearchMovieActions.searchMovieDetailSuccess, (state, { movieDetail }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      movieDetail,
-    };
-  }),
-  on(SearchMovieActions.cleanMovieDetail, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      movieDetail: null,
-    };
-  }),
+
   on(SearchMovieActions.searchMovieFailure, (state, { httpErrorResponse }) => {
     return {
       ...state,
@@ -118,7 +94,6 @@ export const getSearchMovieError = (state: SearchMovieState) => state.error;
 export const getMovieResult = (state: SearchMovieState) => state.movieResult;
 export const getMovieList = (state: SearchMovieState) =>
   state.movieResult.results;
-export const getMovieDetail = (state: SearchMovieState) => state.movieDetail;
 export const getMovieResultPage = (state: SearchMovieState) =>
   state.movieResult.page;
 

@@ -1,20 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import {
-  TV,
-  TVDetail,
-  TVResult,
-} from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseTVLifecycleService } from '../../services/supabase';
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
-import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
-import { ErrorResponse } from '../../interfaces/error.interface';
 import { TVLifecycleActions, TVLifecycleSelectors } from '.';
-
 import { SearchTVActions } from '../search-tv';
 import { TVLifecycleMap } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { DiscoveryTVActions } from '../discovery-tv';

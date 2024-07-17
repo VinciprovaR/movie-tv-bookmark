@@ -2,42 +2,44 @@ import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { combineLatest, filter, Observable, Subject, takeUntil } from 'rxjs';
-import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
+
 import { CommonModule } from '@angular/common';
 import {
   MediaType,
-  Movie,
+  TV,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
-import {
-  MovieLifecycleActions,
-  MovieLifecycleSelectors,
-} from '../../shared/store/movie-lifecycle';
+
 import { Store } from '@ngrx/store';
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
-import { LifecycleEnum } from '../../shared/enums/lifecycle.enum';
-import { Movie_Data } from '../../shared/interfaces/supabase/entities';
-import { MediaLifecycleFiltersComponent } from '../../shared/components/media-lifecycle-filters/media-lifecycle-filters.component';
+import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import {
-  Genre,
-  OptionFilter,
-} from '../../shared/interfaces/TMDB/tmdb-filters.interface';
-import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
+  TVLifecycleActions,
+  TVLifecycleSelectors,
+} from '../../shared/store/tv-lifecycle';
+import { LifecycleEnum } from '../../shared/enums/lifecycle.enum';
+import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
+import { TV_Data } from '../../shared/interfaces/supabase/entities';
 import { PayloadMediaLifecycle } from '../../shared/interfaces/store/media-lifecycle-state.interface';
+import {
+  OptionFilter,
+  Genre,
+} from '../../shared/interfaces/TMDB/tmdb-filters.interface';
+import { MediaLifecycleFiltersComponent } from '../../shared/components/media-lifecycle-filters/media-lifecycle-filters.component';
+import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
+import { TVListContainerComponent } from '../../shared/components/tv-list-container/tv-list-container.component';
 
 @Component({
-  selector: 'app-movie-lifecycle-search-list-container',
+  selector: 'app-tv-lifecycle-search',
   standalone: true,
   imports: [
-    MediaListContainerComponent,
+    TVListContainerComponent,
     CommonModule,
     MediaLifecycleFiltersComponent,
   ],
 
-  templateUrl: './movie-lifecycle-search-list-container.component.html',
-  styleUrl: './movie-lifecycle-search-list-container.component.css',
+  templateUrl: './tv-lifecycle-search.component.html',
+  styleUrl: './tv-lifecycle-search.component.css',
 })
-export class MovieLifecycleListsContainerComponent implements OnInit {
+export class TVLifecycleSearchComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly bridgeDataService = inject(BridgeDataService);
   private readonly destroyRef$ = inject(DestroyRef);
@@ -46,12 +48,12 @@ export class MovieLifecycleListsContainerComponent implements OnInit {
 
   @Input()
   lifecycleType!: string;
-  mediaType: MediaType = 'movie';
+  mediaType: MediaType = 'tv';
 
   destroyed$ = new Subject();
 
-  selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
-  selectMovieList$!: Observable<Movie_Data[]>;
+  selectTVLifecycleMap$!: Observable<TVLifecycleMap>;
+  selectTVList$!: Observable<TV_Data[]>;
 
   selectSortBy$!: Observable<OptionFilter[]>;
   selectCombinedLifecycleFilters$!: Observable<
@@ -69,7 +71,7 @@ export class MovieLifecycleListsContainerComponent implements OnInit {
     this.route.params
       .pipe(takeUntil(this.destroyed$))
       .subscribe((params: any) => {
-        this.searchMovie(params.lifecycleType);
+        this.searchTV(params.lifecycleType);
       });
 
     this.initSelectors();
@@ -78,78 +80,74 @@ export class MovieLifecycleListsContainerComponent implements OnInit {
 
   initSelectors() {
     this.selectSortBy$ = this.store.select(
-      FiltersMetadataSelectors.selectSortByLifecycleMovie
+      FiltersMetadataSelectors.selectSortByLifecycleTV
     );
 
     this.selectCombinedLifecycleFilters$ = combineLatest([
-      this.store.select(MovieLifecycleSelectors.selectPayload),
-      this.store.select(FiltersMetadataSelectors.selectGenreListMovie),
+      this.store.select(TVLifecycleSelectors.selectPayload),
+      this.store.select(FiltersMetadataSelectors.selectGenreListTV),
     ]);
 
-    this.selectMovieList$ = this.store.select(
-      MovieLifecycleSelectors.selectMovieList
-    );
+    this.selectTVList$ = this.store.select(TVLifecycleSelectors.selectTVList);
 
-    this.selectMovieLifecycleMap$ = this.store.select(
-      MovieLifecycleSelectors.selectMovieLifecycleMap
+    this.selectTVLifecycleMap$ = this.store.select(
+      TVLifecycleSelectors.selectTVLifecycleMap
     );
 
     this.store
-      .select(MovieLifecycleSelectors.selectUpdateSearch)
+      .select(TVLifecycleSelectors.selectUpdateSearch)
       .pipe(
         takeUntil(this.destroyed$),
         filter((isUpdateSearch) => isUpdateSearch)
       )
       .subscribe(() => {
-        this.searchMovieByLifecycleLanding();
+        this.searchTVByLifecycleLanding();
       });
   }
 
   initBridgeData() {
     //data to lifecycle-selector, lifecycle selected
-    this.selectMovieLifecycleMap$
+    this.selectTVLifecycleMap$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((movieLifecycleMap) => {
         this.bridgeDataService.pushMediaLifecycleMap(movieLifecycleMap);
       });
 
     // data from lifecycle-selector
-    this.bridgeDataService.movieInputLifecycleOptionsObs$
+    this.bridgeDataService.tvInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
+        this.createUpdateDeleteTVLifecycle(mediaLifecycleDTO);
       });
   }
 
-  createUpdateDeleteMovieLifecycle(
-    mediaLifecycleDTO: MediaLifecycleDTO<Movie>
-  ) {
+  createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {
     this.store.dispatch(
-      MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
+      TVLifecycleActions.createUpdateDeleteTVLifecycle({
         mediaLifecycleDTO,
       })
     );
   }
 
-  searchMovie(lifecycleType: string) {
+  searchTV(lifecycleType: string) {
     this.lifecycleType = lifecycleType;
-    this.searchMovieByLifecycleLanding();
+    this.searchTVByLifecycleLanding();
   }
 
-  searchMovieByLifecycleLanding() {
+  searchTVByLifecycleLanding() {
     let lifecycleId = LifecycleEnum[this.lifecycleType];
     this.store.dispatch(
-      MovieLifecycleActions.searchMovieByLifecycleLanding({
+      TVLifecycleActions.searchTVByLifecycleLanding({
         payload: null,
         lifecycleId,
       })
     );
   }
 
-  searchMovieByLifecycleSubmit(payload: PayloadMediaLifecycle) {
+  searchTVByLifecycleSubmit(payload: PayloadMediaLifecycle) {
     let lifecycleId = LifecycleEnum[this.lifecycleType];
     this.store.dispatch(
-      MovieLifecycleActions.searchMovieByLifecycleSubmit({
+      TVLifecycleActions.searchTVByLifecycleSubmit({
         lifecycleId,
         payload,
       })

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
-import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
+import { MovieListContainerComponent } from '../../shared/components/movie-list-container/movie-list-container.component';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
 import {
@@ -27,7 +27,7 @@ import {
   imports: [
     CommonModule,
     InputQueryComponent,
-    MediaListContainerComponent,
+    MovieListContainerComponent,
     ScrollNearEndDirective,
   ],
   providers: [BridgeDataService],

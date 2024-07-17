@@ -11,12 +11,12 @@
   />
   <mat-card-content>
     <h2>
-      <a [routerLink]="detailMediaPath">{{ retriveMediaTitle() }}</a>
+      <a [routerLink]="detailMediaPath">{{ movieData.title }}</a>
     </h2>
-    <p>{{ retriveMediaRelease() }}</p>
+    <p>{{ movieData.release_date }}</p>
   </mat-card-content>
   <app-lifecycle-selector
-    [mediaData]="mediaData"
+    [mediaData]="movieData"
     [index]="index"
     [mediaType]="mediaType"
   ></app-lifecycle-selector>

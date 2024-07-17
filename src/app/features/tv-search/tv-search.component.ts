@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
-import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
+
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import {
@@ -20,6 +20,7 @@ import {
   TVLifecycleActions,
   TVLifecycleSelectors,
 } from '../../shared/store/tv-lifecycle';
+import { TVListContainerComponent } from '../../shared/components/tv-list-container/tv-list-container.component';
 
 @Component({
   selector: 'app-tv-search',
@@ -27,7 +28,7 @@ import {
   imports: [
     CommonModule,
     InputQueryComponent,
-    MediaListContainerComponent,
+    TVListContainerComponent,
     ScrollNearEndDirective,
   ],
   providers: [BridgeDataService],

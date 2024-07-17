@@ -3,19 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DiscoveryTVActions, DiscoveryTVSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 
-import {
-  TVDetail,
-  TVResult,
-  PeopleResult,
-} from '../../interfaces/TMDB/tmdb-media.interface';
+import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseTVLifecycleService } from '../../services/supabase';
 import { TMDBDiscoveryTVService } from '../../services/tmdb';
-import { ErrorResponse } from '../../interfaces/error.interface';
-import {
-  GenresResult,
-  Language,
-} from '../../interfaces/TMDB/tmdb-filters.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -90,27 +81,6 @@ export class DiscoveryTVEffects {
         } else {
           return of(DiscoveryTVActions.noAdditionalTV());
         }
-      })
-    );
-  });
-
-  discoveryTVDetail$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(DiscoveryTVActions.discoveryTVDetail),
-      switchMap((action) => {
-        let { tvId } = action;
-        return this.TMDBDiscoveryTVService.tvDetail(tvId).pipe(
-          map((tvDetail: TVDetail) => {
-            return DiscoveryTVActions.discoveryTVDetailSuccess({
-              tvDetail: tvDetail,
-            });
-          }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of(
-              DiscoveryTVActions.discoveryTVFailure({ httpErrorResponse })
-            );
-          })
-        );
       })
     );
   });

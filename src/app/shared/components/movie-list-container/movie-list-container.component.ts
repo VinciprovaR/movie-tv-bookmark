@@ -1,25 +1,28 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../interfaces/TMDB/tmdb-media.interface';
-import { MediaItemComponent } from '../media-item/media-item.component';
+import { MovieItemComponent } from '../movie-item/movie-item.component';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 
 @Component({
-  selector: 'app-media-list-container',
+  selector: 'app-movie-list-container',
   standalone: true,
-  imports: [CommonModule, MediaItemComponent, NzFlexModule],
-  templateUrl: './media-list-container.component.html',
-  styleUrl: './media-list-container.component.css',
+  imports: [CommonModule, MovieItemComponent, NzFlexModule],
+  templateUrl: './movie-list-container.component.html',
+  styleUrl: './movie-list-container.component.css',
 })
-export class MediaListContainerComponent implements OnInit {
+export class MovieListContainerComponent implements OnInit {
   @Input()
   isLoading: boolean = false;
   @Input({ required: true })
-  mediaList!: Movie[] | TV[] | Movie_Data[] | TV_Data[];
+  movieList!: Movie[] | Movie_Data[];
   @Input({ required: true })
   mediaType!: MediaType;
+
+  @Input()
+  placeholder: string = 'No movie from the research';
 
   constructor() {}
   ngOnInit(): void {}

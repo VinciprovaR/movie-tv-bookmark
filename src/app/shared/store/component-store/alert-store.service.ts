@@ -15,12 +15,14 @@ import { DiscoveryTVActions } from '../discovery-tv';
 import { FiltersMetadataActions } from '../filters-metadata';
 import { LifecycleMetadataActions } from '../lifecycle-metadata';
 import { SearchTVActions } from '../search-tv';
+import { movieDetailFailure } from './movie-detail-store.service';
+import { tvDetailFailure } from './tv-detail-store.service';
 
 export interface AlertState {
   alerts: Alert[];
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AlertStore extends ComponentStore<AlertState> {
   readonly actions$ = inject(Actions);
   readonly store = inject(Store);
@@ -44,6 +46,7 @@ export class AlertStore extends ComponentStore<AlertState> {
       message: alert.message,
       type: alert.type,
     };
+
     return { ...state, alerts: [newAlert, ...state.alerts] };
   });
 
@@ -75,7 +78,9 @@ export class AlertStore extends ComponentStore<AlertState> {
         TVLifecycleActions.createTVLifecycleFailure,
         TVLifecycleActions.deleteTVLifecycleFailure,
         TVLifecycleActions.updateTVLifecycleFailure,
-        TVLifecycleActions.unchangedTVLifecycleFailure
+        TVLifecycleActions.unchangedTVLifecycleFailure,
+        movieDetailFailure,
+        tvDetailFailure
       ),
       tap((action) => {
         let { httpErrorResponse }: { httpErrorResponse: HttpErrorResponse } =

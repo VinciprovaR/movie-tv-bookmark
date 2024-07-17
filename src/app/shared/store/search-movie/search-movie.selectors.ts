@@ -31,11 +31,6 @@ export const selectMovieList = createSelector(
   SearchMovieReducer.getMovieList
 );
 
-export const selectMovieDetail = createSelector(
-  searchMovieFeatureSelector,
-  SearchMovieReducer.getMovieDetail
-);
-
 export const selectMoviePage = createSelector(
   searchMovieFeatureSelector,
   SearchMovieReducer.getMovieResultPage

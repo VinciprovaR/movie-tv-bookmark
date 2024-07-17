@@ -3,9 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchTVActions, SearchTVSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchTVService } from '../../services/tmdb';
-import { TVDetail, TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
+import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { ErrorResponse } from '../../interfaces/error.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -60,25 +59,6 @@ export class SearchTVEffects {
         } else {
           return of(SearchTVActions.noAdditionalTV());
         }
-      })
-    );
-  });
-
-  searchTVDetail$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(SearchTVActions.searchTVDetail),
-      switchMap((action) => {
-        let { tvId } = action;
-        return this.TMDBSearchTVService.tvDetail(tvId).pipe(
-          map((tvDetail: TVDetail) => {
-            return SearchTVActions.searchTVDetailSuccess({
-              tvDetail: tvDetail,
-            });
-          }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of(SearchTVActions.searchTVFailure({ httpErrorResponse }));
-          })
-        );
       })
     );
   });

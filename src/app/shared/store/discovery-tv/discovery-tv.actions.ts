@@ -1,9 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {
-  TVDetail,
-  TVResult,
-  PeopleResult,
-} from '../../interfaces/TMDB/tmdb-media.interface';
+import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
 import { Genre, Language } from '../../interfaces/TMDB/tmdb-filters.interface';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -26,15 +22,6 @@ export const discoveryAdditionalTVSuccess = createAction(
 );
 export const noAdditionalTV = createAction(
   '[Discovery-tv/API] No Additional TV'
-);
-export const discoveryTVDetail = createAction(
-  '[Discovery-tv/API] Discovery TV Detail',
-  props<{ tvId: number }>()
-);
-export const cleanTVDetail = createAction('[Discovery-tv/API] Clean TV Detail');
-export const discoveryTVDetailSuccess = createAction(
-  '[Discovery-tv/API] Discovery TV Detail Success',
-  props<{ tvDetail: TVDetail }>()
 );
 
 //genres

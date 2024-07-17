@@ -15,8 +15,6 @@ export class CheckboxFilterComponent implements OnInit {
   @Input({ required: true })
   filterForm!: FormGroup<any>;
   @Input({ required: true })
-  mediaType!: MediaType;
-  @Input({ required: true })
   controlName!: string;
   @Input({ required: true })
   label!: string;

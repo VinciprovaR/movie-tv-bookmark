@@ -16,9 +16,11 @@ import {
   styleUrl: './genre-filter.component.css',
 })
 export class GenreFilterComponent {
+  protected readonly fb = inject(FormBuilder);
+
   @Input({ required: true })
   filterForm!: FormGroup<any>;
-  protected readonly fb = inject(FormBuilder);
+
   constructor() {}
 
   get genresGroup(): FormGroup<GenreGroup> {

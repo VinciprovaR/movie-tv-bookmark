@@ -1,0 +1,12 @@
+<div class="flex flex-wrap bg-white p-6 justify-between">
+  @if( movieList.length >0){ @for(movie of movieList; track movie.id){
+
+  <app-movie-item
+    class="mt-5"
+    [movieData]="movie"
+    [mediaType]="mediaType"
+    [index]="$index"
+  ></app-movie-item>
+
+  } }@else { {{ placeholder }} }
+</div>

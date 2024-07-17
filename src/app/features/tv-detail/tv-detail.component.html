@@ -1,5 +1,3 @@
-<p>tv-detail works!</p>
-
 @if(tvDetail$ | async; as tvDetail){
 <div style="margin: 10px">
   <div style="display: flex">
@@ -12,5 +10,10 @@
       <p>{{ tvDetail.overview }}</p>
     </div>
   </div>
+
+  <app-people-list-container
+    [isLoading]="(isLoading$ | async) ?? false"
+    [castList]="tvDetail.cast"
+  ></app-people-list-container>
 </div>
 }

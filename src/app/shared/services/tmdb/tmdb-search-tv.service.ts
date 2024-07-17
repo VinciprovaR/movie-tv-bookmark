@@ -1,15 +1,18 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
-import { TMDBTVService } from './abstract/tmdb-tv.abstract.service';
+import { HttpClient } from '@angular/common/http';
+import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TMDBSearchTVService extends TMDBTVService {
-  constructor() {
-    super();
-  }
+export class TMDBSearchTVService {
+  tmdbApiKey: string = inject(TMDB_API_KEY);
+  tmdbBaseUrl: string = inject(TMDB_BASE_URL);
+  httpClient = inject(HttpClient);
+
+  constructor() {}
 
   tvSearchInit(query: string): Observable<TVResult> {
     return this.tvSearch(1, query);

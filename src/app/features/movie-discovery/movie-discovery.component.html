@@ -7,16 +7,16 @@
   (payloadEmitterOnSubmit)="discoveryMovie($event)"
 ></app-discovery-movie-filters>
 
-<app-media-list-container
-  #mediaListContainer
+<app-movie-list-container
+  #movieListContainer
   appScrollNearEnd
   [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
   [isLoading]="(selectIsLoading$ | async) ?? false"
-  [mediaList]="(selectMovieList$ | async) ?? []"
+  [movieList]="(selectMovieList$ | async) ?? []"
   (nearEnd)="
-    mediaListContainer.mediaList.length
-      ? discoveryAdditionalMovie(mediaListContainer.mediaList.length)
+    movieListContainer.movieList.length
+      ? discoveryAdditionalMovie(movieListContainer.movieList.length)
       : null
   "
   [mediaType]="mediaType"
-></app-media-list-container>
+></app-movie-list-container>

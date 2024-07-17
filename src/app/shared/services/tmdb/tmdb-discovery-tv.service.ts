@@ -1,20 +1,22 @@
 import { inject, Injectable } from '@angular/core';
-import { I18E } from '../../../providers';
+import { I18E, TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 import { Observable } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TMDBTVParamsUtilsService } from './tmdb-tv-params-utils.service';
-import { TMDBTVService } from './abstract/tmdb-tv.abstract.service';
+
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TMDBDiscoveryTVService extends TMDBTVService {
+export class TMDBDiscoveryTVService {
+  tmdbApiKey: string = inject(TMDB_API_KEY);
+  tmdbBaseUrl: string = inject(TMDB_BASE_URL);
+  httpClient = inject(HttpClient);
   i18e: string = inject(I18E);
 
-  constructor(private TMDBTVParamsUtilsService: TMDBTVParamsUtilsService) {
-    super();
-  }
+  constructor(private TMDBTVParamsUtilsService: TMDBTVParamsUtilsService) {}
 
   tvDiscoveryInit(payload: PayloadDiscoveryTV): Observable<TVResult> {
     return this.tvDiscovery(1, payload);

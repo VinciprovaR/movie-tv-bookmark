@@ -14,7 +14,6 @@ export const initialState: SearchTVState = {
     total_pages: 1,
     total_results: 0,
   },
-  tvDetail: null,
 };
 
 export const searchTVReducer = createReducer(
@@ -64,30 +63,7 @@ export const searchTVReducer = createReducer(
       isLoading: false,
     };
   }),
-  on(SearchTVActions.searchTVDetail, (state) => {
-    return {
-      ...state,
-      tvDetail: null,
-      error: null,
-      isLoading: true,
-    };
-  }),
-  on(SearchTVActions.searchTVDetailSuccess, (state, { tvDetail }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      tvDetail,
-    };
-  }),
-  on(SearchTVActions.cleanTVDetail, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      tvDetail: null,
-    };
-  }),
+
   on(SearchTVActions.searchTVFailure, (state, { httpErrorResponse }) => {
     return {
       ...state,
@@ -109,8 +85,6 @@ export const getQuery = (state: SearchTVState) => state.query;
 export const getSearchTVError = (state: SearchTVState) => state.error;
 export const getTVResult = (state: SearchTVState) => state.tvResult;
 export const getTVList = (state: SearchTVState) => state.tvResult.results;
-export const getTVDetail = (state: SearchTVState) => state.tvDetail;
 export const getTVResultPage = (state: SearchTVState) => state.tvResult.page;
-
 export const getTVResultTotalPages = (state: SearchTVState) =>
   state.tvResult.total_pages;

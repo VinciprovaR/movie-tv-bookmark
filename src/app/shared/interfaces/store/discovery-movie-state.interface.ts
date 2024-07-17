@@ -1,4 +1,4 @@
-import { MovieResult, MovieDetail } from '../TMDB/tmdb-media.interface';
+import { MovieResult } from '../TMDB/tmdb-media.interface';
 import { DateRange, VoteAverage } from './discovery-state.interface';
 import { StateMediaBookmark } from './state-media-bookmark.interface';
 
@@ -15,5 +15,4 @@ export interface PayloadDiscoveryMovie {
 export interface DiscoveryMovieState extends StateMediaBookmark {
   payload: PayloadDiscoveryMovie;
   movieResult: MovieResult;
-  movieDetail: MovieDetail | null;
 }

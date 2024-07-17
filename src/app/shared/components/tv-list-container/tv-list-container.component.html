@@ -1,0 +1,12 @@
+<div class="flex flex-wrap bg-white p-6 justify-between">
+  @if( tvList.length >0){ @for(tv of tvList; track tv.id){
+
+  <app-tv-item
+    class="mt-5"
+    [tvData]="tv"
+    [mediaType]="mediaType"
+    [index]="$index"
+  ></app-tv-item>
+
+  } }@else { {{ placeholder }} }
+</div>

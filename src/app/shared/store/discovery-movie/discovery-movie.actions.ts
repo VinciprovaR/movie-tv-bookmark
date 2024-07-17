@@ -1,16 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import {
-  Movie,
-  MovieDetail,
-  MovieResult,
-  PeopleResult,
-} from '../../interfaces/TMDB/tmdb-media.interface';
-import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO/';
+import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 import {
   Certification,
-  CertificationResult,
-  Certifications,
   Genre,
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
@@ -34,17 +26,6 @@ export const discoveryAdditionalMovieSuccess = createAction(
 );
 export const noAdditionalMovie = createAction(
   '[Discovery-movie/API] No Additional Movie'
-);
-export const discoveryMovieDetail = createAction(
-  '[Discovery-movie/API] Discovery Movie Detail',
-  props<{ movieId: number }>()
-);
-export const cleanMovieDetail = createAction(
-  '[Discovery-movie/API] Clean Movie Detail'
-);
-export const discoveryMovieDetailSuccess = createAction(
-  '[Discovery-movie/API] Discovery Movie Detail Success',
-  props<{ movieDetail: MovieDetail }>()
 );
 
 //genres

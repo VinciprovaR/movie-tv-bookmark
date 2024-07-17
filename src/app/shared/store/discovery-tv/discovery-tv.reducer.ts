@@ -22,7 +22,6 @@ export const initialState: DiscoveryTVState = {
     total_pages: 1,
     total_results: 0,
   },
-  tvDetail: null,
 };
 
 export const discoveryTVReducer = createReducer(
@@ -83,34 +82,6 @@ export const discoveryTVReducer = createReducer(
       isLoading: false,
     };
   }),
-  on(DiscoveryTVActions.discoveryTVDetail, (state): DiscoveryTVState => {
-    return {
-      ...state,
-      tvDetail: null,
-      error: null,
-      isLoading: true,
-    };
-  }),
-  on(
-    DiscoveryTVActions.discoveryTVDetailSuccess,
-    (state, { tvDetail }): DiscoveryTVState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        tvDetail,
-      };
-    }
-  ),
-  on(DiscoveryTVActions.cleanTVDetail, (state): DiscoveryTVState => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      tvDetail: null,
-    };
-  }),
-
   on(
     DiscoveryTVActions.discoveryTVFailure,
     (state, { httpErrorResponse }): DiscoveryTVState => {
@@ -135,7 +106,7 @@ export const getPayload = (state: DiscoveryTVState) => state.payload;
 export const getDiscoveryTVError = (state: DiscoveryTVState) => state.error;
 export const getTVResult = (state: DiscoveryTVState) => state.tvResult;
 export const getTVList = (state: DiscoveryTVState) => state.tvResult.results;
-export const getTVDetail = (state: DiscoveryTVState) => state.tvDetail;
+
 export const getTVResultPage = (state: DiscoveryTVState) => state.tvResult.page;
 export const getTVResultTotalPages = (state: DiscoveryTVState) =>
   state.tvResult.total_pages;

@@ -1,22 +1,24 @@
 import { inject, Injectable } from '@angular/core';
-import { I18E } from '../../../providers';
+import { I18E, TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 import { Observable } from 'rxjs';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
-import { TMDBMovieService } from './abstract/tmdb-movie.abstract.service';
+
 import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TMDBDiscoveryMovieService extends TMDBMovieService {
+export class TMDBDiscoveryMovieService {
+  tmdbApiKey: string = inject(TMDB_API_KEY);
+  tmdbBaseUrl: string = inject(TMDB_BASE_URL);
+  httpClient = inject(HttpClient);
   i18e: string = inject(I18E);
 
   constructor(
     private TMDBMovieParamsUtilsService: TMDBMovieParamsUtilsService
-  ) {
-    super();
-  }
+  ) {}
 
   movieDiscoveryInit(payload: PayloadDiscoveryMovie): Observable<MovieResult> {
     return this.movieDiscovery(1, payload);

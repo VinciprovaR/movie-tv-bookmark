@@ -1,49 +1,45 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, inject, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  SearchTVActions,
-  SearchTVSelectors,
-} from '../../shared/store/search-tv';
-import { Observable } from 'rxjs';
-import {
-  MediaType,
-  TVDetail,
-} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { CommonModule } from '@angular/common';
 import { TMDB_RESIZED_IMG_URL } from '../../providers';
+import {
+  MediaCredit,
+  TVDetail,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import { Observable } from 'rxjs';
+import { TVDetailStore } from '../../shared/store/component-store/tv-detail-store.service';
+import { PeopleListContainerComponent } from '../../shared/components/people-list-container/people-list-container.component';
 
 @Component({
   selector: 'app-tv-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PeopleListContainerComponent],
+  providers: [TVDetailStore],
   templateUrl: './tv-detail.component.html',
   styleUrl: './tv-detail.component.css',
 })
 export class TVDetailComponent {
-  @Input()
-  tvId: number = 0;
-  resizedImgUrl: string = '';
-  mediaType: MediaType = 'tv';
-  tvDetail$: Observable<TVDetail | null> = this.store.select(
-    SearchTVSelectors.selectTVDetail
-  );
+  readonly resizedImgUrl = inject(TMDB_RESIZED_IMG_URL);
+  readonly tvDetailstore = inject(TVDetailStore);
 
-  constructor(
-    private store: Store,
-    @Inject(TMDB_RESIZED_IMG_URL) private TMDB_RESIZED_IMG_URL: string
-  ) {
-    this.resizedImgUrl = TMDB_RESIZED_IMG_URL;
-  }
+  @Input({ required: true })
+  tvId: number = 0;
+
+  tvDetail$!: Observable<(TVDetail & MediaCredit) | null>;
+  isLoading$!: Observable<boolean>;
+  constructor() {}
 
   ngOnInit(): void {
-    this.store.dispatch(
-      SearchTVActions.searchTVDetail({
-        tvId: this.tvId,
-      })
-    );
+    this.initSelectors();
+    this.searchTVDetail();
   }
 
-  ngOnDestroy(): void {
-    this.store.dispatch(SearchTVActions.cleanTVDetail());
+  searchTVDetail() {
+    this.tvDetailstore.searchTVDetail(this.tvId);
+  }
+
+  initSelectors() {
+    this.tvDetail$ = this.tvDetailstore.selectTVDetail$;
+    this.isLoading$ = this.tvDetailstore.selectIsLoading$;
   }
 }

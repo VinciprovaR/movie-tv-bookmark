@@ -10,6 +10,7 @@ import { NavigationStart, Router } from '@angular/router';
   selector: 'app-alert-container',
   standalone: true,
   imports: [CommonModule, AlertComponent],
+  providers: [AlertStore],
   templateUrl: './alert-container.component.html',
   styleUrl: './alert-container.component.css',
 })

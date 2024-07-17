@@ -1,10 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import {
-  MovieDetail,
-  MovieResult,
-} from '../../interfaces/TMDB/tmdb-media.interface';
+import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorResponse } from '../../interfaces/error.interface';
 
 //search
 export const searchMovie = createAction(
@@ -24,17 +20,6 @@ export const searchAdditionalMovieSuccess = createAction(
 );
 export const noAdditionalMovie = createAction(
   '[Search-movie/API] No Additional Movie'
-);
-export const searchMovieDetail = createAction(
-  '[Search-movie/API] Search Movie Detail',
-  props<{ movieId: number }>()
-);
-export const cleanMovieDetail = createAction(
-  '[Search-movie/API] Clean Movie Detail'
-);
-export const searchMovieDetailSuccess = createAction(
-  '[Search-movie/API] Search Movie Detail Success',
-  props<{ movieDetail: MovieDetail }>()
 );
 
 //error
