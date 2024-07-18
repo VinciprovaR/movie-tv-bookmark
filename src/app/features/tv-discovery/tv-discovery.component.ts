@@ -28,6 +28,7 @@ import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecy
 import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discovery-filters.component';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { TVListContainerComponent } from '../../shared/components/tv-list-container/tv-list-container.component';
+import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-movie-state.interface';
 
 @Component({
   selector: 'app-tv-discovery',
@@ -116,7 +117,7 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  discoveryTV(payload: any) {
+  discoveryTV(payload: PayloadDiscoveryTV) {
     console.log(payload);
     this.store.dispatch(
       DiscoveryTVActions.discoveryTV({

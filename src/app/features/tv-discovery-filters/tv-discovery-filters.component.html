@@ -46,8 +46,10 @@
       [filterForm]="filterForm"
       [controlName]="'languages'"
       [title]="'Language'"
-      [selectObject]="languageList"
-      [selectTransformConfig]="languagesTransformConfig"
+      [selectTransform]="{
+        objectToTransformSelect: languageList,
+        config: languagesTransformConfig
+      }"
       [defaultOption]="languagesDefaultOption"
     ></app-select-filter>
   </div>

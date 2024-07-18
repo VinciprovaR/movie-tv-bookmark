@@ -13,5 +13,11 @@ export class NavigatorComponent {
   @Input({ required: true })
   linkPathList!: LinkPath[];
 
+  hiddenNavMenu: boolean = true;
+
   constructor() {}
+
+  toggleNavMenu() {
+    this.hiddenNavMenu = !this.hiddenNavMenu;
+  }
 }

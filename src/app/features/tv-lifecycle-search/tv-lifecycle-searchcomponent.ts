@@ -10,12 +10,15 @@ import {
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 
 import { Store } from '@ngrx/store';
-import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+import {
+  lifecycleEnum,
+  TVLifecycleMap,
+} from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import {
   TVLifecycleActions,
   TVLifecycleSelectors,
 } from '../../shared/store/tv-lifecycle';
-import { LifecycleEnum } from '../../shared/enums/lifecycle.enum';
+
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { TV_Data } from '../../shared/interfaces/supabase/entities';
 import { PayloadMediaLifecycle } from '../../shared/interfaces/store/media-lifecycle-state.interface';
@@ -47,7 +50,7 @@ export class TVLifecycleSearchComponent implements OnInit {
   private readonly store = inject(Store);
 
   @Input()
-  lifecycleType!: string;
+  lifecycleType!: lifecycleEnum;
   mediaType: MediaType = 'tv';
 
   destroyed$ = new Subject();
@@ -129,26 +132,25 @@ export class TVLifecycleSearchComponent implements OnInit {
     );
   }
 
-  searchTV(lifecycleType: string) {
+  searchTV(lifecycleType: lifecycleEnum) {
     this.lifecycleType = lifecycleType;
     this.searchTVByLifecycleLanding();
   }
 
   searchTVByLifecycleLanding() {
-    let lifecycleId = LifecycleEnum[this.lifecycleType];
+    let lifecycleEnum = this.lifecycleType;
     this.store.dispatch(
       TVLifecycleActions.searchTVByLifecycleLanding({
-        payload: null,
-        lifecycleId,
+        lifecycleEnum,
       })
     );
   }
 
   searchTVByLifecycleSubmit(payload: PayloadMediaLifecycle) {
-    let lifecycleId = LifecycleEnum[this.lifecycleType];
+    let lifecycleEnum = this.lifecycleType;
     this.store.dispatch(
       TVLifecycleActions.searchTVByLifecycleSubmit({
-        lifecycleId,
+        lifecycleEnum,
         payload,
       })
     );

@@ -14,16 +14,22 @@ export const initialState: LifecycleMetadataState = {
 
 export const LifecycleMetadataReducer = createReducer(
   initialState,
-  on(LifecycleMetadataActions.retriveLifecycleMetadata, (state) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: true,
-    };
-  }),
+  on(
+    LifecycleMetadataActions.retriveLifecycleMetadata,
+    (state): LifecycleMetadataState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+      };
+    }
+  ),
   on(
     LifecycleMetadataActions.retriveLifecycleMetadataSuccess,
-    (state, { lifecycleOptions, lifecycleTypeIdMap }) => {
+    (
+      state,
+      { lifecycleOptions, lifecycleTypeIdMap }
+    ): LifecycleMetadataState => {
       return {
         ...state,
         error: null,
@@ -35,20 +41,14 @@ export const LifecycleMetadataReducer = createReducer(
   ),
   on(
     LifecycleMetadataActions.lifecycleMetadataFailure,
-    (state, { httpErrorResponse }) => {
+    (state, { httpErrorResponse }): LifecycleMetadataState => {
       return {
         ...state,
         isLoading: false,
         error: httpErrorResponse,
       };
     }
-  ),
-  on(LifecycleMetadataActions.cleanError, (state) => {
-    return {
-      ...state,
-      error: null,
-    };
-  })
+  )
 );
 
 export const getLifecycleMetadataState = (state: LifecycleMetadataState) =>

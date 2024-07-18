@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthSelectors } from '../../shared/store/auth';
 import { Observable } from 'rxjs';
@@ -13,9 +13,11 @@ import { User } from '@supabase/supabase-js/';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+  private readonly store = inject(Store);
+
   selectUser$!: Observable<User | null>;
 
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.selectUser$ = this.store.select(AuthSelectors.selectUser);

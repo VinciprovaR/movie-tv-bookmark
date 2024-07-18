@@ -16,12 +16,3 @@ export type crud_operations =
 export interface LifecycleCrudConditions {
   [key: string]: crud_operations;
 }
-
-export interface CrudOperationsEnum {
-  create: createOperation;
-  delete: deleteOperation;
-  update: updateOperation;
-  createUpdate: createUpdateOperation;
-  unchanged: unchangedOperation;
-  default: defaultOperation;
-}

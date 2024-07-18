@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 import {
-  lifeCycleId,
+  lifecycleEnum,
   MovieLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { Movie } from '../../interfaces/TMDB/tmdb-media.interface';
@@ -13,126 +13,146 @@ import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-st
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
-export const initMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Init Movie Lifecycle Map Success',
+//populate lifecycle map
+export const populateMovieLifecycleMapSuccess = createAction(
+  '[Movie-Lifecycle/API] Populate Movie Lifecycle Map Success',
   props<{ movieLifecycleMap: MovieLifecycleMap }>()
 );
+export const populateMovieLifecycleMapFailure = createAction(
+  '[Movie-Lifecycle] Populate Movie Lifecycle Map Failure',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
 
-//
-
+//CRUD lifecycle
 export const createUpdateDeleteMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Create or Update or Delete Movie Lifecycle',
+  '[Movie-Lifecycle] Create or Update or Delete Movie Lifecycle Init',
   props<{ mediaLifecycleDTO: MediaLifecycleDTO<Movie> }>()
 );
+export const createUpdateDeleteMovieLifecycleFailure = createAction(
+  '[Movie-Lifecycle] Create or Update or Delete Movie Lifecycle Failure & Notify',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
+);
+
 export const updateMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Update Movie Lifecycle',
+  '[Movie-Lifecycle] Update Movie Lifecycle Init & Notify',
   props<{
     mediaLifecycleDTO: MediaLifecycleDTO<Movie>;
     operation: crud_operations;
   }>()
 );
 export const updateMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Update Movie Lifecycle Success',
+  '[Movie-Lifecycle] Update Movie Lifecycle Success & Notify',
   props<{
     movieLifecycleMap: MovieLifecycleMap;
     operation: crud_operations;
   }>()
 );
+export const updateMovieLifecycleFailure = createAction(
+  '[Movie-Lifecycle] Update Movie Lifecycle Failure & Notify',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
+
 export const deleteMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Delete Movie Lifecycle',
+  '[Movie-Lifecycle] Delete Movie Lifecycle Init',
   props<{
     mediaLifecycleDTO: MediaLifecycleDTO<Movie>;
     operation: crud_operations;
   }>()
 );
 export const deleteMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Delete Movie Lifecycle Success',
+  '[Movie-Lifecycle] Delete Movie Lifecycle Success & Notify',
   props<{
     movieLifecycleMap: MovieLifecycleMap;
     operation: crud_operations;
   }>()
 );
+export const deleteMovieLifecycleFailure = createAction(
+  '[Movie-Lifecycle] Delete Movie Lifecycle Failure & Notify',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
+
 export const createMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Create Movie Lifecycle ',
+  '[Movie-Lifecycle] Create Movie Lifecycle Init',
   props<{
     mediaLifecycleDTO: MediaLifecycleDTO<Movie>;
     operation: crud_operations;
   }>()
 );
 export const createMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Create Movie Lifecycle Success',
+  '[Movie-Lifecycle] Create Movie Lifecycle Success & Notify',
   props<{
     movieLifecycleMap: MovieLifecycleMap;
     operation: crud_operations;
   }>()
 );
+export const createMovieLifecycleFailure = createAction(
+  '[Movie-Lifecycle] Create Movie Lifecycle Failure',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
+
 export const unchangedMovieLifecycle = createAction(
-  '[Movie-Lifecycle/API] Unchanged Movie Lifecycle',
+  '[Movie-Lifecycle] Unchanged Movie Lifecycle Init',
   props<{
     mediaLifecycleDTO: MediaLifecycleDTO<Movie>;
     operation: crud_operations;
   }>()
 );
 export const unchangedMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Unchanged Movie Lifecycle Success',
+  '[Movie-Lifecycle] Unchanged Movie Lifecycle Success & Notify',
   props<{
     movieLifecycleMap: MovieLifecycleMap;
     operation: crud_operations;
   }>()
 );
+export const unchangedMovieLifecycleFailure = createAction(
+  '[Movie-Lifecycle] Unchanged Movie Lifecycle Failure',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
 
-//
+//search movie by lifecycle
+export const notifySearchMovieByLifecycle = createAction(
+  '[Movie-Lifecycle/API] Notify Search Movie By Lifecycle'
+);
 
+//search movie by lifecycle
 export const searchMovieByLifecycleLanding = createAction(
-  '[Movie-Lifecycle/API] Search Movie By Lifecycle Landing',
-  props<{ payload: null; lifecycleId: lifeCycleId }>()
+  '[Movie-Lifecycle] Search Movie By Lifecycle Landing Init',
+  props<{ lifecycleEnum: lifecycleEnum }>()
 );
-export const searchMovieByLifecycleSubmit = createAction(
-  '[Movie-Lifecycle/API] Search Movie By Lifecycle Submit',
-  props<{ lifecycleId: lifeCycleId; payload: PayloadMediaLifecycle }>()
-);
-export const updateSearchMovieByLifecycle = createAction(
-  '[Movie-Lifecycle/API] Update Search Movie By Lifecycle '
-);
-export const searchMovieByLifecycleSuccess = createAction(
-  '[Movie-Lifecycle/API] Search Movie By Lifecycle Success',
+export const searchMovieByLifecycleLandingSuccess = createAction(
+  '[Movie-Lifecycle] Search Movie By Lifecycle Landing Success',
   props<{ movieList: Movie_Life_Cycle[] & Movie_Data[] }>()
 );
-
-//error
-export const lifecycleFailure = createAction(
-  '[Movie-Lifecycle/API] Movie Lifecycle Failure',
-  props<{
-    httpErrorResponse: HttpErrorResponse;
-  }>()
-);
-export const updateMovieLifecycleFailure = createAction(
-  '[Movie-Lifecycle/API] Update Movie Lifecycle Failure',
-  props<{
-    httpErrorResponse: HttpErrorResponse;
-  }>()
-);
-export const deleteMovieLifecycleFailure = createAction(
-  '[Movie-Lifecycle/API] Delete Movie Lifecycle Failure',
-  props<{
-    httpErrorResponse: HttpErrorResponse;
-  }>()
-);
-export const createMovieLifecycleFailure = createAction(
-  '[Movie-Lifecycle/API] Create Movie Lifecycle Failure',
-  props<{
-    httpErrorResponse: HttpErrorResponse;
-  }>()
-);
-export const unchangedMovieLifecycleFailure = createAction(
-  '[Movie-Lifecycle/API] Unchanged Movie Lifecycle Failure',
+export const searchMovieByLifecycleLandingeFailure = createAction(
+  '[Movie-Lifecycle] Search Movie By Lifecycle Landing Failure',
   props<{
     httpErrorResponse: HttpErrorResponse;
   }>()
 );
 
-export const cleanError = createAction(
-  '[Movie-Lifecycle/Error Handling] Clean Error'
+export const searchMovieByLifecycleSubmit = createAction(
+  '[Movie-Lifecycle] Search Movie By Lifecycle Submit Init',
+  props<{ lifecycleEnum: lifecycleEnum; payload: PayloadMediaLifecycle }>()
+);
+export const searchMovieByLifecycleSubmitSuccess = createAction(
+  '[Movie-Lifecycle] Search Movie By Lifecycle Submit Success',
+  props<{ movieList: Movie_Life_Cycle[] & Movie_Data[] }>()
+);
+export const searchMovieByLifecycleSubmitFailure = createAction(
+  '[Movie-Lifecycle] Search Movie By Lifecycle Submit Failure',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
 );
 
 export const crudOperationsInit: any = {

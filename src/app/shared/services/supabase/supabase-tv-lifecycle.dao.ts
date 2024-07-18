@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import {
   PostgrestSingleResponse,
   SupabaseClient,
@@ -7,7 +7,7 @@ import {
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
-import { lifeCycleId } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
 import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
@@ -16,6 +16,8 @@ import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-st
   providedIn: 'root',
 })
 export class SupabaseTVLifecycleDAO {
+  private readonly supabase = inject(SUPABASE_CLIENT);
+
   private readonly TABLE = 'tv_life_cycle';
 
   readonly orderByConfigSupabase: SortyByConfig = {
@@ -31,7 +33,7 @@ export class SupabaseTVLifecycleDAO {
     'name.asc': { field: 'tv_data(name)', rule: { ascending: true } },
   };
 
-  constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
+  constructor() {}
 
   findLifecycleListByTVIds(tvIdList: number[]): Observable<TV_Life_Cycle[]> {
     return from(
@@ -45,7 +47,7 @@ export class SupabaseTVLifecycleDAO {
   }
 
   findTVByLifecycleId(
-    lifecycleId: lifeCycleId,
+    lifecycleEnum: lifecycleEnum,
     payload: PayloadMediaLifecycle
   ): Observable<TV_Life_Cycle[] & TV_Data[]> {
     return from(
@@ -55,7 +57,7 @@ export class SupabaseTVLifecycleDAO {
           '*, ...tv_data!inner(id, poster_path, first_air_date, name, genre_ids)'
         )
         .contains('tv_data.genre_ids', payload.genreIdList)
-        .eq(`lifecycle_id`, lifecycleId)
+        .eq(`lifecycle_enum`, lifecycleEnum)
         .order(
           this.orderByConfigSupabase[payload.sortBy].field,
           this.orderByConfigSupabase[payload.sortBy].rule
@@ -71,13 +73,13 @@ export class SupabaseTVLifecycleDAO {
   //to-do user null? non possibile
   //to-do tipizzare ritorni
   createTVLifeCycle(
-    lifecycleId: lifeCycleId,
+    lifecycleEnum: lifecycleEnum,
     tvId: number,
     user: User
   ): Observable<TV_Life_Cycle[]> {
     let tvLifecycle: TV_Life_Cycle = {
       user_id: user?.id,
-      lifecycle_id: lifecycleId,
+      lifecycle_enum: lifecycleEnum,
       tv_id: tvId,
     };
 
@@ -92,14 +94,14 @@ export class SupabaseTVLifecycleDAO {
   }
 
   updateTVLifeCycle(
-    lifecycleId: lifeCycleId,
+    lifecycleEnum: lifecycleEnum,
     tvId: number
   ): Observable<TV_Life_Cycle[]> {
     return from(
       this.supabase
         .from(this.TABLE)
         .update({
-          lifecycle_id: lifecycleId,
+          lifecycle_enum: lifecycleEnum,
         })
         .eq(`tv_id`, tvId)
         .select()
@@ -113,13 +115,13 @@ export class SupabaseTVLifecycleDAO {
 
   deleteTVLifeCycle(
     tvId: number,
-    lifecycleId: lifeCycleId
+    lifecycleEnum: lifecycleEnum
   ): Observable<TV_Life_Cycle[]> {
     return from(
       this.supabase
         .from(this.TABLE)
         .update({
-          lifecycle_id: lifecycleId,
+          lifecycle_enum: lifecycleEnum,
         })
         .eq(`tv_id`, tvId)
         .select()

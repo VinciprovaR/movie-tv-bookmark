@@ -1,3 +1,6 @@
 @if(isUserAuthenticated$ | async ){
-<app-navigator [linkPathList]="LINK_PATH_LIST"></app-navigator>
+
+<header class="bg-white">
+  <app-navigator [linkPathList]="LINK_PATH_LIST"></app-navigator>
+</header>
 }

@@ -1,43 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { SupabaseTVLifecycleService } from '../../services/supabase';
+
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
 import { TVLifecycleActions, TVLifecycleSelectors } from '.';
+
 import { SearchTVActions } from '../search-tv';
-import { TVLifecycleMap } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { DiscoveryTVActions } from '../discovery-tv';
+import { TVLifecycleMap } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import { SupabaseTVLifecycleService } from '../../services/supabase';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { HttpErrorResponse } from '@angular/common/http';
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
 
-// import { DiscoveryTVActions } from '../discovery-tv';
-
 @Injectable()
 export class TVLifecycleEffects {
-  initTVLifecycle$ = createEffect(() => {
+  initTVLifecycleMapFromList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
-        SearchTVActions.searchTVSuccess,
-        SearchTVActions.searchAdditionalTVSuccess,
-        DiscoveryTVActions.discoveryTVSuccess,
-        DiscoveryTVActions.discoveryAdditionalTVSuccess
+        TVLifecycleActions.searchTVByLifecycleLandingSuccess,
+        TVLifecycleActions.searchTVByLifecycleSubmitSuccess
       ),
       switchMap((action) => {
-        let { tvResult } = action;
+        let { tvList }: { tvList: TV_Life_Cycle[] & TV_Data[] } = action;
         return this.supabaseTVLifecycleService
-          .initTVLifecycleMapFromTVResult(tvResult.results)
+          .initTVLifecycleMapFromTVResultSupabase(tvList)
           .pipe(
             map((tvLifecycleMapResult: TVLifecycleMap) => {
-              return TVLifecycleActions.initTVLifecycleSuccess({
+              return TVLifecycleActions.populateTVLifecycleMapSuccess({
                 tvLifecycleMap: tvLifecycleMapResult,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                TVLifecycleActions.lifecycleFailure({
+                TVLifecycleActions.populateTVLifecycleMapFailure({
                   httpErrorResponse,
                 })
               );
@@ -46,6 +46,37 @@ export class TVLifecycleEffects {
       })
     );
   });
+
+  initTVLifecycleMap$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(
+        SearchTVActions.searchTVSuccess,
+        SearchTVActions.searchAdditionalTVSuccess,
+        DiscoveryTVActions.discoveryTVSuccess,
+        DiscoveryTVActions.discoveryAdditionalTVSuccess
+      ),
+      switchMap((action) => {
+        let { tvResult }: { tvResult: TVResult } = action;
+        return this.supabaseTVLifecycleService
+          .initTVLifecycleMapFromTVResultTMDB(tvResult.results)
+          .pipe(
+            map((tvLifecycleMapResult: TVLifecycleMap) => {
+              return TVLifecycleActions.populateTVLifecycleMapSuccess({
+                tvLifecycleMap: tvLifecycleMapResult,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                TVLifecycleActions.populateTVLifecycleMapFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
   createUpdateDeleteTVLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TVLifecycleActions.createUpdateDeleteTVLifecycle),
@@ -62,7 +93,7 @@ export class TVLifecycleEffects {
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                TVLifecycleActions.lifecycleFailure({
+                TVLifecycleActions.createUpdateDeleteTVLifecycleFailure({
                   httpErrorResponse,
                 })
               );
@@ -179,40 +210,37 @@ export class TVLifecycleEffects {
     );
   });
 
-  updateSearchTVByLifecycle$ = createEffect(() => {
+  notifySearchTVByLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
         TVLifecycleActions.createTVLifecycleSuccess,
         TVLifecycleActions.deleteTVLifecycleSuccess,
         TVLifecycleActions.updateTVLifecycleSuccess
       ),
-      switchMap(() => {
-        return of(TVLifecycleActions.updateSearchTVByLifecycle());
+      switchMap((action) => {
+        return of(TVLifecycleActions.notifySearchTVByLifecycle());
       })
     );
   });
 
-  searchTVByLifecycle$ = createEffect(() => {
+  searchTVByLifecycleLanding$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(
-        TVLifecycleActions.searchTVByLifecycleLanding,
-        TVLifecycleActions.searchTVByLifecycleSubmit
-      ),
+      ofType(TVLifecycleActions.searchTVByLifecycleLanding),
       withLatestFrom(this.store.select(TVLifecycleSelectors.selectPayload)),
       switchMap((action) => {
-        let [{ lifecycleId, payload: payloadSubmit }, payloadState] = action;
-        let payload = payloadSubmit ? payloadSubmit : payloadState;
+        let [{ lifecycleEnum }, payloadState] = action;
+
         return this.supabaseTVLifecycleService
-          .findTVByLifecycleId(lifecycleId, payload)
+          .findTVByLifecycleId(lifecycleEnum, payloadState)
           .pipe(
             map((tvList: TV_Life_Cycle[] & TV_Data[]) => {
-              return TVLifecycleActions.searchTVByLifecycleSuccess({
+              return TVLifecycleActions.searchTVByLifecycleLandingSuccess({
                 tvList,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                TVLifecycleActions.lifecycleFailure({
+                TVLifecycleActions.searchTVByLifecycleLandingeFailure({
                   httpErrorResponse,
                 })
               );
@@ -222,22 +250,23 @@ export class TVLifecycleEffects {
     );
   });
 
-  initTVLifecycleMapFromList$ = createEffect(() => {
+  searchTVByLifecycleSubmit$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(TVLifecycleActions.searchTVByLifecycleSuccess),
+      ofType(TVLifecycleActions.searchTVByLifecycleSubmit),
       switchMap((action) => {
-        let { tvList }: { tvList: TV_Life_Cycle[] & TV_Data[] } = action;
+        let { lifecycleEnum, payload: payloadSubmit } = action;
+
         return this.supabaseTVLifecycleService
-          .initTVLifecycleMapFromTVResultSupabase(tvList)
+          .findTVByLifecycleId(lifecycleEnum, payloadSubmit)
           .pipe(
-            map((tvLifecycleMapResult: TVLifecycleMap) => {
-              return TVLifecycleActions.initTVLifecycleSuccess({
-                tvLifecycleMap: tvLifecycleMapResult,
+            map((tvList: TV_Life_Cycle[] & TV_Data[]) => {
+              return TVLifecycleActions.searchTVByLifecycleSubmitSuccess({
+                tvList,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                TVLifecycleActions.lifecycleFailure({
+                TVLifecycleActions.searchTVByLifecycleSubmitFailure({
                   httpErrorResponse,
                 })
               );

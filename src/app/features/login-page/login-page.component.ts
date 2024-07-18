@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { AuthActions, AuthSelectors } from '../../shared/store/auth';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -37,14 +37,15 @@ import { RouterModule } from '@angular/router';
   styleUrl: './login-page.component.css',
 })
 export class LoginPageComponent {
-  title: string = 'login';
+  private readonly store = inject(Store);
+
   loginForm!: FormGroup<LoginForm>;
 
   selectIsLoading$: Observable<boolean> = this.store.select(
     AuthSelectors.selectIsLoading
   );
 
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup<LoginForm>({
@@ -66,10 +67,5 @@ export class LoginPageComponent {
         AuthActions.login(this.loginForm.value as LoginPayload)
       );
     }
-  }
-
-  ngOnDestroy(): void {
-    //to-do check if there are error
-    this.store.dispatch(AuthActions.cleanError());
   }
 }

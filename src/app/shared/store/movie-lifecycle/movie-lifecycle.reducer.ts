@@ -21,7 +21,7 @@ export const movieLifecycleReducer = createReducer(
   on(
     MovieLifecycleActions.createUpdateDeleteMovieLifecycle,
     MovieLifecycleActions.searchMovieByLifecycleLanding,
-    (state) => {
+    (state): MovieLifecycleState => {
       return {
         ...state,
         error: null,
@@ -32,7 +32,7 @@ export const movieLifecycleReducer = createReducer(
   ),
   on(
     MovieLifecycleActions.searchMovieByLifecycleSubmit,
-    (state, { payload }) => {
+    (state, { payload }): MovieLifecycleState => {
       return {
         ...state,
         error: null,
@@ -42,19 +42,22 @@ export const movieLifecycleReducer = createReducer(
       };
     }
   ),
-  on(MovieLifecycleActions.updateSearchMovieByLifecycle, (state) => {
-    return {
-      ...state,
-      updateSearch: true,
-    };
-  }),
+  on(
+    MovieLifecycleActions.notifySearchMovieByLifecycle,
+    (state): MovieLifecycleState => {
+      return {
+        ...state,
+        updateSearch: true,
+      };
+    }
+  ),
   on(
     MovieLifecycleActions.createMovieLifecycleSuccess,
     MovieLifecycleActions.updateMovieLifecycleSuccess,
     MovieLifecycleActions.deleteMovieLifecycleSuccess,
     MovieLifecycleActions.unchangedMovieLifecycleSuccess,
-    MovieLifecycleActions.initMovieLifecycleSuccess,
-    (state, { movieLifecycleMap }) => {
+    MovieLifecycleActions.populateMovieLifecycleMapSuccess,
+    (state, { movieLifecycleMap }): MovieLifecycleState => {
       return {
         ...state,
         error: null,
@@ -64,8 +67,9 @@ export const movieLifecycleReducer = createReducer(
     }
   ),
   on(
-    MovieLifecycleActions.searchMovieByLifecycleSuccess,
-    (state, { movieList }) => {
+    MovieLifecycleActions.searchMovieByLifecycleLandingSuccess,
+    MovieLifecycleActions.searchMovieByLifecycleSubmitSuccess,
+    (state, { movieList }): MovieLifecycleState => {
       return {
         ...state,
         error: null,
@@ -75,26 +79,23 @@ export const movieLifecycleReducer = createReducer(
     }
   ),
   on(
-    MovieLifecycleActions.lifecycleFailure,
     MovieLifecycleActions.createMovieLifecycleFailure,
     MovieLifecycleActions.updateMovieLifecycleFailure,
     MovieLifecycleActions.deleteMovieLifecycleFailure,
     MovieLifecycleActions.unchangedMovieLifecycleFailure,
-    (state, { httpErrorResponse }) => {
+    MovieLifecycleActions.populateMovieLifecycleMapFailure,
+    MovieLifecycleActions.searchMovieByLifecycleSubmitFailure,
+    MovieLifecycleActions.searchMovieByLifecycleLandingeFailure,
+    MovieLifecycleActions.createUpdateDeleteMovieLifecycleFailure,
+    (state, { httpErrorResponse }): MovieLifecycleState => {
       return {
         ...state,
         isLoading: false,
         error: httpErrorResponse,
-        movieLifecycleMap: { ...state.movieLifecycleMap },
+        movieLifecycleMap: { ...state.movieLifecycleMap }, //still update to push to the selector the prev value like is a next
       };
     }
-  ),
-  on(MovieLifecycleActions.cleanError, (state) => {
-    return {
-      ...state,
-      error: null,
-    };
-  })
+  )
 );
 
 export const getMovieLifecycleState = (state: MovieLifecycleState) => state;

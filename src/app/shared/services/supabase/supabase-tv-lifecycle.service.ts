@@ -6,7 +6,7 @@ import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { SupabaseTVLifecycleDAO } from './supabase-tv-lifecycle.dao';
 import {
-  lifeCycleId,
+  lifecycleEnum,
   TVLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
@@ -14,7 +14,6 @@ import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
 import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
-import { CRUD_OPERATIONS_ENUM } from '../../enums/crud-operations.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +25,7 @@ export class SupabaseTVLifecycleService {
 
   constructor() {}
 
-  initTVLifecycleMapFromTVResult(
+  initTVLifecycleMapFromTVResultTMDB(
     tvList: TV_Data[]
   ): Observable<TVLifecycleMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(tvList);
@@ -59,7 +58,6 @@ export class SupabaseTVLifecycleService {
           return this.supabaseUtilsService.removeMediaWithLifecycle(
             entityMediaLifecycle,
             mediaIdMapIndex,
-            'tv',
             tvResult
           ) as TVResult;
         })
@@ -67,11 +65,11 @@ export class SupabaseTVLifecycleService {
   }
 
   findTVByLifecycleId(
-    lifecycleId: lifeCycleId,
+    lifecycleEnum: lifecycleEnum,
     payload: PayloadMediaLifecycle
   ): Observable<TV_Life_Cycle[] & TV_Data[]> {
     return this.supabaseTVLifecycleDAO.findTVByLifecycleId(
-      lifecycleId,
+      lifecycleEnum,
       payload
     );
   }
@@ -87,7 +85,7 @@ export class SupabaseTVLifecycleService {
             tvLifecycleFromDB,
             tvLifecycleDTO
           );
-          if (operation === CRUD_OPERATIONS_ENUM.default) {
+          if (operation === 'default') {
             throw new Error('Something went wrong. Case default'); //to-do traccia errore su db, anche se impossibile che passi qui
           }
           return operation;
@@ -100,7 +98,7 @@ export class SupabaseTVLifecycleService {
   ): Observable<TVLifecycleMap> {
     return this.supabaseTVLifecycleDAO
       .updateTVLifeCycle(
-        tvLifecycleDTO.lifecycleId,
+        tvLifecycleDTO.lifecycleEnum,
         tvLifecycleDTO.mediaDataDTO.id
       )
       .pipe(
@@ -118,7 +116,7 @@ export class SupabaseTVLifecycleService {
     return this.supabaseTVLifecycleDAO
       .deleteTVLifeCycle(
         tvLifecycleDTO.mediaDataDTO.id,
-        tvLifecycleDTO.lifecycleId
+        tvLifecycleDTO.lifecycleEnum
       )
       .pipe(
         map((tvLifecycleEntityList: TV_Life_Cycle[]) => {
@@ -146,7 +144,7 @@ export class SupabaseTVLifecycleService {
         }),
         switchMap(() => {
           return this.supabaseTVLifecycleDAO.createTVLifeCycle(
-            tvLifecycleDTO.lifecycleId,
+            tvLifecycleDTO.lifecycleEnum,
             tvLifecycleDTO.mediaDataDTO.id,
             user
           );
@@ -164,7 +162,7 @@ export class SupabaseTVLifecycleService {
     user: User
   ): Observable<TVLifecycleMap> {
     let tvLifecycleFromDBCustom: TV_Life_Cycle = {
-      lifecycle_id: 0,
+      lifecycle_enum: 'noLifecycle',
       tv_id: tvLifecycleDTO.mediaDataDTO.id,
       user_id: user.id,
     };

@@ -23,7 +23,36 @@ import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-cr
 
 @Injectable()
 export class MovieLifecycleEffects {
-  initMovieLifecycle$ = createEffect(() => {
+  initMovieLifecycleMapFromList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(
+        MovieLifecycleActions.searchMovieByLifecycleLandingSuccess,
+        MovieLifecycleActions.searchMovieByLifecycleSubmitSuccess
+      ),
+      switchMap((action) => {
+        let { movieList }: { movieList: Movie_Life_Cycle[] & Movie_Data[] } =
+          action;
+        return this.supabaseMovieLifecycleService
+          .initMovieLifecycleMapFromMovieResultSupabase(movieList)
+          .pipe(
+            map((movieLifecycleMapResult: MovieLifecycleMap) => {
+              return MovieLifecycleActions.populateMovieLifecycleMapSuccess({
+                movieLifecycleMap: movieLifecycleMapResult,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                MovieLifecycleActions.populateMovieLifecycleMapFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  initMovieLifecycleMap$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
         SearchMovieActions.searchMovieSuccess,
@@ -34,16 +63,16 @@ export class MovieLifecycleEffects {
       switchMap((action) => {
         let { movieResult }: { movieResult: MovieResult } = action;
         return this.supabaseMovieLifecycleService
-          .initMovieLifecycleMapFromMovieResult(movieResult.results)
+          .initMovieLifecycleMapFromMovieResultTMDB(movieResult.results)
           .pipe(
             map((movieLifecycleMapResult: MovieLifecycleMap) => {
-              return MovieLifecycleActions.initMovieLifecycleSuccess({
+              return MovieLifecycleActions.populateMovieLifecycleMapSuccess({
                 movieLifecycleMap: movieLifecycleMapResult,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                MovieLifecycleActions.lifecycleFailure({
+                MovieLifecycleActions.populateMovieLifecycleMapFailure({
                   httpErrorResponse,
                 })
               );
@@ -69,7 +98,7 @@ export class MovieLifecycleEffects {
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                MovieLifecycleActions.lifecycleFailure({
+                MovieLifecycleActions.createUpdateDeleteMovieLifecycleFailure({
                   httpErrorResponse,
                 })
               );
@@ -186,7 +215,7 @@ export class MovieLifecycleEffects {
     );
   });
 
-  updateSearchMovieByLifecycle$ = createEffect(() => {
+  notifySearchMovieByLifecycle$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
         MovieLifecycleActions.createMovieLifecycleSuccess,
@@ -194,32 +223,31 @@ export class MovieLifecycleEffects {
         MovieLifecycleActions.updateMovieLifecycleSuccess
       ),
       switchMap((action) => {
-        return of(MovieLifecycleActions.updateSearchMovieByLifecycle());
+        return of(MovieLifecycleActions.notifySearchMovieByLifecycle());
       })
     );
   });
 
-  searchMovieByLifecycle$ = createEffect(() => {
+  searchMovieByLifecycleLanding$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(
-        MovieLifecycleActions.searchMovieByLifecycleLanding,
-        MovieLifecycleActions.searchMovieByLifecycleSubmit
-      ),
+      ofType(MovieLifecycleActions.searchMovieByLifecycleLanding),
       withLatestFrom(this.store.select(MovieLifecycleSelectors.selectPayload)),
       switchMap((action) => {
-        let [{ lifecycleId, payload: payloadSubmit }, payloadState] = action;
-        let payload = payloadSubmit ? payloadSubmit : payloadState;
+        let [{ lifecycleEnum }, payloadState] = action;
+
         return this.supabaseMovieLifecycleService
-          .findMovieByLifecycleId(lifecycleId, payload)
+          .findMovieByLifecycleId(lifecycleEnum, payloadState)
           .pipe(
             map((movieList: Movie_Life_Cycle[] & Movie_Data[]) => {
-              return MovieLifecycleActions.searchMovieByLifecycleSuccess({
-                movieList,
-              });
+              return MovieLifecycleActions.searchMovieByLifecycleLandingSuccess(
+                {
+                  movieList,
+                }
+              );
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                MovieLifecycleActions.lifecycleFailure({
+                MovieLifecycleActions.searchMovieByLifecycleLandingeFailure({
                   httpErrorResponse,
                 })
               );
@@ -229,23 +257,23 @@ export class MovieLifecycleEffects {
     );
   });
 
-  initMovieLifecycleMapFromList$ = createEffect(() => {
+  searchMovieByLifecycleSubmit$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(MovieLifecycleActions.searchMovieByLifecycleSuccess),
+      ofType(MovieLifecycleActions.searchMovieByLifecycleSubmit),
       switchMap((action) => {
-        let { movieList }: { movieList: Movie_Life_Cycle[] & Movie_Data[] } =
-          action;
+        let { lifecycleEnum, payload: payloadSubmit } = action;
+
         return this.supabaseMovieLifecycleService
-          .initMovieLifecycleMapFromMovieResultSupabase(movieList)
+          .findMovieByLifecycleId(lifecycleEnum, payloadSubmit)
           .pipe(
-            map((movieLifecycleMapResult: MovieLifecycleMap) => {
-              return MovieLifecycleActions.initMovieLifecycleSuccess({
-                movieLifecycleMap: movieLifecycleMapResult,
+            map((movieList: Movie_Life_Cycle[] & Movie_Data[]) => {
+              return MovieLifecycleActions.searchMovieByLifecycleSubmitSuccess({
+                movieList,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                MovieLifecycleActions.lifecycleFailure({
+                MovieLifecycleActions.searchMovieByLifecycleSubmitFailure({
                   httpErrorResponse,
                 })
               );

@@ -27,11 +27,7 @@
                 "output": "/assets/"
               }
             ],
-            "styles": [
-              "src/custom-theme.scss",
-              "src/output.css",
-              "src/styles.css"
-            ],
+            "styles": ["src/custom-theme.scss", "src/output.css"],
             "scripts": []
           },
           "configurations": {
@@ -82,7 +78,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/output.css", "src/styles.css"],
+            "styles": ["src/output.css"],
             "scripts": []
           }
         }

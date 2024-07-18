@@ -11,7 +11,7 @@ import {
   TV_Life_Cycle,
 } from '../../interfaces/supabase/entities';
 import {
-  lifeCycleId,
+  lifecycleEnum,
   MovieLifecycleMap,
   TVLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
@@ -22,27 +22,25 @@ import {
   TV,
   TVResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { LifecycleEnum } from '../../enums/lifecycle.enum';
+
 import { LifecycleTypeIdMap } from '../../interfaces/store/lifecycle-metadata-state.interface';
 import {
   crud_operations,
   LifecycleCrudConditions,
 } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
-import { CRUD_OPERATIONS_ENUM } from '../../enums/crud-operations.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseUtilsService {
   private readonly LIFECYCLE_CASES: LifecycleCrudConditions = {
-    noEntityANDInLifecycleSelected: CRUD_OPERATIONS_ENUM.create, //Case #0 - Create - Movie/tv doesn't have its own lifecycle and lifecycle selected is > 0, must create the lifecycle item
-    oneEntityANDNoLifecycleSelected: CRUD_OPERATIONS_ENUM.delete, //Case #1 - Delete - Movie/tv has its own lifecycle and lifecycle selected is == 0, must fake delete the lifecycle item , update the lifecycle to 0
-    oneEntityANDInLifecycleSelected: CRUD_OPERATIONS_ENUM.update, //Case #2 - Update - Movie/tv has its own lifecycle and lifecycle selected is > 0, must update the lifecycle item
+    noEntityANDInLifecycleSelected: 'create', //Case #0 - Create - Movie/tv doesn't have its own lifecycle and lifecycle selected is > 0, must create the lifecycle item
+    oneEntityANDNoLifecycleSelected: 'delete', //Case #1 - Delete - Movie/tv has its own lifecycle and lifecycle selected is == 0, must fake delete the lifecycle item , update the lifecycle to 0
+    oneEntityANDInLifecycleSelected: 'update', //Case #2 - Update - Movie/tv has its own lifecycle and lifecycle selected is > 0, must update the lifecycle item
 
-    noEntityANDNoLifecycleSelected: CRUD_OPERATIONS_ENUM.unchanged, //Case #3 - Nothing - Movie/tv doesn't have its own lifecycle and lifecycle selected is == 0, must do nothing, count as delete return lifecycle 0
-    oneEntityANDInLifecycleSelectedButNoLifecycleInEntity:
-      CRUD_OPERATIONS_ENUM.createUpdate, //  //Case #4 - Create Update - Movie/tv has its own lifecycle, the lifecycle is 0 and lifecycle selected is > 0, must fake create the item, is an update
-    default: CRUD_OPERATIONS_ENUM.default, //#Case #99/Default - Default - All cases covered, should not be possible
+    noEntityANDNoLifecycleSelected: 'unchanged', //Case #3 - Nothing - Movie/tv doesn't have its own lifecycle and lifecycle selected is == 0, must do nothing, count as delete return lifecycle 0
+    oneEntityANDInLifecycleSelectedButNoLifecycleInEntity: 'createUpdate', //  //Case #4 - Create Update - Movie/tv has its own lifecycle, the lifecycle is 0 and lifecycle selected is > 0, must fake create the item, is an update
+    default: 'default', //#Case #99/Default - Default - All cases covered, should not be possible
   };
 
   constructor() {}
@@ -54,8 +52,8 @@ export class SupabaseUtilsService {
     let lifecycleOptions: LifecycleOption[] = [];
     let lifecycleTypeIdMap: LifecycleTypeIdMap = {};
     mediaLifecycleOptions.forEach((lc) => {
-      lifecycleOptions.push({ label: lc.label, value: lc.id as lifeCycleId });
-      lifecycleTypeIdMap[lc.enum] = lc.id as lifeCycleId;
+      lifecycleOptions.push({ label: lc.label, value: lc.enum });
+      lifecycleTypeIdMap[lc.enum] = lc.enum as lifecycleEnum;
     });
 
     return { lifecycleOptions, lifecycleTypeIdMap };
@@ -69,7 +67,7 @@ export class SupabaseUtilsService {
     let movieLifecycleMap: MovieLifecycleMap = {};
     movieLifecycleEntityList.forEach((movieLifecycleEntity) => {
       movieLifecycleMap[movieLifecycleEntity.movie_id] =
-        movieLifecycleEntity.lifecycle_id;
+        movieLifecycleEntity.lifecycle_enum;
     });
     return movieLifecycleMap;
   }
@@ -79,7 +77,8 @@ export class SupabaseUtilsService {
   ): TVLifecycleMap {
     let tvLifecycleMap: TVLifecycleMap = {};
     tvLifecycleEntityList.forEach((tvLifecycleEntity) => {
-      tvLifecycleMap[tvLifecycleEntity.tv_id] = tvLifecycleEntity.lifecycle_id;
+      tvLifecycleMap[tvLifecycleEntity.tv_id] =
+        tvLifecycleEntity.lifecycle_enum;
     });
     return tvLifecycleMap;
   }
@@ -87,13 +86,16 @@ export class SupabaseUtilsService {
   removeMediaWithLifecycle(
     entityMediaLifecycle: Movie_Life_Cycle[] | TV_Life_Cycle[],
     mediaIdMapIndex: { [key: number]: number },
-    mediaType: MediaType,
     mediaResult: MovieResult | TVResult
   ): MovieResult | TVResult {
     let indexListToRemove: number[] = [];
-    entityMediaLifecycle.forEach((mlc: any) => {
-      if (mlc[`lifecycle_id`] != LifecycleEnum.noLifecycle) {
-        indexListToRemove.push(mediaIdMapIndex[mlc[`${mediaType}_id`]]);
+    entityMediaLifecycle.forEach((mlc: Movie_Life_Cycle | TV_Life_Cycle) => {
+      if (mlc.lifecycle_enum != 'noLifecycle') {
+        if (this.isMovieEntity(mlc)) {
+          indexListToRemove.push(mediaIdMapIndex[mlc.movie_id]);
+        } else {
+          indexListToRemove.push(mediaIdMapIndex[mlc.tv_id]);
+        }
       }
     });
     indexListToRemove = indexListToRemove.sort((a, b) => b - a);
@@ -136,13 +138,12 @@ export class SupabaseUtilsService {
     mediaLifecycleDTO: MediaLifecycleDTO<Movie | TV>
   ): crud_operations {
     let isEntity = mediaLifecycleFromDB.length === 1;
-    let isLifecycleSelected =
-      mediaLifecycleDTO.lifecycleId > LifecycleEnum.noLifecycle;
+    let isLifecycleSelected = mediaLifecycleDTO.lifecycleEnum != 'noLifecycle';
     let isEntityButNoLifecycleInEntity = false;
 
     if (isEntity) {
       isEntityButNoLifecycleInEntity =
-        mediaLifecycleFromDB[0].lifecycle_id === LifecycleEnum.noLifecycle;
+        mediaLifecycleFromDB[0].lifecycle_enum === 'noLifecycle';
     }
 
     let condition =
@@ -163,5 +164,11 @@ export class SupabaseUtilsService {
         : 'default');
 
     return this.LIFECYCLE_CASES[condition];
+  }
+
+  isMovieEntity(
+    entityMediaLifeCycle: object
+  ): entityMediaLifeCycle is Movie_Life_Cycle {
+    return (entityMediaLifeCycle as Movie_Life_Cycle).movie_id !== undefined;
   }
 }

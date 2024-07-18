@@ -151,7 +151,7 @@ export abstract class DiscoveryFilter<
   }
 
   releaseDateValidatorFactory() {
-    return (group: AbstractControl): any => {
+    return (group: AbstractControl) => {
       let releaseGroup = group as FormGroup<DateRangeGroup>;
       let toControl = releaseGroup.controls.to;
       let fromControl = releaseGroup.controls.from;

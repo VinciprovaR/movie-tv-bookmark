@@ -18,7 +18,7 @@ export const tvLifecycleReducer = createReducer(
   on(
     TVLifecycleActions.createUpdateDeleteTVLifecycle,
     TVLifecycleActions.searchTVByLifecycleLanding,
-    (state) => {
+    (state): TVLifecycleState => {
       return {
         ...state,
         error: null,
@@ -27,28 +27,34 @@ export const tvLifecycleReducer = createReducer(
       };
     }
   ),
-  on(TVLifecycleActions.searchTVByLifecycleSubmit, (state, { payload }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: true,
-      updateSearch: false,
-      payload,
-    };
-  }),
-  on(TVLifecycleActions.updateSearchTVByLifecycle, (state) => {
-    return {
-      ...state,
-      updateSearch: true,
-    };
-  }),
+  on(
+    TVLifecycleActions.searchTVByLifecycleSubmit,
+    (state, { payload }): TVLifecycleState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+        updateSearch: false,
+        payload,
+      };
+    }
+  ),
+  on(
+    TVLifecycleActions.notifySearchTVByLifecycle,
+    (state): TVLifecycleState => {
+      return {
+        ...state,
+        updateSearch: true,
+      };
+    }
+  ),
   on(
     TVLifecycleActions.createTVLifecycleSuccess,
     TVLifecycleActions.updateTVLifecycleSuccess,
     TVLifecycleActions.deleteTVLifecycleSuccess,
     TVLifecycleActions.unchangedTVLifecycleSuccess,
-    TVLifecycleActions.initTVLifecycleSuccess,
-    (state, { tvLifecycleMap }) => {
+    TVLifecycleActions.populateTVLifecycleMapSuccess,
+    (state, { tvLifecycleMap }): TVLifecycleState => {
       return {
         ...state,
         error: null,
@@ -57,35 +63,36 @@ export const tvLifecycleReducer = createReducer(
       };
     }
   ),
-  on(TVLifecycleActions.searchTVByLifecycleSuccess, (state, { tvList }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      tvList,
-    };
-  }),
   on(
-    TVLifecycleActions.lifecycleFailure,
+    TVLifecycleActions.searchTVByLifecycleLandingSuccess,
+    TVLifecycleActions.searchTVByLifecycleSubmitSuccess,
+    (state, { tvList }): TVLifecycleState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        tvList,
+      };
+    }
+  ),
+  on(
     TVLifecycleActions.createTVLifecycleFailure,
     TVLifecycleActions.updateTVLifecycleFailure,
     TVLifecycleActions.deleteTVLifecycleFailure,
     TVLifecycleActions.unchangedTVLifecycleFailure,
-    (state, { httpErrorResponse }) => {
+    TVLifecycleActions.populateTVLifecycleMapFailure,
+    TVLifecycleActions.searchTVByLifecycleSubmitFailure,
+    TVLifecycleActions.searchTVByLifecycleLandingeFailure,
+    TVLifecycleActions.createUpdateDeleteTVLifecycleFailure,
+    (state, { httpErrorResponse }): TVLifecycleState => {
       return {
         ...state,
         isLoading: false,
         error: httpErrorResponse,
-        tvLifecycleMap: { ...state.tvLifecycleMap },
+        tvLifecycleMap: { ...state.tvLifecycleMap }, //still update to push to the selector the prev value like is a next
       };
     }
-  ),
-  on(TVLifecycleActions.cleanError, (state) => {
-    return {
-      ...state,
-      error: null,
-    };
-  })
+  )
 );
 
 export const getTVLifecycleState = (state: TVLifecycleState) => state;

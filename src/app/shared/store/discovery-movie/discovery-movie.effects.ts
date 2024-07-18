@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseMovieLifecycleService } from '../../services/supabase';
@@ -72,7 +71,7 @@ export class DiscoveryMovieEffects {
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                DiscoveryMovieActions.discoveryMovieFailure({
+                DiscoveryMovieActions.discoveryAdditionaMovieFailure({
                   httpErrorResponse,
                 })
               );

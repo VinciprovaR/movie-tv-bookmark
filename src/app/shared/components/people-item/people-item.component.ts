@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Inject, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Cast } from '../../interfaces/TMDB/tmdb-media.interface';
 import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
@@ -19,6 +19,9 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './people-item.component.css',
 })
 export class PeopleItemComponent implements OnInit {
+  private readonly TMDB_CARD_1X_IMG_URL = inject(TMDB_CARD_1X_IMG_URL);
+  private readonly TMDB_CARD_2X_IMG_URL = inject(TMDB_CARD_2X_IMG_URL);
+
   @Input({ required: true })
   cast!: Cast;
 
@@ -30,10 +33,7 @@ export class PeopleItemComponent implements OnInit {
   posterNot2xFoundImgUrl: string =
     '../../../../assets/images/poster-not-found-test.png';
 
-  constructor(
-    @Inject(TMDB_CARD_1X_IMG_URL) private TMDB_CARD_1X_IMG_URL: string,
-    @Inject(TMDB_CARD_2X_IMG_URL) private TMDB_CARD_2X_IMG_URL: string
-  ) {}
+  constructor() {}
   ngOnInit(): void {
     this.card1or2xImgUrl = this.cast.profile_path
       ? `${this.TMDB_CARD_1X_IMG_URL}${this.cast.profile_path} 1x, ${this.TMDB_CARD_2X_IMG_URL}${this.cast.profile_path} 2x`

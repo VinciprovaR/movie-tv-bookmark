@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 import {
-  lifeCycleId,
+  lifecycleEnum,
   TVLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
@@ -10,122 +10,146 @@ import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-st
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
-export const initTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle-C/API] Init TV Lifecycle Success',
+//populate lifecycle map
+export const populateTVLifecycleMapSuccess = createAction(
+  '[TV-Lifecycle/API] Populate TV Lifecycle Map Success',
   props<{ tvLifecycleMap: TVLifecycleMap }>()
 );
+export const populateTVLifecycleMapFailure = createAction(
+  '[TV-Lifecycle] Populate TV Lifecycle Map Failure',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
 
+//CRUD lifecycle
 export const createUpdateDeleteTVLifecycle = createAction(
-  '[TV-Lifecycle/API] Create or Update or Delete TV Lifecycle',
+  '[TV-Lifecycle] Create or Update or Delete TV Lifecycle Init',
   props<{ mediaLifecycleDTO: MediaLifecycleDTO<TV> }>()
 );
+export const createUpdateDeleteTVLifecycleFailure = createAction(
+  '[TV-Lifecycle] Create or Update or Delete TV Lifecycle Failure & Notify',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
+);
+
 export const updateTVLifecycle = createAction(
-  '[TV-Lifecycle/API] Update TV Lifecycle',
+  '[TV-Lifecycle] Update TV Lifecycle Init & Notify',
   props<{
     mediaLifecycleDTO: MediaLifecycleDTO<TV>;
     operation: crud_operations;
   }>()
 );
 export const updateTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle/API] Update TV Lifecycle Success',
+  '[TV-Lifecycle] Update TV Lifecycle Success & Notify',
   props<{
     tvLifecycleMap: TVLifecycleMap;
     operation: crud_operations;
   }>()
 );
+export const updateTVLifecycleFailure = createAction(
+  '[TV-Lifecycle] Update TV Lifecycle Failure & Notify',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
+
 export const deleteTVLifecycle = createAction(
-  '[TV-Lifecycle/API] Delete TV Lifecycle',
+  '[TV-Lifecycle] Delete TV Lifecycle Init',
   props<{
     mediaLifecycleDTO: MediaLifecycleDTO<TV>;
     operation: crud_operations;
   }>()
 );
 export const deleteTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle/API] Delete TV Lifecycle Success',
+  '[TV-Lifecycle] Delete TV Lifecycle Success & Notify',
   props<{
     tvLifecycleMap: TVLifecycleMap;
     operation: crud_operations;
   }>()
 );
+export const deleteTVLifecycleFailure = createAction(
+  '[TV-Lifecycle] Delete TV Lifecycle Failure & Notify',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
+
 export const createTVLifecycle = createAction(
-  '[TV-Lifecycle/API] Create TV Lifecycle ',
+  '[TV-Lifecycle] Create TV Lifecycle Init',
   props<{
     mediaLifecycleDTO: MediaLifecycleDTO<TV>;
     operation: crud_operations;
   }>()
 );
 export const createTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle/API] Create TV Lifecycle Success',
+  '[TV-Lifecycle] Create TV Lifecycle Success & Notify',
   props<{
     tvLifecycleMap: TVLifecycleMap;
     operation: crud_operations;
   }>()
 );
+export const createTVLifecycleFailure = createAction(
+  '[TV-Lifecycle] Create TV Lifecycle Failure',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
+
 export const unchangedTVLifecycle = createAction(
-  '[TV-Lifecycle/API] Unchanged TV Lifecycle',
+  '[TV-Lifecycle] Unchanged TV Lifecycle Init',
   props<{
     mediaLifecycleDTO: MediaLifecycleDTO<TV>;
     operation: crud_operations;
   }>()
 );
 export const unchangedTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle/API] Unchanged TV Lifecycle Success',
+  '[TV-Lifecycle] Unchanged TV Lifecycle Success & Notify',
   props<{
     tvLifecycleMap: TVLifecycleMap;
     operation: crud_operations;
   }>()
 );
+export const unchangedTVLifecycleFailure = createAction(
+  '[TV-Lifecycle] Unchanged TV Lifecycle Failure',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
+);
 
+//search tv by lifecycle
+export const notifySearchTVByLifecycle = createAction(
+  '[TV-Lifecycle/API] Notify Search TV By Lifecycle'
+);
+
+//search tv by lifecycle
 export const searchTVByLifecycleLanding = createAction(
-  '[TV-Lifecycle/API] Search TV By Lifecycle Landing',
-  props<{ payload: null; lifecycleId: lifeCycleId }>()
+  '[TV-Lifecycle] Search TV By Lifecycle Landing Init',
+  props<{ lifecycleEnum: lifecycleEnum }>()
 );
-export const searchTVByLifecycleSubmit = createAction(
-  '[TV-Lifecycle/API] Search TV By Lifecycle Submit',
-  props<{ lifecycleId: lifeCycleId; payload: PayloadMediaLifecycle }>()
-);
-
-export const searchTVByLifecycleSuccess = createAction(
-  '[TV-Lifecycle/API] Search TV By Lifecycle Success',
+export const searchTVByLifecycleLandingSuccess = createAction(
+  '[TV-Lifecycle] Search TV By Lifecycle Landing Success',
   props<{ tvList: TV_Life_Cycle[] & TV_Data[] }>()
 );
-export const updateSearchTVByLifecycle = createAction(
-  '[TV-Lifecycle/API] Update Search TV By Lifecycle '
+export const searchTVByLifecycleLandingeFailure = createAction(
+  '[TV-Lifecycle] Search TV By Lifecycle Landing Failure',
+  props<{
+    httpErrorResponse: HttpErrorResponse;
+  }>()
 );
 
-//error
-export const lifecycleFailure = createAction(
-  '[TV-Lifecycle/API] TV Lifecycle Failure',
+export const searchTVByLifecycleSubmit = createAction(
+  '[TV-Lifecycle] Search TV By Lifecycle Submit Init',
+  props<{ lifecycleEnum: lifecycleEnum; payload: PayloadMediaLifecycle }>()
+);
+export const searchTVByLifecycleSubmitSuccess = createAction(
+  '[TV-Lifecycle] Search TV By Lifecycle Submit Success',
+  props<{ tvList: TV_Life_Cycle[] & TV_Data[] }>()
+);
+export const searchTVByLifecycleSubmitFailure = createAction(
+  '[TV-Lifecycle] Search TV By Lifecycle Submit Failure',
   props<{
     httpErrorResponse: HttpErrorResponse;
   }>()
-);
-export const updateTVLifecycleFailure = createAction(
-  '[TV-Lifecycle/API] Update TV Lifecycle Failure',
-  props<{
-    httpErrorResponse: HttpErrorResponse;
-  }>()
-);
-export const deleteTVLifecycleFailure = createAction(
-  '[TV-Lifecycle/API] Delete TV Lifecycle Failure',
-  props<{
-    httpErrorResponse: HttpErrorResponse;
-  }>()
-);
-export const createTVLifecycleFailure = createAction(
-  '[TV-Lifecycle/API] Create TV Lifecycle Failure',
-  props<{
-    httpErrorResponse: HttpErrorResponse;
-  }>()
-);
-export const unchangedTVLifecycleFailure = createAction(
-  '[TV-Lifecycle/API] Unchanged TV Lifecycle Failure',
-  props<{
-    httpErrorResponse: HttpErrorResponse;
-  }>()
-);
-export const cleanError = createAction(
-  '[TV-Lifecycle-C/Error Handling] Clean Error'
 );
 
 export const crudOperationsInit: any = {

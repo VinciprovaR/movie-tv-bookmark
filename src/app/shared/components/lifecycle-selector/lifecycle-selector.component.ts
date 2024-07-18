@@ -1,6 +1,6 @@
 import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import {
-  lifeCycleId,
+  lifecycleEnum,
   MovieLifecycleMap,
   TVLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
@@ -24,7 +24,7 @@ import {
   Movie,
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { LifecycleEnum } from '../../enums/lifecycle.enum';
+
 import { Store } from '@ngrx/store';
 import { LifecycleMetadataSelectors } from '../../store/lifecycle-metadata';
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
@@ -57,7 +57,9 @@ export class LifecycleSelectorComponent implements OnInit {
   @Input({ required: true })
   mediaData!: Movie | TV | Movie_Data | TV_Data;
 
-  lifecycleControl!: FormControl<lifeCycleId>;
+  idItem!: string;
+
+  lifecycleControl!: FormControl<lifecycleEnum>;
 
   constructor() {
     inject(DestroyRef).onDestroy(() => {
@@ -67,6 +69,8 @@ export class LifecycleSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.idItem = `${this.index}_${this.mediaData.id}`;
+
     this.initSelectors();
     this.buildControl();
     this.initDataBridge();
@@ -94,28 +98,28 @@ export class LifecycleSelectorComponent implements OnInit {
           return mediaLifecycleMap[this.mediaData.id];
         })
       )
-      .subscribe((lifecycleId) => {
+      .subscribe((lifecycleEnum: lifecycleEnum) => {
         this.lifecycleControl.setValue(
-          lifecycleId ? lifecycleId : LifecycleEnum.noLifecycle,
+          lifecycleEnum ? lifecycleEnum : 'noLifecycle',
           { emitEvent: false }
         );
       });
   }
 
   buildControl() {
-    this.lifecycleControl = this.fb.control(LifecycleEnum.noLifecycle, {
+    this.lifecycleControl = this.fb.control('noLifecycle', {
       nonNullable: true,
     });
 
-    this.lifecycleControl.valueChanges.subscribe((lifecycleId) => {
-      this.setLifeCycle(lifecycleId);
+    this.lifecycleControl.valueChanges.subscribe((lifecycleEnum) => {
+      this.setLifeCycle(lifecycleEnum);
     });
   }
 
-  setLifeCycle(lifecycleId: lifeCycleId) {
+  setLifeCycle(lifecycleEnum: lifecycleEnum) {
     this.bridgeDataService.pushInputLifecycleOptions(this.mediaType, {
       mediaDataDTO: this.mediaData,
-      lifecycleId: lifecycleId,
+      lifecycleEnum: lifecycleEnum,
       index: this.index,
     });
   }

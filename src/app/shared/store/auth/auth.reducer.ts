@@ -18,7 +18,7 @@ export const authReducer = createReducer(
     AuthActions.currentUser,
     AuthActions.requestResetPassword,
     AuthActions.logout,
-    (state) => {
+    (state): AuthState => {
       return {
         ...state,
         error: null,
@@ -29,7 +29,7 @@ export const authReducer = createReducer(
   on(
     AuthActions.loginSuccess,
     AuthActions.currentUserSuccess,
-    (state, { user }) => {
+    (state, { user }): AuthState => {
       return {
         error: null,
         isLoading: false,
@@ -37,30 +37,24 @@ export const authReducer = createReducer(
       };
     }
   ),
-  on(AuthActions.registerSuccess, (state) => {
+  on(AuthActions.registerSuccess, (state): AuthState => {
     return {
       error: null,
       isLoading: false,
       user: null, //to-do user cmq valorizzato
     };
   }),
-  on(AuthActions.authFailure, (state, { httpErrorResponse }) => {
+  on(AuthActions.authFailure, (state, { httpErrorResponse }): AuthState => {
     return {
       ...state,
       isLoading: false,
       error: httpErrorResponse,
     };
   }),
-  on(AuthActions.cleanError, (state) => {
-    return {
-      ...state,
-      error: null,
-    };
-  }),
   on(
     AuthActions.logoutSuccess,
     AuthActions.requestResetPasswordSuccess,
-    (state) => {
+    (state): AuthState => {
       //to-do check se necessario qui
       return {
         ...state,

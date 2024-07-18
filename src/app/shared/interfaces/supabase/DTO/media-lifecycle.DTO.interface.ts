@@ -1,12 +1,12 @@
-import { lifeCycleId } from '../supabase-lifecycle.interface';
+import { lifecycleEnum } from '../supabase-lifecycle.interface';
 
 export interface MediaLifecycleDTO<T> {
-  lifecycleId: lifeCycleId;
+  lifecycleEnum: lifecycleEnum;
   index: number;
   mediaDataDTO: T;
 }
 
 export interface LifecycleOption {
   label: string;
-  value: lifeCycleId;
+  value: lifecycleEnum;
 }

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
@@ -8,7 +8,10 @@ import { Lifecycle_Metadata } from '../../interfaces/supabase/entities';
   providedIn: 'root',
 })
 export class SupabaseMediaLifecycleMetadataDAO {
-  constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
+  private readonly supabase = inject(SUPABASE_CLIENT);
+
+  constructor() {}
+
   findLifecycleMetadata(): Observable<Lifecycle_Metadata[]> {
     return from(
       this.supabase

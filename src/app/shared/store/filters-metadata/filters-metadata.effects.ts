@@ -24,7 +24,6 @@ export class FiltersMetadataEffects {
   getFiltersMetadata$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FiltersMetadataActions.getFiltersMetadata),
-
       switchMap(() => {
         const genreListMovie$ =
           this.TMDBFilterMediaService.retriveGenreMovieList().pipe(
@@ -33,6 +32,13 @@ export class FiltersMetadataEffects {
               return FiltersMetadataActions.getGenreListMovieSuccess({
                 genreList,
               });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                FiltersMetadataActions.getGenreListMovieFailure({
+                  httpErrorResponse,
+                })
+              );
             })
           );
         const getCertificationListMovie$ =
@@ -42,6 +48,13 @@ export class FiltersMetadataEffects {
               return FiltersMetadataActions.getCertificationListMovieSuccess({
                 certificationList,
               });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                FiltersMetadataActions.getCertificationListMovieFailure({
+                  httpErrorResponse,
+                })
+              );
             })
           );
 
@@ -52,6 +65,13 @@ export class FiltersMetadataEffects {
               return FiltersMetadataActions.getGenreListTVSuccess({
                 genreList,
               });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                FiltersMetadataActions.getGenreListTVFailure({
+                  httpErrorResponse,
+                })
+              );
             })
           );
 
@@ -62,6 +82,13 @@ export class FiltersMetadataEffects {
               return FiltersMetadataActions.getLanguagesListMediaSuccess({
                 languageList,
               });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                FiltersMetadataActions.getLanguagesListMediaFailure({
+                  httpErrorResponse,
+                })
+              );
             })
           );
 
@@ -70,24 +97,14 @@ export class FiltersMetadataEffects {
           getCertificationListMovie$,
           genreListTV$,
           getLanguagesListMedia$,
-        ])
-          .pipe(
-            mergeMap((response) => [
-              response[0],
-              response[1],
-              response[2],
-              response[3],
-            ])
-          )
-          .pipe(
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                FiltersMetadataActions.filtersMetadataFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
-          );
+        ]).pipe(
+          mergeMap((response) => [
+            response[0],
+            response[1],
+            response[2],
+            response[3],
+          ])
+        );
       })
     );
   });

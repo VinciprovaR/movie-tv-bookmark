@@ -18,14 +18,15 @@ export const initialState: SearchTVState = {
 
 export const searchTVReducer = createReducer(
   initialState,
-  on(SearchTVActions.searchAdditionalTV, (state) => {
+  on(SearchTVActions.searchAdditionalTV, (state): SearchTVState => {
     return {
       ...state,
       error: null,
       isLoading: true,
     };
   }),
-  on(SearchTVActions.searchTV, (state, { query }) => {
+
+  on(SearchTVActions.searchTV, (state, { query }): SearchTVState => {
     return {
       ...state,
       query,
@@ -33,7 +34,7 @@ export const searchTVReducer = createReducer(
       isLoading: true,
     };
   }),
-  on(SearchTVActions.searchTVSuccess, (state, { tvResult }) => {
+  on(SearchTVActions.searchTVSuccess, (state, { tvResult }): SearchTVState => {
     return {
       ...state,
       error: null,
@@ -41,22 +42,25 @@ export const searchTVReducer = createReducer(
       tvResult,
     };
   }),
-  on(SearchTVActions.searchAdditionalTVSuccess, (state, { tvResult }) => {
-    let currTVs = state.tvResult?.results ? state.tvResult.results : [];
-    let nextTVs = tvResult?.results ? tvResult.results : [];
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      tvResult: {
-        page: tvResult?.page ? tvResult.page : 0,
-        total_pages: tvResult?.total_pages ? tvResult.total_pages : 0,
-        total_results: tvResult?.total_results ? tvResult.total_results : 0,
-        results: [...currTVs, ...nextTVs],
-      },
-    };
-  }),
-  on(SearchTVActions.noAdditionalTV, (state) => {
+  on(
+    SearchTVActions.searchAdditionalTVSuccess,
+    (state, { tvResult }): SearchTVState => {
+      let currTVs = state.tvResult?.results ? state.tvResult.results : [];
+      let nextTVs = tvResult?.results ? tvResult.results : [];
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        tvResult: {
+          page: tvResult?.page ? tvResult.page : 0,
+          total_pages: tvResult?.total_pages ? tvResult.total_pages : 0,
+          total_results: tvResult?.total_results ? tvResult.total_results : 0,
+          results: [...currTVs, ...nextTVs],
+        },
+      };
+    }
+  ),
+  on(SearchTVActions.noAdditionalTV, (state): SearchTVState => {
     return {
       ...state,
       error: null,
@@ -64,19 +68,17 @@ export const searchTVReducer = createReducer(
     };
   }),
 
-  on(SearchTVActions.searchTVFailure, (state, { httpErrorResponse }) => {
-    return {
-      ...state,
-      isLoading: false,
-      error: httpErrorResponse,
-    };
-  }),
-  on(SearchTVActions.cleanError, (state) => {
-    return {
-      ...state,
-      error: null,
-    };
-  })
+  on(
+    SearchTVActions.searchTVFailure,
+    SearchTVActions.searchAdditionalTVFailure,
+    (state, { httpErrorResponse }): SearchTVState => {
+      return {
+        ...state,
+        isLoading: false,
+        error: httpErrorResponse,
+      };
+    }
+  )
 );
 
 export const getSearchTVState = (state: SearchTVState) => state;
@@ -86,5 +88,6 @@ export const getSearchTVError = (state: SearchTVState) => state.error;
 export const getTVResult = (state: SearchTVState) => state.tvResult;
 export const getTVList = (state: SearchTVState) => state.tvResult.results;
 export const getTVResultPage = (state: SearchTVState) => state.tvResult.page;
+
 export const getTVResultTotalPages = (state: SearchTVState) =>
   state.tvResult.total_pages;

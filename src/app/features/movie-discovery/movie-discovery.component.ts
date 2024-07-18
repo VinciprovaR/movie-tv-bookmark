@@ -125,7 +125,7 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  discoveryMovie(payload: any) {
+  discoveryMovie(payload: PayloadDiscoveryMovie) {
     this.store.dispatch(
       DiscoveryMovieActions.discoveryMovie({
         payload: payload,

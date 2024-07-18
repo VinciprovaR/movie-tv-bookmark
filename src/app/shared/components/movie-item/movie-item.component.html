@@ -1,23 +1,8 @@
-<mat-card
-  class="w-52 sm:w-74 md:w-86 lg:w-92 xl:w-110 2xl:w-122 h-full overflow-hidden"
-  appearance="outlined"
->
-  <img
-    mat-card-image
-    alt="example"
-    [srcset]="card1or2xImgUrl"
-    [routerLink]="detailMediaPath"
-    loading="lazy"
-  />
-  <mat-card-content>
-    <h2>
-      <a [routerLink]="detailMediaPath">{{ movieData.title }}</a>
-    </h2>
-    <p>{{ movieData.release_date }}</p>
-  </mat-card-content>
-  <app-lifecycle-selector
-    [mediaData]="movieData"
-    [index]="index"
-    [mediaType]="mediaType"
-  ></app-lifecycle-selector>
-</mat-card>
+<app-card
+  [detailMediaPath]="detailMediaPath"
+  [index]="index"
+  [mediaData]="movieData"
+  [mediaType]="mediaType"
+  [title]="movieData.title"
+  [release_date]="movieData.release_date"
+></app-card>

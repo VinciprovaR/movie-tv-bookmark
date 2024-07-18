@@ -7,7 +7,10 @@ import {
 } from '@angular/router';
 import { BridgeDataService } from '../../services/bridge-data.service';
 import { NavigatorComponent } from '../navigator/navigator.component';
-import { LinkPath } from '../../interfaces/navigator.interface';
+import {
+  LinkPath,
+  LinkPathLifecycle,
+} from '../../interfaces/navigator.interface';
 
 @Component({
   selector: 'app-media-lifecycle-search',
@@ -21,11 +24,11 @@ export class MediaLifecycleSearchComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   title: string = '';
 
-  readonly LINK_PATH_LIST: LinkPath[] = [
+  readonly LINK_PATH_LIST: LinkPathLifecycle[] = [
     { label: 'Watchlist Lifecycle', path: 'watchlist' },
     { label: 'Watched Lifecycle', path: 'watched' },
     { label: 'Rewatch Lifecycle', path: 'rewatch' },
-    { label: 'Still Watching Lifecycle', path: 'stillWatching' },
+    { label: 'Still Watching Lifecycle', path: 'watching' },
   ];
 
   constructor() {}

@@ -4,24 +4,18 @@ import { LifecycleTypeIdMap } from '../../interfaces/store/lifecycle-metadata-st
 import { HttpErrorResponse } from '@angular/common/http';
 
 export const retriveLifecycleMetadata = createAction(
-  '[Lifecycle-Metadata/API] Retrive Lifecycle Options '
+  '[Lifecycle-Metadata] Retrive Lifecycle Options '
 );
 export const retriveLifecycleMetadataSuccess = createAction(
-  '[Lifecycle-Metadata/API] Retrive Lifecycle Options Success',
+  '[Lifecycle-Metadata] Retrive Lifecycle Options Success',
   props<{
     lifecycleOptions: LifecycleOption[];
     lifecycleTypeIdMap: LifecycleTypeIdMap;
   }>()
 );
-
-//error
 export const lifecycleMetadataFailure = createAction(
-  '[Lifecycle-Metadata/API] Lifecycle Metadata Failure',
+  '[Lifecycle-Metadata] Lifecycle Metadata Failure',
   props<{
     httpErrorResponse: HttpErrorResponse;
   }>()
-);
-
-export const cleanError = createAction(
-  '[Lifecycle-Metadata/Error Handling] Clean Error'
 );

@@ -1,10 +1,10 @@
-export type noLifecycle = 0;
-export type watchListLifecycle = 1;
-export type watchedLifecycle = 2;
-export type rewatchLifecycle = 3;
-export type stillWatchingLifecycle = 4;
+export type noLifecycle = 'noLifecycle';
+export type watchListLifecycle = 'watchlist';
+export type watchedLifecycle = 'watched';
+export type rewatchLifecycle = 'rewatch';
+export type stillWatchingLifecycle = 'watching';
 
-export type lifeCycleId =
+export type lifecycleEnum =
   | noLifecycle
   | watchListLifecycle
   | watchedLifecycle
@@ -12,7 +12,7 @@ export type lifeCycleId =
   | stillWatchingLifecycle;
 
 interface MediaLifecycleMap {
-  [key: number]: lifeCycleId;
+  [key: number]: lifecycleEnum;
 }
 
 export type MovieLifecycleMap = MediaLifecycleMap;

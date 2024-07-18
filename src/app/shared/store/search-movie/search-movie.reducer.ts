@@ -18,7 +18,7 @@ export const initialState: SearchMovieState = {
 
 export const searchMovieReducer = createReducer(
   initialState,
-  on(SearchMovieActions.searchAdditionalMovie, (state) => {
+  on(SearchMovieActions.searchAdditionalMovie, (state): SearchMovieState => {
     return {
       ...state,
       error: null,
@@ -26,7 +26,7 @@ export const searchMovieReducer = createReducer(
     };
   }),
 
-  on(SearchMovieActions.searchMovie, (state, { query }) => {
+  on(SearchMovieActions.searchMovie, (state, { query }): SearchMovieState => {
     return {
       ...state,
       query,
@@ -34,17 +34,20 @@ export const searchMovieReducer = createReducer(
       isLoading: true,
     };
   }),
-  on(SearchMovieActions.searchMovieSuccess, (state, { movieResult }) => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      movieResult,
-    };
-  }),
+  on(
+    SearchMovieActions.searchMovieSuccess,
+    (state, { movieResult }): SearchMovieState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        movieResult,
+      };
+    }
+  ),
   on(
     SearchMovieActions.searchAdditionalMovieSuccess,
-    (state, { movieResult }) => {
+    (state, { movieResult }): SearchMovieState => {
       let currMovies = state.movieResult?.results
         ? state.movieResult.results
         : [];
@@ -64,7 +67,7 @@ export const searchMovieReducer = createReducer(
       };
     }
   ),
-  on(SearchMovieActions.noAdditionalMovie, (state) => {
+  on(SearchMovieActions.noAdditionalMovie, (state): SearchMovieState => {
     return {
       ...state,
       error: null,
@@ -72,19 +75,17 @@ export const searchMovieReducer = createReducer(
     };
   }),
 
-  on(SearchMovieActions.searchMovieFailure, (state, { httpErrorResponse }) => {
-    return {
-      ...state,
-      isLoading: false,
-      error: httpErrorResponse,
-    };
-  }),
-  on(SearchMovieActions.cleanError, (state) => {
-    return {
-      ...state,
-      error: null,
-    };
-  })
+  on(
+    SearchMovieActions.searchMovieFailure,
+    SearchMovieActions.searchAdditionalMovieFailure,
+    (state, { httpErrorResponse }): SearchMovieState => {
+      return {
+        ...state,
+        isLoading: false,
+        error: httpErrorResponse,
+      };
+    }
+  )
 );
 
 export const getSearchMovieState = (state: SearchMovieState) => state;

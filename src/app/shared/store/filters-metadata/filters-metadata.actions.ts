@@ -6,39 +6,46 @@ import {
 } from '../../interfaces/TMDB/tmdb-filters.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
-//genres movie
 export const getFiltersMetadata = createAction(
-  '[Filters-Metadata/API] Get Filters Metadata'
+  '[Filters-Metadata] Get Filters Metadata Init'
 );
 
+//genres movie
 export const getGenreListMovieSuccess = createAction(
-  '[Filters-Metadata/API] Get Genre List Movie Success',
+  '[Filters-Metadata] Get Genre List Movie Success',
   props<{ genreList: Genre[] | [] }>()
+);
+export const getGenreListMovieFailure = createAction(
+  '[Filters-Metadata] Get Genre List Movie Failure',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
 //certification movie
 export const getCertificationListMovieSuccess = createAction(
-  '[Filters-Metadata/API] Get Certification List Movie Success',
+  '[Filters-Metadata] Get Certification List Movie Success',
   props<{ certificationList: Certification[] }>()
+);
+export const getCertificationListMovieFailure = createAction(
+  '[Filters-Metadata] Get Certification List Movie Failure',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
 //genres tv
 export const getGenreListTVSuccess = createAction(
-  '[Filters-Metadata/API] Get Genre List TV Success',
+  '[Filters-Metadata] Get Genre List TV Success',
   props<{ genreList: Genre[] | [] }>()
+);
+export const getGenreListTVFailure = createAction(
+  '[Filters-Metadata] Get Genre List TV Failure',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
 //languages media
 export const getLanguagesListMediaSuccess = createAction(
-  '[Filters-Metadata/API] Get Certification Languages Media Success',
+  '[Filters-Metadata] Get Languages Media Success',
   props<{ languageList: Language[] }>()
 );
-
-//error
-export const filtersMetadataFailure = createAction(
-  '[Filters-Metadata/API] Filters-Metadata Failure',
+export const getLanguagesListMediaFailure = createAction(
+  '[Filters-Metadata] Get Languages Media Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
-);
-export const cleanError = createAction(
-  '[Filters-Metadata/Error Handling] Clean Error'
 );

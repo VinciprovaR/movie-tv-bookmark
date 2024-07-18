@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   OptionFilter,
@@ -13,32 +13,38 @@ import {
   templateUrl: './select-filter.component.html',
   styleUrl: './select-filter.component.css',
 })
-export class SelectFilterComponent {
+export class SelectFilterComponent implements OnInit {
   @Input({ required: true })
   filterForm!: FormGroup<any>;
   @Input({ required: true })
   controlName!: string;
-  @Input({ required: true })
-  selectObject!: { [key: string]: any }[] | OptionFilter[];
+  @Input()
+  selectObject: OptionFilter[] = [];
   @Input()
   defaultOption: OptionFilter | null = null;
   @Input()
   title: string = '';
   @Input()
-  selectTransformConfig!: SelectTransformConfig;
+  selectTransform!: {
+    objectToTransformSelect: { [key: string]: any }[];
+    config: SelectTransformConfig;
+  };
 
-  getSelectObject() {
-    let selectObject = this.selectObject;
-    if (this.selectTransformConfig) {
-      selectObject = this.selectObject.map((option: { [key: string]: any }) => {
-        return {
-          label: option[this.selectTransformConfig.labelKey],
-          value: option[this.selectTransformConfig.valueKey],
-        };
-      });
+  ngOnInit(): void {
+    this.transformSelectObject();
+  }
+
+  transformSelectObject() {
+    if (this.selectTransform) {
+      this.selectObject = this.selectObject.map(
+        (option: { [key: string]: any }) => {
+          return {
+            label: option[this.selectTransform.config.labelKey],
+            value: option[this.selectTransform.config.valueKey],
+          };
+        }
+      );
     }
-
-    return selectObject;
   }
 
   get selectControl(): FormControl {

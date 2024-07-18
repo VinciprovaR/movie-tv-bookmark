@@ -1,5 +1,7 @@
+export type notificationType = 'error' | 'success';
+
 export interface Alert {
   id: number;
   message: string;
-  type: 'error' | 'success';
+  type: notificationType;
 }

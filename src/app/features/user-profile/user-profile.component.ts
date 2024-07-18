@@ -15,10 +15,12 @@ import { User } from '@supabase/supabase-js/';
   styleUrl: './user-profile.component.css',
 })
 export class UserProfileComponent implements OnInit {
+  private readonly router = inject(Router);
+
   userSelector$!: Observable<User | null>;
   private readonly store = inject(Store);
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.userSelector$ = this.store.select(AuthSelectors.selectUser);

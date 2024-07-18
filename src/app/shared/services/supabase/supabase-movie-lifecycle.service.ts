@@ -9,14 +9,13 @@ import {
 } from '../../interfaces/supabase/entities';
 import { SupabaseMovieLifecycleDAO } from './supabase-movie-lifecycle.dao';
 import {
-  lifeCycleId,
+  lifecycleEnum,
   MovieLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { SupabaseMovieDataDAO } from './supabase-movie-data.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
 import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
-import { CRUD_OPERATIONS_ENUM } from '../../enums/crud-operations.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +30,7 @@ export class SupabaseMovieLifecycleService {
 
   constructor() {}
 
-  initMovieLifecycleMapFromMovieResult(
+  initMovieLifecycleMapFromMovieResultTMDB(
     movieList: Movie_Data[]
   ): Observable<MovieLifecycleMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(movieList);
@@ -68,7 +67,6 @@ export class SupabaseMovieLifecycleService {
           return this.supabaseUtilsService.removeMediaWithLifecycle(
             entityMediaLifecycle,
             mediaIdMapIndex,
-            'movie',
             movieResult
           ) as MovieResult;
         })
@@ -76,11 +74,11 @@ export class SupabaseMovieLifecycleService {
   }
 
   findMovieByLifecycleId(
-    lifecycleId: lifeCycleId,
+    lifecycleEnum: lifecycleEnum,
     payload: PayloadMediaLifecycle
   ): Observable<Movie_Life_Cycle[] & Movie_Data[]> {
     return this.supabaseMovieLifecycleDAO.findMovieByLifecycleId(
-      lifecycleId,
+      lifecycleEnum,
       payload
     );
   }
@@ -96,7 +94,7 @@ export class SupabaseMovieLifecycleService {
             movieLifecycleFromDB,
             movieLifecycleDTO
           );
-          if (operation === CRUD_OPERATIONS_ENUM.default) {
+          if (operation === 'default') {
             throw new Error('Something went wrong. Case default'); //to-do traccia errore su db, anche se impossibile che passi qui
           }
           return operation;
@@ -109,7 +107,7 @@ export class SupabaseMovieLifecycleService {
   ): Observable<MovieLifecycleMap> {
     return this.supabaseMovieLifecycleDAO
       .updateMovieLifeCycle(
-        movieLifecycleDTO.lifecycleId,
+        movieLifecycleDTO.lifecycleEnum,
         movieLifecycleDTO.mediaDataDTO.id
       )
       .pipe(
@@ -127,7 +125,7 @@ export class SupabaseMovieLifecycleService {
     return this.supabaseMovieLifecycleDAO
       .deleteMovieLifeCycle(
         movieLifecycleDTO.mediaDataDTO.id,
-        movieLifecycleDTO.lifecycleId
+        movieLifecycleDTO.lifecycleEnum
       )
       .pipe(
         map((movieLifecycleEntityList: Movie_Life_Cycle[]) => {
@@ -155,7 +153,7 @@ export class SupabaseMovieLifecycleService {
         }),
         switchMap(() => {
           return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
-            movieLifecycleDTO.lifecycleId,
+            movieLifecycleDTO.lifecycleEnum,
             movieLifecycleDTO.mediaDataDTO.id,
             user
           );
@@ -173,7 +171,7 @@ export class SupabaseMovieLifecycleService {
     user: User
   ): Observable<MovieLifecycleMap> {
     let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
-      lifecycle_id: 0,
+      lifecycle_enum: 'noLifecycle',
       movie_id: movieLifecycleDTO.mediaDataDTO.id,
       user_id: user.id,
     };

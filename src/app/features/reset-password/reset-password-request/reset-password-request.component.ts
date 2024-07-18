@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -28,13 +28,15 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   styleUrl: './reset-password-request.component.css',
 })
 export class ResetPasswordRequestComponent {
+  private readonly store = inject(Store);
+  private readonly fb = inject(FormBuilder);
   resetPasswordForm!: FormGroup;
 
   selectIsLoading$: Observable<boolean> = this.store.select(
     AuthSelectors.selectIsLoading
   );
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.resetPasswordForm = this.fb.group({

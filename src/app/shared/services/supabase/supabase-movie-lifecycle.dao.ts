@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import {
   PostgrestSingleResponse,
   SupabaseClient,
@@ -6,7 +6,7 @@ import {
 } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
-import { lifeCycleId } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import {
   Movie_Data,
   Movie_Life_Cycle,
@@ -19,6 +19,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root',
 })
 export class SupabaseMovieLifecycleDAO {
+  private readonly supabase = inject(SUPABASE_CLIENT);
+
   readonly orderByConfigSupabase: SortyByConfig = {
     'primary_release_date.desc': {
       field: 'movie_data(release_date)',
@@ -34,7 +36,7 @@ export class SupabaseMovieLifecycleDAO {
 
   private readonly TABLE = 'movie_life_cycle';
 
-  constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
+  constructor() {}
 
   findLifecycleListByMovieIds(
     movieIdList: number[]
@@ -50,7 +52,7 @@ export class SupabaseMovieLifecycleDAO {
   }
 
   findMovieByLifecycleId(
-    lifecycleId: lifeCycleId,
+    lifecycleEnum: lifecycleEnum,
     payload: PayloadMediaLifecycle
   ): Observable<Movie_Life_Cycle[] & Movie_Data[]> {
     return from(
@@ -60,7 +62,7 @@ export class SupabaseMovieLifecycleDAO {
           '*, ...movie_data!inner(id, poster_path, release_date, title, genre_ids)'
         )
         .contains('movie_data.genre_ids', payload.genreIdList)
-        .eq(`lifecycle_id`, lifecycleId)
+        .eq(`lifecycle_enum`, lifecycleEnum)
         .order(
           this.orderByConfigSupabase[payload.sortBy].field,
           this.orderByConfigSupabase[payload.sortBy].rule
@@ -80,7 +82,7 @@ export class SupabaseMovieLifecycleDAO {
   //to-do user null? non possibile
   //to-do tipizzare ritorni
   createMovieLifeCycle(
-    lifecycleId: lifeCycleId,
+    lifecycleEnum: lifecycleEnum,
     movieId: number,
     user: User
   ): Observable<Movie_Life_Cycle[]> {
@@ -89,7 +91,7 @@ export class SupabaseMovieLifecycleDAO {
         .from(this.TABLE)
         .insert<any>({
           user_id: user.id,
-          lifecycle_id: lifecycleId,
+          lifecycle_enum: lifecycleEnum,
           movie_id: movieId,
         })
         .select()
@@ -102,14 +104,14 @@ export class SupabaseMovieLifecycleDAO {
   }
 
   updateMovieLifeCycle(
-    lifecycleId: lifeCycleId,
+    lifecycleEnum: lifecycleEnum,
     mediaId: number
   ): Observable<Movie_Life_Cycle[]> {
     return from(
       this.supabase
         .from(this.TABLE)
         .update({
-          lifecycle_id: lifecycleId,
+          lifecycle_enum: lifecycleEnum,
         })
         .eq(`movie_id`, mediaId)
         .select()
@@ -123,13 +125,13 @@ export class SupabaseMovieLifecycleDAO {
 
   deleteMovieLifeCycle(
     mediaId: number,
-    lifecycleId: lifeCycleId
+    lifecycleEnum: lifecycleEnum
   ): Observable<Movie_Life_Cycle[]> {
     return from(
       this.supabase
         .from(this.TABLE)
         .update({
-          lifecycle_id: lifecycleId,
+          lifecycle_enum: lifecycleEnum,
         })
         .eq(`movie_id`, mediaId)
         .select()

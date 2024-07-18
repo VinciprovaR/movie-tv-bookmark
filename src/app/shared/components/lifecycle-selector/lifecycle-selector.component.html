@@ -1,4 +1,4 @@
-<select [formControl]="lifecycleControl" [id]="mediaData.id">
+<select [formControl]="lifecycleControl" [id]="idItem">
   @for (option of lifecycleOptions$|async; track option) {
   <option [value]="option.value">{{ option.label }}</option>
   }

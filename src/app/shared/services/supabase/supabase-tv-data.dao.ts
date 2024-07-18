@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import { PostgrestSingleResponse, SupabaseClient } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
@@ -9,9 +9,11 @@ import { TV_Data } from '../../interfaces/supabase/entities';
   providedIn: 'root',
 })
 export class SupabaseTVDataDAO {
+  private readonly supabase = inject(SUPABASE_CLIENT);
+
   private readonly TABLE = 'tv_data';
 
-  constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
+  constructor() {}
 
   findByTVId(tvId: number): Observable<TV_Data[]> {
     return from(this.supabase.from(this.TABLE).select('*').eq(`id`, tvId)).pipe(

@@ -8,14 +8,17 @@ import {
   MediaType,
   Movie,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+import {
+  lifecycleEnum,
+  MovieLifecycleMap,
+} from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
 } from '../../shared/store/movie-lifecycle';
 import { Store } from '@ngrx/store';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
-import { LifecycleEnum } from '../../shared/enums/lifecycle.enum';
+
 import { Movie_Data } from '../../shared/interfaces/supabase/entities';
 import { MediaLifecycleFiltersComponent } from '../../shared/components/media-lifecycle-filters/media-lifecycle-filters.component';
 import {
@@ -45,7 +48,7 @@ export class MovieLifecycleSearchComponent implements OnInit {
   private readonly store = inject(Store);
 
   @Input()
-  lifecycleType!: string;
+  lifecycleType!: lifecycleEnum;
   mediaType: MediaType = 'movie';
 
   destroyed$ = new Subject();
@@ -131,26 +134,25 @@ export class MovieLifecycleSearchComponent implements OnInit {
     );
   }
 
-  searchMovie(lifecycleType: string) {
+  searchMovie(lifecycleType: lifecycleEnum) {
     this.lifecycleType = lifecycleType;
     this.searchMovieByLifecycleLanding();
   }
 
   searchMovieByLifecycleLanding() {
-    let lifecycleId = LifecycleEnum[this.lifecycleType];
+    let lifecycleEnum = this.lifecycleType;
     this.store.dispatch(
       MovieLifecycleActions.searchMovieByLifecycleLanding({
-        payload: null,
-        lifecycleId,
+        lifecycleEnum,
       })
     );
   }
 
   searchMovieByLifecycleSubmit(payload: PayloadMediaLifecycle) {
-    let lifecycleId = LifecycleEnum[this.lifecycleType];
+    let lifecycleEnum = this.lifecycleType;
     this.store.dispatch(
       MovieLifecycleActions.searchMovieByLifecycleSubmit({
-        lifecycleId,
+        lifecycleEnum,
         payload,
       })
     );

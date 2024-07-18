@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   RegisterPayload,
@@ -39,14 +39,15 @@ import { RouterModule } from '@angular/router';
   styleUrl: './register-page.component.css',
 })
 export class RegisterPageComponent {
-  title: string = 'register';
+  private readonly store = inject(Store);
+
   registerForm!: FormGroup<RegisterForm>;
 
   selectIsLoading$: Observable<boolean> = this.store.select(
     AuthSelectors.selectIsLoading
   );
 
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.registerForm = new FormGroup<RegisterForm>({

@@ -4,29 +4,30 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 //search
 export const searchMovie = createAction(
-  '[Search-movie/API] Search Movie',
+  '[Search-movie] Search Movie Init',
   props<{ query: string }>()
 );
 export const searchMovieSuccess = createAction(
-  '[Search-movie/API] Search Movie Success',
+  '[Search-movie] Search Movie Success',
   props<{ movieResult: MovieResult }>()
 );
-export const searchAdditionalMovie = createAction(
-  '[Search-movie/API] Search Additional Movie'
-);
-export const searchAdditionalMovieSuccess = createAction(
-  '[Search-movie/API] Search Movie Additional Success',
-  props<{ movieResult: MovieResult }>()
-);
-export const noAdditionalMovie = createAction(
-  '[Search-movie/API] No Additional Movie'
-);
-
-//error
 export const searchMovieFailure = createAction(
-  '[Search-Movie/API] Search Movie Failure',
+  '[Search-Movie] Search Movie Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
-export const cleanError = createAction(
-  '[Search-movie/Error Handling] Clean Error'
+
+//search additional
+export const searchAdditionalMovie = createAction(
+  '[Search-movie] Search Additional Movie'
+);
+export const searchAdditionalMovieSuccess = createAction(
+  '[Search-movie] Search Movie Additional Success',
+  props<{ movieResult: MovieResult }>()
+);
+export const searchAdditionalMovieFailure = createAction(
+  '[Search-Movie] Search Movie Failure',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
+);
+export const noAdditionalMovie = createAction(
+  '[Search-movie] No Additional Movie'
 );

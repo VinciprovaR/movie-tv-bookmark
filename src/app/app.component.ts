@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { AuthSelectors } from './shared/store/auth';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { ContentComponent } from './shared/layout/content/content.component';
 import { AlertContainerComponent } from './features/alert-container/alert-container.component';
-import { AlertStore } from './shared/store/component-store/alert-store.service';
+import { NotifierStore } from './shared/store/component-store/notifier-store.service';
 
 @Component({
   selector: 'app-root',
@@ -18,22 +17,18 @@ import { AlertStore } from './shared/store/component-store/alert-store.service';
     HeaderComponent,
     AlertContainerComponent,
   ],
-  providers: [AlertStore],
+  providers: [NotifierStore],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  title = 'bookmark_movie';
+  private readonly store = inject(Store);
 
   readonly isUserAuthenticated$ = this.store
     .select(AuthSelectors.selectUser)
     .pipe(map((user) => !!user));
 
-  constructor(private store: Store, private alertStore: AlertStore) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    // this.router.events.subscribe((event) => {
-    //   console.log(event);
-    // });
-  }
+  ngOnInit(): void {}
 }

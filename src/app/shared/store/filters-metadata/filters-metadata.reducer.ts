@@ -112,7 +112,10 @@ export const filtersMetadataReducer = createReducer(
     }
   ),
   on(
-    FiltersMetadataActions.filtersMetadataFailure,
+    FiltersMetadataActions.getGenreListMovieFailure,
+    FiltersMetadataActions.getGenreListTVFailure,
+    FiltersMetadataActions.getCertificationListMovieFailure,
+    FiltersMetadataActions.getLanguagesListMediaFailure,
     (state, { httpErrorResponse }): FiltersMetadataState => {
       return {
         ...state,
@@ -120,13 +123,7 @@ export const filtersMetadataReducer = createReducer(
         error: httpErrorResponse,
       };
     }
-  ),
-  on(FiltersMetadataActions.cleanError, (state): FiltersMetadataState => {
-    return {
-      ...state,
-      error: null,
-    };
-  })
+  )
 );
 
 export const getFiltersMetadataState = (state: FiltersMetadataState) => state;

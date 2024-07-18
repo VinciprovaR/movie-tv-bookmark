@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DiscoveryTVActions, DiscoveryTVSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseTVLifecycleService } from '../../services/supabase';
@@ -72,7 +71,7 @@ export class DiscoveryTVEffects {
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
               return of(
-                DiscoveryTVActions.discoveryTVFailure({
+                DiscoveryTVActions.discoveryAdditionaTVFailure({
                   httpErrorResponse,
                 })
               );

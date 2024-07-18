@@ -26,18 +26,13 @@ export const initialState: DiscoveryTVState = {
 
 export const discoveryTVReducer = createReducer(
   initialState,
-  on(
-    DiscoveryTVActions.getGenreList,
-    DiscoveryTVActions.discoveryAdditionalTV,
-    DiscoveryTVActions.getLanguagesList,
-    (state): DiscoveryTVState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: true,
-      };
-    }
-  ),
+  on(DiscoveryTVActions.discoveryAdditionalTV, (state): DiscoveryTVState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: true,
+    };
+  }),
   on(DiscoveryTVActions.discoveryTV, (state, { payload }): DiscoveryTVState => {
     return {
       ...state,
@@ -84,6 +79,7 @@ export const discoveryTVReducer = createReducer(
   }),
   on(
     DiscoveryTVActions.discoveryTVFailure,
+    DiscoveryTVActions.discoveryAdditionaTVFailure,
     (state, { httpErrorResponse }): DiscoveryTVState => {
       return {
         ...state,
@@ -91,13 +87,7 @@ export const discoveryTVReducer = createReducer(
         error: httpErrorResponse,
       };
     }
-  ),
-  on(DiscoveryTVActions.cleanError, (state): DiscoveryTVState => {
-    return {
-      ...state,
-      error: null,
-    };
-  })
+  )
 );
 
 export const getDiscoveryTVState = (state: DiscoveryTVState) => state;
@@ -106,7 +96,6 @@ export const getPayload = (state: DiscoveryTVState) => state.payload;
 export const getDiscoveryTVError = (state: DiscoveryTVState) => state.error;
 export const getTVResult = (state: DiscoveryTVState) => state.tvResult;
 export const getTVList = (state: DiscoveryTVState) => state.tvResult.results;
-
 export const getTVResultPage = (state: DiscoveryTVState) => state.tvResult.page;
 export const getTVResultTotalPages = (state: DiscoveryTVState) =>
   state.tvResult.total_pages;

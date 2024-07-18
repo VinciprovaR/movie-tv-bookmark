@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import { Observable, from, tap } from 'rxjs';
 import {
   LoginPayload,
@@ -7,15 +7,19 @@ import {
 import {
   AuthResponse,
   AuthTokenResponsePassword,
+  PostgrestSingleResponse,
   SupabaseClient,
 } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseAuthDAO {
-  constructor(@Inject(SUPABASE_CLIENT) private supabase: SupabaseClient) {}
+  private readonly supabase = inject(SUPABASE_CLIENT);
+
+  constructor() {}
 
   signInWithPassword(
     credentials: LoginPayload
@@ -26,8 +30,8 @@ export class SupabaseAuthDAO {
         password: credentials.password,
       })
     ).pipe(
-      tap((result: any) => {
-        if (result.error) throw new Error(result.error.message);
+      tap((result: AuthTokenResponsePassword) => {
+        if (result.error) throw new HttpErrorResponse(result.error);
       })
     );
   }
@@ -39,9 +43,9 @@ export class SupabaseAuthDAO {
         password: credentials.password,
       })
     ).pipe(
-      tap((result: any) => {
+      tap((result: AuthResponse) => {
         if (result.error) {
-          if (result.error) throw new Error(result.error.message);
+          if (result.error) throw new HttpErrorResponse(result.error);
         }
       })
     );
@@ -53,7 +57,7 @@ export class SupabaseAuthDAO {
     ).pipe(
       tap((result: any) => {
         if (result.error) {
-          if (result.error) throw new Error(result.error.message);
+          if (result.error) throw new HttpErrorResponse(result.error);
         }
       })
     ); //to-do captcha e redirect to
@@ -63,7 +67,7 @@ export class SupabaseAuthDAO {
     return from(this.supabase.auth.signOut()).pipe(
       tap((result: any) => {
         if (result.error) {
-          if (result.error) throw new Error(result.error.message);
+          if (result.error) throw new HttpErrorResponse(result.error);
         }
       })
     );
@@ -73,7 +77,7 @@ export class SupabaseAuthDAO {
     return from(this.supabase.auth.getSession()).pipe(
       tap((result: any) => {
         if (result.error) {
-          if (result.error) throw new Error(result.error.message);
+          if (result.error) throw new HttpErrorResponse(result.error);
         }
       })
     );

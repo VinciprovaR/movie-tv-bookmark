@@ -3,7 +3,7 @@
   <select [formControlName]="controlName" [id]="controlName">
     @if(defaultOption){
     <option [value]="defaultOption.value">{{ defaultOption.label }}</option>
-    } @if(selectObject.length > 0){ @for (option of getSelectObject() ; track
+    } @if(selectObject.length > 0){ @for (option of selectObject ; track
     option.value) {
     <option [value]="option.value">
       {{ option.label }}

@@ -1,4 +1,4 @@
-@if(linkPathList){
+<!-- @if(linkPathList){
 <nav>
   <div class="container my-3">
     <ul class="flex">
@@ -9,5 +9,62 @@
       }
     </ul>
   </div>
+</nav>
+} -->
+<div class="mx-auto px-6 py-4 flex justify-between items-center">
+  <div class="text-2xl font-bold text-gray-800">MyWebsite</div>
+  @if(linkPathList){
+  <nav class="hidden md:flex space-x-4">
+    @for(linkPath of linkPathList; track linkPath.path){
+
+    <a
+      routerLinkActive="active"
+      href="#"
+      class="text-gray-700 hover:text-gray-900"
+      [routerLink]="linkPath.path"
+      >{{ linkPath.label }}</a
+    >
+
+    }
+  </nav>
+  }
+  <button
+    id="menu-btn"
+    (click)="toggleNavMenu()"
+    class="md:hidden text-gray-700 focus:outline-none"
+  >
+    <svg
+      class="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16m-7 6h7"
+      ></path>
+    </svg>
+  </button>
+</div>
+@if(linkPathList){
+<nav
+  id="mobile-menu"
+  [ngClass]="{ hidden: hiddenNavMenu }"
+  class="md:hidden px-6 py-4 hidden"
+>
+  @for(linkPath of linkPathList; track linkPath.path){
+
+  <a
+    routerLinkActive="active"
+    href="#"
+    class="block text-gray-700 hover:text-gray-900"
+    [routerLink]="linkPath.path"
+    >{{ linkPath.label }}</a
+  >
+
+  }
 </nav>
 }

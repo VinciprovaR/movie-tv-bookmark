@@ -13,6 +13,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { GenreControl } from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-select-tag',
@@ -30,7 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class SelectTagComponent implements ControlValueAccessor {
   @Input({ required: true })
-  genre!: any;
+  genre!: GenreControl;
 
   onChange: (value: string[]) => void = () => {};
   onTouched: Function = () => {};

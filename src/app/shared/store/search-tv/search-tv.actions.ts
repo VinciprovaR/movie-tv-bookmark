@@ -4,28 +4,28 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 //search
 export const searchTV = createAction(
-  '[Search-tv/API] Search TV',
+  '[Search-tv] Search TV Init',
   props<{ query: string }>()
 );
 export const searchTVSuccess = createAction(
-  '[Search-tv/API] Search TV Success',
+  '[Search-tv] Search TV Success',
   props<{ tvResult: TVResult }>()
 );
-export const searchAdditionalTV = createAction(
-  '[Search-tv/API] Search Additional TV'
-);
-export const searchAdditionalTVSuccess = createAction(
-  '[Search-tv/API] Search TV Additional Success',
-  props<{ tvResult: TVResult }>()
-);
-export const noAdditionalTV = createAction('[Search-tv/API] No Additional TV');
-
-//error
 export const searchTVFailure = createAction(
-  '[Search-TV/API] Search TV Failure',
+  '[Search-TV] Search TV Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-export const cleanError = createAction(
-  '[Search-tv/Error Handling] Clean Error'
+//search additional
+export const searchAdditionalTV = createAction(
+  '[Search-tv] Search Additional TV'
 );
+export const searchAdditionalTVSuccess = createAction(
+  '[Search-tv] Search TV Additional Success',
+  props<{ tvResult: TVResult }>()
+);
+export const searchAdditionalTVFailure = createAction(
+  '[Search-TV] Search TV Failure',
+  props<{ httpErrorResponse: HttpErrorResponse }>()
+);
+export const noAdditionalTV = createAction('[Search-tv] No Additional TV');

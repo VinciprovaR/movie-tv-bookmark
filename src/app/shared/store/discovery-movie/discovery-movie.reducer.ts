@@ -27,10 +27,7 @@ export const initialState: DiscoveryMovieState = {
 export const discoveryMovieReducer = createReducer(
   initialState,
   on(
-    DiscoveryMovieActions.getGenreList,
-    DiscoveryMovieActions.getCertificationList,
     DiscoveryMovieActions.discoveryAdditionalMovie,
-    DiscoveryMovieActions.getLanguagesList,
     (state): DiscoveryMovieState => {
       return {
         ...state,
@@ -39,7 +36,6 @@ export const discoveryMovieReducer = createReducer(
       };
     }
   ),
-
   on(
     DiscoveryMovieActions.discoveryMovie,
     (state, { payload }): DiscoveryMovieState => {
@@ -93,6 +89,7 @@ export const discoveryMovieReducer = createReducer(
   }),
   on(
     DiscoveryMovieActions.discoveryMovieFailure,
+    DiscoveryMovieActions.discoveryAdditionaMovieFailure,
     (state, { httpErrorResponse }): DiscoveryMovieState => {
       return {
         ...state,
@@ -100,13 +97,7 @@ export const discoveryMovieReducer = createReducer(
         error: httpErrorResponse,
       };
     }
-  ),
-  on(DiscoveryMovieActions.cleanError, (state): DiscoveryMovieState => {
-    return {
-      ...state,
-      error: null,
-    };
-  })
+  )
 );
 
 export const getDiscoveryMovieState = (state: DiscoveryMovieState) => state;
