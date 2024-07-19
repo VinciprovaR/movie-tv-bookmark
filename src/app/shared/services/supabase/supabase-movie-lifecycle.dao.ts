@@ -42,7 +42,10 @@ export class SupabaseMovieLifecycleDAO {
     movieIdList: number[]
   ): Observable<Movie_Life_Cycle[]> {
     return from(
-      this.supabase.from(this.TABLE).select().in(`movie_id`, movieIdList)
+      this.supabase
+        .from(this.TABLE)
+        .select('*, ...life_cycle_metadata!inner(label)')
+        .in(`movie_id`, movieIdList)
     ).pipe(
       map((result: PostgrestSingleResponse<Movie_Life_Cycle[]>) => {
         if (result.error) throw new Error(result.error.message);

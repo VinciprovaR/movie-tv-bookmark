@@ -4,7 +4,7 @@
   (payloadEmitterOnSubmit)="searchMovieByLifecycleSubmit($event)"
 ></app-media-lifecycle-filters>
 
-<app-movie-list-container
-  [movieList]="(selectMovieList$ | async) ?? []"
+<app-media-list-container
+  [mediaList]="(selectMovieList$ | async) ?? []"
   [mediaType]="mediaType"
-></app-movie-list-container>
+></app-media-list-container>

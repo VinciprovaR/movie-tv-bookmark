@@ -4,16 +4,16 @@
   (queryEmitter)="searchTV($event)"
 ></app-input-query>
 
-<app-tv-list-container
+<app-media-list-container
   #tvListContainer
   appScrollNearEnd
   [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
   [isLoading]="(selectIsLoading$ | async) ?? false"
-  [tvList]="(selectTVList$ | async) ?? []"
+  [mediaList]="(selectTVList$ | async) ?? []"
   (nearEnd)="
-    tvListContainer.tvList.length
-      ? searchAdditionalTV(tvListContainer.tvList.length)
+    tvListContainer.mediaList.length
+      ? searchAdditionalTV(tvListContainer.mediaList.length)
       : null
   "
   [mediaType]="mediaType"
-></app-tv-list-container>
+></app-media-list-container>

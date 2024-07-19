@@ -20,7 +20,8 @@ import {
   TVLifecycleActions,
   TVLifecycleSelectors,
 } from '../../shared/store/tv-lifecycle';
-import { TVListContainerComponent } from '../../shared/components/tv-list-container/tv-list-container.component';
+
+import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 
 @Component({
   selector: 'app-tv-search',
@@ -28,7 +29,7 @@ import { TVListContainerComponent } from '../../shared/components/tv-list-contai
   imports: [
     CommonModule,
     InputQueryComponent,
-    TVListContainerComponent,
+    MediaListContainerComponent,
     ScrollNearEndDirective,
   ],
   providers: [BridgeDataService],

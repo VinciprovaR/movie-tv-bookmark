@@ -1,5 +1,22 @@
-<select [formControl]="lifecycleControl" [id]="idItem">
-  @for (option of lifecycleOptions$|async; track option) {
-  <option [value]="option.value">{{ option.label }}</option>
-  }
-</select>
+<div class="flex absolute justify-between top-2 right-2">
+  <button
+    class="bg-gray-800 border-none p-1 rounded-full focus:outline-none"
+    [ngClass]="lifecycleStatusElement.key + '-color'"
+  >
+    <mat-icon aria-hidden="false" fontIcon="cached"></mat-icon>
+
+    <select
+      [formControl]="lifecycleControl"
+      [id]="idItem"
+      class="w-full h-full cursor-pointer"
+    >
+      @for (option of lifecycleOptions$|async; track option) {
+      <option class="bg-gray-800 text-white" [value]="option.value">
+        {{ option.label }}
+      </option>
+      }
+    </select>
+  </button>
+</div>
+<!--    -->
+<!--  top-2 right-2  -->

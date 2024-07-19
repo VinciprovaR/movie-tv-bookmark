@@ -28,13 +28,13 @@ import {
 } from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import { MediaLifecycleFiltersComponent } from '../../shared/components/media-lifecycle-filters/media-lifecycle-filters.component';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
-import { TVListContainerComponent } from '../../shared/components/tv-list-container/tv-list-container.component';
+import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 
 @Component({
   selector: 'app-tv-lifecycle-search',
   standalone: true,
   imports: [
-    TVListContainerComponent,
+    MediaListContainerComponent,
     CommonModule,
     MediaLifecycleFiltersComponent,
   ],

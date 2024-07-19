@@ -6,4 +6,5 @@ export interface TV_Life_Cycle {
   user_id: string;
   tv_id: number;
   lifecycle_enum: lifecycleEnum;
+  label?: string;
 }

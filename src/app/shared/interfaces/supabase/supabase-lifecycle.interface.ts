@@ -11,6 +11,8 @@ export type lifecycleEnum =
   | rewatchLifecycle
   | stillWatchingLifecycle;
 
+// export type lifecycleMetadata = { enum: lifecycleEnum; label: string };
+
 interface MediaLifecycleMap {
   [key: number]: lifecycleEnum;
 }

@@ -37,9 +37,13 @@ export class SupabaseTVLifecycleDAO {
 
   findLifecycleListByTVIds(tvIdList: number[]): Observable<TV_Life_Cycle[]> {
     return from(
-      this.supabase.from(this.TABLE).select().in(`tv_id`, tvIdList)
+      this.supabase
+        .from(this.TABLE)
+        .select('*, ...life_cycle_metadata!inner(label)')
+        .in(`tv_id`, tvIdList)
     ).pipe(
       map((result: PostgrestSingleResponse<TV_Life_Cycle[]>) => {
+        console.log(result);
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })

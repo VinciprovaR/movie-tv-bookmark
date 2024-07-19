@@ -11,7 +11,7 @@ import { CardComponent } from '../card/card.component';
   styleUrl: './tv-item.component.css',
 })
 export class TVItemComponent implements OnInit {
-  @Input({ required: true })
+  @Input({ alias: 'mediaData', required: true })
   tvData!: TV | TV_Data;
   @Input({ required: true })
   mediaType!: MediaType;

@@ -27,8 +27,7 @@ import {
 import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discovery-filters.component';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
-import { TVListContainerComponent } from '../../shared/components/tv-list-container/tv-list-container.component';
-import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-movie-state.interface';
+import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 
 @Component({
   selector: 'app-tv-discovery',
@@ -36,7 +35,8 @@ import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-m
   imports: [
     CommonModule,
     InputQueryComponent,
-    TVListContainerComponent,
+
+    MediaListContainerComponent,
     ScrollNearEndDirective,
     TVDiscoveryFiltersComponent,
   ],

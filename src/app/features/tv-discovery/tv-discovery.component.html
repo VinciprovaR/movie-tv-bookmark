@@ -6,16 +6,16 @@
   (payloadEmitterOnSubmit)="discoveryTV($event)"
 ></app-discovery-tv-filters>
 
-<app-tv-list-container
+<app-media-list-container
   #tvListListContainer
   appScrollNearEnd
   [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
   [isLoading]="(selectIsLoading$ | async) ?? false"
-  [tvList]="(selectTVList$ | async) ?? []"
+  [mediaList]="(selectTVList$ | async) ?? []"
   (nearEnd)="
-    tvListListContainer.tvList.length
-      ? discoveryAdditionalTV(tvListListContainer.tvList.length)
+    tvListListContainer.mediaList.length
+      ? discoveryAdditionalTV(tvListListContainer.mediaList.length)
       : null
   "
   [mediaType]="mediaType"
-></app-tv-list-container>
+></app-media-list-container>

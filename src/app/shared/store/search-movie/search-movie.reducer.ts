@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SearchMovieActions from './search-movie.actions';
 import { SearchMovieState } from '../../interfaces/store/search-movie-state.interface';
+import { MovieResultMock } from '../../../../assets/mock/movie-result.mock';
 
 export const searchMovieFeatureKey = 'search-movie';
 

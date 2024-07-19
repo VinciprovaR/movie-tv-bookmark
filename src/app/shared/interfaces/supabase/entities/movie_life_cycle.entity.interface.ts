@@ -6,4 +6,5 @@ export interface Movie_Life_Cycle {
   user_id: string;
   movie_id: number;
   lifecycle_enum: lifecycleEnum;
+  label?: string;
 }

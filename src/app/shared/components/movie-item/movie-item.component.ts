@@ -11,7 +11,7 @@ import { CardComponent } from '../card/card.component';
   styleUrl: './movie-item.component.css',
 })
 export class MovieItemComponent implements OnInit {
-  @Input({ required: true })
+  @Input({ alias: 'mediaData', required: true })
   movieData!: Movie | Movie_Data;
   @Input({ required: true })
   mediaType!: MediaType;

@@ -4,7 +4,7 @@
   (payloadEmitterOnSubmit)="searchTVByLifecycleSubmit($event)"
 ></app-media-lifecycle-filters>
 
-<app-tv-list-container
-  [tvList]="(selectTVList$ | async) ?? []"
+<app-media-list-container
+  [mediaList]="(selectTVList$ | async) ?? []"
   [mediaType]="mediaType"
-></app-tv-list-container>
+></app-media-list-container>

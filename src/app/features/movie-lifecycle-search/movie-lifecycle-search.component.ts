@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { combineLatest, filter, Observable, Subject, takeUntil } from 'rxjs';
-import { MovieListContainerComponent } from '../../shared/components/movie-list-container/movie-list-container.component';
+import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { CommonModule } from '@angular/common';
 import {
   MediaType,
@@ -32,7 +32,7 @@ import { PayloadMediaLifecycle } from '../../shared/interfaces/store/media-lifec
   selector: 'app-movie-lifecycle-search',
   standalone: true,
   imports: [
-    MovieListContainerComponent,
+    MediaListContainerComponent,
     CommonModule,
     MediaLifecycleFiltersComponent,
   ],

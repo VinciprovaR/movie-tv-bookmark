@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
-import { MovieListContainerComponent } from '../../shared/components/movie-list-container/movie-list-container.component';
+import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, combineLatest, takeUntil } from 'rxjs';
 import {
@@ -34,7 +34,7 @@ import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
   imports: [
     CommonModule,
     InputQueryComponent,
-    MovieListContainerComponent,
+    MediaListContainerComponent,
     ScrollNearEndDirective,
     MovieDiscoveryFiltersComponent,
   ],

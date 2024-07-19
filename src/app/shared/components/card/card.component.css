@@ -3,24 +3,58 @@ a {
   color: black;
 }
 
-.box-media-item {
-  margin-bottom: 40px;
-  border: 2px;
-  border-style: solid;
-}
-
 img {
   cursor: pointer;
 }
 
-.words {
-  font-size: 1em;
-  margin: 0;
-  width: 100%;
-  word-wrap: normal;
+h3 {
   overflow-wrap: break-word;
 }
+/* to-do refractor */
+.card-content {
+  padding: 10px;
+}
 
-h2 {
-  overflow-wrap: break-word;
+.card-container {
+  border-radius: 0.8rem;
+}
+
+.noLifecycle-color {
+  color: rgb(221, 221, 221);
+}
+
+.watchlist-color {
+  color: rgb(78, 173, 50);
+}
+
+.rewatch-color {
+  color: rgb(46, 35, 199);
+}
+
+.watching-color {
+  color: rgb(193, 30, 199);
+}
+
+.watched-color {
+  color: rgb(199, 35, 35);
+}
+
+.noLifecycle-border {
+  border-color: rgb(221, 221, 221);
+}
+
+.watchlist-border {
+  border-color: rgb(78, 173, 50);
+}
+
+.rewatch-border {
+  border-color: rgb(46, 35, 199);
+}
+
+.watching-border {
+  border-color: rgb(193, 30, 199);
+}
+
+.watched-border {
+  border-color: rgb(199, 35, 35);
 }

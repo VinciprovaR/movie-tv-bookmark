@@ -10,11 +10,15 @@ import {
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { RouterModule } from '@angular/router';
+import { CommonModule, DatePipe } from '@angular/common';
+import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
 
 @Component({
   selector: 'app-card',
   standalone: true,
   imports: [
+    CommonModule,
+    DatePipe,
     MatCardModule,
     MatButtonModule,
     LifecycleSelectorComponent,
@@ -47,9 +51,15 @@ export class CardComponent implements OnInit {
   posterNot2xFoundImgUrl: string =
     '../../../../assets/images/poster-not-found-test.png';
 
+  //to-do refracto
+  lifecycleStatusElement: any;
   ngOnInit(): void {
     this.card1or2xImgUrl = this.mediaData.poster_path
       ? `${this.TMDB_CARD_1X_IMG_URL}${this.mediaData.poster_path} 1x, ${this.TMDB_CARD_2X_IMG_URL}${this.mediaData.poster_path} 2x`
       : `${this.posterNot1xFoundImgUrl} 1x, ${this.posterNot2xFoundImgUrl} 2x`;
+  }
+
+  setLifecycleStatusElement(lifecycleStatusElement: any) {
+    this.lifecycleStatusElement = lifecycleStatusElement;
   }
 }
