@@ -1,6 +1,109 @@
-@if(isUserAuthenticated$ | async ){
+<header class="header fixed w-full shadow-lg top-0 z-10">
+  <div
+    class="mx-auto mx-12 py-2 flex justify-between items-center space-x-1 ml-8 mr-8"
+  >
+    <a class="font-bold text-xl" href="#">Movie & TV Bookmark</a>
+    <div class="mx-auto flex justify-between items-center">
+      @if(this.linkList){
+      <nav class="hidden sm:flex">
+        <ul class="list-none flex space-x-10">
+          @for(menuLink of this.linkList |keyvalue; track menuLink.key){
+          <li>
+            <span
+              class="hover:cursor-pointer"
+              (mouseover)="showSubMenu(subMenu)"
+              (mouseleave)="hideSubMenu(subMenu)"
+              >{{ menuLink.value.key }}</span
+            >
+            <!-- submenu -->
+            <ul
+              #subMenu
+              (mouseleave)="hideSubMenu(subMenu)"
+              (mouseover)="showSubMenu(subMenu)"
+              class="list-none submenu p-0 mt-2 space-y-2 group-hover:max-h-200 fixed z-20 rounded-md sub-menu"
+            >
+              <li>
+                @for(path of menuLink.value.subMenu ; track path.path){
+                <a
+                  href="#"
+                  routerLinkActive="active"
+                  [routerLink]="path.path"
+                  class="block py-2 px-4"
+                  >{{ path.label }}</a
+                >
+                }
+              </li>
+            </ul>
+          </li>
+          }
+        </ul>
+      </nav>
+      }
 
-<header class="">
-  <app-navigator [linkPathList]="LINK_PATH_LIST"></app-navigator>
+      <!-- mobile -->
+      <button
+        id="menu-btn"
+        (click)="toggleNavMenu()"
+        class="sm:hidden text-gray-700 focus:outline-none"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16m-7 6h7"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <mat-icon
+      (click)="toggleTheme()"
+      aria-hidden="false"
+      class="hover:cursor-pointer"
+      [ngClass]="{ 'text-yellow-400': (isDarkTheme$ | async) ? true : false }"
+      [fontIcon]="(icon$ | async) ?? 'light_mode'"
+    ></mat-icon>
+  </div>
+
+  <!-- Menu -->
+  <nav
+    id="menu"
+    class="sub-header fixed w-full bg-gray-100 sm:hidden flex justify-center pt-3"
+    [ngClass]="{
+      'hidden-sub-header': hiddenNavMenu,
+      'show-sub-header': !hiddenNavMenu
+    }"
+  >
+    <ul class="list-none p-0 text-center m-0 transition">
+      @for(menuLink of this.linkList | keyvalue; track menuLink.key){
+      <li class="mb-3">
+        <h3 class="m-0 text-black">{{ menuLink.value.key }}</h3>
+        <ul class="list-none p-0 bg-gray-100">
+          <li>
+            @for(path of menuLink.value.subMenu ; track path.path){
+            <a
+              [ngClass]="{
+              'disabled': hiddenNavMenu,
+              
+            }"
+              href="#"
+              routerLinkActive="active"
+              [routerLink]="path.path"
+              class="block text-gray-600 hover:bg-gray-200"
+              >{{ path.label }}</a
+            >
+            }
+          </li>
+        </ul>
+      </li>
+      }
+    </ul>
+  </nav>
 </header>
-}

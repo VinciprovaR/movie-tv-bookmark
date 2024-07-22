@@ -10,8 +10,9 @@ import {
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { RouterModule } from '@angular/router';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-card',
@@ -23,6 +24,8 @@ import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.inte
     MatButtonModule,
     LifecycleSelectorComponent,
     RouterModule,
+    PercentPipe,
+    MatIconModule,
   ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
@@ -33,16 +36,26 @@ export class CardComponent implements OnInit {
 
   @Input({ required: true })
   mediaData!: Movie | Movie_Data | TV | TV_Data;
+  //
+
+  @Input({ required: true })
+  mediaId!: number;
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
   index: number = 0;
   @Input({ required: true })
-  detailMediaPath!: string;
-  @Input({ required: true })
   release_date!: string;
   @Input({ required: true })
   title!: string;
+  @Input({ required: true })
+  poster_path!: string;
+  @Input()
+  voteAverage!: number;
+
+  voteIcon: string = '';
+
+  detailMediaPath: string = '';
 
   card1or2xImgUrl: string = '';
   //to-do cambiare placeholder
@@ -54,12 +67,24 @@ export class CardComponent implements OnInit {
   //to-do refracto
   lifecycleStatusElement: any;
   ngOnInit(): void {
-    this.card1or2xImgUrl = this.mediaData.poster_path
-      ? `${this.TMDB_CARD_1X_IMG_URL}${this.mediaData.poster_path} 1x, ${this.TMDB_CARD_2X_IMG_URL}${this.mediaData.poster_path} 2x`
+    this.detailMediaPath = this.detailMediaPath.concat(
+      `/${this.mediaType}-detail/${this.mediaId}`
+    );
+
+    this.card1or2xImgUrl = this.poster_path
+      ? `${this.TMDB_CARD_1X_IMG_URL}${this.poster_path} 1x, ${this.TMDB_CARD_2X_IMG_URL}${this.poster_path} 2x`
       : `${this.posterNot1xFoundImgUrl} 1x, ${this.posterNot2xFoundImgUrl} 2x`;
   }
 
   setLifecycleStatusElement(lifecycleStatusElement: any) {
     this.lifecycleStatusElement = lifecycleStatusElement;
+  }
+
+  get voteIconMetadata() {
+    if (this.voteAverage < 6) {
+      return { icon: 'thumb_down_alt', color: 'red' };
+    } else {
+      return { icon: 'thumb_up_alt', color: 'green' };
+    }
   }
 }

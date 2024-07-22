@@ -1,5 +1,5 @@
 <!-- [ngClass]="lifecycleStatusElement.key + '-border'" -->
-<mat-card appearance="outlined" class="w-auto h-full card-container">
+<mat-card appearance="outlined" class="w-auto h-full">
   <img
     mat-card-image
     [alt]="title"
@@ -8,25 +8,56 @@
     [routerLink]="detailMediaPath"
     loading="lazy"
   />
+
   <app-lifecycle-selector
     (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
     [mediaData]="mediaData"
     [index]="index"
     [mediaType]="mediaType"
   ></app-lifecycle-selector>
+
   <span
-    class="font-bold flex justify-center bg-black"
+    class="font-bold text-sm flex justify-center bg-neutral-900"
     [ngClass]="lifecycleStatusElement.key + '-color'"
     >{{ lifecycleStatusElement.label }}</span
   >
-  <mat-card-content class="card-content">
-    <div>
-      <p class="m-0 font-bold text-md md:text-lg">
-        <a [routerLink]="detailMediaPath" [title]="title">{{ title }}</a>
-      </p>
+  <mat-card-content class="card-content bg-transparent">
+    <div class="mt-2">
+      <h2 class="m-0 font-bold text-base">
+        <a class="" [routerLink]="detailMediaPath" [title]="title">{{
+          title
+        }}</a>
+      </h2>
       <p class="m-0 text-sm md:text-md">
         {{ release_date | date : "longDate" }}
       </p>
+      @if(voteAverage){
+      <div class="flex flex-wrap items-center">
+        <span class="mr-1">{{ voteAverage / 10 | percent }}</span>
+        <mat-icon
+          aria-hidden="false"
+          [fontIcon]="voteIconMetadata.icon"
+          [ngClass]="{
+            'text-red-600': voteIconMetadata.color === 'red',
+            'text-green-600': voteIconMetadata.color === 'green'
+          }"
+        ></mat-icon>
+      </div>
+      }
     </div>
   </mat-card-content>
 </mat-card>
+<!-- <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+  <img
+    class="w-full"
+    src="https://via.placeholder.com/400x300"
+    alt="Sample Image"
+  />
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2">Card Title</div>
+    <p class="text-gray-700 text-base">
+      This is a simple card component with an image and some text underneath it,
+      styled using Tailwind CSS.
+    </p>
+  </div>
+</div> -->

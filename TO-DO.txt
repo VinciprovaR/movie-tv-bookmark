@@ -32,6 +32,8 @@
 - Refractor interfaccie, stato confuso, separazione dto entity non ordinato
 - Nelle subcribe custom next e error
 - Label lifecycle sul card component
+- Abount / credit con logo tmdb+ footer con testo di api appartenenza a tmdb
+- Hai dimenticato alcune destroyed ref...
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

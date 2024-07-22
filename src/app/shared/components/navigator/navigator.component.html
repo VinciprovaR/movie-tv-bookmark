@@ -1,15 +1,10 @@
 <div class="mx-auto px-6 py-4 flex justify-between items-center">
   @if(linkPathList){
-  <nav class="hidden md:flex space-x-4">
+  <nav class="hidden lg:flex space-x-4">
     @for(linkPath of linkPathList; track linkPath.path){
-
-    <a
-      routerLinkActive="active"
-      href="#"
-      class="text-gray-700 hover:text-gray-900"
-      [routerLink]="linkPath.path"
-      >{{ linkPath.label }}</a
-    >
+    <a routerLinkActive="active" href="#" [routerLink]="linkPath.path">{{
+      linkPath.label
+    }}</a>
 
     }
   </nav>
@@ -17,7 +12,7 @@
   <button
     id="menu-btn"
     (click)="toggleNavMenu()"
-    class="md:hidden text-gray-700 focus:outline-none"
+    class="lg:hidden text-gray-700 focus:outline-none"
   >
     <svg
       class="w-6 h-6"
@@ -39,7 +34,7 @@
 <nav
   id="mobile-menu"
   [ngClass]="{ hidden: hiddenNavMenu }"
-  class="md:hidden px-6 py-4 hidden"
+  class="lg:hidden px-6 py-4 hidden"
 >
   @for(linkPath of linkPathList; track linkPath.path){
 

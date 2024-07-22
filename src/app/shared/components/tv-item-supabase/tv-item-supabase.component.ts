@@ -4,26 +4,19 @@ import { TV_Data } from '../../interfaces/supabase/entities';
 import { CardComponent } from '../card/card.component';
 
 @Component({
-  selector: 'app-tv-item',
+  selector: 'app-tv-item-supabase',
   standalone: true,
   imports: [CardComponent],
-  templateUrl: './tv-item.component.html',
-  styleUrl: './tv-item.component.css',
+  templateUrl: './tv-item-supabase.component.html',
+  styleUrl: './tv-item-supabase.component.css',
 })
-export class TVItemComponent implements OnInit {
+export class TVItemSupabaseComponent {
   @Input({ alias: 'mediaData', required: true })
-  tvData!: TV | TV_Data;
+  tvData!: TV_Data;
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
   index: number = 0;
 
-  detailMediaPath: string = '';
-
   constructor() {}
-  ngOnInit(): void {
-    this.detailMediaPath = this.detailMediaPath.concat(
-      `/tv-detail/${this.tvData.id}`
-    );
-  }
 }

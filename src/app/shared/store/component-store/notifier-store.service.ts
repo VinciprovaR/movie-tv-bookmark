@@ -7,12 +7,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Alert, notificationType } from '../../interfaces/alert.interface';
 import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
-
+//to-do refractor in state globale (?)
 export interface AlertState {
   alerts: Alert[];
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NotifierStore extends ComponentStore<AlertState> {
   readonly actions$ = inject(Actions);
   readonly store = inject(Store);
@@ -26,41 +26,23 @@ export class NotifierStore extends ComponentStore<AlertState> {
     create: 'lifecycle aggiunto',
     unchanged: 'lifecycle aggiornato',
   };
+
+  readonly isFailure = (action: any & TypedAction<string>) => {
+    let { type }: { type: string } = action;
+    return type.toLowerCase().includes('failure');
+  };
+
+  readonly isSuccessOrNotify = (action: any & TypedAction<string>) => {
+    let { type }: { type: string } = action;
+    return (
+      type.toLowerCase().includes('success') &&
+      type.toLowerCase().includes('notify')
+    );
+  };
+
   constructor() {
     super({ alerts: [] });
   }
-
-  readonly showAlertError = this.effect(() => {
-    return this.actions$.pipe(
-      filter((action: any & TypedAction<string>) => {
-        let { type }: { type: string } = action;
-        return type.toLowerCase().includes('failure');
-      }),
-      tap((action: any & TypedAction<string>) => {
-        let msg = "Errore, non è stato possibile eseguire l'operazione";
-        this.notify(action, msg, 'error');
-      })
-    );
-  });
-
-  readonly showAlertSuccess = this.effect(() => {
-    return this.actions$.pipe(
-      filter((action: any & TypedAction<string>) => {
-        let { type }: { type: string } = action;
-        return (
-          type.toLowerCase().includes('success') &&
-          type.toLowerCase().includes('notify')
-        );
-      }),
-      tap((action: any & TypedAction<string>) => {
-        let { operation, type }: { operation: string; type: string } = action;
-        let msg = `${type.toLowerCase().includes('movie') ? 'Movie' : 'TV'} ${
-          this.ALERT_MESSAGE_MAP[operation]
-        }`;
-        this.notify(action, msg, 'success');
-      })
-    );
-  });
 
   readonly addAlert = this.updater((state, alert: Alert) => {
     const newAlert = {
@@ -78,6 +60,29 @@ export class NotifierStore extends ComponentStore<AlertState> {
 
   readonly cleanAlerts = this.updater((state) => {
     return { alerts: [] };
+  });
+
+  readonly showAlertError = this.effect(() => {
+    return this.actions$.pipe(
+      filter(this.isFailure),
+      tap((action: any & TypedAction<string>) => {
+        let msg = "Errore, non è stato possibile eseguire l'operazione";
+        this.notify(action, msg, 'error');
+      })
+    );
+  });
+
+  readonly showAlertSuccess = this.effect(() => {
+    return this.actions$.pipe(
+      filter(this.isSuccessOrNotify),
+      tap((action: any & TypedAction<string>) => {
+        let { operation, type }: { operation: string; type: string } = action;
+        let msg = `${type.toLowerCase().includes('movie') ? 'Movie' : 'TV'} ${
+          this.ALERT_MESSAGE_MAP[operation]
+        }`;
+        this.notify(action, msg, 'success');
+      })
+    );
   });
 
   readonly closeAlert = this.effect((id$: Observable<number>) => {

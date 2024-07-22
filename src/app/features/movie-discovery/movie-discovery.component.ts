@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Store } from '@ngrx/store';
@@ -47,6 +53,8 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
 
   destroyed$ = new Subject();
 
+  private readonly destroyRef$ = inject(DestroyRef);
+
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
   selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
@@ -60,7 +68,12 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
   constructor(
     private store: Store,
     private bridgeDataService: BridgeDataService
-  ) {}
+  ) {
+    this.destroyRef$.onDestroy(() => {
+      this.destroyed$.next(true);
+      this.destroyed$.complete();
+    });
+  }
   ngAfterViewInit(): void {}
 
   ngOnInit(): void {

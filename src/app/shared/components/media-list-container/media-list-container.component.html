@@ -2,20 +2,22 @@
 <div class="">
   @if( mediaList.length >0){
   <ul
-    class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] smc:grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-8 pl-0"
+    class="grid grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-6 smc:gap-8 pl-0"
   >
     @for(media of mediaList; track media.id){
     <li class="list-none">
       <ng-container
         *ngComponentOutlet="
-          mediaItemComponents[mediaType];
+          mediaItemComponents[mediaType][listType];
           inputs: { mediaType, index: $index, mediaData: media }
         "
       />
     </li>
     }
   </ul>
-  }@else {
-  <div class="flex justify-center text-black">{{ placeholder }}</div>
+  } @else {
+  <div class="flex justify-center">
+    {{ placeholder }}
+  </div>
   }
 </div>

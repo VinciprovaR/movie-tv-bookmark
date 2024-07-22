@@ -13,7 +13,7 @@ import {
   templateUrl: './select-filter.component.html',
   styleUrl: './select-filter.component.css',
 })
-export class SelectFilterComponent implements OnInit {
+export class SelectFilterComponent {
   @Input({ required: true })
   filterForm!: FormGroup<any>;
   @Input({ required: true })
@@ -24,27 +24,20 @@ export class SelectFilterComponent implements OnInit {
   defaultOption: OptionFilter | null = null;
   @Input()
   title: string = '';
+
   @Input()
-  selectTransform!: {
+  set transformSelectObject(selectTransform: {
     objectToTransformSelect: { [key: string]: any }[];
     config: SelectTransformConfig;
-  };
-
-  ngOnInit(): void {
-    this.transformSelectObject();
-  }
-
-  transformSelectObject() {
-    if (this.selectTransform) {
-      this.selectObject = this.selectObject.map(
-        (option: { [key: string]: any }) => {
-          return {
-            label: option[this.selectTransform.config.labelKey],
-            value: option[this.selectTransform.config.valueKey],
-          };
-        }
-      );
-    }
+  }) {
+    this.selectObject = selectTransform.objectToTransformSelect.map(
+      (option: { [key: string]: any }) => {
+        return {
+          label: option[selectTransform.config.labelKey],
+          value: option[selectTransform.config.valueKey],
+        };
+      }
+    );
   }
 
   get selectControl(): FormControl {

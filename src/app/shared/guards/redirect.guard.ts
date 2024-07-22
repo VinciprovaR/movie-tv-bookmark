@@ -13,7 +13,7 @@ export const redirectGuard: CanMatchFn = () => {
     skipWhile((authState: AuthState) => authState.isLoading),
     map((authState: AuthState) => {
       if (!!authState.user && authState.user?.confirmed_at) {
-        return router.parseUrl('/home');
+        return router.parseUrl('/movie');
       } else {
         return router.parseUrl('/login');
       }
