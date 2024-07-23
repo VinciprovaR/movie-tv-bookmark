@@ -35,6 +35,8 @@ import {
   styleUrl: './movie-search.component.css',
 })
 export class MovieSearchComponent implements OnInit {
+  title = 'Movie Search';
+
   movieListLength: number = 0;
   mediaType: MediaType = 'movie';
 

@@ -1,0 +1,35 @@
+@if(this.navElements){
+<nav class="hidden sm:flex justify-between items-center">
+  <ul class="list-none flex space-x-10 pl-0 mt-2 mb-2">
+    @for(navElement of this.navElements |keyvalue; track navElement.key){
+    <li>
+      <span
+        class="hover:cursor-pointer"
+        (mouseover)="showSubMenu(subMenu)"
+        (mouseleave)="hideSubMenu(subMenu)"
+        >{{ navElement.value.label }}</span
+      >
+      <!-- submenu -->
+      <ul
+        #subMenu
+        (mouseleave)="hideSubMenu(subMenu)"
+        (mouseover)="showSubMenu(subMenu)"
+        class="list-none p-0 mt-2 group-hover:max-h-200 fixed z-20 rounded-md sub-menu"
+      >
+        @for(path of navElement.value.subMenu ; track path.path){
+        <li class="el-hover">
+          <a
+            href="#"
+            routerLinkActive="active"
+            [routerLink]="path.path"
+            class="block p-2"
+            >{{ path.label }}</a
+          >
+        </li>
+        }
+      </ul>
+    </li>
+    }
+  </ul>
+</nav>
+}

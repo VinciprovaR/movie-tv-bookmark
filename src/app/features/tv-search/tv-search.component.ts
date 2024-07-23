@@ -37,6 +37,8 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
   styleUrl: './tv-search.component.css',
 })
 export class TVSearchComponent implements OnInit {
+  title = 'TV Search';
+
   mediaType: MediaType = 'tv';
 
   destroyed$ = new Subject();

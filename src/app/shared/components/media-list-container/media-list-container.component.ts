@@ -41,9 +41,15 @@ export class MediaListContainerComponent implements OnInit {
   listType!: ListType;
   @Input()
   placeholder!: string;
+  @Input()
+  minMaxCol: number = 160;
+
+  gridCol!: string;
 
   constructor() {}
   ngOnInit(): void {
-    this.placeholder = `No ${this.mediaType} from the research`;
+    this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
+
+    this.placeholder = `No ${this.mediaType} were found that match your query.`;
   }
 }

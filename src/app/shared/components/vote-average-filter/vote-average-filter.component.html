@@ -1,11 +1,6 @@
-<div [formGroup]="filterForm" class="w-96">
+<div [formGroup]="filterForm">
   <h2>Vote Average</h2>
-  <mat-slider
-    style="width: 100%"
-    min="0"
-    max="100"
-    [formGroup]="voteAverageGroup"
-  >
+  <mat-slider min="0" max="100" [formGroup]="voteAverageGroup">
     <input
       id="min"
       [value]="voteAverageGroup.controls.voteAverageMin.value"

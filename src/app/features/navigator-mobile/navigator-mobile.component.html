@@ -1,0 +1,34 @@
+@if(navElements){
+<nav
+  class="fixed w-full sm:hidden flex justify-center pt-3"
+  [ngClass]="{
+    'header-mobile-show': !hiddenNavMenu,
+   
+  }"
+>
+  <ul class="list-none p-0 text-center m-0 transition">
+    @for(navElement of navElements | keyvalue; track navElement.key){
+    <li class="mb-3">
+      <h4 class="m-0">{{ navElement.value.label }}</h4>
+      <ul class="list-none p-0">
+        @for(path of navElement.value.subMenu ; track path.path){
+        <li class="el-hover">
+          <a
+            [ngClass]="{
+          'disabled': hiddenNavMenu,
+          
+        }"
+            href="#"
+            routerLinkActive="active"
+            [routerLink]="path.path"
+            class="block"
+            >{{ path.label }}</a
+          >
+        </li>
+        }
+      </ul>
+    </li>
+    }
+  </ul>
+</nav>
+}

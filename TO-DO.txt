@@ -24,7 +24,7 @@
 - Proxy con action supabase per nascondere chiave API
 - html semantico
 - aria accessibility
-- i18e (anche date filter)
+- i18e (anche date filter) + label tutte in un file json
 - check for change detection on push
 - Gestione timeout
 - Spinner async
@@ -34,6 +34,8 @@
 - Label lifecycle sul card component
 - Abount / credit con logo tmdb+ footer con testo di api appartenenza a tmdb
 - Hai dimenticato alcune destroyed ref...
+- aria accessibility
+- oggetti placeholder dove ci sono dati asincroni
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

@@ -1,20 +1,25 @@
-<app-input-query
-  [placeholder]="'Search for a movie'"
-  [query]="selectQuery$ | async"
-  (queryEmitter)="searchMovie($event)"
-></app-input-query>
+<section class="w-[90%] max-w-5xl m-auto pt-[70px]">
+  <span
+    ><h1 class="mx-auto my-6 text-center">{{ title }}</h1></span
+  >
+  <app-input-query
+    [placeholder]="'Search for a movie'"
+    [query]="selectQuery$ | async"
+    (queryEmitter)="searchMovie($event)"
+  ></app-input-query>
 
-<app-media-list-container
-  #movieListContainer
-  appScrollNearEnd
-  [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
-  [isLoading]="(selectIsLoading$ | async) ?? false"
-  [mediaList]="(selectMovieList$ | async) ?? []"
-  (nearEnd)="
-    movieListContainer.mediaList.length
-      ? searchAdditionalMovie(movieListContainer.mediaList.length)
-      : null
-  "
-  [mediaType]="mediaType"
-  [listType]="'tmdb'"
-></app-media-list-container>
+  <app-media-list-container
+    #movieListContainer
+    appScrollNearEnd
+    [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
+    [isLoading]="(selectIsLoading$ | async) ?? false"
+    [mediaList]="(selectMovieList$ | async) ?? []"
+    (nearEnd)="
+      movieListContainer.mediaList.length
+        ? searchAdditionalMovie(movieListContainer.mediaList.length)
+        : null
+    "
+    [mediaType]="mediaType"
+    [listType]="'tmdb'"
+  ></app-media-list-container>
+</section>

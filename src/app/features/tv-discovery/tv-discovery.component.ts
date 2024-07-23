@@ -45,6 +45,8 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
   styleUrl: './tv-discovery.component.css',
 })
 export class TVDiscoveryComponent implements OnInit, AfterViewInit {
+  title = 'TV Discovery';
+
   mediaType: MediaType = 'tv';
 
   destroyed$ = new Subject();

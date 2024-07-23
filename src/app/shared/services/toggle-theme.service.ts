@@ -21,10 +21,12 @@ export class ToggleThemeService {
   }
 
   private setDarkTheme() {
+    this.renderer.removeClass(this.document.body, 'light-theme');
     this.renderer.addClass(this.document.body, 'dark-theme');
   }
 
   private removeDarkTheme() {
     this.renderer.removeClass(this.document.body, 'dark-theme');
+    this.renderer.addClass(this.document.body, 'light-theme');
   }
 }

@@ -49,6 +49,7 @@ import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
   styleUrl: './movie-discovery.component.css',
 })
 export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
+  title = 'Movie Discovery';
   mediaType: MediaType = 'movie';
 
   destroyed$ = new Subject();

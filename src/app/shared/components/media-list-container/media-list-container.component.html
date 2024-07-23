@@ -3,6 +3,7 @@
   @if( mediaList.length >0){
   <ul
     class="grid grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-6 smc:gap-8 pl-0"
+    [ngClass]="gridCol"
   >
     @for(media of mediaList; track media.id){
     <li class="list-none">
@@ -16,7 +17,7 @@
     }
   </ul>
   } @else {
-  <div class="flex justify-center">
+  <div class="flex justify-center mt-20">
     {{ placeholder }}
   </div>
   }

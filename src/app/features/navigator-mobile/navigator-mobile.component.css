@@ -1,0 +1,24 @@
+nav {
+  transition: all 0.3s;
+  background-color: var(--bkg-color-nav-sub-menu);
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.header-mobile-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+mat-icon#mobile-menu-btn {
+  color: var(--icon-color);
+}
+
+a {
+  color: var(--text-color);
+}
+
+.el-hover:hover {
+  background-color: var(--bkg-color-nav-sub-menu-hover);
+}

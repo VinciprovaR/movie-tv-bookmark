@@ -12,12 +12,19 @@ import {
 import { CommonModule } from '@angular/common';
 import { NavigatorComponent } from '../../components/navigator/navigator.component';
 import { Store } from '@ngrx/store';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { filter, map, Observable, Subject, takeUntil } from 'rxjs';
 import { AuthSelectors } from '../../store/auth';
-import { LinkPath } from '../../interfaces/navigator.interface';
+import { NavElements } from '../../interfaces/navigator.interface';
 import { ToggleThemeStore } from '../../store/component-store/toggle-theme-store.service';
-import { RouterLinkActive, RouterModule } from '@angular/router';
+import {
+  NavigationStart,
+  Router,
+  RouterLinkActive,
+  RouterModule,
+} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { NavigatorMobileComponent } from '../../../features/navigator-mobile/navigator-mobile.component';
+import { NavigatorDesktopComponent } from '../../../features/navigator-desktop/navigator-desktop.component';
 
 @Component({
   selector: 'app-header',
@@ -28,6 +35,8 @@ import { MatIconModule } from '@angular/material/icon';
     RouterLinkActive,
     RouterModule,
     MatIconModule,
+    NavigatorMobileComponent,
+    NavigatorDesktopComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
@@ -35,26 +44,26 @@ import { MatIconModule } from '@angular/material/icon';
 export class HeaderComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly toggleThemeStore = inject(ToggleThemeStore);
-  private readonly el: ElementRef<HTMLElement> = inject(ElementRef);
   private renderer!: Renderer2;
   private readonly rendererFactory = inject(RendererFactory2);
   private readonly destroyRef$ = inject(DestroyRef);
+  private readonly router = inject(Router);
+  private readonly el: ElementRef<HTMLElement> = inject(ElementRef);
 
   destroyed$ = new Subject();
-
-  toggleThemeIcon: string = '';
-
   isUserAuthenticated$!: Observable<boolean>;
   icon$!: Observable<string>;
   isDarkTheme$!: Observable<boolean>;
 
+  toggleThemeIcon: string = '';
+
+  hiddenNavMenu: boolean = true;
   private window!: Window;
   private lastScrollTop = 0;
-  hiddenNavMenu: boolean = true;
 
-  readonly linkList: { [key: string]: { key: string; subMenu: LinkPath[] } } = {
+  readonly navElements: NavElements = {
     movie: {
-      key: 'Movie',
+      label: 'Movie',
       subMenu: [
         { label: 'Search', path: 'movie' },
         { label: 'Discovery', path: 'discovery-movie' },
@@ -62,7 +71,7 @@ export class HeaderComponent implements OnInit {
       ],
     },
     tv: {
-      key: 'TV Shows',
+      label: 'TV Shows',
       subMenu: [
         { label: 'Search', path: 'tv' },
         { label: 'Discovery', path: 'discovery-tv' },
@@ -70,7 +79,7 @@ export class HeaderComponent implements OnInit {
       ],
     },
     userProfile: {
-      key: 'User Profile',
+      label: 'User Profile',
       subMenu: [{ label: 'User Profile', path: 'user-profile' }],
     },
   };
@@ -83,8 +92,19 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.window = window;
+    this.router.events
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter((event) => event instanceof NavigationStart)
+      )
+      .subscribe((event) => {
+        if (!this.hiddenNavMenu) {
+          this.toggleNavMenuMobile();
+        }
+      });
+
     this.renderer = this.rendererFactory.createRenderer(null, null);
+    this.window = window;
 
     this.initSelectors();
   }
@@ -97,17 +117,14 @@ export class HeaderComponent implements OnInit {
       .pipe(map((user) => !!user));
   }
 
-  toggleTheme() {
-    this.toggleThemeStore.toggleTheme();
-  }
-
   @HostListener('window:scroll', ['$event.target'])
   windowScrollEvent(event: KeyboardEvent) {
     let scrollTop = this.window.document.documentElement.scrollTop;
     if (scrollTop > this.lastScrollTop) {
       this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
+
       if (!this.hiddenNavMenu) {
-        this.toggleNavMenu();
+        this.toggleNavMenuMobile();
       }
     } else {
       this.renderer.removeClass(this.el.nativeElement.firstChild, 'header-up');
@@ -115,15 +132,11 @@ export class HeaderComponent implements OnInit {
     this.lastScrollTop = scrollTop;
   }
 
-  showSubMenu(event: any) {
-    this.renderer.addClass(event, 'show');
+  toggleTheme() {
+    this.toggleThemeStore.toggleTheme();
   }
 
-  hideSubMenu(event: any) {
-    this.renderer.removeClass(event, 'show');
-  }
-
-  toggleNavMenu() {
+  toggleNavMenuMobile() {
     this.hiddenNavMenu = !this.hiddenNavMenu;
   }
 }

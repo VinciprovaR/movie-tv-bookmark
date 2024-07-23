@@ -1,20 +1,22 @@
-@if(movieDetail$ | async; as movieDetail){
-<div style="margin: 10px">
-  <div style="display: flex">
-    <div>
-      <img [src]="resizedImgUrl + movieDetail.poster_path" width="100%" />
+<section class="w-[90%] max-w-5xl m-auto pt-[70px]">
+  @if(movieDetail$ | async; as movieDetail){
+  <div style="margin: 10px">
+    <div style="display: flex">
+      <div>
+        <img [src]="resizedImgUrl + movieDetail.poster_path" width="100%" />
+      </div>
+      <div>
+        <h1>{{ movieDetail.title }}</h1>
+        <h3>{{ movieDetail.tagline }}</h3>
+        <p>{{ movieDetail.overview }}</p>
+      </div>
     </div>
-    <div>
-      <h1>{{ movieDetail.title }}</h1>
-      <h3>{{ movieDetail.tagline }}</h3>
-      <p>{{ movieDetail.overview }}</p>
-    </div>
+
+    <app-people-list-container
+      [isLoading]="(isLoading$ | async) ?? false"
+      [castList]="movieDetail.cast"
+    ></app-people-list-container>
   </div>
 
-  <app-people-list-container
-    [isLoading]="(isLoading$ | async) ?? false"
-    [castList]="movieDetail.cast"
-  ></app-people-list-container>
-</div>
-
-}
+  }
+</section>

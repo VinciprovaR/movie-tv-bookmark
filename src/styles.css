@@ -3,57 +3,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* variables */
+body.light-theme {
+  --bkg-color: rgb(255, 255, 255);
+  --text-color: rgb(32, 33, 34);
+  --text-color-inverted: rgb(234, 236, 240);
+  --lifecycle-info-bkg-color: #252222;
+  --mat-card-border-color: #eee;
+  --icon-color: rgb(32, 33, 34);
+  --box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
+  --bkg-color-nav-sub-menu: rgb(243 244 246);
+  --bkg-color-nav-sub-menu-hover: rgb(185, 185, 185);
+}
+
+body.dark-theme {
+  --bkg-color: #252222;
+  --text-color: rgb(234, 236, 240);
+  --text-color-inverted: rgb(32, 33, 34);
+  --mat-card-border-color: #a8a8a8;
+  --icon-color: rgb(234, 236, 240);
+  --lifecycle-info-bkg-color: rgb(255, 255, 255);
+  --box-shadow: 0 1px 3px 0 rgb(255, 255, 255, 0.401),
+    0 1px 2px -1px rgb(255, 255, 255, 0.401) !important;
+  --bkg-color-nav-sub-menu: #444444;
+  --bkg-color-nav-sub-menu-hover: #353535fd;
+}
+
 html,
 body {
   height: auto;
   margin: 0px;
-}
-
-body {
+  font-family: Roboto, Arial, sans-serif;
   background-color: var(--bkg-color);
   color: var(--text-color);
-}
-
-header {
-  background-color: var(--bkg-color);
-  color: var(--text-color);
-}
-
-header a {
-  color: var(--text-color);
-}
-
-header .sub-menu {
-  background-color: rgb(243 244 246);
-}
-
-header .sub-menu li:hover {
-  /* background-color: rgb(229 231 235); */
-  background-color: rgb(62, 92, 153);
-}
-
-mat-card {
-  background-color: var(--bkg-color) !important;
-  border-color: var(--mat-card-border-color) !important;
-  /* border-width: 2px !important; */
-  box-shadow: var(--box-shadow) !important;
-}
-
-mat-card .lifecycle-info {
-  background-color: var(--lifecycle-info-bkg-color);
-}
-
-mat-card a {
-  color: var(--text-color);
-}
-
-input:focus + div #search-icon {
-  color: var(--icon-color);
+  transition: all 0.2s;
 }
 
 input {
   background-color: var(--bkg-color);
   color: var(--text-color);
+  transition: all 0.2s;
 }
 
 input::placeholder {
@@ -65,20 +54,14 @@ select {
   color: var(--text-color);
 }
 
-#icon-bg {
-  background-color: var(--bkg-color);
-}
-
 a {
+  color: var(--text-color);
   text-decoration: none;
+  transition: all 0.2s;
 }
 
 a:hover {
   color: rgb(1, 180, 228);
-}
-
-img {
-  cursor: pointer;
 }
 
 a.disabled {
@@ -86,28 +69,23 @@ a.disabled {
   cursor: default;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, Arial, sans-serif;
-  --text-color: rgb(32, 33, 34);
-  --text-color-inv: rgb(234, 236, 240);
-  --bkg-color: rgb(255, 255, 255);
-  --lifecycle-info-bkg-color: #252222;
-  --mat-card-border-color: #eee;
-  --icon-color: rgb(32, 33, 34);
-  /* --box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); */
-  --box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
+img {
+  cursor: pointer;
 }
 
-body.dark-theme {
-  --text-color: rgb(234, 236, 240);
-  --text-color-inv: rgb(32, 33, 34);
-  --bkg-color: #252222;
-  --mat-card-border-color: #a8a8a8;
-  --icon-color: rgb(234, 236, 240);
-  --lifecycle-info-bkg-color: rgb(255, 255, 255);
-  /* --box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.401),
-    0 2px 4px -2px rgb(0 0 0 / 0.1); */
-  --box-shadow: 0 1px 3px 0 rgb(255, 255, 255, 0.401),
-    0 1px 2px -1px rgb(255, 255, 255, 0.401) !important;
+mat-card {
+  background-color: var(--bkg-color) !important;
+  border-color: var(--mat-card-border-color) !important;
+  box-shadow: var(--box-shadow) !important;
+}
+
+mat-icon {
+  transition: all 0.2s;
+}
+
+.border-filter {
+  border-color: var(--mat-card-border-color);
+  box-shadow: var(--box-shadow);
+  border-style: solid;
+  border-width: 1px;
 }

@@ -1,23 +1,67 @@
-<app-discovery-movie-filters
-  [certificationList]="(selectCertificationList$ | async) ?? []"
-  [languageList]="(selectLanguageList$ | async) ?? []"
-  [sortBySelect]="(selectSortBy$ | async) ?? []"
-  [combinedDiscoveryFilters$]="selectCombinedDiscoveryFilters$"
-  [mediaType]="mediaType"
-  (payloadEmitterOnSubmit)="discoveryMovie($event)"
-></app-discovery-movie-filters>
+<!-- <section class="w-full m-auto pt-[70px]">
 
-<app-media-list-container
-  #movieListContainer
-  appScrollNearEnd
-  [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
-  [isLoading]="(selectIsLoading$ | async) ?? false"
-  [mediaList]="(selectMovieList$ | async) ?? []"
-  (nearEnd)="
-    movieListContainer.mediaList.length
-      ? discoveryAdditionalMovie(movieListContainer.mediaList.length)
-      : null
-  "
-  [mediaType]="mediaType"
-  [listType]="'tmdb'"
-></app-media-list-container>
+  <div class="flex">
+    <app-discovery-movie-filters
+      [certificationList]="(selectCertificationList$ | async) ?? []"
+      [languageList]="(selectLanguageList$ | async) ?? []"
+      [sortBySelect]="(selectSortBy$ | async) ?? []"
+      [combinedDiscoveryFilters$]="selectCombinedDiscoveryFilters$"
+      [mediaType]="mediaType"
+      (payloadEmitterOnSubmit)="discoveryMovie($event)"
+    ></app-discovery-movie-filters>
+
+    <app-media-list-container
+      #movieListContainer
+      appScrollNearEnd
+      [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
+      [isLoading]="(selectIsLoading$ | async) ?? false"
+      [mediaList]="(selectMovieList$ | async) ?? []"
+      (nearEnd)="
+        movieListContainer.mediaList.length
+          ? discoveryAdditionalMovie(movieListContainer.mediaList.length)
+          : null
+      "
+      [mediaType]="mediaType"
+      [listType]="'tmdb'"
+    ></app-media-list-container>
+  </div>
+</section> -->
+<section class="w-[95%] mx-auto pt-[70px]">
+  <span
+    ><h1 class="mx-auto my-6 text-center">{{ title }}</h1></span
+  >
+
+  <div class="flex flex-col md:flex-row">
+    <div
+      class="w-full md:w-1/4 p-4 border-filter mb-4 md:mb-0 box-border rounded"
+    >
+      <h2 class="text-xl font-bold mb-4">Filter</h2>
+      <app-discovery-movie-filters
+        [certificationList]="(selectCertificationList$ | async) ?? []"
+        [languageList]="(selectLanguageList$ | async) ?? []"
+        [sortBySelect]="(selectSortBy$ | async) ?? []"
+        [combinedDiscoveryFilters$]="selectCombinedDiscoveryFilters$"
+        [mediaType]="mediaType"
+        (payloadEmitterOnSubmit)="discoveryMovie($event)"
+      ></app-discovery-movie-filters>
+      <!-- filter content -->
+    </div>
+    <div class="w-full md:w-3/4 p-4 ml-0 md:ml-4 box-border">
+      <app-media-list-container
+        #movieListContainer
+        appScrollNearEnd
+        [minMaxCol]="140"
+        [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
+        [isLoading]="(selectIsLoading$ | async) ?? false"
+        [mediaList]="(selectMovieList$ | async) ?? []"
+        (nearEnd)="
+          movieListContainer.mediaList.length
+            ? discoveryAdditionalMovie(movieListContainer.mediaList.length)
+            : null
+        "
+        [mediaType]="mediaType"
+        [listType]="'tmdb'"
+      ></app-media-list-container>
+    </div>
+  </div>
+</section>

@@ -5,6 +5,10 @@ export interface LinkPath {
   label: string;
 }
 
+export interface NavElements {
+  [key: string]: { label: string; subMenu: LinkPath[] };
+}
+
 export interface LinkPathLifecycle {
   path: lifecycleEnum;
   label: string;

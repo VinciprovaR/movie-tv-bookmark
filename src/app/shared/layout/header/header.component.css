@@ -1,36 +1,14 @@
-.header {
+header {
   transition: top 0.5s;
+  background-color: var(--bkg-color);
+  color: var(--text-color);
+  max-height: 70px;
 }
 
-.sub-header {
-  transition: all 0.3s;
-}
-
-.hidden-sub-header {
-  opacity: 0;
-  overflow: hidden;
-  visibility: hidden;
-}
-
-.shown-sub-header {
-  opacity: 1;
-  visibility: visible;
-}
-
-.sub-header-up {
-  top: -400px;
+header a {
+  color: var(--text-color);
 }
 
 .header-up {
   top: -70px;
-}
-
-.submenu {
-  transition: max-height 0.5s;
-  overflow: hidden;
-  max-height: 0;
-}
-
-.show {
-  max-height: 200px;
 }

@@ -1,0 +1,18 @@
+.sub-menu {
+  transition: max-height 0.5s;
+  overflow: hidden;
+  max-height: 0;
+  background-color: var(--bkg-color-nav-sub-menu);
+}
+
+.show-sub-menu {
+  max-height: 200px;
+}
+
+.el-hover:hover {
+  background-color: var(--bkg-color-nav-sub-menu-hover);
+}
+
+a {
+  color: var(--text-color);
+}

@@ -1,0 +1,3 @@
+input:focus + div #search-icon {
+  color: var(--icon-color);
+}
