@@ -38,7 +38,7 @@ export class SelectTagComponent implements ControlValueAccessor {
   isDisabled = false;
 
   @Output()
-  emitany: EventEmitter<any> = new EventEmitter<any>();
+  genreSelected = new EventEmitter<GenreControl>();
 
   constructor() {}
   writeValue(obj: any): void {}
@@ -50,6 +50,6 @@ export class SelectTagComponent implements ControlValueAccessor {
 
   selectGenre() {
     this.genre.isSelected = !this.genre.isSelected;
-    this.emitany.emit(this.genre);
+    this.genreSelected.emit(this.genre);
   }
 }

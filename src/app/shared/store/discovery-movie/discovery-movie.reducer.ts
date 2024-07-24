@@ -14,6 +14,7 @@ export const initialState: DiscoveryMovieState = {
     certification: '',
     language: '',
     voteAverage: { voteAverageMin: 0, voteAverageMax: 10 },
+    minVote: 0,
   },
   error: null,
   movieResult: {

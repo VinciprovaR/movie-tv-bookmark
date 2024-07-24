@@ -16,6 +16,8 @@ import { VoteAverageFilterComponent } from '../../shared/components/vote-average
 import { filter, Observable, takeUntil } from 'rxjs';
 import { DiscoveryFilter } from '../../shared/directives/discovery.filter.directive';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
+import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-discovery-movie-filters',
@@ -28,6 +30,8 @@ import { SelectFilterComponent } from '../../shared/components/select-filter/sel
     CheckboxFilterComponent,
     VoteAverageFilterComponent,
     SelectFilterComponent,
+    MinVoteFilterComponent,
+    MatIconModule,
   ],
   templateUrl: './movie-discovery-filters.component.html',
   styleUrl: './movie-discovery-filters.component.css',
@@ -82,6 +86,7 @@ export class MovieDiscoveryFiltersComponent
       ),
       languages: this.initLanguagesControl(filterSelected.language),
       voteAverage: this.initVoteAverageGroup(filterSelected.voteAverage),
+      minVote: this.initMinVoteControl(filterSelected.minVote),
     });
 
     this.filterForm.controls['releaseDate'].addValidators(
@@ -124,6 +129,7 @@ export class MovieDiscoveryFiltersComponent
       voteAverage: this.buildVoteAveragePayload(
         this.filterForm.controls.voteAverage
       ),
+      minVote: this.buildMinVotePayload(this.filterForm.controls.minVote),
     };
   }
 

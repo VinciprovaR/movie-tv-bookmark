@@ -8,6 +8,7 @@ export interface DiscoveryMovieFilterForm {
   certifications: FormControl<string>;
   languages: FormControl<string>;
   voteAverage: FormGroup<VoteAverageGroup>;
+  minVote: FormControl<number>;
 }
 
 export interface LifecycleMediaFilterForm {

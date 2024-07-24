@@ -30,4 +30,8 @@ export abstract class TMDBParamsUtilsAbstractService {
   buildVoteAverageParams(voteAverage: VoteAverage) {
     return `&vote_average.gte=${voteAverage.voteAverageMin}&vote_average.lte=${voteAverage.voteAverageMax}`;
   }
+
+  buildMinVoteParams(minVote: number) {
+    return `&vote_count.gte=${minVote}`;
+  }
 }

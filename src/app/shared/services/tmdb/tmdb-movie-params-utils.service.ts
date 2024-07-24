@@ -43,6 +43,11 @@ export class TMDBMovieParamsUtilsService extends TMDBParamsUtilsAbstractService 
         this.buildVoteAverageParams(payload.voteAverage)
       );
     }
+    if (payload.minVote) {
+      filtersQueryParams = filtersQueryParams.concat(
+        this.buildMinVoteParams(payload.minVote)
+      );
+    }
     return filtersQueryParams;
   }
 

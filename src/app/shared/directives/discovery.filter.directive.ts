@@ -6,6 +6,8 @@ import {
   Output,
   EventEmitter,
   DestroyRef,
+  Renderer2,
+  RendererFactory2,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -38,6 +40,8 @@ export abstract class DiscoveryFilter<
 > implements OnInit
 {
   readonly fb = inject(FormBuilder);
+  private renderer!: Renderer2;
+  private readonly rendererFactory = inject(RendererFactory2);
 
   destroyed$ = new Subject();
 
@@ -62,11 +66,16 @@ export abstract class DiscoveryFilter<
     value: '',
   };
 
+  isHideFilterContainer: boolean = true;
+  isHideSortContainer: boolean = true;
+
   constructor() {
     inject(DestroyRef).onDestroy(() => {
       this.destroyed$.next(true);
       this.destroyed$.complete();
     });
+
+    this.renderer = this.rendererFactory.createRenderer(null, null);
   }
 
   abstract ngOnInit(): void;
@@ -147,6 +156,12 @@ export abstract class DiscoveryFilter<
           nonNullable: true,
         }
       ),
+    });
+  }
+
+  initMinVoteControl(minVote: number): FormControl<number> {
+    return this.fb.control<number>(minVote, {
+      nonNullable: true,
     });
   }
 
@@ -231,6 +246,10 @@ export abstract class DiscoveryFilter<
     };
   }
 
+  buildMinVotePayload(minVoteControl: FormControl<number>): number {
+    return minVoteControl.value;
+  }
+
   buildDateRangePayload(rangeDateGroup: FormGroup<DateRangeGroup>): DateRange {
     return {
       from: this.formatDate(rangeDateGroup.value.from),
@@ -248,5 +267,23 @@ export abstract class DiscoveryFilter<
       return `${year}-${month}-${day}`;
     }
     return '';
+  }
+
+  toggleMenuFilter(container: HTMLElement) {
+    if (this.isHideFilterContainer) {
+      this.renderer.removeClass(container, 'hidden-container');
+    } else {
+      this.renderer.addClass(container, 'hidden-container');
+    }
+    this.isHideFilterContainer = !this.isHideFilterContainer;
+  }
+
+  toggleMenuSort(container: HTMLElement) {
+    if (this.isHideSortContainer) {
+      this.renderer.removeClass(container, 'hidden-container');
+    } else {
+      this.renderer.addClass(container, 'hidden-container');
+    }
+    this.isHideSortContainer = !this.isHideSortContainer;
   }
 }

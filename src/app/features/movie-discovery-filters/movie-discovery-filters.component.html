@@ -1,65 +1,125 @@
 @if(filterForm){
 
-<form [formGroup]="filterForm" (ngSubmit)="onSubmit()" class="">
-  <app-genre-filter class="mt-16" [filterForm]="filterForm"></app-genre-filter>
-  <div class="mt-16">
-    <app-select-filter
-      [filterForm]="filterForm"
-      [controlName]="'sortBy'"
-      [title]="'Sort Results By'"
-      [selectObject]="sortBySelect"
-    ></app-select-filter>
-  </div>
-  <div class="mt-16">
-    <app-range-date-filter
-      [rangeDateLabel]="'Release Date'"
-      [customGroupName]="'releaseDate'"
-      class="mt-16"
-      [filterForm]="filterForm"
+<form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+  <div class="box-border border-container mb-4">
+    <div
+      class="px-3 py-5 border-separator flex justify-between hover:cursor-pointer"
+      (click)="toggleMenuSort(sortContainer)"
     >
-    </app-range-date-filter>
-  </div>
-  <div class="mt-16">
-    <app-checkbox-filter
-      [filterForm]="filterForm"
-      [controlName]="'includeLifecycle'"
-      [label]="'Include movies in lifecycle'"
-    ></app-checkbox-filter>
-  </div>
+      <h2>Sort</h2>
 
-  <div class="mt-16">
-    <app-select-filter
-      [filterForm]="filterForm"
-      [controlName]="'certifications'"
-      [title]="'Certification'"
-      [transformSelectObject]="{
-        objectToTransformSelect: certificationList,
-        config: certificationsTransformConfig
+      <mat-icon
+        aria-hidden="false"
+        aria-label=""
+        [fontIcon]="isHideSortContainer ? 'expand_more' : 'chevron_right'"
+      ></mat-icon>
+    </div>
+    <div
+      #sortContainer
+      class="px-3 py-5"
+      [ngClass]="{
+        'hidden-container': isHideSortContainer
       }"
-      [defaultOption]="certificationsDefaultOption"
-    ></app-select-filter>
+    >
+      <app-select-filter
+        [filterForm]="filterForm"
+        [controlName]="'sortBy'"
+        [title]="'Sort Results By'"
+        [selectObject]="sortBySelect"
+      ></app-select-filter>
+    </div>
   </div>
 
-  <div class="mt-16">
-    <app-select-filter
-      [filterForm]="filterForm"
-      [controlName]="'languages'"
-      [title]="'Language'"
-      [transformSelectObject]="{
-        objectToTransformSelect: languageList,
-        config: languagesTransformConfig
+  <div class="box-border border-container mb-4">
+    <div
+      class="px-3 py-5 border-separator flex justify-between hover:cursor-pointer"
+      (click)="toggleMenuFilter(filterContainer)"
+    >
+      <h2>Filters</h2>
+
+      <mat-icon
+        aria-hidden="false"
+        aria-label=""
+        [fontIcon]="isHideFilterContainer ? 'expand_more' : 'chevron_right'"
+      ></mat-icon>
+    </div>
+
+    <div
+      #filterContainer
+      [ngClass]="{
+        'hidden-container': isHideFilterContainer
       }"
-      [defaultOption]="languagesDefaultOption"
-    ></app-select-filter>
+    >
+      <div class="px-3 py-5 border-separator">
+        <app-genre-filter [filterForm]="filterForm"></app-genre-filter>
+      </div>
+
+      <div class="px-3 py-5 border-separator">
+        <app-range-date-filter
+          [rangeDateLabel]="'Release Date'"
+          [customGroupName]="'releaseDate'"
+          [filterForm]="filterForm"
+        >
+        </app-range-date-filter>
+      </div>
+
+      <div class="px-3 py-5 border-separator">
+        <app-checkbox-filter
+          [title]="'Bookmark'"
+          [filterForm]="filterForm"
+          [controlName]="'includeLifecycle'"
+          [label]="'Show movies already in bookmark '"
+        ></app-checkbox-filter>
+      </div>
+
+      <div class="px-3 py-5 border-separator">
+        <app-select-filter
+          [filterForm]="filterForm"
+          [controlName]="'certifications'"
+          [title]="'Certification'"
+          [transformSelectObject]="{
+            objectToTransformSelect: certificationList,
+            config: certificationsTransformConfig
+          }"
+          [defaultOption]="certificationsDefaultOption"
+        ></app-select-filter>
+      </div>
+
+      <div class="px-3 py-5 border-separator">
+        <app-select-filter
+          [filterForm]="filterForm"
+          [controlName]="'languages'"
+          [title]="'Language'"
+          [transformSelectObject]="{
+            objectToTransformSelect: languageList,
+            config: languagesTransformConfig
+          }"
+          [defaultOption]="languagesDefaultOption"
+        ></app-select-filter>
+      </div>
+
+      <div class="px-3 py-5 border-separator">
+        <app-vote-average-filter [filterForm]="filterForm">
+        </app-vote-average-filter>
+      </div>
+
+      <div class="px-3 py-5 border-separator">
+        <app-min-vote-filter [filterForm]="filterForm"> </app-min-vote-filter>
+      </div>
+    </div>
+    <!-- end -->
   </div>
 
-  <!-- <div class="mt-16">
-    <app-vote-average-filter [filterForm]="filterForm">
-    </app-vote-average-filter>
-  </div> -->
-
-  <button type="submit" class="mt-5" [disabled]="!filterForm.valid">
-    Submit
-  </button>
+  <!--transition ease-in-out transform active:translate-y-1  -->
+  <div class="px-3 py-5">
+    <button
+      type="submit"
+      class="submit py-3 rounded-full cursor-pointer w-full disabled:"
+      [disabled]="!filterForm.valid"
+    >
+      <span class="text-white text-lg">Search</span>
+    </button>
+  </div>
 </form>
+
 }

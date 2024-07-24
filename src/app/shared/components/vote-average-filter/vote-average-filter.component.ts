@@ -1,12 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 
-import {
-  DiscoveryMovieFilterForm,
-  VoteAverageGroup,
-} from '../../interfaces/TMDB/tmdb-filters.interface';
+import { VoteAverageGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-vote-average-filter',
@@ -21,7 +18,6 @@ export class VoteAverageFilterComponent {
 
   constructor() {}
   get voteAverageGroup(): FormGroup<VoteAverageGroup> {
-    // console.log(this.filterForm.controls['voteAverage']);
     return this.filterForm.controls[
       'voteAverage'
     ] as FormGroup<VoteAverageGroup>;

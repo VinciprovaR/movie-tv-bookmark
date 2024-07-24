@@ -44,7 +44,7 @@ export class MediaListContainerComponent implements OnInit {
   @Input()
   minMaxCol: number = 160;
 
-  gridCol!: string;
+  gridCol: string = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
   constructor() {}
   ngOnInit(): void {

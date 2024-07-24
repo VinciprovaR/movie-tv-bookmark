@@ -1,5 +1,5 @@
-<div [formGroup]="filterForm">
-  <h2 class="">{{ title }}</h2>
+<div [formGroup]="filterForm" class="space-y-2">
+  <h3>{{ title }}</h3>
   <select [formControlName]="controlName" [id]="controlName">
     @if(defaultOption){
     <option [value]="defaultOption.value">{{ defaultOption.label }}</option>

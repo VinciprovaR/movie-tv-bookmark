@@ -1,43 +1,69 @@
-<div [formGroup]="filterForm" class="w-80">
-  <h2>{{ rangeDateLabel }}</h2>
-  <div [formGroupName]="customGroupName">
-    <div class="flex flex-wrap justify-between">
-      <label for="fromDate" class="">From</label>
-      <mat-form-field>
-        <mat-label>Choose a date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="pickerFrom"
-          [formControlName]="'from'"
-          id="fromDate"
-        />
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="pickerFrom">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #pickerFrom></mat-datepicker>
-      </mat-form-field>
-    </div>
+<div [formGroup]="filterForm" class="space-y-2">
+  <h3>{{ rangeDateLabel }}</h3>
+  <div [formGroupName]="customGroupName" class="space-y-4">
+    <!-- From -->
 
-    <div class="flex flex-wrap justify-between">
-      <label for="toDate" class="">To</label>
-      <mat-form-field>
-        <mat-label>Choose a date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="pickerTo"
-          [formControlName]="'to'"
-          id="toDate"
-        />
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="pickerTo">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
+    <div class="flex justify-between space-x-10 xxsm:flex-nowrap flex-wrap">
+      <label for="fromDate" class="w-[100px]">From</label>
+      <!-- to-do refractor input generalizzati -->
+      <div class="w-full">
+        <div class="relative">
+          <input
+            class="px-4 py-2 border-container focus:outline-none focus:ring-2 focus:ring-blue-500 w-full box-border"
+            type="text"
+            id="search"
+            id="fromDate"
+            [matDatepicker]="pickerFrom"
+            [formControlName]="'from'"
+          />
+
+          <div
+            class="absolute inset-y-0 right-0 flex items-center pl-3 pointer-events-none"
+          >
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="pickerFrom"
+              id="calendar"
+              class="icon-color"
+            >
+            </mat-datepicker-toggle>
+          </div>
+        </div>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </div>
+    </div>
+    <!-- To -->
+    <div class="flex justify-between space-x-10 xxsm:flex-nowrap flex-wrap">
+      <label for="toDate" class="w-[100px]">To</label>
+      <!-- to-do refractor input generalizzati -->
+      <div class="w-full">
+        <div class="relative">
+          <input
+            class="px-4 py-2 border-container focus:outline-none focus:ring-2 focus:ring-blue-500 w-full box-border"
+            type="text"
+            id="search"
+            id="toDate"
+            [matDatepicker]="pickerTo"
+            [formControlName]="'to'"
+          />
+
+          <div
+            class="absolute inset-y-0 right-0 flex items-center pl-3 pointer-events-none"
+          >
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="pickerTo"
+              id="calendar"
+              class="icon-color"
+            >
+            </mat-datepicker-toggle>
+          </div>
+        </div>
         <mat-datepicker #pickerTo></mat-datepicker>
-      </mat-form-field>
+      </div>
     </div>
   </div>
   @if(dateRangeGroup.controls.from.hasError('invalidFromDate')){
-  <p style="color: red">From date cannot be after to date</p>
+  <p class="text-red-500">From date cannot be after to date</p>
   }
 </div>

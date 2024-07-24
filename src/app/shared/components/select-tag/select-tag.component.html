@@ -1,25 +1,10 @@
 <div
-  class="px-4 py-2 rounded-full transition duration-450 ease-in-out transform active:translate-y-1 cursor-pointer shadow-md bg-gradient-to-r"
+  class="px-3 py-1 my-1 tag-container rounded-full transition ease-in-out transform md:hover:translate-y-0.5 active:translate-y-1 cursor-pointer"
   [ngClass]="{
-    'from-purple-500 to-pink-500 text-white tag-button-selected':
-      genre.isSelected,
-    'from-purple-100 to-pink-100 text-gray-700 tag-button-deselected':
-      !genre.isSelected
+    ' tag-button-selected tag-selected ': genre.isSelected,
+    ' tag-button-deselected': !genre.isSelected
   }"
   (click)="selectGenre()"
 >
-  <span class="select-none">{{ genre.name }}</span>
+  <span class="select-none text-sm">{{ genre.name }}</span>
 </div>
-<!-- <button
-  mat-stroked-button
-  class="px-4 py-2 rounded-full transition duration-450 ease-in-out transform active:translate-y-1 cursor-pointer shadow-md flex bg-gradient-to-r"
-  [ngClass]="{
-    'from-purple-500 to-pink-500 text-white tag-button-selected':
-      genre.isSelected,
-    'from-purple-100 to-pink-100 text-gray-700 tag-button-deselected':
-      !genre.isSelected
-  }"
-  (click)="selectGenre()"
->
-  <span class="select-none">{{ genre.name }}</span>
-</button> -->

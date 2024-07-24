@@ -1,0 +1,11 @@
+input:focus + div #calendar {
+  color: var(--icon-color);
+}
+
+.icon-color {
+  color: rgb(156 163 175);
+}
+
+.icon-color:hover {
+  color: var(--text-color);
+}

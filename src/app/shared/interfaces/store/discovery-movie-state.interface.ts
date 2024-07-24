@@ -8,6 +8,7 @@ export interface PayloadDiscoveryMovie {
   includeMediaWithLifecycle: boolean;
   language: string;
   voteAverage: VoteAverage;
+  minVote: number;
   releaseDate: DateRange;
   certification: string;
 }

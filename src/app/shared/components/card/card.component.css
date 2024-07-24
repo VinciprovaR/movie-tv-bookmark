@@ -1,7 +1,7 @@
 /* to-do refractor e sovrascrivere material component stile con tailwind */
 
 .card-content {
-  padding: 0px 8px 0px 8px;
+  padding: 8px 8px 0px 8px;
 }
 
 .card-container {

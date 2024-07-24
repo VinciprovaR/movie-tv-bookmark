@@ -13,6 +13,8 @@ import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 })
 export class CheckboxFilterComponent implements OnInit {
   @Input({ required: true })
+  title!: string;
+  @Input({ required: true })
   filterForm!: FormGroup<any>;
   @Input({ required: true })
   controlName!: string;

@@ -2,25 +2,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+:root {
+  --hover-selected-color: rgb(59 130 246);
+  --disabled-bg: rgb(168, 168, 168);
+  --disabled-text-color: rgb(114, 114, 114);
+}
 /* variables */
 body.light-theme {
   --bkg-color: rgb(255, 255, 255);
   --text-color: rgb(32, 33, 34);
   --text-color-inverted: rgb(234, 236, 240);
   --lifecycle-info-bkg-color: #252222;
-  --mat-card-border-color: #eee;
+  --mat-card-border-color: #d7d7d7;
+  --tag-border-color: #a5a5a5;
   --icon-color: rgb(32, 33, 34);
   --box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
   --bkg-color-nav-sub-menu: rgb(243 244 246);
   --bkg-color-nav-sub-menu-hover: rgb(185, 185, 185);
 }
-
 body.dark-theme {
   --bkg-color: #252222;
   --text-color: rgb(234, 236, 240);
   --text-color-inverted: rgb(32, 33, 34);
-  --mat-card-border-color: #a8a8a8;
+  --mat-card-border-color: #6f6f6f;
+  --tag-border-color: #a5a5a5;
   --icon-color: rgb(234, 236, 240);
   --lifecycle-info-bkg-color: rgb(255, 255, 255);
   --box-shadow: 0 1px 3px 0 rgb(255, 255, 255, 0.401),
@@ -75,17 +80,54 @@ img {
 
 mat-card {
   background-color: var(--bkg-color) !important;
-  border-color: var(--mat-card-border-color) !important;
-  box-shadow: var(--box-shadow) !important;
 }
 
 mat-icon {
   transition: all 0.2s;
 }
 
-.border-filter {
-  border-color: var(--mat-card-border-color);
+mat-icon:hover {
+  cursor: pointer;
+}
+
+.border-container {
+  border-color: var(--mat-card-border-color) !important;
   box-shadow: var(--box-shadow);
   border-style: solid;
   border-width: 1px;
+  border-radius: 0.45rem;
+}
+
+.border-separator {
+  border-color: var(--mat-card-border-color) !important;
+  border-bottom-style: solid;
+  @apply border-b;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0px;
+}
+
+h2 {
+  font-size: 1.1rem;
+}
+
+h3 {
+  font-size: 0.95rem;
+}
+
+select {
+  width: 100%;
+}
+
+.hidden-container {
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+  height: 0px;
+  padding: 0px;
+  margin: 0px;
 }

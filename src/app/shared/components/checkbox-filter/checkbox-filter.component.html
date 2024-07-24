@@ -1,10 +1,12 @@
-<div [formGroup]="filterForm" class="w-80">
-  <div class="flex">
-    <label [for]="controlName">{{ label }} </label>
+<div [formGroup]="filterForm" class="space-y-2">
+  <h3>{{ title }}</h3>
+  <div class="flex space-x-2">
     <input
       type="checkbox"
+      class="text-xl hover:cursor-pointer"
       [formControlName]="'includeLifecycle'"
       [id]="controlName"
     />
+    <label [for]="controlName">{{ label }} </label>
   </div>
 </div>

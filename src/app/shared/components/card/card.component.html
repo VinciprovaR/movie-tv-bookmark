@@ -1,5 +1,4 @@
-<!-- [ngClass]="lifecycleStatusElement.key + '-border'" -->
-<mat-card appearance="outlined" class="w-auto h-full">
+<mat-card appearance="outlined" class="w-auto h-full border-container">
   <img
     mat-card-image
     [alt]="title"
@@ -22,18 +21,16 @@
     >{{ lifecycleStatusElement.label }}</span
   >
   <mat-card-content class="card-content bg-transparent">
-    <div class="mt-2">
-      <h2 class="m-0 font-bold text-base">
-        <a class="" [routerLink]="detailMediaPath" [title]="title">{{
-          title
-        }}</a>
-      </h2>
-      <p class="m-0 text-sm md:text-md">
+    <h2>
+      <a [routerLink]="detailMediaPath" [title]="title">{{ title }}</a>
+    </h2>
+    <div class="mt-1">
+      <p>
         {{ release_date | date : "longDate" }}
       </p>
       @if(voteAverage){
-      <div class="flex flex-wrap items-center">
-        <span class="mr-1">{{ voteAverage / 10 | percent }}</span>
+      <div class="flex flex-wrap items-center space-x-1">
+        <span>{{ voteAverage / 10 | percent }}</span>
         <mat-icon
           aria-hidden="false"
           [fontIcon]="voteIconMetadata.icon"

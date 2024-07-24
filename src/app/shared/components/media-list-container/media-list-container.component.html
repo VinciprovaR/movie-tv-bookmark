@@ -1,9 +1,7 @@
-<!-- flex flex-wrap justify-center -->
-<div class="">
+<div class="box-border">
   @if( mediaList.length >0){
   <ul
-    class="grid grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-6 smc:gap-8 pl-0"
-    [ngClass]="gridCol"
+    class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] gap-6 smc:gap-8 p-0 m-0"
   >
     @for(media of mediaList; track media.id){
     <li class="list-none">
@@ -17,7 +15,7 @@
     }
   </ul>
   } @else {
-  <div class="flex justify-center mt-20">
+  <div class="flex justify-center">
     {{ placeholder }}
   </div>
   }
