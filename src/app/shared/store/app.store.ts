@@ -19,6 +19,8 @@ import { LifecycleMetadataReducers } from './lifecycle-metadata';
 import { LifecycleMetadataState } from '../interfaces/store/lifecycle-metadata-state.interface';
 import { FiltersMetadataReducers } from './filters-metadata';
 import { FiltersMetadataState } from '../interfaces/store/filters-metadata-state.interface';
+import { SearchPeopleState } from '../interfaces/store/search-people-state.interface';
+import { SearchPeopleReducers } from './search-people';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;
@@ -30,6 +32,7 @@ interface State {
   [TVLifecycleReducers.tvLifecycleStateFeatureKey]: TVLifecycleState;
   [LifecycleMetadataReducers.lifecycleMetadataStateFeatureKey]: LifecycleMetadataState;
   [FiltersMetadataReducers.filtersMetadataFeatureKey]: FiltersMetadataState;
+  [SearchPeopleReducers.searchPeopleFeatureKey]: SearchPeopleState;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -49,6 +52,8 @@ export const reducers: ActionReducerMap<State> = {
     LifecycleMetadataReducers.LifecycleMetadataReducer,
   [FiltersMetadataReducers.filtersMetadataFeatureKey]:
     FiltersMetadataReducers.filtersMetadataReducer,
+  [SearchPeopleReducers.searchPeopleFeatureKey]:
+    SearchPeopleReducers.searchPeopleReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [logger] : [];

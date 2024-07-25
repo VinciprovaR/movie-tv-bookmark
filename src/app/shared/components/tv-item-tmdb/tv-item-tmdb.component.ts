@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { MediaType, TV } from '../../interfaces/TMDB/tmdb-media.interface';
-import { CardComponent } from '../card/card.component';
+import { MediaCardComponent } from '../media-card/media-card.component';
 
 @Component({
   selector: 'app-tv-item-tmdb',
   standalone: true,
-  imports: [CardComponent],
+  imports: [MediaCardComponent],
   templateUrl: './tv-item-tmdb.component.html',
   styleUrl: './tv-item-tmdb.component.css',
 })

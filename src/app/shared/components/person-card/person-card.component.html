@@ -1,0 +1,19 @@
+<mat-card appearance="outlined" class="w-auto h-full border-container">
+  <img
+    mat-card-image
+    [alt]="personData.name"
+    [title]="personData.name"
+    [srcset]="card1or2xImgUrl"
+    [routerLink]="detailMediaPath"
+    loading="lazy"
+  />
+
+  <mat-card-content class="card-content bg-transparent">
+    <h2>
+      <a [routerLink]="detailMediaPath" [title]="personData.name">{{
+        personData.name
+      }}</a>
+    </h2>
+    <div class="mt-1"></div>
+  </mat-card-content>
+</mat-card>

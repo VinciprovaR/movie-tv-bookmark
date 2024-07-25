@@ -169,6 +169,15 @@ export const routes: Routes = [
     title: 'TV Detail',
   },
   {
+    path: 'people',
+    loadComponent: () =>
+      import('./features/people-search/people-search.component').then(
+        (m) => m.PeopleSearchComponent
+      ),
+    canActivate: [authGuard],
+    title: 'Search People',
+  },
+  {
     path: '',
     pathMatch: 'full',
     canActivate: [redirectGuard],

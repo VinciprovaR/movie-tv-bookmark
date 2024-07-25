@@ -46,6 +46,7 @@ import { DiscoveryTVEffects } from './shared/store/discovery-tv/discovery-tv.eff
 import { LifecycleMetadataEffects } from './shared/store/lifecycle-metadata/lifecycle-metadata.effects';
 import { FiltersMetadataEffects } from './shared/store/filters-metadata/filters-metadata.effects';
 import { ErrorInterceptor } from './shared/interceptors/ErrorInterceptor.interceptor';
+import { SearchPeopleEffects } from './shared/store/search-people/search-people.effects';
 
 registerLocaleData(en);
 
@@ -76,6 +77,7 @@ export const appConfig: ApplicationConfig = {
       TVLifecycleEffects,
       LifecycleMetadataEffects,
       FiltersMetadataEffects,
+      SearchPeopleEffects,
     ]),
     WebStorageService,
     {

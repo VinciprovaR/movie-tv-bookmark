@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MediaType, TV } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data } from '../../interfaces/supabase/entities';
-import { CardComponent } from '../card/card.component';
+import { MediaCardComponent } from '../media-card/media-card.component';
 
 @Component({
   selector: 'app-tv-item-supabase',
   standalone: true,
-  imports: [CardComponent],
+  imports: [MediaCardComponent],
   templateUrl: './tv-item-supabase.component.html',
   styleUrl: './tv-item-supabase.component.css',
 })

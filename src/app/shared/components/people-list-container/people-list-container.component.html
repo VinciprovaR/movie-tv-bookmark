@@ -1,7 +1,17 @@
-<div class="flex flex-wrap p-6 justify-between">
-  @if( castList.length >0){ @for(cast of castList; track cast.id){
-
-  <app-people-item class="mt-5" [cast]="cast"></app-people-item>
-
-  } }
+<div class="box-border">
+  @if( peopleList.length >0){
+  <ul
+    class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] gap-6 smc:gap-8 p-0 m-0"
+  >
+    @for(person of peopleList; track person.id){
+    <li class="list-none">
+      <app-people-item [person]="person"> </app-people-item>
+    </li>
+    }
+  </ul>
+  } @else {
+  <div class="flex justify-center">
+    {{ placeholder }}
+  </div>
+  }
 </div>

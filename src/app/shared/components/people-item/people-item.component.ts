@@ -1,42 +1,17 @@
-import { Component, inject, Inject, Input, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { Cast } from '../../interfaces/TMDB/tmdb-media.interface';
-import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
-import { TMDB_CARD_1X_IMG_URL, TMDB_CARD_2X_IMG_URL } from '../../../providers';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { Component, Input, OnInit } from '@angular/core';
+import { PersonCardComponent } from '../person-card/person-card.component';
+import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-people-item',
   standalone: true,
-  imports: [
-    RouterModule,
-    LifecycleSelectorComponent,
-    MatCardModule,
-    MatButtonModule,
-  ],
+  imports: [PersonCardComponent],
   templateUrl: './people-item.component.html',
   styleUrl: './people-item.component.css',
 })
-export class PeopleItemComponent implements OnInit {
-  private readonly TMDB_CARD_1X_IMG_URL = inject(TMDB_CARD_1X_IMG_URL);
-  private readonly TMDB_CARD_2X_IMG_URL = inject(TMDB_CARD_2X_IMG_URL);
-
+export class PeopleItemComponent {
   @Input({ required: true })
-  cast!: Cast;
-
-  card1or2xImgUrl: string = '';
-
-  //to-do cambiare placeholder per people
-  posterNot1xFoundImgUrl: string =
-    '../../../../assets/images/poster-not-found-test.png';
-  posterNot2xFoundImgUrl: string =
-    '../../../../assets/images/poster-not-found-test.png';
+  person!: Person;
 
   constructor() {}
-  ngOnInit(): void {
-    this.card1or2xImgUrl = this.cast.profile_path
-      ? `${this.TMDB_CARD_1X_IMG_URL}${this.cast.profile_path} 1x, ${this.TMDB_CARD_2X_IMG_URL}${this.cast.profile_path} 2x`
-      : `${this.posterNot1xFoundImgUrl} 1x, ${this.posterNot2xFoundImgUrl} 2x`;
-  }
 }

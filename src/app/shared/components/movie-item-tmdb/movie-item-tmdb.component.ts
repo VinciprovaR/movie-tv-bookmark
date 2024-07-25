@@ -1,19 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { from } from 'rxjs';
 import { MediaType, Movie } from '../../interfaces/TMDB/tmdb-media.interface';
-import { Movie_Data } from '../../interfaces/supabase/entities';
-import { CardComponent } from '../card/card.component';
+import { MediaCardComponent } from '../media-card/media-card.component';
 
 @Component({
   selector: 'app-movie-item-tmdb',
   standalone: true,
-  imports: [CardComponent],
+  imports: [MediaCardComponent],
   templateUrl: './movie-item-tmdb.component.html',
   styleUrl: './movie-item-tmdb.component.css',
 })
 export class MovieItemTmdbComponent {
   @Input({ alias: 'mediaData', required: true })
-  movieData!: Movie ;
+  movieData!: Movie;
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })

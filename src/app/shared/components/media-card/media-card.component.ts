@@ -15,7 +15,7 @@ import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.inte
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-card',
+  selector: 'app-media-card',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,10 +27,10 @@ import { MatIconModule } from '@angular/material/icon';
     PercentPipe,
     MatIconModule,
   ],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.css',
+  templateUrl: './media-card.component.html',
+  styleUrl: './media-card.component.css',
 })
-export class CardComponent implements OnInit {
+export class MediaCardComponent implements OnInit {
   private readonly TMDB_CARD_1X_IMG_URL = inject(TMDB_CARD_1X_IMG_URL);
   private readonly TMDB_CARD_2X_IMG_URL = inject(TMDB_CARD_2X_IMG_URL);
 

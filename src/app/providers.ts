@@ -146,6 +146,10 @@ export function provideHeaderNavElements() {
           { label: 'Bookmarks', path: 'tv-lifecycle-search' },
         ],
       },
+      people: {
+        label: 'People',
+        subMenu: [{ label: 'Search', path: 'people' }],
+      },
       userProfile: {
         label: 'User Profile',
         subMenu: [{ label: 'User Profile', path: 'user-profile' }],

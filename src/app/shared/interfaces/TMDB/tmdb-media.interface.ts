@@ -186,11 +186,11 @@ export interface TV extends Media {
 export interface PeopleResult {
   page: number;
   total_pages: number;
-  results: People[];
+  results: Person[];
   total_results: number;
 }
 
-export interface People {
+export interface Person {
   adult: boolean;
   gender: number;
   id: number;
