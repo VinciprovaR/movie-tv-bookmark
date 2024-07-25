@@ -12,8 +12,9 @@ import {
 import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
 
 import { SupabaseUtilsService } from './supabase-utils.service';
-import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
+import { PayloadTVLifecycle } from '../../interfaces/store/tv-lifecycle-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -66,7 +67,7 @@ export class SupabaseTVLifecycleService {
 
   findTVByLifecycleId(
     lifecycleEnum: lifecycleEnum,
-    payload: PayloadMediaLifecycle
+    payload: PayloadTVLifecycle
   ): Observable<TV_Life_Cycle[] & TV_Data[]> {
     return this.supabaseTVLifecycleDAO.findTVByLifecycleId(
       lifecycleEnum,

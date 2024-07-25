@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { combineLatest, filter, Observable, Subject, takeUntil } from 'rxjs';
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import {
   MediaType,
   TV,
@@ -21,14 +21,16 @@ import {
 
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { TV_Data } from '../../shared/interfaces/supabase/entities';
-import { PayloadMediaLifecycle } from '../../shared/interfaces/store/media-lifecycle-state.interface';
+
 import {
   OptionFilter,
   Genre,
 } from '../../shared/interfaces/TMDB/tmdb-filters.interface';
-import { MediaLifecycleFiltersComponent } from '../../shared/components/media-lifecycle-filters/media-lifecycle-filters.component';
+
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
+import { PayloadTVLifecycle } from '../../shared/interfaces/store/tv-lifecycle-state.interface';
+import { TVLifecycleFiltersComponent } from '../tv-lifecycle-filters/tv-lifecycle-filters.component';
 
 @Component({
   selector: 'app-tv-lifecycle-search',
@@ -36,13 +38,16 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
   imports: [
     MediaListContainerComponent,
     CommonModule,
-    MediaLifecycleFiltersComponent,
+    TVLifecycleFiltersComponent,
+    TitleCasePipe,
   ],
-
+  providers: [BridgeDataService],
   templateUrl: './tv-lifecycle-search.component.html',
   styleUrl: './tv-lifecycle-search.component.css',
 })
 export class TVLifecycleSearchComponent implements OnInit {
+  title: string = 'TV Bookmarks';
+
   private readonly route = inject(ActivatedRoute);
   private readonly bridgeDataService = inject(BridgeDataService);
   private readonly destroyRef$ = inject(DestroyRef);
@@ -59,9 +64,7 @@ export class TVLifecycleSearchComponent implements OnInit {
   selectTVList$!: Observable<TV_Data[]>;
 
   selectSortBy$!: Observable<OptionFilter[]>;
-  selectCombinedLifecycleFilters$!: Observable<
-    [PayloadMediaLifecycle, Genre[]]
-  >;
+  selectCombinedLifecycleFilters$!: Observable<[PayloadTVLifecycle, Genre[]]>;
 
   constructor() {
     this.destroyRef$.onDestroy(() => {
@@ -74,6 +77,7 @@ export class TVLifecycleSearchComponent implements OnInit {
     this.route.params
       .pipe(takeUntil(this.destroyed$))
       .subscribe((params: any) => {
+        this.title = params.lifecycleType;
         this.searchTV(params.lifecycleType);
       });
 
@@ -146,7 +150,7 @@ export class TVLifecycleSearchComponent implements OnInit {
     );
   }
 
-  searchTVByLifecycleSubmit(payload: PayloadMediaLifecycle) {
+  searchTVByLifecycleSubmit(payload: PayloadTVLifecycle) {
     let lifecycleEnum = this.lifecycleType;
     this.store.dispatch(
       TVLifecycleActions.searchTVByLifecycleSubmit({

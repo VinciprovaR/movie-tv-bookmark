@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { combineLatest, filter, Observable, Subject, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import {
   MediaType,
   Movie,
@@ -20,13 +20,14 @@ import { Store } from '@ngrx/store';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 
 import { Movie_Data } from '../../shared/interfaces/supabase/entities';
-import { MediaLifecycleFiltersComponent } from '../../shared/components/media-lifecycle-filters/media-lifecycle-filters.component';
+
 import {
   Genre,
   OptionFilter,
 } from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
-import { PayloadMediaLifecycle } from '../../shared/interfaces/store/media-lifecycle-state.interface';
+import { PayloadMovieLifecycle } from '../../shared/interfaces/store/movie-lifecycle-state.interface';
+import { MovieLifecycleFiltersComponent } from '../movie-lifecycle-filters/movie-lifecycle-filters.component';
 
 @Component({
   selector: 'app-movie-lifecycle-search',
@@ -34,13 +35,16 @@ import { PayloadMediaLifecycle } from '../../shared/interfaces/store/media-lifec
   imports: [
     MediaListContainerComponent,
     CommonModule,
-    MediaLifecycleFiltersComponent,
+    MovieLifecycleFiltersComponent,
+    TitleCasePipe,
   ],
-
+  providers: [BridgeDataService],
   templateUrl: './movie-lifecycle-search.component.html',
   styleUrl: './movie-lifecycle-search.component.css',
 })
 export class MovieLifecycleSearchComponent implements OnInit {
+  title: string = '';
+
   private readonly route = inject(ActivatedRoute);
   private readonly bridgeDataService = inject(BridgeDataService);
   private readonly destroyRef$ = inject(DestroyRef);
@@ -58,7 +62,7 @@ export class MovieLifecycleSearchComponent implements OnInit {
 
   selectSortBy$!: Observable<OptionFilter[]>;
   selectCombinedLifecycleFilters$!: Observable<
-    [PayloadMediaLifecycle, Genre[]]
+    [PayloadMovieLifecycle, Genre[]]
   >;
 
   constructor() {
@@ -72,6 +76,7 @@ export class MovieLifecycleSearchComponent implements OnInit {
     this.route.params
       .pipe(takeUntil(this.destroyed$))
       .subscribe((params: any) => {
+        this.title = params.lifecycleType;
         this.searchMovie(params.lifecycleType);
       });
 
@@ -148,7 +153,7 @@ export class MovieLifecycleSearchComponent implements OnInit {
     );
   }
 
-  searchMovieByLifecycleSubmit(payload: PayloadMediaLifecycle) {
+  searchMovieByLifecycleSubmit(payload: PayloadMovieLifecycle) {
     let lifecycleEnum = this.lifecycleType;
     this.store.dispatch(
       MovieLifecycleActions.searchMovieByLifecycleSubmit({

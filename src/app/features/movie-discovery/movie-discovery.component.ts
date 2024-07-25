@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
   DestroyRef,
@@ -75,7 +76,9 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
       this.destroyed$.complete();
     });
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.discoveryMovieLanding();
+  }
 
   ngOnInit(): void {
     this.initSelectors();
@@ -137,6 +140,10 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
         mediaLifecycleDTO,
       })
     );
+  }
+
+  discoveryMovieLanding() {
+    this.store.dispatch(DiscoveryMovieActions.discoveryMovieLanding());
   }
 
   discoveryMovie(payload: PayloadDiscoveryMovie) {

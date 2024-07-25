@@ -11,9 +11,10 @@ import {
   Movie_Data,
   Movie_Life_Cycle,
 } from '../../interfaces/supabase/entities';
-import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PayloadMovieLifecycle } from '../../interfaces/store/movie-lifecycle-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -56,7 +57,7 @@ export class SupabaseMovieLifecycleDAO {
 
   findMovieByLifecycleId(
     lifecycleEnum: lifecycleEnum,
-    payload: PayloadMediaLifecycle
+    payload: PayloadMovieLifecycle
   ): Observable<Movie_Life_Cycle[] & Movie_Data[]> {
     return from(
       this.supabase

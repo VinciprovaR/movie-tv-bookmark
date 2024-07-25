@@ -14,7 +14,7 @@ import { RangeDateFilterComponent } from '../components/range-date-filter/range-
 import { CheckboxFilterComponent } from '../components/checkbox-filter/checkbox-filter.component';
 import { VoteAverageFilterComponent } from '../components/vote-average-filter/vote-average-filter.component';
 import { filter, takeUntil } from 'rxjs';
-import { DiscoveryFilter } from '../directives/discovery.filter.directive';
+import { DiscoveryFilter } from '../abstracts/discovery.filter.abstract';
 import { SelectFilterComponent } from '../components/select-filter/select-filter.component';
 import { SORT_BY_SELECT_MOVIE } from '../../providers';
 

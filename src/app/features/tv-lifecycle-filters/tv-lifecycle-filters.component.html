@@ -53,57 +53,8 @@
       <div class="px-3 py-5 border-separator">
         <app-genre-filter [filterForm]="filterForm"></app-genre-filter>
       </div>
-
-      <div class="px-3 py-5 border-separator">
-        <app-checkbox-filter
-          [title]="'Air Date'"
-          [filterForm]="filterForm"
-          [controlName]="'allEpisode'"
-          [label]="'Search all episode?'"
-        ></app-checkbox-filter>
-        <div class="mt-3">
-          <app-range-date-filter
-            [customGroupName]="'airDate'"
-            [rangeDateLabel]="
-              filterForm.value.allEpisode ? 'All episodes' : 'First air date'
-            "
-            [filterForm]="filterForm"
-          >
-          </app-range-date-filter>
-        </div>
-      </div>
-
-      <div class="px-3 py-5 border-separator">
-        <app-checkbox-filter
-          [title]="'Bookmark'"
-          [filterForm]="filterForm"
-          [controlName]="'includeLifecycle'"
-          [label]="'Show TV already in bookmark '"
-        ></app-checkbox-filter>
-      </div>
-
-      <div class="px-3 py-5 border-separator">
-        <app-select-filter
-          [filterForm]="filterForm"
-          [controlName]="'languages'"
-          [title]="'Language'"
-          [transformSelectObject]="{
-            objectToTransformSelect: languageList,
-            config: languagesTransformConfig
-          }"
-          [defaultOption]="languagesDefaultOption"
-        ></app-select-filter>
-      </div>
-
-      <div class="px-3 py-5 border-separator">
-        <app-vote-average-filter [filterForm]="filterForm">
-        </app-vote-average-filter>
-      </div>
-
-      <div class="px-3 py-5 border-separator">
-        <app-min-vote-filter [filterForm]="filterForm"> </app-min-vote-filter>
-      </div>
     </div>
+    <!-- end -->
   </div>
 
   <div class="px-3 py-5">

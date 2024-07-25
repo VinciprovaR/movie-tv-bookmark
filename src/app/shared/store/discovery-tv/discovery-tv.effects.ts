@@ -10,6 +10,38 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class DiscoveryTVEffects {
+  discoveryTVLanding$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(DiscoveryTVActions.discoveryTVLanding),
+      withLatestFrom(this.store.select(DiscoveryTVSelectors.selectPayload)),
+      switchMap((action) => {
+        let [actionType, payload] = action;
+        return this.TMDBDiscoveryTVService.tvDiscoveryInit(payload).pipe(
+          switchMap((tvResult: TVResult) => {
+            if (!payload.includeMediaWithLifecycle) {
+              return this.supabaseTVLifecycleService.removeTVWithLifecycle(
+                tvResult
+              );
+            }
+            return of(tvResult);
+          }),
+          map((tvResult: TVResult) => {
+            return DiscoveryTVActions.discoveryTVSuccess({
+              tvResult: tvResult,
+            });
+          }),
+          catchError((httpErrorResponse: HttpErrorResponse) => {
+            return of(
+              DiscoveryTVActions.discoveryTVFailure({
+                httpErrorResponse,
+              })
+            );
+          })
+        );
+      })
+    );
+  });
+
   discoveryTV$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DiscoveryTVActions.discoveryTV),

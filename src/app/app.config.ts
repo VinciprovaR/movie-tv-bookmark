@@ -32,6 +32,8 @@ import {
   provideCurrentUser,
   provideLifecycleSelect,
   provideSelectFilters,
+  provideLifecycleNavElements,
+  provideHeaderNavElements,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 
@@ -59,6 +61,8 @@ export const appConfig: ApplicationConfig = {
     provideTMDBBaseUrl(),
     provideImgUrl(),
     provideI18E(),
+    provideLifecycleNavElements(),
+    provideHeaderNavElements(),
     provideHttpClient(withInterceptors([])),
     provideRouter(routes, withHashLocation(), withComponentInputBinding()),
     provideStore(reducers, { metaReducers }),

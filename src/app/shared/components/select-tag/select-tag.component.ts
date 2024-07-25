@@ -33,7 +33,7 @@ export class SelectTagComponent implements ControlValueAccessor {
   @Input({ required: true })
   genre!: GenreControl;
 
-  onChange: (value: string[]) => void = () => {};
+  onChange: (value: any) => void = () => {};
   onTouched: Function = () => {};
   isDisabled = false;
 
@@ -41,7 +41,7 @@ export class SelectTagComponent implements ControlValueAccessor {
   genreSelected = new EventEmitter<GenreControl>();
 
   constructor() {}
-  writeValue(obj: any): void {}
+  writeValue(newValue: any): void {}
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -50,6 +50,7 @@ export class SelectTagComponent implements ControlValueAccessor {
 
   selectGenre() {
     this.genre.isSelected = !this.genre.isSelected;
+    this.onChange(this.genre);
     this.genreSelected.emit(this.genre);
   }
 }

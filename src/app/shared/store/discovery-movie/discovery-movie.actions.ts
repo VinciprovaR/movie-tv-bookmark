@@ -9,6 +9,9 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 
 //search
+export const discoveryMovieLanding = createAction(
+  '[Discovery-movie] Discovery Movie Landing Init'
+);
 export const discoveryMovie = createAction(
   '[Discovery-movie] Discovery Movie Init',
   props<{ payload: PayloadDiscoveryMovie }>()

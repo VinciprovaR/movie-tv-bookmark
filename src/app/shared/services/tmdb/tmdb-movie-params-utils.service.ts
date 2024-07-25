@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
-import { TMDBParamsUtilsAbstractService } from './abstract/tmdb-params-utils.abstract.service';
+import { TMDBParamsUtilsAbstractService } from '../../abstracts/tmdb-params-utils.abstract';
 import { DateRange } from '../../interfaces/store/discovery-state.interface';
 
 @Injectable({

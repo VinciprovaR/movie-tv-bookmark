@@ -9,13 +9,20 @@ import {
 } from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { CommonModule } from '@angular/common';
-import { NavigationStart, Router, RouterLink } from '@angular/router';
-import { filter, Subject, takeUntil } from 'rxjs';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { filter, map, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-navigator-desktop',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navigator-desktop.component.html',
   styleUrl: './navigator-desktop.component.css',
 })
@@ -24,8 +31,10 @@ export class NavigatorDesktopComponent implements OnInit {
   private readonly rendererFactory = inject(RendererFactory2);
   private readonly destroyRef$ = inject(DestroyRef);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   destroyed$ = new Subject();
+  urlAfterRedirects!: string;
 
   @Input({ required: true })
   navElements!: NavElements;
@@ -44,10 +53,20 @@ export class NavigatorDesktopComponent implements OnInit {
     this.router.events
       .pipe(
         takeUntil(this.destroyed$),
-        filter((event) => event instanceof NavigationStart)
+        filter((event: any) => event instanceof NavigationStart)
       )
       .subscribe((event) => {
         this.hideSubMenuStart();
+      });
+
+    this.router.events
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter((event: any) => event instanceof NavigationEnd),
+        map((event) => event.urlAfterRedirects)
+      )
+      .subscribe((urlAfterRedirects) => {
+        this.urlAfterRedirects = urlAfterRedirects;
       });
   }
   showSubMenu(subMenu: HTMLElement) {
@@ -63,5 +82,13 @@ export class NavigatorDesktopComponent implements OnInit {
     if (this.subMenuRef) {
       this.renderer.removeClass(this.subMenuRef, 'show-sub-menu');
     }
+  }
+
+  checkIsActive(navElementKey: string) {
+    if (this.urlAfterRedirects) {
+      return this.urlAfterRedirects.indexOf(navElementKey) != -1;
+    }
+
+    return false;
   }
 }

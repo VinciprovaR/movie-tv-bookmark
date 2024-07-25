@@ -4,6 +4,9 @@ import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.in
 import { HttpErrorResponse } from '@angular/common/http';
 
 //search
+export const discoveryTVLanding = createAction(
+  '[Discovery-tv] Discovery TV Landing Init'
+);
 export const discoveryTV = createAction(
   '[Discovery-tv] Discovery TV Init',
   props<{ payload: PayloadDiscoveryTV }>()

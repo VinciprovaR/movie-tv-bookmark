@@ -9,7 +9,7 @@ export interface NavElements {
   [key: string]: { label: string; subMenu: LinkPath[] };
 }
 
-export interface LinkPathLifecycle {
+export interface LifecycleNavElement {
   path: lifecycleEnum;
   label: string;
 }

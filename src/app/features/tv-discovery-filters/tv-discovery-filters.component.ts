@@ -1,14 +1,5 @@
+import { Component, Input, OnInit } from '@angular/core';
 import {
-  Component,
-  ElementRef,
-  inject,
-  Input,
-  OnInit,
-  ViewChild,
-  viewChild,
-} from '@angular/core';
-import {
-  Certification,
   DiscoveryTVFilterForm,
   Genre,
   OptionFilter,
@@ -20,10 +11,13 @@ import { GenreFilterComponent } from '../../shared/components/genre-filter/genre
 import { RangeDateFilterComponent } from '../../shared/components/range-date-filter/range-date-filter.component';
 import { CheckboxFilterComponent } from '../../shared/components/checkbox-filter/checkbox-filter.component';
 import { VoteAverageFilterComponent } from '../../shared/components/vote-average-filter/vote-average-filter.component';
-import { filter, takeUntil } from 'rxjs';
-
-import { DiscoveryFilter } from '../../shared/directives/discovery.filter.directive';
+import { filter, Observable, takeUntil } from 'rxjs';
+import { DiscoveryFilter } from '../../shared/abstracts/discovery.filter.abstract';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
+import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpErrorResponse } from '@angular/common/http';
+import { DiscoveryTVSelectors } from '../../shared/store/discovery-tv';
 
 @Component({
   selector: 'app-discovery-tv-filters',
@@ -36,6 +30,8 @@ import { SelectFilterComponent } from '../../shared/components/select-filter/sel
     RangeDateFilterComponent,
     CheckboxFilterComponent,
     VoteAverageFilterComponent,
+    MinVoteFilterComponent,
+    MatIconModule,
   ],
   templateUrl: './tv-discovery-filters.component.html',
   styleUrl: './tv-discovery-filters.component.css',
@@ -44,14 +40,18 @@ export class TVDiscoveryFiltersComponent
   extends DiscoveryFilter<PayloadDiscoveryTV, DiscoveryTVFilterForm>
   implements OnInit
 {
-  @Input({ required: true })
-  sortBySelect!: OptionFilter[];
+  selectDiscoveryFailure$: Observable<HttpErrorResponse | null> =
+    this.store.select(DiscoveryTVSelectors.selectError);
 
   constructor() {
     super();
   }
 
   override ngOnInit(): void {
+    this.initSubscription();
+  }
+
+  override initSubscription(): void {
     this.combinedDiscoveryFilters$
       .pipe(
         takeUntil(this.destroyed$),
@@ -60,6 +60,15 @@ export class TVDiscoveryFiltersComponent
       .subscribe((formData) => {
         const [filterSelected, genreList] = formData;
         this.buildForm(filterSelected, genreList);
+      });
+
+    this.selectDiscoveryFailure$
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter((error: HttpErrorResponse | null) => error != null)
+      )
+      .subscribe((error: HttpErrorResponse | null) => {
+        this.toggleButtonSearch(false);
       });
   }
 
@@ -77,11 +86,14 @@ export class TVDiscoveryFiltersComponent
       ),
       languages: this.initLanguagesControl(filterSelected.language),
       voteAverage: this.initVoteAverageGroup(filterSelected.voteAverage),
+      minVote: this.initMinVoteControl(filterSelected.minVote),
     });
 
     this.filterForm.controls['airDate'].addValidators(
       this.releaseDateValidatorFactory()
     );
+
+    this.registerBehaviourValueChange();
   }
 
   initAllEpisodeControl(allEpisode: boolean): FormControl<boolean> {
@@ -93,6 +105,7 @@ export class TVDiscoveryFiltersComponent
   override onSubmit(): void {
     // console.log(this.filterForm.value);
     if (this.filterForm.valid) {
+      this.toggleButtonSearch(true);
       let payload: PayloadDiscoveryTV = this.buildPayload();
       this.payloadEmitterOnSubmit.emit(payload);
     }
@@ -116,6 +129,7 @@ export class TVDiscoveryFiltersComponent
       voteAverage: this.buildVoteAveragePayload(
         this.filterForm.controls.voteAverage
       ),
+      minVote: this.buildMinVotePayload(this.filterForm.controls.minVote),
     };
 
     return payloadDiscoveryTV;

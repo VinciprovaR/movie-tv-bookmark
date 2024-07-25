@@ -6,9 +6,10 @@ import {
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
-import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PayloadTVLifecycle } from '../../interfaces/store/tv-lifecycle-state.interface';
 
 //populate lifecycle map
 export const populateTVLifecycleMapSuccess = createAction(
@@ -139,7 +140,7 @@ export const searchTVByLifecycleLandingeFailure = createAction(
 
 export const searchTVByLifecycleSubmit = createAction(
   '[TV-Lifecycle] Search TV By Lifecycle Submit Init',
-  props<{ lifecycleEnum: lifecycleEnum; payload: PayloadMediaLifecycle }>()
+  props<{ lifecycleEnum: lifecycleEnum; payload: PayloadTVLifecycle }>()
 );
 export const searchTVByLifecycleSubmitSuccess = createAction(
   '[TV-Lifecycle] Search TV By Lifecycle Submit Success',

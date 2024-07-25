@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { NavigatorComponent } from '../../components/navigator/navigator.component';
+
 import { Store } from '@ngrx/store';
 import { filter, map, Observable, Subject, takeUntil } from 'rxjs';
 import { AuthSelectors } from '../../store/auth';
@@ -25,13 +25,14 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { NavigatorMobileComponent } from '../../../features/navigator-mobile/navigator-mobile.component';
 import { NavigatorDesktopComponent } from '../../../features/navigator-desktop/navigator-desktop.component';
+import { HEADER_NAV_ELEMENTS } from '../../../providers';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule,
-    NavigatorComponent,
+
     RouterLinkActive,
     RouterModule,
     MatIconModule,
@@ -49,6 +50,7 @@ export class HeaderComponent implements OnInit {
   private readonly destroyRef$ = inject(DestroyRef);
   private readonly router = inject(Router);
   private readonly el: ElementRef<HTMLElement> = inject(ElementRef);
+  readonly navElements = inject(HEADER_NAV_ELEMENTS);
 
   destroyed$ = new Subject();
   isUserAuthenticated$!: Observable<boolean>;
@@ -60,29 +62,6 @@ export class HeaderComponent implements OnInit {
   hiddenNavMenu: boolean = true;
   private window!: Window;
   private lastScrollTop = 0;
-
-  readonly navElements: NavElements = {
-    movie: {
-      label: 'Movie',
-      subMenu: [
-        { label: 'Search', path: 'movie' },
-        { label: 'Discovery', path: 'discovery-movie' },
-        { label: 'Bookmarks', path: 'movie-lifecycle-search' },
-      ],
-    },
-    tv: {
-      label: 'TV Shows',
-      subMenu: [
-        { label: 'Search', path: 'tv' },
-        { label: 'Discovery', path: 'discovery-tv' },
-        { label: 'Bookmarks', path: 'tv-lifecycle-search' },
-      ],
-    },
-    userProfile: {
-      label: 'User Profile',
-      subMenu: [{ label: 'User Profile', path: 'user-profile' }],
-    },
-  };
 
   constructor() {
     this.destroyRef$.onDestroy(() => {

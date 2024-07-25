@@ -1,10 +1,13 @@
 <div [formGroup]="filterForm" class="space-y-2">
+  @if(title){
   <h3>{{ title }}</h3>
+  }
+
   <div class="flex space-x-2">
     <input
       type="checkbox"
       class="text-xl hover:cursor-pointer"
-      [formControlName]="'includeLifecycle'"
+      [formControlName]="controlName"
       [id]="controlName"
     />
     <label [for]="controlName">{{ label }} </label>

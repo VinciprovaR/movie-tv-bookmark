@@ -32,30 +32,19 @@ import {
   SelectTransformConfig,
   OptionFilter,
 } from '../interfaces/TMDB/tmdb-filters.interface';
+import { Filter } from './filter.abstract';
 
 @Directive()
 export abstract class DiscoveryFilter<
   T1,
   T2 extends { [K in keyof T2]: AbstractControl<any, any> }
-> implements OnInit
-{
-  readonly fb = inject(FormBuilder);
-  private renderer!: Renderer2;
-  private readonly rendererFactory = inject(RendererFactory2);
-
-  destroyed$ = new Subject();
-
+> extends Filter<T1, T2> {
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
   languageList!: Language[];
   @Input({ required: true })
   combinedDiscoveryFilters$!: Observable<[T1, Genre[]]>;
-
-  @Output()
-  payloadEmitterOnSubmit: EventEmitter<T1> = new EventEmitter<T1>();
-
-  filterForm!: FormGroup<T2>;
 
   languagesTransformConfig: SelectTransformConfig = {
     labelKey: 'english_name',
@@ -66,47 +55,8 @@ export abstract class DiscoveryFilter<
     value: '',
   };
 
-  isHideFilterContainer: boolean = true;
-  isHideSortContainer: boolean = true;
-
   constructor() {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
-
-    this.renderer = this.rendererFactory.createRenderer(null, null);
-  }
-
-  abstract ngOnInit(): void;
-
-  abstract buildForm(filterSelected: T1, genreList: Genre[]): void;
-
-  initGenreGroup(
-    genresSelected: number[],
-    genreList: Genre[]
-  ): FormGroup<GenreGroup> {
-    let genreGroup: GenreGroup = {};
-    genreList.forEach((genre) => {
-      genreGroup[genre.id] = this.fb.control<GenreControl>(
-        {
-          id: genre.id,
-          name: genre.name,
-          isSelected: genresSelected.indexOf(genre.id) != -1,
-        },
-        { nonNullable: true }
-      );
-    });
-
-    return this.fb.group<GenreGroup>({
-      ...genreGroup,
-    });
-  }
-
-  initSortByControl(sortBySelected: string): FormControl<string> {
-    return this.fb.control<string>(sortBySelected, {
-      nonNullable: true,
-    });
+    super();
   }
 
   initDateRangeGroup(
@@ -186,25 +136,6 @@ export abstract class DiscoveryFilter<
     };
   }
 
-  abstract onSubmit(): void;
-
-  abstract buildPayload(): T1;
-
-  buildGenresSelectedListPayload(genresGroup: FormGroup<GenreGroup>): number[] {
-    let genresSelectedId: number[] = [];
-    Object.entries(genresGroup.value).forEach((entries) => {
-      let [genreId, genre]: [string, any] = entries;
-      if (genre.isSelected) {
-        genresSelectedId.push(+genreId);
-      }
-    });
-    return genresSelectedId;
-  }
-
-  buildSortByPayload(sortyByControl: FormControl<string>): string {
-    return sortyByControl.value ? sortyByControl.value : '';
-  }
-
   buildIncludeLifecyclePayload(
     includeLifecycleControl: FormControl<boolean>
   ): boolean {
@@ -267,23 +198,5 @@ export abstract class DiscoveryFilter<
       return `${year}-${month}-${day}`;
     }
     return '';
-  }
-
-  toggleMenuFilter(container: HTMLElement) {
-    if (this.isHideFilterContainer) {
-      this.renderer.removeClass(container, 'hidden-container');
-    } else {
-      this.renderer.addClass(container, 'hidden-container');
-    }
-    this.isHideFilterContainer = !this.isHideFilterContainer;
-  }
-
-  toggleMenuSort(container: HTMLElement) {
-    if (this.isHideSortContainer) {
-      this.renderer.removeClass(container, 'hidden-container');
-    } else {
-      this.renderer.addClass(container, 'hidden-container');
-    }
-    this.isHideSortContainer = !this.isHideSortContainer;
   }
 }

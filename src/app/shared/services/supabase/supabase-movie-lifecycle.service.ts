@@ -14,8 +14,9 @@ import {
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { SupabaseMovieDataDAO } from './supabase-movie-data.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
-import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
+import { PayloadMovieLifecycle } from '../../interfaces/store/movie-lifecycle-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -75,7 +76,7 @@ export class SupabaseMovieLifecycleService {
 
   findMovieByLifecycleId(
     lifecycleEnum: lifecycleEnum,
-    payload: PayloadMediaLifecycle
+    payload: PayloadMovieLifecycle
   ): Observable<Movie_Life_Cycle[] & Movie_Data[]> {
     return this.supabaseMovieLifecycleDAO.findMovieByLifecycleId(
       lifecycleEnum,

@@ -13,6 +13,7 @@ export const initialState: DiscoveryTVState = {
     includeMediaWithLifecycle: false,
     language: '',
     voteAverage: { voteAverageMin: 0, voteAverageMax: 10 },
+    minVote: 0,
     allEpisode: true,
   },
   error: null,

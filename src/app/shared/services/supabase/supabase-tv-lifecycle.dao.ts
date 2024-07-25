@@ -10,7 +10,7 @@ import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
-import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+import { PayloadTVLifecycle } from '../../interfaces/store/tv-lifecycle-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +52,7 @@ export class SupabaseTVLifecycleDAO {
 
   findTVByLifecycleId(
     lifecycleEnum: lifecycleEnum,
-    payload: PayloadMediaLifecycle
+    payload: PayloadTVLifecycle
   ): Observable<TV_Life_Cycle[] & TV_Data[]> {
     return from(
       this.supabase

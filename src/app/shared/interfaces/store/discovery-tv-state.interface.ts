@@ -8,6 +8,7 @@ export interface PayloadDiscoveryTV {
   includeMediaWithLifecycle: boolean;
   language: string;
   voteAverage: VoteAverage;
+  minVote: number;
   airDate: DateRange;
   allEpisode: boolean;
 }

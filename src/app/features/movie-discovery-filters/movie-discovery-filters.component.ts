@@ -14,10 +14,16 @@ import { RangeDateFilterComponent } from '../../shared/components/range-date-fil
 import { CheckboxFilterComponent } from '../../shared/components/checkbox-filter/checkbox-filter.component';
 import { VoteAverageFilterComponent } from '../../shared/components/vote-average-filter/vote-average-filter.component';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { DiscoveryFilter } from '../../shared/directives/discovery.filter.directive';
+import { DiscoveryFilter } from '../../shared/abstracts/discovery.filter.abstract';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
 import { MatIconModule } from '@angular/material/icon';
+import { Store } from '@ngrx/store';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  DiscoveryMovieActions,
+  DiscoveryMovieSelectors,
+} from '../../shared/store/discovery-movie';
 
 @Component({
   selector: 'app-discovery-movie-filters',
@@ -51,14 +57,18 @@ export class MovieDiscoveryFiltersComponent
     value: '',
   };
 
-  @Input({ required: true })
-  sortBySelect!: OptionFilter[];
+  selectDiscoveryFailure$: Observable<HttpErrorResponse | null> =
+    this.store.select(DiscoveryMovieSelectors.selectError);
 
   constructor() {
     super();
   }
 
   override ngOnInit(): void {
+    this.initSubscription();
+  }
+
+  override initSubscription(): void {
     this.combinedDiscoveryFilters$
       .pipe(
         takeUntil(this.destroyed$),
@@ -67,6 +77,15 @@ export class MovieDiscoveryFiltersComponent
       .subscribe((formData) => {
         const [filterSelected, genreList] = formData;
         this.buildForm(filterSelected, genreList);
+      });
+
+    this.selectDiscoveryFailure$
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter((error: HttpErrorResponse | null) => error != null)
+      )
+      .subscribe((error: HttpErrorResponse | null) => {
+        this.toggleButtonSearch(false);
       });
   }
 
@@ -92,6 +111,8 @@ export class MovieDiscoveryFiltersComponent
     this.filterForm.controls['releaseDate'].addValidators(
       this.releaseDateValidatorFactory()
     );
+
+    this.registerBehaviourValueChange();
   }
 
   initCertificationsControl(
@@ -105,6 +126,7 @@ export class MovieDiscoveryFiltersComponent
   override onSubmit(): void {
     // console.log(this.filterForm.value);
     if (this.filterForm.valid) {
+      this.toggleButtonSearch(true);
       let payload: PayloadDiscoveryMovie = this.buildPayload();
       this.payloadEmitterOnSubmit.emit(payload);
     }

@@ -4,6 +4,10 @@ import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
 import { LifecycleMetadataActions } from './shared/store/lifecycle-metadata';
 import { FiltersMetadataActions } from './shared/store/filters-metadata';
+import {
+  LifecycleNavElement,
+  NavElements,
+} from './shared/interfaces/navigator.interface';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -25,6 +29,14 @@ export const TMDB_CARD_2X_IMG_URL = new InjectionToken<string>(
 );
 
 export const I18E = new InjectionToken<string>('I18E');
+
+export const LIFECYCLE_NAV_ELEMENTS = new InjectionToken<LifecycleNavElement[]>(
+  'LIFECYCLE_NAV_ELEMENTS'
+);
+
+export const HEADER_NAV_ELEMENTS = new InjectionToken<NavElements>(
+  'HEADER_NAV_ELEMENTS'
+);
 
 export function provideTMDBApiKey() {
   return {
@@ -99,6 +111,46 @@ export function provideI18E() {
   return {
     provide: I18E,
     useValue: 'IT',
+  };
+}
+
+export function provideLifecycleNavElements() {
+  return {
+    provide: LIFECYCLE_NAV_ELEMENTS,
+    useValue: [
+      { label: 'Watchlist', path: 'watchlist' },
+      { label: 'Watched', path: 'watched' },
+      { label: 'Rewatch', path: 'rewatch' },
+      { label: 'Watching', path: 'watching' },
+    ],
+  };
+}
+
+export function provideHeaderNavElements() {
+  return {
+    provide: HEADER_NAV_ELEMENTS,
+    useValue: {
+      movie: {
+        label: 'Movie',
+        subMenu: [
+          { label: 'Search', path: 'movie' },
+          { label: 'Discovery', path: 'discovery-movie' },
+          { label: 'Bookmarks', path: 'movie-lifecycle-search' },
+        ],
+      },
+      tv: {
+        label: 'TV Shows',
+        subMenu: [
+          { label: 'Search', path: 'tv' },
+          { label: 'Discovery', path: 'discovery-tv' },
+          { label: 'Bookmarks', path: 'tv-lifecycle-search' },
+        ],
+      },
+      userProfile: {
+        label: 'User Profile',
+        subMenu: [{ label: 'User Profile', path: 'user-profile' }],
+      },
+    },
   };
 }
 

@@ -1,5 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
-
+//to-do refractor per movie e tv
 export interface DiscoveryMovieFilterForm {
   genres: FormGroup<GenreGroup>;
   sortBy: FormControl<string>;
@@ -11,7 +11,12 @@ export interface DiscoveryMovieFilterForm {
   minVote: FormControl<number>;
 }
 
-export interface LifecycleMediaFilterForm {
+export interface LifecycleMovieFilterForm {
+  genres: FormGroup<GenreGroup>;
+  sortBy: FormControl<string>;
+}
+
+export interface LifecycleTVFilterForm {
   genres: FormGroup<GenreGroup>;
   sortBy: FormControl<string>;
 }
@@ -23,6 +28,7 @@ export interface DiscoveryTVFilterForm {
   includeLifecycle: FormControl<boolean>;
   languages: FormControl<string>;
   voteAverage: FormGroup<VoteAverageGroup>;
+  minVote: FormControl<number>;
   allEpisode: FormControl<boolean>;
 }
 

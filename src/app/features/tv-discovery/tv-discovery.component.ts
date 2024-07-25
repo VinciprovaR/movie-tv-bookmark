@@ -63,7 +63,9 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
     private store: Store,
     private bridgeDataService: BridgeDataService
   ) {}
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.discoveryTVLanding();
+  }
 
   ngOnInit(): void {
     this.initSelectors();
@@ -117,6 +119,9 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
         mediaLifecycleDTO,
       })
     );
+  }
+  discoveryTVLanding() {
+    this.store.dispatch(DiscoveryTVActions.discoveryTVLanding());
   }
 
   discoveryTV(payload: PayloadDiscoveryTV) {

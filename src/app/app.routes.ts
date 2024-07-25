@@ -107,7 +107,7 @@ export const routes: Routes = [
         './shared/components/media-lifecycle-search/media-lifecycle-search.component'
       ).then((m) => m.MediaLifecycleSearchComponent),
     canActivate: [authGuard],
-    title: 'Movie Lifecycle',
+    title: 'Movie Bookmarks',
     children: [
       {
         path: '',
@@ -132,7 +132,7 @@ export const routes: Routes = [
         './shared/components/media-lifecycle-search/media-lifecycle-search.component'
       ).then((m) => m.MediaLifecycleSearchComponent),
     canActivate: [authGuard],
-    title: 'TV Lifecycle',
+    title: 'TV Bookmarks',
     children: [
       {
         path: '',
@@ -143,7 +143,7 @@ export const routes: Routes = [
         path: ':lifecycleType',
         loadComponent: () =>
           import(
-            './features/tv-lifecycle-search/tv-lifecycle-searchcomponent'
+            './features/tv-lifecycle-search/tv-lifecycle-search.component'
           ).then((m) => m.TVLifecycleSearchComponent),
         canActivate: [authGuard],
         title: 'TV Lifecycle List', //to-do lifecycle list con variabile

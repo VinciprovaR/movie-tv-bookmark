@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TMDBParamsUtilsAbstractService } from './abstract/tmdb-params-utils.abstract.service';
+import { TMDBParamsUtilsAbstractService } from '../../abstracts/tmdb-params-utils.abstract';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
 import { DateRange } from '../../interfaces/store/discovery-state.interface';
 
@@ -37,6 +37,11 @@ export class TMDBTVParamsUtilsService extends TMDBParamsUtilsAbstractService {
     if (payload.voteAverage) {
       filtersQueryParams = filtersQueryParams.concat(
         this.buildVoteAverageParams(payload.voteAverage)
+      );
+    }
+    if (payload.minVote) {
+      filtersQueryParams = filtersQueryParams.concat(
+        this.buildMinVoteParams(payload.minVote)
       );
     }
     return filtersQueryParams;

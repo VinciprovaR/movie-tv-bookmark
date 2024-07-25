@@ -115,7 +115,7 @@
     <button
       type="submit"
       class="submit py-3 rounded-full cursor-pointer w-full disabled:"
-      [disabled]="!filterForm.valid"
+      [disabled]="!filterForm.valid || isDisableButton"
     >
       <span class="text-white text-lg">Search</span>
     </button>

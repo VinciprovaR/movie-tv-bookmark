@@ -4,6 +4,9 @@
     @for(navElement of this.navElements |keyvalue; track navElement.key){
     <li>
       <span
+        [ngClass]="{
+          active: checkIsActive(navElement.key)
+        }"
         class="hover:cursor-pointer"
         (mouseover)="showSubMenu(subMenu)"
         (mouseleave)="hideSubMenu(subMenu)"

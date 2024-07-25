@@ -36,7 +36,11 @@
 - Hai dimenticato alcune destroyed ref...
 - aria accessibility
 - oggetti placeholder dove ci sono dati asincroni
-- numero voti minimo
+- astratta tra discovery.filter.directive e lifecycle.filter.directive
+- lifecycle rinominare in bookmark
+- initSubscription ovunque
+-ricerca automatica per i discovery (?)
+-range date filter validatori error 
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

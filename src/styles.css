@@ -131,3 +131,26 @@ select {
   padding: 0px;
   margin: 0px;
 }
+
+.submit {
+  background-color: var(--hover-selected-color);
+  border-color: var(--tag-border-color);
+  box-shadow: var(--box-shadow);
+  border-style: solid;
+  border-width: 1px;
+}
+
+.submit:hover {
+  background-color: rgb(30 64 175);
+}
+
+.submit:disabled {
+  background-color: var(--disabled-bg);
+  color: var(--disabled-text-color);
+  cursor: auto;
+}
+
+.active {
+  font-weight: 700;
+  text-decoration: underline;
+}

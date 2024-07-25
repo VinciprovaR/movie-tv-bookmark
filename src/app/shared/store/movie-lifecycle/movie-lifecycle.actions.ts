@@ -9,9 +9,10 @@ import {
   Movie_Data,
   Movie_Life_Cycle,
 } from '../../interfaces/supabase/entities';
-import { PayloadMediaLifecycle } from '../../interfaces/store/media-lifecycle-state.interface';
+
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PayloadMovieLifecycle } from '../../interfaces/store/movie-lifecycle-state.interface';
 
 //populate lifecycle map
 export const populateMovieLifecycleMapSuccess = createAction(
@@ -142,7 +143,7 @@ export const searchMovieByLifecycleLandingeFailure = createAction(
 
 export const searchMovieByLifecycleSubmit = createAction(
   '[Movie-Lifecycle] Search Movie By Lifecycle Submit Init',
-  props<{ lifecycleEnum: lifecycleEnum; payload: PayloadMediaLifecycle }>()
+  props<{ lifecycleEnum: lifecycleEnum; payload: PayloadMovieLifecycle }>()
 );
 export const searchMovieByLifecycleSubmitSuccess = createAction(
   '[Movie-Lifecycle] Search Movie By Lifecycle Submit Success',

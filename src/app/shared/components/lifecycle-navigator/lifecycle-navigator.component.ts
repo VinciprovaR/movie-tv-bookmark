@@ -1,17 +1,20 @@
 import { Component, Input } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LinkPath } from '../../interfaces/navigator.interface';
+import {
+  LifecycleNavElement,
+  LinkPath,
+} from '../../interfaces/navigator.interface';
 @Component({
-  selector: 'app-navigator',
+  selector: 'app-lifecycle-navigator',
   standalone: true,
   imports: [RouterModule, CommonModule, RouterLinkActive],
-  templateUrl: './navigator.component.html',
-  styleUrl: './navigator.component.css',
+  templateUrl: './lifecycle-navigator.component.html',
+  styleUrl: './lifecycle-navigator.component.css',
 })
 export class NavigatorComponent {
   @Input({ required: true })
-  linkPathList!: LinkPath[];
+  lifecycleNavElements!: LifecycleNavElement[];
 
   hiddenNavMenu: boolean = true;
 
