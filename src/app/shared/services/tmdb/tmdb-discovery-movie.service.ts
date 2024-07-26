@@ -6,7 +6,6 @@ import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-st
 
 import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
 import { HttpClient } from '@angular/common/http';
-import { PayloadPersonDetail } from '../../store/component-store/person-detail-store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,10 +20,10 @@ export class TMDBDiscoveryMovieService {
     private TMDBMovieParamsUtilsService: TMDBMovieParamsUtilsService
   ) {}
 
-  movieDiscoveryInit(payload: PayloadDiscoveryMovie): Observable<MovieResult> {
-    return this.movieDiscovery(
+  movieDiscovery(payload: PayloadDiscoveryMovie): Observable<MovieResult> {
+    return this.discoverMovieCall(
       1,
-      this.TMDBMovieParamsUtilsService.buildFiltersParam(payload)
+      this.TMDBMovieParamsUtilsService.buildParamsFeatureMovieDiscovery(payload)
     );
   }
 
@@ -32,37 +31,39 @@ export class TMDBDiscoveryMovieService {
     page: number,
     payload: PayloadDiscoveryMovie
   ): Observable<MovieResult> {
-    return this.movieDiscovery(
+    return this.discoverMovieCall(
       page + 1,
-      this.TMDBMovieParamsUtilsService.buildFiltersParam(payload)
+      this.TMDBMovieParamsUtilsService.buildParamsFeatureMovieDiscovery(payload)
     );
   }
 
-  movieDiscoveryPersonDetail(
-    payload: PayloadPersonDetail
-  ): Observable<MovieResult> {
-    return this.movieDiscovery(
+  movieDiscoveryByPersonId(personId: number): Observable<MovieResult> {
+    return this.discoverMovieCall(
       1,
-      this.TMDBMovieParamsUtilsService.buildFiltersParamPersonDetail(payload)
+      this.TMDBMovieParamsUtilsService.buildParamsPersonDetailMovieDiscovery(
+        personId
+      )
     );
   }
 
-  additionalMovieDiscoveryPersonDetail(
+  additionalMovieDiscoveryByPersonId(
     page: number,
-    payload: PayloadPersonDetail
+    personId: number
   ): Observable<MovieResult> {
-    return this.movieDiscovery(
+    return this.discoverMovieCall(
       page + 1,
-      this.TMDBMovieParamsUtilsService.buildFiltersParamPersonDetail(payload)
+      this.TMDBMovieParamsUtilsService.buildParamsPersonDetailMovieDiscovery(
+        personId
+      )
     );
   }
 
-  private movieDiscovery(
+  private discoverMovieCall(
     page: number,
-    filtersQueryParams: string
+    queryParams: string
   ): Observable<MovieResult> {
     return this.httpClient.get<MovieResult>(
-      `${this.tmdbBaseUrl}/discover/movie?include_adult=false${filtersQueryParams}&certification_country=${this.i18e}&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}/discover/movie?include_adult=false${queryParams}&certification_country=${this.i18e}&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
     );
   }
 }

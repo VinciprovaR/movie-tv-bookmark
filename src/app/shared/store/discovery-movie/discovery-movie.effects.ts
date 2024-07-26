@@ -16,7 +16,7 @@ export class DiscoveryMovieEffects {
       withLatestFrom(this.store.select(DiscoveryMovieSelectors.selectPayload)),
       switchMap((action) => {
         let [actionType, payload] = action;
-        return this.TMDBDiscoveryMovieService.movieDiscoveryInit(payload).pipe(
+        return this.TMDBDiscoveryMovieService.movieDiscovery(payload).pipe(
           switchMap((movieResult: MovieResult) => {
             if (!payload.includeMediaWithLifecycle) {
               return this.supabaseMovieLifecycleService.removeMovieWithLifecycle(
@@ -47,7 +47,7 @@ export class DiscoveryMovieEffects {
       ofType(DiscoveryMovieActions.discoveryMovie),
       switchMap((action) => {
         let { payload } = action;
-        return this.TMDBDiscoveryMovieService.movieDiscoveryInit(payload).pipe(
+        return this.TMDBDiscoveryMovieService.movieDiscovery(payload).pipe(
           switchMap((movieResult: MovieResult) => {
             if (!payload.includeMediaWithLifecycle) {
               return this.supabaseMovieLifecycleService.removeMovieWithLifecycle(

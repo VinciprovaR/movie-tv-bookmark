@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 import { AbstractTMDBParamsUtilsService } from './abstract/abstract-tmdb-params-utils.service';
 import { DateRange } from '../../interfaces/store/discovery-state.interface';
-import { PayloadPersonDetail } from '../../store/component-store/person-detail-store.service';
+
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class TMDBMovieParamsUtilsService extends AbstractTMDBParamsUtilsService 
     super();
   }
 
-  buildFiltersParam(payload: PayloadDiscoveryMovie) {
+  buildParamsFeatureMovieDiscovery(payload: PayloadDiscoveryMovie) {
     let filtersQueryParams = '';
     if (payload.genreIdList.length > 0) {
       filtersQueryParams = filtersQueryParams.concat(
@@ -53,11 +53,11 @@ export class TMDBMovieParamsUtilsService extends AbstractTMDBParamsUtilsService 
     return filtersQueryParams;
   }
 
-  buildFiltersParamPersonDetail(payload: PayloadPersonDetail) {
+  buildParamsPersonDetailMovieDiscovery(personId: number) {
     let filtersQueryParams = '';
-    if (payload.personId) {
+    if (personId) {
       filtersQueryParams = filtersQueryParams.concat(
-        this.buildPeopleParams(payload.personId.toString())
+        this.buildPeopleParams(personId.toString())
       );
     }
     return filtersQueryParams;

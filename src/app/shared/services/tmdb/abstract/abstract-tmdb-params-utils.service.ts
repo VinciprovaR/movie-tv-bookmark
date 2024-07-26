@@ -3,11 +3,11 @@ import { VoteAverage } from '../../../interfaces/store/discovery-state.interface
 export abstract class AbstractTMDBParamsUtilsService {
   constructor() {}
 
-  buildSortBy(sortBy: string) {
+  protected buildSortBy(sortBy: string) {
     return `&sort_by=${sortBy}`;
   }
 
-  buildGenresIdParam(genresSelectedId: number[]) {
+  protected buildGenresIdParam(genresSelectedId: number[]) {
     let genresQueryParam: string = '&with_genres=';
 
     genresSelectedId.forEach((genreId, i) => {
@@ -19,19 +19,19 @@ export abstract class AbstractTMDBParamsUtilsService {
     return genresQueryParam;
   }
 
-  buildLanguage(language: string) {
+  protected buildLanguage(language: string) {
     return `&with_original_language=${language}`;
   }
 
-  buildVoteAverageParams(voteAverage: VoteAverage) {
+  protected buildVoteAverageParams(voteAverage: VoteAverage) {
     return `&vote_average.gte=${voteAverage.voteAverageMin}&vote_average.lte=${voteAverage.voteAverageMax}`;
   }
 
-  buildMinVoteParams(minVote: number) {
+  protected buildMinVoteParams(minVote: number) {
     return `&vote_count.gte=${minVote}`;
   }
 
-  buildPeopleParams(personId: string) {
+  protected buildPeopleParams(personId: string) {
     return `&with_people=${personId}`;
   }
 }
