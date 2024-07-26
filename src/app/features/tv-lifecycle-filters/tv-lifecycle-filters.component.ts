@@ -1,7 +1,7 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { LifecycleFilters } from '../../shared/abstracts/lifecycle-filters.abstract';
+import { AbstractLifecycleFilters } from '../../shared/components/abstract/abstract-lifecycle-filters.component';
 
 import {
   Genre,
@@ -28,7 +28,7 @@ import { TVLifecycleSelectors } from '../../shared/store/tv-lifecycle';
   templateUrl: './tv-lifecycle-filters.component.html',
   styleUrl: './tv-lifecycle-filters.component.css',
 })
-export class TVLifecycleFiltersComponent extends LifecycleFilters<
+export class TVLifecycleFiltersComponent extends AbstractLifecycleFilters<
   PayloadTVLifecycle,
   LifecycleTVFilterForm
 > {

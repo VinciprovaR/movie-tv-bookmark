@@ -1,0 +1,46 @@
+<mat-card appearance="outlined" class="w-auto h-full border-container">
+  <img
+    mat-card-image
+    [alt]="tv.name"
+    [title]="tv.name"
+    [srcset]="card1or2xImgUrl"
+    [routerLink]="detailMediaPath"
+    loading="lazy"
+  />
+
+  <app-lifecycle-selector
+    (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
+    [mediaData]="tv"
+    [index]="index"
+    [mediaType]="mediaType"
+  ></app-lifecycle-selector>
+
+  <span
+    class="font-bold text-sm flex justify-center bg-neutral-900"
+    [ngClass]="lifecycleStatusElement.key + '-color'"
+    >{{ lifecycleStatusElement.label }}</span
+  >
+  <mat-card-content class="card-content">
+    <h2>
+      <a [routerLink]="detailMediaPath" [title]="tv.name">{{ tv.name }}</a>
+    </h2>
+    <div class="mt-1">
+      <p>
+        {{ tv.first_air_date | date : "longDate" }}
+      </p>
+      @if(voteAverage){
+      <div class="flex flex-wrap items-center space-x-1">
+        <span>{{ voteAverage / 10 | percent }}</span>
+        <mat-icon
+          aria-hidden="false"
+          [fontIcon]="getVoteIconMetadata(voteAverage).icon"
+          [ngClass]="{
+            'text-red-600': getVoteIconMetadata(voteAverage).color === 'red',
+            'text-green-600': getVoteIconMetadata(voteAverage).color === 'green'
+          }"
+        ></mat-icon>
+      </div>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>

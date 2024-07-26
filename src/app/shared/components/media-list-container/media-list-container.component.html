@@ -7,8 +7,8 @@
     <li class="list-none">
       <ng-container
         *ngComponentOutlet="
-          mediaItemComponents[mediaType][listType];
-          inputs: { mediaType, index: $index, mediaData: media }
+          mediaItemComponents[mediaType];
+          inputs: { mediaType, index: $index, media: media }
         "
       />
     </li>

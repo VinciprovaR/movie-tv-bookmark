@@ -15,10 +15,10 @@
       appScrollNearEnd
       [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
       [isLoading]="(selectIsLoading$ | async) ?? false"
-      [peopleList]="(selectPeopleList$ | async) ?? []"
+      [personList]="(selectPeopleList$ | async) ?? []"
       (nearEnd)="
-        peopleListContainer.peopleList.length
-          ? searchAdditionalPeople(peopleListContainer.peopleList.length)
+        peopleListContainer.personList.length
+          ? searchAdditionalPeople(peopleListContainer.personList.length)
           : null
       "
     ></app-people-list-container>

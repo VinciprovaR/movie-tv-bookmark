@@ -1,15 +1,45 @@
-<div class="box-border">
-  @if( peopleList.length >0){
+<!-- <div class="box-border">
+  @if(peopleList){ @if( peopleList.length >0){
   <ul
     class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] gap-6 smc:gap-8 p-0 m-0"
   >
     @for(person of peopleList; track person.id){
     <li class="list-none">
-      <app-people-item [person]="person"> </app-people-item>
+      <app-person-card [person]="person"> </app-person-card>
     </li>
     }
   </ul>
   } @else {
+  <div class="flex justify-center">
+    {{ placeholder }}
+  </div>
+  } }
+</div> -->
+<div class="box-border">
+  <ul
+    class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] gap-6 smc:gap-8 p-0 m-0"
+  >
+    @if( personList && personList.length >0){ @for(person of personList; track
+    person.id){
+    <li class="list-none">
+      <app-person-card [person]="person"> </app-person-card>
+    </li>
+    } } @else if(castList && castList.length >0){ @for(cast of
+    castList.slice(0,6); track cast.id){
+
+    <li class="list-none">
+      <app-cast-crew-card [castCrew]="cast"> </app-cast-crew-card>
+    </li>
+
+    } } @else if(crewUniqueMap.size >0){ @for(crew of sliceUniqueMapCrew ; track
+    crew[0]){
+    <li class="list-none">
+      <app-cast-crew-card [castCrew]="crew[1]"> </app-cast-crew-card>
+    </li>
+    } }
+  </ul>
+
+  @if(personList && personList.length === 0){
   <div class="flex justify-center">
     {{ placeholder }}
   </div>

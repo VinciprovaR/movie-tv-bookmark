@@ -2,12 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { SearchMovieActions } from '../search-movie';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props, Store } from '@ngrx/store';
 import {
-  Media,
   MediaCredit,
   MovieDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';

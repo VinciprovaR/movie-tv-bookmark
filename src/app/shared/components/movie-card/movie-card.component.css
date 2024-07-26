@@ -1,11 +1,5 @@
-/* to-do refractor e sovrascrivere material component stile con tailwind */
-
 .card-content {
   padding: 8px 8px 0px 8px;
-}
-
-.card-container {
-  border-radius: 0.8rem;
 }
 
 .noLifecycle-color {

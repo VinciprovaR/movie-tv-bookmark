@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { LifecycleFilters } from '../../shared/abstracts/lifecycle-filters.abstract';
+import { AbstractLifecycleFilters } from '../../shared/components/abstract/abstract-lifecycle-filters.component';
 
 import {
   Genre,
@@ -28,7 +28,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './movie-lifecycle-filters.component.html',
   styleUrl: './movie-lifecycle-filters.component.css',
 })
-export class MovieLifecycleFiltersComponent extends LifecycleFilters<
+export class MovieLifecycleFiltersComponent extends AbstractLifecycleFilters<
   PayloadMovieLifecycle,
   LifecycleMovieFilterForm
 > {

@@ -14,11 +14,11 @@ import { RangeDateFilterComponent } from '../../shared/components/range-date-fil
 import { CheckboxFilterComponent } from '../../shared/components/checkbox-filter/checkbox-filter.component';
 import { VoteAverageFilterComponent } from '../../shared/components/vote-average-filter/vote-average-filter.component';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { DiscoveryFilter } from '../../shared/abstracts/discovery.filter.abstract';
+import { AbstractDiscoveryFilter } from '../../shared/components/abstract/abstract-discovery-filter.component';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
 import { MatIconModule } from '@angular/material/icon';
-import { Store } from '@ngrx/store';
+
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   DiscoveryMovieActions,
@@ -43,7 +43,10 @@ import {
   styleUrl: './movie-discovery-filters.component.css',
 })
 export class MovieDiscoveryFiltersComponent
-  extends DiscoveryFilter<PayloadDiscoveryMovie, DiscoveryMovieFilterForm>
+  extends AbstractDiscoveryFilter<
+    PayloadDiscoveryMovie,
+    DiscoveryMovieFilterForm
+  >
   implements OnInit
 {
   @Input({ required: true })

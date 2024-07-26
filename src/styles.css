@@ -12,6 +12,7 @@ body.light-theme {
   --bkg-color: rgb(255, 255, 255);
   --text-color: rgb(32, 33, 34);
   --text-color-inverted: rgb(234, 236, 240);
+  --sub-text-color: rgb(87, 87, 87);
   --lifecycle-info-bkg-color: #252222;
   --mat-card-border-color: #d7d7d7;
   --tag-border-color: #a5a5a5;
@@ -24,6 +25,7 @@ body.dark-theme {
   --bkg-color: #252222;
   --text-color: rgb(234, 236, 240);
   --text-color-inverted: rgb(32, 33, 34);
+  --sub-text-color: rgb(190, 190, 190);
   --mat-card-border-color: #6f6f6f;
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(234, 236, 240);
@@ -109,6 +111,11 @@ h2,
 h3,
 p {
   margin: 0px;
+}
+
+#sub-text {
+  font-size: 0.85rem;
+  color: var(--sub-text-color);
 }
 
 h2 {

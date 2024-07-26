@@ -1,8 +1,8 @@
 <mat-card appearance="outlined" class="w-auto h-full border-container">
   <img
     mat-card-image
-    [alt]="title"
-    [title]="title"
+    [alt]="movie.title"
+    [title]="movie.title"
     [srcset]="card1or2xImgUrl"
     [routerLink]="detailMediaPath"
     loading="lazy"
@@ -10,7 +10,7 @@
 
   <app-lifecycle-selector
     (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
-    [mediaData]="mediaData"
+    [mediaData]="movie"
     [index]="index"
     [mediaType]="mediaType"
   ></app-lifecycle-selector>
@@ -22,21 +22,23 @@
   >
   <mat-card-content class="card-content bg-transparent">
     <h2>
-      <a [routerLink]="detailMediaPath" [title]="title">{{ title }}</a>
+      <a [routerLink]="detailMediaPath" [title]="movie.title">{{
+        movie.title
+      }}</a>
     </h2>
     <div class="mt-1">
       <p>
-        {{ release_date | date : "longDate" }}
+        {{ movie.release_date | date : "longDate" }}
       </p>
       @if(voteAverage){
       <div class="flex flex-wrap items-center space-x-1">
         <span>{{ voteAverage / 10 | percent }}</span>
         <mat-icon
           aria-hidden="false"
-          [fontIcon]="voteIconMetadata.icon"
+          [fontIcon]="getVoteIconMetadata(voteAverage).icon"
           [ngClass]="{
-            'text-red-600': voteIconMetadata.color === 'red',
-            'text-green-600': voteIconMetadata.color === 'green'
+            'text-red-600': getVoteIconMetadata(voteAverage).color === 'red',
+            'text-green-600': getVoteIconMetadata(voteAverage).color === 'green'
           }"
         ></mat-icon>
       </div>

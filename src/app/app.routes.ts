@@ -178,6 +178,15 @@ export const routes: Routes = [
     title: 'Search People',
   },
   {
+    path: 'person-detail/:personId',
+    loadComponent: () =>
+      import('./features/person-detail/person-detail.component').then(
+        (m) => m.PersonDetailComponent
+      ),
+    canActivate: [authGuard],
+    title: 'Person Detail',
+  },
+  {
     path: '',
     pathMatch: 'full',
     canActivate: [redirectGuard],

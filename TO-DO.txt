@@ -41,6 +41,7 @@
 - initSubscription ovunque
 -ricerca automatica per i discovery (?)
 -range date filter validatori error 
+-via tutti gli item prima di card 
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

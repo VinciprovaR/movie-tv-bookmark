@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { TMDBParamsUtilsAbstractService } from '../../abstracts/tmdb-params-utils.abstract';
+import { AbstractTMDBParamsUtilsService } from './abstract/abstract-tmdb-params-utils.service';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
 import { DateRange } from '../../interfaces/store/discovery-state.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TMDBTVParamsUtilsService extends TMDBParamsUtilsAbstractService {
+export class TMDBTVParamsUtilsService extends AbstractTMDBParamsUtilsService {
   constructor() {
     super();
   }

@@ -6,6 +6,7 @@ import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-st
 
 import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
 import { HttpClient } from '@angular/common/http';
+import { PayloadPersonDetail } from '../../store/component-store/person-detail-store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,23 +22,45 @@ export class TMDBDiscoveryMovieService {
   ) {}
 
   movieDiscoveryInit(payload: PayloadDiscoveryMovie): Observable<MovieResult> {
-    return this.movieDiscovery(1, payload);
+    return this.movieDiscovery(
+      1,
+      this.TMDBMovieParamsUtilsService.buildFiltersParam(payload)
+    );
   }
 
   additionalMovieDiscovery(
     page: number,
     payload: PayloadDiscoveryMovie
   ): Observable<MovieResult> {
-    return this.movieDiscovery(page + 1, payload);
+    return this.movieDiscovery(
+      page + 1,
+      this.TMDBMovieParamsUtilsService.buildFiltersParam(payload)
+    );
+  }
+
+  movieDiscoveryPersonDetail(
+    payload: PayloadPersonDetail
+  ): Observable<MovieResult> {
+    return this.movieDiscovery(
+      1,
+      this.TMDBMovieParamsUtilsService.buildFiltersParamPersonDetail(payload)
+    );
+  }
+
+  additionalMovieDiscoveryPersonDetail(
+    page: number,
+    payload: PayloadPersonDetail
+  ): Observable<MovieResult> {
+    return this.movieDiscovery(
+      page + 1,
+      this.TMDBMovieParamsUtilsService.buildFiltersParamPersonDetail(payload)
+    );
   }
 
   private movieDiscovery(
     page: number,
-    payload: PayloadDiscoveryMovie
+    filtersQueryParams: string
   ): Observable<MovieResult> {
-    let filtersQueryParams =
-      this.TMDBMovieParamsUtilsService.buildFiltersParam(payload);
-
     return this.httpClient.get<MovieResult>(
       `${this.tmdbBaseUrl}/discover/movie?include_adult=false${filtersQueryParams}&certification_country=${this.i18e}&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
     );

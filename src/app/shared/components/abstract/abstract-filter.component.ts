@@ -22,11 +22,11 @@ import {
   GenreGroup,
   GenreControl,
   OptionFilter,
-} from '../interfaces/TMDB/tmdb-filters.interface';
+} from '../../interfaces/TMDB/tmdb-filters.interface';
 import { Store } from '@ngrx/store';
 
 @Directive()
-export abstract class Filter<
+export abstract class AbstractFilter<
   T1,
   T2 extends { [K in keyof T2]: AbstractControl<any, any> }
 > implements OnInit

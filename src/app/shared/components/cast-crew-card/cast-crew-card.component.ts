@@ -11,7 +11,7 @@ import { AbstractCard } from '../abstract/abstract-card.component';
 import { AbstractPeopleCardComponent } from '../abstract/abstract-people-card.component';
 
 @Component({
-  selector: 'app-person-card',
+  selector: 'app-cast-crew-card',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,22 +23,26 @@ import { AbstractPeopleCardComponent } from '../abstract/abstract-people-card.co
     PercentPipe,
     MatIconModule,
   ],
-  templateUrl: './person-card.component.html',
-  styleUrl: './person-card.component.css',
+  templateUrl: './cast-crew-card.component.html',
+  styleUrl: './cast-crew-card.component.css',
 })
-export class PersonCardComponent
+export class CastCrewCardComponent
   extends AbstractPeopleCardComponent
   implements OnInit
 {
   @Input({ required: true })
-  person!: Person;
+  castCrew!: Cast | Crew;
 
   override ngOnInit(): void {
-    this.buildDetailPath(this.person.id);
-    this.buildCard1or2xImgUrl(this.person.profile_path);
+    this.buildDetailPath(this.castCrew.id);
+    this.buildCard1or2xImgUrl(this.castCrew.profile_path);
   }
 
-  isPersonEntity(person: object): person is Person {
-    return (person as Person).known_for !== undefined;
+  isCastEntity(cast: object): cast is Cast {
+    return (cast as Cast).character !== undefined;
+  }
+
+  isCrewEntity(crew: object): crew is Crew {
+    return (crew as Crew).job !== undefined;
   }
 }

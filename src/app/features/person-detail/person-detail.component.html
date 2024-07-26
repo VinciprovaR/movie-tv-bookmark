@@ -1,0 +1,38 @@
+<section class="w-[90%] max-w-5xl m-auto pt-[70px]">
+  @if(selectPersonDetail$ | async; as selectPersonDetail){
+  <div class="m-2">
+    <div style="display: flex">
+      <div>
+        <img
+          [src]="originalImgUrl + selectPersonDetail.profile_path"
+          [title]="selectPersonDetail.name"
+          class="cursor-default"
+        />
+      </div>
+      <div>
+        <h1>{{ selectPersonDetail.name }}</h1>
+        <h3>
+          {{ selectPersonDetail.birthday }} - {{ selectPersonDetail.deathday }}
+        </h3>
+        <p>{{ selectPersonDetail.biography }}</p>
+      </div>
+    </div>
+  </div>
+
+  } @if(selectMovieList$ | async; as movieList){
+  <app-media-list-container
+    #movieListContainer
+    appScrollNearEnd
+    [minMaxCol]="140"
+    [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
+    [isLoading]="(selectIsLoading$ | async) ?? false"
+    [mediaList]="(selectMovieList$ | async) ?? []"
+    (nearEnd)="
+      movieListContainer.mediaList.length
+        ? discoveryAdditionalMovie(movieListContainer.mediaList.length)
+        : null
+    "
+    [mediaType]="'movie'"
+  ></app-media-list-container>
+  }
+</section>

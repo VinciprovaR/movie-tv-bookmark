@@ -17,11 +17,11 @@ import {
 } from '@angular/forms';
 
 import { Subject, Observable } from 'rxjs';
-import { MediaType } from '../interfaces/TMDB/tmdb-media.interface';
+import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import {
   DateRange,
   VoteAverage,
-} from '../interfaces/store/discovery-state.interface';
+} from '../../interfaces/store/discovery-state.interface';
 import {
   Language,
   Genre,
@@ -31,14 +31,14 @@ import {
   VoteAverageGroup,
   SelectTransformConfig,
   OptionFilter,
-} from '../interfaces/TMDB/tmdb-filters.interface';
-import { Filter } from './filter.abstract';
+} from '../../interfaces/TMDB/tmdb-filters.interface';
+import { AbstractFilter } from './abstract-filter.component';
 
 @Directive()
-export abstract class DiscoveryFilter<
+export abstract class AbstractDiscoveryFilter<
   T1,
   T2 extends { [K in keyof T2]: AbstractControl<any, any> }
-> extends Filter<T1, T2> {
+> extends AbstractFilter<T1, T2> {
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })

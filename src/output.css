@@ -173,6 +173,10 @@
   margin: 0px;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -190,6 +194,10 @@
 .my-1 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem;
 }
 
 .mb-2 {
@@ -220,10 +228,6 @@
   margin-top: 0.25rem;
 }
 
-.mt-16 {
-  margin-top: 4rem;
-}
-
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -232,16 +236,8 @@
   margin-top: 0.75rem;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
 .mt-6 {
   margin-top: 1.5rem;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem;
 }
 
 .box-border {
@@ -268,10 +264,6 @@
   height: 100%;
 }
 
-.w-52 {
-  width: 13rem;
-}
-
 .w-\[100px\] {
   width: 100px;
 }
@@ -292,26 +284,6 @@
   width: 100%;
 }
 
-.w-10 {
-  width: 2.5rem;
-}
-
-.w-\[70px\] {
-  width: 70px;
-}
-
-.w-\[60px\] {
-  width: 60px;
-}
-
-.w-\[55px\] {
-  width: 55px;
-}
-
-.w-\[40px\] {
-  width: 40px;
-}
-
 .max-w-4xl {
   max-width: 56rem;
 }
@@ -326,6 +298,10 @@
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.cursor-default {
+  cursor: default;
 }
 
 .cursor-pointer {
@@ -406,10 +382,6 @@
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
-.overflow-hidden {
-  overflow: hidden;
-}
-
 .rounded-full {
   border-radius: 9999px;
 }
@@ -454,10 +426,6 @@
 
 .p-2 {
   padding: 0.5rem;
-}
-
-.p-6 {
-  padding: 1.5rem;
 }
 
 .px-2 {
@@ -610,6 +578,7 @@ body.light-theme {
   --bkg-color: rgb(255, 255, 255);
   --text-color: rgb(32, 33, 34);
   --text-color-inverted: rgb(234, 236, 240);
+  --sub-text-color: rgb(87, 87, 87);
   --lifecycle-info-bkg-color: #252222;
   --mat-card-border-color: #d7d7d7;
   --tag-border-color: #a5a5a5;
@@ -623,6 +592,7 @@ body.dark-theme {
   --bkg-color: #252222;
   --text-color: rgb(234, 236, 240);
   --text-color-inverted: rgb(32, 33, 34);
+  --sub-text-color: rgb(190, 190, 190);
   --mat-card-border-color: #6f6f6f;
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(234, 236, 240);
@@ -712,6 +682,11 @@ h2,
 h3,
 p {
   margin: 0px;
+}
+
+#sub-text {
+  font-size: 0.85rem;
+  color: var(--sub-text-color);
 }
 
 h2 {
@@ -812,10 +787,6 @@ select {
 }
 
 @media (min-width: 382px) {
-  .xsm\:w-\[100px\] {
-    width: 100px;
-  }
-
   .xsm\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
@@ -892,12 +863,12 @@ select {
     width: 75%;
   }
 
-  .lg\:w-\[85\%\] {
-    width: 85%;
-  }
-
   .lg\:w-\[55px\] {
     width: 55px;
+  }
+
+  .lg\:w-\[85\%\] {
+    width: 85%;
   }
 
   .lg\:flex-row {

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
-import { TMDBParamsUtilsAbstractService } from '../../abstracts/tmdb-params-utils.abstract';
+import { AbstractTMDBParamsUtilsService } from './abstract/abstract-tmdb-params-utils.service';
 import { DateRange } from '../../interfaces/store/discovery-state.interface';
+import { PayloadPersonDetail } from '../../store/component-store/person-detail-store.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TMDBMovieParamsUtilsService extends TMDBParamsUtilsAbstractService {
+export class TMDBMovieParamsUtilsService extends AbstractTMDBParamsUtilsService {
   constructor() {
     super();
   }
@@ -46,6 +47,17 @@ export class TMDBMovieParamsUtilsService extends TMDBParamsUtilsAbstractService 
     if (payload.minVote) {
       filtersQueryParams = filtersQueryParams.concat(
         this.buildMinVoteParams(payload.minVote)
+      );
+    }
+
+    return filtersQueryParams;
+  }
+
+  buildFiltersParamPersonDetail(payload: PayloadPersonDetail) {
+    let filtersQueryParams = '';
+    if (payload.personId) {
+      filtersQueryParams = filtersQueryParams.concat(
+        this.buildPeopleParams(payload.personId.toString())
       );
     }
     return filtersQueryParams;

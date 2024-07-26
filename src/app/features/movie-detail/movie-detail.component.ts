@@ -1,5 +1,4 @@
-import { Component, inject, Input, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TMDB_RESIZED_IMG_URL } from '../../providers';
 import {
@@ -9,12 +8,11 @@ import {
 import { Observable } from 'rxjs';
 import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
 import { PeopleListContainerComponent } from '../../shared/components/people-list-container/people-list-container.component';
-import { PeopleItemComponent } from '../../shared/components/people-item/people-item.component';
 
 @Component({
   selector: 'app-movie-detail',
   standalone: true,
-  imports: [CommonModule, PeopleListContainerComponent, PeopleItemComponent],
+  imports: [CommonModule, PeopleListContainerComponent],
   providers: [MovieDetailStore],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',

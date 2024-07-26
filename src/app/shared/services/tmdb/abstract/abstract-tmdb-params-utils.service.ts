@@ -1,6 +1,6 @@
-import { VoteAverage } from '../interfaces/store/discovery-state.interface';
+import { VoteAverage } from '../../../interfaces/store/discovery-state.interface';
 
-export abstract class TMDBParamsUtilsAbstractService {
+export abstract class AbstractTMDBParamsUtilsService {
   constructor() {}
 
   buildSortBy(sortBy: string) {
@@ -29,5 +29,9 @@ export abstract class TMDBParamsUtilsAbstractService {
 
   buildMinVoteParams(minVote: number) {
     return `&vote_count.gte=${minVote}`;
+  }
+
+  buildPeopleParams(personId: string) {
+    return `&with_people=${personId}`;
   }
 }

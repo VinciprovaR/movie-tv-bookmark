@@ -12,7 +12,7 @@ import { RangeDateFilterComponent } from '../../shared/components/range-date-fil
 import { CheckboxFilterComponent } from '../../shared/components/checkbox-filter/checkbox-filter.component';
 import { VoteAverageFilterComponent } from '../../shared/components/vote-average-filter/vote-average-filter.component';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { DiscoveryFilter } from '../../shared/abstracts/discovery.filter.abstract';
+import { AbstractDiscoveryFilter } from '../../shared/components/abstract/abstract-discovery-filter.component';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,7 +37,7 @@ import { DiscoveryTVSelectors } from '../../shared/store/discovery-tv';
   styleUrl: './tv-discovery-filters.component.css',
 })
 export class TVDiscoveryFiltersComponent
-  extends DiscoveryFilter<PayloadDiscoveryTV, DiscoveryTVFilterForm>
+  extends AbstractDiscoveryFilter<PayloadDiscoveryTV, DiscoveryTVFilterForm>
   implements OnInit
 {
   selectDiscoveryFailure$: Observable<HttpErrorResponse | null> =

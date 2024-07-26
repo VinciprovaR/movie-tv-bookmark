@@ -1,0 +1,25 @@
+/* to-do refractor e sovrascrivere material component stile con tailwind */
+
+.card-content {
+  padding: 8px 8px 0px 8px;
+}
+
+.noLifecycle-color {
+  color: rgb(158, 158, 158);
+}
+
+.watchlist-color {
+  color: rgb(110, 184, 88);
+}
+
+.rewatch-color {
+  color: rgb(72, 85, 202);
+}
+
+.watching-color {
+  color: rgb(188, 65, 192);
+}
+
+.watched-color {
+  color: rgb(199, 65, 65);
+}

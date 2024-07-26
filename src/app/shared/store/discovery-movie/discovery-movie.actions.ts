@@ -1,11 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
-import {
-  Certification,
-  Genre,
-  Language,
-} from '../../interfaces/TMDB/tmdb-filters.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 
 //search

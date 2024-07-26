@@ -1,19 +1,36 @@
 <mat-card appearance="outlined" class="w-auto h-full border-container">
   <img
     mat-card-image
-    [alt]="personData.name"
-    [title]="personData.name"
+    [alt]="person.name"
+    [title]="person.name"
     [srcset]="card1or2xImgUrl"
     [routerLink]="detailMediaPath"
     loading="lazy"
   />
 
-  <mat-card-content class="card-content bg-transparent">
+  <mat-card-content class="card-content">
     <h2>
-      <a [routerLink]="detailMediaPath" [title]="personData.name">{{
-        personData.name
+      <a [routerLink]="detailMediaPath" [title]="person.name">{{
+        person.name
       }}</a>
     </h2>
-    <div class="mt-1"></div>
+    <div class="mt-1">
+      <p>
+        {{ person.known_for_department }}
+      </p>
+      @if(isPersonEntity(person)){ @for(knowFor of person.known_for.slice(0,3);
+      track knowFor){
+      <p id="sub-text">
+        {{
+          $index < person.known_for.length - 1
+            ? (knowFor.title ? knowFor.title : knowFor.name) + ", "
+            : knowFor.title
+            ? knowFor.title
+            : knowFor.name
+        }}
+      </p>
+
+      } }
+    </div>
   </mat-card-content>
 </mat-card>

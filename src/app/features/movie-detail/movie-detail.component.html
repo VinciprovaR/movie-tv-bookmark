@@ -11,11 +11,17 @@
         <p>{{ movieDetail.overview }}</p>
       </div>
     </div>
-
-    <!-- <app-people-list-container
+    <h1>Cast</h1>
+    <app-people-list-container
       [isLoading]="(isLoading$ | async) ?? false"
       [castList]="movieDetail.cast"
-    ></app-people-list-container> -->
+    ></app-people-list-container>
+
+    <h1>Crew</h1>
+    <app-people-list-container
+      [isLoading]="(isLoading$ | async) ?? false"
+      [crewList]="movieDetail.crew"
+    ></app-people-list-container>
   </div>
 
   }
