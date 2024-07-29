@@ -2,13 +2,14 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
-import { TMDB_CARD_1X_IMG_URL, TMDB_CARD_2X_IMG_URL } from '../../../providers';
-import { Cast, Crew, Person } from '../../interfaces/TMDB/tmdb-media.interface';
+
+import { Cast, Crew } from '../../interfaces/TMDB/tmdb-media.interface';
 import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { AbstractCard } from '../abstract/abstract-card.component';
-import { AbstractPeopleCardComponent } from '../abstract/abstract-people-card.component';
+import { AbstractPersonCardComponent } from '../abstract/abstract-person-card.component';
+import { ImgComponent } from '../img/img.component';
+import { IMG_SIZES } from '../../../providers';
 
 @Component({
   selector: 'app-cast-crew-card',
@@ -22,20 +23,33 @@ import { AbstractPeopleCardComponent } from '../abstract/abstract-people-card.co
     RouterModule,
     PercentPipe,
     MatIconModule,
+    ImgComponent,
   ],
   templateUrl: './cast-crew-card.component.html',
   styleUrl: './cast-crew-card.component.css',
 })
 export class CastCrewCardComponent
-  extends AbstractPeopleCardComponent
+  extends AbstractPersonCardComponent
   implements OnInit
 {
+  protected readonly TMDB_SEARCH_LIST_1X_IMG_URL = inject(
+    IMG_SIZES.TMDB_SEARCH_LIST_1X_IMG_URL
+  );
+  protected readonly TMDB_SEARCH_LIST_2X_IMG_URL = inject(
+    IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL
+  );
+  protected readonly TMDB_DETAIL_LIST_1X_IMG_URL = inject(
+    IMG_SIZES.TMDB_DETAIL_LIST_1X_IMG_URL
+  );
+  protected readonly TMDB_DETAIL_LIST_2X_IMG_URL = inject(
+    IMG_SIZES.TMDB_DETAIL_LIST_2X_IMG_URL
+  );
+
   @Input({ required: true })
   castCrew!: Cast | Crew;
 
   override ngOnInit(): void {
     this.buildDetailPath(this.castCrew.id);
-    this.buildCard1or2xImgUrl(this.castCrew.profile_path);
   }
 
   isCastEntity(cast: object): cast is Cast {

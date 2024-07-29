@@ -102,9 +102,7 @@ export class MovieSearchComponent implements OnInit {
     this.store.dispatch(SearchMovieActions.searchMovie({ query }));
   }
 
-  searchAdditionalMovie(movieListLength: number = 0) {
-    if (movieListLength) {
-      this.store.dispatch(SearchMovieActions.searchAdditionalMovie());
-    }
+  searchAdditionalMovie() {
+    this.store.dispatch(SearchMovieActions.searchAdditionalMovie());
   }
 }

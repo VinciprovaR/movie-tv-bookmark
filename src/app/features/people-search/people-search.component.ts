@@ -11,7 +11,7 @@ import {
 import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
 import { Person } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { PeopleListContainerComponent } from '../../shared/components/people-list-container/people-list-container.component';
+import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
 
 @Component({
   selector: 'app-search-people',
@@ -21,7 +21,7 @@ import { PeopleListContainerComponent } from '../../shared/components/people-lis
     InputQueryComponent,
     MediaListContainerComponent,
     ScrollNearEndDirective,
-    PeopleListContainerComponent,
+    PersonListContainerComponent,
   ],
   providers: [BridgeDataService],
   templateUrl: './people-search.component.html',

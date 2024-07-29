@@ -1,24 +1,38 @@
 import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TMDB_RESIZED_IMG_URL } from '../../providers';
+
 import {
   MediaCredit,
   MovieDetail,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { Observable } from 'rxjs';
 import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
-import { PeopleListContainerComponent } from '../../shared/components/people-list-container/people-list-container.component';
+import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
+import { CastCrewListContainerComponent } from '../../shared/components/cast-crew-list-container/cast-crew-list-container.component';
+import { ImgComponent } from '../../shared/components/img/img.component';
+import { IMG_SIZES } from '../../providers';
 
 @Component({
   selector: 'app-movie-detail',
   standalone: true,
-  imports: [CommonModule, PeopleListContainerComponent],
+  imports: [
+    CommonModule,
+    PersonListContainerComponent,
+    CastCrewListContainerComponent,
+    ImgComponent,
+  ],
   providers: [MovieDetailStore],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
 export class MovieDetailComponent {
-  readonly resizedImgUrl = inject(TMDB_RESIZED_IMG_URL);
+  protected readonly TMDB_PROFILE_1X_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_1X_IMG_URL
+  );
+  protected readonly TMDB_PROFILE_2X_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_2X_IMG_URL
+  );
+
   readonly movieDetailstore = inject(MovieDetailStore);
 
   @Input({ required: true })

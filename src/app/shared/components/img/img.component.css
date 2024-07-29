@@ -1,0 +1,18 @@
+.placeholder {
+  background-size: 60%;
+  background-color: rgb(212, 212, 212);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.placeholder-person {
+  background-image: url("../../../../assets/images/glyphicons-basic-4-user-grey.svg");
+}
+
+.placeholder-media {
+  background-image: url("../../../../assets/images/glyphicons-basic-38-picture-grey.svg");
+}
+
+.placeholder-media-220-330 {
+  background-image: url("../../../../assets/images/glyphicons-basic-38-picture-grey-w220-h330.svg");
+}

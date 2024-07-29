@@ -15,18 +15,28 @@ export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
 //Temporary test api key
 export const TMDB_API_KEY = new InjectionToken<string>('TMDB_API_KEY');
 export const TMDB_BASE_URL = new InjectionToken<string>('TMDB_BASE_URL');
-export const TMDB_ORIGINAL_IMG_URL = new InjectionToken<string>(
-  'TMDB_ORIGINAL_IMG_URL'
-);
-export const TMDB_RESIZED_IMG_URL = new InjectionToken<string>(
-  'TMDB_RESIZED_IMG_URL'
-);
-export const TMDB_CARD_1X_IMG_URL = new InjectionToken<string>(
-  'TMDB_CARD_1X_IMG_URL'
-);
-export const TMDB_CARD_2X_IMG_URL = new InjectionToken<string>(
-  'TMDB_CARD_2X_IMG_URL'
-);
+
+export const IMG_SIZES = {
+  TMDB_ORIGINAL_IMG_URL: new InjectionToken<string>('TMDB_ORIGINAL_IMG_URL'),
+  TMDB_PROFILE_1X_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_1X_IMG_URL'
+  ),
+  TMDB_PROFILE_2X_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_2X_IMG_URL'
+  ),
+  TMDB_DETAIL_LIST_1X_IMG_URL: new InjectionToken<string>(
+    'TMDB_DETAIL_LIST_1X_IMG_URL'
+  ),
+  TMDB_DETAIL_LIST_2X_IMG_URL: new InjectionToken<string>(
+    'TMDB_DETAIL_LIST_2X_IMG_URL'
+  ),
+  TMDB_SEARCH_LIST_1X_IMG_URL: new InjectionToken<string>(
+    'TMDB_SEARCH_LIST_1X_IMG_URL'
+  ),
+  TMDB_SEARCH_LIST_2X_IMG_URL: new InjectionToken<string>(
+    'TMDB_SEARCH_LIST_2X_IMG_URL'
+  ),
+};
 
 export const I18E = new InjectionToken<string>('I18E');
 
@@ -55,19 +65,32 @@ export function provideTMDBBaseUrl() {
 export function provideImgUrl() {
   return [
     {
-      provide: TMDB_ORIGINAL_IMG_URL,
+      provide: IMG_SIZES.TMDB_ORIGINAL_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/original',
     },
     {
-      provide: TMDB_RESIZED_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2',
+      provide: IMG_SIZES.TMDB_PROFILE_1X_IMG_URL,
+      useValue: 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2',
     },
     {
-      provide: TMDB_CARD_1X_IMG_URL,
+      provide: IMG_SIZES.TMDB_PROFILE_2X_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2',
+    },
+
+    {
+      provide: IMG_SIZES.TMDB_DETAIL_LIST_1X_IMG_URL,
+      useValue: 'https://media.themoviedb.org/t/p/w138_and_h175_face',
+    },
+    {
+      provide: IMG_SIZES.TMDB_DETAIL_LIST_2X_IMG_URL,
+      useValue: 'https://media.themoviedb.org/t/p/w276_and_h350_face',
+    },
+    {
+      provide: IMG_SIZES.TMDB_SEARCH_LIST_1X_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w220_and_h330_face',
     },
     {
-      provide: TMDB_CARD_2X_IMG_URL,
+      provide: IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w440_and_h660_face',
     },
   ];

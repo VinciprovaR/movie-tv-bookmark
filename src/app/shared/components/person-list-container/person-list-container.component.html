@@ -1,0 +1,17 @@
+@if(personList && personList.length >0){
+<div class="box-border">
+  <ul
+    class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] gap-6 smc:gap-8 p-0 m-0"
+  >
+    @for(person of personList; track person.id){
+    <li class="list-none">
+      <app-person-card [person]="person"> </app-person-card>
+    </li>
+    }
+  </ul>
+</div>
+} @else{
+<div class="flex justify-center">
+  {{ placeholder }}
+</div>
+}

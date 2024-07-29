@@ -1,0 +1,15 @@
+<h1>{{ title }}</h1>
+@if(selectTVList$ | async; as tvList){
+
+<app-media-list-container
+  [scrollSelf]="true"
+  [minMaxCol]="140"
+  [isLoading]="(selectIsLoading$ | async) ?? false"
+  [mediaList]="(selectTVList$ | async) ?? []"
+  [mediaType]="'tv'"
+  [includeScrollEvents]="false"
+></app-media-list-container>
+
+} @else {
+<p>No tv for this person</p>
+}

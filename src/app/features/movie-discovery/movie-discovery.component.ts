@@ -154,9 +154,7 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  discoveryAdditionalMovie(movieListLength: number = 0) {
-    if (movieListLength) {
-      this.store.dispatch(DiscoveryMovieActions.discoveryAdditionalMovie());
-    }
+  discoveryAdditionalMovie() {
+    this.store.dispatch(DiscoveryMovieActions.discoveryAdditionalMovie());
   }
 }

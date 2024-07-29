@@ -11,16 +11,9 @@
   </div>
   <div class="mt-6">
     <app-media-list-container
-      #movieListContainer
-      appScrollNearEnd
-      [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="(selectMovieList$ | async) ?? []"
-      (nearEnd)="
-        movieListContainer.mediaList.length
-          ? searchAdditionalMovie(movieListContainer.mediaList.length)
-          : null
-      "
+      (emitDiscoveryAdditionalMedia)="searchAdditionalMovie()"
       [mediaType]="mediaType"
     ></app-media-list-container>
   </div>

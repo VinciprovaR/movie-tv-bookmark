@@ -1,13 +1,15 @@
 <mat-card appearance="outlined" class="w-auto h-full border-container">
-  <img
-    mat-card-image
+  <app-img
     [alt]="person.name"
     [title]="person.name"
-    [srcset]="card1or2xImgUrl"
-    [routerLink]="detailMediaPath"
-    loading="lazy"
-  />
-
+    [imgSrc]="person.profile_path"
+    [width]="220"
+    [heigth]="330"
+    [placeholderKey]="'placeholder_w220_h330'"
+    [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
+    [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
+    [link]="detailMediaPath"
+  ></app-img>
   <mat-card-content class="card-content">
     <h2>
       <a [routerLink]="detailMediaPath" [title]="person.name">{{

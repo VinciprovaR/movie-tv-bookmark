@@ -1,38 +1,31 @@
 import {
   Component,
-  ElementRef,
   Input,
   OnInit,
   QueryList,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ListType } from '../../interfaces/list-type.type';
-import { Cast, Crew, Person } from '../../interfaces/TMDB/tmdb-media.interface';
+import { Cast, Crew } from '../../interfaces/TMDB/tmdb-media.interface';
 
 import { PersonCardComponent } from '../person-card/person-card.component';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 
 @Component({
-  selector: 'app-people-list-container',
+  selector: 'app-cast-crew-list-container',
   standalone: true,
   imports: [CommonModule, PersonCardComponent, CastCrewCardComponent],
-  templateUrl: './people-list-container.component.html',
-  styleUrl: './people-list-container.component.css',
+  templateUrl: './cast-crew-list-container.component.html',
+  styleUrl: './cast-crew-list-container.component.css',
 })
-export class PeopleListContainerComponent implements OnInit {
+export class CastCrewListContainerComponent implements OnInit {
   @Input()
   isLoading: boolean = false;
-  @Input()
-  personList!: Person[];
-  @Input()
+  @Input({ required: true })
   castList!: Cast[];
-  @Input()
+  @Input({ required: true })
   crewList!: Crew[];
-  @Input()
-  placeholder!: string;
   @Input()
   minMaxCol: number = 160;
 
@@ -48,7 +41,7 @@ export class PeopleListContainerComponent implements OnInit {
   constructor() {}
   ngOnInit(): void {
     this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
-    this.placeholder = `No people were found that match your query.`;
+
     if (this.crewList) {
       this.prepareCrewList();
     }

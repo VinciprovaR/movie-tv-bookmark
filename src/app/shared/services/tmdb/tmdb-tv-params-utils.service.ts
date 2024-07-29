@@ -11,7 +11,7 @@ export class TMDBTVParamsUtilsService extends AbstractTMDBParamsUtilsService {
     super();
   }
 
-  buildFiltersParam(payload: PayloadDiscoveryTV) {
+  buildParamsFeatureTVDiscovery(payload: PayloadDiscoveryTV) {
     let filtersQueryParams = '';
     if (payload.genreIdList.length > 0) {
       filtersQueryParams = filtersQueryParams.concat(
@@ -42,6 +42,16 @@ export class TMDBTVParamsUtilsService extends AbstractTMDBParamsUtilsService {
     if (payload.minVote) {
       filtersQueryParams = filtersQueryParams.concat(
         this.buildMinVoteParams(payload.minVote)
+      );
+    }
+    return filtersQueryParams;
+  }
+
+  buildParamsPersonDetailTVDiscovery(personId: number) {
+    let filtersQueryParams = '';
+    if (personId) {
+      filtersQueryParams = filtersQueryParams.concat(
+        this.buildPeopleParams(personId.toString())
       );
     }
     return filtersQueryParams;

@@ -27,13 +27,13 @@ import {
   provideSupabaseClient,
   provideTMDBApiKey,
   provideTMDBBaseUrl,
-  provideImgUrl,
   provideI18E,
   provideCurrentUser,
   provideLifecycleSelect,
   provideSelectFilters,
   provideLifecycleNavElements,
   provideHeaderNavElements,
+  provideImgUrl,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 

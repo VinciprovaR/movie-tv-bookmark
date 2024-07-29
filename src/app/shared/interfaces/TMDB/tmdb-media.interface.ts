@@ -235,3 +235,15 @@ export interface PersonDetail {
   popularity: number;
   profile_path: string;
 }
+
+export interface PersonDetailMovieCredits {
+  cast: Movie[];
+  crew: Movie[];
+  id: number;
+}
+
+export interface PersonDetailTVCredits {
+  cast: TV[];
+  crew: TV[];
+  id: number;
+}

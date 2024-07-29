@@ -3,7 +3,16 @@
   <div style="margin: 10px">
     <div style="display: flex">
       <div>
-        <img [src]="resizedImgUrl + tvDetail.poster_path" width="100%" />
+        <app-img
+          [alt]="tvDetail.name"
+          [title]="tvDetail.name"
+          [imgSrc]="tvDetail.poster_path"
+          [placeholderKey]="'placeholder_w300_h450'"
+          [width]="300"
+          [heigth]="450"
+          [url1x]="TMDB_PROFILE_1X_IMG_URL"
+          [url2x]="TMDB_PROFILE_2X_IMG_URL"
+        ></app-img>
       </div>
       <div>
         <h1>{{ tvDetail.name }}</h1>
@@ -11,11 +20,6 @@
         <p>{{ tvDetail.overview }}</p>
       </div>
     </div>
-
-    <!-- <app-people-list-container
-      [isLoading]="(isLoading$ | async) ?? false"
-      [castList]="tvDetail.cast"
-    ></app-people-list-container> -->
   </div>
   }
 </section>

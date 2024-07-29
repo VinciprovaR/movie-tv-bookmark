@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../interfaces/TMDB/tmdb-media.interface';
 
@@ -6,14 +6,19 @@ import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 
-import { ListType } from '../../interfaces/list-type.type';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { TVCardComponent } from '../tv-card/tv-card.component';
+import { ScrollNearEndDirective } from '../../directives/scroll-near-end.directive';
 
 @Component({
   selector: 'app-media-list-container',
   standalone: true,
-  imports: [CommonModule, MovieCardComponent, TVCardComponent],
+  imports: [
+    CommonModule,
+    MovieCardComponent,
+    TVCardComponent,
+    ScrollNearEndDirective,
+  ],
   templateUrl: './media-list-container.component.html',
   styleUrl: './media-list-container.component.css',
 })
@@ -23,6 +28,8 @@ export class MediaListContainerComponent implements OnInit {
     tv: TVCardComponent,
   };
 
+  @Output()
+  emitDiscoveryAdditionalMedia = new EventEmitter<number>();
   @Input()
   isLoading: boolean = false;
   @Input({ required: true })
@@ -33,6 +40,10 @@ export class MediaListContainerComponent implements OnInit {
   placeholder!: string;
   @Input()
   minMaxCol: number = 160;
+  @Input()
+  scrollSelf: boolean = false;
+  @Input()
+  includeScrollEvents: boolean = true;
 
   gridCol: string = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
@@ -41,5 +52,11 @@ export class MediaListContainerComponent implements OnInit {
     this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
     this.placeholder = `No ${this.mediaType} were found that match your query.`;
+  }
+
+  discoveryAdditionalMedia() {
+    if (this.mediaList.length) {
+      this.emitDiscoveryAdditionalMedia.emit(this.mediaList.length);
+    }
   }
 }

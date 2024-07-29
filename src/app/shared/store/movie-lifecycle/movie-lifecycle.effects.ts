@@ -20,10 +20,7 @@ import {
 } from '../../interfaces/supabase/entities';
 import { HttpErrorResponse } from '@angular/common/http';
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
-import {
-  discoveryAdditionalMovieSuccessPersonDetail,
-  discoveryMovieSuccessPersonDetail,
-} from '../component-store/person-detail-store.service';
+import { creditsMovieSuccessPersonDetail } from '../component-store/person-detail-movie-credits-store.service';
 
 @Injectable()
 export class MovieLifecycleEffects {
@@ -63,8 +60,7 @@ export class MovieLifecycleEffects {
         SearchMovieActions.searchAdditionalMovieSuccess,
         DiscoveryMovieActions.discoveryMovieSuccess,
         DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
-        discoveryMovieSuccessPersonDetail,
-        discoveryAdditionalMovieSuccessPersonDetail
+        creditsMovieSuccessPersonDetail
       ),
       switchMap((action) => {
         let { movieResult }: { movieResult: MovieResult } = action;

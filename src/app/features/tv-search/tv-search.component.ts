@@ -100,8 +100,6 @@ export class TVSearchComponent implements OnInit {
   }
 
   searchAdditionalTV(movieListLength: number = 0) {
-    if (movieListLength) {
-      this.store.dispatch(SearchTVActions.searchAdditionalTV());
-    }
+    this.store.dispatch(SearchTVActions.searchAdditionalTV());
   }
 }

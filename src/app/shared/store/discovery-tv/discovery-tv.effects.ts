@@ -16,7 +16,7 @@ export class DiscoveryTVEffects {
       withLatestFrom(this.store.select(DiscoveryTVSelectors.selectPayload)),
       switchMap((action) => {
         let [actionType, payload] = action;
-        return this.TMDBDiscoveryTVService.tvDiscoveryInit(payload).pipe(
+        return this.TMDBDiscoveryTVService.tvDiscovery(payload).pipe(
           switchMap((tvResult: TVResult) => {
             if (!payload.includeMediaWithLifecycle) {
               return this.supabaseTVLifecycleService.removeTVWithLifecycle(
@@ -47,7 +47,7 @@ export class DiscoveryTVEffects {
       ofType(DiscoveryTVActions.discoveryTV),
       switchMap((action) => {
         let { payload } = action;
-        return this.TMDBDiscoveryTVService.tvDiscoveryInit(payload).pipe(
+        return this.TMDBDiscoveryTVService.tvDiscovery(payload).pipe(
           switchMap((tvResult: TVResult) => {
             if (!payload.includeMediaWithLifecycle) {
               return this.supabaseTVLifecycleService.removeTVWithLifecycle(

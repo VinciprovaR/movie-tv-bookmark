@@ -37,27 +37,6 @@ export class TMDBDiscoveryMovieService {
     );
   }
 
-  movieDiscoveryByPersonId(personId: number): Observable<MovieResult> {
-    return this.discoverMovieCall(
-      1,
-      this.TMDBMovieParamsUtilsService.buildParamsPersonDetailMovieDiscovery(
-        personId
-      )
-    );
-  }
-
-  additionalMovieDiscoveryByPersonId(
-    page: number,
-    personId: number
-  ): Observable<MovieResult> {
-    return this.discoverMovieCall(
-      page + 1,
-      this.TMDBMovieParamsUtilsService.buildParamsPersonDetailMovieDiscovery(
-        personId
-      )
-    );
-  }
-
   private discoverMovieCall(
     page: number,
     queryParams: string

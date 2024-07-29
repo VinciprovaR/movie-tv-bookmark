@@ -1,25 +1,33 @@
 import { Component, inject, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
-import { TMDB_RESIZED_IMG_URL } from '../../providers';
+
 import {
   MediaCredit,
   TVDetail,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { Observable } from 'rxjs';
 import { TVDetailStore } from '../../shared/store/component-store/tv-detail-store.service';
-import { PeopleListContainerComponent } from '../../shared/components/people-list-container/people-list-container.component';
+import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
+import { ImgComponent } from '../../shared/components/img/img.component';
+import { IMG_SIZES } from '../../providers';
 
 @Component({
   selector: 'app-tv-detail',
   standalone: true,
-  imports: [CommonModule, PeopleListContainerComponent],
+  imports: [CommonModule, PersonListContainerComponent, ImgComponent],
   providers: [TVDetailStore],
   templateUrl: './tv-detail.component.html',
   styleUrl: './tv-detail.component.css',
 })
 export class TVDetailComponent {
-  readonly resizedImgUrl = inject(TMDB_RESIZED_IMG_URL);
+  protected readonly TMDB_PROFILE_1X_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_1X_IMG_URL
+  );
+  protected readonly TMDB_PROFILE_2X_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_2X_IMG_URL
+  );
+
   readonly tvDetailstore = inject(TVDetailStore);
 
   @Input({ required: true })

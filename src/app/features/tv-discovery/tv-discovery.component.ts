@@ -133,9 +133,7 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
     );
   }
 
-  discoveryAdditionalTV(tvListLength: number = 0) {
-    if (tvListLength) {
-      this.store.dispatch(DiscoveryTVActions.discoveryAdditionalTV());
-    }
+  discoveryAdditionalTV() {
+    this.store.dispatch(DiscoveryTVActions.discoveryAdditionalTV());
   }
 }

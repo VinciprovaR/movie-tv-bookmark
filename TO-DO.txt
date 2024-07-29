@@ -43,6 +43,11 @@
 -range date filter validatori error 
 -via tutti gli item prima di card 
 - card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
+- scroll infinito anche per i media lifecycle (bookmark)
+- dark theme da device
+- far funzionare bene 1x 2x immagini
+- immagini placeholder da cambiare + su smarthphone sono troppo piccole
+- header giu su dopo n y scroll
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

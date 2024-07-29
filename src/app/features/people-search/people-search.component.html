@@ -10,7 +10,7 @@
     ></app-input-query>
   </div>
   <div class="mt-6">
-    <app-people-list-container
+    <app-person-list-container
       #peopleListContainer
       appScrollNearEnd
       [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
@@ -21,6 +21,7 @@
           ? searchAdditionalPeople(peopleListContainer.personList.length)
           : null
       "
-    ></app-people-list-container>
+      [includeScrollEvents]="true"
+    ></app-person-list-container>
   </div>
 </section>

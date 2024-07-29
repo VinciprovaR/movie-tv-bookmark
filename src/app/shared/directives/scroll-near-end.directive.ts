@@ -17,7 +17,12 @@ export class ScrollNearEndDirective {
 
   @Output() nearEnd: EventEmitter<void> = new EventEmitter<void>();
   @Input() threshold = 100;
+  @Input() thresholdScrollSelf = 50;
   @Input() scrollIsLoading: boolean = false;
+  @Input()
+  scrollSelf: boolean = false;
+  @Input({ required: true })
+  includeScrollEvents: boolean = true;
 
   private window!: Window;
 
@@ -27,26 +32,43 @@ export class ScrollNearEndDirective {
     this.window = window;
   }
 
-  @HostListener('window:scroll', ['$event.target'])
+  @HostListener(`window:scroll`, ['$event.target'])
   windowScrollEvent(event: KeyboardEvent) {
-    if (!this.scrollIsLoading) {
-      const heightOfWholePage =
-        this.window.document.documentElement.scrollHeight;
-      const heightOfElement = this.el.nativeElement.scrollHeight;
-      const currentScrolledY = this.window.scrollY;
+    if (!this.scrollSelf) {
+      if (!this.scrollIsLoading) {
+        const heightOfWholePage =
+          this.window.document.documentElement.scrollHeight;
+        const heightOfElement = this.el.nativeElement.scrollHeight;
+        const currentScrolledY = this.window.scrollY;
 
-      const innerHeight = this.window.innerHeight;
+        const innerHeight = this.window.innerHeight;
 
-      const spaceOfElementAndPage = heightOfWholePage - heightOfElement;
+        const spaceOfElementAndPage = heightOfWholePage - heightOfElement;
 
-      const scrollToBottom =
-        heightOfElement -
-        innerHeight -
-        currentScrolledY +
-        spaceOfElementAndPage;
+        const scrollToBottom =
+          heightOfElement -
+          innerHeight -
+          currentScrolledY +
+          spaceOfElementAndPage;
 
-      if (scrollToBottom < this.threshold) {
-        this.nearEnd.emit();
+        if (scrollToBottom < this.threshold) {
+          this.nearEnd.emit();
+        }
+      }
+    }
+  }
+
+  @HostListener(`scroll`, ['$event.target'])
+  elementScrollEvent(event: KeyboardEvent) {
+    if (this.scrollSelf) {
+      if (!this.scrollIsLoading) {
+        const currentScrolledY = this.el.nativeElement.scrollTop;
+
+        const scrollTopMax = this.el.nativeElement.scrollTopMax;
+
+        if (currentScrolledY >= scrollTopMax - this.thresholdScrollSelf) {
+          this.nearEnd.emit();
+        }
       }
     }
   }

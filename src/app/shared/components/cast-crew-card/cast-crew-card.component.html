@@ -1,12 +1,17 @@
-<mat-card appearance="outlined" class="w-auto h-full border-container">
-  <img
-    mat-card-image
+<mat-card appearance="outlined" class="h-full border-container">
+  <app-img
     [alt]="castCrew.name"
     [title]="castCrew.name"
-    [srcset]="card1or2xImgUrl"
-    [routerLink]="detailMediaPath"
-    loading="lazy"
-  />
+    [imgSrc]="castCrew.profile_path"
+    [width]="138"
+    [heigth]="175"
+    [placeholderKey]="'placeholder_w138_h175'"
+    [url1x]="TMDB_DETAIL_LIST_1X_IMG_URL"
+    [url2x]="TMDB_DETAIL_LIST_2X_IMG_URL"
+    [link]="detailMediaPath"
+    mat-card-image
+    [relativeSize]="28"
+  ></app-img>
 
   <mat-card-content class="card-content">
     <h2>

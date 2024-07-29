@@ -3,11 +3,16 @@
   <div class="m-2">
     <div style="display: flex">
       <div>
-        <img
-          [src]="originalImgUrl + selectPersonDetail.profile_path"
+        <app-img
+          [alt]="selectPersonDetail.name"
           [title]="selectPersonDetail.name"
-          class="cursor-default"
-        />
+          [imgSrc]="selectPersonDetail.profile_path"
+          [width]="300"
+          [heigth]="450"
+          [placeholderKey]="'placeholder_w300_h450'"
+          [url1x]="TMDB_PROFILE_1X_IMG_URL"
+          [url2x]="TMDB_PROFILE_2X_IMG_URL"
+        ></app-img>
       </div>
       <div>
         <h1>{{ selectPersonDetail.name }}</h1>
@@ -19,20 +24,15 @@
     </div>
   </div>
 
-  } @if(selectMovieList$ | async; as movieList){
-  <app-media-list-container
-    #movieListContainer
-    appScrollNearEnd
-    [minMaxCol]="140"
-    [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
-    [isLoading]="(selectIsLoading$ | async) ?? false"
-    [mediaList]="(selectMovieList$ | async) ?? []"
-    (nearEnd)="
-      movieListContainer.mediaList.length
-        ? discoveryAdditionalMovie(movieListContainer.mediaList.length)
-        : null
-    "
-    [mediaType]="'movie'"
-  ></app-media-list-container>
   }
+  <div class="mb-6">
+    <app-person-detail-movie-credits
+      [personId]="personId"
+    ></app-person-detail-movie-credits>
+  </div>
+  <div class="mb-6">
+    <app-person-detail-tv-credits
+      [personId]="personId"
+    ></app-person-detail-tv-credits>
+  </div>
 </section>

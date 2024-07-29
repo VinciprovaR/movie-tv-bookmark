@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AbstractMediaCard } from '../abstract/abstract-media-card.component';
+import { ImgComponent } from '../img/img.component';
 
 @Component({
   selector: 'app-tv-card',
@@ -21,6 +22,7 @@ import { AbstractMediaCard } from '../abstract/abstract-media-card.component';
     RouterModule,
     PercentPipe,
     MatIconModule,
+    ImgComponent,
   ],
   templateUrl: './tv-card.component.html',
   styleUrl: './tv-card.component.css',
@@ -39,7 +41,6 @@ export class TVCardComponent extends AbstractMediaCard implements OnInit {
 
   override ngOnInit(): void {
     this.buildDetailPath(this.tv.id);
-    this.buildCard1or2xImgUrl(this.tv.poster_path);
   }
 
   get voteAverage(): number | null {

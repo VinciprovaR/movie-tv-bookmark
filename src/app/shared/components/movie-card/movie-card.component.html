@@ -1,12 +1,16 @@
-<mat-card appearance="outlined" class="w-auto h-full border-container">
-  <img
+<mat-card appearance="outlined" class="h-full border-container">
+  <app-img
     mat-card-image
     [alt]="movie.title"
     [title]="movie.title"
-    [srcset]="card1or2xImgUrl"
-    [routerLink]="detailMediaPath"
-    loading="lazy"
-  />
+    [imgSrc]="movie.poster_path"
+    [placeholderKey]="'placeholder_w220_h330'"
+    [width]="220"
+    [heigth]="330"
+    [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
+    [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
+    [link]="detailMediaPath"
+  ></app-img>
 
   <app-lifecycle-selector
     (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
@@ -20,7 +24,7 @@
     [ngClass]="lifecycleStatusElement.key + '-color'"
     >{{ lifecycleStatusElement.label }}</span
   >
-  <mat-card-content class="card-content bg-transparent">
+  <mat-card-content class="card-content">
     <h2>
       <a [routerLink]="detailMediaPath" [title]="movie.title">{{
         movie.title
