@@ -9,7 +9,11 @@
       @for(cast of castList; track cast.id){
 
       <li class="list-none py-2 mx-2 sm:mx-0 w-[120px]">
+        @defer (on viewport) {
         <app-cast-crew-card [castCrew]="cast"> </app-cast-crew-card>
+        } @placeholder(){
+        <div></div>
+        }
       </li>
 
       }
@@ -22,7 +26,11 @@
     >
       @for(crew of crewList ; track crew.id){
       <li class="list-none py-2 mx-2 sm:mx-0 w-[120px]">
+        @defer (on viewport) {
         <app-cast-crew-card [castCrew]="crew"> </app-cast-crew-card>
+        } @placeholder(){
+        <div></div>
+        }
       </li>
       }
     </ul>

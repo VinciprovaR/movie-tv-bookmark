@@ -13,12 +13,16 @@
   >
     @for(media of mediaList; track media.id){
     <li class="list-none w-full">
+      @defer (on viewport) {
       <ng-container
         *ngComponentOutlet="
           mediaItemComponents[mediaType];
           inputs: { mediaType, index: $index, media: media }
         "
       />
+      } @placeholder(){
+      <div></div>
+      }
     </li>
     }
   </ul>

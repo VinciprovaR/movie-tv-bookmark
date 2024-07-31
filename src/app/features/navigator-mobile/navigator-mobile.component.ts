@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -10,11 +10,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './navigator-mobile.component.html',
   styleUrl: './navigator-mobile.component.css',
 })
-export class NavigatorMobileComponent {
+export class NavigatorMobileComponent implements OnInit {
   @Input({ required: true })
   navElements!: NavElements;
   @Input({ required: true })
   hiddenNavMenu: boolean = true;
 
   constructor() {}
+  ngOnInit(): void {}
 }

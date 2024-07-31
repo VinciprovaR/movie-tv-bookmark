@@ -26,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavigatorMobileComponent } from '../../../features/navigator-mobile/navigator-mobile.component';
 import { NavigatorDesktopComponent } from '../../../features/navigator-desktop/navigator-desktop.component';
 import { HEADER_NAV_ELEMENTS } from '../../../providers';
+import { PageEventService } from '../../services/page-event.service';
 
 @Component({
   selector: 'app-header',
@@ -51,6 +52,7 @@ export class HeaderComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly el: ElementRef<HTMLElement> = inject(ElementRef);
   readonly navElements = inject(HEADER_NAV_ELEMENTS);
+  readonly pageEventService = inject(PageEventService);
 
   destroyed$ = new Subject();
   isUserAuthenticated$!: Observable<boolean>;

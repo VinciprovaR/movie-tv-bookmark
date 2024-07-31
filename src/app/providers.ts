@@ -36,6 +36,12 @@ export const IMG_SIZES = {
   TMDB_SEARCH_LIST_2X_IMG_URL: new InjectionToken<string>(
     'TMDB_SEARCH_LIST_2X_IMG_URL'
   ),
+  TMDB_MULTI_FACE_1X_IMG_URL: new InjectionToken<string>(
+    'TMDB_MULTI_FACE_1X_IMG_URL'
+  ),
+  TMDB_MULTI_FACE_2X_IMG_URL: new InjectionToken<string>(
+    'TMDB_MULTI_FACE_2X_IMG_URL'
+  ),
 };
 
 export const I18E = new InjectionToken<string>('I18E');
@@ -92,6 +98,14 @@ export function provideImgUrl() {
     {
       provide: IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w440_and_h660_face',
+    },
+    {
+      provide: IMG_SIZES.TMDB_MULTI_FACE_2X_IMG_URL,
+      useValue: 'https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces',
+    },
+    {
+      provide: IMG_SIZES.TMDB_MULTI_FACE_1X_IMG_URL,
+      useValue: 'https://media.themoviedb.org/t/p/w1000_and_h450_multi_faces',
     },
   ];
 }

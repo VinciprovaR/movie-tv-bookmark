@@ -77,7 +77,7 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
     });
   }
   ngAfterViewInit(): void {
-    this.discoveryMovieLanding();
+    //    this.discoveryMovieLanding();
   }
 
   ngOnInit(): void {

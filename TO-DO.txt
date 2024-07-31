@@ -48,6 +48,11 @@
 - far funzionare bene 1x 2x immagini
 - immagini placeholder da cambiare + su smarthphone sono troppo piccole
 - header giu su dopo n y scroll
+- movie discovery (controllare tv) si perde lo state dei movie caricati additional
+- troppi chunk al primo atterraggio
+-click fuori chiude sub menu header mobile
+- check for @defer
+- tutto ciò che è in hidden con css @if non renderizzato
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

@@ -9,6 +9,7 @@ import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AbstractMediaCard } from '../abstract/abstract-media-card.component';
 import { ImgComponent } from '../img/img.component';
+import { RatingComponent } from '../rating/rating.component';
 
 @Component({
   selector: 'app-movie-card',
@@ -23,6 +24,7 @@ import { ImgComponent } from '../img/img.component';
     PercentPipe,
     MatIconModule,
     ImgComponent,
+    RatingComponent,
   ],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.css',

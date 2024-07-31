@@ -1,16 +1,17 @@
-<mat-card appearance="outlined" class="w-auto h-full border-container">
-  <app-img
-    [alt]="person.name"
-    [title]="person.name"
-    [imgSrc]="person.profile_path"
-    [width]="220"
-    [heigth]="330"
-    [placeholderKey]="'placeholder_w220_h330'"
-    [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
-    [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
-    [link]="detailMediaPath"
-  ></app-img>
-  <mat-card-content class="card-content">
+@defer (on viewport) {
+<div class="h-full border-container flex box-border flex-col">
+  <div class="w-full h-auto aspect-[2/3]">
+    <app-img
+      [alt]="person.name"
+      [title]="person.name"
+      [imgSrc]="person.profile_path"
+      [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
+      [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
+      [link]="detailMediaPath"
+      [borderClass]="'border-img-card'"
+    ></app-img>
+  </div>
+  <div class="card-content">
     <h2>
       <a [routerLink]="detailMediaPath" [title]="person.name">{{
         person.name
@@ -34,5 +35,8 @@
 
       } }
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
+} @placeholder(){
+<div></div>
+}

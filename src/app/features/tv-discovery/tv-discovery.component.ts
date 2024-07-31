@@ -64,7 +64,7 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
     private bridgeDataService: BridgeDataService
   ) {}
   ngAfterViewInit(): void {
-    this.discoveryTVLanding();
+    // this.discoveryTVLanding();
   }
 
   ngOnInit(): void {

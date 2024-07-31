@@ -1,25 +1,64 @@
-<section class="w-full md:w-[90%] m-auto pt-[70px] mb-20">
+<section class="w-full m-auto pt-[60px] max-w-screen-3xl mb-20 overflow-hidden">
   @if(movieDetail$ | async; as movieDetail){
 
-  <div class="w-[90%] flex">
-    <div>
-      <app-img
-        [alt]="movieDetail.title"
-        [title]="movieDetail.title"
-        [imgSrc]="movieDetail.poster_path"
-        [width]="300"
-        [heigth]="450"
-        [placeholderKey]="'placeholder_w300_h450'"
-        [url1x]="TMDB_PROFILE_1X_IMG_URL"
-        [url2x]="TMDB_PROFILE_2X_IMG_URL"
-      ></app-img>
-    </div>
-    <div>
-      <h1>{{ movieDetail.title }}</h1>
-      <h3>{{ movieDetail.tagline }}</h3>
-      <p>{{ movieDetail.overview }}</p>
+  <div
+    id="header-detail"
+    class="bg-cover bg-no-repeat bg-center items-center overflow-hidden h-[40vh] flex lg:h-[85vh]"
+    [ngStyle]="{
+      'background-image':
+        'url(' + TMDB_MULTI_FACE_2X_IMG_URL + movieDetail.backdrop_path + ')'
+    }"
+  >
+    <div
+      class="movie-header-overlay flex flex-row header-gradient h-full w-full justify-center"
+    >
+      <div class="h-[80%] lg:h-[95%] aspect-[2/3] w-xxxsm my-auto">
+        <app-img
+          [alt]="movieDetail.title"
+          [title]="movieDetail.title"
+          [imgSrc]="movieDetail.poster_path"
+          [url1x]="TMDB_PROFILE_2X_IMG_URL"
+          [url2x]="TMDB_PROFILE_2X_IMG_URL"
+          [priority]="true"
+          [borderClass]="'border-container-no-color'"
+        ></app-img>
+      </div>
+
+      <!-- Movie detail content -->
+      @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
+      <div class="hidden lg:block">
+        <app-media-detail-content
+          [voteAverage]="movieDetail.vote_average"
+          [mediaTitle]="movieDetail.title"
+          [crewList]="movieDetail.crew"
+          [castList]="movieDetail.cast.slice(0, 5)"
+          [genres]="movieDetail.genres"
+          [overview]="movieDetail.overview"
+          [releaseDate]="movieDetail.release_date"
+          [runtime]="movieDetail.runtime"
+          [tagLine]="movieDetail.tagline"
+        ></app-media-detail-content>
+      </div>
+      }
     </div>
   </div>
+  @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
+  <div class="block lg:hidden h-full">
+    <app-media-detail-content
+      [voteAverage]="movieDetail.vote_average"
+      [mediaTitle]="movieDetail.title"
+      [crewList]="movieDetail.crew"
+      [castList]="movieDetail.cast.slice(0, 5)"
+      [genres]="movieDetail.genres"
+      [overview]="movieDetail.overview"
+      [releaseDate]="movieDetail.release_date"
+      [runtime]="movieDetail.runtime"
+      [tagLine]="movieDetail.tagline"
+    ></app-media-detail-content>
+  </div>
+
+  }
+
   <div class="mb-10">
     <app-cast-crew-list-container
       [isLoading]="(isLoading$ | async) ?? false"

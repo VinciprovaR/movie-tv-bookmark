@@ -1,16 +1,15 @@
-<mat-card appearance="outlined" class="h-full border-container">
-  <app-img
-    mat-card-image
-    [alt]="movie.title"
-    [title]="movie.title"
-    [imgSrc]="movie.poster_path"
-    [placeholderKey]="'placeholder_w220_h330'"
-    [width]="220"
-    [heigth]="330"
-    [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
-    [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
-    [link]="detailMediaPath"
-  ></app-img>
+<div class="h-full border-container flex box-border flex-col relative">
+  <div class="w-full h-auto aspect-[2/3]">
+    <app-img
+      [alt]="movie.title"
+      [title]="movie.title"
+      [imgSrc]="movie.poster_path"
+      [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
+      [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
+      [link]="detailMediaPath"
+      [borderClass]="'border-img-card'"
+    ></app-img>
+  </div>
 
   <app-lifecycle-selector
     (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
@@ -24,7 +23,7 @@
     [ngClass]="lifecycleStatusElement.key + '-color'"
     >{{ lifecycleStatusElement.label }}</span
   >
-  <mat-card-content class="card-content">
+  <div class="card-content">
     <h2>
       <a [routerLink]="detailMediaPath" [title]="movie.title">{{
         movie.title
@@ -35,18 +34,8 @@
         {{ movie.release_date | date : "longDate" }}
       </p>
       @if(voteAverage){
-      <div class="flex flex-wrap items-center space-x-1">
-        <span>{{ voteAverage / 10 | percent }}</span>
-        <mat-icon
-          aria-hidden="false"
-          [fontIcon]="getVoteIconMetadata(voteAverage).icon"
-          [ngClass]="{
-            'text-red-600': getVoteIconMetadata(voteAverage).color === 'red',
-            'text-green-600': getVoteIconMetadata(voteAverage).color === 'green'
-          }"
-        ></mat-icon>
-      </div>
+      <app-rating [voteAverage]="voteAverage"></app-rating>
       }
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>

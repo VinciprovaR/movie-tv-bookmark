@@ -1,0 +1,16 @@
+<div class="flex flex-wrap items-center space-x-1">
+  <mat-icon
+    aria-hidden="false"
+    [fontIcon]="'star_rate'"
+    class="text-yellow-500"
+  ></mat-icon>
+  <span class="mt-1">{{ voteAverage.toPrecision(2) }}/10</span>
+  <!-- <mat-icon
+    aria-hidden="false"
+    [fontIcon]="getVoteIconMetadata(voteAverage).icon"
+    [ngClass]="{
+      'text-red-600': getVoteIconMetadata(voteAverage).color === 'red',
+      'text-green-600': getVoteIconMetadata(voteAverage).color === 'green'
+    }"
+  ></mat-icon> -->
+</div>

@@ -23,12 +23,8 @@ import { IMG_SIZES } from '../../providers';
   styleUrl: './person-detail.component.css',
 })
 export class PersonDetailComponent implements OnInit {
-  protected readonly TMDB_PROFILE_1X_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_1X_IMG_URL
-  );
-  protected readonly TMDB_PROFILE_2X_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_2X_IMG_URL
-  );
+  readonly TMDB_PROFILE_1X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_1X_IMG_URL);
+  readonly TMDB_PROFILE_2X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_2X_IMG_URL);
   private readonly destroyRef$ = inject(DestroyRef);
 
   private readonly personDetailStore = inject(PersonDetailStore);

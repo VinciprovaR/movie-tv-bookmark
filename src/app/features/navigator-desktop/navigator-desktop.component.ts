@@ -10,14 +10,13 @@ import {
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { CommonModule } from '@angular/common';
 import {
-  ActivatedRoute,
   NavigationEnd,
   NavigationStart,
   Router,
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
-import { filter, map, Observable, Subject, takeUntil } from 'rxjs';
+import { filter, map, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-navigator-desktop',
@@ -31,7 +30,6 @@ export class NavigatorDesktopComponent implements OnInit {
   private readonly rendererFactory = inject(RendererFactory2);
   private readonly destroyRef$ = inject(DestroyRef);
   private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
 
   destroyed$ = new Subject();
   urlAfterRedirects!: string;

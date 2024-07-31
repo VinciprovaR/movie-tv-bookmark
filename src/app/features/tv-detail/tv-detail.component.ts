@@ -21,12 +21,8 @@ import { IMG_SIZES } from '../../providers';
   styleUrl: './tv-detail.component.css',
 })
 export class TVDetailComponent {
-  protected readonly TMDB_PROFILE_1X_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_1X_IMG_URL
-  );
-  protected readonly TMDB_PROFILE_2X_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_2X_IMG_URL
-  );
+  readonly TMDB_PROFILE_1X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_1X_IMG_URL);
+  readonly TMDB_PROFILE_2X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_2X_IMG_URL);
 
   readonly tvDetailstore = inject(TVDetailStore);
 

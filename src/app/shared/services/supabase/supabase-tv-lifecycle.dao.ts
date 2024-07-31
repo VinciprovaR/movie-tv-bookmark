@@ -1,14 +1,10 @@
 import { inject, Inject, Injectable } from '@angular/core';
-import {
-  PostgrestSingleResponse,
-  SupabaseClient,
-  User,
-} from '@supabase/supabase-js';
+import { PostgrestSingleResponse, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
-import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
+
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
 import { PayloadTVLifecycle } from '../../interfaces/store/tv-lifecycle-state.interface';
 
@@ -43,7 +39,6 @@ export class SupabaseTVLifecycleDAO {
         .in(`tv_id`, tvIdList)
     ).pipe(
       map((result: PostgrestSingleResponse<TV_Life_Cycle[]>) => {
-        console.log(result);
         if (result.error) throw new Error(result.error.message);
         return result.data;
       })

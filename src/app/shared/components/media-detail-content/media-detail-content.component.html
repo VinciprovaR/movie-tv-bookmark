@@ -1,0 +1,57 @@
+<div
+  class="p-4 lg:p-8 lg:text-[var(--text-color-light)] text-[var(--text-color)] space-y-10"
+>
+  <div class="space-y-1">
+    <h1 class="text-3xl">{{ mediaTitle }}</h1>
+    <p>Release Date: {{ releaseDate }}</p>
+    <p>
+      Genre: @for(genre of genres; track genre.id){ {{ genre.name }}@if($index
+      != genres.length-1){, } }
+    </p>
+
+    <p class="">Duration: {{ runtime | formatMinutes }}</p>
+    <div class="mt-1">
+      <app-rating [voteAverage]="voteAverage"></app-rating>
+    </div>
+  </div>
+
+  <div id="description" class="space-y-1">
+    <h2 class="text-xl">Overview</h2>
+    <p class="font-medium text-gray-400 italic">{{ tagLine }}</p>
+    <p>
+      {{ overview }}
+    </p>
+  </div>
+  <!-- Actors -->
+  <div
+    class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(180px,_1fr))] gap-4"
+  >
+    @for(mainCast of mainCastList | keyvalue; track mainCast){
+    <div class="">
+      <h2 class="text-lg font-semibold">{{ mainCast.value.name }}</h2>
+      <p>{{ mainCast.value.character }}</p>
+    </div>
+    }
+  </div>
+  <!-- Jobs -->
+  <div
+    class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(180px,_1fr))] gap-4"
+  >
+    @for(mainCrew of mainCrewList | keyvalue; track mainCrew){
+    <div class="">
+      <h2 class="text-lg font-semibold">{{ mainCrew.value.name }}</h2>
+      <p>{{ mainCrew.value.job }}</p>
+    </div>
+    }
+  </div>
+
+  <!-- Jobs -->
+  <!-- <div class="flex justify-between flex-wrap mb-4">
+    @for(mainCrew of mainCrewList | keyvalue; track mainCrew){
+    <div class="">
+      <h2 class="text-lg font-semibold">{{ mainCrew.value.name }}</h2>
+      <p>{{ mainCrew.value.job }}</p>
+    </div>
+    }
+  </div> -->
+</div>

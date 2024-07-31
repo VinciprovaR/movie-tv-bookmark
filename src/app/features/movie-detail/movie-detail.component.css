@@ -1,0 +1,35 @@
+.color-bg-detail {
+  background-image: linear-gradient(
+    to right,
+    rgba(52.5, 10.5, 199.5, 1) calc((50vw - 170px) - 340px),
+    rgba(52.5, 10.5, 199.5, 0.84) 50%,
+    rgba(52.5, 10.5, 199.5, 0.84) 100%
+  );
+}
+@media (min-width: 1024px) {
+  .header-gradient {
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-color-header-detail-a),
+      var(--gradient-color-header-detail-b)
+    );
+    inset: 0;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 205px) {
+  .w-xxxsm {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .no-background-header {
+    background-image: none !important;
+  }
+
+  .movie-header-overlay {
+    background-color: var(--color-header-detail-sm);
+  }
+}

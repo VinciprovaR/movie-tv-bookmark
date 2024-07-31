@@ -1,19 +1,17 @@
-<mat-card appearance="outlined" class="h-full border-container">
-  <app-img
-    [alt]="castCrew.name"
-    [title]="castCrew.name"
-    [imgSrc]="castCrew.profile_path"
-    [width]="138"
-    [heigth]="175"
-    [placeholderKey]="'placeholder_w138_h175'"
-    [url1x]="TMDB_DETAIL_LIST_1X_IMG_URL"
-    [url2x]="TMDB_DETAIL_LIST_2X_IMG_URL"
-    [link]="detailMediaPath"
-    mat-card-image
-    [relativeSize]="28"
-  ></app-img>
+<div class="h-full border-container flex box-border flex-col">
+  <div class="w-full h-auto aspect-[3/4]">
+    <app-img
+      [alt]="castCrew.name"
+      [title]="castCrew.name"
+      [imgSrc]="castCrew.profile_path"
+      [url1x]="TMDB_DETAIL_LIST_1X_IMG_URL"
+      [url2x]="TMDB_DETAIL_LIST_2X_IMG_URL"
+      [link]="detailMediaPath"
+      [borderClass]="'border-img-card'"
+    ></app-img>
+  </div>
 
-  <mat-card-content class="card-content">
+  <div class="card-content">
     <h2>
       <a [routerLink]="detailMediaPath" [title]="castCrew.name">{{
         castCrew.name
@@ -27,5 +25,5 @@
       <p id="sub-text">{{ castCrew.job }}</p>
       }
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
