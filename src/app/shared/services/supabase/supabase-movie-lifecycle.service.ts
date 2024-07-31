@@ -1,7 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '@supabase/supabase-js';
 import { Observable, map, switchMap, of } from 'rxjs';
-import { Movie, MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
+import {
+  Movie,
+  MovieDetail,
+  MovieResult,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 import {
   Movie_Data,
@@ -32,7 +36,7 @@ export class SupabaseMovieLifecycleService {
   constructor() {}
 
   initMovieLifecycleMapFromMovieResultTMDB(
-    movieList: Movie_Data[]
+    movieList: Movie[] | Movie_Data[] | MovieDetail[]
   ): Observable<MovieLifecycleMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(movieList);
     return this.supabaseMovieLifecycleDAO

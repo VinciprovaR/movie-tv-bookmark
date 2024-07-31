@@ -14,6 +14,20 @@
       <app-rating [voteAverage]="voteAverage"></app-rating>
     </div>
   </div>
+  <div class="relative">
+    <app-lifecycle-selector
+      (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
+      [mediaData]="mediaData"
+      [index]="0"
+      [mediaType]="'movie'"
+    ></app-lifecycle-selector>
+
+    <span
+      class="font-bold text-sm flex justify-center bg-neutral-900"
+      [ngClass]="lifecycleStatusElement.key + '-color'"
+      >{{ lifecycleStatusElement.label }}</span
+    >
+  </div>
 
   <div id="description" class="space-y-1">
     <h2 class="text-xl">Overview</h2>

@@ -21,6 +21,8 @@ export class ImgComponent implements OnInit {
   @Input({ required: true })
   url2x!: string;
   @Input()
+  state: any;
+  @Input()
   isPlaceholderPerson: boolean = false;
   @Input()
   alt: string = '';

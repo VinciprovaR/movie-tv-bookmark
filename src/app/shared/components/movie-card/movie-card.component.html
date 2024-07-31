@@ -7,6 +7,7 @@
       [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
       [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
       [link]="detailMediaPath"
+      [state]="movie"
       [borderClass]="'border-img-card'"
     ></app-img>
   </div>
@@ -23,9 +24,10 @@
     [ngClass]="lifecycleStatusElement.key + '-color'"
     >{{ lifecycleStatusElement.label }}</span
   >
+
   <div class="card-content">
     <h2>
-      <a [routerLink]="detailMediaPath" [title]="movie.title">{{
+      <a [routerLink]="[detailMediaPath]" [title]="movie.title">{{
         movie.title
       }}</a>
     </h2>

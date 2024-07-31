@@ -2,7 +2,7 @@ import { lifecycleEnum } from '../supabase-lifecycle.interface';
 
 export interface MediaLifecycleDTO<T> {
   lifecycleEnum: lifecycleEnum;
-  index: number;
+  // index: number;
   mediaDataDTO: T;
 }
 

@@ -1,17 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { RatingComponent } from '../rating/rating.component';
 import { Genre } from '../../interfaces/TMDB/tmdb-filters.interface';
-import { Cast, Crew } from '../../interfaces/TMDB/tmdb-media.interface';
+import {
+  Cast,
+  Crew,
+  MediaCredit,
+  MovieDetail,
+  TVDetail,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { FormatMinutesPipe } from '../../pipes/format-minutes.pipe';
+import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
+import { Store } from '@ngrx/store';
+import { Subject, takeUntil } from 'rxjs';
+import { BridgeDataService } from '../../services/bridge-data.service';
+import { MovieLifecycleSelectors } from '../../store/movie-lifecycle';
 @Component({
   selector: 'app-media-detail-content',
   standalone: true,
-  imports: [CommonModule, RatingComponent, FormatMinutesPipe],
+  imports: [
+    CommonModule,
+    RatingComponent,
+    FormatMinutesPipe,
+    LifecycleSelectorComponent,
+  ],
   templateUrl: './media-detail-content.component.html',
   styleUrl: './media-detail-content.component.css',
 })
 export class MediaDetailContentComponent implements OnInit {
+  @Input({ required: true })
+  mediaData!: (MovieDetail & MediaCredit) | (TVDetail & MediaCredit);
   @Input({ required: true })
   mediaTitle: string = '';
   @Input({ required: true })
@@ -30,6 +48,8 @@ export class MediaDetailContentComponent implements OnInit {
   castList: Cast[] = [];
   @Input()
   voteAverage: number = 0;
+
+  lifecycleStatusElement: any;
 
   mainCrewList: { [key: number]: { name: string; job: string } } = {};
   mainCastList: { [key: number]: { name: string; character: string } } = {};
@@ -70,7 +90,9 @@ export class MediaDetailContentComponent implements OnInit {
         ].character.concat(`, ${cast.character}`);
       }
     });
+  }
 
-    console.log(this.mainCastList);
+  setLifecycleStatusElement(lifecycleStatusElement: any) {
+    this.lifecycleStatusElement = lifecycleStatusElement;
   }
 }

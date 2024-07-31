@@ -18,8 +18,10 @@ import {
 import {
   MediaType,
   Movie,
+  MovieDetail,
   MovieResult,
   TV,
+  TVDetail,
   TVResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 
@@ -107,7 +109,13 @@ export class SupabaseUtilsService {
   }
 
   buildMediaIdListMap(
-    mediaResult: Movie[] | TV[] | Movie_Data[] | TV_Data[]
+    mediaResult:
+      | Movie[]
+      | TV[]
+      | Movie_Data[]
+      | TV_Data[]
+      | MovieDetail[]
+      | TVDetail[]
   ): number[] {
     let mediaIdList: number[] = [];
     for (let i = 0; i < mediaResult.length; i++) {

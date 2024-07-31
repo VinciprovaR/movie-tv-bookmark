@@ -37,6 +37,9 @@ import {
 export class MovieSearchComponent implements OnInit {
   title = 'Movie Search';
 
+  private readonly store = inject(Store);
+  private readonly bridgeDataService = inject(BridgeDataService);
+
   movieListLength: number = 0;
   mediaType: MediaType = 'movie';
 
@@ -46,10 +49,7 @@ export class MovieSearchComponent implements OnInit {
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
 
-  constructor(
-    private store: Store,
-    private bridgeDataService: BridgeDataService
-  ) {
+  constructor() {
     inject(DestroyRef).onDestroy(() => {
       this.destroyed$.next(true);
       this.destroyed$.complete();

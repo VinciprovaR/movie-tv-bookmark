@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { Movie, MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
+import {
+  Movie,
+  MovieDetail,
+  MovieResult,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 
 import { AuthSelectors } from '../auth';
@@ -21,6 +25,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
 import { creditsMovieSuccessPersonDetail } from '../component-store/person-detail-movie-credits-store.service';
+import { movieDetailSuccess } from '../component-store/movie-detail-store.service';
 
 @Injectable()
 export class MovieLifecycleEffects {
@@ -66,6 +71,32 @@ export class MovieLifecycleEffects {
         let { movieResult }: { movieResult: MovieResult } = action;
         return this.supabaseMovieLifecycleService
           .initMovieLifecycleMapFromMovieResultTMDB(movieResult.results)
+          .pipe(
+            map((movieLifecycleMapResult: MovieLifecycleMap) => {
+              return MovieLifecycleActions.populateMovieLifecycleMapSuccess({
+                movieLifecycleMap: movieLifecycleMapResult,
+              });
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of(
+                MovieLifecycleActions.populateMovieLifecycleMapFailure({
+                  httpErrorResponse,
+                })
+              );
+            })
+          );
+      })
+    );
+  });
+
+  initMovieLifecycleMapDetail$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(movieDetailSuccess),
+      switchMap((action) => {
+        let { movieDetail }: { movieDetail: MovieDetail } = action;
+        console.log(movieDetail);
+        return this.supabaseMovieLifecycleService
+          .initMovieLifecycleMapFromMovieResultTMDB([movieDetail])
           .pipe(
             map((movieLifecycleMapResult: MovieLifecycleMap) => {
               return MovieLifecycleActions.populateMovieLifecycleMapSuccess({

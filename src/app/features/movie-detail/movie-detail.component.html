@@ -28,6 +28,7 @@
       @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
       <div class="hidden lg:block">
         <app-media-detail-content
+          [mediaData]="movieDetail"
           [voteAverage]="movieDetail.vote_average"
           [mediaTitle]="movieDetail.title"
           [crewList]="movieDetail.crew"
@@ -45,6 +46,7 @@
   @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
   <div class="block lg:hidden h-full">
     <app-media-detail-content
+      [mediaData]="movieDetail"
       [voteAverage]="movieDetail.vote_average"
       [mediaTitle]="movieDetail.title"
       [crewList]="movieDetail.crew"

@@ -5,7 +5,14 @@ import {
   MovieLifecycleMap,
   TVLifecycleMap,
 } from '../interfaces/supabase/supabase-lifecycle.interface';
-import { MediaType, Movie, TV } from '../interfaces/TMDB/tmdb-media.interface';
+import {
+  MediaCredit,
+  MediaType,
+  Movie,
+  MovieDetail,
+  TV,
+  TVDetail,
+} from '../interfaces/TMDB/tmdb-media.interface';
 import { Movie_Data, TV_Data } from '../interfaces/supabase/entities';
 
 //to-do refractor with signals?
@@ -42,7 +49,14 @@ export class BridgeDataService {
 
   pushInputLifecycleOptions(
     mediaType: MediaType,
-    mediaLifecycleDTO: MediaLifecycleDTO<TV | Movie | Movie_Data | TV_Data>
+    mediaLifecycleDTO: MediaLifecycleDTO<
+      | TV
+      | Movie
+      | Movie_Data
+      | TV_Data
+      | (MovieDetail & MediaCredit)
+      | (TVDetail & MediaCredit)
+    >
   ) {
     if (mediaType === 'movie') {
       let mediaLifecycleDTOMovie =

@@ -16,6 +16,10 @@ export interface MovieDetailState extends StateMediaBookmark {
   movieDetail: (MovieDetail & MediaCredit) | null;
 }
 
+export const movieDetailSuccess = createAction(
+  '[Movie-Detail/API] Movie Detail Success',
+  props<{ movieDetail: MovieDetail }>()
+);
 export const movieDetailFailure = createAction(
   '[Movie-Detail/API] Movie Detail Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
@@ -79,6 +83,7 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
           switchMap((movieDetail: MovieDetail) => {
             return this.TMDBMovieDetailService.movieCredit(movieId).pipe(
               tap((movieCredit: MediaCredit) => {
+                this.store.dispatch(movieDetailSuccess({ movieDetail }));
                 this.addMovieDetailSuccess({ movieDetail, movieCredit });
               })
             );

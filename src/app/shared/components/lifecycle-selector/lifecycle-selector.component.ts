@@ -28,9 +28,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { BridgeDataService } from '../../services/bridge-data.service';
 import { LifecycleOption } from '../../interfaces/supabase/DTO';
 import {
+  MediaCredit,
   MediaType,
   Movie,
+  MovieDetail,
   TV,
+  TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 
 import { Store } from '@ngrx/store';
@@ -65,7 +68,13 @@ export class LifecycleSelectorComponent implements OnInit {
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
-  mediaData!: Movie | TV | Movie_Data | TV_Data;
+  mediaData!:
+    | Movie
+    | TV
+    | Movie_Data
+    | TV_Data
+    | (MovieDetail & MediaCredit)
+    | (TVDetail & MediaCredit);
 
   idItem!: string;
 
@@ -143,11 +152,8 @@ export class LifecycleSelectorComponent implements OnInit {
         })
       )
       .subscribe((lifecycleEnum: lifecycleEnum) => {
-        this.setLifecycleStatus(lifecycleEnum);
-        this.lifecycleControl.setValue(
-          lifecycleEnum ? lifecycleEnum : this.defaultLifecycle,
-          { emitEvent: false }
-        );
+        this.updatedLifecycleChange(lifecycleEnum);
+        this.updateControlValue(lifecycleEnum);
       });
   }
 
@@ -156,25 +162,32 @@ export class LifecycleSelectorComponent implements OnInit {
       nonNullable: true,
     });
 
-    this.setLifecycleStatus('noLifecycle');
+    this.updatedLifecycleChange('noLifecycle');
 
     this.lifecycleControl.valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((lifecycleEnum) => {
-        this.setLifeCycle(lifecycleEnum);
+        this.notifyLifecycleChange(lifecycleEnum);
       });
   }
 
-  setLifeCycle(lifecycleEnum: lifecycleEnum) {
+  notifyLifecycleChange(lifecycleEnum: lifecycleEnum) {
     this.bridgeDataService.pushInputLifecycleOptions(this.mediaType, {
       mediaDataDTO: this.mediaData,
       lifecycleEnum: lifecycleEnum,
-      index: this.index,
+      // index: this.index,
     });
   }
 
-  setLifecycleStatus(lifecycleEnum: lifecycleEnum) {
+  updatedLifecycleChange(lifecycleEnum: lifecycleEnum) {
     this.lifecycleStatusElement = this.lifecycleStatusList[lifecycleEnum];
     this.lifecycleStatusElementEmitter.emit(this.lifecycleStatusElement);
+  }
+
+  updateControlValue(lifecycleEnum: lifecycleEnum) {
+    this.lifecycleControl.setValue(
+      lifecycleEnum ? lifecycleEnum : this.defaultLifecycle,
+      { emitEvent: false }
+    );
   }
 }
