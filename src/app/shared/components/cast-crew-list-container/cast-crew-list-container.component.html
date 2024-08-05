@@ -1,39 +1,17 @@
-@if((castList && castList.length >0) && (crewList &&crewList.length >0)){
-
 <div class="box-border">
-  <div class="mt-6">
-    <h1 class="mx-2 sm:mx-0">Cast</h1>
-    <ul
-      class="grid grid-flow-col gap-1 sm:gap-2 p-0 my-0 overflow-x-scroll overflow-y-hidden"
-    >
-      @for(cast of castList; track cast.id){
+  <ul
+    class="grid grid-flow-col grid-columns gap-4 sm:gap-6 p-0 my-0 overflow-x-scroll overflow-y-hidden"
+  >
+    @for(castCrew of castCrewList; track castCrew.id){
 
-      <li class="list-none py-2 mx-2 sm:mx-0 w-[120px]">
-        @defer (on viewport) {
-        <app-cast-crew-card [castCrew]="cast"> </app-cast-crew-card>
-        } @placeholder(){
-        <div></div>
-        }
-      </li>
+    <li class="list-none py-2 mx-2 sm:mx-0 w-full">
+      @defer (on viewport) {
+      <app-cast-crew-card [castCrew]="castCrew"> </app-cast-crew-card>
+      } @placeholder(){
+      <div></div>
+      }
+    </li>
 
-      }
-    </ul>
-  </div>
-  <div class="mt-6">
-    <h1 class="mx-2 sm:mx-0">Crew</h1>
-    <ul
-      class="grid grid-flow-col gap-1 sm:gap-2 p-0 m-0 overflow-x-scroll overflow-y-hidden"
-    >
-      @for(crew of crewList ; track crew.id){
-      <li class="list-none py-2 mx-2 sm:mx-0 w-[120px]">
-        @defer (on viewport) {
-        <app-cast-crew-card [castCrew]="crew"> </app-cast-crew-card>
-        } @placeholder(){
-        <div></div>
-        }
-      </li>
-      }
-    </ul>
-  </div>
+    }
+  </ul>
 </div>
-}

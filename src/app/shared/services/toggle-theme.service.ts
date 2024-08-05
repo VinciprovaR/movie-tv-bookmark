@@ -1,13 +1,18 @@
 import { DOCUMENT } from '@angular/common';
 import { inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { WebStorageService } from './web-storage.service';
+import { THEME_KEY_LOCAL_STORAGE } from '../../providers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToggleThemeService {
   private readonly document = inject(DOCUMENT);
+  private readonly webStorageService = inject(WebStorageService);
   readonly renderer!: Renderer2;
   private readonly rendererFactory = inject(RendererFactory2);
+  private readonly THEME_KEY_LOCAL_STORAGE = inject(THEME_KEY_LOCAL_STORAGE);
+
   constructor() {
     this.renderer = this.rendererFactory.createRenderer(null, null);
   }
@@ -18,6 +23,11 @@ export class ToggleThemeService {
     } else {
       this.removeDarkTheme();
     }
+
+    this.webStorageService.saveitem({
+      key: this.THEME_KEY_LOCAL_STORAGE,
+      value: isDarkTheme.toString(),
+    });
   }
 
   private setDarkTheme() {

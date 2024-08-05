@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { I18E, TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
+import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 import {
   Certification,
   CertificationResult,
@@ -17,7 +17,6 @@ export class TMDBFilterMediaService {
   tmdbApiKey: string = inject(TMDB_API_KEY);
   tmdbBaseUrl: string = inject(TMDB_BASE_URL);
   httpClient = inject(HttpClient);
-  i18e: string = inject(I18E);
 
   constructor() {}
 
@@ -41,7 +40,7 @@ export class TMDBFilterMediaService {
       .pipe(
         map((certificationResult: CertificationResult) => {
           //to-do i18e inietta origin
-          return certificationResult.certifications[this.i18e];
+          return certificationResult.certifications['US'];
         })
       );
   }

@@ -4,7 +4,7 @@ import {
   lifecycleEnum,
   MovieLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
-import { Movie } from '../../interfaces/TMDB/tmdb-media.interface';
+import { Movie, MovieDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import {
   Movie_Data,
   Movie_Life_Cycle,
@@ -29,7 +29,9 @@ export const populateMovieLifecycleMapFailure = createAction(
 //CRUD lifecycle
 export const createUpdateDeleteMovieLifecycle = createAction(
   '[Movie-Lifecycle] Create or Update or Delete Movie Lifecycle Init',
-  props<{ mediaLifecycleDTO: MediaLifecycleDTO<Movie> }>()
+  props<{
+    mediaLifecycleDTO: MediaLifecycleDTO<Movie | MovieDetail | Movie_Data>;
+  }>()
 );
 export const createUpdateDeleteMovieLifecycleFailure = createAction(
   '[Movie-Lifecycle] Create or Update or Delete Movie Lifecycle Failure & Notify',

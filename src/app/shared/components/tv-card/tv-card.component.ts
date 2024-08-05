@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AbstractMediaCard } from '../abstract/abstract-media-card.component';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
+import { LifecycleStatusLabelComponent } from '../lifecycle-status-label/lifecycle-status-label.component';
 
 @Component({
   selector: 'app-tv-card',
@@ -25,6 +26,7 @@ import { RatingComponent } from '../rating/rating.component';
     MatIconModule,
     ImgComponent,
     RatingComponent,
+    LifecycleStatusLabelComponent,
   ],
   templateUrl: './tv-card.component.html',
   styleUrl: './tv-card.component.css',

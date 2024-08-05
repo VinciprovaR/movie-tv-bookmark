@@ -247,3 +247,20 @@ export interface PersonDetailTVCredits {
   crew: TV[];
   id: number;
 }
+
+export interface ReleaseDate {
+  iso_3166_1: string;
+  release_dates: {
+    certification: string;
+    descriptors: any[];
+    iso_639_1: string;
+    note: string;
+    release_date: string;
+    type: number;
+  }[];
+}
+
+export interface ReleaseDates {
+  id: number;
+  results: ReleaseDate[];
+}

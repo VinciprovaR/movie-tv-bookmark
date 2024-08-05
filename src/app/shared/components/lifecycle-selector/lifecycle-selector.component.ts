@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import {
   lifecycleEnum,
+  LifecycleStatus,
+  LifecycleStatusMap,
   MovieLifecycleMap,
   TVLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
@@ -40,6 +42,7 @@ import { Store } from '@ngrx/store';
 import { LifecycleMetadataSelectors } from '../../store/lifecycle-metadata';
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 import { MatIconModule } from '@angular/material/icon';
+import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -59,6 +62,8 @@ export class LifecycleSelectorComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly fb = inject(FormBuilder);
   private readonly bridgeDataService = inject(BridgeDataService);
+  //to-do refractor type
+  readonly lifecycleStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
   destroyed$ = new Subject();
   lifecycleOptions$!: Observable<LifecycleOption[]>;
@@ -68,51 +73,16 @@ export class LifecycleSelectorComponent implements OnInit {
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
-  mediaData!:
-    | Movie
-    | TV
-    | Movie_Data
-    | TV_Data
-    | (MovieDetail & MediaCredit)
-    | (TVDetail & MediaCredit);
+  mediaData!: Movie | MovieDetail | Movie_Data | TV | TVDetail | TV_Data;
 
   idItem!: string;
 
   lifecycleControl!: FormControl<lifecycleEnum>;
-  defaultLifecycle: lifecycleEnum = 'noLifecycle';
 
-  //to-do refractor type + i18e
-  lifecycleStatusList: any = {
-    noLifecycle: {
-      key: 'noLifecycle',
-      label: 'Not in lifecycle',
-      description: 'Not in lifecycle',
-    },
-    watchlist: {
-      key: 'watchlist',
-      label: 'Watchlist',
-      description: "I'd like to watch it!",
-    },
-    rewatch: {
-      key: 'rewatch',
-      label: 'Rewatch',
-      description: "I'd like to watch it again!",
-    },
-    watching: {
-      key: 'watching',
-      label: 'Still Watching',
-      description: "I'd like to finish it!",
-    },
-    watched: {
-      key: 'watched',
-      label: 'Watched',
-      description: "I've already watched it!",
-    },
-  };
-  lifecycleStatusElement!: any;
+  lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
 
   @Output()
-  lifecycleStatusElementEmitter = new EventEmitter<any>();
+  lifecycleStatusElementEmitter = new EventEmitter<lifecycleEnum>();
 
   constructor() {
     inject(DestroyRef).onDestroy(() => {
@@ -162,7 +132,7 @@ export class LifecycleSelectorComponent implements OnInit {
       nonNullable: true,
     });
 
-    this.updatedLifecycleChange('noLifecycle');
+    // this.updatedLifecycleChange('noLifecycle');
 
     this.lifecycleControl.valueChanges
       .pipe(takeUntil(this.destroyed$))
@@ -180,13 +150,13 @@ export class LifecycleSelectorComponent implements OnInit {
   }
 
   updatedLifecycleChange(lifecycleEnum: lifecycleEnum) {
-    this.lifecycleStatusElement = this.lifecycleStatusList[lifecycleEnum];
-    this.lifecycleStatusElementEmitter.emit(this.lifecycleStatusElement);
+    this.lifecycleEnumSelected = lifecycleEnum;
+    this.lifecycleStatusElementEmitter.emit(lifecycleEnum);
   }
 
   updateControlValue(lifecycleEnum: lifecycleEnum) {
     this.lifecycleControl.setValue(
-      lifecycleEnum ? lifecycleEnum : this.defaultLifecycle,
+      lifecycleEnum ? lifecycleEnum : 'noLifecycle',
       { emitEvent: false }
     );
   }

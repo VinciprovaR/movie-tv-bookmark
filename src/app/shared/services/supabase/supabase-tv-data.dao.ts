@@ -2,7 +2,7 @@ import { inject, Inject, Injectable } from '@angular/core';
 import { PostgrestSingleResponse, SupabaseClient } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
-import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
+import { TV, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data } from '../../interfaces/supabase/entities';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class SupabaseTVDataDAO {
 
   //to-do user null? non possibile
   //to-do tipizzare ritorni
-  createTVData(tvDataDTO: TV): Observable<TV_Data[]> {
+  createTVData(tvDataDTO: TV_Data): Observable<TV_Data[]> {
     return from(
       this.supabase
         .from(this.TABLE)

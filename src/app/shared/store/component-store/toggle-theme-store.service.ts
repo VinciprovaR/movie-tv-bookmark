@@ -2,6 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { tap } from 'rxjs';
 import { ToggleThemeService } from '../../services/toggle-theme.service';
+import { WebStorageService } from '../../services/web-storage.service';
+import { THEME_KEY_LOCAL_STORAGE } from '../../../providers';
 
 export interface ToggleThemeState {
   isDarkTheme: boolean;
@@ -19,7 +21,32 @@ export class ToggleThemeStore extends ComponentStore<ToggleThemeState> {
   readonly selectIcon$ = this.select((state) => state.icon);
 
   constructor() {
-    super({ isDarkTheme: false, icon: 'dark_mode' });
+    const webStorageService = inject(WebStorageService);
+    const themeKeyLocalStorage = inject(THEME_KEY_LOCAL_STORAGE);
+    let isDarkMode = false;
+
+    if (webStorageService.getItem(themeKeyLocalStorage) != undefined) {
+      console.log('theme preferences salvate in storage, priorità a storage');
+      isDarkMode = 'true' === webStorageService.getItem(themeKeyLocalStorage);
+    } else {
+      console.log(
+        'theme preferences non ancora salvate in storage, priorità a device'
+      );
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        console.log('device is dark mode');
+        isDarkMode = true;
+      } else {
+        console.log('device is light mode');
+      }
+    }
+
+    super({
+      isDarkTheme: isDarkMode,
+      icon: 'dark_mode',
+    });
   }
 
   readonly toggleTheme = this.updater((state) => {

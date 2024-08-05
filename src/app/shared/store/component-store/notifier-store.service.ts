@@ -20,11 +20,11 @@ export class NotifierStore extends ComponentStore<AlertState> {
   readonly selectAlerts$ = this.select((state) => state.alerts);
   //to-do i18e + refractor
   private readonly ALERT_MESSAGE_MAP: any = {
-    update: 'lifecycle aggiornato',
-    createUpdate: 'lifecycle aggiunto',
-    delete: 'lifecycle rimosso',
-    create: 'lifecycle aggiunto',
-    unchanged: 'lifecycle aggiornato',
+    update: 'Bookmark updated!',
+    createUpdate: 'Bookmark added!',
+    delete: 'Bookmark deleted!',
+    create: 'Bookmark added!',
+    unchanged: 'Bookmark updated!',
   };
 
   readonly isFailure = (action: any & TypedAction<string>) => {

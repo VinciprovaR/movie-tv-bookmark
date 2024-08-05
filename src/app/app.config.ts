@@ -4,6 +4,7 @@ import {
   provideRouter,
   withComponentInputBinding,
   withHashLocation,
+  withInMemoryScrolling,
 } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
@@ -27,13 +28,14 @@ import {
   provideSupabaseClient,
   provideTMDBApiKey,
   provideTMDBBaseUrl,
-  provideI18E,
   provideCurrentUser,
   provideLifecycleSelect,
   provideSelectFilters,
   provideLifecycleNavElements,
   provideHeaderNavElements,
   provideImgUrl,
+  provideLifecycleStatusList,
+  provideDarkThemeLocalStorageKey,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 
@@ -61,11 +63,20 @@ export const appConfig: ApplicationConfig = {
     provideTMDBApiKey(),
     provideTMDBBaseUrl(),
     provideImgUrl(),
-    provideI18E(),
+
     provideLifecycleNavElements(),
     provideHeaderNavElements(),
+    provideLifecycleStatusList(),
+    provideDarkThemeLocalStorageKey(),
     provideHttpClient(withInterceptors([])),
-    provideRouter(routes, withHashLocation(), withComponentInputBinding()),
+    provideRouter(
+      routes,
+      withHashLocation(),
+      withComponentInputBinding(),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+      })
+    ),
     provideStore(reducers, { metaReducers }),
     provideEffects([
       AuthEffects,

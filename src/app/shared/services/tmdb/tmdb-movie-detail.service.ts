@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import {
   MediaCredit,
   MovieDetail,
+  ReleaseDates,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
@@ -24,6 +25,12 @@ export class TMDBMovieDetailService {
   movieCredit(movieId: number): Observable<MediaCredit> {
     return this.httpClient.get<MediaCredit>(
       `${this.tmdbBaseUrl}/movie/${movieId}/credits?language=en-US&&api_key=${this.tmdbApiKey}`
+    );
+  }
+
+  movieReleaseDate(movieId: number): Observable<ReleaseDates> {
+    return this.httpClient.get<ReleaseDates>(
+      `${this.tmdbBaseUrl}/movie/${movieId}/release_dates?language=en-US&&api_key=${this.tmdbApiKey}`
     );
   }
 }

@@ -66,7 +66,9 @@ export class PersonDetailMovieCreditsComponent implements OnInit {
     this.bridgeDataService.movieInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
+        this.createUpdateDeleteMovieLifecycle(
+          mediaLifecycleDTO as MediaLifecycleDTO<Movie>
+        );
       });
   }
 

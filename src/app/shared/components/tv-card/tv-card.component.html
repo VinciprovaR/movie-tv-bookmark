@@ -1,4 +1,4 @@
-<div class="h-full border-container flex box-border flex-col">
+<div class="h-full border-container flex box-border flex-col relative">
   <div class="w-full h-auto aspect-[2/3]">
     <app-img
       [alt]="tv.name"
@@ -7,8 +7,7 @@
       [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
       [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
       [link]="detailMediaPath"
-      [state]="tv"
-      [borderClass]="'border-img-card'"
+      [customClasses]="'border-img-card'"
     ></app-img>
   </div>
 
@@ -19,16 +18,14 @@
     [mediaType]="mediaType"
   ></app-lifecycle-selector>
 
-  <span
-    class="font-bold text-sm flex justify-center bg-neutral-900"
-    [ngClass]="lifecycleStatusElement.key + '-color'"
-    >{{ lifecycleStatusElement.label }}</span
-  >
+  <app-lifecycle-status-label
+    [lifecycleEnumSelected]="lifecycleEnumSelected"
+  ></app-lifecycle-status-label>
 
   <div class="card-content">
-    <h2>
+    <h3>
       <a [routerLink]="detailMediaPath" [title]="tv.name">{{ tv.name }}</a>
-    </h2>
+    </h3>
     <div class="mt-1">
       <p>
         {{ tv.first_air_date | date : "longDate" }}

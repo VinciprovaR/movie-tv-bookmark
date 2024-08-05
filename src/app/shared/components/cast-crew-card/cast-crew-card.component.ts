@@ -45,6 +45,8 @@ export class CastCrewCardComponent
     IMG_SIZES.TMDB_DETAIL_LIST_2X_IMG_URL
   );
 
+  protected readonly TMDB_W_300_IMG_URL = inject(IMG_SIZES.TMDB_W_300_IMG_URL);
+
   @Input({ required: true })
   castCrew!: Cast | Crew;
 

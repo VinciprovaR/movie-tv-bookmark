@@ -4,7 +4,7 @@ import {
   lifecycleEnum,
   TVLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
-import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
+import { TV, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
@@ -26,7 +26,7 @@ export const populateTVLifecycleMapFailure = createAction(
 //CRUD lifecycle
 export const createUpdateDeleteTVLifecycle = createAction(
   '[TV-Lifecycle] Create or Update or Delete TV Lifecycle Init',
-  props<{ mediaLifecycleDTO: MediaLifecycleDTO<TV> }>()
+  props<{ mediaLifecycleDTO: MediaLifecycleDTO<TV | TV_Data | TVDetail> }>()
 );
 export const createUpdateDeleteTVLifecycleFailure = createAction(
   '[TV-Lifecycle] Create or Update or Delete TV Lifecycle Failure & Notify',

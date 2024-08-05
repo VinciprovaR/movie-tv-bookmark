@@ -66,7 +66,9 @@ export class PersonDetailTVCreditsComponent implements OnInit {
     this.bridgeDataService.tvInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteTVLifecycle(mediaLifecycleDTO);
+        this.createUpdateDeleteTVLifecycle(
+          mediaLifecycleDTO as MediaLifecycleDTO<TV>
+        );
       });
   }
 

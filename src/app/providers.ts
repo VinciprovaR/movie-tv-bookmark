@@ -8,11 +8,12 @@ import {
   LifecycleNavElement,
   NavElements,
 } from './shared/interfaces/navigator.interface';
+import { LifecycleStatusMap } from './shared/interfaces/supabase/supabase-lifecycle.interface';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
 );
-//Temporary test api key
+//to-do Temporary test api key
 export const TMDB_API_KEY = new InjectionToken<string>('TMDB_API_KEY');
 export const TMDB_BASE_URL = new InjectionToken<string>('TMDB_BASE_URL');
 
@@ -42,9 +43,8 @@ export const IMG_SIZES = {
   TMDB_MULTI_FACE_2X_IMG_URL: new InjectionToken<string>(
     'TMDB_MULTI_FACE_2X_IMG_URL'
   ),
+  TMDB_W_300_IMG_URL: new InjectionToken<string>('TMDB_W_300_IMG_URL'),
 };
-
-export const I18E = new InjectionToken<string>('I18E');
 
 export const LIFECYCLE_NAV_ELEMENTS = new InjectionToken<LifecycleNavElement[]>(
   'LIFECYCLE_NAV_ELEMENTS'
@@ -52,6 +52,13 @@ export const LIFECYCLE_NAV_ELEMENTS = new InjectionToken<LifecycleNavElement[]>(
 
 export const HEADER_NAV_ELEMENTS = new InjectionToken<NavElements>(
   'HEADER_NAV_ELEMENTS'
+);
+
+export const LIFECYCLE_STATUS_MAP = new InjectionToken<LifecycleStatusMap>(
+  'LIFECYCLE_STATUS_MAP'
+);
+export const THEME_KEY_LOCAL_STORAGE = new InjectionToken<string>(
+  'THEME_KEY_LOCAL_STORAGE'
 );
 
 export function provideTMDBApiKey() {
@@ -76,7 +83,7 @@ export function provideImgUrl() {
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_1X_IMG_URL,
-      useValue: 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2',
+      useValue: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2',
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_2X_IMG_URL,
@@ -85,12 +92,13 @@ export function provideImgUrl() {
 
     {
       provide: IMG_SIZES.TMDB_DETAIL_LIST_1X_IMG_URL,
-      useValue: 'https://media.themoviedb.org/t/p/w138_and_h175_face',
+      useValue: 'https://image.tmdb.org/t/p/w138_and_h175_face',
     },
     {
       provide: IMG_SIZES.TMDB_DETAIL_LIST_2X_IMG_URL,
-      useValue: 'https://media.themoviedb.org/t/p/w276_and_h350_face',
+      useValue: 'https://image.tmdb.org/t/p/w276_and_h350_face',
     },
+
     {
       provide: IMG_SIZES.TMDB_SEARCH_LIST_1X_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w220_and_h330_face',
@@ -101,11 +109,15 @@ export function provideImgUrl() {
     },
     {
       provide: IMG_SIZES.TMDB_MULTI_FACE_2X_IMG_URL,
-      useValue: 'https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces',
+      useValue: 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces',
     },
     {
       provide: IMG_SIZES.TMDB_MULTI_FACE_1X_IMG_URL,
-      useValue: 'https://media.themoviedb.org/t/p/w1000_and_h450_multi_faces',
+      useValue: 'https://image.tmdb.org/t/p/w1000_and_h450_multi_faces',
+    },
+    {
+      provide: IMG_SIZES.TMDB_W_300_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w300',
     },
   ];
 }
@@ -143,11 +155,10 @@ export function provideSelectFilters() {
   };
 }
 
-//to-do hardcoded, cambiare in i18e corretto
-export function provideI18E() {
+export function provideDarkThemeLocalStorageKey() {
   return {
-    provide: I18E,
-    useValue: 'IT',
+    provide: THEME_KEY_LOCAL_STORAGE,
+    useValue: 'isdt',
   };
 }
 
@@ -190,6 +201,39 @@ export function provideHeaderNavElements() {
       userProfile: {
         label: 'User Profile',
         subMenu: [{ label: 'User Profile', path: 'user-profile' }],
+      },
+    },
+  };
+}
+
+export function provideLifecycleStatusList() {
+  return {
+    provide: LIFECYCLE_STATUS_MAP,
+    useValue: {
+      noLifecycle: {
+        key: 'noLifecycle',
+        label: 'No bookmark',
+        description: 'No bookmark',
+      },
+      watchlist: {
+        key: 'watchlist',
+        label: 'Watchlist',
+        description: "I'd like to watch it!",
+      },
+      rewatch: {
+        key: 'rewatch',
+        label: 'Rewatch',
+        description: "I'd like to watch it again!",
+      },
+      watching: {
+        key: 'watching',
+        label: 'Still Watching',
+        description: "I'd like to finish it!",
+      },
+      watched: {
+        key: 'watched',
+        label: 'Watched',
+        description: "I've already watched it!",
       },
     },
   };

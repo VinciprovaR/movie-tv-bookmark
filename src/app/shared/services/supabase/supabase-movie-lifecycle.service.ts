@@ -89,7 +89,7 @@ export class SupabaseMovieLifecycleService {
   }
 
   crudOperationResolver(
-    movieLifecycleDTO: MediaLifecycleDTO<Movie>
+    movieLifecycleDTO: MediaLifecycleDTO<Movie | MovieDetail | Movie_Data>
   ): Observable<crud_operations> {
     return this.supabaseMovieLifecycleDAO
       .findLifecycleListByMovieIds([movieLifecycleDTO.mediaDataDTO.id])
@@ -108,7 +108,7 @@ export class SupabaseMovieLifecycleService {
   }
   //to-do udate del movie data?
   updateMovieLifecycle(
-    movieLifecycleDTO: MediaLifecycleDTO<Movie>
+    movieLifecycleDTO: MediaLifecycleDTO<Movie | MovieDetail | Movie_Data>
   ): Observable<MovieLifecycleMap> {
     return this.supabaseMovieLifecycleDAO
       .updateMovieLifeCycle(
@@ -125,7 +125,7 @@ export class SupabaseMovieLifecycleService {
   }
 
   deleteMovieLifecycle(
-    movieLifecycleDTO: MediaLifecycleDTO<Movie>
+    movieLifecycleDTO: MediaLifecycleDTO<Movie | MovieDetail | Movie_Data>
   ): Observable<MovieLifecycleMap> {
     return this.supabaseMovieLifecycleDAO
       .deleteMovieLifeCycle(
@@ -142,7 +142,7 @@ export class SupabaseMovieLifecycleService {
   }
 
   createMovieLifecycle(
-    movieLifecycleDTO: MediaLifecycleDTO<Movie>,
+    movieLifecycleDTO: MediaLifecycleDTO<Movie | MovieDetail | Movie_Data>,
     user: User
   ): Observable<MovieLifecycleMap> {
     return this.supabaseMovieDataDAO
@@ -150,9 +150,11 @@ export class SupabaseMovieLifecycleService {
       .pipe(
         switchMap((movieDataEntityList: Movie_Data[]) => {
           if (movieDataEntityList.length === 0) {
-            return this.supabaseMovieDataDAO.createMovieData(
-              movieLifecycleDTO.mediaDataDTO
-            );
+            let movieData: Movie_Data =
+              this.supabaseUtilsService.movieDataObjFactory(
+                movieLifecycleDTO.mediaDataDTO
+              );
+            return this.supabaseMovieDataDAO.createMovieData(movieData);
           }
           return of(movieDataEntityList);
         }),

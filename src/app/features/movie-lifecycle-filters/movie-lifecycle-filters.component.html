@@ -3,8 +3,11 @@
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
   <div class="box-border border-container mb-4">
     <div
-      class="px-3 py-5 border-separator flex justify-between hover:cursor-pointer"
-      (click)="toggleMenuSort(sortContainer)"
+      class="px-3 py-5 flex justify-between hover:cursor-pointer"
+      (click)="toggleMenuSort()"
+      [ngClass]="{
+        'border-separator': !isHideSortContainer
+      }"
     >
       <h2>Sort</h2>
 
@@ -32,8 +35,11 @@
 
   <div class="box-border border-container mb-4">
     <div
-      class="px-3 py-5 border-separator flex justify-between hover:cursor-pointer"
-      (click)="toggleMenuFilter(filterContainer)"
+      class="px-3 py-5 flex justify-between hover:cursor-pointer"
+      [ngClass]="{
+        'border-separator': !isHideFilterContainer
+      }"
+      (click)="toggleMenuFilter()"
     >
       <h2>Filters</h2>
 
@@ -45,12 +51,11 @@
     </div>
 
     <div
-      #filterContainer
       [ngClass]="{
-        'hidden-container': isHideFilterContainer
+        'hidden-container': isHideFilterContainer,
       }"
     >
-      <div class="px-3 py-5 border-separator">
+      <div class="px-3 py-5">
         <app-genre-filter [filterForm]="filterForm"></app-genre-filter>
       </div>
     </div>

@@ -1,7 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '@supabase/supabase-js';
 import { Observable, map, switchMap, of } from 'rxjs';
-import { TV, TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
+import {
+  TV,
+  TVDetail,
+  TVResult,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../interfaces/supabase/DTO';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { SupabaseTVLifecycleDAO } from './supabase-tv-lifecycle.dao';
@@ -76,7 +80,7 @@ export class SupabaseTVLifecycleService {
   }
 
   crudOperationResolver(
-    tvLifecycleDTO: MediaLifecycleDTO<TV>
+    tvLifecycleDTO: MediaLifecycleDTO<TV | TVDetail | TV_Data>
   ): Observable<crud_operations> {
     return this.supabaseTVLifecycleDAO
       .findLifecycleListByTVIds([tvLifecycleDTO.mediaDataDTO.id])
@@ -95,7 +99,7 @@ export class SupabaseTVLifecycleService {
   }
 
   updateTVLifecycle(
-    tvLifecycleDTO: MediaLifecycleDTO<TV>
+    tvLifecycleDTO: MediaLifecycleDTO<TV | TVDetail | TV_Data>
   ): Observable<TVLifecycleMap> {
     return this.supabaseTVLifecycleDAO
       .updateTVLifeCycle(
@@ -112,7 +116,7 @@ export class SupabaseTVLifecycleService {
   }
 
   deleteTVLifecycle(
-    tvLifecycleDTO: MediaLifecycleDTO<TV>
+    tvLifecycleDTO: MediaLifecycleDTO<TV | TVDetail | TV_Data>
   ): Observable<TVLifecycleMap> {
     return this.supabaseTVLifecycleDAO
       .deleteTVLifeCycle(
@@ -129,7 +133,7 @@ export class SupabaseTVLifecycleService {
   }
 
   createTVLifecycle(
-    tvLifecycleDTO: MediaLifecycleDTO<TV>,
+    tvLifecycleDTO: MediaLifecycleDTO<TV | TVDetail | TV_Data>,
     user: User
   ): Observable<TVLifecycleMap> {
     return this.supabaseTVDataDAO
@@ -137,9 +141,10 @@ export class SupabaseTVLifecycleService {
       .pipe(
         switchMap((tvDataEntityList: TV_Data[]) => {
           if (tvDataEntityList.length === 0) {
-            return this.supabaseTVDataDAO.createTVData(
+            let tvData: TV_Data = this.supabaseUtilsService.tvDataObjFactory(
               tvLifecycleDTO.mediaDataDTO
             );
+            return this.supabaseTVDataDAO.createTVData(tvData);
           }
           return of(tvDataEntityList);
         }),

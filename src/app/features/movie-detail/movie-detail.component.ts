@@ -1,10 +1,21 @@
-import { Component, inject, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  Input,
+  Renderer2,
+  RendererFactory2,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
   MediaCredit,
   Movie,
   MovieDetail,
+  ReleaseDate,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
@@ -24,6 +35,11 @@ import {
   MovieLifecycleSelectors,
 } from '../../shared/store/movie-lifecycle';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
+import { LifecycleSelectorComponent } from '../../shared/components/lifecycle-selector/lifecycle-selector.component';
+import { LifecycleStatusLabelComponent } from '../../shared/components/lifecycle-status-label/lifecycle-status-label.component';
+import { lifecycleEnum } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+import { FastAverageColorResult } from 'fast-average-color';
+import { PredominantImgColorService } from '../../shared/predominant-img-color.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -34,12 +50,17 @@ import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
     CastCrewListContainerComponent,
     ImgComponent,
     MediaDetailContentComponent,
+    LifecycleSelectorComponent,
+    LifecycleStatusLabelComponent,
   ],
   providers: [MovieDetailStore, BridgeDataService],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
-export class MovieDetailComponent extends MediaDetailComponent {
+export class MovieDetailComponent
+  extends MediaDetailComponent
+  implements AfterViewInit
+{
   private readonly bridgeDataService = inject(BridgeDataService);
   private readonly store = inject(Store);
   readonly TMDB_PROFILE_1X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_1X_IMG_URL);
@@ -53,21 +74,38 @@ export class MovieDetailComponent extends MediaDetailComponent {
   readonly TMDB_ORIGINAL_IMG_URL = inject(IMG_SIZES.TMDB_ORIGINAL_IMG_URL);
   readonly movieDetailstore = inject(MovieDetailStore);
   readonly pageEventService = inject(PageEventService);
+  private renderer!: Renderer2;
+  private readonly rendererFactory = inject(RendererFactory2);
+  private readonly destroyRef$ = inject(DestroyRef);
+  readonly predominantImgColorService = inject(PredominantImgColorService);
 
   destroyed$ = new Subject();
-
-  movieDetail$!: Observable<(MovieDetail & MediaCredit) | null>;
+  movieDetail$!: Observable<(MovieDetail & MediaCredit & ReleaseDate) | null>;
   isLoading$!: Observable<boolean>;
+
+  @ViewChild('headerMediaDetail')
+  headerMediaDetail!: ElementRef;
 
   @Input({ required: true })
   movieId: number = 0;
 
+  lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
+  isGradientColorLoaded: boolean = false;
+
   constructor() {
     super();
+    this.destroyRef$.onDestroy(() => {
+      this.destroyed$.next(true);
+      this.destroyed$.complete();
+    });
+  }
+  ngAfterViewInit(): void {
+    this.initSelectors();
   }
 
   ngOnInit(): void {
-    this.initSelectors();
+    this.renderer = this.rendererFactory.createRenderer(null, null);
+
     this.initDataBridge();
     this.searchMovieDetail();
   }
@@ -79,6 +117,15 @@ export class MovieDetailComponent extends MediaDetailComponent {
   initSelectors() {
     this.movieDetail$ = this.movieDetailstore.selectMovieDetail$;
     this.isLoading$ = this.movieDetailstore.selectIsLoading$;
+    this.movieDetail$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(
+        (movieDetail: (MovieDetail & MediaCredit & ReleaseDate) | null) => {
+          if (movieDetail?.backdrop_path) {
+            this.setMediaHeaderGradient(movieDetail.backdrop_path);
+          }
+        }
+      );
   }
 
   initDataBridge() {
@@ -94,17 +141,41 @@ export class MovieDetailComponent extends MediaDetailComponent {
     this.bridgeDataService.movieInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
+        this.createUpdateDeleteMovieLifecycle(
+          mediaLifecycleDTO as MediaLifecycleDTO<MovieDetail>
+        );
       });
   }
 
   createUpdateDeleteMovieLifecycle(
-    mediaLifecycleDTO: MediaLifecycleDTO<Movie>
+    mediaLifecycleDTO: MediaLifecycleDTO<MovieDetail>
   ) {
+    console.log(mediaLifecycleDTO);
     this.store.dispatch(
       MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
         mediaLifecycleDTO,
       })
     );
+  }
+
+  setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
+    this.lifecycleEnumSelected = lifecycleEnumSelected;
+  }
+
+  setMediaHeaderGradient(backdropPath: string) {
+    this.predominantImgColorService
+      .evaluatePredominantColor(backdropPath)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((colorResult: FastAverageColorResult) => {
+        this.renderer.setStyle(
+          this.headerMediaDetail.nativeElement,
+          'background-image',
+          `linear-gradient(to bottom, rgba(${colorResult.value[0]},${colorResult.value[1]},${colorResult.value[2]}, 0.65), rgba(${colorResult.value[0]},${colorResult.value[1]},${colorResult.value[2]}, 0.54))`
+        );
+        this.renderer.removeClass(
+          this.headerMediaDetail.nativeElement,
+          'backdrop-blur-xl'
+        );
+      });
   }
 }

@@ -94,7 +94,7 @@ export class MovieLifecycleEffects {
       ofType(movieDetailSuccess),
       switchMap((action) => {
         let { movieDetail }: { movieDetail: MovieDetail } = action;
-        console.log(movieDetail);
+
         return this.supabaseMovieLifecycleService
           .initMovieLifecycleMapFromMovieResultTMDB([movieDetail])
           .pipe(

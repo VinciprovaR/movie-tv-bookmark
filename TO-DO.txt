@@ -53,6 +53,8 @@
 -click fuori chiude sub menu header mobile
 - check for @defer
 - tutto ciò che è in hidden con css @if non renderizzato
+-  Largest Contentful Paint (LCP) error, check
+-stile globale refractor
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

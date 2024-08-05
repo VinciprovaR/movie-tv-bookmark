@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { I18E, TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
+import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 import { Observable } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
@@ -14,7 +14,6 @@ export class TMDBDiscoveryTVService {
   tmdbApiKey: string = inject(TMDB_API_KEY);
   tmdbBaseUrl: string = inject(TMDB_BASE_URL);
   httpClient = inject(HttpClient);
-  i18e: string = inject(I18E);
 
   constructor(private TMDBTVParamsUtilsService: TMDBTVParamsUtilsService) {}
 
@@ -57,7 +56,7 @@ export class TMDBDiscoveryTVService {
     queryParams: string
   ): Observable<TVResult> {
     return this.httpClient.get<TVResult>(
-      `${this.tmdbBaseUrl}/discover/tv?include_adult=false${queryParams}&certification_country=${this.i18e}&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}/discover/tv?include_adult=false${queryParams}&certification_country=US&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
     );
   }
 }

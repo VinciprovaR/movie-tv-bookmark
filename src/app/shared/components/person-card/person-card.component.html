@@ -9,22 +9,22 @@
       [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
       [link]="detailMediaPath"
       [state]="person"
-      [borderClass]="'border-img-card'"
+      [customClasses]="'border-img-card'"
     ></app-img>
   </div>
   <div class="card-content">
-    <h2>
+    <h3>
       <a [routerLink]="detailMediaPath" [title]="person.name">{{
         person.name
       }}</a>
-    </h2>
+    </h3>
     <div class="mt-1">
       <p>
         {{ person.known_for_department }}
       </p>
       @if(isPersonEntity(person)){ @for(knowFor of person.known_for.slice(0,3);
       track knowFor){
-      <p id="sub-text">
+      <p id="sub-text" class="text-[0.85rem]">
         {{
           $index < person.known_for.length - 1
             ? (knowFor.title ? knowFor.title : knowFor.name) + ", "

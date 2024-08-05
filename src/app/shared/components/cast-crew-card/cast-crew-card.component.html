@@ -1,29 +1,31 @@
-<div class="h-full border-container flex box-border flex-col">
-  <div class="w-full h-auto aspect-[3/4]">
+<div class="h-full flex flex-col">
+  <div class="overflow-hidden h-[130px] lg:h-[150px] border-img-card-full">
     <app-img
       [alt]="castCrew.name"
       [title]="castCrew.name"
       [imgSrc]="castCrew.profile_path"
-      [url1x]="TMDB_DETAIL_LIST_1X_IMG_URL"
+      [url1x]="TMDB_W_300_IMG_URL"
       [url2x]="TMDB_DETAIL_LIST_2X_IMG_URL"
       [link]="detailMediaPath"
-      [state]="castCrew"
-      [borderClass]="'border-img-card'"
+      [isPlaceholderPerson]="true"
+      [customClasses]="'person-img-margin'"
     ></app-img>
   </div>
-
-  <div class="card-content">
-    <h2>
-      <a [routerLink]="detailMediaPath" [title]="castCrew.name">{{
-        castCrew.name
-      }}</a>
-    </h2>
-    <div class="mt-1">
+  <div class="card-content flex flex-col justify-center overflow-hidden">
+    <h3 class="whitespace-nowrap text-ellipsis text-center">
+      <a [routerLink]="detailMediaPath" [title]="castCrew.name"
+        ><span>{{ castCrew.name }}</span></a
+      >
+    </h3>
+    <div
+      id="sub-text"
+      class="text-[0.75rem] whitespace-nowrap text-ellipsis text-center"
+    >
       @if(isCastEntity(castCrew)){
-      <p id="sub-text">{{ castCrew.character }}</p>
+      <span [title]="castCrew.character">{{ castCrew.character }} </span>
 
       } @else if(isCrewEntity(castCrew)){
-      <p id="sub-text">{{ castCrew.job }}</p>
+      <span [title]="castCrew.job">{{ castCrew.job }}</span>
       }
     </div>
   </div>

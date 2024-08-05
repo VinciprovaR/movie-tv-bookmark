@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Store } from '@ngrx/store';
@@ -74,7 +75,9 @@ export class MovieSearchComponent implements OnInit {
     this.bridgeDataService.movieInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteMovieLifecycle(mediaLifecycleDTO);
+        this.createUpdateDeleteMovieLifecycle(
+          mediaLifecycleDTO as MediaLifecycleDTO<Movie>
+        );
       });
   }
 
@@ -91,6 +94,7 @@ export class MovieSearchComponent implements OnInit {
   createUpdateDeleteMovieLifecycle(
     mediaLifecycleDTO: MediaLifecycleDTO<Movie>
   ) {
+    console.log(mediaLifecycleDTO);
     this.store.dispatch(
       MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
         mediaLifecycleDTO,

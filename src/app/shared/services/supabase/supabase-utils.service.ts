@@ -30,6 +30,7 @@ import {
   crud_operations,
   LifecycleCrudConditions,
 } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
+import { Genre } from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -73,7 +74,32 @@ export class SupabaseUtilsService {
     });
     return movieLifecycleMap;
   }
+  
+  movieDataObjFactory(movie: Movie | Movie_Data | MovieDetail): Movie_Data {
+    let movieData: Partial<Movie_Data> = {
+      id: movie.id,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date,
+      title: movie.title,
+    };
 
+    if (this.isMovieDetailEntity(movie)) {
+      let genre_ids: number[] = movie.genres.map((genre: Genre) => {
+        return genre.id;
+      });
+
+      movieData.genre_ids = genre_ids;
+    } else {
+      movieData.genre_ids = movie.genre_ids;
+    }
+    return movieData as Movie_Data;
+  }
+
+  private isMovieDetailEntity(movie: object): movie is MovieDetail {
+    return (movie as MovieDetail).genres !== undefined;
+  }
+
+  
   tvLifecycleMapFactory(
     tvLifecycleEntityList: TV_Life_Cycle[] | (TV_Life_Cycle[] & TV_Data[])
   ): TVLifecycleMap {
@@ -84,6 +110,32 @@ export class SupabaseUtilsService {
     });
     return tvLifecycleMap;
   }
+
+  tvDataObjFactory(tv: TV | TV_Data | TVDetail): TV_Data {
+    let tvData: Partial<TV_Data> = {
+      id: tv.id,
+      poster_path: tv.poster_path,
+      first_air_date: tv.first_air_date,
+      name: tv.name,
+    };
+
+    if (this.isTVDetailEntity(tv)) {
+      let genre_ids: number[] = tv.genres.map((genre: Genre) => {
+        return genre.id;
+      });
+
+      tvData.genre_ids = genre_ids;
+    } else {
+      tvData.genre_ids = tv.genre_ids;
+    }
+    return tvData as TV_Data;
+  }
+
+  private isTVDetailEntity(tv: object): tv is TVDetail {
+    return (tv as TVDetail).genres !== undefined;
+  }
+
+
 
   removeMediaWithLifecycle(
     entityMediaLifecycle: Movie_Life_Cycle[] | TV_Life_Cycle[],
@@ -143,7 +195,9 @@ export class SupabaseUtilsService {
       | TV_Life_Cycle[]
       | (Movie_Life_Cycle[] & Movie_Data[])
       | (TV_Life_Cycle[] & TV_Data[]),
-    mediaLifecycleDTO: MediaLifecycleDTO<Movie | TV>
+    mediaLifecycleDTO: MediaLifecycleDTO<
+      Movie | MovieDetail | TV | TVDetail | TV_Data | Movie_Data
+    >
   ): crud_operations {
     let isEntity = mediaLifecycleFromDB.length === 1;
     let isLifecycleSelected = mediaLifecycleDTO.lifecycleEnum != 'noLifecycle';

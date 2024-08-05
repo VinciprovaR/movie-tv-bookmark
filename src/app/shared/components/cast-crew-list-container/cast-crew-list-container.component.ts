@@ -23,9 +23,8 @@ export class CastCrewListContainerComponent implements OnInit {
   @Input()
   isLoading: boolean = false;
   @Input({ required: true })
-  castList!: Cast[];
-  @Input({ required: true })
-  crewList!: Crew[];
+  castCrewList: Cast[] | Crew[] = [];
+
   @Input()
   minMaxCol: number = 160;
 
@@ -42,21 +41,21 @@ export class CastCrewListContainerComponent implements OnInit {
   ngOnInit(): void {
     this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
-    if (this.crewList) {
-      this.prepareCrewList();
-    }
+    // if (this.crewList) {
+    //   this.prepareCrewList();
+    // }
   }
 
-  prepareCrewList() {
-    this.crewList.forEach((crew: Crew) => {
-      if (!this.crewUniqueMap.has(crew.id)) {
-        this.crewUniqueMap.set(crew.id, crew);
-      }
-    });
-  }
+  // prepareCrewList() {
+  //   this.crewList.forEach((crew: Crew) => {
+  //     if (!this.crewUniqueMap.has(crew.id)) {
+  //       this.crewUniqueMap.set(crew.id, crew);
+  //     }
+  //   });
+  // }
 
-  get sliceUniqueMapCrew(): Map<number, Crew> {
-    const arrayTmp = Array.from(this.crewUniqueMap).slice(0, 6);
-    return new Map(arrayTmp);
-  }
+  // get sliceUniqueMapCrew(): Map<number, Crew> {
+  //   const arrayTmp = Array.from(this.crewUniqueMap).slice(0, 6);
+  //   return new Map(arrayTmp);
+  // }
 }

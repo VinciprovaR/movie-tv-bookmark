@@ -83,7 +83,8 @@ export class TVSearchComponent implements OnInit {
     this.bridgeDataService.tvInputLifecycleOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteTVLifecycle(mediaLifecycleDTO);
+        let tvLifecycleDTO = mediaLifecycleDTO as MediaLifecycleDTO<TV>;
+        this.createUpdateDeleteTVLifecycle(tvLifecycleDTO);
       });
   }
 

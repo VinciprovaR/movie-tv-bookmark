@@ -26,6 +26,7 @@
     "@ngrx/effects": "^17.2.0",
     "@ngrx/store": "^17.2.0",
     "@supabase/supabase-js": "^2.43.4",
+    "fast-average-color": "^9.4.0",
     "ng-zorro-antd": "^17.4.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

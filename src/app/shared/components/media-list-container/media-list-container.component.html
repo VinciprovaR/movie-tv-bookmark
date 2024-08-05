@@ -13,7 +13,7 @@
   >
     @for(media of mediaList; track media.id){
     <li class="list-none w-full">
-      @defer (on viewport) {
+      @defer () {
       <ng-container
         *ngComponentOutlet="
           mediaItemComponents[mediaType];

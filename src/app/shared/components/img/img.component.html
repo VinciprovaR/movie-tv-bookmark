@@ -1,5 +1,5 @@
 <div
-  class="relative h-full overflow-hidden"
+  class="relative overflow-hidden aspect-[2/3]"
   [ngClass]="{ 'pointer-events-none': !link }"
 >
   @if(priority){
@@ -10,7 +10,7 @@
     [ngSrc]="card1or2xImgUrl"
     [routerLink]="link"
     fill="true"
-    [ngClass]="borderClass"
+    [ngClass]="customClasses"
     [placeholder]="
       isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
     "
@@ -23,7 +23,7 @@
     [ngSrc]="card1or2xImgUrl"
     [routerLink]="link"
     fill="true"
-    [ngClass]="borderClass"
+    [ngClass]="customClasses"
     [placeholder]="
       isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
     "

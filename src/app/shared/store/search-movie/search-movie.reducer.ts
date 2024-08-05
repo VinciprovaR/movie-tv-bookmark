@@ -15,6 +15,7 @@ export const initialState: SearchMovieState = {
     total_pages: 1,
     total_results: 0,
   },
+  scrollY: 0,
 };
 
 export const searchMovieReducer = createReducer(
@@ -96,6 +97,7 @@ export const getSearchMovieError = (state: SearchMovieState) => state.error;
 export const getMovieResult = (state: SearchMovieState) => state.movieResult;
 export const getMovieList = (state: SearchMovieState) =>
   state.movieResult.results;
+export const getScrollY = (state: SearchMovieState) => state.scrollY;
 export const getMovieResultPage = (state: SearchMovieState) =>
   state.movieResult.page;
 

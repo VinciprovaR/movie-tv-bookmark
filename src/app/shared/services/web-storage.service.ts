@@ -16,4 +16,20 @@ export class WebStorageService {
   destroyRemember(): void {
     window.localStorage.removeItem('remember-me');
   }
+
+  getItem(key: string): string {
+    return window.localStorage[key];
+  }
+
+  saveitem(obj: { key: string; value: string }): void {
+    if (obj.key && obj.value) {
+      window.localStorage[obj.key] = obj.value;
+    }
+  }
+
+  destroyItem(key: string): void {
+    if (key) {
+      window.localStorage.removeItem(key);
+    }
+  }
 }

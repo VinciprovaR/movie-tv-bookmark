@@ -1,8 +1,9 @@
 import { Directive, inject, Input } from '@angular/core';
 
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
-import { IMG_SIZES } from '../../../providers';
+import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { BridgeDataService } from '../../services/bridge-data.service';
+import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
 
 @Directive()
 export abstract class AbstractMediaCard {
@@ -13,13 +14,14 @@ export abstract class AbstractMediaCard {
   protected readonly TMDB_SEARCH_LIST_2X_IMG_URL = inject(
     IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL
   );
+  protected readonly lifecycleStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
   @Input({ required: true })
   mediaType!: MediaType;
 
   detailMediaPath: string = '';
 
-  lifecycleStatusElement: any;
+  lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
 
   constructor() {}
 
@@ -31,7 +33,7 @@ export abstract class AbstractMediaCard {
     );
   }
 
-  setLifecycleStatusElement(lifecycleStatusElement: any) {
-    this.lifecycleStatusElement = lifecycleStatusElement;
+  setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
+    this.lifecycleEnumSelected = lifecycleEnumSelected;
   }
 }

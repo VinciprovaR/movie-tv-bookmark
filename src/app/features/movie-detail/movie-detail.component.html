@@ -1,18 +1,21 @@
-<section class="w-full m-auto pt-[60px] max-w-screen-3xl mb-20 overflow-hidden">
+<section
+  class="w-full w-max-[1920px] m-auto pt-[60px] max-w-screen-3xl mb-20 overflow-hidden"
+>
   @if(movieDetail$ | async; as movieDetail){
 
   <div
     id="header-detail"
-    class="bg-cover bg-no-repeat bg-center items-center overflow-hidden h-[40vh] flex lg:h-[85vh]"
+    class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[85vh]"
     [ngStyle]="{
       'background-image':
         'url(' + TMDB_MULTI_FACE_2X_IMG_URL + movieDetail.backdrop_path + ')'
     }"
   >
     <div
-      class="movie-header-overlay flex flex-row header-gradient h-full w-full justify-center"
+      class="backdrop-blur-xl flex flex-row header-gradient h-full w-full p-4 justify-center lg:justify-normal lg:p-8 space-x-8"
+      #headerMediaDetail
     >
-      <div class="h-[80%] lg:h-[95%] aspect-[2/3] w-xxxsm my-auto">
+      <div class="h-[35vh] lg:h-[85vh] aspect-[2/3] w-xxxsm relative">
         <app-img
           [alt]="movieDetail.title"
           [title]="movieDetail.title"
@@ -20,8 +23,22 @@
           [url1x]="TMDB_PROFILE_2X_IMG_URL"
           [url2x]="TMDB_PROFILE_2X_IMG_URL"
           [priority]="true"
-          [borderClass]="'border-container-no-color'"
+          [customClasses]="'border-container-no-color'"
         ></app-img>
+
+        <app-lifecycle-selector
+          (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
+          [mediaData]="movieDetail"
+          [index]="0"
+          [mediaType]="'movie'"
+        ></app-lifecycle-selector>
+
+        <div class="w-full absolute bottom-0">
+          <app-lifecycle-status-label
+            [lifecycleEnumSelected]="lifecycleEnumSelected"
+            [customClass]="'border-lifecycle-label'"
+          ></app-lifecycle-status-label>
+        </div>
       </div>
 
       <!-- Movie detail content -->
@@ -38,6 +55,7 @@
           [releaseDate]="movieDetail.release_date"
           [runtime]="movieDetail.runtime"
           [tagLine]="movieDetail.tagline"
+          [certification]="movieDetail.release_dates[0].certification"
         ></app-media-detail-content>
       </div>
       }
@@ -46,6 +64,8 @@
   @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
   <div class="block lg:hidden h-full">
     <app-media-detail-content
+      [isSmallContainer]="true"
+      #contentContainer
       [mediaData]="movieDetail"
       [voteAverage]="movieDetail.vote_average"
       [mediaTitle]="movieDetail.title"
@@ -56,17 +76,37 @@
       [releaseDate]="movieDetail.release_date"
       [runtime]="movieDetail.runtime"
       [tagLine]="movieDetail.tagline"
+      [certification]="movieDetail.release_dates[0].certification"
     ></app-media-detail-content>
   </div>
 
   }
 
-  <div class="mb-10">
-    <app-cast-crew-list-container
-      [isLoading]="(isLoading$ | async) ?? false"
-      [castList]="movieDetail.cast"
-      [crewList]="movieDetail.crew"
-    ></app-cast-crew-list-container>
+  <div class="w-full lg:w-[85%] lg:mx-auto flex flex-col lg:flex-row py-10">
+    <div class="w-1/1 lg:w-[75%] lg:mr-4">
+      <div class="border-separator pb-8 mb-8">
+        <h2 class="px-4 mb-2">Cast</h2>
+        <app-cast-crew-list-container
+          [isLoading]="(isLoading$ | async) ?? false"
+          [castCrewList]="movieDetail.cast"
+        ></app-cast-crew-list-container>
+      </div>
+      <div class="border-separator pb-8 mb-8">
+        <h2 class="px-4 mb-2">Crew</h2>
+        <app-cast-crew-list-container
+          [isLoading]="(isLoading$ | async) ?? false"
+          [castCrewList]="movieDetail.crew"
+        ></app-cast-crew-list-container>
+      </div>
+    </div>
+    <div class="w-1/1 lg:w-[25%] lg:ml-4 lg:px-0">
+      <div class="space-y-4">
+        <div class="px-4">
+          <h2>Budget</h2>
+          <p>sgwsds</p>
+        </div>
+      </div>
+    </div>
   </div>
   }
 </section>

@@ -6,7 +6,6 @@ import {
   Output,
   EventEmitter,
   DestroyRef,
-  Renderer2,
   RendererFactory2,
 } from '@angular/core';
 import {
@@ -16,7 +15,7 @@ import {
   FormControl,
 } from '@angular/forms';
 
-import { Subject, Observable, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import {
   Genre,
   GenreGroup,
@@ -31,21 +30,19 @@ export abstract class AbstractFilter<
   T2 extends { [K in keyof T2]: AbstractControl<any, any> }
 > implements OnInit
 {
+  @Input({ required: true })
+  sortBySelect!: OptionFilter[];
+  @Output()
+  payloadEmitterOnSubmit: EventEmitter<T1> = new EventEmitter<T1>();
+
   protected readonly store = inject(Store);
   protected readonly fb = inject(FormBuilder);
-  protected renderer!: Renderer2;
+
   protected readonly rendererFactory = inject(RendererFactory2);
 
   destroyed$ = new Subject();
 
-  @Output()
-  payloadEmitterOnSubmit: EventEmitter<T1> = new EventEmitter<T1>();
-
   filterForm!: FormGroup<T2>;
-
-  @Input({ required: true })
-  sortBySelect!: OptionFilter[];
-
   isHideFilterContainer: boolean = true;
   isHideSortContainer: boolean = true;
   isDisableButton: boolean = true;
@@ -55,13 +52,10 @@ export abstract class AbstractFilter<
       this.destroyed$.next(true);
       this.destroyed$.complete();
     });
-
-    this.renderer = this.rendererFactory.createRenderer(null, null);
   }
 
   abstract ngOnInit(): void;
   abstract initSubscription(): void;
-
   abstract buildForm(filterSelected: T1, genreList: Genre[]): void;
   abstract onSubmit(): void;
   abstract buildPayload(): T1;
@@ -108,21 +102,11 @@ export abstract class AbstractFilter<
     return sortyByControl.value ? sortyByControl.value : '';
   }
 
-  toggleMenuFilter(container: HTMLElement) {
-    if (this.isHideFilterContainer) {
-      this.renderer.removeClass(container, 'hidden-container');
-    } else {
-      this.renderer.addClass(container, 'hidden-container');
-    }
+  toggleMenuFilter() {
     this.isHideFilterContainer = !this.isHideFilterContainer;
   }
 
-  toggleMenuSort(container: HTMLElement) {
-    if (this.isHideSortContainer) {
-      this.renderer.removeClass(container, 'hidden-container');
-    } else {
-      this.renderer.addClass(container, 'hidden-container');
-    }
+  toggleMenuSort() {
     this.isHideSortContainer = !this.isHideSortContainer;
   }
 
