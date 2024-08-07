@@ -1,33 +1,163 @@
-<div class="space-y-10 p-4 lg:p-0" #contentContainer>
-  <div class="space-y-1">
-    <div class="flex flex-wrap items-center">
+<div
+  class="space-y-10 p-4 lg:p-0"
+  #contentContainer
+  [ngStyle]="{
+    'background-image': contentMediaGradient,
+    color: textColorBlend
+  }"
+>
+  <!-- Title and Main infos -->
+  <div class="space-y-2">
+    <div class="flex flex-wrap">
       <h1 class="mr-2">{{ mediaTitle }}</h1>
-      @if(certification){
-      <p class="text-xl border-2 border-solid px-1">{{ certification }}</p>
-      }
     </div>
-    <ul
-      class="flex flex-wrap flex-col lg:flex-row lg:space-x-7 my-1 p-0 lg:items-center"
-    >
-      <li class="list-none">{{ releaseDate }}</li>
-      <li class="list-none lg:list-disc">
-        @for(genre of genres; track genre.id){ {{ genre.name }}@if($index !=
-        genres.length-1){, } }
-      </li>
-      <li class="list-none lg:list-disc">{{ runtime | formatMinutes }}</li>
-    </ul>
 
-    <div class="mt-1">
-      <app-rating [voteAverage]="voteAverage"></app-rating>
+    <div>
+      <ul
+        class="flex flex-wrap space-y-1 space-x-2 m-0 p-0 text-sm lg:text-md"
+        [ngClass]="{ 'text-gray-400': isDark, 'text-gray-600': !isDark }"
+      >
+        @if(certification){
+        <li class="list-none flex flex-wrap space-x-2">
+          <p class="border-2 border-solid px-1">{{ certification }}</p>
+        </li>
+        }
+        <li class="list-none flex flex-wrap space-x-2">
+          @if(certification){ <span>&#8226;</span
+          ><span>{{ mediaData.origin_country }}</span
+          >} @else {
+          <span class="mt-[4px]">{{ mediaData.origin_country }}</span>
+          }
+        </li>
+        <li class="list-none flex flex-wrap space-x-2">
+          <span>&#8226;</span><span>{{ releaseDate }}</span>
+        </li>
+        <li class="list-none flex flex-wrap space-x-2">
+          <span>&#8226;</span><span>{{ runtime | formatMinutes }}</span>
+        </li>
+      </ul>
+    </div>
+    <div><app-rating [voteAverage]="mediaData.vote_average"></app-rating></div>
+    <div>
+      <ul class="flex flex-wrap list-none p-0 m-0 lg:items-center">
+        @for(genre of mediaData.genres; track genre.id){
+        <li class="list-none mr-2">
+          <app-static-tag [genreName]="genre.name"></app-static-tag>
+        </li>
+        }
+      </ul>
     </div>
   </div>
-
-  <div class="relative h-full"></div>
+  <!-- Overview -->
   <div id="description" class="space-y-1">
-    <h2>Overview</h2>
-    <p class="font-medium text-gray-400 italic">{{ tagLine }}</p>
-    <p>
-      {{ overview }}
+    <h3>Overview</h3>
+    <p
+      class="font-medium italic"
+      [ngClass]="{ 'text-gray-400': isDark, 'text-gray-600': !isDark }"
+    >
+      {{ mediaData.tagline }}
     </p>
+    <p>
+      {{ mediaData.overview }}
+    </p>
+  </div>
+  <!-- Main Cast & Crew -->
+  <div>
+    <div class="mb-2 pb-3">
+      <div class="mb-1"><h3>Director</h3></div>
+
+      <ul class="flex flex-wrap list-none m-0 p-0">
+        @for(director of mainPersonMap.directors; track director){
+        <li class="list-none mr-6 flex space-x-2">
+          <span>&#8226;</span>
+          <a
+            class="hover:underline"
+            [ngClass]="{
+              'text-[var(--link-color-dark)]': !isDark,
+              'text-[var(--link-color-light)]': isDark
+            }"
+            [routerLink]="buildDetailPath(director.id)"
+            [title]="director.name"
+            ><span> {{ director.name }}</span></a
+          >
+        </li>
+        }
+      </ul>
+    </div>
+    <div class="pb-3 mb-2">
+      <div class="mb-1"><h3>Writers</h3></div>
+
+      <ul class="flex flex-wrap list-none m-0 p-0">
+        @for(witer of mainPersonMap.witers; track witer){
+        <li class="list-none mr-6 flex space-x-2">
+          <span>&#8226;</span>
+          <a
+            class="hover:underline"
+            [ngClass]="{
+              'text-[var(--link-color-dark)]': !isDark,
+              'text-[var(--link-color-light)]': isDark
+            }"
+            [routerLink]="buildDetailPath(witer.id)"
+            [title]="witer.name"
+            ><span> {{ witer.name }}</span></a
+          >
+        </li>
+        }
+      </ul>
+    </div>
+    <div class="mb-2 pb-3">
+      <div class="mb-1"><h3>Stars</h3></div>
+      <ul class="flex flex-wrap list-none m-0 p-0">
+        @for(cast of mainPersonMap.casts; track cast){
+        <li class="list-none mr-6 flex space-x-2">
+          <span>&#8226;</span>
+          <a
+            class="hover:underline"
+            [ngClass]="{
+              'text-[var(--link-color-dark)]': !isDark,
+              'text-[var(--link-color-light)]': isDark
+            }"
+            [routerLink]="buildDetailPath(cast.id)"
+            [title]="cast.name"
+            ><span> {{ cast.name }}</span></a
+          >
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+  <!-- More Info -->
+  <div class="grid grid-cols-2">
+    <!-- <div class="space-y-8">
+      <div class="space-y-2">
+        <h3>Status</h3>
+        <p>{{mediaData.status}}</p>
+      </div>
+      <div class="space-y-2">
+        <h3>Budget</h3>
+        <p></p>
+      </div>
+      <div class="space-y-2">
+        <h3>Revenue</h3>
+        <p>sgwsds</p>
+      </div>
+    </div> -->
+    <div class="space-y-4">
+      <h3>For more info go to</h3>
+      <div class="space-y-2 items-center">
+        @if(mediaData.imdb_id){
+        <div>
+          <app-imdb-icon [mediaId]="mediaData.imdb_id"></app-imdb-icon>
+        </div>
+        }
+
+        <div>
+          <app-tmdb-icon
+            [mediaId]="mediaData.id"
+            [mediaType]="'movie'"
+          ></app-tmdb-icon>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,14 +1,18 @@
 <div [formGroup]="filterForm" class="space-y-2">
-  <h3>Minimum User Votes</h3>
+  <h4>Minimum User Votes</h4>
   <div class="px-2">
     <mat-slider min="0" max="1000">
       <input
-        id="min"
+        id="minVoteUsr"
         [value]="voteAverageControl.value"
         [formControlName]="'minVote'"
         matSliderThumb
       />
     </mat-slider>
-    <div>Minimum User Votes: {{ voteAverageControl.value }}</div>
+    <div>
+      <label for="minVoteUsr">
+        Minimum User Votes: {{ voteAverageControl.value }}</label
+      >
+    </div>
   </div>
 </div>

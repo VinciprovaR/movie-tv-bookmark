@@ -1,32 +1,36 @@
-<div
-  class="relative overflow-hidden aspect-[2/3]"
-  [ngClass]="{ 'pointer-events-none': !link }"
->
-  @if(priority){
+<div [ngClass]="customContainerHeightClass">
+  <div
+    class="relative overflow-hidden h-full"
+    [ngClass]="{
+    'pointer-events-none': !link ,
+  }"
+  >
+    @if(priority){
 
-  <img
-    [alt]="alt"
-    [title]="title"
-    [ngSrc]="card1or2xImgUrl"
-    [routerLink]="link"
-    fill="true"
-    [ngClass]="customClasses"
-    [placeholder]="
-      isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-    "
-    [priority]="priority"
-  />
-  } @else{
-  <img
-    [alt]="alt"
-    [title]="title"
-    [ngSrc]="card1or2xImgUrl"
-    [routerLink]="link"
-    fill="true"
-    [ngClass]="customClasses"
-    [placeholder]="
-      isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-    "
-    [loading]="'lazy'"
-  />}
+    <img
+      [alt]="alt"
+      [title]="title"
+      [ngSrc]="fullSrc"
+      (click)="navigateTo()"
+      fill="true"
+      [ngClass]="customClasses"
+      [placeholder]="
+        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
+      "
+      [priority]="priority"
+    />
+    } @else{
+    <img
+      [alt]="alt"
+      [title]="title"
+      [ngSrc]="fullSrc"
+      (click)="navigateTo()"
+      fill="true"
+      [ngClass]="customClasses"
+      [placeholder]="
+        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
+      "
+      [loading]="'lazy'"
+    />}
+  </div>
 </div>

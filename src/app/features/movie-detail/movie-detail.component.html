@@ -7,21 +7,31 @@
     id="header-detail"
     class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[85vh]"
     [ngStyle]="{
-      'background-image':
-        'url(' + TMDB_MULTI_FACE_2X_IMG_URL + movieDetail.backdrop_path + ')'
+      'background-image': movieDetail.backdrop_path
+        ? 'url(' + TMDB_MULTI_FACE_2X_IMG_URL + movieDetail.backdrop_path + ')'
+        : ''
     }"
   >
     <div
-      class="backdrop-blur-xl flex flex-row header-gradient h-full w-full p-4 justify-center lg:justify-normal lg:p-8 space-x-8"
-      #headerMediaDetail
+      class="flex flex-row header-gradient h-full w-full p-4 justify-center lg:justify-normal lg:p-8 space-x-8"
+      [ngStyle]="{
+        'background-image':
+          ((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024
+            ? headerMediaGradient
+            : '',
+        'background-color':
+          ((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024
+            ? 'var(--bg-header-media-detail-not-lg)'
+            : ''
+      }"
+      [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"
     >
       <div class="h-[35vh] lg:h-[85vh] aspect-[2/3] w-xxxsm relative">
         <app-img
           [alt]="movieDetail.title"
           [title]="movieDetail.title"
           [imgSrc]="movieDetail.poster_path"
-          [url1x]="TMDB_PROFILE_2X_IMG_URL"
-          [url2x]="TMDB_PROFILE_2X_IMG_URL"
+          [baseUrl]="TMDB_PROFILE_2X_IMG_URL"
           [priority]="true"
           [customClasses]="'border-container-no-color'"
         ></app-img>
@@ -40,22 +50,16 @@
           ></app-lifecycle-status-label>
         </div>
       </div>
-
       <!-- Movie detail content -->
       @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
-      <div class="hidden lg:block">
+      <div class="hidden lg:block max-w-[1100px]">
         <app-media-detail-content
+          [textColorBlend]="textColorBlend"
+          [isDark]="isDark"
           [mediaData]="movieDetail"
-          [voteAverage]="movieDetail.vote_average"
-          [mediaTitle]="movieDetail.title"
-          [crewList]="movieDetail.crew"
-          [castList]="movieDetail.cast.slice(0, 5)"
-          [genres]="movieDetail.genres"
-          [overview]="movieDetail.overview"
           [releaseDate]="movieDetail.release_date"
+          [mediaTitle]="movieDetail.title"
           [runtime]="movieDetail.runtime"
-          [tagLine]="movieDetail.tagline"
-          [certification]="movieDetail.release_dates[0].certification"
         ></app-media-detail-content>
       </div>
       }
@@ -64,49 +68,38 @@
   @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
   <div class="block lg:hidden h-full">
     <app-media-detail-content
-      [isSmallContainer]="true"
-      #contentContainer
+      [textColorBlend]="textColorBlend"
+      [isDark]="isDark"
+      [contentMediaGradient]="contentMediaGradient"
       [mediaData]="movieDetail"
-      [voteAverage]="movieDetail.vote_average"
-      [mediaTitle]="movieDetail.title"
-      [crewList]="movieDetail.crew"
-      [castList]="movieDetail.cast.slice(0, 5)"
-      [genres]="movieDetail.genres"
-      [overview]="movieDetail.overview"
+      [mediaData]="movieDetail"
       [releaseDate]="movieDetail.release_date"
+      [mediaTitle]="movieDetail.title"
       [runtime]="movieDetail.runtime"
-      [tagLine]="movieDetail.tagline"
-      [certification]="movieDetail.release_dates[0].certification"
     ></app-media-detail-content>
   </div>
 
   }
 
-  <div class="w-full lg:w-[85%] lg:mx-auto flex flex-col lg:flex-row py-10">
-    <div class="w-1/1 lg:w-[75%] lg:mr-4">
+  <div class="w-full lg:w-[80%] lg:mx-auto flex flex-col lg:flex-row py-6">
+    <div class="w-1/1 lg:w-full lg:mr-4">
       <div class="border-separator pb-8 mb-8">
-        <h2 class="px-4 mb-2">Cast</h2>
+        <h2 class="pl-4 sm:pl-0 mb-6">Cast</h2>
         <app-cast-crew-list-container
           [isLoading]="(isLoading$ | async) ?? false"
-          [castCrewList]="movieDetail.cast"
+          [castCrewList]="movieDetail.credits.cast"
         ></app-cast-crew-list-container>
       </div>
       <div class="border-separator pb-8 mb-8">
-        <h2 class="px-4 mb-2">Crew</h2>
+        <h2 class="pl-4 sm:pl-0 mb-6">Crew</h2>
         <app-cast-crew-list-container
           [isLoading]="(isLoading$ | async) ?? false"
-          [castCrewList]="movieDetail.crew"
+          [castCrewList]="movieDetail.credits.crew"
         ></app-cast-crew-list-container>
-      </div>
-    </div>
-    <div class="w-1/1 lg:w-[25%] lg:ml-4 lg:px-0">
-      <div class="space-y-4">
-        <div class="px-4">
-          <h2>Budget</h2>
-          <p>sgwsds</p>
-        </div>
       </div>
     </div>
   </div>
-  }
+  @if(findTrailerVideoKey(movieDetail.videos); as videoKey){
+  <app-youtube-embeded [videoId]="videoKey"></app-youtube-embeded>
+  } }
 </section>

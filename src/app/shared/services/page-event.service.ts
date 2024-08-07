@@ -32,7 +32,7 @@ export class PageEventService {
   initSelectors() {
     this.onResize$ = fromEvent(window, 'resize').pipe(
       takeUntil(this.destroyed$),
-      debounceTime(100)
+      debounceTime(50)
     );
 
     this.onResize$.subscribe(() => {

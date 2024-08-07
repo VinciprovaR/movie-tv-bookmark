@@ -1,0 +1,19 @@
+<div class="container mx-auto my-4">
+  <div class="aspect-w-16 aspect-h-9">
+    <!-- <iframe
+      class="w-full h-full"
+      [src]="domSanitizer.bypassSecurityTrustResourceUrl(urlVideo)"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe> -->
+    <youtube-player
+      [videoId]="videoId"
+      suggestedQuality="small"
+      [height]="height"
+      [width]="width"
+    >
+    </youtube-player>
+  </div>
+</div>

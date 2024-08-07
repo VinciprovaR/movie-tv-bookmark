@@ -12,26 +12,45 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RatingComponent } from '../rating/rating.component';
-import { Genre } from '../../interfaces/TMDB/tmdb-filters.interface';
+import {
+  Certification,
+  Genre,
+} from '../../interfaces/TMDB/tmdb-filters.interface';
 import {
   Cast,
   Crew,
   MediaCredit,
   MovieDetail,
+  ReleaseDate,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { FormatMinutesPipe } from '../../pipes/format-minutes.pipe';
-import { FastAverageColorResult } from 'fast-average-color';
-import { PredominantImgColorService } from '../../predominant-img-color.service';
+import {
+  FastAverageColorResult,
+  FastAverageColorRgba,
+} from 'fast-average-color';
+import { PredominantImgColorService } from '../../services/predominant-img-color.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { StaticTagComponent } from '../static-tag/static-tag.component';
+import { ImdbIconComponent } from '../../imdb-icon/imdb-icon.component';
+import { TmdbIconComponent } from '../../tmdb-icon/tmdb-icon.component';
 @Component({
   selector: 'app-media-detail-content',
   standalone: true,
-  imports: [CommonModule, RatingComponent, FormatMinutesPipe],
+  imports: [
+    CommonModule,
+    RatingComponent,
+    FormatMinutesPipe,
+    RouterModule,
+    StaticTagComponent,
+    ImdbIconComponent,
+    TmdbIconComponent,
+  ],
   templateUrl: './media-detail-content.component.html',
   styleUrl: './media-detail-content.component.css',
 })
-export class MediaDetailContentComponent implements OnInit, AfterViewInit {
+export class MediaDetailContentComponent implements OnInit {
   private renderer!: Renderer2;
   private readonly rendererFactory = inject(RendererFactory2);
   readonly predominantImgColorService = inject(PredominantImgColorService);
@@ -42,89 +61,51 @@ export class MediaDetailContentComponent implements OnInit, AfterViewInit {
   predominantColorResultObs$!: Observable<FastAverageColorResult>;
 
   @Input({ required: true })
-  mediaData!: (MovieDetail & MediaCredit) | (TVDetail & MediaCredit);
+  mediaData!: MovieDetail | TVDetail;
   @Input({ required: true })
   mediaTitle: string = '';
   @Input({ required: true })
-  tagLine: string = '';
-  @Input({ required: true })
   releaseDate: string = '';
   @Input({ required: true })
-  genres: Genre[] = [];
-  @Input({ required: true })
   runtime: number = 0;
-  @Input({ required: true })
-  overview: string = '';
-  @Input({ required: true })
-  crewList: Crew[] = [];
-  @Input({ required: true })
-  castList: Cast[] = [];
   @Input()
-  voteAverage: number = 0;
+  headerMediaGradient: string = '';
   @Input()
-  certification: string = '';
+  contentMediaGradient: string = '';
   @Input()
-  backdropPath: string = '';
+  textColorBlend: string = '';
   @Input()
-  isSmallContainer: boolean = false;
+  isDark: boolean = false;
 
-  mainCrewMap: { directors: string[]; witers: string[] } = {
+  mainPersonMap: {
+    directors: { id: number; name: string }[];
+    witers: { id: number; name: string }[];
+    casts: { id: number; name: string }[];
+  } = {
     directors: [],
     witers: [],
+    casts: [],
   };
-  mainCrewList: { [key: number]: { name: string; job: string } } = {};
-  mainCastList: { [key: number]: { name: string; character: string } } = {};
 
-  @ViewChild('contentContainer')
-  contentContainer!: ElementRef;
+  releaseDateObj!: ReleaseDate;
+  certification: string = '';
+  detailMediaPath: string = '';
 
   constructor() {}
-  ngAfterViewInit(): void {
-    this.setPredominantColor();
-  }
 
   ngOnInit(): void {
     this.renderer = this.rendererFactory.createRenderer(null, null);
-
-    this.buildMainCrewList();
-    this.buildMainCastList();
-  }
-
-  setPredominantColor() {
-    this.predominantImgColorService
-      .evaluatePredominantColor(this.mediaData.backdrop_path)
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((colorResult: FastAverageColorResult) => {
-        if (this.isSmallContainer) {
-          this.renderer.setStyle(
-            this.contentContainer.nativeElement,
-            'background-image',
-            `linear-gradient(to bottom right, rgba(${colorResult.value[0]},${colorResult.value[1]},${colorResult.value[2]},1), rgba(${colorResult.value[0]},${colorResult.value[1]},${colorResult.value[2]}, 1))`
-          );
-        }
-
-        if (colorResult.isDark) {
-          this.renderer.setStyle(
-            this.contentContainer.nativeElement,
-            'color',
-            'var(--text-color-light) !important'
-          );
-        } else {
-          this.renderer.setStyle(
-            this.contentContainer.nativeElement,
-            'color',
-            'var(--text-color-dark) !important'
-          );
-        }
-      });
+    this.populateCertification();
+    this.buildMainCrewMap();
+    this.buildMainCastMap();
   }
 
   buildMainCrewMap() {
-    this.crewList.forEach((crew: Crew) => {
+    this.mediaData.credits.crew.forEach((crew: Crew) => {
       let department = crew.department.toLowerCase();
       let job = crew.job.toLowerCase();
       if (department === 'director' || job === 'director') {
-        this.mainCrewMap.directors.push(crew.name);
+        this.mainPersonMap.directors.push({ id: crew.id, name: crew.name });
       }
 
       if (
@@ -133,60 +114,41 @@ export class MediaDetailContentComponent implements OnInit, AfterViewInit {
         job === 'writer' ||
         job === 'writing'
       ) {
-        this.mainCrewMap.witers.push(crew.name);
-      }
-    });
-  }
-  buildMainCrewList() {
-    this.crewList.forEach((crew: Crew) => {
-      let department = crew.department.toLowerCase();
-      if (
-        department === 'director' ||
-        department === 'writer' ||
-        department === 'writing' ||
-        department === 'characters'
-      ) {
-        if (!this.mainCrewList[crew.id]) {
-          this.mainCrewList[crew.id] = {
-            name: crew.name,
-            job: crew.department,
-          };
-        } else {
-          this.mainCrewList[crew.id].job = this.mainCrewList[
-            crew.id
-          ].job.concat(`, ${crew.department}`);
-        }
-      }
-      let job = crew.job.toLowerCase();
-      if (
-        job === 'director' ||
-        job === 'writer' ||
-        job === 'writing' ||
-        job === 'characters'
-      ) {
-        if (!this.mainCrewList[crew.id]) {
-          this.mainCrewList[crew.id] = { name: crew.name, job: crew.job };
-        } else {
-          this.mainCrewList[crew.id].job = this.mainCrewList[
-            crew.id
-          ].job.concat(`, ${crew.job}`);
-        }
+        this.mainPersonMap.witers.push({ id: crew.id, name: crew.name });
       }
     });
   }
 
-  buildMainCastList() {
-    this.castList.forEach((cast: Cast) => {
-      if (!this.mainCastList[cast.id]) {
-        this.mainCastList[cast.id] = {
-          name: cast.name,
-          character: cast.character,
-        };
-      } else {
-        this.mainCastList[cast.id].character = this.mainCastList[
-          cast.id
-        ].character.concat(`, ${cast.character}`);
-      }
+  buildMainCastMap() {
+    this.mediaData.credits.cast.slice(0, 5).forEach((cast: Cast) => {
+      this.mainPersonMap.casts.push({ id: cast.id, name: cast.name });
     });
+  }
+
+  buildDetailPath(id: number): string {
+    return `/person-detail/${id}`;
+  }
+
+  populateCertification() {
+    for (let releaseDate of this.mediaData.release_dates.results) {
+      //to-do i18e?
+      if (releaseDate.iso_3166_1 === 'US') {
+        this.releaseDateObj = releaseDate;
+        this.certification = releaseDate.release_dates[0].certification;
+      }
+    }
+    this.releaseDateObj = {
+      iso_3166_1: '',
+      release_dates: [
+        {
+          certification: '',
+          descriptors: [],
+          iso_639_1: '',
+          note: '',
+          release_date: '',
+          type: -1,
+        },
+      ],
+    };
   }
 }

@@ -4,8 +4,7 @@
       [alt]="movie.title"
       [title]="movie.title"
       [imgSrc]="movie.poster_path"
-      [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
-      [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
+      [baseUrl]="TMDB_SEARCH_LIST_1X_IMG_URL"
       [link]="detailMediaPath"
       [customClasses]="'border-img-card'"
     ></app-img>
@@ -23,11 +22,11 @@
   ></app-lifecycle-status-label>
 
   <div class="card-content">
-    <h3>
+    <h4>
       <a [routerLink]="[detailMediaPath]" [title]="movie.title">{{
         movie.title
       }}</a>
-    </h3>
+    </h4>
     <div class="mt-1">
       <p>
         {{ movie.release_date | date : "longDate" }}

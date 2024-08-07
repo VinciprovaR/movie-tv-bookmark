@@ -55,6 +55,10 @@
 - tutto ciò che è in hidden con css @if non renderizzato
 -  Largest Contentful Paint (LCP) error, check
 -stile globale refractor
+- card search e discovery in orizzontale su smarthphone
+- media deteail usare solo mediaData
+- media detail append_to_response per chiamate in sequenza
+- domsanitizer tutta app
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

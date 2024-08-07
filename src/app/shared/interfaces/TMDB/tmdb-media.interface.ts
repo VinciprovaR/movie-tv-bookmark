@@ -58,6 +58,11 @@ export interface MediaDetail {
   tagline: string;
   vote_average: number;
   vote_count: number;
+  imdb_id?: string;
+  video: boolean;
+  credits: MediaCredit;
+  release_dates: ReleaseDates;
+  videos: Videos;
 }
 
 export interface Movie extends Media {
@@ -110,13 +115,12 @@ export interface MovieDetail extends MediaDetail {
     backdrop_path: string;
   };
   budget: number;
-  imdb_id: string;
+
   original_title: string;
   release_date: string;
   revenue: number;
   runtime: number;
   title: string;
-  video: boolean;
 }
 
 interface Episode {
@@ -263,4 +267,22 @@ export interface ReleaseDate {
 export interface ReleaseDates {
   id: number;
   results: ReleaseDate[];
+}
+
+export interface Video {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+  id: string;
+}
+
+export interface Videos {
+  id: number;
+  results: Video[];
 }

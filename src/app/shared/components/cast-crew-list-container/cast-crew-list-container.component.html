@@ -1,10 +1,10 @@
 <div class="box-border">
   <ul
-    class="grid grid-flow-col grid-columns gap-4 sm:gap-6 p-0 my-0 overflow-x-scroll overflow-y-hidden"
+    class="grid grid-flow-col grid-columns auto-cols-[140px] lg:auto-cols-[160px] gap-6 p-0 my-0 overflow-x-scroll overflow-y-hidden"
   >
     @for(castCrew of castCrewList; track castCrew.id){
 
-    <li class="list-none py-2 mx-2 sm:mx-0 w-full">
+    <li class="list-none w-full">
       @defer (on viewport) {
       <app-cast-crew-card [castCrew]="castCrew"> </app-cast-crew-card>
       } @placeholder(){

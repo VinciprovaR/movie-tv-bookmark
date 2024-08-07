@@ -4,8 +4,7 @@
       [alt]="tv.name"
       [title]="tv.name"
       [imgSrc]="tv.poster_path"
-      [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
-      [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
+      [baseUrl]="TMDB_SEARCH_LIST_1X_IMG_URL"
       [link]="detailMediaPath"
       [customClasses]="'border-img-card'"
     ></app-img>
@@ -23,9 +22,9 @@
   ></app-lifecycle-status-label>
 
   <div class="card-content">
-    <h3>
+    <h4>
       <a [routerLink]="detailMediaPath" [title]="tv.name">{{ tv.name }}</a>
-    </h3>
+    </h4>
     <div class="mt-1">
       <p>
         {{ tv.first_air_date | date : "longDate" }}

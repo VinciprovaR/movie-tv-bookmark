@@ -5,26 +5,26 @@
       [alt]="person.name"
       [title]="person.name"
       [imgSrc]="person.profile_path"
-      [url1x]="TMDB_SEARCH_LIST_1X_IMG_URL"
-      [url2x]="TMDB_SEARCH_LIST_2X_IMG_URL"
+      [baseUrl]="TMDB_SEARCH_LIST_1X_IMG_URL"
       [link]="detailMediaPath"
       [state]="person"
       [customClasses]="'border-img-card'"
     ></app-img>
   </div>
   <div class="card-content">
-    <h3>
+    <h4>
       <a [routerLink]="detailMediaPath" [title]="person.name">{{
         person.name
       }}</a>
-    </h3>
+    </h4>
+
+    <p>
+      <span>{{ person.known_for_department }}</span>
+    </p>
     <div class="mt-1">
-      <p>
-        {{ person.known_for_department }}
-      </p>
       @if(isPersonEntity(person)){ @for(knowFor of person.known_for.slice(0,3);
       track knowFor){
-      <p id="sub-text" class="text-[0.85rem]">
+      <h5>
         {{
           $index < person.known_for.length - 1
             ? (knowFor.title ? knowFor.title : knowFor.name) + ", "
@@ -32,7 +32,7 @@
             ? knowFor.title
             : knowFor.name
         }}
-      </p>
+      </h5>
 
       } }
     </div>

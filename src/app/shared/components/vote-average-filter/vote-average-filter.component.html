@@ -1,23 +1,27 @@
 <div [formGroup]="filterForm" class="space-y-2">
-  <h3>Vote Average</h3>
+  <h4>Vote Average</h4>
   <div class="px-2">
     <mat-slider min="0" max="100" [formGroup]="voteAverageGroup">
       <input
-        id="min"
+        id="minVoteAvg"
         [value]="voteAverageGroup.controls.voteAverageMin.value"
         [formControlName]="'voteAverageMin'"
         matSliderStartThumb
       />
       <input
-        id="max"
+        id="maxVoteAvg"
         [value]="voteAverageGroup.controls.voteAverageMax.value"
         [formControlName]="'voteAverageMax'"
         matSliderEndThumb
       />
     </mat-slider>
     <div>
-      Min: {{ voteAverageGroup.controls.voteAverageMin.value }} Max:
-      {{ voteAverageGroup.controls.voteAverageMax.value }}
+      <label for="minVoteAvg">
+        Min: {{ voteAverageGroup.controls.voteAverageMin.value }}</label
+      >
+      <label for="maxVoteAvg">
+        Max: {{ voteAverageGroup.controls.voteAverageMax.value }}</label
+      >
     </div>
   </div>
 </div>

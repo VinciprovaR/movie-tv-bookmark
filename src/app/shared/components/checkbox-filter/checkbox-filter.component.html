@@ -1,6 +1,6 @@
 <div [formGroup]="filterForm" class="space-y-2">
   @if(title){
-  <h3>{{ title }}</h3>
+  <h4>{{ title }}</h4>
   }
 
   <div class="flex space-x-2">
@@ -10,6 +10,8 @@
       [formControlName]="controlName"
       [id]="controlName"
     />
-    <label [for]="controlName">{{ label }} </label>
+    <label [for]="controlName"
+      ><span>{{ label }}</span>
+    </label>
   </div>
 </div>
