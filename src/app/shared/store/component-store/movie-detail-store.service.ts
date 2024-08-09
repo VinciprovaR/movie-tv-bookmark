@@ -48,35 +48,6 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
     };
   });
 
-  // private readonly addMovieDetailSuccess = this.updater(
-  //   (
-  //     state,
-  //     {
-  //       movieDetail,
-  //       videos,
-  //       movieCredit,
-  //       releaseDate,
-  //     }: {
-  //       movieDetail: MovieDetail;
-  //       videos: any;
-  //       movieCredit: MediaCredit;
-  //       releaseDate: ReleaseDate;
-  //     }
-  //   ) => {
-  //     return {
-  //       ...state,
-  //       isLoading: false,
-  //       error: null,
-  //       movieDetail: {
-  //         ...movieDetail,
-  //         ...movieCredit,
-  //         ...releaseDate,
-  //         ...videos,
-  //       },
-  //     };
-  //   }
-  // );
-
   private readonly addMovieDetailSuccess = this.updater(
     (state, { movieDetail }: { movieDetail: MovieDetail }) => {
       return {

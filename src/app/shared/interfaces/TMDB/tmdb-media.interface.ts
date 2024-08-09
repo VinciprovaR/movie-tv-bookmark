@@ -63,6 +63,7 @@ export interface MediaDetail {
   credits: MediaCredit;
   release_dates: ReleaseDates;
   videos: Videos;
+  keywords: Keywords;
 }
 
 export interface Movie extends Media {
@@ -285,4 +286,13 @@ export interface Video {
 export interface Videos {
   id: number;
   results: Video[];
+}
+
+export interface Keyword {
+  id: number;
+  name: string;
+}
+
+export interface Keywords {
+  keywords: Keyword[];
 }

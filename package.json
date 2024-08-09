@@ -30,6 +30,7 @@
     "fast-average-color": "^9.4.0",
     "ng-zorro-antd": "^17.4.1",
     "rxjs": "~7.8.0",
+    "swiper": "^11.1.9",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },

@@ -1,3 +1,9 @@
-<div class="px-3 py-1 my-1 tag-container rounded-full">
-  <span class="select-none text-sm">{{ genreName }}</span>
+<div
+  class="px-3 py-1 my-1 tag-container"
+  [ngClass]="{
+    'rounded-full': type === 'ellipse',
+    'rounded-md': type === 'rounded-edge'
+  }"
+>
+  <span class="select-none">{{ tag }}</span>
 </div>

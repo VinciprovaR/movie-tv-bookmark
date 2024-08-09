@@ -1,13 +1,7 @@
 import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {
-  MediaCredit,
-  MovieDetail,
-  ReleaseDate,
-  Video,
-  Videos,
-} from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MovieDetail } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { map, Observable, takeUntil } from 'rxjs';
 import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
@@ -29,9 +23,9 @@ import { LifecycleSelectorComponent } from '../../shared/components/lifecycle-se
 import { LifecycleStatusLabelComponent } from '../../shared/components/lifecycle-status-label/lifecycle-status-label.component';
 import { lifecycleEnum } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import { MatIconModule } from '@angular/material/icon';
-import { ImdbIconComponent } from '../../shared/imdb-icon/imdb-icon.component';
-import { TmdbIconComponent } from '../../shared/tmdb-icon/tmdb-icon.component';
-import { YoutubeEmbededComponent } from '../../shared/components/youtube-embeded/youtube-embeded.component';
+import { ExternalInfoComponent } from '../../shared/components/external-info/external-info.component';
+import { MediaKeywordsComponent } from '../../shared/components/media-keywords/media-keywords.component';
+import { VideosContainerComponent } from '../../shared/components/videos-container/videos-container.component';
 
 @Component({
   selector: 'app-movie-detail',
@@ -45,9 +39,9 @@ import { YoutubeEmbededComponent } from '../../shared/components/youtube-embeded
     LifecycleSelectorComponent,
     LifecycleStatusLabelComponent,
     MatIconModule,
-    ImdbIconComponent,
-    TmdbIconComponent,
-    YoutubeEmbededComponent,
+    ExternalInfoComponent,
+    VideosContainerComponent,
+    MediaKeywordsComponent,
   ],
   providers: [MovieDetailStore, BridgeDataService],
   templateUrl: './movie-detail.component.html',
@@ -140,16 +134,5 @@ export class MovieDetailComponent extends MediaDetailComponent {
 
   setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
     this.lifecycleEnumSelected = lifecycleEnumSelected;
-  }
-
-  findTrailerVideoKey(videos: Videos): string {
-    const trailerVideos = videos.results.filter((video: Video) => {
-      return video.type.toLowerCase() === 'trailer';
-    });
-    if (trailerVideos) {
-      return trailerVideos[0].key;
-    }
-
-    return '';
   }
 }

@@ -27,7 +27,13 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["src/custom-theme.scss", "src/output.css"],
+            "styles": [
+              "src/custom-theme.scss",
+              "src/output.css",
+              "node_modules/swiper/swiper.css",
+              "node_modules/swiper/modules/navigation-element.css",
+              "node_modules/swiper/modules/pagination-element.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -78,7 +84,12 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/output.css"],
+            "styles": [
+              "src/output.css",
+              "node_modules/swiper/swiper.css",
+              "node_modules/swiper/modules/navigation-element.css",
+              "node_modules/swiper/modules/pagination-element.css"
+            ],
             "scripts": []
           }
         }

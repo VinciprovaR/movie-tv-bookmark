@@ -18,7 +18,7 @@ export class TMDBMovieDetailService {
 
   movieDetailChained(movieId: number): Observable<MovieDetail> {
     return this.httpClient.get<MovieDetail>(
-      `${this.tmdbBaseUrl}/movie/${movieId}?append_to_response=credits%2Crelease_dates%2Cvideos&language=en-US&api_key=${this.tmdbApiKey}`
+      `${this.tmdbBaseUrl}/movie/${movieId}?append_to_response=credits%2Crelease_dates%2Cvideos%2Ckeywords&language=en-US&api_key=${this.tmdbApiKey}`
     );
   }
 

@@ -44,6 +44,8 @@ export const IMG_SIZES = {
     'TMDB_MULTI_FACE_2X_IMG_URL'
   ),
   TMDB_W_300_IMG_URL: new InjectionToken<string>('TMDB_W_300_IMG_URL'),
+  TMDB_W_400_IMG_URL: new InjectionToken<string>('TMDB_W_400_IMG_URL'),
+  TMDB_W_500_IMG_URL: new InjectionToken<string>('TMDB_W_500_IMG_URL'),
   TMDB_LOGO_SIZE_IMG: new InjectionToken<string>('TMDB_LOGO_SIZE_IMG'),
 };
 
@@ -119,6 +121,14 @@ export function provideImgUrl() {
     {
       provide: IMG_SIZES.TMDB_W_300_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w300',
+    },
+    {
+      provide: IMG_SIZES.TMDB_W_400_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w400',
+    },
+    {
+      provide: IMG_SIZES.TMDB_W_500_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w500',
     },
     {
       provide: IMG_SIZES.TMDB_LOGO_SIZE_IMG,

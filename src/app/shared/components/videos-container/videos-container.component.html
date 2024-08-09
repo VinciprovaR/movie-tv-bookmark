@@ -1,0 +1,74 @@
+<!-- @for(video of videoList; track video){ @if($index === 0){
+<app-youtube-embeded [videoId]="video.key"></app-youtube-embeded>
+} } -->
+
+<!-- <div class="flex">
+  <div [ngClass]="{ hidden: isBeginning }">
+    <div class="swiper-button-prev-custom" (click)="prevVideo()">prev</div>
+  </div>
+
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      @for(video of videoList; track video){
+      <div class="swiper-slide">
+        <app-youtube-embeded [videoId]="video.key"></app-youtube-embeded>
+      </div>
+      }
+    </div>
+  </div>
+  <div [ngClass]="{ hidden: isEnd }">
+    <div class="swiper-button-next-custom" (click)="nextVideo()">next</div>
+  </div>
+</div> -->
+<div class="flex relative">
+  <div
+    class="m-auto w-[10%] h-[25%] absolute z-10 left-0 bottom-[38%] arrow-container"
+    [ngClass]="{ 'opacity-0': isBeginning }"
+  >
+    <div class="h-full arrow" (click)="prevVideo()">
+      <app-img
+        [imgSrc]="'../../../../assets/images/iconmonstr-arrow-68.svg'"
+        [priority]="true"
+      ></app-img>
+      <!-- <mat-icon
+    aria-hidden="false"
+    aria-label=""
+    [fontIcon]="'arrow_back'"
+    (click)="prevVideo()"
+  ></mat-icon> -->
+    </div>
+  </div>
+
+  <div class="swiper w-[95%]">
+    <div class="swiper-wrapper">
+      @for(video of videoList; track video){
+      <div class="swiper-slide">
+        <div class="w-[98%] m-auto">
+          <app-youtube-embeded
+            [videoId]="video.key"
+            [videoName]="video.name"
+          ></app-youtube-embeded>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  <div
+    class="m-auto w-[10%] h-[25%] absolute z-10 right-0 bottom-[38%] arrow-container"
+    [ngClass]="{ 'opacity-0': isEnd }"
+  >
+    <div class="h-full arrow" (click)="nextVideo()">
+      <app-img
+        [imgSrc]="'../../../../assets/images/iconmonstr-arrow-27.svg'"
+        [priority]="true"
+      ></app-img>
+      <!-- <mat-icon
+
+        aria-hidden="false"
+        aria-label=""
+        [fontIcon]="'arrow_forward'"
+        (click)="nextVideo()"
+      ></mat-icon> -->
+    </div>
+  </div>
+</div>

@@ -42,7 +42,10 @@
       <ul class="flex flex-wrap list-none p-0 m-0 lg:items-center">
         @for(genre of mediaData.genres; track genre.id){
         <li class="list-none mr-2">
-          <app-static-tag [genreName]="genre.name"></app-static-tag>
+          <app-static-tag
+            [type]="'ellipse'"
+            [tag]="genre.name"
+          ></app-static-tag>
         </li>
         }
       </ul>
@@ -124,40 +127,6 @@
         </li>
         }
       </ul>
-    </div>
-  </div>
-  <!-- More Info -->
-  <div class="grid grid-cols-2">
-    <!-- <div class="space-y-8">
-      <div class="space-y-2">
-        <h3>Status</h3>
-        <p>{{mediaData.status}}</p>
-      </div>
-      <div class="space-y-2">
-        <h3>Budget</h3>
-        <p></p>
-      </div>
-      <div class="space-y-2">
-        <h3>Revenue</h3>
-        <p>sgwsds</p>
-      </div>
-    </div> -->
-    <div class="space-y-4">
-      <h3>For more info go to</h3>
-      <div class="space-y-2 items-center">
-        @if(mediaData.imdb_id){
-        <div>
-          <app-imdb-icon [mediaId]="mediaData.imdb_id"></app-imdb-icon>
-        </div>
-        }
-
-        <div>
-          <app-tmdb-icon
-            [mediaId]="mediaData.id"
-            [mediaType]="'movie'"
-          ></app-tmdb-icon>
-        </div>
-      </div>
     </div>
   </div>
 </div>

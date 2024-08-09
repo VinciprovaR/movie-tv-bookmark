@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   --hover-selected-color: rgb(59 130 246);
   --disabled-bg: rgb(168, 168, 168);
@@ -21,6 +22,7 @@
 /* variables */
 body.light-theme {
   --bkg-color: rgb(255, 255, 255);
+  --bkg-container-color: rgb(250, 250, 250);
   --text-color: rgb(25, 25, 25);
   --text-color-inverted: rgb(215, 218, 223);
   --sub-text-color: rgb(87, 87, 87);
@@ -38,7 +40,8 @@ body.light-theme {
   --scroll-thumb-color: rgb(120, 120, 120);
 }
 body.dark-theme {
-  --bkg-color: #252222;
+  --bkg-color: rgb(35, 35, 35);
+  --bkg-container-color: rgb(40, 40, 40);
   --text-color: rgb(215, 218, 223);
   --text-color-inverted: rgb(25, 25, 25);
   --sub-text-color: rgb(190, 190, 190);
@@ -65,13 +68,17 @@ body {
   font-family: Roboto, Arial, sans-serif;
   background-color: var(--bkg-color);
   color: var(--text-color);
-  transition: all 0.2s;
+  transition: all 0.1s;
+}
+
+.bg-container {
+  background-color: var(--bkg-container-color);
 }
 
 input {
   background-color: var(--bkg-color);
   color: var(--text-color);
-  transition: all 0.2s;
+  transition: all 0.1s;
 }
 
 input::placeholder {
@@ -188,7 +195,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.65rem;
+  font-size: 1.35rem;
   font-weight: 650;
 }
 h3 {
@@ -203,6 +210,11 @@ h5 {
   font-size: 0.9rem;
   font-weight: 250;
   margin: 0px;
+}
+
+app-static-tag,
+app-select-tag {
+  font-size: 0.9rem;
 }
 
 p,
@@ -381,4 +393,46 @@ select {
 .border-lifecycle-label {
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
+}
+
+.scroller_wrap.should_fade:after {
+  transition: linear 0.3s;
+  opacity: 1;
+}
+.scroller_wrap.is_hidden:after {
+  transition: linear 0.3s;
+  opacity: 0;
+}
+
+/* scroller fade directive */
+@media (min-width: 1024px) {
+  .scroller_wrap.should_fade:after {
+    width: 100px;
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0,
+      var(--bkg-color) 100%
+    );
+  }
+}
+@media (max-width: 1023px) {
+  .scroller_wrap.should_fade:after {
+    width: 90px;
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0,
+      var(--bkg-container-color) 100%
+    );
+  }
+}
+
+.scroller_wrap.should_fade:after {
+  content: "";
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  will-change: opacity;
+  pointer-events: none;
 }

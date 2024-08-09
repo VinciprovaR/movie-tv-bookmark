@@ -1,19 +1,23 @@
-<div class="container mx-auto my-4">
-  <div class="aspect-w-16 aspect-h-9">
-    <!-- <iframe
-      class="w-full h-full"
-      [src]="domSanitizer.bypassSecurityTrustResourceUrl(urlVideo)"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe> -->
-    <youtube-player
+<div class="w-full" #youTubePlayer>
+  <div class="inline-block aspect-[16/9] w-full">
+    <app-img
+      [alt]="videoName"
+      [title]="videoName"
+      [imgSrc]="urlThumbnail"
+      [priority]="true"
+      [customClasses]="'border-container-no-color'"
+      [isPlaceholderPerson]="false"
+    ></app-img>
+
+    <!-- <youtube-player
+      #player
       [videoId]="videoId"
-      suggestedQuality="small"
-      [height]="height"
-      [width]="width"
+      [disableCookies]="true"
+      suggestedQuality="hd720"
+      [playerVars]="playerVars"
+      [width]="videoWidth"
+      [height]="videoHeight"
     >
-    </youtube-player>
+    </youtube-player> -->
   </div>
 </div>

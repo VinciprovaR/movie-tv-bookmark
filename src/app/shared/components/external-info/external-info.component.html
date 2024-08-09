@@ -1,0 +1,14 @@
+<div class="space-y-4">
+  @if(mediaData.imdb_id){
+  <div>
+    <app-imdb-icon [mediaId]="mediaData.imdb_id"></app-imdb-icon>
+  </div>
+  }
+
+  <div>
+    <app-tmdb-icon
+      [mediaId]="mediaData.id"
+      [mediaType]="'movie'"
+    ></app-tmdb-icon>
+  </div>
+</div>

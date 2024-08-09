@@ -1,0 +1,12 @@
+<div>
+  <ul class="flex flex-wrap list-none p-0 m-0 lg:items-center">
+    @for(keyword of keywords; track keyword.id){
+    <li class="list-none mr-2">
+      <app-static-tag
+        [tag]="keyword.name"
+        [type]="'rounded-edge'"
+      ></app-static-tag>
+    </li>
+    }
+  </ul>
+</div>

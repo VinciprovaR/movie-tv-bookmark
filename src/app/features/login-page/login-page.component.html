@@ -2,6 +2,7 @@
   nz-form
   [formGroup]="loginForm"
   class="login-form"
+  id="login-form"
   (ngSubmit)="onSubmit()"
 >
   <fieldset [disabled]="selectIsLoading$ | async">
@@ -48,7 +49,7 @@
       nz-button
       class="login-form-button login-form-margin"
       [nzType]="'primary'"
-      [nzLoading]="selectIsLoading$ | async "
+      [nzLoading]="selectIsLoading$ | async"
     >
       Log in
     </button>
