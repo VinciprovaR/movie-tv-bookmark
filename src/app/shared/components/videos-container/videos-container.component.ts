@@ -6,7 +6,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.component';
+import { YoutubeEmbededPreviewComponent } from '../youtube-embeded-preview/youtube-embeded-preview.component';
 import { Videos, Video } from '../../interfaces/TMDB/tmdb-media.interface';
 // import Swiper from 'swiper';
 import { Swiper } from 'swiper';
@@ -14,11 +14,18 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ImgComponent } from '../img/img.component';
+import { ArrowSliderComponent } from '../arrow-slider/arrow-slider.component';
 
 @Component({
   selector: 'app-videos-container',
   standalone: true,
-  imports: [YoutubeEmbededComponent, CommonModule, MatIcon, ImgComponent],
+  imports: [
+    YoutubeEmbededPreviewComponent,
+    CommonModule,
+    MatIcon,
+    ImgComponent,
+    ArrowSliderComponent,
+  ],
   templateUrl: './videos-container.component.html',
   styleUrl: './videos-container.component.css',
 })

@@ -1,0 +1,8 @@
+.arrow-container {
+  transition: all 0.3s;
+  background-color: var(--bg-color-arrow-slider);
+  border-color: rgb(111, 111, 111);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--border-radius);
+}

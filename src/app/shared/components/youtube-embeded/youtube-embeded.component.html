@@ -1,23 +1,18 @@
-<div class="w-full" #youTubePlayer>
-  <div class="inline-block aspect-[16/9] w-full">
-    <app-img
-      [alt]="videoName"
-      [title]="videoName"
-      [imgSrc]="urlThumbnail"
-      [priority]="true"
-      [customClasses]="'border-container-no-color'"
-      [isPlaceholderPerson]="false"
-    ></app-img>
-
-    <!-- <youtube-player
-      #player
+<div class="bg-black">
+  <div class="p-2">
+    <h2
+      class="text-[1rem] smc:text-[1.1rem] md:text-[1.35rem] text-[var(--text-color-light)]"
+    >
+      {{ videoName }}
+    </h2>
+  </div>
+  <mat-dialog-content class="mat-typography" #youTubePlayer>
+    <youtube-player
       [videoId]="videoId"
       [disableCookies]="true"
       suggestedQuality="hd720"
       [playerVars]="playerVars"
-      [width]="videoWidth"
-      [height]="videoHeight"
     >
-    </youtube-player> -->
-  </div>
+    </youtube-player>
+  </mat-dialog-content>
 </div>

@@ -1,0 +1,6 @@
+mat-dialog-content {
+  padding: 0px !important;
+  width: var(--mat-dialog-content);
+  aspect-ratio: 16/9 !important;
+  overflow: hidden;
+}

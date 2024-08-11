@@ -101,6 +101,14 @@ export class HeaderComponent implements OnInit {
   @HostListener('window:scroll', ['$event.target'])
   windowScrollEvent(event: KeyboardEvent) {
     let scrollTop = this.window.document.documentElement.scrollTop;
+    // console.log(scrollTop, this.lastScrollTop);
+    console.log(scrollTop - this.lastScrollTop);
+    // let offSet = scrollTop - this.lastScrollTop;
+    // if (offSet < 0) {
+    //   offSet = -offSet;
+    // }
+    // console.log(offSet);
+
     if (scrollTop > this.lastScrollTop) {
       this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
 
@@ -110,6 +118,7 @@ export class HeaderComponent implements OnInit {
     } else {
       this.renderer.removeClass(this.el.nativeElement.firstChild, 'header-up');
     }
+
     this.lastScrollTop = scrollTop;
   }
 

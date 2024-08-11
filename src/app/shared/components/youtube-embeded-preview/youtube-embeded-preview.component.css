@@ -1,0 +1,7 @@
+.play {
+  transition: all 0.3s;
+}
+
+/* .play:active {
+  color: var(--app-main-color);
+} */

@@ -26,20 +26,14 @@ export class ToggleThemeStore extends ComponentStore<ToggleThemeState> {
     let isDarkMode = false;
 
     if (webStorageService.getItem(themeKeyLocalStorage) != undefined) {
-      console.log('theme preferences salvate in storage, priorità a storage');
       isDarkMode = 'true' === webStorageService.getItem(themeKeyLocalStorage);
     } else {
-      console.log(
-        'theme preferences non ancora salvate in storage, priorità a device'
-      );
       if (
         window.matchMedia &&
         window.matchMedia('(prefers-color-scheme: dark)').matches
       ) {
-        console.log('device is dark mode');
         isDarkMode = true;
       } else {
-        console.log('device is light mode');
       }
     }
 
@@ -58,7 +52,7 @@ export class ToggleThemeStore extends ComponentStore<ToggleThemeState> {
     };
   });
 
-  readonly showAlertError = this.effect(() => {
+  readonly toggleThemeEffect = this.effect(() => {
     return this.selectIsDarkTheme$.pipe(
       tap((isDarkTheme: boolean) => {
         this.toggleThemeService.toggleTheme(isDarkTheme);

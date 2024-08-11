@@ -1,17 +1,3 @@
-/* mat-icon {
-  font-size: 48px;
-  height: 48px;
-  width: 48px;
-} */
-
-.arrow-container {
+.transition {
   transition: all 0.3s;
-}
-
-.arrow {
-  color: var(--text-color);
-}
-
-.arrow:hover {
-  cursor: pointer;
 }

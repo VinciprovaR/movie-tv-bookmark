@@ -18,7 +18,10 @@
   --bg-header-media-detail-not-lg: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(59, 61, 63);
   --link-color-light: rgb(207, 214, 223);
+  --app-main-color: rgb(138, 15, 72);
+  --mat-dialog-container-small-max-width: 95vw !important;
 }
+
 /* variables */
 body.light-theme {
   --bkg-color: rgb(255, 255, 255);
@@ -38,6 +41,7 @@ body.light-theme {
   --scroll-thumb-active-color: rgb(152, 152, 152);
   --scroll-thumb-hover-color: rgb(136, 136, 136);
   --scroll-thumb-color: rgb(120, 120, 120);
+  --bg-color-arrow-slider: rgba(18, 18, 18, 0.45);
 }
 body.dark-theme {
   --bkg-color: rgb(35, 35, 35);
@@ -45,7 +49,7 @@ body.dark-theme {
   --text-color: rgb(215, 218, 223);
   --text-color-inverted: rgb(25, 25, 25);
   --sub-text-color: rgb(190, 190, 190);
-  --mat-card-border-color: #6f6f6f;
+  --mat-card-border-color: rgb(111, 111, 111);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(234, 236, 240);
   --lifecycle-info-bkg-color: rgb(255, 255, 255);
@@ -58,6 +62,7 @@ body.dark-theme {
   --scroll-thumb-active-color: rgb(128, 128, 128);
   --scroll-thumb-hover-color: rgb(112, 112, 112);
   --scroll-thumb-color: rgb(96, 96, 96);
+  --bg-color-arrow-slider: rgba(87, 87, 87, 0.45);
 }
 
 html,
@@ -435,4 +440,76 @@ select {
 
   will-change: opacity;
   pointer-events: none;
+}
+
+.clickable-icon {
+  color: var(--text-color-light);
+}
+
+.clickable-icon:active {
+  color: var(--app-main-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .clickable-icon:hover {
+    color: var(--app-main-color);
+  }
+}
+
+/* to-do controllare rimanenti più altri browser */
+input,
+textarea,
+button,
+select,
+a,
+svg,
+div {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 599px) {
+  :root {
+    --mat-dialog-content: 95vw !important;
+  }
+}
+
+@media (min-width: 600px) {
+  :root {
+    --mat-dialog-container-max-width: 85vw !important;
+    --mat-dialog-content: 85vw !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  :root {
+    --mat-dialog-container-max-width: 1200px !important;
+    --mat-dialog-content: 1200px !important;
+  }
+}
+
+.mdc-dialog__surface {
+  overflow: hidden !important;
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.64) !important;
+}
+
+youtube-player-placeholder {
+  width: 100% !important;
+  height: 100% !important;
+}
+youtube-player {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+youtube-player div:first-child {
+  height: 100% !important;
+}
+
+iframe {
+  width: 100% !important;
+  height: 100% !important;
 }

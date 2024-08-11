@@ -21,28 +21,4 @@ export class TMDBMovieDetailService {
       `${this.tmdbBaseUrl}/movie/${movieId}?append_to_response=credits%2Crelease_dates%2Cvideos%2Ckeywords&language=en-US&api_key=${this.tmdbApiKey}`
     );
   }
-
-  // movieDetail(movieId: number): Observable<MovieDetail> {
-  //   return this.httpClient.get<MovieDetail>(
-  //     `${this.tmdbBaseUrl}/movie/${movieId}?language=en-US&api_key=${this.tmdbApiKey}`
-  //   );
-  // }
-
-  // movieCredit(movieId: number): Observable<MediaCredit> {
-  //   return this.httpClient.get<MediaCredit>(
-  //     `${this.tmdbBaseUrl}/movie/${movieId}/credits?language=en-US&api_key=${this.tmdbApiKey}`
-  //   );
-  // }
-
-  // movieReleaseDate(movieId: number): Observable<ReleaseDates> {
-  //   return this.httpClient.get<ReleaseDates>(
-  //     `${this.tmdbBaseUrl}/movie/${movieId}/release_dates?language=en-US&api_key=${this.tmdbApiKey}`
-  //   );
-  // }
-
-  // movieVideos(movieId: number): Observable<any> {
-  //   return this.httpClient.get<any>(
-  //     `${this.tmdbBaseUrl}/movie/${movieId}/videos?language=en-US&api_key=${this.tmdbApiKey}`
-  //   );
-  // }
 }

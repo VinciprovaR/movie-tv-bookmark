@@ -14,51 +14,52 @@
 - generalizzare navigator (usabile per header e sotto route come movie lifecycle)
 - ogni failure ha la sua action di failure (search movie failure, discovery movie failure, create lifecycle failure, update lifecycle failure ecc..)
 - tipizzazioni a any da elimiare
+- Card e altri componenti con grandezze placeholder mentre aspettano dati async per evitare cambi dimensione
 
 ################ GENERIC ################
 - CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
 - Refractor index models export
-- Spinner loading e disattivare roba
+- Spinner loading async disattivare roba
 - [Violation] 'setTimeout' handler took 345ms
 - Eliminare zorro (auth, altro cercare)
 - Proxy con action supabase per nascondere chiave API
 - html semantico
 - aria accessibility
-- i18e (anche date filter) + label tutte in un file json
+- i18e (anche date filter) + label tutte in un file json (?)
 - check for change detection on push
-- Gestione timeout
-- Spinner async
-- Card e altri componenti con grandezze placeholder mentre aspettano dati async per evitare cambi dimensione
+- Gestione timeout chiamate
 - Refractor interfaccie, stato confuso, separazione dto entity non ordinato
 - Nelle subcribe custom next e error
 - Label lifecycle sul card component
-- Abount / credit con logo tmdb+ footer con testo di api appartenenza a tmdb
+- Abount / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
 - Hai dimenticato alcune destroyed ref...
 - aria accessibility
 - oggetti placeholder dove ci sono dati asincroni
 - astratta tra discovery.filter.directive e lifecycle.filter.directive
 - lifecycle rinominare in bookmark
-- initSubscription ovunque
--ricerca automatica per i discovery (?)
--range date filter validatori error 
--via tutti gli item prima di card 
+- initSubscription ovunque (?)
+- ricerca automatica per i discovery (?)
+- range date filter validatori error 
+- via tutti gli item prima di card 
 - card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
 - scroll infinito anche per i media lifecycle (bookmark)
-- dark theme da device
 - far funzionare bene 1x 2x immagini
 - immagini placeholder da cambiare + su smarthphone sono troppo piccole
 - header giu su dopo n y scroll
-- movie discovery (controllare tv) si perde lo state dei movie caricati additional
 - troppi chunk al primo atterraggio
--click fuori chiude sub menu header mobile
+- click fuori chiude sub menu header mobile
 - check for @defer
 - tutto ciò che è in hidden con css @if non renderizzato
--  Largest Contentful Paint (LCP) error, check
--stile globale refractor
+- Largest Contentful Paint (LCP) error, check
+- stile globale refractor
 - card search e discovery in orizzontale su smarthphone
 - media deteail usare solo mediaData
 - media detail append_to_response per chiamate in sequenza
 - domsanitizer tutta app
+- Video not found handler
+- Media detail assenza di cast, crew, video... sezioni condizionali
+- hover card e altri, lieve colore
+- fallback if img not found...
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

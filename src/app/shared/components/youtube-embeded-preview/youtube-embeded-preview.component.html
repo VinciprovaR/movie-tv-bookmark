@@ -1,0 +1,27 @@
+<div class="w-full relative hover:cursor-pointer" (click)="openDialog()">
+  <div class="inline-block aspect-[16/9] w-full">
+    <app-img
+      [alt]="videoName"
+      [title]="videoName"
+      [imgSrc]="urlThumbnail"
+      [priority]="true"
+      [customClasses]="'border-container-no-color'"
+      [isPlaceholderPerson]="false"
+    ></app-img>
+  </div>
+  <div class="absolute right-[30%] top-[30%] h-[40%] aspect-[16/9] flex">
+    <div
+      class="h-[60%] aspect-[1/1] m-auto content-center bg-[rgba(0,0,0,0.7)] rounded-full"
+    >
+      <div class="h-[40%] aspect-[1/1] m-auto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-full play clickable-icon"
+          viewBox="0 0 24 24"
+        >
+          <path fill="currentColor" d="M4 22v-20l18 10-18 10z" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
