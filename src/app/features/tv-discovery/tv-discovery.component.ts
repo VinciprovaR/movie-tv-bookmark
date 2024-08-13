@@ -8,7 +8,7 @@ import {
   DiscoveryTVActions,
   DiscoveryTVSelectors,
 } from '../../shared/store/discovery-tv';
-import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
+
 import { TV } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
@@ -35,9 +35,7 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
   imports: [
     CommonModule,
     InputQueryComponent,
-
     MediaListContainerComponent,
-    ScrollNearEndDirective,
     TVDiscoveryFiltersComponent,
   ],
   providers: [BridgeDataService],

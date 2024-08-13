@@ -1,28 +1,24 @@
 <div
-  [scrollSelf]="scrollSelf"
-  appScrollNearEnd
-  [includeScrollEvents]="includeScrollEvents"
-  [scrollIsLoading]="isLoading"
-  (nearEnd)="discoveryAdditionalMedia()"
+  infinite-scroll
+  (scrolled)="discoveryAdditionalMedia()"
+  [infiniteScrollDisabled]="isLoading"
+  [infiniteScrollDistance]="0.2"
   [ngClass]="{ 'max-h-[400px]': scrollSelf, 'overflow-y-scroll': scrollSelf }"
   class="box-border"
 >
-  @if( mediaList.length >0){
+  @if( mediaList.length > 0){
   <ul
+    #listContainer
     class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] gap-6 smc:gap-8 p-0 m-0"
   >
-    @for(media of mediaList; track media.id){
+    @for(media of mediaList; track media.id;){
     <li class="list-none w-full">
-      @defer () {
       <ng-container
         *ngComponentOutlet="
           mediaItemComponents[mediaType];
           inputs: { mediaType, index: $index, media: media }
         "
       />
-      } @placeholder(){
-      <div></div>
-      }
     </li>
     }
   </ul>

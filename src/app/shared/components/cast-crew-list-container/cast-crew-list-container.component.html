@@ -6,11 +6,7 @@
     @for(castCrew of castCrewList; track castCrew.id){
 
     <li class="list-none w-full">
-      @defer (on viewport) {
       <app-cast-crew-card [castCrew]="castCrew"> </app-cast-crew-card>
-      } @placeholder(){
-      <div></div>
-      }
     </li>
 
     }

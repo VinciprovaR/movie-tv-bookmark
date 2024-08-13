@@ -12,8 +12,6 @@
   <div class="mt-6">
     <app-person-list-container
       #peopleListContainer
-      appScrollNearEnd
-      [scrollIsLoading]="(selectIsLoading$ | async) ?? false"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [personList]="(selectPeopleList$ | async) ?? []"
       (nearEnd)="
@@ -21,7 +19,6 @@
           ? searchAdditionalPeople(peopleListContainer.personList.length)
           : null
       "
-      [includeScrollEvents]="true"
     ></app-person-list-container>
   </div>
 </section>

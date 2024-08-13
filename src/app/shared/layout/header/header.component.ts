@@ -1,9 +1,12 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DestroyRef,
   ElementRef,
   HostListener,
   inject,
+  NgZone,
   OnInit,
   Renderer2,
   RendererFactory2,
@@ -33,7 +36,6 @@ import { PageEventService } from '../../services/page-event.service';
   standalone: true,
   imports: [
     CommonModule,
-
     RouterLinkActive,
     RouterModule,
     MatIconModule,
@@ -42,8 +44,11 @@ import { PageEventService } from '../../services/page-event.service';
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly zone = inject(NgZone);
   private readonly store = inject(Store);
   private readonly toggleThemeStore = inject(ToggleThemeStore);
   private renderer!: Renderer2;
@@ -62,7 +67,7 @@ export class HeaderComponent implements OnInit {
   toggleThemeIcon: string = '';
 
   hiddenNavMenu: boolean = true;
-  private window!: Window;
+  window!: Window;
   private lastScrollTop = 0;
 
   constructor() {
@@ -73,21 +78,27 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.events
-      .pipe(
-        takeUntil(this.destroyed$),
-        filter((event) => event instanceof NavigationStart)
-      )
-      .subscribe((event) => {
-        if (!this.hiddenNavMenu) {
-          this.toggleNavMenuMobile();
-        }
+    this.zone.runOutsideAngular(() => {
+      this.router.events
+        .pipe(
+          takeUntil(this.destroyed$),
+          filter((event) => event instanceof NavigationStart)
+        )
+        .subscribe((event) => {
+          if (!this.hiddenNavMenu) {
+            this.toggleNavMenuMobile();
+          }
+        });
+
+      this.renderer = this.rendererFactory.createRenderer(null, null);
+      this.window = window;
+
+      this.initSelectors();
+
+      window.addEventListener('scroll', (e) => {
+        this.windowScrollEvent();
       });
-
-    this.renderer = this.rendererFactory.createRenderer(null, null);
-    this.window = window;
-
-    this.initSelectors();
+    });
   }
 
   initSelectors() {
@@ -98,27 +109,17 @@ export class HeaderComponent implements OnInit {
       .pipe(map((user) => !!user));
   }
 
-  @HostListener('window:scroll', ['$event.target'])
-  windowScrollEvent(event: KeyboardEvent) {
+  //@HostListener('window:scroll', ['$event.target'])
+  windowScrollEvent() {
     let scrollTop = this.window.document.documentElement.scrollTop;
-    // console.log(scrollTop, this.lastScrollTop);
-    console.log(scrollTop - this.lastScrollTop);
-    // let offSet = scrollTop - this.lastScrollTop;
-    // if (offSet < 0) {
-    //   offSet = -offSet;
-    // }
-    // console.log(offSet);
-
     if (scrollTop > this.lastScrollTop) {
       this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
-
       if (!this.hiddenNavMenu) {
         this.toggleNavMenuMobile();
       }
     } else {
       this.renderer.removeClass(this.el.nativeElement.firstChild, 'header-up');
     }
-
     this.lastScrollTop = scrollTop;
   }
 
@@ -128,5 +129,6 @@ export class HeaderComponent implements OnInit {
 
   toggleNavMenuMobile() {
     this.hiddenNavMenu = !this.hiddenNavMenu;
+    this.changeDetectorRef.detectChanges();
   }
 }

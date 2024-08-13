@@ -1,10 +1,12 @@
 import {
+  ChangeDetectorRef,
   Directive,
   ElementRef,
   EventEmitter,
   HostListener,
   inject,
   Input,
+  NgZone,
   Output,
 } from '@angular/core';
 
@@ -13,7 +15,9 @@ import {
   standalone: true,
 })
 export class ScrollNearEndDirective {
+  private readonly zone = inject(NgZone);
   private readonly el = inject(ElementRef);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   @Output() nearEnd: EventEmitter<void> = new EventEmitter<void>();
   @Input() threshold = 100;
@@ -30,10 +34,16 @@ export class ScrollNearEndDirective {
 
   ngOnInit(): void {
     this.window = window;
+
+    // this.zone.runOutsideAngular(() => {
+    //   window.addEventListener('scroll', (e) => {
+    //     this.windowScrollEvent();
+    //   });
+    // });
   }
 
-  @HostListener(`window:scroll`, ['$event.target'])
-  windowScrollEvent(event: KeyboardEvent) {
+  //@HostListener(`window:scroll`, ['$event.target'])
+  windowScrollEvent() {
     if (!this.scrollSelf) {
       if (!this.scrollIsLoading) {
         const heightOfWholePage =

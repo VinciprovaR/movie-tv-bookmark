@@ -8,7 +8,6 @@ import {
   SearchTVActions,
   SearchTVSelectors,
 } from '../../shared/store/search-tv';
-import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
 
 import {
   MediaType,
@@ -26,12 +25,7 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
 @Component({
   selector: 'app-tv-search',
   standalone: true,
-  imports: [
-    CommonModule,
-    InputQueryComponent,
-    MediaListContainerComponent,
-    ScrollNearEndDirective,
-  ],
+  imports: [CommonModule, InputQueryComponent, MediaListContainerComponent],
   providers: [BridgeDataService],
   templateUrl: './tv-search.component.html',
   styleUrl: './tv-search.component.css',

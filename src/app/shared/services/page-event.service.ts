@@ -1,4 +1,4 @@
-import { DestroyRef, inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable, NgZone } from '@angular/core';
 import {
   fromEvent,
   takeUntil,
@@ -14,8 +14,9 @@ import {
   providedIn: 'root',
 })
 export class PageEventService {
+  private readonly zone = inject(NgZone);
   destroyed$ = new Subject();
-  onResize$!: Observable<Event>;
+
   window$ = new BehaviorSubject<Window>(window);
 
   windowInnerWidth$!: Observable<number>;
@@ -30,14 +31,11 @@ export class PageEventService {
   }
 
   initSelectors() {
-    this.onResize$ = fromEvent(window, 'resize').pipe(
-      takeUntil(this.destroyed$),
-      debounceTime(50)
-    );
-
-    this.onResize$.subscribe(() => {
-      this.window$.next(window);
-    });
+    fromEvent(window, 'resize')
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(() => {
+        this.window$.next(window);
+      });
 
     this.windowInnerWidth$ = this.window$.pipe(
       map((window: Window) => {

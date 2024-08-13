@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
-import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
+
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import { TV } from '../../shared/interfaces/TMDB/tmdb-media.interface';
@@ -18,7 +18,7 @@ import { PersonDetailTVCreditsStore } from '../../shared/store/component-store/p
 @Component({
   selector: 'app-person-detail-tv-credits',
   standalone: true,
-  imports: [MediaListContainerComponent, ScrollNearEndDirective, CommonModule],
+  imports: [MediaListContainerComponent, CommonModule],
   providers: [BridgeDataService, PersonDetailTVCreditsStore],
   templateUrl: './person-detail-tv-credits.component.html',
   styleUrl: './person-detail-tv-credits.component.css',

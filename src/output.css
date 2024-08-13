@@ -373,6 +373,14 @@
   height: 100%;
 }
 
+.h-\[600px\] {
+  height: 600px;
+}
+
+.h-\[1000px\] {
+  height: 1000px;
+}
+
 .max-h-\[400px\] {
   max-height: 400px;
 }
@@ -423,10 +431,6 @@
 
 .max-w-\[1536px\] {
   max-width: 1536px;
-}
-
-.max-w-\[860px\] {
-  max-width: 860px;
 }
 
 .max-w-screen-3xl {
@@ -1355,6 +1359,14 @@ div {
   }
 }
 
+.cdk-global-scrollblock-custom {
+  overflow: hidden !important;
+}
+
+/* .cdk-overlay-pane {
+  max-height: 100vh !important;
+} */
+
 .mdc-dialog__surface {
   overflow: hidden !important;
 }
@@ -1553,12 +1565,12 @@ iframe {
     width: 55px;
   }
 
-  .lg\:w-\[70\%\] {
-    width: 70%;
-  }
-
   .lg\:w-\[75\%\] {
     width: 75%;
+  }
+
+  .lg\:w-\[80\%\] {
+    width: 80%;
   }
 
   .lg\:w-\[85\%\] {

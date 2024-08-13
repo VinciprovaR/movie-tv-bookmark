@@ -7,6 +7,7 @@ import { map } from 'rxjs';
 import { ContentComponent } from './shared/layout/content/content.component';
 import { AlertContainerComponent } from './features/alert-container/alert-container.component';
 import { NotifierStore } from './shared/store/component-store/notifier-store.service';
+import { ToggleThemeStore } from './shared/store/component-store/toggle-theme-store.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { NotifierStore } from './shared/store/component-store/notifier-store.ser
 })
 export class AppComponent implements OnInit {
   private readonly store = inject(Store);
+  private readonly toggleThemeStore = inject(ToggleThemeStore);
 
   readonly isUserAuthenticated$ = this.store
     .select(AuthSelectors.selectUser)

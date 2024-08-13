@@ -1,14 +1,20 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../interfaces/TMDB/tmdb-media.interface';
-
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
-
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
-
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { TVCardComponent } from '../tv-card/tv-card.component';
-import { ScrollNearEndDirective } from '../../directives/scroll-near-end.directive';
+
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-media-list-container',
@@ -17,7 +23,7 @@ import { ScrollNearEndDirective } from '../../directives/scroll-near-end.directi
     CommonModule,
     MovieCardComponent,
     TVCardComponent,
-    ScrollNearEndDirective,
+    InfiniteScrollModule,
   ],
   templateUrl: './media-list-container.component.html',
   styleUrl: './media-list-container.component.css',
@@ -27,6 +33,8 @@ export class MediaListContainerComponent implements OnInit {
     movie: MovieCardComponent,
     tv: TVCardComponent,
   };
+
+  @ViewChild('listContainer') listContainer!: ElementRef;
 
   @Output()
   emitDiscoveryAdditionalMedia = new EventEmitter<number>();

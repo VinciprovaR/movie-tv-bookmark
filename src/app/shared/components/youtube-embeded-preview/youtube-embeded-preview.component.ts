@@ -1,10 +1,16 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Subject, Observable, takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ImgComponent } from '../img/img.component';
 import { MatDialog } from '@angular/material/dialog';
 import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.component';
-
 @Component({
   selector: 'app-youtube-embeded-preview',
   standalone: true,
@@ -14,11 +20,15 @@ import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.comp
 })
 export class YoutubeEmbededPreviewComponent implements OnInit {
   readonly domSanitizer = inject(DomSanitizer);
-
   readonly dialog = inject(MatDialog);
 
-  destroyed$ = new Subject();
   onResize$!: Observable<Event>;
+
+  @Output()
+  openDialogEmitter = new EventEmitter<{
+    videoId: string;
+    videoName: string;
+  }>();
 
   @Input({ required: true })
   videoId!: string;
@@ -27,12 +37,7 @@ export class YoutubeEmbededPreviewComponent implements OnInit {
 
   urlThumbnail: string = '';
 
-  constructor() {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
-  }
+  constructor() {}
   ngOnInit(): void {
     this.buildThumbnail();
   }
@@ -43,15 +48,9 @@ export class YoutubeEmbededPreviewComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(YoutubeEmbededComponent, {
-      data: { videoId: this.videoId, videoName: this.videoName },
+    this.openDialogEmitter.emit({
+      videoId: this.videoId,
+      videoName: this.videoName,
     });
-
-    dialogRef
-      .afterClosed()
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((result) => {
-        console.log(`Dialog result: ${result}`);
-      });
   }
 }

@@ -60,6 +60,8 @@
 - Media detail assenza di cast, crew, video... sezioni condizionali
 - hover card e altri, lieve colore
 - fallback if img not found...
+- dialog video max-height cell orizzontale
+- separazione membri classe  come in videos-container.components
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

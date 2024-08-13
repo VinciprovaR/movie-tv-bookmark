@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
-import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
+
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
@@ -18,7 +18,7 @@ import { PersonDetailCreditsMovieStore } from '../../shared/store/component-stor
 @Component({
   selector: 'app-person-detail-movie-credits',
   standalone: true,
-  imports: [MediaListContainerComponent, ScrollNearEndDirective, CommonModule],
+  imports: [MediaListContainerComponent, CommonModule],
   providers: [BridgeDataService, PersonDetailCreditsMovieStore],
   templateUrl: './person-detail-movie-credits.component.html',
   styleUrl: './person-detail-movie-credits.component.css',

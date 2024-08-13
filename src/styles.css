@@ -487,6 +487,14 @@ div {
   }
 }
 
+.cdk-global-scrollblock-custom {
+  overflow: hidden !important;
+}
+
+/* .cdk-overlay-pane {
+  max-height: 100vh !important;
+} */
+
 .mdc-dialog__surface {
   overflow: hidden !important;
 }

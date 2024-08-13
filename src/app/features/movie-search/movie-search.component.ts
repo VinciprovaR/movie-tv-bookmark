@@ -9,7 +9,7 @@ import {
   SearchMovieActions,
   SearchMovieSelectors,
 } from '../../shared/store/search-movie';
-import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
+
 import {
   MovieResult,
   Movie,
@@ -25,12 +25,7 @@ import {
 @Component({
   selector: 'app-search-movie',
   standalone: true,
-  imports: [
-    CommonModule,
-    InputQueryComponent,
-    MediaListContainerComponent,
-    ScrollNearEndDirective,
-  ],
+  imports: [CommonModule, InputQueryComponent, MediaListContainerComponent],
   providers: [BridgeDataService],
   templateUrl: './movie-search.component.html',
   styleUrl: './movie-search.component.css',
@@ -107,6 +102,7 @@ export class MovieSearchComponent implements OnInit {
   }
 
   searchAdditionalMovie() {
+    console.log('search add');
     this.store.dispatch(SearchMovieActions.searchAdditionalMovie());
   }
 }

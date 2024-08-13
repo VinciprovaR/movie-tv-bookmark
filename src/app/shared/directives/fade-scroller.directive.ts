@@ -6,6 +6,7 @@ import {
   HostBinding,
   inject,
   Input,
+  NgZone,
   Renderer2,
   RendererFactory2,
 } from '@angular/core';
@@ -17,6 +18,7 @@ import { Subject, Observable, fromEvent, takeUntil, debounceTime } from 'rxjs';
 })
 export class FadeScrollerDirective implements AfterViewInit {
   private readonly el: ElementRef<HTMLDivElement> = inject(ElementRef);
+  private readonly zone = inject(NgZone);
   private renderer!: Renderer2;
   private readonly rendererFactory = inject(RendererFactory2);
 
@@ -39,8 +41,10 @@ export class FadeScrollerDirective implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderer = this.rendererFactory.createRenderer(null, null);
-    this.initSelectors();
+    this.zone.runOutsideAngular(() => {
+      this.renderer = this.rendererFactory.createRenderer(null, null);
+      this.initSelectors();
+    });
   }
 
   initSelectors() {

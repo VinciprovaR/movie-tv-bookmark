@@ -8,10 +8,11 @@ import {
   SearchPeopleActions,
   SearchPeopleSelectors,
 } from '../../shared/store/search-people';
-import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
+
 import { Person } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-search-people',
@@ -20,8 +21,8 @@ import { PersonListContainerComponent } from '../../shared/components/person-lis
     CommonModule,
     InputQueryComponent,
     MediaListContainerComponent,
-    ScrollNearEndDirective,
     PersonListContainerComponent,
+    InfiniteScrollModule,
   ],
   providers: [BridgeDataService],
   templateUrl: './people-search.component.html',

@@ -23,29 +23,27 @@ export class ToggleThemeStore extends ComponentStore<ToggleThemeState> {
   constructor() {
     const webStorageService = inject(WebStorageService);
     const themeKeyLocalStorage = inject(THEME_KEY_LOCAL_STORAGE);
-    let isDarkMode = false;
+    let isDarkTheme = false;
 
     if (webStorageService.getItem(themeKeyLocalStorage) != undefined) {
-      isDarkMode = 'true' === webStorageService.getItem(themeKeyLocalStorage);
+      isDarkTheme = 'true' === webStorageService.getItem(themeKeyLocalStorage);
     } else {
       if (
         window.matchMedia &&
         window.matchMedia('(prefers-color-scheme: dark)').matches
       ) {
-        isDarkMode = true;
+        isDarkTheme = true;
       } else {
       }
     }
 
     super({
-      isDarkTheme: isDarkMode,
-      icon: 'dark_mode',
+      isDarkTheme: isDarkTheme,
+      icon: isDarkTheme ? 'light_mode' : 'dark_mode',
     });
   }
 
   readonly toggleTheme = this.updater((state) => {
-    if (!state.isDarkTheme) {
-    }
     return {
       isDarkTheme: !state.isDarkTheme,
       icon: state.isDarkTheme ? 'dark_mode' : 'light_mode',

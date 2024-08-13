@@ -15,7 +15,7 @@ import {
   DiscoveryMovieActions,
   DiscoveryMovieSelectors,
 } from '../../shared/store/discovery-movie';
-import { ScrollNearEndDirective } from '../../shared/directives/scroll-near-end.directive';
+
 import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MovieDiscoveryFiltersComponent } from '../movie-discovery-filters/movie-discovery-filters.component';
@@ -42,7 +42,7 @@ import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
     CommonModule,
     InputQueryComponent,
     MediaListContainerComponent,
-    ScrollNearEndDirective,
+
     MovieDiscoveryFiltersComponent,
   ],
   providers: [BridgeDataService],

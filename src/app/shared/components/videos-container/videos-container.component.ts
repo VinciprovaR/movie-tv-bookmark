@@ -1,20 +1,29 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DestroyRef,
+  ElementRef,
   inject,
   Input,
+  OnDestroy,
   OnInit,
+  Renderer2,
+  RendererFactory2,
+  ViewChild,
 } from '@angular/core';
 import { YoutubeEmbededPreviewComponent } from '../youtube-embeded-preview/youtube-embeded-preview.component';
 import { Videos, Video } from '../../interfaces/TMDB/tmdb-media.interface';
-// import Swiper from 'swiper';
-import { Swiper } from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ImgComponent } from '../img/img.component';
 import { ArrowSliderComponent } from '../arrow-slider/arrow-slider.component';
+import { PageEventService } from '../../services/page-event.service';
+import { Subject, takeUntil } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.component';
+import { Overlay } from '@angular/cdk/overlay';
+import { SwiperContainer } from 'swiper/element';
 
 @Component({
   selector: 'app-videos-container',
@@ -26,83 +35,136 @@ import { ArrowSliderComponent } from '../arrow-slider/arrow-slider.component';
     ImgComponent,
     ArrowSliderComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './videos-container.component.html',
   styleUrl: './videos-container.component.css',
 })
-export class VideosContainerComponent implements OnInit, AfterViewInit {
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+export class VideosContainerComponent implements OnInit, OnDestroy {
+  //Injections
+  readonly pageEventService = inject(PageEventService);
+  readonly dialog = inject(MatDialog);
+  private readonly overlay = inject(Overlay);
+  private renderer!: Renderer2;
+  private readonly rendererFactory = inject(RendererFactory2);
+
+  //Observable
+  destroyed$ = new Subject();
+
+  //Input-Output-Binding
+  @ViewChild('swiper', { static: false })
+  swiperRef!: ElementRef<SwiperContainer>;
 
   @Input({ required: true })
   videos!: Videos;
   @Input({ required: true })
-  videoType: string = '';
+  videoTypeFilter!: { videosType: string[]; typeFilter: 'include' | 'exlude' };
 
+  //Others members
+  private window!: Window;
   videoList: Video[] = [];
-  swiper!: Swiper;
+
   isEnd: boolean = true;
   isBeginning: boolean = true;
 
-  constructor() {}
-  ngAfterViewInit(): void {
-    this.initSlider();
-    this.checkSlideButtonDisplay();
-    this.initEvents();
-    this.changeDetectorRef.detectChanges();
+  constructor() {
+    inject(DestroyRef).onDestroy(() => {
+      this.destroyed$.next(true);
+      this.destroyed$.complete();
+    });
   }
 
   ngOnInit(): void {
+    this.window = window;
+    this.renderer = this.rendererFactory.createRenderer(null, null);
     this.videoList = this.filterVideosType();
   }
 
-  initSlider() {
-    this.swiper = new Swiper('.swiper', {
-      // Optional parameters
-      direction: 'horizontal',
-      loop: false,
-
-      // If we need pagination
-      pagination: {
-        el: '.swiper-pagination',
-      },
-
-      // Navigation arrows
-      navigation: {
-        nextEl: '.button-next-custom',
-        prevEl: '.button-prev-custom',
-      },
-
-      // And if we need scrollbar
-      scrollbar: {
-        el: '.swiper-scrollbar',
-      },
-    });
+  onSwiperSlidesUpdated(event: any) {
+    this.checkSlideButtonDisplay(
+      !!event.target.swiper?.isEnd,
+      !!event.target.swiper?.isBeginning
+    );
   }
 
-  initEvents() {
-    this.swiper.on('slideNextTransitionEnd', () => {
-      this.checkSlideButtonDisplay();
-    });
-
-    this.swiper.on('slidePrevTransitionEnd', () => {
-      this.checkSlideButtonDisplay();
-    });
+  onSwiperslideNextTransitionEnd(event: any) {
+    this.checkSlideButtonDisplay(
+      !!event.target.swiper?.isEnd,
+      !!event.target.swiper?.isBeginning
+    );
   }
-
-  filterVideosType(): Video[] {
-    return this.videos.results.filter((video: Video) => {
-      return video.type.toLowerCase() === this.videoType;
-    });
+  onSwiperslidePrevTransitionEnd(event: any) {
+    this.checkSlideButtonDisplay(
+      !!event.target.swiper?.isEnd,
+      !!event.target.swiper?.isBeginning
+    );
   }
 
   nextVideo() {
-    this.swiper.slideNext();
+    this.swiperRef.nativeElement.swiper.slideNext();
   }
   prevVideo() {
-    this.swiper.slidePrev();
+    this.swiperRef.nativeElement.swiper.slidePrev();
   }
 
-  checkSlideButtonDisplay() {
-    this.isBeginning = this.swiper.isBeginning;
-    this.isEnd = this.swiper.isEnd;
+  openDialog(videoMetadata: { videoId: string; videoName: string }) {
+    const dialogRef = this.dialog.open(YoutubeEmbededComponent, {
+      data: {
+        videoId: videoMetadata.videoId,
+        videoName: videoMetadata.videoName,
+      },
+      scrollStrategy: this.overlay.scrollStrategies.noop(),
+    });
+    this.renderer.addClass(
+      this.window.document.body,
+      'cdk-global-scrollblock-custom'
+    );
+    this.handleCloseDialog(dialogRef);
+  }
+
+  private filterVideosType(): Video[] {
+    if (this.videoTypeFilter.videosType.length > 0) {
+      return this.videos.results.filter((video: Video) => {
+        if (this.videoTypeFilter.typeFilter === 'include') {
+          return (
+            this.videoTypeFilter.videosType.indexOf(video.type.toLowerCase()) !=
+            -1
+          );
+        }
+        return !(
+          this.videoTypeFilter.videosType.indexOf(video.type.toLowerCase()) !=
+          -1
+        );
+      });
+    }
+    return this.videos.results;
+  }
+
+  private checkSlideButtonDisplay(isEnd: boolean, isBeginning: boolean) {
+    this.isBeginning = isBeginning;
+    this.isEnd = isEnd;
+  }
+
+  private handleCloseDialog(
+    dialogRef: MatDialogRef<YoutubeEmbededComponent, any>
+  ) {
+    dialogRef.componentInstance.closeDialogObs$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(() => {
+        dialogRef.close();
+      });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((result) => {
+        // console.log(`Dialog result: ${result}`);
+        this.renderer.removeClass(
+          this.window.document.body,
+          'cdk-global-scrollblock-custom'
+        );
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.swiperRef.nativeElement.swiper.destroy();
   }
 }

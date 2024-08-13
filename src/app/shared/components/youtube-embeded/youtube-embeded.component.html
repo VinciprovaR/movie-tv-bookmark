@@ -1,10 +1,17 @@
 <div class="bg-black">
-  <div class="p-2">
+  <div class="p-2 flex justify-between">
     <h2
       class="text-[1rem] smc:text-[1.1rem] md:text-[1.35rem] text-[var(--text-color-light)]"
     >
       {{ videoName }}
     </h2>
+    <div (click)="onCloseDialog()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label=""
+        [fontIcon]="'close'"
+      ></mat-icon>
+    </div>
   </div>
   <mat-dialog-content class="mat-typography" #youTubePlayer>
     <youtube-player

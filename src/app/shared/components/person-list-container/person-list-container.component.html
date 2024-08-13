@@ -5,11 +5,7 @@
   >
     @for(person of personList; track person.id){
     <li class="list-none">
-      @defer (on viewport) {
       <app-person-card [person]="person"> </app-person-card>
-      } @placeholder(){
-      <div></div>
-      }
     </li>
     }
   </ul>
