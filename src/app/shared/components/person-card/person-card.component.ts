@@ -31,13 +31,6 @@ export class PersonCardComponent
   extends AbstractPersonCardComponent
   implements OnInit
 {
-  protected readonly TMDB_SEARCH_LIST_1X_IMG_URL = inject(
-    IMG_SIZES.TMDB_SEARCH_LIST_1X_IMG_URL
-  );
-  protected readonly TMDB_SEARCH_LIST_2X_IMG_URL = inject(
-    IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL
-  );
-
   @Input({ required: true })
   person!: Person;
 

@@ -60,10 +60,8 @@ export interface MediaDetail {
   vote_count: number;
   imdb_id?: string;
   video: boolean;
-  credits: MediaCredit;
-  release_dates: ReleaseDates;
+
   videos: Videos;
-  keywords: Keywords;
 }
 
 export interface Movie extends Media {
@@ -75,7 +73,7 @@ export interface MovieResult extends MediaResult {
   results: Movie[];
 }
 
-export interface Cast {
+export interface CastMovie {
   adult: boolean;
   gender: number;
   id: number;
@@ -88,7 +86,7 @@ export interface Cast {
   credit_id: string;
 }
 
-export interface Crew {
+export interface CrewMovie {
   adult: boolean;
   gender: number;
   id: number;
@@ -102,10 +100,10 @@ export interface Crew {
   job: string;
 }
 
-export interface MediaCredit {
+export interface MovieCredit {
   id: number;
-  cast: Cast[];
-  crew: Crew[];
+  cast: CastMovie[];
+  crew: CrewMovie[];
 }
 
 export interface MovieDetail extends MediaDetail {
@@ -116,12 +114,14 @@ export interface MovieDetail extends MediaDetail {
     backdrop_path: string;
   };
   budget: number;
-
   original_title: string;
   release_date: string;
   revenue: number;
   runtime: number;
   title: string;
+  release_dates: ReleaseDates;
+  keywords: KeywordsMovie;
+  credits: MovieCredit;
 }
 
 interface Episode {
@@ -138,6 +138,51 @@ interface Episode {
   season_number: number;
   show_id: number;
   still_path: string;
+}
+export interface Role {
+  credit_id: string;
+  character: string;
+  episode_count: number;
+}
+export interface CastTV {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  roles: Role[];
+
+  total_episode_count: number;
+  order: number;
+}
+
+export interface Job {
+  credit_id: string;
+  job: string;
+  episode_count: number;
+}
+
+export interface CrewTV {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  jobs: Job[];
+  department: string;
+  total_episode_count: number;
+}
+
+export interface TVCredit {
+  id: number;
+  cast: CastTV[];
+  crew: CrewTV[];
 }
 
 export interface TVDetail extends MediaDetail {
@@ -177,6 +222,20 @@ export interface TVDetail extends MediaDetail {
     vote_average: number;
   }[];
   type: string;
+  content_ratings: ContentRatings;
+  keywords: KeywordsTV;
+  aggregate_credits: TVCredit;
+}
+
+export interface ContentRatings {
+  id: number;
+  results: ContentRating[];
+}
+
+export interface ContentRating {
+  descriptors: [];
+  iso_3166_1: string;
+  rating: string;
 }
 
 export interface TVResult extends MediaResult {
@@ -293,6 +352,10 @@ export interface Keyword {
   name: string;
 }
 
-export interface Keywords {
+export interface KeywordsMovie {
   keywords: Keyword[];
+}
+
+export interface KeywordsTV {
+  results: Keyword[];
 }

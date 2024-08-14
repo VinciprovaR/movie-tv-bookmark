@@ -24,6 +24,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.component';
 import { Overlay } from '@angular/cdk/overlay';
 import { SwiperContainer } from 'swiper/element';
+import { SwiperOptions } from 'swiper/types';
 
 @Component({
   selector: 'app-videos-container',
@@ -100,10 +101,20 @@ export class VideosContainerComponent implements OnInit, OnDestroy {
   }
 
   nextVideo() {
-    this.swiperRef.nativeElement.swiper.slideNext();
+    if (this.window.innerWidth > 1280) {
+      this.swiperRef.nativeElement.swiper.slideNext();
+      this.swiperRef.nativeElement.swiper.slideNext();
+    } else {
+      this.swiperRef.nativeElement.swiper.slideNext();
+    }
   }
   prevVideo() {
-    this.swiperRef.nativeElement.swiper.slidePrev();
+    if (this.window.innerWidth > 1280) {
+      this.swiperRef.nativeElement.swiper.slidePrev();
+      this.swiperRef.nativeElement.swiper.slidePrev();
+    } else {
+      this.swiperRef.nativeElement.swiper.slidePrev();
+    }
   }
 
   openDialog(videoMetadata: { videoId: string; videoName: string }) {

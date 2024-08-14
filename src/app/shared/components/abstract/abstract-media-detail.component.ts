@@ -2,12 +2,21 @@ import { DestroyRef, Directive, inject } from '@angular/core';
 import { FastAverageColorResult } from 'fast-average-color';
 import { Subject, takeUntil } from 'rxjs';
 import { PredominantImgColorService } from '../../services/predominant-img-color.service';
+import { AbstractComponent } from './abstract-component.component';
+import { IMG_SIZES } from '../../../providers';
 
 @Directive()
-export abstract class MediaDetailComponent {
+export abstract class MediaDetailComponent extends AbstractComponent {
   readonly predominantImgColorService = inject(PredominantImgColorService);
-  private readonly destroyRef$ = inject(DestroyRef);
-  destroyed$ = new Subject();
+  readonly TMDB_PROFILE_1X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_1X_IMG_URL);
+  readonly TMDB_PROFILE_2X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_2X_IMG_URL);
+  readonly TMDB_MULTI_FACE_1X_IMG_URL = inject(
+    IMG_SIZES.TMDB_MULTI_FACE_1X_IMG_URL
+  );
+  readonly TMDB_MULTI_FACE_2X_IMG_URL = inject(
+    IMG_SIZES.TMDB_MULTI_FACE_2X_IMG_URL
+  );
+  readonly TMDB_ORIGINAL_IMG_URL = inject(IMG_SIZES.TMDB_ORIGINAL_IMG_URL);
 
   headerMediaGradient: string = '';
   contentMediaGradient: string = '';
@@ -15,10 +24,7 @@ export abstract class MediaDetailComponent {
   isDark: boolean = false;
 
   constructor() {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   evaluatePredominantColor(backdropPath: string) {

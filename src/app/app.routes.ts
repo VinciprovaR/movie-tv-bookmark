@@ -160,6 +160,15 @@ export const routes: Routes = [
     title: 'Movie Detail',
   },
   {
+    path: 'movie-credits/:movieId',
+    loadComponent: () =>
+      import(
+        './features/movie-detail-credits/movie-detail-credits.component'
+      ).then((m) => m.MovieDetailCreditsComponent),
+    canActivate: [authGuard],
+    title: 'Movie Detail Credits',
+  },
+  {
     path: 'tv-detail/:tvId',
     loadComponent: () =>
       import('./features/tv-detail/tv-detail.component').then(

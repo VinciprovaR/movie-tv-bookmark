@@ -1,20 +1,166 @@
-<section class="w-[90%] max-w-5xl m-auto pt-[70px]">
+<section
+  class="w-full w-max-[1920px] m-auto pt-[60px] max-w-screen-3xl mb-20 overflow-hidden"
+>
   @if(tvDetail$ | async; as tvDetail){
-  <div style="margin: 10px">
-    <div style="display: flex">
-      <div>
+
+  <div
+    id="header-detail"
+    class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[85vh] mb-0 lg:mb-8"
+    [ngStyle]="{
+      'background-image': tvDetail.backdrop_path
+        ? 'url(' + TMDB_MULTI_FACE_2X_IMG_URL + tvDetail.backdrop_path + ')'
+        : ''
+    }"
+  >
+    <div
+      class="flex flex-row header-gradient h-full w-full p-4 justify-center lg:justify-normal lg:p-8 space-x-8"
+      [ngStyle]="{
+        'background-image':
+          ((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024
+            ? headerMediaGradient
+            : '',
+        'background-color':
+          ((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024
+            ? 'var(--bg-header-media-detail-not-lg)'
+            : ''
+      }"
+      [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"
+    >
+      <div class="h-[35vh] lg:h-[85vh] aspect-[2/3] w-xxxsm relative">
         <app-img
           [alt]="tvDetail.name"
           [title]="tvDetail.name"
           [imgSrc]="tvDetail.poster_path"
-          [baseUrl]="TMDB_PROFILE_1X_IMG_URL"
+          [baseUrl]="TMDB_PROFILE_2X_IMG_URL"
+          [priority]="true"
           [customClasses]="'border-container-no-color'"
+          [isPlaceholderPerson]="false"
         ></app-img>
+
+        <app-lifecycle-selector
+          (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
+          [mediaData]="tvDetail"
+          [index]="0"
+          [mediaType]="'tv'"
+        ></app-lifecycle-selector>
+
+        <div class="w-full absolute bottom-0">
+          <app-lifecycle-status-label
+            [lifecycleEnumSelected]="lifecycleEnumSelected"
+            [customClass]="'border-lifecycle-label'"
+          ></app-lifecycle-status-label>
+        </div>
       </div>
-      <div>
-        <h1>{{ tvDetail.name }}</h1>
-        <h3>{{ tvDetail.tagline }}</h3>
-        <p>{{ tvDetail.overview }}</p>
+
+      @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
+      <div class="hidden lg:block max-w-[1100px]">
+        <app-tv-detail-main-info
+          [textColorBlend]="textColorBlend"
+          [isDark]="isDark"
+          [tvData]="tvDetail"
+          [releaseDate]="tvDetail.first_air_date"
+          [mediaTitle]="tvDetail.name"
+          [cast]="tvDetail.aggregate_credits.cast"
+          [crew]="tvDetail.aggregate_credits.crew"
+        ></app-tv-detail-main-info>
+      </div>
+      }
+    </div>
+  </div>
+
+  @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
+  <div class="block lg:hidden h-full">
+    <app-tv-detail-main-info
+      [textColorBlend]="textColorBlend"
+      [isDark]="isDark"
+      [contentMediaGradient]="contentMediaGradient"
+      [tvData]="tvDetail"
+      [releaseDate]="tvDetail.first_air_date"
+      [mediaTitle]="tvDetail.name"
+      [cast]="tvDetail.aggregate_credits.cast"
+      [crew]="tvDetail.aggregate_credits.crew"
+    ></app-tv-detail-main-info>
+  </div>
+
+  }
+
+  <div
+    class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto flex flex-col lg:flex-row-reverse"
+  >
+    <div class="w-full lg:w-[25%] space-y-4 lg:space-y-8 mb-4 lg:mb-0">
+      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+        <h2 class="mb-4 pl-4">For more info go to</h2>
+        <div class="pl-4">
+          <app-external-info [mediaData]="tvDetail"></app-external-info>
+        </div>
+      </div>
+
+      <div
+        class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4 mb-4 hidden lg:block"
+      >
+        <h2 class="mb-4 pl-4">Keywords</h2>
+        <div class="pl-4">
+          <app-media-keywords
+            [keywords]="tvDetail.keywords.results"
+          ></app-media-keywords>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-[75%] space-y-4 lg:space-y-8 lg:mr-12">
+      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+        <h2 class="mb-6 pl-4">Cast</h2>
+        <app-media-detail-cast-crew-list-preview
+          [isLoading]="(isLoading$ | async) ?? false"
+          [castCrewList]="tvDetail.aggregate_credits.cast"
+        ></app-media-detail-cast-crew-list-preview>
+      </div>
+      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+        <h2 class="mb-6 pl-4">Crew</h2>
+        <app-media-detail-cast-crew-list-preview
+          [isLoading]="(isLoading$ | async) ?? false"
+          [castCrewList]="tvDetail.aggregate_credits.crew"
+        ></app-media-detail-cast-crew-list-preview>
+      </div>
+
+      @if(tvDetail.videos.results.length > 0){
+      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+        <h2 class="mb-6 pl-4">Trailers</h2>
+        <div class="w-full m-auto">
+          <app-videos-container
+            [videos]="tvDetail.videos"
+            [videoTypeFilter]="{
+              videosType: ['trailer'],
+              typeFilter: 'include'
+            }"
+          ></app-videos-container>
+        </div>
+      </div>
+
+      } @if(tvDetail.videos.results.length > 0){
+      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+        <h2 class="mb-6 pl-4">Clips</h2>
+        <div class="w-full m-auto">
+          <app-videos-container
+            [videos]="tvDetail.videos"
+            [videoTypeFilter]="{
+              videosType: ['trailer'],
+              typeFilter: 'exlude'
+            }"
+          ></app-videos-container>
+        </div>
+      </div>
+
+      }
+
+      <div
+        class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4 block lg:hidden"
+      >
+        <h2 class="mb-4 pl-4">Keywords</h2>
+        <div class="pl-4">
+          <app-media-keywords
+            [keywords]="tvDetail.keywords.results"
+          ></app-media-keywords>
+        </div>
       </div>
     </div>
   </div>

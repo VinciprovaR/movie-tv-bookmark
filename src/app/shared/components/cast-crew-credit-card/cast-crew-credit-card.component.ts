@@ -14,7 +14,7 @@ import { AbstractPersonCardComponent } from '../abstract/abstract-person-card.co
 import { ImgComponent } from '../img/img.component';
 
 @Component({
-  selector: 'app-cast-crew-card',
+  selector: 'app-cast-crew-credit-card',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,11 +27,11 @@ import { ImgComponent } from '../img/img.component';
     MatIconModule,
     ImgComponent,
   ],
-  templateUrl: './cast-crew-card.component.html',
-  styleUrl: './cast-crew-card.component.css',
+  templateUrl: './cast-crew-credit-card.component.html',
+  styleUrl: './cast-crew-credit-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CastCrewCardComponent
+export class CastCrewCreditCardComponent
   extends AbstractPersonCardComponent
   implements OnInit
 {

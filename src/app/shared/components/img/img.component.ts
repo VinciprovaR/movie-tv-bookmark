@@ -1,16 +1,16 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
-  inject,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FastAverageColorResult } from 'fast-average-color';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-img',
@@ -18,11 +18,9 @@ import { FastAverageColorResult } from 'fast-average-color';
   imports: [RouterModule, MatCardModule, CommonModule, NgOptimizedImage],
   templateUrl: './img.component.html',
   styleUrl: './img.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImgComponent implements OnInit {
-  readonly el = inject(ElementRef);
-  readonly router = inject(Router);
-
+export class ImgComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })
   imgSrc: string = '';
   @Input()
@@ -58,7 +56,9 @@ export class ImgComponent implements OnInit {
   placeholderBase64Media: string =
     'data:image/svg+xml;base64,PHN2ZyBpZD0iZ2x5cGhpY29ucy1iYXNpYyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMzIgMzIiPgogIDxwYXRoIGZpbGw9IiNiNWI1YjUiIGlkPSJwaWN0dXJlIiBkPSJNMjcuNSw1SDQuNUExLjUwMDA4LDEuNTAwMDgsMCwwLDAsMyw2LjV2MTlBMS41MDAwOCwxLjUwMDA4LDAsMCwwLDQuNSwyN2gyM0ExLjUwMDA4LDEuNTAwMDgsMCwwLDAsMjksMjUuNVY2LjVBMS41MDAwOCwxLjUwMDA4LDAsMCwwLDI3LjUsNVpNMjYsMTguNWwtNC43OTQyNS01LjIzMDFhLjk5MzgzLjk5MzgzLDAsMCwwLTEuNDQ0MjgtLjAzMTM3bC01LjM0NzQxLDUuMzQ3NDFMMTkuODI4MTIsMjRIMTdsLTQuNzkyOTEtNC43OTNhMS4wMDAyMiwxLjAwMDIyLDAsMCwwLTEuNDE0MTgsMEw2LDI0VjhIMjZabS0xNy45LTZhMi40LDIuNCwwLDEsMSwyLjQsMi40QTIuNDAwMDUsMi40MDAwNSwwLDAsMSw4LjEsMTIuNVoiLz4KPC9zdmc+Cg==';
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.buildCompleteUrl();

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -15,7 +15,13 @@ export class NavigatorMobileComponent implements OnInit {
   navElements!: NavElements;
   @Input({ required: true })
   hiddenNavMenu: boolean = true;
+  @Output()
+  toggleNavMenuMobile = new EventEmitter<null>();
 
   constructor() {}
   ngOnInit(): void {}
+
+  onClickLink() {
+    this.toggleNavMenuMobile.emit(null);
+  }
 }

@@ -1,9 +1,9 @@
 <div class="h-full flex flex-col">
   <div class="overflow-hidden aspect-[1/1] border-img-card-full">
     <app-img
-      [alt]="castCrew.name"
-      [title]="castCrew.name"
-      [imgSrc]="castCrew.profile_path"
+      [alt]="name"
+      [title]="name"
+      [imgSrc]="profile_path"
       [baseUrl]="TMDB_W_400_IMG_URL"
       [link]="detailMediaPath"
       [isPlaceholderPerson]="true"
@@ -13,17 +13,12 @@
   </div>
   <div class="card-content flex flex-col justify-center overflow-hidden">
     <h4 class="whitespace-nowrap text-ellipsis text-center overflow-hidden">
-      <a [routerLink]="detailMediaPath" [title]="castCrew.name"
-        ><span>{{ castCrew.name }}</span></a
+      <a [routerLink]="detailMediaPath" [title]="name"
+        ><span>{{ name }}</span></a
       >
     </h4>
     <h5 class="whitespace-nowrap text-ellipsis text-center overflow-hidden">
-      @if(isCastEntity(castCrew)){
-      <span [title]="castCrew.character">{{ castCrew.character }} </span>
-
-      } @else if(isCrewEntity(castCrew)){
-      <span [title]="castCrew.job">{{ castCrew.job }}</span>
-      }
+      <span [title]="role">{{ role }} </span>
     </h5>
   </div>
 </div>

@@ -1,19 +1,14 @@
 import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MovieDetail } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { map, Observable, takeUntil } from 'rxjs';
 import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
-import { CastCrewListContainerComponent } from '../../shared/components/cast-crew-list-container/cast-crew-list-container.component';
+import { MediaDetailCastCrewListPreviewComponent } from '../../shared/components/media-detail-cast-crew-list-preview/media-detail-cast-crew-list-preview.component';
 import { ImgComponent } from '../../shared/components/img/img.component';
-import { IMG_SIZES } from '../../providers';
-
-import { MediaDetailContentComponent } from '../../shared/components/media-detail-content/media-detail-content.component';
-import { PageEventService } from '../../shared/services/page-event.service';
+import { MovieDetailMainInfoContentComponent } from '../../shared/components/movie-detail-main-info/movie-detail-main-info';
 import { MediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { Store } from '@ngrx/store';
 import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
@@ -26,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ExternalInfoComponent } from '../../shared/components/external-info/external-info.component';
 import { MediaKeywordsComponent } from '../../shared/components/media-keywords/media-keywords.component';
 import { VideosContainerComponent } from '../../shared/components/videos-container/videos-container.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-movie-detail',
@@ -33,51 +29,45 @@ import { VideosContainerComponent } from '../../shared/components/videos-contain
   imports: [
     CommonModule,
     PersonListContainerComponent,
-    CastCrewListContainerComponent,
+    MediaDetailCastCrewListPreviewComponent,
     ImgComponent,
-    MediaDetailContentComponent,
+    MovieDetailMainInfoContentComponent,
     LifecycleSelectorComponent,
     LifecycleStatusLabelComponent,
     MatIconModule,
     ExternalInfoComponent,
     VideosContainerComponent,
     MediaKeywordsComponent,
+    RouterLink,
+    RouterLinkActive,
   ],
   providers: [MovieDetailStore, BridgeDataService],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
 export class MovieDetailComponent extends MediaDetailComponent {
-  private readonly bridgeDataService = inject(BridgeDataService);
-  private readonly store = inject(Store);
-  readonly TMDB_PROFILE_1X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_1X_IMG_URL);
-  readonly TMDB_PROFILE_2X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_2X_IMG_URL);
-  readonly TMDB_MULTI_FACE_1X_IMG_URL = inject(
-    IMG_SIZES.TMDB_MULTI_FACE_1X_IMG_URL
-  );
-  readonly TMDB_MULTI_FACE_2X_IMG_URL = inject(
-    IMG_SIZES.TMDB_MULTI_FACE_2X_IMG_URL
-  );
-  readonly TMDB_ORIGINAL_IMG_URL = inject(IMG_SIZES.TMDB_ORIGINAL_IMG_URL);
+  protected readonly bridgeDataService = inject(BridgeDataService);
   readonly movieDetailstore = inject(MovieDetailStore);
-  readonly pageEventService = inject(PageEventService);
 
   movieDetail$!: Observable<MovieDetail | null>;
   isLoading$!: Observable<boolean>;
 
   @ViewChild('headerMediaDetail')
   headerMediaDetail!: ElementRef;
-
   @Input({ required: true })
   movieId: number = 0;
 
   lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
 
+  movieCreditsPath: string = '';
   constructor() {
     super();
   }
 
   ngOnInit(): void {
+    this.movieCreditsPath = this.movieCreditsPath.concat(
+      `/movie-credits/${this.movieId}`
+    );
     this.initSelectors();
     this.initDataBridge();
     this.searchMovieDetail();

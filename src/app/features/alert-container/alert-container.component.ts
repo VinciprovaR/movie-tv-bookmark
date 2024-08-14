@@ -5,6 +5,7 @@ import { NotifierStore } from '../../shared/store/component-store/notifier-store
 import { filter, Observable, Subject, takeUntil, timer } from 'rxjs';
 import { AlertComponent } from '../../shared/components/alert/alert.component';
 import { NavigationStart, Router } from '@angular/router';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-alert-container',
@@ -13,20 +14,16 @@ import { NavigationStart, Router } from '@angular/router';
   templateUrl: './alert-container.component.html',
   styleUrl: './alert-container.component.css',
 })
-export class AlertContainerComponent implements OnInit {
+export class AlertContainerComponent
+  extends AbstractComponent
+  implements OnInit
+{
   readonly notifierStore = inject(NotifierStore);
-  readonly router = inject(Router);
-  private readonly destroyRef$ = inject(DestroyRef);
-
-  destroyed$ = new Subject();
 
   selectAlerts$!: Observable<any>;
 
   constructor() {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {

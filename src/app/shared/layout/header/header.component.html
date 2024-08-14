@@ -9,8 +9,7 @@
     </span>
 
     <div class="mx-auto xxsm:flex xxsm:justify-between items-center space-x-6">
-      <!--      @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 640) { -->
-      @if(window.innerWidth >= 640) {
+      @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 640) {
       <app-navigator-desktop
         [navElements]="navElements"
       ></app-navigator-desktop>
@@ -18,8 +17,7 @@
 
       <div class="flex items-center justify-between space-x-6 mt-2 mb-2">
         <!-- button for menu mobile -->
-        <!--         @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 640) { -->
-        @if(window.innerWidth < 640) {
+        @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 640) {
         <span class="sm:hidden">
           <mat-icon
             id="mobile-menu-btn"
@@ -44,12 +42,12 @@
       </div>
     </div>
   </div>
-  <!--   @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 640) { -->
-  @if(window.innerWidth < 640) {
+  @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 640) {
   <!-- menu mobile -->
   <app-navigator-mobile
     [navElements]="navElements"
     [hiddenNavMenu]="hiddenNavMenu"
+    (toggleNavMenuMobile)="toggleNavMenuMobile()"
   ></app-navigator-mobile>
   }
 </header>

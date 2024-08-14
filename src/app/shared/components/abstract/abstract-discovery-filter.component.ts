@@ -1,22 +1,6 @@
-import {
-  Directive,
-  OnInit,
-  inject,
-  Input,
-  Output,
-  EventEmitter,
-  DestroyRef,
-  Renderer2,
-  RendererFactory2,
-} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  FormControl,
-} from '@angular/forms';
-
-import { Subject, Observable } from 'rxjs';
+import { Directive, Input } from '@angular/core';
+import { AbstractControl, FormGroup, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import {
   DateRange,
@@ -25,8 +9,6 @@ import {
 import {
   Language,
   Genre,
-  GenreGroup,
-  GenreControl,
   DateRangeGroup,
   VoteAverageGroup,
   SelectTransformConfig,

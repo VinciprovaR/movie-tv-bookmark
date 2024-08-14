@@ -4,6 +4,7 @@ import { AuthSelectors } from '../../shared/store/auth';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { User } from '@supabase/supabase-js/';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +13,12 @@ import { User } from '@supabase/supabase-js/';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit {
-  private readonly store = inject(Store);
-
+export class HomeComponent extends AbstractComponent implements OnInit {
   selectUser$!: Observable<User | null>;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.selectUser$ = this.store.select(AuthSelectors.selectUser);

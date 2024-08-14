@@ -5,37 +5,36 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props, Store } from '@ngrx/store';
-import { MovieDetail } from '../../interfaces/TMDB/tmdb-media.interface';
+import {
+  MovieCredit,
+  MovieDetail,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 import { TMDBMovieDetailService } from '../../services/tmdb/tmdb-movie-detail.service';
 import { StateMediaBookmark } from '../../interfaces/store/state-media-bookmark.interface';
 
-export interface MovieDetailState extends StateMediaBookmark {
-  movieDetail: MovieDetail | null;
+export interface MovieDetailCreditsState extends StateMediaBookmark {
+  movieCredit: MovieCredit | null;
 }
 
-export const movieDetailSuccess = createAction(
-  '[Movie-Detail/API] Movie Detail Success',
-  props<{ movieDetail: MovieDetail }>()
-);
-export const movieDetailFailure = createAction(
-  '[Movie-Detail/API] Movie Detail Failure',
+export const movieDetailCreditsFailure = createAction(
+  '[Movie-Detail-Credits/API] Movie Detail Credits Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
 @Injectable()
-export class MovieDetailStore extends ComponentStore<MovieDetailState> {
+export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsState> {
   readonly actions$ = inject(Actions);
   readonly store = inject(Store);
   readonly TMDBMovieDetailService = inject(TMDBMovieDetailService);
 
-  readonly selectMovieDetail$ = this.select((state) => state.movieDetail);
+  readonly selectMovieCredits$ = this.select((state) => state.movieCredit);
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
 
   constructor() {
-    super({ movieDetail: null, isLoading: false, error: null });
+    super({ movieCredit: null, isLoading: false, error: null });
   }
 
-  private readonly addMovieDetailInit = this.updater((state) => {
+  private readonly addMovieDetailCreditsInit = this.updater((state) => {
     return {
       ...state,
       isLoading: true,
@@ -43,13 +42,13 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
     };
   });
 
-  private readonly addMovieDetailSuccess = this.updater(
-    (state, { movieDetail }: { movieDetail: MovieDetail }) => {
+  private readonly addMovieDetailCreditsSuccess = this.updater(
+    (state, { movieCredit }: { movieCredit: MovieCredit }) => {
       return {
         ...state,
         isLoading: false,
         error: null,
-        movieDetail,
+        movieCredit,
       };
     }
   );
@@ -63,24 +62,25 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
       };
     }
   );
-  readonly searchMovieDetail = this.effect((movieId$: Observable<number>) => {
+  readonly searchMovieCredits = this.effect((movieId$: Observable<number>) => {
     return movieId$.pipe(
       tap(() => {
-        this.addMovieDetailInit();
+        this.addMovieDetailCreditsInit();
       }),
       switchMap((movieId) => {
-        return this.TMDBMovieDetailService.movieDetailChained(movieId).pipe(
-          tap((movieDetail: MovieDetail) => {
-            this.store.dispatch(movieDetailSuccess({ movieDetail }));
-            this.addMovieDetailSuccess({
-              movieDetail,
+        return this.TMDBMovieDetailService.movieCredits(movieId).pipe(
+          tap((movieCredit: MovieCredit) => {
+            this.addMovieDetailCreditsSuccess({
+              movieCredit,
             });
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
             return of().pipe(
               tap(() => {
                 this.addMovieDetailFailure(httpErrorResponse);
-                this.store.dispatch(movieDetailFailure({ httpErrorResponse }));
+                this.store.dispatch(
+                  movieDetailCreditsFailure({ httpErrorResponse })
+                );
               })
             );
           })
@@ -89,7 +89,7 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
     );
   });
 
-  logState(state: MovieDetailState, action: string) {
+  logState(state: MovieDetailCreditsState, action: string) {
     console.log(action, state);
   }
 }

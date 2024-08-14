@@ -1,0 +1,24 @@
+<div class="h-full flex">
+  <div class="overflow-hidden w-[66px] h-[66px] min-w-[66px] min-h-[66px]">
+    <app-img
+      [alt]="name"
+      [title]="name"
+      [imgSrc]="profile_path"
+      [baseUrl]="TMDB_CREDITS_IMG_URL"
+      [link]="detailMediaPath"
+      [isPlaceholderPerson]="true"
+      [customClasses]="'border-container-no-color '"
+      customContainerHeightClass="aspect-[1/1]"
+    ></app-img>
+  </div>
+  <div class="credit-card-content flex flex-col justify-center overflow-hidden">
+    <h4 class="whitespace-nowrap text-ellipsis overflow-hidden">
+      <a [routerLink]="detailMediaPath" [title]="name"
+        ><span>{{ name }}</span></a
+      >
+    </h4>
+    <h5 class="whitespace-nowrap text-ellipsis overflow-hidden">
+      <span [title]="role">{{ role }} </span>
+    </h5>
+  </div>
+</div>

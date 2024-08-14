@@ -34,6 +34,7 @@ import {
 } from '../../shared/store/movie-lifecycle';
 import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-movie-discovery',
@@ -42,21 +43,17 @@ import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
     CommonModule,
     InputQueryComponent,
     MediaListContainerComponent,
-
     MovieDiscoveryFiltersComponent,
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-discovery.component.html',
   styleUrl: './movie-discovery.component.css',
 })
-export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
-  title = 'Movie Discovery';
-  mediaType: MediaType = 'movie';
-
-  destroyed$ = new Subject();
-
-  private readonly destroyRef$ = inject(DestroyRef);
-
+export class MovieDiscoveryComponent
+  extends AbstractComponent
+  implements OnInit, AfterViewInit
+{
+  private readonly bridgeDataService = inject(BridgeDataService);
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
   selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
@@ -67,14 +64,11 @@ export class MovieDiscoveryComponent implements OnInit, AfterViewInit {
   selectLanguageList$!: Observable<Language[]>;
   selectSortBy$!: Observable<OptionFilter[]>;
 
-  constructor(
-    private store: Store,
-    private bridgeDataService: BridgeDataService
-  ) {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+  title = 'Movie Discovery';
+  mediaType: MediaType = 'movie';
+
+  constructor() {
+    super();
   }
   ngAfterViewInit(): void {
     //    this.discoveryMovieLanding();

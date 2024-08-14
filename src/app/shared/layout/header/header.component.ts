@@ -1,35 +1,16 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  ElementRef,
-  HostListener,
-  inject,
-  NgZone,
-  OnInit,
-  Renderer2,
-  RendererFactory2,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
-import { Store } from '@ngrx/store';
-import { filter, map, Observable, Subject, takeUntil } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthSelectors } from '../../store/auth';
-import { NavElements } from '../../interfaces/navigator.interface';
 import { ToggleThemeStore } from '../../store/component-store/toggle-theme-store.service';
-import {
-  NavigationStart,
-  Router,
-  RouterLinkActive,
-  RouterModule,
-} from '@angular/router';
+import { RouterLinkActive, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigatorMobileComponent } from '../../../features/navigator-mobile/navigator-mobile.component';
 import { NavigatorDesktopComponent } from '../../../features/navigator-desktop/navigator-desktop.component';
 import { HEADER_NAV_ELEMENTS } from '../../../providers';
-import { PageEventService } from '../../services/page-event.service';
+import { AbstractComponent } from '../../components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-header',
@@ -44,55 +25,24 @@ import { PageEventService } from '../../services/page-event.service';
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly zone = inject(NgZone);
-  private readonly store = inject(Store);
+export class HeaderComponent extends AbstractComponent implements OnInit {
   private readonly toggleThemeStore = inject(ToggleThemeStore);
-  private renderer!: Renderer2;
-  private readonly rendererFactory = inject(RendererFactory2);
-  private readonly destroyRef$ = inject(DestroyRef);
-  private readonly router = inject(Router);
-  private readonly el: ElementRef<HTMLElement> = inject(ElementRef);
   readonly navElements = inject(HEADER_NAV_ELEMENTS);
-  readonly pageEventService = inject(PageEventService);
 
-  destroyed$ = new Subject();
   isUserAuthenticated$!: Observable<boolean>;
   icon$!: Observable<string>;
   isDarkTheme$!: Observable<boolean>;
-
   toggleThemeIcon: string = '';
-
   hiddenNavMenu: boolean = true;
-  window!: Window;
   private lastScrollTop = 0;
 
   constructor() {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {
     this.zone.runOutsideAngular(() => {
-      this.router.events
-        .pipe(
-          takeUntil(this.destroyed$),
-          filter((event) => event instanceof NavigationStart)
-        )
-        .subscribe((event) => {
-          if (!this.hiddenNavMenu) {
-            this.toggleNavMenuMobile();
-          }
-        });
-
-      this.renderer = this.rendererFactory.createRenderer(null, null);
-      this.window = window;
-
       this.initSelectors();
 
       window.addEventListener('scroll', (e) => {
@@ -111,7 +61,7 @@ export class HeaderComponent implements OnInit {
 
   //@HostListener('window:scroll', ['$event.target'])
   windowScrollEvent() {
-    let scrollTop = this.window.document.documentElement.scrollTop;
+    let scrollTop = window.document.documentElement.scrollTop;
     if (scrollTop > this.lastScrollTop) {
       this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
       if (!this.hiddenNavMenu) {

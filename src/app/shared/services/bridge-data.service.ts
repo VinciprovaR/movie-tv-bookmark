@@ -6,7 +6,6 @@ import {
   TVLifecycleMap,
 } from '../interfaces/supabase/supabase-lifecycle.interface';
 import {
-  MediaCredit,
   MediaType,
   Movie,
   MovieDetail,

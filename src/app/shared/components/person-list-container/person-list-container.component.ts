@@ -10,7 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { ListType } from '../../interfaces/list-type.type';
-import { Cast, Crew, Person } from '../../interfaces/TMDB/tmdb-media.interface';
+import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
 
 import { PersonCardComponent } from '../person-card/person-card.component';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
@@ -36,8 +36,6 @@ export class PersonListContainerComponent implements OnInit {
   gridCol: string = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
   crewIdList: number[] = [];
-
-  crewUniqueMap: Map<number, Crew> = new Map<number, Crew>();
 
   @ViewChildren('crewCast')
   castCrewCardComponentList!: QueryList<CastCrewCardComponent>;

@@ -23,24 +23,22 @@ import {
   OptionFilter,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
 import { Store } from '@ngrx/store';
+import { AbstractComponent } from './abstract-component.component';
 
 @Directive()
 export abstract class AbstractFilter<
-  T1,
-  T2 extends { [K in keyof T2]: AbstractControl<any, any> }
-> implements OnInit
+    T1,
+    T2 extends { [K in keyof T2]: AbstractControl<any, any> }
+  >
+  extends AbstractComponent
+  implements OnInit
 {
+  protected readonly fb = inject(FormBuilder);
+
   @Input({ required: true })
   sortBySelect!: OptionFilter[];
   @Output()
   payloadEmitterOnSubmit: EventEmitter<T1> = new EventEmitter<T1>();
-
-  protected readonly store = inject(Store);
-  protected readonly fb = inject(FormBuilder);
-
-  protected readonly rendererFactory = inject(RendererFactory2);
-
-  destroyed$ = new Subject();
 
   filterForm!: FormGroup<T2>;
   isHideFilterContainer: boolean = true;
@@ -48,10 +46,7 @@ export abstract class AbstractFilter<
   isDisableButton: boolean = true;
 
   constructor() {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   abstract ngOnInit(): void;

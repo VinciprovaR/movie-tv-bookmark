@@ -3,10 +3,16 @@
     FadeScroller
     class="grid grid-flow-col grid-columns auto-cols-[100px] lg:auto-cols-[120px] gap-4 lg:gap-8 p-0 pl-4 my-0 overflow-x-scroll overflow-y-hidden"
   >
-    @for(castCrew of castCrewList; track castCrew.id){
+    @for(castCrew of castCrewList.slice(0,15); track castCrew.id){
 
     <li class="list-none w-full">
-      <app-cast-crew-card [castCrew]="castCrew"> </app-cast-crew-card>
+      <app-cast-crew-card
+        [id]="castCrew.id"
+        [name]="castCrew.name"
+        [profile_path]="castCrew.profile_path"
+        [role]="buildRole(castCrew)"
+      >
+      </app-cast-crew-card>
     </li>
 
     }

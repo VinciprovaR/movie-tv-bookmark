@@ -205,6 +205,10 @@
   margin: auto;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
 .mx-12 {
   margin-left: 3rem;
   margin-right: 3rem;
@@ -365,6 +369,10 @@
   height: 60%;
 }
 
+.h-\[66px\] {
+  height: 66px;
+}
+
 .h-auto {
   height: auto;
 }
@@ -373,16 +381,12 @@
   height: 100%;
 }
 
-.h-\[600px\] {
-  height: 600px;
-}
-
-.h-\[1000px\] {
-  height: 1000px;
-}
-
 .max-h-\[400px\] {
   max-height: 400px;
+}
+
+.min-h-\[66px\] {
+  min-height: 66px;
 }
 
 .w-0 {
@@ -397,6 +401,10 @@
   width: 154px;
 }
 
+.w-\[66px\] {
+  width: 66px;
+}
+
 .w-\[8\%\] {
   width: 8%;
 }
@@ -409,12 +417,24 @@
   width: 90%;
 }
 
+.w-\[95\%\] {
+  width: 95%;
+}
+
 .w-\[98\%\] {
   width: 98%;
 }
 
 .w-full {
   width: 100%;
+}
+
+.w-\[99\%\] {
+  width: 99%;
+}
+
+.min-w-\[66px\] {
+  min-width: 66px;
 }
 
 .max-w-4xl {
@@ -565,6 +585,18 @@
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
+.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -711,6 +743,11 @@
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .pb-3 {
@@ -1477,8 +1514,32 @@ iframe {
     display: none;
   }
 
+  .sm\:w-\[50\%\] {
+    width: 50%;
+  }
+
   .sm\:w-auto {
     width: auto;
+  }
+
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+
+  .sm\:space-y-8 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+  }
+
+  .sm\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
+  .sm\:bg-transparent {
+    background-color: transparent;
   }
 }
 

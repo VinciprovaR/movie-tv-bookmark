@@ -5,17 +5,18 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props, Store } from '@ngrx/store';
-import {
-  MediaCredit,
-  TVDetail,
-} from '../../interfaces/TMDB/tmdb-media.interface';
+import { TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TMDBTVDetailService } from '../../services/tmdb/tmdb-tv-detail.service';
 import { StateMediaBookmark } from '../../interfaces/store/state-media-bookmark.interface';
 
 export interface TVDetailState extends StateMediaBookmark {
-  tvDetail: (TVDetail & MediaCredit) | null;
+  tvDetail: TVDetail | null;
 }
 
+export const tvDetailSuccess = createAction(
+  '[TV-Detail/API] TV Detail Success',
+  props<{ tvDetail: TVDetail }>()
+);
 export const tvDetailFailure = createAction(
   '[TV-Detail/API] TV Detail Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
@@ -43,15 +44,12 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
   });
 
   private readonly addTVDetailSuccess = this.updater(
-    (
-      state,
-      { tvDetail, tvCredit }: { tvDetail: TVDetail; tvCredit: MediaCredit }
-    ) => {
+    (state, { tvDetail }: { tvDetail: TVDetail }) => {
       return {
         ...state,
         isLoading: false,
         error: null,
-        tvDetail: { ...tvDetail, ...tvCredit },
+        tvDetail,
       };
     }
   );
@@ -65,20 +63,18 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
       };
     }
   );
-
   readonly searchTVDetail = this.effect((tvId$: Observable<number>) => {
     return tvId$.pipe(
       tap(() => {
         this.addTVDetailInit();
       }),
       switchMap((tvId) => {
-        return this.TMDBTVDetailService.tvDetail(tvId).pipe(
-          switchMap((tvDetail: TVDetail) => {
-            return this.TMDBTVDetailService.tvCredit(tvId).pipe(
-              tap((tvCredit: MediaCredit) => {
-                this.addTVDetailSuccess({ tvDetail, tvCredit });
-              })
-            );
+        return this.TMDBTVDetailService.tvDetailChained(tvId).pipe(
+          tap((tvDetail: TVDetail) => {
+            this.store.dispatch(tvDetailSuccess({ tvDetail }));
+            this.addTVDetailSuccess({
+              tvDetail,
+            });
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
             return of().pipe(

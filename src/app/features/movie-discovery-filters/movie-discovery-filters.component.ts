@@ -20,10 +20,7 @@ import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/
 import { MatIconModule } from '@angular/material/icon';
 
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  DiscoveryMovieActions,
-  DiscoveryMovieSelectors,
-} from '../../shared/store/discovery-movie';
+import { DiscoveryMovieSelectors } from '../../shared/store/discovery-movie';
 
 @Component({
   selector: 'app-discovery-movie-filters',

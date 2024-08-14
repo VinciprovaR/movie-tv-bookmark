@@ -62,6 +62,16 @@
 - fallback if img not found...
 - dialog video max-height cell orizzontale
 - separazione membri classe  come in videos-container.components
+- refractor ref on destroy, instance tipo renderer, subscription, ecc. (destro ref potresti usare una classe astratta per tutti i componenti)
+- integrare AbstractComponent (arrivato a movie discovery da sopra a sotto)
+- integrare On push strategy
+- verificare componenti che hanno bisogno di astratta, tipo movie discovery e tv discovery
+- scrollbar cast crew container detail diventa troppo piccola
+- identificare tutto ciò che potrebbe avere troppi item (esempio cast crew, cobra 11 ha più di 2000 membri del cast portando la tab a 1,4 GB di memoria) controllare
+  iterazioni, tutte, e porre un limite massimo
+  - fade scroller controllare per change detection
+-check class hidden-container, strano comportamento 
+
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

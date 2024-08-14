@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-static-tag',
@@ -7,8 +8,13 @@ import { Component, Input } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './static-tag.component.html',
   styleUrl: './static-tag.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StaticTagComponent {
+export class StaticTagComponent extends AbstractComponent {
+  constructor() {
+    super();
+  }
+
   @Input({ required: true })
   tag: string = '';
   @Input()

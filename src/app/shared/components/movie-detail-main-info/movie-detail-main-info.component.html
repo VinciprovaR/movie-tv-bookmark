@@ -17,16 +17,16 @@
         class="flex flex-wrap space-y-1 space-x-2 m-0 p-0 text-sm lg:text-md"
         [ngClass]="{ 'text-gray-400': isDark, 'text-gray-600': !isDark }"
       >
-        @if(certification){
+        @if(rating){
         <li class="list-none flex flex-wrap space-x-2">
-          <p class="border-2 border-solid px-1">{{ certification }}</p>
+          <p class="border-2 border-solid px-1">{{ rating }}</p>
         </li>
         }
         <li class="list-none flex flex-wrap space-x-2">
-          @if(certification){ <span>&#8226;</span
-          ><span>{{ mediaData.origin_country }}</span
+          @if(rating){ <span>&#8226;</span
+          ><span>{{ movieData.origin_country }}</span
           >} @else {
-          <span class="mt-[4px]">{{ mediaData.origin_country }}</span>
+          <span class="mt-[4px]">{{ movieData.origin_country }}</span>
           }
         </li>
         <li class="list-none flex flex-wrap space-x-2">
@@ -37,10 +37,10 @@
         </li>
       </ul>
     </div>
-    <div><app-rating [voteAverage]="mediaData.vote_average"></app-rating></div>
+    <div><app-rating [voteAverage]="movieData.vote_average"></app-rating></div>
     <div>
       <ul class="flex flex-wrap list-none p-0 m-0 lg:items-center">
-        @for(genre of mediaData.genres; track genre.id){
+        @for(genre of movieData.genres; track genre.id){
         <li class="list-none mr-2">
           <app-static-tag
             [type]="'ellipse'"
@@ -58,10 +58,10 @@
       class="font-medium italic"
       [ngClass]="{ 'text-gray-400': isDark, 'text-gray-600': !isDark }"
     >
-      {{ mediaData.tagline }}
+      {{ movieData.tagline }}
     </p>
     <p>
-      {{ mediaData.overview }}
+      {{ movieData.overview }}
     </p>
   </div>
   <!-- Main Cast & Crew -->

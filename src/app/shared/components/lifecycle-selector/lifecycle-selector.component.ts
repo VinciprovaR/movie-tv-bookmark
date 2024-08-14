@@ -1,6 +1,6 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  DestroyRef,
   EventEmitter,
   Input,
   OnInit,
@@ -9,28 +9,18 @@ import {
 } from '@angular/core';
 import {
   lifecycleEnum,
-  LifecycleStatus,
-  LifecycleStatusMap,
   MovieLifecycleMap,
   TVLifecycleMap,
 } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {
-  Observable,
-  Subject,
-  distinctUntilChanged,
-  filter,
-  map,
-  takeUntil,
-} from 'rxjs';
+import { Observable, distinctUntilChanged, filter, map, takeUntil } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BridgeDataService } from '../../services/bridge-data.service';
 import { LifecycleOption } from '../../interfaces/supabase/DTO';
 import {
-  MediaCredit,
   MediaType,
   Movie,
   MovieDetail,
@@ -38,11 +28,11 @@ import {
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 
-import { Store } from '@ngrx/store';
 import { LifecycleMetadataSelectors } from '../../store/lifecycle-metadata';
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 import { MatIconModule } from '@angular/material/icon';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-lifecycle-selector',
@@ -57,15 +47,17 @@ import { LIFECYCLE_STATUS_MAP } from '../../../providers';
   ],
   templateUrl: './lifecycle-selector.component.html',
   styleUrl: './lifecycle-selector.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LifecycleSelectorComponent implements OnInit {
-  private readonly store = inject(Store);
+export class LifecycleSelectorComponent
+  extends AbstractComponent
+  implements OnInit
+{
   private readonly fb = inject(FormBuilder);
   private readonly bridgeDataService = inject(BridgeDataService);
   //to-do refractor type
   readonly lifecycleStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
-  destroyed$ = new Subject();
   lifecycleOptions$!: Observable<LifecycleOption[]>;
 
   @Input({ required: true })
@@ -85,10 +77,7 @@ export class LifecycleSelectorComponent implements OnInit {
   lifecycleStatusElementEmitter = new EventEmitter<lifecycleEnum>();
 
   constructor() {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {

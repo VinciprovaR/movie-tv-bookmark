@@ -1,40 +1,69 @@
-import { Component, inject, Input, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {
-  MediaCredit,
-  TVDetail,
-} from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { Observable } from 'rxjs';
+import { TVDetail } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import { map, Observable, takeUntil } from 'rxjs';
 import { TVDetailStore } from '../../shared/store/component-store/tv-detail-store.service';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
+import { MediaDetailCastCrewListPreviewComponent } from '../../shared/components/media-detail-cast-crew-list-preview/media-detail-cast-crew-list-preview.component';
 import { ImgComponent } from '../../shared/components/img/img.component';
-import { IMG_SIZES } from '../../providers';
+import { MediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
+import { BridgeDataService } from '../../shared/services/bridge-data.service';
+import {
+  TVLifecycleActions,
+  TVLifecycleSelectors,
+} from '../../shared/store/tv-lifecycle';
+import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
+import { LifecycleSelectorComponent } from '../../shared/components/lifecycle-selector/lifecycle-selector.component';
+import { LifecycleStatusLabelComponent } from '../../shared/components/lifecycle-status-label/lifecycle-status-label.component';
+import { lifecycleEnum } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+import { MatIconModule } from '@angular/material/icon';
+import { ExternalInfoComponent } from '../../shared/components/external-info/external-info.component';
+import { MediaKeywordsComponent } from '../../shared/components/media-keywords/media-keywords.component';
+import { VideosContainerComponent } from '../../shared/components/videos-container/videos-container.component';
+import { TVDetailMainInfoContentComponent } from '../../shared/components/tv-detail-main-info/tv-detail-main-info.component';
 
 @Component({
   selector: 'app-tv-detail',
   standalone: true,
-  imports: [CommonModule, PersonListContainerComponent, ImgComponent],
-  providers: [TVDetailStore],
+  imports: [
+    CommonModule,
+    PersonListContainerComponent,
+    MediaDetailCastCrewListPreviewComponent,
+    ImgComponent,
+    TVDetailMainInfoContentComponent,
+    LifecycleSelectorComponent,
+    LifecycleStatusLabelComponent,
+    MatIconModule,
+    ExternalInfoComponent,
+    VideosContainerComponent,
+    MediaKeywordsComponent,
+  ],
+  providers: [TVDetailStore, BridgeDataService],
   templateUrl: './tv-detail.component.html',
   styleUrl: './tv-detail.component.css',
 })
-export class TVDetailComponent {
-  readonly TMDB_PROFILE_1X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_1X_IMG_URL);
-  readonly TMDB_PROFILE_2X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_2X_IMG_URL);
-
+export class TVDetailComponent extends MediaDetailComponent {
+  protected readonly bridgeDataService = inject(BridgeDataService);
   readonly tvDetailstore = inject(TVDetailStore);
 
+  tvDetail$!: Observable<TVDetail | null>;
+  isLoading$!: Observable<boolean>;
+
+  @ViewChild('headerMediaDetail')
+  headerMediaDetail!: ElementRef;
   @Input({ required: true })
   tvId: number = 0;
 
-  tvDetail$!: Observable<(TVDetail & MediaCredit) | null>;
-  isLoading$!: Observable<boolean>;
-  constructor() {}
+  lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
+
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.initSelectors();
+    this.initDataBridge();
     this.searchTVDetail();
   }
 
@@ -45,5 +74,49 @@ export class TVDetailComponent {
   initSelectors() {
     this.tvDetail$ = this.tvDetailstore.selectTVDetail$;
     this.isLoading$ = this.tvDetailstore.selectIsLoading$;
+    this.tvDetail$
+      .pipe(
+        takeUntil(this.destroyed$),
+        map((tvDetail: TVDetail | null) => {
+          return tvDetail?.backdrop_path ? tvDetail.backdrop_path : '';
+        })
+      )
+      .subscribe((backdrop_path: string) => {
+        this.evaluatePredominantColor(backdrop_path);
+      });
+  }
+
+  initDataBridge() {
+    //data to lifecycle-selector, lifecycle selected
+    this.store
+      .select(TVLifecycleSelectors.selectTVLifecycleMap)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((tvLifecycleMap) => {
+        this.bridgeDataService.pushMediaLifecycleMap(tvLifecycleMap);
+      });
+
+    // data from lifecycle-selector
+    this.bridgeDataService.tvInputLifecycleOptionsObs$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((mediaLifecycleDTO) => {
+        this.createUpdateDeleteTVLifecycle(
+          mediaLifecycleDTO as MediaLifecycleDTO<TVDetail>
+        );
+      });
+  }
+
+  createUpdateDeleteTVLifecycle(
+    mediaLifecycleDTO: MediaLifecycleDTO<TVDetail>
+  ) {
+    console.log(mediaLifecycleDTO);
+    this.store.dispatch(
+      TVLifecycleActions.createUpdateDeleteTVLifecycle({
+        mediaLifecycleDTO,
+      })
+    );
+  }
+
+  setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
+    this.lifecycleEnumSelected = lifecycleEnumSelected;
   }
 }
