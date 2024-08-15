@@ -71,7 +71,9 @@
   iterazioni, tutte, e porre un limite massimo
   - fade scroller controllare per change detection
 -check class hidden-container, strano comportamento 
-
+- credit sotto categorie per crew
+- vedere se riesci a eliminare if els from route store in movie and tv detail credits
+- mouseover header change detection
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

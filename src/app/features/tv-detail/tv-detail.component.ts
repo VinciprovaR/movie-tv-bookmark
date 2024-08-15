@@ -7,7 +7,7 @@ import { TVDetailStore } from '../../shared/store/component-store/tv-detail-stor
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
 import { MediaDetailCastCrewListPreviewComponent } from '../../shared/components/media-detail-cast-crew-list-preview/media-detail-cast-crew-list-preview.component';
 import { ImgComponent } from '../../shared/components/img/img.component';
-import { MediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
+import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
   TVLifecycleActions,
@@ -22,6 +22,7 @@ import { ExternalInfoComponent } from '../../shared/components/external-info/ext
 import { MediaKeywordsComponent } from '../../shared/components/media-keywords/media-keywords.component';
 import { VideosContainerComponent } from '../../shared/components/videos-container/videos-container.component';
 import { TVDetailMainInfoContentComponent } from '../../shared/components/tv-detail-main-info/tv-detail-main-info.component';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-tv-detail',
@@ -43,7 +44,7 @@ import { TVDetailMainInfoContentComponent } from '../../shared/components/tv-det
   templateUrl: './tv-detail.component.html',
   styleUrl: './tv-detail.component.css',
 })
-export class TVDetailComponent extends MediaDetailComponent {
+export class TVDetailComponent extends AbstractMediaDetailComponent {
   protected readonly bridgeDataService = inject(BridgeDataService);
   readonly tvDetailstore = inject(TVDetailStore);
 
@@ -56,12 +57,15 @@ export class TVDetailComponent extends MediaDetailComponent {
   tvId: number = 0;
 
   lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
+  tvCreditsPath: string = '';
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
+    this.tvCreditsPath = this.tvCreditsPath.concat(`/tv-credits/${this.tvId}`);
+
     this.initSelectors();
     this.initDataBridge();
     this.searchTVDetail();
@@ -118,5 +122,15 @@ export class TVDetailComponent extends MediaDetailComponent {
 
   setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
     this.lifecycleEnumSelected = lifecycleEnumSelected;
+  }
+
+  navigateToCredits(tVDetail: TVDetail) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        data: tVDetail,
+      },
+    };
+
+    this.router.navigate([this.tvCreditsPath], navigationExtras);
   }
 }

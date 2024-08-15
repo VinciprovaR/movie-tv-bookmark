@@ -1,13 +1,16 @@
 import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MovieDetail } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  MovieCredit,
+  MovieDetail,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { map, Observable, takeUntil } from 'rxjs';
 import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
 import { MediaDetailCastCrewListPreviewComponent } from '../../shared/components/media-detail-cast-crew-list-preview/media-detail-cast-crew-list-preview.component';
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { MovieDetailMainInfoContentComponent } from '../../shared/components/movie-detail-main-info/movie-detail-main-info';
-import { MediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
+import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
   MovieLifecycleActions,
@@ -21,7 +24,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { ExternalInfoComponent } from '../../shared/components/external-info/external-info.component';
 import { MediaKeywordsComponent } from '../../shared/components/media-keywords/media-keywords.component';
 import { VideosContainerComponent } from '../../shared/components/videos-container/videos-container.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  NavigationExtras,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 
 @Component({
   selector: 'app-movie-detail',
@@ -45,7 +52,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
-export class MovieDetailComponent extends MediaDetailComponent {
+export class MovieDetailComponent extends AbstractMediaDetailComponent {
   protected readonly bridgeDataService = inject(BridgeDataService);
   readonly movieDetailstore = inject(MovieDetailStore);
 
@@ -124,5 +131,15 @@ export class MovieDetailComponent extends MediaDetailComponent {
 
   setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
     this.lifecycleEnumSelected = lifecycleEnumSelected;
+  }
+
+  navigateToCredits(movieDetail: MovieDetail) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        data: movieDetail,
+      },
+    };
+
+    this.router.navigate([this.movieCreditsPath], navigationExtras);
   }
 }

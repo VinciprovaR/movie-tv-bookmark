@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
@@ -25,6 +30,7 @@ import { AbstractComponent } from '../../components/abstract/abstract-component.
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent extends AbstractComponent implements OnInit {
   private readonly toggleThemeStore = inject(ToggleThemeStore);

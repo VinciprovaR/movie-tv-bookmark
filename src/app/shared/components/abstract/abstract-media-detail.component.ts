@@ -6,7 +6,7 @@ import { AbstractComponent } from './abstract-component.component';
 import { IMG_SIZES } from '../../../providers';
 
 @Directive()
-export abstract class MediaDetailComponent extends AbstractComponent {
+export abstract class AbstractMediaDetailComponent extends AbstractComponent {
   readonly predominantImgColorService = inject(PredominantImgColorService);
   readonly TMDB_PROFILE_1X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_1X_IMG_URL);
   readonly TMDB_PROFILE_2X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_2X_IMG_URL);

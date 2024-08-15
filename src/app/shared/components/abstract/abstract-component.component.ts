@@ -11,7 +11,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { PageEventService } from '../../services/page-event.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Directive()
 export abstract class AbstractComponent {
@@ -24,6 +24,7 @@ export abstract class AbstractComponent {
   protected readonly el: ElementRef<HTMLElement> = inject(ElementRef);
   protected readonly pageEventService = inject(PageEventService);
   protected readonly router = inject(Router);
+  protected readonly route = inject(ActivatedRoute);
 
   destroyed$ = new Subject();
 

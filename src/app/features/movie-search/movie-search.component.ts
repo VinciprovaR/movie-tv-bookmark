@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnInit,
+  inject,
+} from '@angular/core';
 
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
@@ -29,6 +35,7 @@ import {
   providers: [BridgeDataService],
   templateUrl: './movie-search.component.html',
   styleUrl: './movie-search.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieSearchComponent implements OnInit {
   title = 'Movie Search';

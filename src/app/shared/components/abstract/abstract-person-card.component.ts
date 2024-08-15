@@ -25,6 +25,9 @@ export abstract class AbstractPersonCardComponent extends AbstractComponent {
   protected readonly TMDB_CREDITS_IMG_URL = inject(
     IMG_SIZES.TMDB_CREDITS_IMG_URL
   );
+  protected readonly TMDB_CREDITS_HQ_IMG_URL = inject(
+    IMG_SIZES.TMDB_CREDITS_HQ_IMG_URL
+  );
 
   abstract ngOnInit(): void;
 

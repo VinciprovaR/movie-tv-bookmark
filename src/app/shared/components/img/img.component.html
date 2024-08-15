@@ -1,3 +1,4 @@
+<!-- to-do place holder, non usare direttiva-->
 <div [ngClass]="customContainerHeightClass">
   <div
     class="relative overflow-hidden h-full"
@@ -5,7 +6,36 @@
     'pointer-events-none': !link ,
   }"
   >
-    @if(priority){
+    @defer (on viewport) {
+
+    <img
+      class="fill-img"
+      [alt]="alt"
+      [title]="title"
+      [srcset]="fullSrc"
+      (click)="navigateTo()"
+      fill="true"
+      [ngClass]="customClasses"
+      [loading]="'lazy'"
+    />
+    } @placeholder {
+    <img
+      class="fill-img"
+      [alt]="alt"
+      [title]="title"
+      [srcset]="
+        isPlaceholderPerson
+          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
+          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
+      "
+      fill="true"
+      [ngClass]="customClasses"
+      [loading]="'lazy'"
+    />}
+  </div>
+</div>
+<!--     
+    @if(priority){ @defer (on viewport) {
 
     <img
       [alt]="alt"
@@ -14,12 +44,22 @@
       (click)="navigateTo()"
       fill="true"
       [ngClass]="customClasses"
-      [placeholder]="
-        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-      "
       [priority]="priority"
     />
-    } @else{
+    } @placeholder {
+    <img
+      [alt]="alt"
+      [title]="title"
+      [ngSrc]="
+        isPlaceholderPerson
+          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
+          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
+      "
+      fill="true"
+      [ngClass]="customClasses"
+      [priority]="priority"
+    />} } @else{ @defer (on viewport) {
+
     <img
       [alt]="alt"
       [title]="title"
@@ -27,10 +67,22 @@
       (click)="navigateTo()"
       fill="true"
       [ngClass]="customClasses"
-      [placeholder]="
-        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-      "
       [loading]="'lazy'"
-    />}
-  </div>
-</div>
+    />
+    } @placeholder {
+    <img
+      [alt]="alt"
+      [title]="title"
+      [ngSrc]="
+        isPlaceholderPerson
+          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
+          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
+      "
+      fill="true"
+      [ngClass]="customClasses"
+      [loading]="'lazy'"
+    />} }
+    
+    [placeholder]=" isPlaceholderPerson ? placeholderBase64Person :
+placeholderBase64Media " 
+    -->

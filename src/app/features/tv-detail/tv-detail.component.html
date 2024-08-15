@@ -108,18 +108,72 @@
     </div>
     <div class="w-full lg:w-[75%] space-y-4 lg:space-y-8 lg:mr-12">
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
-        <h2 class="mb-6 pl-4">Cast</h2>
+        <div class="flex mb-6 pl-4">
+          <h2 class="mr-2">Cast</h2>
+          <h5 class="content-center">
+            {{ tvDetail.aggregate_credits.cast.length }}
+          </h5>
+          <a
+            [title]="'Full Cast \u0026 Crew'"
+            routerLinkActive="active"
+            (click)="navigateToCredits(tvDetail)"
+            class="block"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label=""
+              [fontIcon]="'chevron_right'"
+            ></mat-icon
+          ></a>
+        </div>
         <app-media-detail-cast-crew-list-preview
           [isLoading]="(isLoading$ | async) ?? false"
           [castCrewList]="tvDetail.aggregate_credits.cast"
         ></app-media-detail-cast-crew-list-preview>
       </div>
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
-        <h2 class="mb-6 pl-4">Crew</h2>
+        <div class="flex mb-6 pl-4">
+          <h2 class="mr-2">Crew</h2>
+          <h5 class="content-center">
+            {{ tvDetail.aggregate_credits.crew.length }}
+          </h5>
+          <a
+            [title]="'Full Cast \u0026 Crew'"
+            routerLinkActive="active"
+            (click)="navigateToCredits(tvDetail)"
+            class="block"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label=""
+              [fontIcon]="'chevron_right'"
+            ></mat-icon
+          ></a>
+        </div>
         <app-media-detail-cast-crew-list-preview
           [isLoading]="(isLoading$ | async) ?? false"
           [castCrewList]="tvDetail.aggregate_credits.crew"
         ></app-media-detail-cast-crew-list-preview>
+      </div>
+
+      <div
+        class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4 mb-4 flex"
+      >
+        <a
+          [title]="'Full Cast \u0026 Crew'"
+          routerLinkActive="active"
+          class="block cursor-pointer"
+          (click)="navigateToCredits(tvDetail)"
+        >
+          <div class="flex">
+            <h2 class="pl-4">{{ "Full Cast \u0026 Crew" }}</h2>
+            <mat-icon
+              aria-hidden="false"
+              aria-label=""
+              [fontIcon]="'chevron_right'"
+            ></mat-icon>
+          </div>
+        </a>
       </div>
 
       @if(tvDetail.videos.results.length > 0){

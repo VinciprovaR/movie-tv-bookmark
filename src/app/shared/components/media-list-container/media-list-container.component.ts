@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -27,6 +28,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   ],
   templateUrl: './media-list-container.component.html',
   styleUrl: './media-list-container.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaListContainerComponent implements OnInit {
   readonly mediaItemComponents: any = {

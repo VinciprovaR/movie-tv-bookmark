@@ -178,6 +178,15 @@ export const routes: Routes = [
     title: 'TV Detail',
   },
   {
+    path: 'tv-credits/:tvId',
+    loadComponent: () =>
+      import('./features/tv-detail-credits/tv-detail-credits.component').then(
+        (m) => m.TVDetailCreditsComponent
+      ),
+    canActivate: [authGuard],
+    title: 'TV Detail Credits',
+  },
+  {
     path: 'people',
     loadComponent: () =>
       import('./features/people-search/people-search.component').then(

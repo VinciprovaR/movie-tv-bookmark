@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
@@ -30,6 +35,7 @@ import { LifecycleStatusLabelComponent } from '../lifecycle-status-label/lifecyc
   ],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieCardComponent extends AbstractMediaCard implements OnInit {
   @Input({ alias: 'media', required: true })

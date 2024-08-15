@@ -21,6 +21,8 @@ export class PageEventService {
 
   windowInnerWidth$!: Observable<number>;
 
+  resize$!: Observable<any>;
+
   constructor() {
     inject(DestroyRef).onDestroy(() => {
       this.destroyed$.next(true);
@@ -32,7 +34,7 @@ export class PageEventService {
 
   initSelectors() {
     fromEvent(window, 'resize')
-      .pipe(takeUntil(this.destroyed$))
+      .pipe(takeUntil(this.destroyed$), debounceTime(500))
       .subscribe(() => {
         this.window$.next(window);
       });

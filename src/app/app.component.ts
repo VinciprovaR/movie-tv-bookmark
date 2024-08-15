@@ -1,4 +1,10 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { AuthSelectors } from './shared/store/auth';
@@ -21,6 +27,7 @@ import { ToggleThemeStore } from './shared/store/component-store/toggle-theme-st
   providers: [NotifierStore],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   private readonly store = inject(Store);
