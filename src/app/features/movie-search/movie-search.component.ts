@@ -27,6 +27,7 @@ import {
   MovieLifecycleActions,
   MovieLifecycleSelectors,
 } from '../../shared/store/movie-lifecycle';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-search-movie',
@@ -37,26 +38,20 @@ import {
   styleUrl: './movie-search.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovieSearchComponent implements OnInit {
+export class MovieSearchComponent extends AbstractComponent implements OnInit {
   title = 'Movie Search';
 
-  private readonly store = inject(Store);
   private readonly bridgeDataService = inject(BridgeDataService);
 
   movieListLength: number = 0;
   mediaType: MediaType = 'movie';
-
-  destroyed$ = new Subject();
 
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
 
   constructor() {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {
@@ -83,7 +78,7 @@ export class MovieSearchComponent implements OnInit {
       });
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.selectQuery$ = this.store.select(SearchMovieSelectors.selectQuery);
     this.selectIsLoading$ = this.store.select(
       SearchMovieSelectors.selectIsLoading
@@ -92,6 +87,8 @@ export class MovieSearchComponent implements OnInit {
       SearchMovieSelectors.selectMovieList
     );
   }
+
+  override initSubscriptions(): void {}
 
   createUpdateDeleteMovieLifecycle(
     mediaLifecycleDTO: MediaLifecycleDTO<Movie>

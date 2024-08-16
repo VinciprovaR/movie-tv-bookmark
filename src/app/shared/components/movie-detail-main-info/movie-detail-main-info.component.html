@@ -52,81 +52,44 @@
     </div>
   </div>
   <!-- Overview -->
-  <div id="description" class="space-y-1">
-    <h3>Overview</h3>
-    <p
-      class="font-medium italic"
-      [ngClass]="{ 'text-gray-400': isDark, 'text-gray-600': !isDark }"
-    >
-      {{ movieData.tagline }}
-    </p>
-    <p>
-      {{ movieData.overview }}
-    </p>
+  <div>
+    <app-overview
+      [isDark]="isDark"
+      [tagline]="movieData.tagline"
+      [overview]="movieData.overview"
+    ></app-overview>
   </div>
+
   <!-- Main Cast & Crew -->
   <div>
-    <div class="mb-2 pb-3">
-      <div class="mb-1"><h3>Director</h3></div>
+    @if(mainPersonMap.directors.length === 0 && mainPersonMap.writers.length ===
+    0 && mainPersonMap.casts.length === 0){
+    <app-missing-field-placeholder
+      [caption]="'No crew found for this movie'"
+    ></app-missing-field-placeholder>
+    } @else{
 
-      <ul class="flex flex-wrap list-none m-0 p-0">
-        @for(director of mainPersonMap.directors; track director){
-        <li class="list-none mr-6 flex space-x-2">
-          <span>&#8226;</span>
-          <a
-            class="hover:underline"
-            [ngClass]="{
-              'text-[var(--link-color-dark)]': !isDark,
-              'text-[var(--link-color-light)]': isDark
-            }"
-            [routerLink]="buildDetailPath(director.id)"
-            [title]="director.name"
-            ><span> {{ director.name }}</span></a
-          >
-        </li>
-        }
-      </ul>
+    <div class="mb-2 pb-3">
+      <app-main-crew-cast
+        [isDark]="isDark"
+        [mainCastCrewList]="mainPersonMap.directors"
+        [title]="'Directors'"
+      ></app-main-crew-cast>
     </div>
     <div class="pb-3 mb-2">
-      <div class="mb-1"><h3>Writers</h3></div>
-
-      <ul class="flex flex-wrap list-none m-0 p-0">
-        @for(witer of mainPersonMap.witers; track witer){
-        <li class="list-none mr-6 flex space-x-2">
-          <span>&#8226;</span>
-          <a
-            class="hover:underline"
-            [ngClass]="{
-              'text-[var(--link-color-dark)]': !isDark,
-              'text-[var(--link-color-light)]': isDark
-            }"
-            [routerLink]="buildDetailPath(witer.id)"
-            [title]="witer.name"
-            ><span> {{ witer.name }}</span></a
-          >
-        </li>
-        }
-      </ul>
+      <app-main-crew-cast
+        [isDark]="isDark"
+        [mainCastCrewList]="mainPersonMap.writers"
+        [title]="'Writers'"
+      ></app-main-crew-cast>
     </div>
     <div class="mb-2 pb-3">
-      <div class="mb-1"><h3>Stars</h3></div>
-      <ul class="flex flex-wrap list-none m-0 p-0">
-        @for(cast of mainPersonMap.casts; track cast){
-        <li class="list-none mr-6 flex space-x-2">
-          <span>&#8226;</span>
-          <a
-            class="hover:underline"
-            [ngClass]="{
-              'text-[var(--link-color-dark)]': !isDark,
-              'text-[var(--link-color-light)]': isDark
-            }"
-            [routerLink]="buildDetailPath(cast.id)"
-            [title]="cast.name"
-            ><span> {{ cast.name }}</span></a
-          >
-        </li>
-        }
-      </ul>
+      <app-main-crew-cast
+        [isDark]="isDark"
+        [mainCastCrewList]="mainPersonMap.casts"
+        [title]="'Stars'"
+      ></app-main-crew-cast>
     </div>
+    }
   </div>
 </div>

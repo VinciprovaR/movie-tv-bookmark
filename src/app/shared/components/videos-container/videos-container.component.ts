@@ -12,7 +12,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { YoutubeEmbededPreviewComponent } from '../youtube-embeded-preview/youtube-embeded-preview.component';
-import { Videos, Video } from '../../interfaces/TMDB/tmdb-media.interface';
+import {
+  Videos,
+  Video,
+  MediaType,
+} from '../../interfaces/TMDB/tmdb-media.interface';
 
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -25,6 +29,7 @@ import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.comp
 import { Overlay } from '@angular/cdk/overlay';
 import { SwiperContainer } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 
 @Component({
   selector: 'app-videos-container',
@@ -35,12 +40,13 @@ import { SwiperOptions } from 'swiper/types';
     MatIcon,
     ImgComponent,
     ArrowSliderComponent,
+    MissingFieldPlaceholderComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './videos-container.component.html',
   styleUrl: './videos-container.component.css',
 })
-export class VideosContainerComponent implements OnInit, OnDestroy {
+export class VideosContainerComponent implements OnInit {
   //Injections
   readonly pageEventService = inject(PageEventService);
   readonly dialog = inject(MatDialog);
@@ -54,12 +60,15 @@ export class VideosContainerComponent implements OnInit, OnDestroy {
   //Input-Output-Binding
   @ViewChild('swiper', { static: false })
   swiperRef!: ElementRef<SwiperContainer>;
-
+  @Input({ required: true })
+  title: string = '';
   @Input({ required: true })
   videos!: Videos;
   @Input({ required: true })
   videoTypeFilter!: { videosType: string[]; typeFilter: 'include' | 'exlude' };
-
+  @Input({ required: true })
+  mediaType!: MediaType;
+  placeholder: string = '';
   //Others members
   private window!: Window;
   videoList: Video[] = [];
@@ -75,6 +84,9 @@ export class VideosContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.placeholder = `No ${this.title.toLowerCase()} found for this ${
+      this.mediaType
+    }`;
     this.window = window;
     this.renderer = this.rendererFactory.createRenderer(null, null);
     this.videoList = this.filterVideosType();
@@ -173,9 +185,5 @@ export class VideosContainerComponent implements OnInit, OnDestroy {
           'cdk-global-scrollblock-custom'
         );
       });
-  }
-
-  ngOnDestroy(): void {
-    this.swiperRef.nativeElement.swiper.destroy();
   }
 }

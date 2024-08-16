@@ -49,61 +49,38 @@
     </div>
   </div>
   <!-- Overview -->
-  <div id="description" class="space-y-1">
-    <h3>Overview</h3>
-    <p
-      class="font-medium italic"
-      [ngClass]="{ 'text-gray-400': isDark, 'text-gray-600': !isDark }"
-    >
-      {{ tvData.tagline }}
-    </p>
-    <p>
-      {{ tvData.overview }}
-    </p>
+  <div>
+    <app-overview
+      [isDark]="isDark"
+      [tagline]="tvData.tagline"
+      [overview]="tvData.overview"
+    ></app-overview>
   </div>
+
   <!-- Main Cast & Crew -->
   <div>
-    <div class="mb-2 pb-3">
-      <div class="mb-1"><h3>Creators</h3></div>
-
-      <ul class="flex flex-wrap list-none m-0 p-0">
-        @for(creator of mainPersonMap.creators; track creator){
-        <li class="list-none mr-6 flex space-x-2">
-          <span>&#8226;</span>
-          <a
-            class="hover:underline"
-            [ngClass]="{
-              'text-[var(--link-color-dark)]': !isDark,
-              'text-[var(--link-color-light)]': isDark
-            }"
-            [routerLink]="buildDetailPath(creator.id)"
-            [title]="creator.name"
-            ><span> {{ creator.name }}</span></a
-          >
-        </li>
-        }
-      </ul>
-    </div>
+    @if(mainPersonMap.creators.length === 0 && mainPersonMap.casts.length ===
+    0){
+    <app-missing-field-placeholder
+      [caption]="'No crew found for this tv'"
+    ></app-missing-field-placeholder>
+    } @else{
 
     <div class="mb-2 pb-3">
-      <div class="mb-1"><h3>Stars</h3></div>
-      <ul class="flex flex-wrap list-none m-0 p-0">
-        @for(cast of mainPersonMap.casts; track cast){
-        <li class="list-none mr-6 flex space-x-2">
-          <span>&#8226;</span>
-          <a
-            class="hover:underline"
-            [ngClass]="{
-              'text-[var(--link-color-dark)]': !isDark,
-              'text-[var(--link-color-light)]': isDark
-            }"
-            [routerLink]="buildDetailPath(cast.id)"
-            [title]="cast.name"
-            ><span> {{ cast.name }}</span></a
-          >
-        </li>
-        }
-      </ul>
+      <app-main-crew-cast
+        [isDark]="isDark"
+        [mainCastCrewList]="mainPersonMap.creators"
+        [title]="'Creators'"
+      ></app-main-crew-cast>
     </div>
+    <div class="pb-3 mb-2">
+      <app-main-crew-cast
+        [isDark]="isDark"
+        [mainCastCrewList]="mainPersonMap.casts"
+        [title]="'Stars'"
+      ></app-main-crew-cast>
+    </div>
+
+    }
   </div>
 </div>

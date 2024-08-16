@@ -1,0 +1,19 @@
+<div class="space-y-1">
+  <h3>Overview</h3>
+  @if(tagline){
+  <p
+    class="font-medium italic"
+    [ngClass]="{ 'text-gray-400': isDark, 'text-gray-600': !isDark }"
+  >
+    {{ tagline }}
+  </p>
+  } @if( overview){
+  <p>
+    {{ overview }}
+  </p>
+  } @else {
+  <app-missing-field-placeholder
+    [caption]="'No overview found for this TV show'"
+  ></app-missing-field-placeholder>
+  }
+</div>

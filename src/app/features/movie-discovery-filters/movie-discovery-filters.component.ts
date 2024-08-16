@@ -65,10 +65,11 @@ export class MovieDiscoveryFiltersComponent
   }
 
   override ngOnInit(): void {
-    this.initSubscription();
+    this.initSubscriptions();
   }
+  override initSelectors(): void {}
 
-  override initSubscription(): void {
+  override initSubscriptions(): void {
     this.combinedDiscoveryFilters$
       .pipe(
         takeUntil(this.destroyed$),

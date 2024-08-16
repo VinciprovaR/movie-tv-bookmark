@@ -104,8 +104,8 @@
           'hidden-container': isHideCrewContainer
         }"
       >
-        @if((departments$ | async); as ){ @for(department of departments; track
-        department){
+        @if((departments$ | async); as departments){ @for(department of
+        departments; track department){ @if(department.value.length >0){
         <div class="space-y-4">
           <h3>{{ department.key }}</h3>
           <ul class="p-0 m-0 space-y-4">
@@ -123,7 +123,7 @@
             } }
           </ul>
         </div>
-        } }
+        } } }
       </div>
     </div>
   </div>

@@ -1,0 +1,28 @@
+<div class="mb-1">
+  <h3>{{ title }}</h3>
+</div>
+
+@if(mainCastCrewList.length > 0){
+
+<ul class="flex flex-wrap list-none m-0 p-0">
+  @for(crewCast of mainCastCrewList; track crewCast){
+  <li class="list-none mr-6 flex space-x-2">
+    <span>&#8226;</span>
+    <a
+      class="hover:underline"
+      [ngClass]="{
+        'text-[var(--link-color-dark)]': !isDark,
+        'text-[var(--link-color-light)]': isDark
+      }"
+      [routerLink]="buildDetailPath(crewCast.id)"
+      [title]="crewCast.name"
+      ><span> {{ crewCast.name }}</span></a
+    >
+  </li>
+  }
+</ul>
+} @else {
+<app-missing-field-placeholder
+  [caption]="placeholder"
+></app-missing-field-placeholder>
+}

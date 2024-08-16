@@ -47,4 +47,7 @@ export class CastCrewCreditCardComponent
   override ngOnInit(): void {
     this.buildDetailPath(this.id);
   }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 }

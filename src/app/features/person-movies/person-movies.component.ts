@@ -5,7 +5,10 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
 
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
-import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  Movie,
+  PersonDetailMovieCredits,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
   MovieLifecycleSelectors,
@@ -14,38 +17,38 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { PersonDetailCreditsMovieStore } from '../../shared/store/component-store/person-detail-movie-credits-store.service';
+import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
-  selector: 'app-person-detail-movie-credits',
+  selector: 'app-person-movies',
   standalone: true,
-  imports: [MediaListContainerComponent, CommonModule],
+  imports: [
+    MediaListContainerComponent,
+    CommonModule,
+    MissingFieldPlaceholderComponent,
+  ],
   providers: [BridgeDataService, PersonDetailCreditsMovieStore],
-  templateUrl: './person-detail-movie-credits.component.html',
-  styleUrl: './person-detail-movie-credits.component.css',
+  templateUrl: './person-movies.component.html',
+  styleUrl: './person-movies.component.css',
 })
-export class PersonDetailMovieCreditsComponent implements OnInit {
+export class PersonMoviesComponent extends AbstractComponent implements OnInit {
   title: string = 'Movie partecipated in';
 
-  private readonly destroyRef$ = inject(DestroyRef);
-  private readonly store = inject(Store);
   private readonly bridgeDataService = inject(BridgeDataService);
   private readonly personDetailCreditsMovieStore = inject(
     PersonDetailCreditsMovieStore
   );
-  destroyed$ = new Subject();
 
   selectIsLoading$!: Observable<boolean>;
-  selectMovieList$!: Observable<Movie[]>;
+  personDetailMovieCredits$!: Observable<PersonDetailMovieCredits>;
   selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
 
   @Input({ required: true })
   personId: number = 0;
 
   constructor() {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {
@@ -72,15 +75,17 @@ export class PersonDetailMovieCreditsComponent implements OnInit {
       });
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.selectIsLoading$ = this.personDetailCreditsMovieStore.selectIsLoading$;
-    this.selectMovieList$ =
+    this.personDetailMovieCredits$ =
       this.personDetailCreditsMovieStore.selectCreditsMoviePersonDetail$;
 
     this.selectMovieLifecycleMap$ = this.store.select(
       MovieLifecycleSelectors.selectMovieLifecycleMap
     );
   }
+
+  override initSubscriptions(): void {}
 
   creditsMovie() {
     this.personDetailCreditsMovieStore.creditsMovie(this.personId);

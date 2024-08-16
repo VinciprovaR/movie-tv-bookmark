@@ -59,7 +59,7 @@
             <app-cast-crew-credit-card
               [id]="cast.id"
               [name]="cast.name"
-              [role]="''"
+              [role]="buildCharacterTV(cast.roles)"
               [profile_path]="cast.profile_path"
             ></app-cast-crew-credit-card>
           </li>
@@ -95,8 +95,8 @@
           'hidden-container': isHideCrewContainer
         }"
       >
-        @if((departments$ | async); as ){ @for(department of departments; track
-        department){
+        @if((departments$ | async); as departments){ @for(department of
+        departments; track department){ @if(department.value.length >0){
         <div class="space-y-4">
           <h3>{{ department.key }}</h3>
           <ul class="p-0 m-0 space-y-4">
@@ -105,7 +105,7 @@
               <app-cast-crew-credit-card
                 [id]="crew.id"
                 [name]="crew.name"
-                [role]="''"
+                [role]="buildJobTV(crew.jobs)"
                 [profile_path]="crew.profile_path"
               ></app-cast-crew-credit-card>
             </li>
@@ -114,7 +114,7 @@
             } }
           </ul>
         </div>
-        } }
+        } } }
       </div>
     </div>
   </div>

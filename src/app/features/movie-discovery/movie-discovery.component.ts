@@ -79,7 +79,7 @@ export class MovieDiscoveryComponent
     this.initDataBridge();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.selectIsLoading$ = this.store.select(
       DiscoveryMovieSelectors.selectIsLoading
     );
@@ -109,6 +109,7 @@ export class MovieDiscoveryComponent
       FiltersMetadataSelectors.selectSortByDiscoveryMovie
     );
   }
+  override initSubscriptions(): void {}
 
   initDataBridge() {
     //data to lifecycle-selector, lifecycle selected

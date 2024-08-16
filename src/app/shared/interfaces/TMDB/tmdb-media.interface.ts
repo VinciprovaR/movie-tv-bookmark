@@ -1,6 +1,6 @@
 //to-do rinominare file in tmdb-media
 
-export type MediaType = 'movie' | 'tv';
+export type MediaType = 'movie' | 'tv' | 'person';
 
 export interface MediaResult {
   page: number;
@@ -58,7 +58,7 @@ export interface MediaDetail {
   tagline: string;
   vote_average: number;
   vote_count: number;
-  imdb_id?: string;
+
   video: boolean;
 
   videos: Videos;
@@ -122,6 +122,7 @@ export interface MovieDetail extends MediaDetail {
   release_dates: ReleaseDates;
   keywords: KeywordsMovie;
   credits: MovieCredit;
+  imdb_id: string;
 }
 
 interface Episode {
@@ -358,4 +359,9 @@ export interface KeywordsMovie {
 
 export interface KeywordsTV {
   results: Keyword[];
+}
+
+export interface MainCrewCast {
+  id: number;
+  name: string;
 }

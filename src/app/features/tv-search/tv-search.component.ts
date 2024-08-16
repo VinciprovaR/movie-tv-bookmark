@@ -21,6 +21,7 @@ import {
 } from '../../shared/store/tv-lifecycle';
 
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-tv-search',
@@ -30,25 +31,19 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
   templateUrl: './tv-search.component.html',
   styleUrl: './tv-search.component.css',
 })
-export class TVSearchComponent implements OnInit {
+export class TVSearchComponent extends AbstractComponent implements OnInit {
+  private readonly bridgeDataService = inject(BridgeDataService);
+
   title = 'TV Search';
 
   mediaType: MediaType = 'tv';
-
-  destroyed$ = new Subject();
 
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectTVList$!: Observable<TV[]>;
 
-  constructor(
-    private store: Store,
-    private bridgeDataService: BridgeDataService
-  ) {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+  constructor() {
+    super();
   }
   ngAfterViewInit(): void {}
 
@@ -56,13 +51,15 @@ export class TVSearchComponent implements OnInit {
     this.initSelectors();
     this.initDataBridge();
   }
-  initSelectors() {
+  override initSelectors() {
     this.selectQuery$ = this.store.select(SearchTVSelectors.selectQuery);
     this.selectIsLoading$ = this.store.select(
       SearchTVSelectors.selectIsLoading
     );
     this.selectTVList$ = this.store.select(SearchTVSelectors.selectTVList);
   }
+
+  override initSubscriptions(): void {}
 
   initDataBridge() {
     //data to lifecycle-selector, lifecycle selected

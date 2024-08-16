@@ -48,10 +48,12 @@ export class TVDiscoveryFiltersComponent
   }
 
   override ngOnInit(): void {
-    this.initSubscription();
+    this.initSubscriptions();
   }
 
-  override initSubscription(): void {
+  override initSelectors(): void {}
+
+  override initSubscriptions(): void {
     this.combinedDiscoveryFilters$
       .pipe(
         takeUntil(this.destroyed$),

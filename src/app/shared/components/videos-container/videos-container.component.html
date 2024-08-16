@@ -1,50 +1,60 @@
-<div class="flex relative">
-  <div
-    class="select-none m-auto absolute z-10 left-[2%] bottom-[40%] transition items-center"
-    [ngClass]="{
-      'h-0 w-0 opacity-0 cursor-default': isBeginning,
-      'h-[20%] w-[8%] ': !isBeginning
-    }"
-  >
-    <app-arrow-slider
-      (emitClick)="prevVideo()"
-      [arrowType]="'left'"
-    ></app-arrow-slider>
-  </div>
+<div>
+  <h2 class="mb-6 pl-4">{{ title }}</h2>
+  <div class="w-full m-auto">
+    @if(videoList.length > 0){
+    <div class="flex relative">
+      <div
+        class="select-none m-auto absolute z-10 left-[2%] bottom-[40%] transition items-center"
+        [ngClass]="{
+          'h-0 w-0 opacity-0 cursor-default': isBeginning,
+          'h-[20%] w-[8%] ': !isBeginning
+        }"
+      >
+        <app-arrow-slider
+          (emitClick)="prevVideo()"
+          [arrowType]="'left'"
+        ></app-arrow-slider>
+      </div>
 
-  <swiper-container
-    loop="false"
-    slides-per-view="1"
-    class="w-[90%]"
-    breakpoints='{"1280": {"slidesPerView": 2}}'
-    (swiperslidesupdated)="onSwiperSlidesUpdated($event)"
-    (swiperslidenexttransitionend)="onSwiperslideNextTransitionEnd($event)"
-    (swiperslideprevtransitionend)="onSwiperslidePrevTransitionEnd($event)"
-    #swiper
-  >
-    @for(video of videoList.slice(0,30); track video){
+      <swiper-container
+        loop="false"
+        slides-per-view="1"
+        class="w-[90%]"
+        breakpoints='{"1280": {"slidesPerView": 2}}'
+        (swiperslidesupdated)="onSwiperSlidesUpdated($event)"
+        (swiperslidenexttransitionend)="onSwiperslideNextTransitionEnd($event)"
+        (swiperslideprevtransitionend)="onSwiperslidePrevTransitionEnd($event)"
+        #swiper
+      >
+        @for(video of videoList.slice(0,30); track video){
 
-    <div swiperSlide class="swiper-slide">
-      <div class="w-[98%]">
-        <app-youtube-embeded-preview
-          [videoId]="video.key"
-          [videoName]="video.name"
-          (openDialogEmitter)="openDialog($event)"
-        ></app-youtube-embeded-preview>
+        <div swiperSlide class="swiper-slide">
+          <div class="w-[98%]">
+            <app-youtube-embeded-preview
+              [videoId]="video.key"
+              [videoName]="video.name"
+              (openDialogEmitter)="openDialog($event)"
+            ></app-youtube-embeded-preview>
+          </div>
+        </div>
+        }
+      </swiper-container>
+      <div
+        class="select-none m-auto absolute z-10 right-[2%] bottom-[40%] transition items-center"
+        [ngClass]="{
+          'h-0 w-0 opacity-0 cursor-default': isEnd,
+          'h-[20%] w-[8%] ': !isEnd
+        }"
+      >
+        <app-arrow-slider
+          (emitClick)="nextVideo()"
+          [arrowType]="'right'"
+        ></app-arrow-slider>
       </div>
     </div>
-    }
-  </swiper-container>
-  <div
-    class="select-none m-auto absolute z-10 right-[2%] bottom-[40%] transition items-center"
-    [ngClass]="{
-      'h-0 w-0 opacity-0 cursor-default': isEnd,
-      'h-[20%] w-[8%] ': !isEnd
-    }"
-  >
-    <app-arrow-slider
-      (emitClick)="nextVideo()"
-      [arrowType]="'right'"
-    ></app-arrow-slider>
+    } @else {<app-missing-field-placeholder
+      [caption]="placeholder"
+    ></app-missing-field-placeholder
+    >}
   </div>
 </div>

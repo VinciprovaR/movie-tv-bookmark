@@ -38,6 +38,9 @@ export class PersonCardComponent
     this.buildDetailPath(this.person.id);
   }
 
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+
   isPersonEntity(person: object): person is Person {
     return (person as Person).known_for !== undefined;
   }

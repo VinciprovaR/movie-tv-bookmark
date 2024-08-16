@@ -4,6 +4,7 @@ import { RatingComponent } from '../rating/rating.component';
 import {
   CastMovie,
   CrewMovie,
+  MainCrewCast,
   MovieDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { FormatMinutesPipe } from '../../pipes/format-minutes.pipe';
@@ -12,6 +13,9 @@ import { StaticTagComponent } from '../static-tag/static-tag.component';
 import { ImdbIconComponent } from '../../imdb-icon/imdb-icon.component';
 import { TmdbIconComponent } from '../../tmdb-icon/tmdb-icon.component';
 import { MediaDetailMainInfoComponent } from '../abstract/abstract-media-detail-main-info.component';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
+import { OverviewComponent } from '../overview/overview.component';
+import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
 @Component({
   selector: 'app-movie-detail-main-info',
   standalone: true,
@@ -23,6 +27,9 @@ import { MediaDetailMainInfoComponent } from '../abstract/abstract-media-detail-
     StaticTagComponent,
     ImdbIconComponent,
     TmdbIconComponent,
+    MissingFieldPlaceholderComponent,
+    OverviewComponent,
+    MainCrewCastComponent,
   ],
   templateUrl: './movie-detail-main-info.component.html',
   styleUrl: './movie-detail-main-info.component.css',
@@ -41,12 +48,12 @@ export class MovieDetailMainInfoContentComponent
   runtime: number = 0;
 
   mainPersonMap: {
-    directors: { id: number; name: string }[];
-    witers: { id: number; name: string }[];
-    casts: { id: number; name: string }[];
+    directors: MainCrewCast[];
+    writers: MainCrewCast[];
+    casts: MainCrewCast[];
   } = {
     directors: [],
-    witers: [],
+    writers: [],
     casts: [],
   };
 
@@ -60,6 +67,9 @@ export class MovieDetailMainInfoContentComponent
     this.buildMainCrewMap();
     this.buildMainCastMap();
   }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   override buildMainCrewMap() {
     this.crew.forEach((crew: CrewMovie) => {
@@ -75,7 +85,7 @@ export class MovieDetailMainInfoContentComponent
         job === 'writer' ||
         job === 'writing'
       ) {
-        this.mainPersonMap.witers.push({ id: crew.id, name: crew.name });
+        this.mainPersonMap.writers.push({ id: crew.id, name: crew.name });
       }
     });
   }

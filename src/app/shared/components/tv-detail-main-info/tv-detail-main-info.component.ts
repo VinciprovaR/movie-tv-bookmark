@@ -12,6 +12,9 @@ import { StaticTagComponent } from '../static-tag/static-tag.component';
 import { ImdbIconComponent } from '../../imdb-icon/imdb-icon.component';
 import { TmdbIconComponent } from '../../tmdb-icon/tmdb-icon.component';
 import { MediaDetailMainInfoComponent } from '../abstract/abstract-media-detail-main-info.component';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
+import { OverviewComponent } from '../overview/overview.component';
+import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
 @Component({
   selector: 'app-tv-detail-main-info',
   standalone: true,
@@ -23,6 +26,9 @@ import { MediaDetailMainInfoComponent } from '../abstract/abstract-media-detail-
     StaticTagComponent,
     ImdbIconComponent,
     TmdbIconComponent,
+    MissingFieldPlaceholderComponent,
+    OverviewComponent,
+    MainCrewCastComponent,
   ],
   templateUrl: './tv-detail-main-info.component.html',
   styleUrl: './tv-detail-main-info.component.css',
@@ -56,6 +62,9 @@ export class TVDetailMainInfoContentComponent
     this.buildMainCrewMap();
     this.buildMainCastMap();
   }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   override buildMainCrewMap() {
     this.tvData.created_by.forEach((createdBy) => {

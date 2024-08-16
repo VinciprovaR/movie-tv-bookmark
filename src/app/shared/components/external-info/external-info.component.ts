@@ -2,9 +2,11 @@ import { Component, Input } from '@angular/core';
 import { ImdbIconComponent } from '../../imdb-icon/imdb-icon.component';
 import { TmdbIconComponent } from '../../tmdb-icon/tmdb-icon.component';
 import {
+  MediaType,
   MovieDetail,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-external-info',
@@ -13,7 +15,14 @@ import {
   templateUrl: './external-info.component.html',
   styleUrl: './external-info.component.css',
 })
-export class ExternalInfoComponent {
+export class ExternalInfoComponent extends AbstractComponent {
   @Input({ required: true })
-  mediaData!: MovieDetail | TVDetail;
+  mediaType!: MediaType;
+  @Input({ required: true })
+  tmdbId!: number;
+  @Input()
+  imdbId!: string;
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 }

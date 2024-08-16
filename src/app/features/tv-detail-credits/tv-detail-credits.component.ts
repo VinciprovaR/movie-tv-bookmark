@@ -21,6 +21,8 @@ import { FadeScrollerDirective } from '../../shared/directives/fade-scroller.dir
 import {
   CastTV,
   CrewTV,
+  Job,
+  Role,
   TVCredit,
   TVDetail,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
@@ -176,14 +178,14 @@ export class TVDetailCreditsComponent
     this.searchTVDetail();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.routerEvent$ = this.router.events;
     this.tvCredits$ = this.tvDetailCreditsStore.selectTVCredits$;
     this.tvDetail$ = this.tvDetailstore.selectTVDetail$;
     this.isLoading$ = this.tvDetailstore.selectIsLoading$;
   }
 
-  initSubscriptions() {
+  override initSubscriptions() {
     this.pageEventService.windowInnerWidth$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((innerWidth) => {
@@ -269,37 +271,29 @@ export class TVDetailCreditsComponent
     this.changeDetectorRef.detectChanges();
   }
 
-  // private buildCharacterTV(cast: CastTV): string {
-  //   let roleResult = '';
-  //   cast.roles.forEach((role: Role, i, array) => {
-  //     if (i === array.length - 1) {
-  //       roleResult = roleResult.concat(role.character);
-  //     } else {
-  //       roleResult = roleResult.concat(role.character, ' / ');
-  //     }
-  //   });
-  //   return roleResult;
-  // }
+  buildCharacterTV(roles: Role[]): string {
+    let roleResult = '';
+    roles.forEach((role: Role, i, array) => {
+      if (i === array.length - 1) {
+        roleResult = roleResult.concat(role.character);
+      } else {
+        roleResult = roleResult.concat(role.character, ' / ');
+      }
+    });
+    return roleResult;
+  }
 
-  // private buildJobTV(crew: CrewTV): string {
-  //   let roleResult = '';
-  //   crew.jobs.forEach((job: Job, i, array) => {
-  //     if (i === array.length - 1) {
-  //       roleResult = roleResult.concat(job.job);
-  //     } else {
-  //       roleResult = roleResult.concat(job.job, ' / ');
-  //     }
-  //   });
-  //   return roleResult;
-  // }
-
-  // private buildCharacterTV(cast: CastTV): string {
-  //   return cast.character;
-  // }
-
-  // private buildJobTV(crew: CrewTV): string {
-  //   return crew.job;
-  // }
+  buildJobTV(jobs: Job[]): string {
+    let roleResult = '';
+    jobs.forEach((job: Job, i, array) => {
+      if (i === array.length - 1) {
+        roleResult = roleResult.concat(job.job);
+      } else {
+        roleResult = roleResult.concat(job.job, ' / ');
+      }
+    });
+    return roleResult;
+  }
 
   buildDetailPath(id: number) {
     return `/tv-detail/${id}`;

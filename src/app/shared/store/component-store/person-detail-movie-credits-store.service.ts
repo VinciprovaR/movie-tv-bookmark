@@ -37,12 +37,7 @@ export class PersonDetailCreditsMovieStore extends ComponentStore<CreditsMoviePe
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
   readonly selectCreditsMoviePersonDetail$ = this.select(
     (state) => state.personDetailMovieCredits
-  ).pipe(
-    map((personDetailMovieCredits: PersonDetailMovieCredits) => {
-      return this.mergeMovieList(personDetailMovieCredits);
-    })
   );
-
   constructor() {
     super({
       personDetailMovieCredits: {

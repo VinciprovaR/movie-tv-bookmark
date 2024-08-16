@@ -1,4 +1,10 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { NotifierStore } from '../../shared/store/component-store/notifier-store.service';
@@ -13,6 +19,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   imports: [CommonModule, AlertComponent],
   templateUrl: './alert-container.component.html',
   styleUrl: './alert-container.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertContainerComponent
   extends AbstractComponent
@@ -39,9 +46,10 @@ export class AlertContainerComponent
     this.initSelectors();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.selectAlerts$ = this.notifierStore.selectAlerts$;
   }
+  override initSubscriptions(): void {}
 
   closeAlert(id: number) {
     this.notifierStore.closeAlert(id);

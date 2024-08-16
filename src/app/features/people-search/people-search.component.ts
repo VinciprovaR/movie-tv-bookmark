@@ -13,6 +13,7 @@ import { Person } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-search-people',
@@ -28,31 +29,26 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   templateUrl: './people-search.component.html',
   styleUrl: './people-search.component.css',
 })
-export class PeopleSearchComponent implements OnInit {
+export class PeopleSearchComponent extends AbstractComponent implements OnInit {
+  protected readonly bridgeDataService = inject(BridgeDataService);
+
   title = 'People Search';
 
   peopleListLength: number = 0;
-  destroyed$ = new Subject();
 
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectPeopleList$!: Observable<Person[]>;
 
-  constructor(
-    private store: Store,
-    private bridgeDataService: BridgeDataService
-  ) {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+  constructor() {
+    super();
   }
 
   ngOnInit(): void {
     this.initSelectors();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.selectQuery$ = this.store.select(SearchPeopleSelectors.selectQuery);
     this.selectIsLoading$ = this.store.select(
       SearchPeopleSelectors.selectIsLoading
@@ -61,6 +57,8 @@ export class PeopleSearchComponent implements OnInit {
       SearchPeopleSelectors.selectPeopleList
     );
   }
+
+  override initSubscriptions(): void {}
 
   searchPeople(query: string) {
     this.store.dispatch(SearchPeopleActions.searchPeople({ query }));

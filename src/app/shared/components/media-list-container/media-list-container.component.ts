@@ -16,6 +16,7 @@ import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { TVCardComponent } from '../tv-card/tv-card.component';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 
 @Component({
   selector: 'app-media-list-container',
@@ -25,6 +26,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MovieCardComponent,
     TVCardComponent,
     InfiniteScrollModule,
+    MissingFieldPlaceholderComponent,
   ],
   templateUrl: './media-list-container.component.html',
   styleUrl: './media-list-container.component.css',
@@ -54,11 +56,17 @@ export class MediaListContainerComponent implements OnInit {
   scrollSelf: boolean = false;
   @Input()
   includeScrollEvents: boolean = true;
+  @Input()
+  direction: 'horizontal' | 'vertical' = 'vertical';
 
   gridCol: string = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
   constructor() {}
   ngOnInit(): void {
+    setTimeout(() => {
+      console.log(this.mediaList);
+    }, 2000);
+
     this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
     this.placeholder = `No ${this.mediaType} were found that match your query.`;

@@ -39,10 +39,12 @@ export class TVLifecycleFiltersComponent extends AbstractLifecycleFilters<
   }
 
   override ngOnInit(): void {
-    this.initSubscription();
+    this.initSubscriptions();
   }
 
-  override initSubscription(): void {
+  override initSelectors(): void {}
+
+  override initSubscriptions(): void {
     this.combinedLifecycleFilters$
       .pipe(
         takeUntil(this.destroyed$),

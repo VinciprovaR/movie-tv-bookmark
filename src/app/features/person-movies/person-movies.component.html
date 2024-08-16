@@ -1,0 +1,49 @@
+<div class="space-y-8">
+  @if(personDetailMovieCredits$ | async; as personDetailMovieCredits){
+
+  <div>
+    <h2 class="mb-4 pl-4">Movie partecipated in as Cast</h2>
+    @if(personDetailMovieCredits.cast.length > 0){
+    <app-media-list-container
+      [scrollSelf]="true"
+      [minMaxCol]="140"
+      [isLoading]="(selectIsLoading$ | async) ?? false"
+      [mediaList]="personDetailMovieCredits.cast"
+      [mediaType]="'movie'"
+      [includeScrollEvents]="false"
+      [direction]="'horizontal'"
+    ></app-media-list-container>
+
+    }@else {
+    <app-missing-field-placeholder
+      [caption]="'No movies as cast found for this person'"
+    ></app-missing-field-placeholder
+    >}
+  </div>
+
+  <div>
+    <h2 class="mb-4 pl-4">Movie partecipated in as Crew</h2>
+    @if(personDetailMovieCredits.crew.length > 0){
+    <app-media-list-container
+      [scrollSelf]="true"
+      [minMaxCol]="140"
+      [isLoading]="(selectIsLoading$ | async) ?? false"
+      [mediaList]="personDetailMovieCredits.crew"
+      [mediaType]="'movie'"
+      [includeScrollEvents]="false"
+      [direction]="'horizontal'"
+    ></app-media-list-container>
+
+    }@else {
+    <app-missing-field-placeholder
+      [caption]="'No movies as crew found for this person'"
+    ></app-missing-field-placeholder
+    >}
+  </div>
+
+  } @else {
+  <app-missing-field-placeholder
+    [caption]="'No movies found for this person'"
+  ></app-missing-field-placeholder
+  >}
+</div>

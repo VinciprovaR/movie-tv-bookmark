@@ -88,11 +88,13 @@ export class LifecycleSelectorComponent
     this.initDataBridge();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.lifecycleOptions$ = this.store.select(
       LifecycleMetadataSelectors.selectLifecycleOptions
     );
   }
+
+  override initSubscriptions(): void {}
 
   initDataBridge() {
     this.bridgeDataService.mediaLifecycleMapObs$

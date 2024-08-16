@@ -1,6 +1,6 @@
 import { DestroyRef, Directive, inject } from '@angular/core';
 import { FastAverageColorResult } from 'fast-average-color';
-import { Subject, takeUntil } from 'rxjs';
+import { delay, Subject, takeUntil } from 'rxjs';
 import { PredominantImgColorService } from '../../services/predominant-img-color.service';
 import { AbstractComponent } from './abstract-component.component';
 import { IMG_SIZES } from '../../../providers';
@@ -38,10 +38,12 @@ export abstract class AbstractMediaDetailComponent extends AbstractComponent {
             this.headerMediaGradient = this.getHeaderMediaGradient(
               colorResult.value
             );
+
             this.contentMediaGradient = this.getContentMediaGradient(
               colorResult.value
             );
             this.textColorBlend = this.getTextColorBlend(colorResult.isDark);
+            this.detectChanges();
           },
           error: (err) => {
             this.isDark = false;
@@ -49,6 +51,7 @@ export abstract class AbstractMediaDetailComponent extends AbstractComponent {
               this.getDefaultColorGradient();
 
             this.textColorBlend = this.getTextColorBlend(false);
+            this.detectChanges();
           },
         });
     } else {
@@ -57,6 +60,7 @@ export abstract class AbstractMediaDetailComponent extends AbstractComponent {
         this.getDefaultColorGradient();
 
       this.textColorBlend = this.getTextColorBlend(false);
+      this.detectChanges();
     }
   }
 

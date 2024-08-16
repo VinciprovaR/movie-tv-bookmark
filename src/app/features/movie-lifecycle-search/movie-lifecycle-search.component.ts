@@ -28,6 +28,7 @@ import {
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { PayloadMovieLifecycle } from '../../shared/interfaces/store/movie-lifecycle-state.interface';
 import { MovieLifecycleFiltersComponent } from '../movie-lifecycle-filters/movie-lifecycle-filters.component';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-movie-lifecycle-search',
@@ -42,20 +43,17 @@ import { MovieLifecycleFiltersComponent } from '../movie-lifecycle-filters/movie
   templateUrl: './movie-lifecycle-search.component.html',
   styleUrl: './movie-lifecycle-search.component.css',
 })
-export class MovieLifecycleSearchComponent implements OnInit {
+export class MovieLifecycleSearchComponent
+  extends AbstractComponent
+  implements OnInit
+{
   title: string = '';
 
-  private readonly route = inject(ActivatedRoute);
   private readonly bridgeDataService = inject(BridgeDataService);
-  private readonly destroyRef$ = inject(DestroyRef);
-  private readonly router = inject(Router);
-  private readonly store = inject(Store);
 
   @Input()
   lifecycleType!: lifecycleEnum;
   mediaType: MediaType = 'movie';
-
-  destroyed$ = new Subject();
 
   selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
   selectMovieList$!: Observable<Movie_Data[]>;
@@ -66,10 +64,7 @@ export class MovieLifecycleSearchComponent implements OnInit {
   >;
 
   constructor() {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {
@@ -84,7 +79,7 @@ export class MovieLifecycleSearchComponent implements OnInit {
     this.initBridgeData();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.selectSortBy$ = this.store.select(
       FiltersMetadataSelectors.selectSortByLifecycleMovie
     );
@@ -112,6 +107,8 @@ export class MovieLifecycleSearchComponent implements OnInit {
         this.searchMovieByLifecycleLanding();
       });
   }
+
+  override initSubscriptions(): void {}
 
   initBridgeData() {
     //data to lifecycle-selector, lifecycle selected

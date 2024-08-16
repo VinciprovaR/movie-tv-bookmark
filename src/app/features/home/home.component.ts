@@ -23,4 +23,7 @@ export class HomeComponent extends AbstractComponent implements OnInit {
   ngOnInit(): void {
     this.selectUser$ = this.store.select(AuthSelectors.selectUser);
   }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 }

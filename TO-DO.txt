@@ -26,7 +26,7 @@
 - html semantico
 - aria accessibility
 - i18e (anche date filter) + label tutte in un file json (?)
-- check for change detection on push
+
 - Gestione timeout chiamate
 - Refractor interfaccie, stato confuso, separazione dto entity non ordinato
 - Nelle subcribe custom next e error
@@ -74,6 +74,12 @@
 - credit sotto categorie per crew
 - vedere se riesci a eliminare if els from route store in movie and tv detail credits
 - mouseover header change detection
+- tutti i campi, if else palceholder
+- tv credits movie credits, singolo componente
+- tutti i component  change detection on push, tutti i punti che hanno bisogno di detect change aggiungere metodo
+- refractor astrazione, ricominciare da tutti, suddividere per features e creare le astrazioni mancanti (discovery, search, bookmark per esempio)
+- Stesso discorso per i servizi 
+-person movie e tv per crew eliminare quelli già presenti 
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

@@ -93,14 +93,17 @@
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
         <h2 class="mb-4 pl-4">For more info go to</h2>
         <div class="pl-4">
-          <app-external-info [mediaData]="movieDetail"></app-external-info>
+          <app-external-info
+            [tmdbId]="movieDetail.id"
+            [imdbId]="movieDetail.imdb_id"
+            [mediaType]="mediaType"
+          ></app-external-info>
         </div>
       </div>
 
       <div
         class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4 mb-4 hidden lg:block"
       >
-        <h2 class="mb-4 pl-4">Keywords</h2>
         <div class="pl-4">
           <app-media-keywords
             [keywords]="movieDetail.keywords.keywords"
@@ -110,47 +113,21 @@
     </div>
     <div class="w-full lg:w-[75%] space-y-4 lg:space-y-8 lg:mr-12">
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
-        <div class="flex mb-6 pl-4">
-          <h2 class="mr-2">Cast</h2>
-          <h5 class="content-center">{{ movieDetail.credits.cast.length }}</h5>
-          <a
-            [title]="'Full Cast \u0026 Crew'"
-            routerLinkActive="active"
-            (click)="navigateToCredits(movieDetail)"
-            class="block"
-          >
-            <mat-icon
-              aria-hidden="false"
-              aria-label=""
-              [fontIcon]="'chevron_right'"
-            ></mat-icon
-          ></a>
-        </div>
         <app-media-detail-cast-crew-list-preview
           [isLoading]="(isLoading$ | async) ?? false"
           [castCrewList]="movieDetail.credits.cast"
+          [title]="'Cast'"
+          [mediaType]="'movie'"
+          (navigateToCreditsEmitter)="navigateToCredits(movieDetail)"
         ></app-media-detail-cast-crew-list-preview>
       </div>
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
-        <div class="flex mb-6 pl-4">
-          <h2 class="mr-2">Crew</h2>
-          <h5 class="content-center">{{ movieDetail.credits.crew.length }}</h5>
-          <a
-            [title]="'Full Cast \u0026 Crew'"
-            routerLinkActive="active"
-            (click)="navigateToCredits(movieDetail)"
-            class="block"
-          >
-            <mat-icon
-              aria-hidden="false"
-              aria-label=""
-              [fontIcon]="'chevron_right'"
-            ></mat-icon
-          ></a>
-        </div>
         <app-media-detail-cast-crew-list-preview
           [isLoading]="(isLoading$ | async) ?? false"
           [castCrewList]="movieDetail.credits.crew"
+          [title]="'Crew'"
+          [mediaType]="'movie'"
+          (navigateToCreditsEmitter)="navigateToCredits(movieDetail)"
         ></app-media-detail-cast-crew-list-preview>
       </div>
 
@@ -174,40 +151,33 @@
         </a>
       </div>
 
-      @if(movieDetail.videos.results.length > 0){
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
-        <h2 class="mb-6 pl-4">Trailers</h2>
-        <div class="w-full m-auto">
-          <app-videos-container
-            [videos]="movieDetail.videos"
-            [videoTypeFilter]="{
-              videosType: ['trailer'],
-              typeFilter: 'include'
-            }"
-          ></app-videos-container>
-        </div>
+        <app-videos-container
+          [videos]="movieDetail.videos"
+          [videoTypeFilter]="{
+            videosType: ['trailer'],
+            typeFilter: 'include'
+          }"
+          [title]="'Trailers'"
+          [mediaType]="'movie'"
+        ></app-videos-container>
       </div>
 
-      } @if(movieDetail.videos.results.length > 0){
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
-        <h2 class="mb-6 pl-4">Clips</h2>
-        <div class="w-full m-auto">
-          <app-videos-container
-            [videos]="movieDetail.videos"
-            [videoTypeFilter]="{
-              videosType: ['trailer'],
-              typeFilter: 'exlude'
-            }"
-          ></app-videos-container>
-        </div>
+        <app-videos-container
+          [videos]="movieDetail.videos"
+          [videoTypeFilter]="{
+            videosType: ['trailer'],
+            typeFilter: 'exlude'
+          }"
+          [title]="'Clips'"
+          [mediaType]="'movie'"
+        ></app-videos-container>
       </div>
-
-      }
 
       <div
         class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4 block lg:hidden"
       >
-        <h2 class="mb-4 pl-4">Keywords</h2>
         <div class="pl-4">
           <app-media-keywords
             [keywords]="movieDetail.keywords.keywords"

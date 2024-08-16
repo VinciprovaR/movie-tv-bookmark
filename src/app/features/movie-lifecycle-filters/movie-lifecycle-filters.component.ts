@@ -40,10 +40,11 @@ export class MovieLifecycleFiltersComponent extends AbstractLifecycleFilters<
   }
 
   override ngOnInit(): void {
-    this.initSubscription();
+    this.initSubscriptions();
   }
+  override initSelectors(): void {}
 
-  override initSubscription(): void {
+  override initSubscriptions(): void {
     this.combinedLifecycleFilters$
       .pipe(
         takeUntil(this.destroyed$),

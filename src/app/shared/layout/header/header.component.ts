@@ -57,13 +57,15 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
     });
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.icon$ = this.toggleThemeStore.selectIcon$;
     this.isDarkTheme$ = this.toggleThemeStore.selectIsDarkTheme$;
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
   }
+
+  override initSubscriptions(): void {}
 
   //@HostListener('window:scroll', ['$event.target'])
   windowScrollEvent() {

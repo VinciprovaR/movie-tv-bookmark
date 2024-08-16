@@ -1,4 +1,74 @@
-<section class="w-[90%] max-w-5xl m-auto pt-[70px]">
+<section
+  class="w-full w-max-[1920px] m-auto pt-[60px] max-w-screen-3xl mb-20 overflow-hidden"
+>
+  @if(selectPersonDetail$ | async; as personDetail){
+
+  <div
+    id="header-detail"
+    class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[85vh] mb-0 lg:mb-8"
+  >
+    <div
+      class="flex flex-row header-gradient h-full w-full p-4 justify-center lg:justify-normal lg:p-8 space-x-8"
+      [ngStyle]="{
+        'background-color': 'var(--bg-header-media-detail-not-lg)'
+      }"
+    >
+      <div class="h-[35vh] lg:h-[85vh] aspect-[2/3] w-xxxsm relative">
+        <app-img
+          [alt]="personDetail.name"
+          [title]="personDetail.name"
+          [imgSrc]="personDetail.profile_path"
+          [baseUrl]="TMDB_PROFILE_2X_IMG_URL"
+          [priority]="true"
+          [customClasses]="'border-container-no-color'"
+          [isPlaceholderPerson]="false"
+        ></app-img>
+      </div>
+
+      @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
+      <div class="hidden lg:block max-w-[1100px]">
+        <!-- main info -->
+      </div>
+      }
+    </div>
+  </div>
+
+  @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
+  <div class="block lg:hidden h-full">
+    <!-- main info -->
+  </div>
+
+  }
+
+  <div
+    class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto flex flex-col lg:flex-row-reverse"
+  >
+    <div class="w-full lg:w-[25%] space-y-4 lg:space-y-8 mb-4 lg:mb-0">
+      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+        <h2 class="mb-4 pl-4">For more info go to</h2>
+        <div class="pl-4">
+          <app-external-info
+            [tmdbId]="personDetail.id"
+            [mediaType]="mediaType"
+          ></app-external-info>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-[75%] space-y-4 lg:space-y-8 lg:mr-12">
+      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+        <!-- movie know -->
+        <app-person-movies [personId]="personId"></app-person-movies>
+      </div>
+      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+        <!-- tv know -->
+        <app-person-tvs [personId]="personId"></app-person-tvs>
+      </div>
+    </div>
+  </div>
+  }
+</section>
+
+<!-- <section class="w-[90%] max-w-5xl m-auto pt-[70px]">
   @if(selectPersonDetail$ | async; as selectPersonDetail){
   <div class="m-2">
     <div style="display: flex">
@@ -32,4 +102,4 @@
       [personId]="personId"
     ></app-person-detail-tv-credits>
   </div>
-</section>
+</section> -->

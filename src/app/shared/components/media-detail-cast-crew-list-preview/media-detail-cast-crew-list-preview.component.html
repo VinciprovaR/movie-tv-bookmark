@@ -1,20 +1,43 @@
-<div class="box-border relative">
-  <ul
-    FadeScroller
-    class="grid grid-flow-col grid-columns auto-cols-[100px] lg:auto-cols-[120px] gap-4 lg:gap-8 p-0 pl-4 my-0 overflow-x-scroll overflow-y-hidden"
-  >
-    @for(castCrew of castCrewList.slice(0,15); track castCrew.id){
+<div>
+  <div class="flex mb-6 pl-4">
+    <h2 class="mr-2">{{ title }}</h2>
+    <h5 class="content-center">{{ castCrewList.length }}</h5>
+    <a
+      [title]="'Full Cast \u0026 Crew'"
+      routerLinkActive="active"
+      (click)="navigateToCredits()"
+      class="block"
+    >
+      <mat-icon
+        aria-hidden="false"
+        aria-label=""
+        [fontIcon]="'chevron_right'"
+      ></mat-icon
+    ></a>
+  </div>
+  <div class="box-border relative">
+    @if(castCrewList.length > 0){
+    <ul
+      FadeScroller
+      class="grid grid-flow-col grid-columns auto-cols-[100px] lg:auto-cols-[120px] gap-4 lg:gap-8 p-0 pl-4 my-0 overflow-x-scroll overflow-y-hidden"
+    >
+      @for(castCrew of castCrewList.slice(0,15); track castCrew.id){
 
-    <li class="list-none w-full">
-      <app-cast-crew-card
-        [id]="castCrew.id"
-        [name]="castCrew.name"
-        [profile_path]="castCrew.profile_path"
-        [role]="buildRole(castCrew)"
-      >
-      </app-cast-crew-card>
-    </li>
+      <li class="list-none w-full">
+        <app-cast-crew-card
+          [id]="castCrew.id"
+          [name]="castCrew.name"
+          [profile_path]="castCrew.profile_path"
+          [role]="buildRole(castCrew)"
+        >
+        </app-cast-crew-card>
+      </li>
 
+      }
+    </ul>
+    }@else {<app-missing-field-placeholder
+      [caption]="placeholder"
+    ></app-missing-field-placeholder>
     }
-  </ul>
+  </div>
 </div>

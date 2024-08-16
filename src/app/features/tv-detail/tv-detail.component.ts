@@ -1,7 +1,10 @@
 import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TVDetail } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  MediaType,
+  TVDetail,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { map, Observable, takeUntil } from 'rxjs';
 import { TVDetailStore } from '../../shared/store/component-store/tv-detail-store.service';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
@@ -59,6 +62,8 @@ export class TVDetailComponent extends AbstractMediaDetailComponent {
   lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
   tvCreditsPath: string = '';
 
+  mediaType: MediaType = 'tv';
+
   constructor() {
     super();
   }
@@ -71,11 +76,7 @@ export class TVDetailComponent extends AbstractMediaDetailComponent {
     this.searchTVDetail();
   }
 
-  searchTVDetail() {
-    this.tvDetailstore.searchTVDetail(this.tvId);
-  }
-
-  initSelectors() {
+  override initSelectors() {
     this.tvDetail$ = this.tvDetailstore.selectTVDetail$;
     this.isLoading$ = this.tvDetailstore.selectIsLoading$;
     this.tvDetail$
@@ -90,6 +91,7 @@ export class TVDetailComponent extends AbstractMediaDetailComponent {
       });
   }
 
+  override initSubscriptions(): void {}
   initDataBridge() {
     //data to lifecycle-selector, lifecycle selected
     this.store
@@ -132,5 +134,9 @@ export class TVDetailComponent extends AbstractMediaDetailComponent {
     };
 
     this.router.navigate([this.tvCreditsPath], navigationExtras);
+  }
+
+  searchTVDetail() {
+    this.tvDetailstore.searchTVDetail(this.tvId);
   }
 }

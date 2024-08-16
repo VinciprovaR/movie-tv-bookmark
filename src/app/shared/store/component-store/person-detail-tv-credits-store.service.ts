@@ -37,10 +37,6 @@ export class PersonDetailTVCreditsStore extends ComponentStore<CreditsTVPersonDe
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
   readonly selectCreditsTVPersonDetail$ = this.select(
     (state) => state.personDetailTVCredits
-  ).pipe(
-    map((personDetailTVCredits: PersonDetailTVCredits) => {
-      return this.mergeTVList(personDetailTVCredits);
-    })
   );
 
   constructor() {

@@ -1,6 +1,7 @@
 import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  MediaType,
   MovieCredit,
   MovieDetail,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
@@ -9,7 +10,7 @@ import { MovieDetailStore } from '../../shared/store/component-store/movie-detai
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
 import { MediaDetailCastCrewListPreviewComponent } from '../../shared/components/media-detail-cast-crew-list-preview/media-detail-cast-crew-list-preview.component';
 import { ImgComponent } from '../../shared/components/img/img.component';
-import { MovieDetailMainInfoContentComponent } from '../../shared/components/movie-detail-main-info/movie-detail-main-info';
+import { MovieDetailMainInfoContentComponent } from '../../shared/components/movie-detail-main-info/movie-detail-main-info.component';
 import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
@@ -29,6 +30,7 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 
 @Component({
   selector: 'app-movie-detail',
@@ -47,6 +49,7 @@ import {
     MediaKeywordsComponent,
     RouterLink,
     RouterLinkActive,
+    MissingFieldPlaceholderComponent,
   ],
   providers: [MovieDetailStore, BridgeDataService],
   templateUrl: './movie-detail.component.html',
@@ -65,6 +68,7 @@ export class MovieDetailComponent extends AbstractMediaDetailComponent {
   movieId: number = 0;
 
   lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
+  mediaType: MediaType = 'movie';
 
   movieCreditsPath: string = '';
   constructor() {
@@ -77,6 +81,7 @@ export class MovieDetailComponent extends AbstractMediaDetailComponent {
     );
     this.initSelectors();
     this.initDataBridge();
+    this.initSubscriptions();
     this.searchMovieDetail();
   }
 
@@ -84,9 +89,12 @@ export class MovieDetailComponent extends AbstractMediaDetailComponent {
     this.movieDetailstore.searchMovieDetail(this.movieId);
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.movieDetail$ = this.movieDetailstore.selectMovieDetail$;
     this.isLoading$ = this.movieDetailstore.selectIsLoading$;
+  }
+
+  override initSubscriptions() {
     this.movieDetail$
       .pipe(
         takeUntil(this.destroyed$),

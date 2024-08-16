@@ -48,6 +48,9 @@ export class LoginPageComponent extends AbstractComponent {
     super();
   }
 
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+
   ngOnInit(): void {
     this.loginForm = new FormGroup<LoginForm>({
       email: new FormControl<string>('', {

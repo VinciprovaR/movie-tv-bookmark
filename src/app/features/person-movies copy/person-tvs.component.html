@@ -1,0 +1,49 @@
+<div class="space-y-8">
+  @if(personDetailTVCredits$ | async; as personDetailTVCredits){
+
+  <div>
+    <h2 class="mb-4 pl-4">TV partecipated in as Cast</h2>
+    @if(personDetailTVCredits.cast.length > 0){
+    <app-media-list-container
+      [scrollSelf]="true"
+      [minMaxCol]="140"
+      [isLoading]="(selectIsLoading$ | async) ?? false"
+      [mediaList]="personDetailTVCredits.cast"
+      [mediaType]="'tv'"
+      [includeScrollEvents]="false"
+      [direction]="'horizontal'"
+    ></app-media-list-container>
+
+    }@else {
+    <app-missing-field-placeholder
+      [caption]="'No tvs as cast found for this person'"
+    ></app-missing-field-placeholder
+    >}
+  </div>
+
+  <div>
+    <h2 class="mb-4 pl-4">TV partecipated in as Crew</h2>
+    @if(personDetailTVCredits.crew.length > 0){
+    <app-media-list-container
+      [scrollSelf]="true"
+      [minMaxCol]="140"
+      [isLoading]="(selectIsLoading$ | async) ?? false"
+      [mediaList]="personDetailTVCredits.crew"
+      [mediaType]="'tv'"
+      [includeScrollEvents]="false"
+      [direction]="'horizontal'"
+    ></app-media-list-container>
+
+    }@else {
+    <app-missing-field-placeholder
+      [caption]="'No tvs as crew found for this person'"
+    ></app-missing-field-placeholder
+    >}
+  </div>
+
+  } @else {
+  <app-missing-field-placeholder
+    [caption]="'No tvs found for this person'"
+  ></app-missing-field-placeholder
+  >}
+</div>

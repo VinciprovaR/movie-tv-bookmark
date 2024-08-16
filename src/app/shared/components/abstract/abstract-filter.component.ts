@@ -50,7 +50,6 @@ export abstract class AbstractFilter<
   }
 
   abstract ngOnInit(): void;
-  abstract initSubscription(): void;
   abstract buildForm(filterSelected: T1, genreList: Genre[]): void;
   abstract onSubmit(): void;
   abstract buildPayload(): T1;

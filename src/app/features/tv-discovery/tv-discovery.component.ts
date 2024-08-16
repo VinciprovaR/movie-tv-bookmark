@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 
 import { Store } from '@ngrx/store';
@@ -28,6 +28,7 @@ import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecy
 import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discovery-filters.component';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-tv-discovery',
@@ -42,12 +43,15 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
   templateUrl: './tv-discovery.component.html',
   styleUrl: './tv-discovery.component.css',
 })
-export class TVDiscoveryComponent implements OnInit, AfterViewInit {
+export class TVDiscoveryComponent
+  extends AbstractComponent
+  implements OnInit, AfterViewInit
+{
+  private readonly bridgeDataService = inject(BridgeDataService);
+
   title = 'TV Discovery';
 
   mediaType: MediaType = 'tv';
-
-  destroyed$ = new Subject();
 
   selectIsLoading$!: Observable<boolean>;
   selectTVList$!: Observable<TV[]>;
@@ -57,10 +61,9 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
   selectLanguageList$!: Observable<Language[]>;
   selectSortBy$!: Observable<OptionFilter[]>;
 
-  constructor(
-    private store: Store,
-    private bridgeDataService: BridgeDataService
-  ) {}
+  constructor() {
+    super();
+  }
   ngAfterViewInit(): void {
     // this.discoveryTVLanding();
   }
@@ -70,7 +73,7 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
     this.initDataBridge();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.selectIsLoading$ = this.store.select(
       DiscoveryTVSelectors.selectIsLoading
     );
@@ -94,6 +97,8 @@ export class TVDiscoveryComponent implements OnInit, AfterViewInit {
       FiltersMetadataSelectors.selectSortByDiscoveryTV
     );
   }
+
+  override initSubscriptions(): void {}
 
   initDataBridge() {
     //data to lifecycle-selector, lifecycle selected

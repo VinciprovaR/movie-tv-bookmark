@@ -5,7 +5,10 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
 
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
 import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
-import { TV } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  TV,
+  PersonDetailTVCredits,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
   TVLifecycleSelectors,
@@ -14,38 +17,38 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { PersonDetailTVCreditsStore } from '../../shared/store/component-store/person-detail-tv-credits-store.service';
+import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
-  selector: 'app-person-detail-tv-credits',
+  selector: 'app-person-tvs',
   standalone: true,
-  imports: [MediaListContainerComponent, CommonModule],
+  imports: [
+    MediaListContainerComponent,
+    CommonModule,
+    MissingFieldPlaceholderComponent,
+  ],
   providers: [BridgeDataService, PersonDetailTVCreditsStore],
-  templateUrl: './person-detail-tv-credits.component.html',
-  styleUrl: './person-detail-tv-credits.component.css',
+  templateUrl: './person-tvs.component.html',
+  styleUrl: './person-tvs.component.css',
 })
-export class PersonDetailTVCreditsComponent implements OnInit {
+export class PersonTVsComponent extends AbstractComponent implements OnInit {
   title: string = 'TV partecipated in';
 
-  private readonly destroyRef$ = inject(DestroyRef);
-  private readonly store = inject(Store);
   private readonly bridgeDataService = inject(BridgeDataService);
-  private readonly personDetailTVCreditsStore = inject(
+  private readonly personDetailCreditsTVStore = inject(
     PersonDetailTVCreditsStore
   );
-  destroyed$ = new Subject();
 
   selectIsLoading$!: Observable<boolean>;
-  selectTVList$!: Observable<TV[]>;
+  personDetailTVCredits$!: Observable<PersonDetailTVCredits>;
   selectTVLifecycleMap$!: Observable<TVLifecycleMap>;
 
   @Input({ required: true })
   personId: number = 0;
 
   constructor() {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {
@@ -72,18 +75,20 @@ export class PersonDetailTVCreditsComponent implements OnInit {
       });
   }
 
-  initSelectors() {
-    this.selectIsLoading$ = this.personDetailTVCreditsStore.selectIsLoading$;
-    this.selectTVList$ =
-      this.personDetailTVCreditsStore.selectCreditsTVPersonDetail$;
+  override initSelectors() {
+    this.selectIsLoading$ = this.personDetailCreditsTVStore.selectIsLoading$;
+    this.personDetailTVCredits$ =
+      this.personDetailCreditsTVStore.selectCreditsTVPersonDetail$;
 
     this.selectTVLifecycleMap$ = this.store.select(
       TVLifecycleSelectors.selectTVLifecycleMap
     );
   }
 
+  override initSubscriptions(): void {}
+
   creditsTV() {
-    this.personDetailTVCreditsStore.creditsTV(this.personId);
+    this.personDetailCreditsTVStore.creditsTV(this.personId);
   }
 
   createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {

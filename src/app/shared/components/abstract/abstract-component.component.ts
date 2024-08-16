@@ -36,4 +36,11 @@ export abstract class AbstractComponent {
 
     this.renderer = this.rendererFactory.createRenderer(null, null);
   }
+
+  abstract initSelectors(): void;
+  abstract initSubscriptions(): void;
+
+  detectChanges() {
+    this.changeDetectorRef.detectChanges();
+  }
 }

@@ -15,6 +15,9 @@ export class StaticTagComponent extends AbstractComponent {
     super();
   }
 
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+
   @Input({ required: true })
   tag: string = '';
   @Input()

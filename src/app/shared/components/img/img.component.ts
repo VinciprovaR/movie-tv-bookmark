@@ -60,6 +60,9 @@ export class ImgComponent extends AbstractComponent implements OnInit {
     super();
   }
 
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+
   ngOnInit(): void {
     this.buildCompleteUrl();
   }

@@ -174,14 +174,14 @@ export class MovieDetailCreditsComponent
     this.searchMovieDetail();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.routerEvent$ = this.router.events;
     this.movieCredits$ = this.movieDetailCreditsStore.selectMovieCredits$;
     this.movieDetail$ = this.movieDetailstore.selectMovieDetail$;
     this.isLoading$ = this.movieDetailstore.selectIsLoading$;
   }
 
-  initSubscriptions() {
+  override initSubscriptions() {
     this.pageEventService.windowInnerWidth$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((innerWidth) => {
@@ -263,38 +263,6 @@ export class MovieDetailCreditsComponent
     this.isHideCastContainer = false;
     this.isHideCrewContainer = false;
     this.changeDetectorRef.detectChanges();
-  }
-
-  // private buildCharacterTV(cast: CastTV): string {
-  //   let roleResult = '';
-  //   cast.roles.forEach((role: Role, i, array) => {
-  //     if (i === array.length - 1) {
-  //       roleResult = roleResult.concat(role.character);
-  //     } else {
-  //       roleResult = roleResult.concat(role.character, ' / ');
-  //     }
-  //   });
-  //   return roleResult;
-  // }
-
-  // private buildJobTV(crew: CrewTV): string {
-  //   let roleResult = '';
-  //   crew.jobs.forEach((job: Job, i, array) => {
-  //     if (i === array.length - 1) {
-  //       roleResult = roleResult.concat(job.job);
-  //     } else {
-  //       roleResult = roleResult.concat(job.job, ' / ');
-  //     }
-  //   });
-  //   return roleResult;
-  // }
-
-  private buildCharacterMovie(cast: CastMovie): string {
-    return cast.character;
-  }
-
-  private buildJobMovie(crew: CrewMovie): string {
-    return crew.job;
   }
 
   buildDetailPath(id: number) {

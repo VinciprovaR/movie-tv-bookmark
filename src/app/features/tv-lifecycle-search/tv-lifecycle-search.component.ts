@@ -31,6 +31,7 @@ import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { PayloadTVLifecycle } from '../../shared/interfaces/store/tv-lifecycle-state.interface';
 import { TVLifecycleFiltersComponent } from '../tv-lifecycle-filters/tv-lifecycle-filters.component';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-tv-lifecycle-search',
@@ -45,20 +46,17 @@ import { TVLifecycleFiltersComponent } from '../tv-lifecycle-filters/tv-lifecycl
   templateUrl: './tv-lifecycle-search.component.html',
   styleUrl: './tv-lifecycle-search.component.css',
 })
-export class TVLifecycleSearchComponent implements OnInit {
+export class TVLifecycleSearchComponent
+  extends AbstractComponent
+  implements OnInit
+{
   title: string = 'TV Bookmarks';
 
-  private readonly route = inject(ActivatedRoute);
   private readonly bridgeDataService = inject(BridgeDataService);
-  private readonly destroyRef$ = inject(DestroyRef);
-  private readonly router = inject(Router);
-  private readonly store = inject(Store);
 
   @Input()
   lifecycleType!: lifecycleEnum;
   mediaType: MediaType = 'tv';
-
-  destroyed$ = new Subject();
 
   selectTVLifecycleMap$!: Observable<TVLifecycleMap>;
   selectTVList$!: Observable<TV_Data[]>;
@@ -67,10 +65,7 @@ export class TVLifecycleSearchComponent implements OnInit {
   selectCombinedLifecycleFilters$!: Observable<[PayloadTVLifecycle, Genre[]]>;
 
   constructor() {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {
@@ -85,7 +80,7 @@ export class TVLifecycleSearchComponent implements OnInit {
     this.initBridgeData();
   }
 
-  initSelectors() {
+  override initSelectors() {
     this.selectSortBy$ = this.store.select(
       FiltersMetadataSelectors.selectSortByLifecycleTV
     );
@@ -111,6 +106,8 @@ export class TVLifecycleSearchComponent implements OnInit {
         this.searchTVByLifecycleLanding();
       });
   }
+
+  override initSubscriptions(): void {}
 
   initBridgeData() {
     //data to lifecycle-selector, lifecycle selected
