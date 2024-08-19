@@ -3,6 +3,7 @@ import {
   Component,
   inject,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -60,14 +61,14 @@ export interface TVBanner {
     ImgComponent,
     RouterLink,
   ],
-  providers: [TVDetailCreditsStore, TVDetailStore],
+
   templateUrl: './tv-detail-credits.component.html',
   styleUrl: './tv-detail-credits.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDetailCreditsComponent
   extends AbstractMediaDetailCreditsComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   private readonly tvDetailCreditsStore = inject(TVDetailCreditsStore);
   readonly tvDetailstore = inject(TVDetailStore);
@@ -297,5 +298,9 @@ export class TVDetailCreditsComponent
 
   buildDetailPath(id: number) {
     return `/tv-detail/${id}`;
+  }
+
+  ngOnDestroy(): void {
+    this.tvDetailCreditsStore.cleanTVDetailCredits();
   }
 }

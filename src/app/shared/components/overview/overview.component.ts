@@ -27,4 +27,8 @@ export class OverviewComponent extends AbstractComponent {
 
   override initSelectors(): void {}
   override initSubscriptions(): void {}
+
+  splitByDoubleNewline(text: string): string[] {
+    return text.split('\n\n');
+  }
 }

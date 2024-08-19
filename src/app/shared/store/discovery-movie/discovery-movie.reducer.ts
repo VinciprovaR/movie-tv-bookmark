@@ -23,6 +23,7 @@ export const initialState: DiscoveryMovieState = {
     total_pages: 1,
     total_results: 0,
   },
+  noAdditional: false,
 };
 
 export const discoveryMovieReducer = createReducer(
@@ -56,6 +57,7 @@ export const discoveryMovieReducer = createReducer(
         error: null,
         isLoading: false,
         movieResult,
+        noAdditional: false,
       };
     }
   ),
@@ -78,6 +80,7 @@ export const discoveryMovieReducer = createReducer(
             : 0,
           results: [...currMovies, ...nextMovies],
         },
+        noAdditional: false,
       };
     }
   ),
@@ -86,6 +89,7 @@ export const discoveryMovieReducer = createReducer(
       ...state,
       error: null,
       isLoading: false,
+      noAdditional: true,
     };
   }),
   on(
@@ -113,3 +117,5 @@ export const getMovieResultPage = (state: DiscoveryMovieState) =>
   state.movieResult.page;
 export const getMovieResultTotalPages = (state: DiscoveryMovieState) =>
   state.movieResult.total_pages;
+export const getNoAdditional = (state: DiscoveryMovieState) =>
+  state.noAdditional;

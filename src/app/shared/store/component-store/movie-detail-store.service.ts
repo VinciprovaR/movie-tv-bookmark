@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
@@ -13,16 +13,20 @@ export interface MovieDetailState extends StateMediaBookmark {
   movieDetail: MovieDetail | null;
 }
 
+// export const movieDetailIsLoading = createAction(
+//   '[Movie-Detail] Movie Detail Is Loading',
+//   props<{ isLoading: boolean }>()
+// );
 export const movieDetailSuccess = createAction(
-  '[Movie-Detail/API] Movie Detail Success',
+  '[Movie-Detail] Movie Detail Success',
   props<{ movieDetail: MovieDetail }>()
 );
 export const movieDetailFailure = createAction(
-  '[Movie-Detail/API] Movie Detail Failure',
+  '[Movie-Detail] Movie Detail Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MovieDetailStore extends ComponentStore<MovieDetailState> {
   readonly actions$ = inject(Actions);
   readonly store = inject(Store);
@@ -35,7 +39,17 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
     super({ movieDetail: null, isLoading: false, error: null });
   }
 
+  readonly cleanMovieDetail = this.updater((state) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      movieDetail: null,
+    };
+  });
+
   private readonly addMovieDetailInit = this.updater((state) => {
+    console.log('movie detail loading');
     return {
       ...state,
       isLoading: true,
@@ -67,6 +81,7 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
     return movieId$.pipe(
       tap(() => {
         this.addMovieDetailInit();
+        // this.store.dispatch(movieDetailIsLoading({ isLoading: true }));
       }),
       switchMap((movieId) => {
         return this.TMDBMovieDetailService.movieDetailChained(movieId).pipe(
@@ -75,12 +90,14 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
             this.addMovieDetailSuccess({
               movieDetail,
             });
+            // this.store.dispatch(movieDetailIsLoading({ isLoading: false }));
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
             return of().pipe(
               tap(() => {
                 this.addMovieDetailFailure(httpErrorResponse);
                 this.store.dispatch(movieDetailFailure({ httpErrorResponse }));
+                // this.store.dispatch(movieDetailIsLoading({ isLoading: false }));
               })
             );
           })

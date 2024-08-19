@@ -16,4 +16,5 @@ export interface PayloadDiscoveryTV {
 export interface DiscoveryTVState extends StateMediaBookmark {
   payload: PayloadDiscoveryTV;
   tvResult: TVResult;
+  noAdditional: boolean;
 }

@@ -1,7 +1,14 @@
-@if(personList && personList.length >0){
-<div class="box-border">
+<div
+  infinite-scroll
+  (scrolled)="discoveryAdditionalPeople()"
+  [infiniteScrollDisabled]="isLoading"
+  [infiniteScrollDistance]="0.2"
+  class="box-border"
+>
+  @if(personList && personList.length >0){
+
   <ul
-    class="grid grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] gap-6 smc:gap-8 p-0 m-0"
+    class="grid grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-6 smc:gap-8 p-0 m-0"
   >
     @for(person of personList; track person.id){
     <li class="list-none">
@@ -9,9 +16,15 @@
     </li>
     }
   </ul>
+  @if(isLoading){
+  <div class="flex justify-center">
+    <mat-spinner [diameter]="40"></mat-spinner>
+  </div>
+  } } @else {
+  <div class="flex justify-center">
+    <app-missing-field-placeholder
+      [caption]="placeholder"
+    ></app-missing-field-placeholder>
+  </div>
+  }
 </div>
-} @else{
-<div class="flex justify-center">
-  {{ placeholder }}
-</div>
-}

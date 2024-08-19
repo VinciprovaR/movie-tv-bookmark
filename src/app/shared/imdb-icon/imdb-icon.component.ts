@@ -11,8 +11,10 @@ import { MediaType } from '../interfaces/TMDB/tmdb-media.interface';
 export class ImdbIconComponent implements OnInit {
   @Input({ required: true })
   mediaId: string = '';
+  @Input({ required: true })
+  mediaType!: MediaType;
 
-  tmdbBaseUrl: string = 'https://www.imdb.com/title';
+  tmdbBaseUrl: string = 'https://www.imdb.com';
   externalUrl: string = '';
 
   constructor() {}
@@ -23,7 +25,9 @@ export class ImdbIconComponent implements OnInit {
 
   buildExternalLink() {
     this.externalUrl = this.externalUrl.concat(
-      `${this.tmdbBaseUrl}/${this.mediaId}`
+      `${this.tmdbBaseUrl}${this.mediaType === 'person' ? '/name' : '/title'}/${
+        this.mediaId
+      }`
     );
   }
 }

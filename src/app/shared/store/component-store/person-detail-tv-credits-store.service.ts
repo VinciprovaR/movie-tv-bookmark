@@ -14,26 +14,28 @@ import {
   PersonDetailTVCredits,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 
-export interface CreditsTVPersonDetailState extends StateMediaBookmark {
+export interface PersonDetailTVCreditsState extends StateMediaBookmark {
   personDetailTVCredits: PersonDetailTVCredits;
   personId: number;
 }
 
-export const creditsTVSuccessPersonDetail = createAction(
-  '[Person-Detail] Credits TV Success Person Detail',
+// export const personDetailTVCreditsIsLoading = createAction(
+//   '[Person-Detail-TV-Credits] Person Detail TV Credits Is Loading ',
+//   props<{ isLoading: boolean }>()
+// );
+export const personDetailTVCreditsSuccess = createAction(
+  '[Person-Detail-TV-Credits] Person Detail TV Credits Success ',
   props<{ tvResult: TVResult }>()
 );
-export const creditsTVPersonDetailFailure = createAction(
-  '[Person-Detail/API] Credits TV Person Detail Failure',
+export const personDetailTVCreditsFailure = createAction(
+  '[Person-Detail-TV-Credits] Person Detail TV Credits Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-@Injectable()
-export class PersonDetailTVCreditsStore extends ComponentStore<CreditsTVPersonDetailState> {
+@Injectable({ providedIn: 'root' })
+export class PersonDetailTVCreditsStore extends ComponentStore<PersonDetailTVCreditsState> {
   private readonly store = inject(Store);
-
   private readonly TMDBPersonDetailService = inject(TMDBPersonDetailService);
-
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
   readonly selectCreditsTVPersonDetail$ = this.select(
     (state) => state.personDetailTVCredits
@@ -52,7 +54,21 @@ export class PersonDetailTVCreditsStore extends ComponentStore<CreditsTVPersonDe
     });
   }
 
-  private readonly creditsTVInit = this.updater(
+  readonly cleanPersonDetailCreditsTV = this.updater((state) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      personId: 0,
+      personDetailTVCredits: {
+        cast: [],
+        crew: [],
+        id: 0,
+      },
+    };
+  });
+
+  private readonly personDetailTVCreditsInit = this.updater(
     (state, { personId }: { personId: number }) => {
       return {
         ...state,
@@ -63,7 +79,7 @@ export class PersonDetailTVCreditsStore extends ComponentStore<CreditsTVPersonDe
     }
   );
 
-  private readonly creditsTVSuccess = this.updater(
+  private readonly personDetailTVCreditsSuccess = this.updater(
     (
       state,
       {
@@ -79,7 +95,7 @@ export class PersonDetailTVCreditsStore extends ComponentStore<CreditsTVPersonDe
     }
   );
 
-  private readonly creditsTVFailure = this.updater(
+  private readonly personDetailTVCreditsFailure = this.updater(
     (state, { error }: { error: HttpErrorResponse }) => {
       return {
         ...state,
@@ -89,44 +105,55 @@ export class PersonDetailTVCreditsStore extends ComponentStore<CreditsTVPersonDe
     }
   );
 
-  readonly creditsTV = this.effect((personId$: Observable<number>) => {
-    return personId$.pipe(
-      tap((personId: number) => {
-        this.creditsTVInit({ personId });
-      }),
-      switchMap((personId) => {
-        return this.TMDBPersonDetailService.personTVCredit(personId).pipe(
-          tap((personDetailTVCredits: PersonDetailTVCredits) => {
-            let results = this.mergeTVList(personDetailTVCredits);
-            let tvResult: TVResult = {
-              page: 1,
-              total_pages: 1,
-              total_results: results.length,
-              results,
-            };
-            this.store.dispatch(creditsTVSuccessPersonDetail({ tvResult }));
-            this.creditsTVSuccess({ personDetailTVCredits });
-          }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
-              tap(() => {
-                this.creditsTVFailure(httpErrorResponse);
-                this.store.dispatch(
-                  creditsTVPersonDetailFailure({ httpErrorResponse })
-                );
-              })
-            );
-          })
-        );
-      })
-    );
-  });
+  readonly personDetailTVCredits = this.effect(
+    (personId$: Observable<number>) => {
+      return personId$.pipe(
+        tap((personId: number) => {
+          this.personDetailTVCreditsInit({ personId });
+          // this.store.dispatch(
+          //   personDetailTVCreditsIsLoading({ isLoading: true })
+          // );
+        }),
+        switchMap((personId) => {
+          return this.TMDBPersonDetailService.personTVCredit(personId).pipe(
+            tap((personDetailTVCredits: PersonDetailTVCredits) => {
+              let results = this.mergeTVList(personDetailTVCredits);
+              let tvResult: TVResult = {
+                page: 1,
+                total_pages: 1,
+                total_results: results.length,
+                results,
+              };
+              this.store.dispatch(personDetailTVCreditsSuccess({ tvResult }));
+              this.personDetailTVCreditsSuccess({ personDetailTVCredits });
+              // this.store.dispatch(
+              //   personDetailTVCreditsIsLoading({ isLoading: false })
+              // );
+            }),
+            catchError((httpErrorResponse: HttpErrorResponse) => {
+              return of().pipe(
+                tap(() => {
+                  this.personDetailTVCreditsFailure(httpErrorResponse);
+                  this.store.dispatch(
+                    personDetailTVCreditsFailure({ httpErrorResponse })
+                  );
+                  // this.store.dispatch(
+                  //   personDetailTVCreditsIsLoading({ isLoading: false })
+                  // );
+                })
+              );
+            })
+          );
+        })
+      );
+    }
+  );
 
   private mergeTVList(personDetailTVCredits: PersonDetailTVCredits) {
     return [...personDetailTVCredits.cast, ...personDetailTVCredits.crew];
   }
 
-  logState(state: CreditsTVPersonDetailState, action: string) {
+  logState(state: PersonDetailTVCreditsState, action: string) {
     console.log(action, state);
   }
 }

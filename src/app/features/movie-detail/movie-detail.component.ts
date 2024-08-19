@@ -1,4 +1,11 @@
-import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MediaType,
@@ -51,11 +58,14 @@ import { MissingFieldPlaceholderComponent } from '../../shared/components/missin
     RouterLinkActive,
     MissingFieldPlaceholderComponent,
   ],
-  providers: [MovieDetailStore, BridgeDataService],
+  providers: [BridgeDataService],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
-export class MovieDetailComponent extends AbstractMediaDetailComponent {
+export class MovieDetailComponent
+  extends AbstractMediaDetailComponent
+  implements OnDestroy
+{
   protected readonly bridgeDataService = inject(BridgeDataService);
   readonly movieDetailstore = inject(MovieDetailStore);
 
@@ -149,5 +159,9 @@ export class MovieDetailComponent extends AbstractMediaDetailComponent {
     };
 
     this.router.navigate([this.movieCreditsPath], navigationExtras);
+  }
+
+  ngOnDestroy(): void {
+    this.movieDetailstore.cleanMovieDetail();
   }
 }

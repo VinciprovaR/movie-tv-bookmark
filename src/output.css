@@ -181,6 +181,30 @@
   top: 30%;
 }
 
+.right-\[50\%\] {
+  right: 50%;
+}
+
+.top-\[50\%\] {
+  top: 50%;
+}
+
+.right-\[48\%\] {
+  right: 48%;
+}
+
+.top-\[48\%\] {
+  top: 48%;
+}
+
+.top-\[52\%\] {
+  top: 52%;
+}
+
+.bottom-\[50\%\] {
+  bottom: 50%;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -195,10 +219,6 @@
 
 .m-0 {
   margin: 0px;
-}
-
-.m-2 {
-  margin: 0.5rem;
 }
 
 .m-auto {
@@ -301,6 +321,10 @@
   margin-top: 4px;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -361,6 +385,10 @@
   height: 40%;
 }
 
+.h-\[40px\] {
+  height: 40px;
+}
+
 .h-\[50\%\] {
   height: 50%;
 }
@@ -379,6 +407,10 @@
 
 .h-full {
   height: 100%;
+}
+
+.h-\[100vh\] {
+  height: 100vh;
 }
 
 .min-h-\[66px\] {
@@ -421,12 +453,12 @@
   width: 100%;
 }
 
-.min-w-\[66px\] {
-  min-width: 66px;
+.w-\[100vw\] {
+  width: 100vw;
 }
 
-.max-w-4xl {
-  max-width: 56rem;
+.min-w-\[66px\] {
+  min-width: 66px;
 }
 
 .max-w-5xl {
@@ -441,12 +473,12 @@
   max-width: 1536px;
 }
 
-.max-w-screen-3xl {
-  max-width: 1920px;
+.max-w-screen-2xl {
+  max-width: 1536px;
 }
 
-.max-w-screen-xl {
-  max-width: 1280px;
+.max-w-screen-3xl {
+  max-width: 1920px;
 }
 
 .transform {
@@ -475,16 +507,16 @@
   grid-auto-columns: 100px;
 }
 
-.auto-cols-\[140px\] {
-  grid-auto-columns: 140px;
+.auto-cols-\[150px\] {
+  grid-auto-columns: 150px;
 }
 
 .grid-flow-col {
   grid-auto-flow: column;
 }
 
-.grid-cols-\[repeat\(auto-fill\2c _minmax\(140px\2c _1fr\)\)\] {
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+.grid-cols-\[repeat\(auto-fill\2c _minmax\(160px\2c _1fr\)\)\] {
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 
 .flex-row {
@@ -519,12 +551,20 @@
   justify-content: space-between;
 }
 
+.gap-10 {
+  gap: 2.5rem;
+}
+
 .gap-4 {
   gap: 1rem;
 }
 
 .gap-6 {
   gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
@@ -658,6 +698,10 @@
   background-color: rgb(23 23 23 / var(--tw-bg-opacity));
 }
 
+.bg-\[var\(--bkg-color\)\] {
+  background-color: var(--bkg-color);
+}
+
 .bg-cover {
   background-size: cover;
 }
@@ -744,6 +788,10 @@
   padding-bottom: 1rem;
 }
 
+.pb-6 {
+  padding-bottom: 1.5rem;
+}
+
 .pl-0 {
   padding-left: 0px;
 }
@@ -758,6 +806,10 @@
 
 .pl-4 {
   padding-left: 1rem;
+}
+
+.pl-6 {
+  padding-left: 1.5rem;
 }
 
 .pr-2 {
@@ -913,6 +965,7 @@ body.light-theme {
   --bkg-color: rgb(255, 255, 255);
   --bkg-container-color: rgb(250, 250, 250);
   --text-color: rgb(25, 25, 25);
+  --bg-header-person-detail: rgba(199, 199, 199, 0.411);
   --text-color-inverted: rgb(215, 218, 223);
   --sub-text-color: rgb(87, 87, 87);
   --lifecycle-info-bkg-color: #252222;
@@ -934,6 +987,7 @@ body.dark-theme {
   --bkg-color: rgb(35, 35, 35);
   --bkg-container-color: rgb(40, 40, 40);
   --text-color: rgb(215, 218, 223);
+  --bg-header-person-detail: rgba(0, 0, 0, 0.411);
   --text-color-inverted: rgb(25, 25, 25);
   --sub-text-color: rgb(190, 190, 190);
   --mat-card-border-color: rgb(111, 111, 111);
@@ -1058,6 +1112,10 @@ p {
   margin: 0px;
 }
 
+p {
+  line-height: 22px;
+}
+
 .border-separator {
   border-bottom: 1px solid var(--mat-card-border-color);
 }
@@ -1135,10 +1193,14 @@ select {
   width: 100%;
 }
 
+/* .filter-container {
+  transition: margin 225ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+} */
+
 .hidden-container {
   opacity: 0;
   overflow: hidden;
-  visibility: hidden;
   height: 0px;
   padding: 0px;
   margin: 0px;
@@ -1486,6 +1548,14 @@ iframe {
 }
 
 @media (min-width: 470px) {
+  .smc\:gap-10 {
+    gap: 2.5rem;
+  }
+
+  .smc\:gap-6 {
+    gap: 1.5rem;
+  }
+
   .smc\:gap-8 {
     gap: 2rem;
   }
@@ -1585,6 +1655,14 @@ iframe {
 }
 
 @media (min-width: 1024px) {
+  .lg\:right-\[48\%\] {
+    right: 48%;
+  }
+
+  .lg\:top-\[48\%\] {
+    top: 48%;
+  }
+
   .lg\:mx-auto {
     margin-left: auto;
     margin-right: auto;
@@ -1642,6 +1720,10 @@ iframe {
     width: 55px;
   }
 
+  .lg\:w-\[70\%\] {
+    width: 70%;
+  }
+
   .lg\:w-\[75\%\] {
     width: 75%;
   }
@@ -1658,8 +1740,8 @@ iframe {
     grid-auto-columns: 120px;
   }
 
-  .lg\:auto-cols-\[160px\] {
-    grid-auto-columns: 160px;
+  .lg\:auto-cols-\[150px\] {
+    grid-auto-columns: 150px;
   }
 
   .lg\:flex-row {

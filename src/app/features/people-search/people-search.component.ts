@@ -39,6 +39,7 @@ export class PeopleSearchComponent extends AbstractComponent implements OnInit {
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectPeopleList$!: Observable<Person[]>;
+  selectNoAdditional$!: Observable<boolean>;
 
   constructor() {
     super();
@@ -56,6 +57,9 @@ export class PeopleSearchComponent extends AbstractComponent implements OnInit {
     this.selectPeopleList$ = this.store.select(
       SearchPeopleSelectors.selectPeopleList
     );
+    this.selectNoAdditional$ = this.store.select(
+      SearchPeopleSelectors.selectNoAdditional
+    );
   }
 
   override initSubscriptions(): void {}
@@ -64,9 +68,7 @@ export class PeopleSearchComponent extends AbstractComponent implements OnInit {
     this.store.dispatch(SearchPeopleActions.searchPeople({ query }));
   }
 
-  searchAdditionalPeople(peopleListLength: number = 0) {
-    if (peopleListLength) {
-      this.store.dispatch(SearchPeopleActions.searchAdditionalPeople());
-    }
+  searchAdditionalPeople() {
+    this.store.dispatch(SearchPeopleActions.searchAdditionalPeople());
   }
 }

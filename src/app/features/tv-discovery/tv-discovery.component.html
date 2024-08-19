@@ -1,4 +1,4 @@
-<section class="w-[90%] lg:w-[85%] max-w-screen-xl mx-auto pt-[70px]">
+<section class="w-[90%] lg:w-[85%] max-w-screen-2xl mx-auto pt-[70px]">
   <div class="mt-6">
     <h1 class="lg:text-left text-center">{{ title }}</h1>
   </div>
@@ -21,6 +21,7 @@
         [mediaList]="(selectTVList$ | async) ?? []"
         (emitDiscoveryAdditionalMedia)="discoveryAdditionalTV()"
         [mediaType]="mediaType"
+        [noAdditional]="(selectNoAdditional$ | async) ?? false"
       ></app-media-list-container>
     </div>
   </div>

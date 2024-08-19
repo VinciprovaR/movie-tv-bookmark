@@ -12,38 +12,35 @@ import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
-import { MovieCardComponent } from '../movie-card/movie-card.component';
-import { TVCardComponent } from '../tv-card/tv-card.component';
+import { MediaCardComponent } from '../media-card/media-card.component';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-media-list-container',
   standalone: true,
   imports: [
     CommonModule,
-    MovieCardComponent,
-    TVCardComponent,
+    MediaCardComponent,
     InfiniteScrollModule,
     MissingFieldPlaceholderComponent,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './media-list-container.component.html',
   styleUrl: './media-list-container.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaListContainerComponent implements OnInit {
-  readonly mediaItemComponents: any = {
-    movie: MovieCardComponent,
-    tv: TVCardComponent,
-  };
-
   @ViewChild('listContainer') listContainer!: ElementRef;
 
   @Output()
   emitDiscoveryAdditionalMedia = new EventEmitter<number>();
+  @Input({ required: true })
+  isLoading!: boolean;
   @Input()
-  isLoading: boolean = false;
+  noAdditional: boolean = false;
   @Input({ required: true })
   mediaList!: Movie[] | Movie_Data[] | TV[] | TV_Data[];
   @Input({ required: true })
@@ -61,19 +58,18 @@ export class MediaListContainerComponent implements OnInit {
 
   gridCol: string = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
+  @Input()
+  personIdentifier: string = '';
+
   constructor() {}
   ngOnInit(): void {
-    setTimeout(() => {
-      console.log(this.mediaList);
-    }, 2000);
-
     this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
 
     this.placeholder = `No ${this.mediaType} were found that match your query.`;
   }
 
   discoveryAdditionalMedia() {
-    if (this.mediaList.length) {
+    if (this.mediaList.length && !this.noAdditional) {
       this.emitDiscoveryAdditionalMedia.emit(this.mediaList.length);
     }
   }

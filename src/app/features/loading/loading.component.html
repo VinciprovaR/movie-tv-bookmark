@@ -1,0 +1,19 @@
+<!-- @if(((authSelectIsLoading$ | async) ?? false) || ((movieSearchSelectIsLoading$ |
+async) ?? false) || ((movieDiscoverySelectIsLoading$ | async) ?? false) ||
+((movieBookmarksSelectIsLoading$ | async) ?? false) ||
+((TVSearchSelectIsLoading$ | async) ?? false) || ((TVDiscoverySelectIsLoading$ |
+async) ?? false) || ((TVBookmarksSelectIsLoading$ | async) ?? false) ||
+((personSearchSelectIsLoading$ | async) ?? false) ){
+
+<div class="fixed z-20 top-0 w-full">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+} -->
+
+<div class="fixed z-20 top-0 w-full hidden" #loadingBar>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div class="fixed z-10 top-0 w-full hidden" #loadingBarLanding>
+  <div class="w-[100vw] h-[100vh] bg-[var(--bkg-color)]"></div>
+</div>

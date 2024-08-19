@@ -2,24 +2,19 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
   OnInit,
   inject,
 } from '@angular/core';
 
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
-import { Store } from '@ngrx/store';
-import { Observable, Subject, map, takeUntil } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import {
   SearchMovieActions,
   SearchMovieSelectors,
 } from '../../shared/store/search-movie';
 
-import {
-  MovieResult,
-  Movie,
-} from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
@@ -49,6 +44,7 @@ export class MovieSearchComponent extends AbstractComponent implements OnInit {
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
+  selectNoAdditional$!: Observable<boolean>;
 
   constructor() {
     super();
@@ -86,6 +82,9 @@ export class MovieSearchComponent extends AbstractComponent implements OnInit {
     this.selectMovieList$ = this.store.select(
       SearchMovieSelectors.selectMovieList
     );
+    this.selectNoAdditional$ = this.store.select(
+      SearchMovieSelectors.selectNoAdditional
+    );
   }
 
   override initSubscriptions(): void {}
@@ -106,7 +105,6 @@ export class MovieSearchComponent extends AbstractComponent implements OnInit {
   }
 
   searchAdditionalMovie() {
-    console.log('search add');
     this.store.dispatch(SearchMovieActions.searchAdditionalMovie());
   }
 }

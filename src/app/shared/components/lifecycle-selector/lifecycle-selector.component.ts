@@ -66,6 +66,8 @@ export class LifecycleSelectorComponent
   mediaType!: MediaType;
   @Input({ required: true })
   mediaData!: Movie | MovieDetail | Movie_Data | TV | TVDetail | TV_Data;
+  @Input()
+  personIdentifier: string = '';
 
   idItem!: string;
 
@@ -81,7 +83,9 @@ export class LifecycleSelectorComponent
   }
 
   ngOnInit(): void {
-    this.idItem = `${this.index}_${this.mediaData.id}`;
+    this.idItem = `${this.personIdentifier ? `${this.personIdentifier}_` : ''}${
+      this.index
+    }_${this.mediaData.id}`;
 
     this.initSelectors();
     this.buildControl();

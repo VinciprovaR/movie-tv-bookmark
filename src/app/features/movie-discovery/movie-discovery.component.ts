@@ -63,6 +63,7 @@ export class MovieDiscoveryComponent
   selectCertificationList$!: Observable<Certification[]>;
   selectLanguageList$!: Observable<Language[]>;
   selectSortBy$!: Observable<OptionFilter[]>;
+  selectNoAdditional$!: Observable<boolean>;
 
   title = 'Movie Discovery';
   mediaType: MediaType = 'movie';
@@ -107,6 +108,10 @@ export class MovieDiscoveryComponent
 
     this.selectSortBy$ = this.store.select(
       FiltersMetadataSelectors.selectSortByDiscoveryMovie
+    );
+
+    this.selectNoAdditional$ = this.store.select(
+      DiscoveryMovieSelectors.selectNoAdditional
     );
   }
   override initSubscriptions(): void {}

@@ -16,7 +16,7 @@ export const discoveryTVSuccess = createAction(
   props<{ tvResult: TVResult }>()
 );
 export const discoveryTVFailure = createAction(
-  '[Discovery-TV/API] Discovery TV Failure',
+  '[Discovery-TV] Discovery TV Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
@@ -28,7 +28,7 @@ export const discoveryAdditionalTVSuccess = createAction(
   props<{ tvResult: TVResult }>()
 );
 export const discoveryAdditionaTVFailure = createAction(
-  '[Discovery-TV/API] Discovery Additional TV Failure',
+  '[Discovery-TV] Discovery Additional TV Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 

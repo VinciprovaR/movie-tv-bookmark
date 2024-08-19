@@ -41,6 +41,7 @@ export class TVSearchComponent extends AbstractComponent implements OnInit {
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectTVList$!: Observable<TV[]>;
+  selectNoAdditional$!: Observable<boolean>;
 
   constructor() {
     super();
@@ -57,6 +58,9 @@ export class TVSearchComponent extends AbstractComponent implements OnInit {
       SearchTVSelectors.selectIsLoading
     );
     this.selectTVList$ = this.store.select(SearchTVSelectors.selectTVList);
+    this.selectNoAdditional$ = this.store.select(
+      SearchTVSelectors.selectNoAdditional
+    );
   }
 
   override initSubscriptions(): void {}
@@ -91,7 +95,7 @@ export class TVSearchComponent extends AbstractComponent implements OnInit {
     this.store.dispatch(SearchTVActions.searchTV({ query }));
   }
 
-  searchAdditionalTV(movieListLength: number = 0) {
+  searchAdditionalTV() {
     this.store.dispatch(SearchTVActions.searchAdditionalTV());
   }
 }

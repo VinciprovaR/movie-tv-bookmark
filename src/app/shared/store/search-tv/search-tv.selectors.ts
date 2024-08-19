@@ -45,3 +45,8 @@ export const selectError = createSelector(
   searchTVFeatureSelector,
   SearchTVReducer.getSearchTVError
 );
+
+export const selectNoAdditional = createSelector(
+  searchTVFeatureSelector,
+  SearchTVReducer.getNoAdditional
+);

@@ -1,0 +1,56 @@
+<div class="space-y-10 p-4 lg:p-0 w-[90%]" #contentContainer>
+  <!-- Title and Main infos -->
+  <div class="space-y-2">
+    <div class="flex flex-wrap">
+      <h1 class="mr-2">{{ personDetail.name }}</h1>
+    </div>
+
+    <div>
+      <ul class="flex flex-wrap m-0 p-0 text-sm lg:text-md">
+        <li class="list-none flex flex-wrap space-x-2 mr-2">
+          <span>{{ genders[personDetail.gender] }}</span>
+        </li>
+        <li class="list-none flex flex-wrap space-x-2 mr-2">
+          <span>&#8226;</span
+          ><span
+            >{{ personDetail.birthday | date }} @if(!personDetail.deathday){ ({{
+              toDate(personDetail.birthday) | age
+            }}) }
+          </span>
+        </li>
+        @if(personDetail.deathday){
+        <li class="list-none flex flex-wrap space-x-2 mr-2">
+          <span>&#8226;</span
+          ><span
+            >{{ personDetail.deathday | date }} ({{
+              ageAtDeath(personDetail.birthday, personDetail.deathday)
+            }})
+          </span>
+        </li>
+        }
+
+        <li class="list-none flex flex-wrap space-x-2 mr-2">
+          <span>&#8226;</span><span>{{ personDetail.place_of_birth }}</span>
+        </li>
+        <li class="list-none flex flex-wrap space-x-2 mr-2">
+          <span>&#8226;</span
+          ><span>{{ personDetail.known_for_department }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Biography -->
+  <div>
+    <app-biography [biography]="personDetail.biography"></app-biography>
+  </div>
+
+  <div class="hidden lg:block">
+    <h2 class="mb-4">For more info go to</h2>
+
+    <app-external-info
+      [tmdbId]="personDetail.id"
+      [imdbId]="personDetail.imdb_id"
+      [mediaType]="'person'"
+    ></app-external-info>
+  </div>
+</div>

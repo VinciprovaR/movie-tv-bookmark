@@ -14,22 +14,26 @@ import {
   PersonDetailMovieCredits,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 
-export interface CreditsMoviePersonDetailState extends StateMediaBookmark {
+export interface PersonDetailMovieCreditsStoreState extends StateMediaBookmark {
   personDetailMovieCredits: PersonDetailMovieCredits;
   personId: number;
 }
 
-export const creditsMovieSuccessPersonDetail = createAction(
-  '[Person-Detail] Credits Movie Success Person Detail',
+// export const personDetailMovieCreditsIsLoading = createAction(
+//   '[Person-Detail-Movie-Credit] Person Detail Movie Credit Is Loading ',
+//   props<{ isLoading: boolean }>()
+// );
+export const personDetailMovieCreditsSuccess = createAction(
+  '[Person-Detail-Movie-Credit] Person Detail Movie Credits Success ',
   props<{ movieResult: MovieResult }>()
 );
-export const creditsMoviePersonDetailFailure = createAction(
-  '[Person-Detail/API] Credits Movie Person Detail Failure',
+export const personDetailMovieCreditsFailure = createAction(
+  '[Person-Detail-Movie-Credit] Person Detail Movie Credits  Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-@Injectable()
-export class PersonDetailCreditsMovieStore extends ComponentStore<CreditsMoviePersonDetailState> {
+@Injectable({ providedIn: 'root' })
+export class PersonDetailMovieCreditsStore extends ComponentStore<PersonDetailMovieCreditsStoreState> {
   private readonly store = inject(Store);
 
   private readonly TMDBPersonDetailService = inject(TMDBPersonDetailService);
@@ -51,7 +55,21 @@ export class PersonDetailCreditsMovieStore extends ComponentStore<CreditsMoviePe
     });
   }
 
-  private readonly creditsMovieInit = this.updater(
+  readonly cleanPersonDetailCreditsMovie = this.updater((state) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      personDetailMovieCredits: {
+        cast: [],
+        crew: [],
+        id: 0,
+      },
+      personId: 0,
+    };
+  });
+
+  private readonly movieCreditsInit = this.updater(
     (state, { personId }: { personId: number }) => {
       return {
         ...state,
@@ -62,7 +80,7 @@ export class PersonDetailCreditsMovieStore extends ComponentStore<CreditsMoviePe
     }
   );
 
-  private readonly creditsMovieSuccess = this.updater(
+  private readonly movieCreditsSuccess = this.updater(
     (
       state,
       {
@@ -78,7 +96,7 @@ export class PersonDetailCreditsMovieStore extends ComponentStore<CreditsMoviePe
     }
   );
 
-  private readonly creditsMovieFailure = this.updater(
+  private readonly movieCreditsFailure = this.updater(
     (state, { error }: { error: HttpErrorResponse }) => {
       return {
         ...state,
@@ -88,10 +106,14 @@ export class PersonDetailCreditsMovieStore extends ComponentStore<CreditsMoviePe
     }
   );
 
-  readonly creditsMovie = this.effect((personId$: Observable<number>) => {
+  readonly movieCredits = this.effect((personId$: Observable<number>) => {
     return personId$.pipe(
       tap((personId: number) => {
-        this.creditsMovieInit({ personId });
+        // this.store
+        //   .dispatch
+        //    personDetailMovieCreditsIsLoading({ isLoading: true })
+        //   ();
+        this.movieCreditsInit({ personId });
       }),
       switchMap((personId) => {
         return this.TMDBPersonDetailService.personMovieCredit(personId).pipe(
@@ -103,18 +125,24 @@ export class PersonDetailCreditsMovieStore extends ComponentStore<CreditsMoviePe
               total_results: results.length,
               results,
             };
+            // this.store.dispatch(
+            //   personDetailMovieCreditsIsLoading({ isLoading: false })
+            // );
             this.store.dispatch(
-              creditsMovieSuccessPersonDetail({ movieResult })
+              personDetailMovieCreditsSuccess({ movieResult })
             );
-            this.creditsMovieSuccess({ personDetailMovieCredits });
+            this.movieCreditsSuccess({ personDetailMovieCredits });
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
             return of().pipe(
               tap(() => {
-                this.creditsMovieFailure(httpErrorResponse);
+                this.movieCreditsFailure(httpErrorResponse);
                 this.store.dispatch(
-                  creditsMoviePersonDetailFailure({ httpErrorResponse })
+                  personDetailMovieCreditsFailure({ httpErrorResponse })
                 );
+                // this.store.dispatch(
+                //   personDetailMovieCreditsIsLoading({ isLoading: false })
+                // );
               })
             );
           })
@@ -127,7 +155,7 @@ export class PersonDetailCreditsMovieStore extends ComponentStore<CreditsMoviePe
     return [...personDetailMovieCredits.cast, ...personDetailMovieCredits.crew];
   }
 
-  logState(state: CreditsMoviePersonDetailState, action: string) {
+  logState(state: PersonDetailMovieCreditsStoreState, action: string) {
     console.log(action, state);
   }
 }

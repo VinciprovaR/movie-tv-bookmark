@@ -7,44 +7,41 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 
 //login
-export const login = createAction(
-  '[Auth/API] User Login',
-  props<LoginPayload>()
-);
+export const login = createAction('[Auth] User Login', props<LoginPayload>());
 export const loginSuccess = createAction(
-  '[Auth/API] Login Success',
+  '[Auth] Login Success',
   props<{ user: User }>()
 );
 
 //register
 export const register = createAction(
-  '[Auth/API] User Registration',
+  '[Auth] User Registration',
   props<RegisterPayload>()
 );
-export const registerSuccess = createAction('[Auth/API] Register Success');
+export const registerSuccess = createAction('[Auth] Register Success');
 
 //request reset psw
 export const requestResetPassword = createAction(
-  '[Auth/API] Request Reset Password',
+  '[Auth] Request Reset Password',
   props<{ email: string }>()
 );
 export const requestResetPasswordSuccess = createAction(
-  '[Auth/API] Request Reset Password Success'
+  '[Auth] Request Reset Password Success'
 );
 
 //current user
-export const currentUser = createAction('[Auth/API] Current User');
+export const currentUser = createAction('[Auth] Current User');
 export const currentUserSuccess = createAction(
-  '[Auth/API] Current User Success',
+  '[Auth] Current User Success',
   props<{ user: User | null }>()
 );
 
 //logout
-export const logout = createAction('[Logout/API] User Logout');
-export const logoutSuccess = createAction('[Logout/API] Logout success');
+export const logout = createAction('[Logout] User Logout');
+export const logoutSuccess = createAction('[Logout] Logout success');
 
 //generic failure
 export const authFailure = createAction(
-  '[Auth/API] Auth Failure',
+  '[Auth] Auth Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );

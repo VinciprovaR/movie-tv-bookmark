@@ -16,7 +16,7 @@ import { SupabaseTVLifecycleService } from '../../services/supabase';
 import { TV_Data, TV_Life_Cycle } from '../../interfaces/supabase/entities';
 import { HttpErrorResponse } from '@angular/common/http';
 import { crud_operations } from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
-import { creditsTVSuccessPersonDetail } from '../component-store/person-detail-tv-credits-store.service';
+import { personDetailTVCreditsSuccess } from '../component-store/person-detail-tv-credits-store.service';
 
 @Injectable()
 export class TVLifecycleEffects {
@@ -55,7 +55,7 @@ export class TVLifecycleEffects {
         SearchTVActions.searchAdditionalTVSuccess,
         DiscoveryTVActions.discoveryTVSuccess,
         DiscoveryTVActions.discoveryAdditionalTVSuccess,
-        creditsTVSuccessPersonDetail
+        personDetailTVCreditsSuccess
       ),
       switchMap((action) => {
         let { tvResult }: { tvResult: TVResult } = action;

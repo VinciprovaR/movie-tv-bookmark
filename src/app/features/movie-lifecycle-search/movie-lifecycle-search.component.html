@@ -10,6 +10,7 @@
     <app-media-list-container
       [mediaList]="(selectMovieList$ | async) ?? []"
       [mediaType]="mediaType"
+      [isLoading]="(selectIsLoading$ | async) ?? false"
     ></app-media-list-container>
   </div>
 </div>

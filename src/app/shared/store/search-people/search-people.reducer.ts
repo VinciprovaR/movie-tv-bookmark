@@ -14,6 +14,7 @@ export const initialState: SearchPeopleState = {
     total_pages: 1,
     total_results: 0,
   },
+  noAdditional: false,
 };
 
 export const searchPeopleReducer = createReducer(
@@ -45,6 +46,7 @@ export const searchPeopleReducer = createReducer(
         error: null,
         isLoading: false,
         peopleResult,
+        noAdditional: false,
       };
     }
   ),
@@ -67,6 +69,7 @@ export const searchPeopleReducer = createReducer(
             : 0,
           results: [...currPeoples, ...nextPeoples],
         },
+        noAdditional: false,
       };
     }
   ),
@@ -75,6 +78,7 @@ export const searchPeopleReducer = createReducer(
       ...state,
       error: null,
       isLoading: false,
+      noAdditional: true,
     };
   }),
 
@@ -100,6 +104,6 @@ export const getPeopleList = (state: SearchPeopleState) =>
   state.peopleResult.results;
 export const getPeopleResultPage = (state: SearchPeopleState) =>
   state.peopleResult.page;
-
 export const getPeopleResultTotalPages = (state: SearchPeopleState) =>
   state.peopleResult.total_pages;
+export const getNoAdditional = (state: SearchPeopleState) => state.noAdditional;

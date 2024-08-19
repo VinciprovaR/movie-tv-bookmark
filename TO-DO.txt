@@ -1,3 +1,8 @@
+################ IGNORATO ################
+ 
+- i18e (anche date filter) + label tutte in un file json (?)
+
+
 ################ FATTO, RICONTROLLARE ################
  
 - Quando l'azione va in errore, la selector deve riprendersi il lifecycle id nello state movie/tv-lifecycle
@@ -15,6 +20,7 @@
 - ogni failure ha la sua action di failure (search movie failure, discovery movie failure, create lifecycle failure, update lifecycle failure ecc..)
 - tipizzazioni a any da elimiare
 - Card e altri componenti con grandezze placeholder mentre aspettano dati async per evitare cambi dimensione
+- check http://localhost:4200/#/person-detail/1964445
 
 ################ GENERIC ################
 - CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
@@ -25,12 +31,12 @@
 - Proxy con action supabase per nascondere chiave API
 - html semantico
 - aria accessibility
-- i18e (anche date filter) + label tutte in un file json (?)
 
+- alert stile
 - Gestione timeout chiamate
 - Refractor interfaccie, stato confuso, separazione dto entity non ordinato
 - Nelle subcribe custom next e error
-- Label lifecycle sul card component
+
 - Abount / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
 - Hai dimenticato alcune destroyed ref...
 - aria accessibility
@@ -80,6 +86,10 @@
 - refractor astrazione, ricominciare da tutti, suddividere per features e creare le astrazioni mancanti (discovery, search, bookmark per esempio)
 - Stesso discorso per i servizi 
 -person movie e tv per crew eliminare quelli già presenti 
+- page not found
+- person detail, read more solo esplosione se testo più lungo di tot
+- search additional check if no additional store allora non triggerare evento
+- 
 
 ################ DUBBIO, FORSE NO ################
 - notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)

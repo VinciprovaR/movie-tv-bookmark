@@ -58,6 +58,7 @@ export class TVLifecycleSearchComponent
   lifecycleType!: lifecycleEnum;
   mediaType: MediaType = 'tv';
 
+  selectIsLoading$!: Observable<boolean>;
   selectTVLifecycleMap$!: Observable<TVLifecycleMap>;
   selectTVList$!: Observable<TV_Data[]>;
 
@@ -81,6 +82,10 @@ export class TVLifecycleSearchComponent
   }
 
   override initSelectors() {
+    this.selectIsLoading$ = this.store.select(
+      TVLifecycleSelectors.selectIsLoading
+    );
+
     this.selectSortBy$ = this.store.select(
       FiltersMetadataSelectors.selectSortByLifecycleTV
     );

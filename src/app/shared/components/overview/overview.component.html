@@ -8,9 +8,11 @@
     {{ tagline }}
   </p>
   } @if( overview){
-  <p>
-    {{ overview }}
-  </p>
+  <div>
+    @for(p of splitByDoubleNewline(overview); track p){
+    <p class="pb-6">{{ p }}</p>
+    }
+  </div>
   } @else {
   <app-missing-field-placeholder
     [caption]="'No overview found for this TV show'"

@@ -45,3 +45,8 @@ export const selectError = createSelector(
   discoveryTVFeatureSelector,
   DiscoveryTVReducer.getDiscoveryTVError
 );
+
+export const selectNoAdditional = createSelector(
+  discoveryTVFeatureSelector,
+  DiscoveryTVReducer.getNoAdditional
+);

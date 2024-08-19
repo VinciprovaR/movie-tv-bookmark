@@ -16,12 +16,16 @@ export interface MovieDetailCreditsState extends StateMediaBookmark {
   movieCredit: MovieCredit | null;
 }
 
+// export const movieDetailCreditsIsLoading = createAction(
+//   '[Movie-Detail-Credits] Movie Detail Credits Is Loading',
+//   props<{ isLoading: boolean }>()
+// );
 export const movieDetailCreditsFailure = createAction(
-  '[Movie-Detail-Credits/API] Movie Detail Credits Failure',
+  '[Movie-Detail-Credits] Movie Detail Credits Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsState> {
   readonly actions$ = inject(Actions);
   readonly store = inject(Store);
@@ -33,6 +37,15 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
   constructor() {
     super({ movieCredit: null, isLoading: false, error: null });
   }
+
+  readonly cleanMovieDetailCredits = this.updater((state) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      movieCredit: null,
+    };
+  });
 
   private readonly addMovieDetailCreditsInit = this.updater((state) => {
     return {
@@ -66,6 +79,7 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
     return movieId$.pipe(
       tap(() => {
         this.addMovieDetailCreditsInit();
+        // this.store.dispatch(movieDetailCreditsIsLoading({ isLoading: true }));
       }),
       switchMap((movieId) => {
         return this.TMDBMovieDetailService.movieCredits(movieId).pipe(
@@ -73,6 +87,9 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
             this.addMovieDetailCreditsSuccess({
               movieCredit,
             });
+            // this.store.dispatch(
+            // movieDetailCreditsIsLoading({ isLoading: false })
+            // );
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
             return of().pipe(
@@ -81,6 +98,9 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
                 this.store.dispatch(
                   movieDetailCreditsFailure({ httpErrorResponse })
                 );
+                // this.store.dispatch(
+                //   movieDetailCreditsIsLoading({ isLoading: false })
+                // );
               })
             );
           })

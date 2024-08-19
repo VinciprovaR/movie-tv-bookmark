@@ -12,6 +12,7 @@
       [mediaType]="'tv'"
       [includeScrollEvents]="false"
       [direction]="'horizontal'"
+      [personIdentifier]="'cast'"
     ></app-media-list-container>
 
     }@else {
@@ -28,10 +29,11 @@
       [scrollSelf]="true"
       [minMaxCol]="140"
       [isLoading]="(selectIsLoading$ | async) ?? false"
-      [mediaList]="personDetailTVCredits.crew"
+      [mediaList]="removeDuplicateCrewTV(personDetailTVCredits.crew)"
       [mediaType]="'tv'"
       [includeScrollEvents]="false"
       [direction]="'horizontal'"
+      [personIdentifier]="'cast'"
     ></app-media-list-container>
 
     }@else {

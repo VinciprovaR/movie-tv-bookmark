@@ -54,6 +54,7 @@ export class TVDiscoveryComponent
   mediaType: MediaType = 'tv';
 
   selectIsLoading$!: Observable<boolean>;
+  selectNoAdditional$!: Observable<boolean>;
   selectTVList$!: Observable<TV[]>;
   selectTVLifecycleMap$!: Observable<TVLifecycleMap>;
   selectCombinedDiscoveryFilters$!: Observable<[PayloadDiscoveryTV, Genre[]]>;
@@ -95,6 +96,9 @@ export class TVDiscoveryComponent
 
     this.selectSortBy$ = this.store.select(
       FiltersMetadataSelectors.selectSortByDiscoveryTV
+    );
+    this.selectNoAdditional$ = this.store.select(
+      DiscoveryTVSelectors.selectNoAdditional
     );
   }
 

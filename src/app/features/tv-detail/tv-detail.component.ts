@@ -1,4 +1,12 @@
-import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -43,11 +51,14 @@ import { NavigationExtras } from '@angular/router';
     VideosContainerComponent,
     MediaKeywordsComponent,
   ],
-  providers: [TVDetailStore, BridgeDataService],
+  providers: [BridgeDataService],
   templateUrl: './tv-detail.component.html',
   styleUrl: './tv-detail.component.css',
 })
-export class TVDetailComponent extends AbstractMediaDetailComponent {
+export class TVDetailComponent
+  extends AbstractMediaDetailComponent
+  implements OnInit, OnDestroy
+{
   protected readonly bridgeDataService = inject(BridgeDataService);
   readonly tvDetailstore = inject(TVDetailStore);
 
@@ -138,5 +149,9 @@ export class TVDetailComponent extends AbstractMediaDetailComponent {
 
   searchTVDetail() {
     this.tvDetailstore.searchTVDetail(this.tvId);
+  }
+
+  ngOnDestroy(): void {
+    this.tvDetailstore.cleanTVDetail();
   }
 }

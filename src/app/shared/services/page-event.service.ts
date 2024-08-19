@@ -31,10 +31,10 @@ export class PageEventService {
 
     this.initSelectors();
   }
-
+  // , debounceTime(500)
   initSelectors() {
     fromEvent(window, 'resize')
-      .pipe(takeUntil(this.destroyed$), debounceTime(500))
+      .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.window$.next(window);
       });

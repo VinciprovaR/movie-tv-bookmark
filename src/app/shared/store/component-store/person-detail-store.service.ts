@@ -16,12 +16,16 @@ export interface PersonDetailState extends StateMediaBookmark {
   personId: number;
 }
 
+// export const personDetailIsLoading = createAction(
+//   '[Person-Detail] Person Detail Is Loading',
+//   props<{ isLoading: boolean }>()
+// );
 export const personDetailFailure = createAction(
-  '[Person-Detail/API] Person Detail Failure',
+  '[Person-Detail] Person Detail Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PersonDetailStore extends ComponentStore<PersonDetailState> {
   private readonly store = inject(Store);
   private readonly TMDBPersonDetailService = inject(TMDBPersonDetailService);
@@ -37,6 +41,16 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
       personId: 0,
     });
   }
+
+  readonly cleanPersonDetail = this.updater((state) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      personDetail: null,
+      personId: 0,
+    };
+  });
 
   private readonly personDetailInit = this.updater(
     (state, { personId }: { personId: number }) => {
@@ -74,17 +88,22 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
     return personId$.pipe(
       tap((personId: number) => {
         this.personDetailInit({ personId });
+        // this.store.dispatch(personDetailIsLoading({ isLoading: true }));
       }),
       switchMap((personId: number) => {
         return this.TMDBPersonDetailService.personDetail(personId).pipe(
           tap((personDetail: PersonDetail) => {
             this.personDetailSuccess({ personDetail });
+            // this.store.dispatch(personDetailIsLoading({ isLoading: false }));
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
             return of().pipe(
               tap(() => {
                 this.personDetailFailure(httpErrorResponse);
                 this.store.dispatch(personDetailFailure({ httpErrorResponse }));
+                // this.store.dispatch(
+                //   personDetailIsLoading({ isLoading: false })
+                // );
               })
             );
           })

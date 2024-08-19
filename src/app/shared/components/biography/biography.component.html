@@ -1,0 +1,14 @@
+<div class="space-y-1">
+  <h3>Biography</h3>
+  @if( biography){
+  <div>
+    @for(p of splitByDoubleNewline(biography); track p){
+    <p class="pb-6">{{ p }}</p>
+    }
+  </div>
+  } @else {
+  <app-missing-field-placeholder
+    [caption]="'No biography found for this person'"
+  ></app-missing-field-placeholder>
+  }
+</div>

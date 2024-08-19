@@ -3,6 +3,7 @@ import {
   Component,
   inject,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -58,14 +59,14 @@ export interface MovieBanner {
     ImgComponent,
     RouterLink,
   ],
-  providers: [MovieDetailCreditsStore, MovieDetailStore],
+
   templateUrl: './movie-detail-credits.component.html',
   styleUrl: './movie-detail-credits.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailCreditsComponent
   extends AbstractMediaDetailCreditsComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   private readonly movieDetailCreditsStore = inject(MovieDetailCreditsStore);
   readonly movieDetailstore = inject(MovieDetailStore);
@@ -202,7 +203,7 @@ export class MovieDetailCreditsComponent
   }
 
   searchMovieCredits() {
-    this.movieDetailCreditsStore.searchMovieCredits(this.movieId);
+    // this.movieDetailCreditsStore.searchMovieCredits(this.movieId);
   }
 
   searchMovieDetail() {
@@ -267,5 +268,10 @@ export class MovieDetailCreditsComponent
 
   buildDetailPath(id: number) {
     return `/movie-detail/${id}`;
+  }
+
+  ngOnDestroy(): void {
+    this.movieDetailstore.cleanMovieDetail();
+    this.movieDetailCreditsStore.cleanMovieDetailCredits();
   }
 }

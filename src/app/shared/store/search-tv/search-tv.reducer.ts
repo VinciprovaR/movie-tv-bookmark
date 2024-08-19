@@ -14,6 +14,7 @@ export const initialState: SearchTVState = {
     total_pages: 1,
     total_results: 0,
   },
+  noAdditional: false,
 };
 
 export const searchTVReducer = createReducer(
@@ -40,6 +41,7 @@ export const searchTVReducer = createReducer(
       error: null,
       isLoading: false,
       tvResult,
+      noAdditional: false,
     };
   }),
   on(
@@ -57,6 +59,7 @@ export const searchTVReducer = createReducer(
           total_results: tvResult?.total_results ? tvResult.total_results : 0,
           results: [...currTVs, ...nextTVs],
         },
+        noAdditional: false,
       };
     }
   ),
@@ -65,6 +68,7 @@ export const searchTVReducer = createReducer(
       ...state,
       error: null,
       isLoading: false,
+      noAdditional: true,
     };
   }),
 
@@ -91,3 +95,4 @@ export const getTVResultPage = (state: SearchTVState) => state.tvResult.page;
 
 export const getTVResultTotalPages = (state: SearchTVState) =>
   state.tvResult.total_pages;
+export const getNoAdditional = (state: SearchTVState) => state.noAdditional;

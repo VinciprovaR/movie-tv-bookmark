@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Alert, notificationType } from '../../interfaces/alert.interface';
 import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
+import { SearchMovieSelectors } from '../search-movie';
 //to-do refractor in state globale (?)
 export interface AlertState {
   alerts: Alert[];
@@ -30,6 +31,11 @@ export class NotifierStore extends ComponentStore<AlertState> {
   readonly isFailure = (action: any & TypedAction<string>) => {
     let { type }: { type: string } = action;
     return type.toLowerCase().includes('failure');
+  };
+
+  readonly isLoading = (action: any & TypedAction<string>) => {
+    let { type }: { type: string } = action;
+    return type.toLowerCase().includes('is loading');
   };
 
   readonly isSuccessOrNotify = (action: any & TypedAction<string>) => {
@@ -71,6 +77,10 @@ export class NotifierStore extends ComponentStore<AlertState> {
       })
     );
   });
+
+  // readonly showLoadingBar = this.effect(() => {
+
+  // });
 
   readonly showAlertSuccess = this.effect(() => {
     return this.actions$.pipe(

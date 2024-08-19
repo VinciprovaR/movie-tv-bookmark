@@ -8,9 +8,9 @@
     class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[85vh] mb-0 lg:mb-8"
   >
     <div
-      class="flex flex-row header-gradient h-full w-full p-4 justify-center lg:justify-normal lg:p-8 space-x-8"
+      class="flex flex-row h-full w-full p-4 justify-center lg:justify-normal lg:p-8 space-x-8"
       [ngStyle]="{
-        'background-color': 'var(--bg-header-media-detail-not-lg)'
+        'background-color': 'var(--bg-header-person-detail)'
       }"
     >
       <div class="h-[35vh] lg:h-[85vh] aspect-[2/3] w-xxxsm relative">
@@ -27,79 +27,42 @@
 
       @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
       <div class="hidden lg:block max-w-[1100px]">
-        <!-- main info -->
+        <app-person-detail-main-info [personDetail]="personDetail">
+        </app-person-detail-main-info>
       </div>
       }
     </div>
   </div>
 
   @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
-  <div class="block lg:hidden h-full">
-    <!-- main info -->
+  <div class="block lg:hidden h-full bg-[var(--bkg-container-color)] mb-4">
+    <app-person-detail-main-info [personDetail]="personDetail">
+    </app-person-detail-main-info>
   </div>
 
   }
 
-  <div
-    class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto flex flex-col lg:flex-row-reverse"
-  >
-    <div class="w-full lg:w-[25%] space-y-4 lg:space-y-8 mb-4 lg:mb-0">
+  <div class="w-full lg:w-[70%] max-w-[1536px] lg:mx-auto">
+    <div class="w-full lg:hidden space-y-4 lg:space-y-8 mb-4 lg:mb-0">
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
         <h2 class="mb-4 pl-4">For more info go to</h2>
         <div class="pl-4">
           <app-external-info
             [tmdbId]="personDetail.id"
+            [imdbId]="personDetail.imdb_id"
             [mediaType]="mediaType"
           ></app-external-info>
         </div>
       </div>
     </div>
-    <div class="w-full lg:w-[75%] space-y-4 lg:space-y-8 lg:mr-12">
+    <div class="w-full space-y-4 lg:space-y-8 lg:mr-12">
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
-        <!-- movie know -->
         <app-person-movies [personId]="personId"></app-person-movies>
       </div>
       <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
-        <!-- tv know -->
         <app-person-tvs [personId]="personId"></app-person-tvs>
       </div>
     </div>
   </div>
   }
 </section>
-
-<!-- <section class="w-[90%] max-w-5xl m-auto pt-[70px]">
-  @if(selectPersonDetail$ | async; as selectPersonDetail){
-  <div class="m-2">
-    <div style="display: flex">
-      <div>
-        <app-img
-          [alt]="selectPersonDetail.name"
-          [title]="selectPersonDetail.name"
-          [imgSrc]="selectPersonDetail.profile_path"
-          [baseUrl]="TMDB_PROFILE_1X_IMG_URL"
-          [customClasses]="'border-container'"
-        ></app-img>
-      </div>
-      <div>
-        <h1>{{ selectPersonDetail.name }}</h1>
-        <h3>
-          {{ selectPersonDetail.birthday }} - {{ selectPersonDetail.deathday }}
-        </h3>
-        <p>{{ selectPersonDetail.biography }}</p>
-      </div>
-    </div>
-  </div>
-
-  }
-  <div class="mb-6">
-    <app-person-detail-movie-credits
-      [personId]="personId"
-    ></app-person-detail-movie-credits>
-  </div>
-  <div class="mb-6">
-    <app-person-detail-tv-credits
-      [personId]="personId"
-    ></app-person-detail-tv-credits>
-  </div>
-</section> -->

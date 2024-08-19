@@ -13,7 +13,7 @@ import { PayloadTVLifecycle } from '../../interfaces/store/tv-lifecycle-state.in
 
 //populate lifecycle map
 export const populateTVLifecycleMapSuccess = createAction(
-  '[TV-Lifecycle/API] Populate TV Lifecycle Map Success',
+  '[TV-Lifecycle] Populate TV Lifecycle Map Success',
   props<{ tvLifecycleMap: TVLifecycleMap }>()
 );
 export const populateTVLifecycleMapFailure = createAction(
@@ -119,7 +119,7 @@ export const unchangedTVLifecycleFailure = createAction(
 
 //search tv by lifecycle
 export const notifySearchTVByLifecycle = createAction(
-  '[TV-Lifecycle/API] Notify Search TV By Lifecycle'
+  '[TV-Lifecycle] Notify Search TV By Lifecycle'
 );
 
 //search tv by lifecycle

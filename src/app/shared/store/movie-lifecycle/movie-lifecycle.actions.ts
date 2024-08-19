@@ -16,7 +16,7 @@ import { PayloadMovieLifecycle } from '../../interfaces/store/movie-lifecycle-st
 
 //populate lifecycle map
 export const populateMovieLifecycleMapSuccess = createAction(
-  '[Movie-Lifecycle/API] Populate Movie Lifecycle Map Success',
+  '[Movie-Lifecycle] Populate Movie Lifecycle Map Success',
   props<{ movieLifecycleMap: MovieLifecycleMap }>()
 );
 export const populateMovieLifecycleMapFailure = createAction(
@@ -124,7 +124,7 @@ export const unchangedMovieLifecycleFailure = createAction(
 
 //search movie by lifecycle
 export const notifySearchMovieByLifecycle = createAction(
-  '[Movie-Lifecycle/API] Notify Search Movie By Lifecycle'
+  '[Movie-Lifecycle] Notify Search Movie By Lifecycle'
 );
 
 //search movie by lifecycle

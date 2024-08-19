@@ -16,7 +16,7 @@ export const discoveryMovieSuccess = createAction(
   props<{ movieResult: MovieResult }>()
 );
 export const discoveryMovieFailure = createAction(
-  '[Discovery-Movie/API] Discovery Movie Failure',
+  '[Discovery-Movie] Discovery Movie Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
@@ -28,7 +28,7 @@ export const discoveryAdditionalMovieSuccess = createAction(
   props<{ movieResult: MovieResult }>()
 );
 export const discoveryAdditionaMovieFailure = createAction(
-  '[Discovery-Movie/API] Discovery Additional Movie Failure',
+  '[Discovery-Movie] Discovery Additional Movie Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 

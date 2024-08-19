@@ -13,16 +13,20 @@ export interface TVDetailState extends StateMediaBookmark {
   tvDetail: TVDetail | null;
 }
 
+// export const tvDetailIsLoading = createAction(
+//   '[TV-Detail] TV Detail Is Loading',
+//   props<{ isLoading: boolean }>()
+// );
 export const tvDetailSuccess = createAction(
-  '[TV-Detail/API] TV Detail Success',
+  '[TV-Detail] TV Detail Success',
   props<{ tvDetail: TVDetail }>()
 );
 export const tvDetailFailure = createAction(
-  '[TV-Detail/API] TV Detail Failure',
+  '[TV-Detail] TV Detail Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TVDetailStore extends ComponentStore<TVDetailState> {
   readonly actions$ = inject(Actions);
   readonly store = inject(Store);
@@ -34,6 +38,15 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
   constructor() {
     super({ tvDetail: null, isLoading: false, error: null });
   }
+
+  readonly cleanTVDetail = this.updater((state) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      tvDetail: null,
+    };
+  });
 
   private readonly addTVDetailInit = this.updater((state) => {
     return {
@@ -66,12 +79,14 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
   readonly searchTVDetail = this.effect((tvId$: Observable<number>) => {
     return tvId$.pipe(
       tap(() => {
+        // this.store.dispatch(tvDetailIsLoading({ isLoading: true }));
         this.addTVDetailInit();
       }),
       switchMap((tvId) => {
         return this.TMDBTVDetailService.tvDetailChained(tvId).pipe(
           tap((tvDetail: TVDetail) => {
             this.store.dispatch(tvDetailSuccess({ tvDetail }));
+            // this.store.dispatch(tvDetailIsLoading({ isLoading: false }));
             this.addTVDetailSuccess({
               tvDetail,
             });
@@ -81,6 +96,7 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
               tap(() => {
                 this.addTVDetailFailure(httpErrorResponse);
                 this.store.dispatch(tvDetailFailure({ httpErrorResponse }));
+                // this.store.dispatch(tvDetailIsLoading({ isLoading: false }));
               })
             );
           })

@@ -1,4 +1,11 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
@@ -16,7 +23,7 @@ import {
 } from '../../shared/store/movie-lifecycle';
 
 import { CommonModule } from '@angular/common';
-import { PersonDetailCreditsMovieStore } from '../../shared/store/component-store/person-detail-movie-credits-store.service';
+import { PersonDetailMovieCreditsStore } from '../../shared/store/component-store/person-detail-movie-credits-store.service';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
@@ -28,16 +35,19 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
     CommonModule,
     MissingFieldPlaceholderComponent,
   ],
-  providers: [BridgeDataService, PersonDetailCreditsMovieStore],
+  providers: [BridgeDataService],
   templateUrl: './person-movies.component.html',
   styleUrl: './person-movies.component.css',
 })
-export class PersonMoviesComponent extends AbstractComponent implements OnInit {
+export class PersonMoviesComponent
+  extends AbstractComponent
+  implements OnInit, OnDestroy
+{
   title: string = 'Movie partecipated in';
 
   private readonly bridgeDataService = inject(BridgeDataService);
-  private readonly personDetailCreditsMovieStore = inject(
-    PersonDetailCreditsMovieStore
+  private readonly personDetailMovieCreditsStore = inject(
+    PersonDetailMovieCreditsStore
   );
 
   selectIsLoading$!: Observable<boolean>;
@@ -76,9 +86,9 @@ export class PersonMoviesComponent extends AbstractComponent implements OnInit {
   }
 
   override initSelectors() {
-    this.selectIsLoading$ = this.personDetailCreditsMovieStore.selectIsLoading$;
+    this.selectIsLoading$ = this.personDetailMovieCreditsStore.selectIsLoading$;
     this.personDetailMovieCredits$ =
-      this.personDetailCreditsMovieStore.selectCreditsMoviePersonDetail$;
+      this.personDetailMovieCreditsStore.selectCreditsMoviePersonDetail$;
 
     this.selectMovieLifecycleMap$ = this.store.select(
       MovieLifecycleSelectors.selectMovieLifecycleMap
@@ -88,7 +98,7 @@ export class PersonMoviesComponent extends AbstractComponent implements OnInit {
   override initSubscriptions(): void {}
 
   creditsMovie() {
-    this.personDetailCreditsMovieStore.creditsMovie(this.personId);
+    this.personDetailMovieCreditsStore.movieCredits(this.personId);
   }
 
   createUpdateDeleteMovieLifecycle(
@@ -99,5 +109,18 @@ export class PersonMoviesComponent extends AbstractComponent implements OnInit {
         mediaLifecycleDTO,
       })
     );
+  }
+
+  removeDuplicateCrewMovie(crewMovieList: Movie[]): Movie[] {
+    let crewMovieIdList: number[] = [];
+    return crewMovieList.filter((crewMovie) => {
+      const isPresent = crewMovieIdList.indexOf(crewMovie.id) > -1;
+      crewMovieIdList.push(crewMovie.id);
+      return !isPresent;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.personDetailMovieCreditsStore.cleanPersonDetailCreditsMovie();
   }
 }

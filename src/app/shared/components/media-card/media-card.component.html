@@ -1,10 +1,10 @@
 <div class="h-full border-container flex box-border flex-col relative">
   <div class="w-full h-auto aspect-[2/3]">
     <app-img
-      [alt]="tv.name"
-      [title]="tv.name"
-      [imgSrc]="tv.poster_path"
-      [baseUrl]="TMDB_SEARCH_LIST_1X_IMG_URL"
+      [alt]="title"
+      [title]="title"
+      [imgSrc]="media.poster_path"
+      [baseUrl]="TMDB_SEARCH_LIST_2X_IMG_URL"
       [link]="detailMediaPath"
       [customClasses]="'border-img-card'"
     ></app-img>
@@ -12,9 +12,10 @@
 
   <app-lifecycle-selector
     (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
-    [mediaData]="tv"
+    [mediaData]="media"
     [index]="index"
     [mediaType]="mediaType"
+    [personIdentifier]="personIdentifier"
   ></app-lifecycle-selector>
 
   <app-lifecycle-status-label
@@ -23,11 +24,11 @@
 
   <div class="card-content">
     <h4>
-      <a [routerLink]="detailMediaPath" [title]="tv.name">{{ tv.name }}</a>
+      <a [routerLink]="[detailMediaPath]" [title]="title">{{ title }}</a>
     </h4>
     <div class="mt-1">
       <p>
-        {{ tv.first_air_date | date : "longDate" }}
+        {{ releaseDate | date : "longDate" }}
       </p>
       @if(voteAverage){
       <app-rating [voteAverage]="voteAverage"></app-rating>

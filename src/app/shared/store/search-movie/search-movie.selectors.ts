@@ -31,11 +31,6 @@ export const selectMovieList = createSelector(
   SearchMovieReducer.getMovieList
 );
 
-export const selectScrollY = createSelector(
-  searchMovieFeatureSelector,
-  SearchMovieReducer.getScrollY
-);
-
 export const selectMoviePage = createSelector(
   searchMovieFeatureSelector,
   SearchMovieReducer.getMovieResultPage
@@ -49,4 +44,9 @@ export const selectMovieTotalPages = createSelector(
 export const selectError = createSelector(
   searchMovieFeatureSelector,
   SearchMovieReducer.getSearchMovieError
+);
+
+export const selectNoAdditional = createSelector(
+  searchMovieFeatureSelector,
+  SearchMovieReducer.getNoAdditional
 );

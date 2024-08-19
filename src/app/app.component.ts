@@ -14,6 +14,7 @@ import { ContentComponent } from './shared/layout/content/content.component';
 import { AlertContainerComponent } from './features/alert-container/alert-container.component';
 import { NotifierStore } from './shared/store/component-store/notifier-store.service';
 import { ToggleThemeStore } from './shared/store/component-store/toggle-theme-store.service';
+import { LoadingComponent } from './features/loading/loading.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { ToggleThemeStore } from './shared/store/component-store/toggle-theme-st
     ContentComponent,
     HeaderComponent,
     AlertContainerComponent,
+    LoadingComponent,
   ],
   providers: [NotifierStore],
   templateUrl: './app.component.html',

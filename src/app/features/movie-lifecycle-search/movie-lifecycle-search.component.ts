@@ -57,7 +57,7 @@ export class MovieLifecycleSearchComponent
 
   selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
   selectMovieList$!: Observable<Movie_Data[]>;
-
+  selectIsLoading$!: Observable<boolean>;
   selectSortBy$!: Observable<OptionFilter[]>;
   selectCombinedLifecycleFilters$!: Observable<
     [PayloadMovieLifecycle, Genre[]]
@@ -80,6 +80,10 @@ export class MovieLifecycleSearchComponent
   }
 
   override initSelectors() {
+    this.selectIsLoading$ = this.store.select(
+      MovieLifecycleSelectors.selectIsLoading
+    );
+
     this.selectSortBy$ = this.store.select(
       FiltersMetadataSelectors.selectSortByLifecycleMovie
     );

@@ -12,6 +12,7 @@
       [mediaType]="'movie'"
       [includeScrollEvents]="false"
       [direction]="'horizontal'"
+      [personIdentifier]="'cast'"
     ></app-media-list-container>
 
     }@else {
@@ -28,10 +29,11 @@
       [scrollSelf]="true"
       [minMaxCol]="140"
       [isLoading]="(selectIsLoading$ | async) ?? false"
-      [mediaList]="personDetailMovieCredits.crew"
+      [mediaList]="removeDuplicateCrewMovie(personDetailMovieCredits.crew)"
       [mediaType]="'movie'"
       [includeScrollEvents]="false"
       [direction]="'horizontal'"
+      [personIdentifier]="'crew'"
     ></app-media-list-container>
 
     }@else {

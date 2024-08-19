@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PersonDetailStore } from '../../shared/store/component-store/person-detail-store.service';
 import {
@@ -12,6 +12,8 @@ import { PersonMoviesComponent } from '../person-movies/person-movies.component'
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { ExternalInfoComponent } from '../../shared/components/external-info/external-info.component';
 import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
+
+import { PersonDetailMainInfoContentComponent } from '../../shared/components/person-detail-main-info/person-detail-main-info.component';
 import { PersonTVsComponent } from '../person-movies copy/person-tvs.component';
 
 @Component({
@@ -23,14 +25,15 @@ import { PersonTVsComponent } from '../person-movies copy/person-tvs.component';
     PersonTVsComponent,
     ImgComponent,
     ExternalInfoComponent,
+    PersonDetailMainInfoContentComponent,
   ],
-  providers: [PersonDetailStore],
+
   templateUrl: './person-detail.component.html',
   styleUrl: './person-detail.component.css',
 })
 export class PersonDetailComponent
   extends AbstractMediaDetailComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   private readonly personDetailStore = inject(PersonDetailStore);
 
@@ -59,5 +62,9 @@ export class PersonDetailComponent
 
   searchPersonDetail() {
     this.personDetailStore.searchPersonDetail(this.personId);
+  }
+
+  ngOnDestroy(): void {
+    this.personDetailStore.cleanPersonDetail();
   }
 }

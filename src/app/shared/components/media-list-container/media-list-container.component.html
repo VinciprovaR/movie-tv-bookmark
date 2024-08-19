@@ -6,33 +6,35 @@
   class="box-border"
 >
   @if( mediaList.length > 0){
+
   <ul
     #listContainer
-    class="grid gap-6 smc:gap-8 p-0 m-0 py-4"
+    class="grid p-0 m-0 py-4"
     [ngClass]="{
-      'grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))]':
+      'grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-8 smc:gap-10':
         direction === 'vertical',
-      'grid-flow-col grid-columns auto-cols-[140px] lg:auto-cols-[160px] overflow-x-scroll overflow-y-hidden':
+      'grid-flow-col grid-columns auto-cols-[150px] lg:auto-cols-[150px] overflow-x-scroll overflow-y-hidden pl-6 gap-6 smc:gap-6':
         direction === 'horizontal'
     }"
   >
     <!--  grid-flow-col grid-columns auto-cols-[100px] lg:auto-cols-[120px] overflow-x-scroll overflow-y-hidden -->
     @for(media of mediaList; track media.id;){
     <li class="list-none w-full">
-      <ng-container
-        *ngComponentOutlet="
-          mediaItemComponents[mediaType];
-          inputs: { mediaType, index: $index, media: media }
-        "
-      />
+      <app-media-card
+        [mediaType]="mediaType"
+        [index]="$index"
+        [media]="media"
+        [personIdentifier]="personIdentifier"
+      ></app-media-card>
     </li>
     }
   </ul>
-  } @else {
+
+  } @else { @if(!isLoading){
   <div class="flex justify-center">
     <app-missing-field-placeholder
       [caption]="placeholder"
     ></app-missing-field-placeholder>
   </div>
-  }
+  } }
 </div>

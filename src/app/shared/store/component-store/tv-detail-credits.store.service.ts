@@ -13,12 +13,16 @@ export interface TVDetailCreditsState extends StateMediaBookmark {
   tvCredit: TVCredit | null;
 }
 
+// export const tvDetailCreditsIsLoading = createAction(
+//   '[TV-Detail-Credits] TV Detail Credits Is Loading',
+//   props<{ isLoading: boolean }>()
+// );
 export const tvDetailCreditsFailure = createAction(
-  '[TV-Detail-Credits/API] TV Detail Credits Failure',
+  '[TV-Detail-Credits] TV Detail Credits Failure',
   props<{ httpErrorResponse: HttpErrorResponse }>()
 );
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
   readonly actions$ = inject(Actions);
   readonly store = inject(Store);
@@ -30,6 +34,15 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
   constructor() {
     super({ tvCredit: null, isLoading: false, error: null });
   }
+
+  readonly cleanTVDetailCredits = this.updater((state) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      tvCredit: null,
+    };
+  });
 
   private readonly addTVDetailCreditsInit = this.updater((state) => {
     return {
@@ -63,6 +76,7 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
     return tvId$.pipe(
       tap(() => {
         this.addTVDetailCreditsInit();
+        // this.store.dispatch(tvDetailCreditsIsLoading({ isLoading: true }));
       }),
       switchMap((tvId) => {
         return this.TMDBTVDetailService.tvCredits(tvId).pipe(
@@ -70,6 +84,7 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
             this.addTVDetailCreditsSuccess({
               tvCredit,
             });
+            // this.store.dispatch(tvDetailCreditsIsLoading({ isLoading: false }));
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
             return of().pipe(
@@ -78,6 +93,9 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
                 this.store.dispatch(
                   tvDetailCreditsFailure({ httpErrorResponse })
                 );
+                // this.store.dispatch(
+                //   tvDetailCreditsIsLoading({ isLoading: false })
+                // );
               })
             );
           })

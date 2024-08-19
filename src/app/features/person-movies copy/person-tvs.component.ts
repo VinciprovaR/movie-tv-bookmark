@@ -1,4 +1,11 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
@@ -28,11 +35,14 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
     CommonModule,
     MissingFieldPlaceholderComponent,
   ],
-  providers: [BridgeDataService, PersonDetailTVCreditsStore],
+  providers: [BridgeDataService],
   templateUrl: './person-tvs.component.html',
   styleUrl: './person-tvs.component.css',
 })
-export class PersonTVsComponent extends AbstractComponent implements OnInit {
+export class PersonTVsComponent
+  extends AbstractComponent
+  implements OnInit, OnDestroy
+{
   title: string = 'TV partecipated in';
 
   private readonly bridgeDataService = inject(BridgeDataService);
@@ -88,7 +98,7 @@ export class PersonTVsComponent extends AbstractComponent implements OnInit {
   override initSubscriptions(): void {}
 
   creditsTV() {
-    this.personDetailCreditsTVStore.creditsTV(this.personId);
+    this.personDetailCreditsTVStore.personDetailTVCredits(this.personId);
   }
 
   createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {
@@ -97,5 +107,18 @@ export class PersonTVsComponent extends AbstractComponent implements OnInit {
         mediaLifecycleDTO,
       })
     );
+  }
+
+  removeDuplicateCrewTV(crewTVList: TV[]): TV[] {
+    let crewTVIdList: number[] = [];
+    return crewTVList.filter((crewTV) => {
+      const isPresent = crewTVIdList.indexOf(crewTV.id) > -1;
+      crewTVIdList.push(crewTV.id);
+      return !isPresent;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.personDetailCreditsTVStore.cleanPersonDetailCreditsTV();
   }
 }

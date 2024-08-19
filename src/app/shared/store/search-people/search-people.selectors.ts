@@ -45,3 +45,8 @@ export const selectError = createSelector(
   searchPeopleFeatureSelector,
   SearchPeopleReducer.getSearchPeopleError
 );
+
+export const selectNoAdditional = createSelector(
+  searchPeopleFeatureSelector,
+  SearchPeopleReducer.getNoAdditional
+);

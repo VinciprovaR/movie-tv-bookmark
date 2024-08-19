@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as SearchMovieActions from './search-movie.actions';
 import { SearchMovieState } from '../../interfaces/store/search-movie-state.interface';
-import { MovieResultMock } from '../../../../assets/mock/movie-result.mock';
 
 export const searchMovieFeatureKey = 'search-movie';
 
@@ -15,7 +14,7 @@ export const initialState: SearchMovieState = {
     total_pages: 1,
     total_results: 0,
   },
-  scrollY: 0,
+  noAdditional: false,
 };
 
 export const searchMovieReducer = createReducer(
@@ -44,6 +43,7 @@ export const searchMovieReducer = createReducer(
         error: null,
         isLoading: false,
         movieResult,
+        noAdditional: false,
       };
     }
   ),
@@ -66,6 +66,7 @@ export const searchMovieReducer = createReducer(
             : 0,
           results: [...currMovies, ...nextMovies],
         },
+        noAdditional: false,
       };
     }
   ),
@@ -74,6 +75,7 @@ export const searchMovieReducer = createReducer(
       ...state,
       error: null,
       isLoading: false,
+      noAdditional: true,
     };
   }),
 
@@ -97,9 +99,9 @@ export const getSearchMovieError = (state: SearchMovieState) => state.error;
 export const getMovieResult = (state: SearchMovieState) => state.movieResult;
 export const getMovieList = (state: SearchMovieState) =>
   state.movieResult.results;
-export const getScrollY = (state: SearchMovieState) => state.scrollY;
 export const getMovieResultPage = (state: SearchMovieState) =>
   state.movieResult.page;
 
 export const getMovieResultTotalPages = (state: SearchMovieState) =>
   state.movieResult.total_pages;
+export const getNoAdditional = (state: SearchMovieState) => state.noAdditional;

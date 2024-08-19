@@ -79,7 +79,6 @@ export class ImgComponent extends AbstractComponent implements OnInit {
 
   navigateTo() {
     if (this.link) {
-      console.log(this.link);
       this.router.navigate([`${this.link}`]);
     }
   }
