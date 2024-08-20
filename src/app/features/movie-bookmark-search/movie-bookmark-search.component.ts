@@ -50,19 +50,19 @@ export class MovieBookmarkSearchComponent
   extends AbstractComponent
   implements OnInit
 {
-  title: string = '';
-
   private readonly bridgeDataService = inject(BridgeDataService);
-
-  @Input()
-  bookmarkType!: bookmarkEnum;
-  mediaType: MediaType = 'movie';
 
   selectMovieBookmarkMap$!: Observable<MovieBookmarkMap>;
   selectMovieList$!: Observable<Movie_Data[]>;
   selectIsLoading$!: Observable<boolean>;
   selectSortBy$!: Observable<OptionFilter[]>;
   selectCombinedBookmarkFilters$!: Observable<[PayloadMovieBookmark, Genre[]]>;
+
+  @Input()
+  bookmarkType!: bookmarkEnum;
+
+  mediaType: MediaType = 'movie';
+  title: string = '';
 
   constructor() {
     super();

@@ -4,7 +4,7 @@
 
 
 ################ FATTO, RICONTROLLARE ################
- 
+ - CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
 - Quando l'azione va in errore, la selector deve riprendersi il bookmark id nello state movie/tv-bookmark
 - Scroll infinito quando non ci sono media in lista
 - Scroll infinito solo verticale
@@ -25,7 +25,7 @@
 
 
 ################ GENERIC ################
-- CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
+
 - Refractor index models export
 - check http://localhost:4200/#/person-detail/1964445
 - [Violation] 'setTimeout' handler took 345ms
@@ -38,7 +38,6 @@
 - Nelle subcribe custom next e error
 - Abount / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
 - Hai dimenticato alcune destroyed ref...
-- aria accessibility
 - oggetti placeholder dove ci sono dati asincroni
 - astratta tra discovery.filter.directive e bookmark.filter.directive
 - bookmark rinominare in bookmark

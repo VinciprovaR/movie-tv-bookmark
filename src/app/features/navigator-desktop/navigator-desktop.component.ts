@@ -1,11 +1,13 @@
 import {
   Component,
   DestroyRef,
+  ElementRef,
   inject,
   Input,
   OnInit,
   Renderer2,
   RendererFactory2,
+  ViewChild,
 } from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { CommonModule } from '@angular/common';
@@ -15,10 +17,12 @@ import {
   Router,
   RouterLink,
   RouterLinkActive,
+  Event,
 } from '@angular/router';
-import { filter, map, Subject, takeUntil } from 'rxjs';
+import { filter, map, Observable, Subject, takeUntil, timer } from 'rxjs';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-navigator-desktop',
@@ -28,38 +32,31 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './navigator-desktop.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigatorDesktopComponent implements OnInit {
-  private renderer!: Renderer2;
-  private readonly rendererFactory = inject(RendererFactory2);
-  private readonly destroyRef$ = inject(DestroyRef);
-  private readonly router = inject(Router);
-
-  destroyed$ = new Subject();
+export class NavigatorDesktopComponent
+  extends AbstractComponent
+  implements OnInit
+{
   urlAfterRedirects!: string;
+
+  @ViewChild('submenu')
+  submenu!: ElementRef;
+  @ViewChild('menuEl')
+  menuEl!: ElementRef;
 
   @Input({ required: true })
   navElements!: NavElements;
-  subMenuRef!: HTMLElement;
 
   constructor() {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {
     this.renderer = this.rendererFactory.createRenderer(null, null);
+    this.initSubscriptions();
+  }
 
-    this.router.events
-      .pipe(
-        takeUntil(this.destroyed$),
-        filter((event: any) => event instanceof NavigationStart)
-      )
-      .subscribe((event) => {
-        this.hideSubMenuStart();
-      });
-
+  override initSelectors(): void {}
+  override initSubscriptions(): void {
     this.router.events
       .pipe(
         takeUntil(this.destroyed$),
@@ -70,19 +67,14 @@ export class NavigatorDesktopComponent implements OnInit {
         this.urlAfterRedirects = urlAfterRedirects;
       });
   }
-  showSubMenu(subMenu: HTMLElement) {
-    this.subMenuRef = subMenu;
-    this.renderer.addClass(subMenu, 'show-sub-menu');
-  }
 
-  hideSubMenu(subMenu: HTMLElement) {
-    this.renderer.removeClass(subMenu, 'show-sub-menu');
-  }
-
-  hideSubMenuStart() {
-    if (this.subMenuRef) {
-      this.renderer.removeClass(this.subMenuRef, 'show-sub-menu');
-    }
+  hideSubMenu() {
+    this.renderer.removeClass(this.menuEl.nativeElement, 'show-sub-menu');
+    timer(500)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(() => {
+        this.renderer.addClass(this.menuEl.nativeElement, 'show-sub-menu');
+      });
   }
 
   checkIsActive(navElementKey: string) {

@@ -5,7 +5,7 @@
   background-color: var(--bkg-color-nav-sub-menu);
 }
 
-.show-sub-menu {
+.show-sub-menu:hover ul {
   max-height: 200px;
 }
 

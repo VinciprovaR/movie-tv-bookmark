@@ -5,8 +5,6 @@ import {
   Input,
   Output,
   EventEmitter,
-  DestroyRef,
-  RendererFactory2,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -15,14 +13,13 @@ import {
   FormControl,
 } from '@angular/forms';
 
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import {
   Genre,
   GenreGroup,
   GenreControl,
   OptionFilter,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
-import { Store } from '@ngrx/store';
 import { AbstractComponent } from './abstract-component.component';
 
 @Directive()

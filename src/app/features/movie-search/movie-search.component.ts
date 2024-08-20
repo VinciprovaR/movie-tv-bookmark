@@ -5,7 +5,6 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Observable, takeUntil } from 'rxjs';
@@ -13,7 +12,6 @@ import {
   SearchMovieActions,
   SearchMovieSelectors,
 } from '../../shared/store/search-movie';
-
 import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
@@ -34,17 +32,15 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieSearchComponent extends AbstractComponent implements OnInit {
-  title = 'Movie Search';
-
   private readonly bridgeDataService = inject(BridgeDataService);
-
-  movieListLength: number = 0;
-  mediaType: MediaType = 'movie';
 
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
   selectNoAdditional$!: Observable<boolean>;
+
+  title = 'Movie Search';
+  mediaType: MediaType = 'movie';
 
   constructor() {
     super();

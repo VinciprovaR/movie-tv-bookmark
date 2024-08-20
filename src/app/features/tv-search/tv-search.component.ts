@@ -37,14 +37,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
 export class TVSearchComponent extends AbstractComponent implements OnInit {
   private readonly bridgeDataService = inject(BridgeDataService);
 
-  title = 'TV Search';
-
-  mediaType: MediaType = 'tv';
-
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectTVList$!: Observable<TV[]>;
   selectNoAdditional$!: Observable<boolean>;
+
+  title = 'TV Search';
+  mediaType: MediaType = 'tv';
 
   constructor() {
     super();

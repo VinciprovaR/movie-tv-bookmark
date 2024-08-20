@@ -18,7 +18,7 @@ import { reducers, metaReducers } from './shared/store/app.store';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './shared/store/auth/auth.effects';
 import { WebStorageService } from './shared/services/web-storage.service';
-import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
+
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
@@ -95,7 +95,6 @@ export const appConfig: ApplicationConfig = {
       provide: TitleStrategy,
       useClass: TitleStrategyService,
     },
-    provideNzI18n(en_US),
     provideAnimationsAsync(),
     provideAnimationsAsync(),
   ],

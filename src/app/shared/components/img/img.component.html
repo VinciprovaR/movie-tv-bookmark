@@ -34,7 +34,14 @@
     />}
   </div>
 </div>
-<!--     
+<!-- 
+<div [ngClass]="customContainerHeightClass">
+  <div
+    class="relative overflow-hidden h-full"
+    [ngClass]="{
+    'pointer-events-none': !link ,
+  }"
+  >
     @if(priority){ @defer (on viewport) {
 
     <img
@@ -58,6 +65,9 @@
       fill="true"
       [ngClass]="customClasses"
       [priority]="priority"
+      [placeholder]="
+        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
+      "
     />} } @else{ @defer (on viewport) {
 
     <img
@@ -81,8 +91,9 @@
       fill="true"
       [ngClass]="customClasses"
       [loading]="'lazy'"
+      [placeholder]="
+        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
+      "
     />} }
-    
-    [placeholder]=" isPlaceholderPerson ? placeholderBase64Person :
-placeholderBase64Media " 
-    -->
+  </div>
+</div> -->

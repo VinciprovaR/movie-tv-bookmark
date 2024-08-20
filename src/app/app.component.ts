@@ -15,6 +15,7 @@ import { AlertContainerComponent } from './features/alert-container/alert-contai
 import { NotifierStore } from './shared/store/component-store/notifier-store.service';
 import { ToggleThemeStore } from './shared/store/component-store/toggle-theme-store.service';
 import { LoadingComponent } from './features/loading/loading.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import { LoadingComponent } from './features/loading/loading.component';
     HeaderComponent,
     AlertContainerComponent,
     LoadingComponent,
+    RouterOutlet,
   ],
   providers: [NotifierStore],
   templateUrl: './app.component.html',
