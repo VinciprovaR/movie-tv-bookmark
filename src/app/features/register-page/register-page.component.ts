@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Inject } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component } from '@angular/core';
 import {
   RegisterPayload,
   RegisterForm,
@@ -21,8 +20,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-register-page',
@@ -41,16 +40,16 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './register-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterPageComponent {
-  private readonly store = inject(Store);
-
+export class RegisterPageComponent extends AbstractComponent {
   registerForm!: FormGroup<RegisterForm>;
 
   selectIsLoading$: Observable<boolean> = this.store.select(
     AuthSelectors.selectIsLoading
   );
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup<RegisterForm>({
@@ -76,6 +75,9 @@ export class RegisterPageComponent {
       }),
     });
   }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   pswLength(control: AbstractControl): ValidationErrors | null {
     return control.value.length > 0 &&

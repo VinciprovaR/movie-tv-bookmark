@@ -135,8 +135,6 @@ export class TVDetailCreditsComponent
   }
 
   handleDataFromRoute(tvDetail: TVDetail) {
-    console.log('from route');
-
     this.initDynamicSelectors(
       this.castListSub$.asObservable(),
       this.departmentsSub$.asObservable(),
@@ -147,7 +145,6 @@ export class TVDetailCreditsComponent
   }
 
   handleDataFromStore() {
-    console.log('from store');
     const forCastList$ = this.tvDetail$.pipe(
       map((tvDetail: TVDetail | null) => {
         if (tvDetail) {
@@ -218,8 +215,6 @@ export class TVDetailCreditsComponent
     const departments = this.buildCrewObject(tvDetail.aggregate_credits.crew);
     const castList = this.buildCastObject(tvDetail.aggregate_credits.cast);
     const tvBanner = this.buildTVBanner(tvDetail);
-    this.t2 = new Date().getTime();
-    console.log(this.t2 - this.t1);
     this.castListSub$.next(castList);
     this.departmentsSub$.next(departments);
     this.tvBannerSub$.next(tvBanner);

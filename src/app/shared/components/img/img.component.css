@@ -21,6 +21,10 @@
   background-image: url("../../../../assets/images/glyphicons-basic-38-picture-grey-w220-h330.svg");
 }
 
+.bg-size-placeholder {
+  background-size: auto !important;
+}
+
 .fill-img {
   position: absolute;
   width: 100%;

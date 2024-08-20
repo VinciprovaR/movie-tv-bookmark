@@ -32,6 +32,7 @@ import { SwiperOptions } from 'swiper/types';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-videos-container',
@@ -49,16 +50,14 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './videos-container.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideosContainerComponent implements OnInit {
+export class VideosContainerComponent
+  extends AbstractComponent
+  implements OnInit
+{
   //Injections
-  readonly pageEventService = inject(PageEventService);
+
   readonly dialog = inject(MatDialog);
   private readonly overlay = inject(Overlay);
-  private renderer!: Renderer2;
-  private readonly rendererFactory = inject(RendererFactory2);
-
-  //Observable
-  destroyed$ = new Subject();
 
   //Input-Output-Binding
   @ViewChild('swiper', { static: false })
@@ -80,10 +79,7 @@ export class VideosContainerComponent implements OnInit {
   isBeginning: boolean = true;
 
   constructor() {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    super();
   }
 
   ngOnInit(): void {
@@ -94,6 +90,9 @@ export class VideosContainerComponent implements OnInit {
     this.renderer = this.rendererFactory.createRenderer(null, null);
     this.videoList = this.filterVideosType();
   }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   onSwiperSlidesUpdated(event: any) {
     this.checkSlideButtonDisplay(

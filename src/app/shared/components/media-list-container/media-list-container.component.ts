@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -13,10 +14,10 @@ import { Movie, TV } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 import { MediaCardComponent } from '../media-card/media-card.component';
-
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-media-list-container',
@@ -32,9 +33,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './media-list-container.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MediaListContainerComponent implements OnInit {
-  @ViewChild('listContainer') listContainer!: ElementRef;
-
+export class MediaListContainerComponent
+  extends AbstractComponent
+  implements OnInit, AfterViewInit
+{
   @Output()
   emitDiscoveryAdditionalMedia = new EventEmitter<number>();
   @Input({ required: true })
@@ -48,25 +50,32 @@ export class MediaListContainerComponent implements OnInit {
   @Input()
   placeholder!: string;
   @Input()
-  minMaxCol: number = 160;
-  @Input()
   scrollSelf: boolean = false;
   @Input()
   includeScrollEvents: boolean = true;
   @Input()
   direction: 'horizontal' | 'vertical' = 'vertical';
 
-  gridCol: string = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
+  @Input()
+  cardSize: 'md' | 'lg' = 'md';
+
+  ulContainerClass: string = '';
 
   @Input()
   personIdentifier: string = '';
 
-  constructor() {}
-  ngOnInit(): void {
-    this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
+  constructor() {
+    super();
+  }
 
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+
+  ngOnInit(): void {
     this.placeholder = `No ${this.mediaType} were found that match your query.`;
   }
+
+  ngAfterViewInit(): void {}
 
   discoveryAdditionalMedia() {
     if (this.mediaList.length && !this.noAdditional) {

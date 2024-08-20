@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Keyword } from '../../interfaces/TMDB/tmdb-media.interface';
 import { StaticTagComponent } from '../static-tag/static-tag.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-media-keywords',
@@ -14,9 +14,14 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './media-keywords.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MediaKeywordsComponent {
+export class MediaKeywordsComponent extends AbstractComponent {
   @Input({ required: true })
   keywords: Keyword[] = [];
 
-  constructor() {}
+  constructor() {
+    super();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 }

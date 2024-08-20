@@ -6,7 +6,6 @@
     @if(personDetailTVCredits.cast.length > 0){
     <app-media-list-container
       [scrollSelf]="true"
-      [minMaxCol]="140"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="personDetailTVCredits.cast"
       [mediaType]="'tv'"
@@ -27,7 +26,6 @@
     @if(personDetailTVCredits.crew.length > 0){
     <app-media-list-container
       [scrollSelf]="true"
-      [minMaxCol]="140"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="removeDuplicateCrewTV(personDetailTVCredits.crew)"
       [mediaType]="'tv'"

@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -40,8 +41,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 })
 export class PersonListContainerComponent
   extends AbstractComponent
-  implements OnInit
+  implements OnInit, AfterViewInit
 {
+  @ViewChildren('crewCast')
+  castCrewCardComponentList!: QueryList<CastCrewCardComponent>;
   @Output()
   emitDiscoveryAdditionalMedia = new EventEmitter<number>();
   @Input()
@@ -53,24 +56,19 @@ export class PersonListContainerComponent
   @Input()
   @Input()
   placeholder!: string;
-  @Input()
-  minMaxCol: number = 160;
 
-  gridCol: string = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
-
+  gridCol: string = '';
   crewIdList: number[] = [];
-
-  @ViewChildren('crewCast')
-  castCrewCardComponentList!: QueryList<CastCrewCardComponent>;
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
-    this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
     this.placeholder = `No people were found that match your query.`;
   }
+  ngAfterViewInit(): void {}
+
   override initSelectors(): void {}
   override initSubscriptions(): void {}
 

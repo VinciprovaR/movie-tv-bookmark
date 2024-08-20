@@ -6,6 +6,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { VoteAverageGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-vote-average-filter',
@@ -15,11 +16,17 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './vote-average-filter.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VoteAverageFilterComponent {
+export class VoteAverageFilterComponent extends AbstractComponent {
   @Input({ required: true })
   filterForm!: FormGroup<any>;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+
   get voteAverageGroup(): FormGroup<VoteAverageGroup> {
     return this.filterForm.controls[
       'voteAverage'

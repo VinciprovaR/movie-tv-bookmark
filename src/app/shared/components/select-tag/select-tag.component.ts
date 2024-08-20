@@ -6,7 +6,6 @@ import {
   Output,
   forwardRef,
 } from '@angular/core';
-
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -14,8 +13,8 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { GenreControl } from '../../interfaces/TMDB/tmdb-filters.interface';
-
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-select-tag',
@@ -32,7 +31,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './select-tag.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectTagComponent implements ControlValueAccessor {
+export class SelectTagComponent
+  extends AbstractComponent
+  implements ControlValueAccessor
+{
   @Input({ required: true })
   genre!: GenreControl;
 
@@ -43,7 +45,13 @@ export class SelectTagComponent implements ControlValueAccessor {
   @Output()
   genreSelected = new EventEmitter<GenreControl>();
 
-  constructor() {}
+  constructor() {
+    super();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+
   writeValue(newValue: any): void {}
   registerOnChange(fn: any): void {
     this.onChange = fn;

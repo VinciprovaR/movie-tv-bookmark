@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MediaType } from '../interfaces/TMDB/tmdb-media.interface';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-imdb-icon',
@@ -11,7 +12,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './imdb-icon.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImdbIconComponent implements OnInit {
+export class ImdbIconComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })
   mediaId: string = '';
   @Input({ required: true })
@@ -20,11 +21,16 @@ export class ImdbIconComponent implements OnInit {
   tmdbBaseUrl: string = 'https://www.imdb.com';
   externalUrl: string = '';
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.buildExternalLink();
   }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   buildExternalLink() {
     this.externalUrl = this.externalUrl.concat(

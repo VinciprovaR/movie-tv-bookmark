@@ -1,5 +1,4 @@
 import { Directive, inject, Input } from '@angular/core';
-
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { BridgeDataService } from '../../services/bridge-data.service';

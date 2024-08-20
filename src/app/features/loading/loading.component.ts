@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { CommonModule } from '@angular/common';
-import { forkJoin, map, Observable, takeUntil, tap } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import { SearchMovieSelectors } from '../../shared/store/search-movie';
 import { SearchTVSelectors } from '../../shared/store/search-tv';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -26,7 +26,7 @@ import { PersonDetailMovieCreditsStore } from '../../shared/store/component-stor
 import { PersonDetailTVCreditsStore } from '../../shared/store/component-store/person-detail-tv-credits-store.service';
 import { TVDetailCreditsStore } from '../../shared/store/component-store/tv-detail-credits.store.service';
 import { TVDetailStore } from '../../shared/store/component-store/tv-detail-store.service';
-
+// to-do refractor
 @Component({
   selector: 'app-loading',
   standalone: true,

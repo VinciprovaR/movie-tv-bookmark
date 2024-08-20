@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AbstractComponent } from '../../components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-content',
@@ -9,4 +10,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './content.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContentComponent {}
+export class ContentComponent extends AbstractComponent {
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+}

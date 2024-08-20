@@ -1,6 +1,5 @@
 import {
   Component,
-  DestroyRef,
   EventEmitter,
   Input,
   OnInit,
@@ -9,12 +8,11 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-input-query',
@@ -24,8 +22,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './input-query.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputQueryComponent implements OnInit {
-  destroyed$ = new Subject();
+export class InputQueryComponent extends AbstractComponent implements OnInit {
+  private readonly fb = inject(FormBuilder);
 
   searchControl: FormControl<string> = this.fb.control<string>('', {
     validators: [],
@@ -43,14 +41,16 @@ export class InputQueryComponent implements OnInit {
     this.searchControl.setValue(query ? query : '', { emitEvent: false });
   }
 
-  constructor(private fb: FormBuilder, private store: Store) {
-    inject(DestroyRef).onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+  constructor() {
+    super();
   }
 
   ngOnInit(): void {
+    this.initSubscriptions();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {
     this.searchControl.valueChanges
       .pipe(
         takeUntil(this.destroyed$),

@@ -54,7 +54,7 @@
       >
         <ul class="p-0 m-0 space-y-4">
           @if((castList$|async); as castList ){ @for(cast of castList; track
-          cast){ @defer(on viewport){
+          cast){ @defer(){
           <li class="list-none w-full">
             <app-cast-crew-credit-card
               [id]="cast.id"
@@ -63,8 +63,6 @@
               [profile_path]="cast.profile_path"
             ></app-cast-crew-credit-card>
           </li>
-          } @placeholder {
-          <div></div>
           } }}
         </ul>
       </div>
@@ -100,7 +98,7 @@
         <div class="space-y-4">
           <h3>{{ department.key }}</h3>
           <ul class="p-0 m-0 space-y-4">
-            @for(crew of department.value; track crew){ @defer(on viewport){
+            @for(crew of department.value; track crew){ @defer(){
             <li class="list-none w-full">
               <app-cast-crew-credit-card
                 [id]="crew.id"
@@ -109,8 +107,6 @@
                 [profile_path]="crew.profile_path"
               ></app-cast-crew-credit-card>
             </li>
-            } @placeholder {
-            <div></div>
             } }
           </ul>
         </div>

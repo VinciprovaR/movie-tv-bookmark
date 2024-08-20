@@ -14,7 +14,7 @@ import { ExternalInfoComponent } from '../../shared/components/external-info/ext
 import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
 
 import { PersonDetailMainInfoContentComponent } from '../../shared/components/person-detail-main-info/person-detail-main-info.component';
-import { PersonTVsComponent } from '../person-movies copy/person-tvs.component';
+import { PersonTVsComponent } from '../person-tv/person-tvs.component';
 
 import { ChangeDetectionStrategy } from '@angular/core';
 

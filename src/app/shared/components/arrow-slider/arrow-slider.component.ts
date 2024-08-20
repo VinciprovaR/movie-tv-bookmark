@@ -1,18 +1,10 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  DestroyRef,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ImgComponent } from '../img/img.component';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 export type arrowType = 'up' | 'right' | 'down' | 'left';
-
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-arrow-slider',
@@ -22,18 +14,19 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './arrow-slider.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArrowSliderComponent implements OnInit {
-  private readonly destroyRef$ = inject(DestroyRef);
-
+export class ArrowSliderComponent extends AbstractComponent implements OnInit {
   @Output()
   emitClick = new EventEmitter<null>();
   @Input({ required: true })
   arrowType!: arrowType;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
-
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
   onClick() {
     this.emitClick.emit();
   }

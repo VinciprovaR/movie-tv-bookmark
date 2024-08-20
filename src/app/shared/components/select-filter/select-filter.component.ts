@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   OptionFilter,
   SelectTransformConfig,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
-
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-select-filter',
@@ -16,7 +16,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './select-filter.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectFilterComponent {
+export class SelectFilterComponent extends AbstractComponent {
   @Input({ required: true })
   filterForm!: FormGroup<any>;
   @Input({ required: true })
@@ -27,6 +27,13 @@ export class SelectFilterComponent {
   defaultOption: OptionFilter | null = null;
   @Input()
   title: string = '';
+
+  constructor() {
+    super();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   @Input()
   set transformSelectObject(selectTransform: {

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-rating',
@@ -11,9 +12,16 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './rating.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RatingComponent {
+export class RatingComponent extends AbstractComponent {
   @Input({ required: true })
   voteAverage: number = 0;
+
+  constructor() {
+    super();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   getVoteIconMetadata(voteAverage: number): { icon: string; color: string } {
     if (voteAverage < 6) {

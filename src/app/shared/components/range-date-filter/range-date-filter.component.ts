@@ -5,12 +5,10 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import {
-  DateRangeGroup,
-  DiscoveryMovieFilterForm,
-} from '../../interfaces/TMDB/tmdb-filters.interface';
+import { DateRangeGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-range-date-filter',
@@ -27,7 +25,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './range-date-filter.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RangeDateFilterComponent {
+export class RangeDateFilterComponent extends AbstractComponent {
   @Input({ required: true })
   filterForm!: FormGroup<any>;
 
@@ -37,7 +35,13 @@ export class RangeDateFilterComponent {
   @Input({ required: true })
   rangeDateLabel!: string;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
+
   get dateRangeGroup(): FormGroup<DateRangeGroup> {
     return this.filterForm.controls[
       this.customGroupName

@@ -12,6 +12,7 @@ import { ImgComponent } from '../img/img.component';
 import { MatDialog } from '@angular/material/dialog';
 import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.component';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-youtube-embeded-preview',
@@ -21,7 +22,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './youtube-embeded-preview.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class YoutubeEmbededPreviewComponent implements OnInit {
+export class YoutubeEmbededPreviewComponent
+  extends AbstractComponent
+  implements OnInit
+{
   readonly domSanitizer = inject(DomSanitizer);
   readonly dialog = inject(MatDialog);
 
@@ -40,10 +44,15 @@ export class YoutubeEmbededPreviewComponent implements OnInit {
 
   urlThumbnail: string = '';
 
-  constructor() {}
+  constructor() {
+    super();
+  }
   ngOnInit(): void {
     this.buildThumbnail();
   }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   buildThumbnail() {
     this.urlThumbnail = `https://i.ytimg.com/vi/${this.videoId}/maxresdefault.jpg`;

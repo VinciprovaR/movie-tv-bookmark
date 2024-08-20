@@ -131,8 +131,6 @@ export class MovieDetailCreditsComponent
   }
 
   handleDataFromRoute(movieDetail: MovieDetail) {
-    console.log('from route');
-
     this.initDynamicSelectors(
       this.castListSub$.asObservable(),
       this.departmentsSub$.asObservable(),
@@ -143,7 +141,6 @@ export class MovieDetailCreditsComponent
   }
 
   handleDataFromStore() {
-    console.log('from store');
     const forCastList$ = this.movieDetail$.pipe(
       map((movieDetail: MovieDetail | null) => {
         if (movieDetail) {

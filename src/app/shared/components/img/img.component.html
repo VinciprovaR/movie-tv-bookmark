@@ -6,8 +6,53 @@
     'pointer-events-none': !link ,
   }"
   >
-    @defer ( ) {
+    @if(priority){
+    <img
+      class="bg-size-placeholder"
+      [alt]="alt"
+      [title]="title"
+      [ngSrc]="
+        imgSrc
+          ? baseUrl + imgSrc
+          : isPlaceholderPerson
+          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
+          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
+      "
+      (click)="navigateTo()"
+      fill="true"
+      [ngClass]="customClasses"
+      [priority]="priority"
+      [placeholderConfig]="{ blur: false, }"
+      [placeholder]="
+        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
+      "
+    />
+    } @else{
+    <img
+      class="bg-size-placeholder"
+      [alt]="alt"
+      [title]="title"
+      [ngSrc]="
+        imgSrc
+          ? baseUrl + imgSrc
+          : isPlaceholderPerson
+          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
+          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
+      "
+      (click)="navigateTo()"
+      fill="true"
+      [ngClass]="customClasses"
+      [loading]="'lazy'"
+      [placeholderConfig]="{ blur: false }"
+      [placeholder]="
+        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
+      "
+    />
+    }
+  </div>
+</div>
 
+<!--     @defer ( ) { @if(fullSrc){
     <img
       class="fill-img"
       [alt]="alt"
@@ -18,22 +63,21 @@
       [ngClass]="customClasses"
       [loading]="'lazy'"
     />
-    } @placeholder {
+    } @else if(placeholderSrc){
     <img
       class="fill-img"
       [alt]="alt"
       [title]="title"
-      [srcset]="
-        isPlaceholderPerson
-          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
-          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
-      "
+      [srcset]="placeholderSrc"
+      (click)="navigateTo()"
       fill="true"
       [ngClass]="customClasses"
       [loading]="'lazy'"
-    />}
-  </div>
-</div>
+    />
+    } } -->
+
+<!--  -->
+
 <!-- 
 <div [ngClass]="customContainerHeightClass">
   <div

@@ -3,6 +3,7 @@ import { ImgComponent } from '../components/img/img.component';
 import { MediaType } from '../interfaces/TMDB/tmdb-media.interface';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-tmdb-icon',
@@ -12,7 +13,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './tmdb-icon.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TmdbIconComponent implements OnInit {
+export class TmdbIconComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })
   mediaId: number = 0;
   @Input({ required: true })
@@ -21,12 +22,15 @@ export class TmdbIconComponent implements OnInit {
   tmdbBaseUrl: string = 'https://www.themoviedb.org';
   externalUrl: string = '';
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.buildExternalLink();
   }
-
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
   buildExternalLink() {
     this.externalUrl = this.externalUrl.concat(
       `${this.tmdbBaseUrl}/${this.mediaType}/${this.mediaId}`

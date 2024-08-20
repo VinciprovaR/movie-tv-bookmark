@@ -1,7 +1,9 @@
 ################ IGNORATO ################
  
 - i18e (anche date filter) + label tutte in un file json (?)
-
+- tutti i campi, if else palceholder
+- astratta tra discovery.filter.directive e bookmark.filter.directive
+- vedere se riesci a eliminare if els from route store in movie and tv detail credits
 
 ################ FATTO, RICONTROLLARE ################
  - CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
@@ -22,8 +24,19 @@
 - Card e altri componenti con grandezze placeholder mentre aspettano dati async per evitare cambi dimensione
 - Spinner loading async disattivare roba
 - alert stile
-
-
+- search additional check if no additional store allora non triggerare evento
+- person movie e tv per crew eliminare quelli già presenti 
+- refractor astrazione, ricominciare da tutti, suddividere per features e creare le astrazioni mancanti (discovery, search, bookmark per esempio)
+- tutti i component  change detection on push, tutti i punti che hanno bisogno di detect change aggiungere metodo
+- mouseover header change detection
+- credit sotto categorie per crew
+- check class hidden-container, strano comportamento 
+- iterazioni, tutte, e porre un limite massimo
+- tv credits movie credits, singolo componente
+- integrare On push strategy
+- lifecycle rinominare in bookmark
+- oggetti placeholder dove ci sono dati asincroni
+- initSubscription ovunque (?)
 ################ GENERIC ################
 
 - Refractor index models export
@@ -38,10 +51,7 @@
 - Nelle subcribe custom next e error
 - Abount / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
 - Hai dimenticato alcune destroyed ref...
-- oggetti placeholder dove ci sono dati asincroni
-- astratta tra discovery.filter.directive e bookmark.filter.directive
-- bookmark rinominare in bookmark
-- initSubscription ovunque (?)
+
 - ricerca automatica per i discovery (?)
 - range date filter validatori error 
 - via tutti gli item prima di card 
@@ -68,27 +78,17 @@
 - separazione membri classe  come in videos-container.components
 - refractor ref on destroy, instance tipo renderer, subscription, ecc. (destro ref potresti usare una classe astratta per tutti i componenti)
 - integrare AbstractComponent (arrivato a movie discovery da sopra a sotto)
-- integrare On push strategy
+
 - verificare componenti che hanno bisogno di astratta, tipo movie discovery e tv discovery
 - scrollbar cast crew container detail diventa troppo piccola
-- identificare tutto ciò che potrebbe avere troppi item (esempio cast crew, cobra 11 ha più di 2000 membri del cast portando la tab a 1,4 GB di memoria) controllare
-  iterazioni, tutte, e porre un limite massimo
-  - fade scroller controllare per change detection
--check class hidden-container, strano comportamento 
-- credit sotto categorie per crew
-- vedere se riesci a eliminare if els from route store in movie and tv detail credits
-- mouseover header change detection
-- tutti i campi, if else palceholder
-- tv credits movie credits, singolo componente
-- tutti i component  change detection on push, tutti i punti che hanno bisogno di detect change aggiungere metodo
-- refractor astrazione, ricominciare da tutti, suddividere per features e creare le astrazioni mancanti (discovery, search, bookmark per esempio)
-- Stesso discorso per i servizi 
--person movie e tv per crew eliminare quelli già presenti 
+- numero cast e crew su tv e movie credit
+- astrazione  per i servizi 
 - page not found
 - person detail, read more solo esplosione se testo più lungo di tot
-- search additional check if no additional store allora non triggerare evento
 - modificare messaggi di success e error + label
 - controllare tutti i to-do comment 
+- img not found, fallback
+
 AUTH:
 - Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)
 quindi pushare l'utente nei reducer da sessione (da verificare)

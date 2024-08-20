@@ -1,11 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {
-  BookmarkNavElement,
-  LinkPath,
-} from '../../interfaces/navigator.interface';
+import { BookmarkNavElement } from '../../interfaces/navigator.interface';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
   selector: 'app-bookmark-navigator',
@@ -15,13 +13,18 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './bookmark-navigator.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigatorComponent {
+export class NavigatorComponent extends AbstractComponent {
   @Input({ required: true })
   bookmarkNavElements!: BookmarkNavElement[];
 
   hiddenNavMenu: boolean = true;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {}
 
   toggleNavMenu() {
     this.hiddenNavMenu = !this.hiddenNavMenu;
