@@ -118,6 +118,9 @@ export class TVLifecycleEffects {
               return TVLifecycleActions.createTVLifecycleSuccess({
                 tvLifecycleMap: tvLifecycleMap,
                 operation,
+                notifyMsg: `${mediaLifecycleDTO.mediaDataDTO.name} added in ${
+                  tvLifecycleMap[+Object.keys(tvLifecycleMap)[0]]
+                } bookmark!`,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
@@ -144,6 +147,9 @@ export class TVLifecycleEffects {
               return TVLifecycleActions.updateTVLifecycleSuccess({
                 tvLifecycleMap: tvLifecycleMap,
                 operation,
+                notifyMsg: `${mediaLifecycleDTO.mediaDataDTO.name} added in ${
+                  tvLifecycleMap[+Object.keys(tvLifecycleMap)[0]]
+                } bookmark!`,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
@@ -171,6 +177,7 @@ export class TVLifecycleEffects {
               return TVLifecycleActions.deleteTVLifecycleSuccess({
                 tvLifecycleMap: tvLifecycleMap,
                 operation,
+                notifyMsg: `${mediaLifecycleDTO.mediaDataDTO.name} removed from bookmark!`,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
@@ -220,7 +227,11 @@ export class TVLifecycleEffects {
         TVLifecycleActions.updateTVLifecycleSuccess
       ),
       switchMap((action) => {
-        return of(TVLifecycleActions.notifySearchTVByLifecycle());
+        return of(
+          TVLifecycleActions.notifySearchTVByLifecycle({
+            notifyMsg: action.notifyMsg,
+          })
+        );
       })
     );
   });

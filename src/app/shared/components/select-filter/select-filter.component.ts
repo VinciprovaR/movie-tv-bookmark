@@ -6,12 +6,15 @@ import {
   SelectTransformConfig,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-select-filter',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './select-filter.component.html',
   styleUrl: './select-filter.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectFilterComponent {
   @Input({ required: true })

@@ -23,6 +23,8 @@ import {
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-tv-search',
   standalone: true,
@@ -30,6 +32,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   providers: [BridgeDataService],
   templateUrl: './tv-search.component.html',
   styleUrl: './tv-search.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVSearchComponent extends AbstractComponent implements OnInit {
   private readonly bridgeDataService = inject(BridgeDataService);

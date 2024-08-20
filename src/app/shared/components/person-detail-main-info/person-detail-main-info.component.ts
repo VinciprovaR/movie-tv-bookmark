@@ -15,6 +15,8 @@ import { BiographyComponent } from '../biography/biography.component';
 import { AgePipe } from '../../pipes/age';
 import { ExternalInfoComponent } from '../external-info/external-info.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-person-detail-main-info',
   standalone: true,
@@ -35,6 +37,7 @@ import { ExternalInfoComponent } from '../external-info/external-info.component'
   ],
   templateUrl: './person-detail-main-info.component.html',
   styleUrl: './person-detail-main-info.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonDetailMainInfoContentComponent
   extends AbstractComponent

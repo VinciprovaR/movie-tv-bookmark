@@ -1,9 +1,18 @@
 <div
+  #alert
+  class="transition"
   [ngClass]="{
     'alert-error': type === 'error',
     'alert-success': type === 'success'
   }"
   (click)="onClose()"
 >
-  {{ message }}
+  <div class="space-y-1">
+    <h2>
+      @if(type==='error'){
+      <span>Failure!</span>
+      } @else {<span>Success!</span>}
+    </h2>
+    <p>{{ message }}</p>
+  </div>
 </div>

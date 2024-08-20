@@ -27,6 +27,8 @@ import { PersonDetailTVCreditsStore } from '../../shared/store/component-store/p
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-person-tvs',
   standalone: true,
@@ -38,6 +40,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   providers: [BridgeDataService],
   templateUrl: './person-tvs.component.html',
   styleUrl: './person-tvs.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonTVsComponent
   extends AbstractComponent

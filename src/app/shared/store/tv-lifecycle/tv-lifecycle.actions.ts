@@ -41,10 +41,11 @@ export const updateTVLifecycle = createAction(
   }>()
 );
 export const updateTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle] Update TV Lifecycle Success & Notify',
+  '[TV-Lifecycle] Update TV Lifecycle Success',
   props<{
     tvLifecycleMap: TVLifecycleMap;
     operation: crud_operations;
+    notifyMsg: string;
   }>()
 );
 export const updateTVLifecycleFailure = createAction(
@@ -62,10 +63,11 @@ export const deleteTVLifecycle = createAction(
   }>()
 );
 export const deleteTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle] Delete TV Lifecycle Success & Notify',
+  '[TV-Lifecycle] Delete TV Lifecycle Success ',
   props<{
     tvLifecycleMap: TVLifecycleMap;
     operation: crud_operations;
+    notifyMsg: string;
   }>()
 );
 export const deleteTVLifecycleFailure = createAction(
@@ -83,10 +85,11 @@ export const createTVLifecycle = createAction(
   }>()
 );
 export const createTVLifecycleSuccess = createAction(
-  '[TV-Lifecycle] Create TV Lifecycle Success & Notify',
+  '[TV-Lifecycle] Create TV Lifecycle Success',
   props<{
     tvLifecycleMap: TVLifecycleMap;
     operation: crud_operations;
+    notifyMsg: string;
   }>()
 );
 export const createTVLifecycleFailure = createAction(
@@ -119,7 +122,8 @@ export const unchangedTVLifecycleFailure = createAction(
 
 //search tv by lifecycle
 export const notifySearchTVByLifecycle = createAction(
-  '[TV-Lifecycle] Notify Search TV By Lifecycle'
+  '[TV-Lifecycle] Notify Search TV By Lifecycle',
+  props<{ notifyMsg: string }>()
 );
 
 //search tv by lifecycle

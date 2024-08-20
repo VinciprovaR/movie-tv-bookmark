@@ -18,12 +18,15 @@ import {
 } from '@angular/router';
 import { filter, map, Subject, takeUntil } from 'rxjs';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-navigator-desktop',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navigator-desktop.component.html',
   styleUrl: './navigator-desktop.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorDesktopComponent implements OnInit {
   private renderer!: Renderer2;

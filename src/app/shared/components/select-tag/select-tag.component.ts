@@ -15,6 +15,8 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { GenreControl } from '../../interfaces/TMDB/tmdb-filters.interface';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-select-tag',
   standalone: true,
@@ -28,6 +30,7 @@ import { GenreControl } from '../../interfaces/TMDB/tmdb-filters.interface';
   ],
   templateUrl: './select-tag.component.html',
   styleUrl: './select-tag.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectTagComponent implements ControlValueAccessor {
   @Input({ required: true })

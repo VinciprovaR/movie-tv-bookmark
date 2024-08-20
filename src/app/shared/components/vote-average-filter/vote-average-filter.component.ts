@@ -5,12 +5,15 @@ import { MatSliderModule } from '@angular/material/slider';
 
 import { VoteAverageGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-vote-average-filter',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatSliderModule],
   templateUrl: './vote-average-filter.component.html',
   styleUrl: './vote-average-filter.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VoteAverageFilterComponent {
   @Input({ required: true })

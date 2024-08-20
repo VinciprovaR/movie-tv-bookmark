@@ -1,12 +1,14 @@
-<div class="fixed bottom-4 right-4 space-y-2 z-50 w-full sm:w-auto sm:right-4">
+<div
+  class="fixed top-[20px] space-y-2 z-50 sm:right-4 w-full sm:w-auto sm:max-w-[65%] sm:items-end flex flex-col"
+>
   @if(selectAlerts$ | async; as alerts){ @for(alert of alerts; track alert){
-
-  <app-alert
-    [message]="alert.message"
-    [type]="alert.type"
-    [id]="alert.id"
-    (closeAlert)="closeAlert($event)"
-  ></app-alert>
-
+  <div class="sm:w-fit w-full sm:w-auto m-auto sm:m-0">
+    <app-alert
+      [message]="alert.message"
+      [type]="alert.type"
+      [id]="alert.id"
+      (closeAlert)="closeAlert($event)"
+    ></app-alert>
+  </div>
   } }
 </div>

@@ -2,12 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ImgComponent } from '../components/img/img.component';
 import { MediaType } from '../interfaces/TMDB/tmdb-media.interface';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-tmdb-icon',
   standalone: true,
   imports: [ImgComponent],
   templateUrl: './tmdb-icon.component.html',
   styleUrl: './tmdb-icon.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TmdbIconComponent implements OnInit {
   @Input({ required: true })

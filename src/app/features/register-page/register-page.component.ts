@@ -22,6 +22,8 @@ import {
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-register-page',
   standalone: true,
@@ -37,6 +39,7 @@ import { RouterModule } from '@angular/router';
   ],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPageComponent {
   private readonly store = inject(Store);

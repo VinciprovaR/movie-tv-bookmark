@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MovieLifecycleSelectors } from '../../shared/store/movie-lifecycle';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-movie-lifecycle-filters',
   standalone: true,
@@ -27,6 +29,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   ],
   templateUrl: './movie-lifecycle-filters.component.html',
   styleUrl: './movie-lifecycle-filters.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieLifecycleFiltersComponent extends AbstractLifecycleFilters<
   PayloadMovieLifecycle,

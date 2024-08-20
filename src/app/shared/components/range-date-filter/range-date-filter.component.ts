@@ -10,6 +10,8 @@ import {
   DiscoveryMovieFilterForm,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-range-date-filter',
   standalone: true,
@@ -23,6 +25,7 @@ import {
   providers: [provideNativeDateAdapter()],
   templateUrl: './range-date-filter.component.html',
   styleUrl: './range-date-filter.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RangeDateFilterComponent {
   @Input({ required: true })

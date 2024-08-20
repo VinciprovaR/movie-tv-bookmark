@@ -21,6 +21,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { RouterModule } from '@angular/router';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -36,6 +38,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent extends AbstractComponent {
   loginForm!: FormGroup<LoginForm>;

@@ -19,6 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DiscoveryTVSelectors } from '../../shared/store/discovery-tv';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-discovery-tv-filters',
   standalone: true,
@@ -35,6 +37,7 @@ import { DiscoveryTVSelectors } from '../../shared/store/discovery-tv';
   ],
   templateUrl: './tv-discovery-filters.component.html',
   styleUrl: './tv-discovery-filters.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDiscoveryFiltersComponent
   extends AbstractDiscoveryFilter<PayloadDiscoveryTV, DiscoveryTVFilterForm>

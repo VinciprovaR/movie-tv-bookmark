@@ -33,6 +33,8 @@ import { PayloadTVLifecycle } from '../../shared/interfaces/store/tv-lifecycle-s
 import { TVLifecycleFiltersComponent } from '../tv-lifecycle-filters/tv-lifecycle-filters.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-tv-lifecycle-search',
   standalone: true,
@@ -45,6 +47,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   providers: [BridgeDataService],
   templateUrl: './tv-lifecycle-search.component.html',
   styleUrl: './tv-lifecycle-search.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVLifecycleSearchComponent
   extends AbstractComponent

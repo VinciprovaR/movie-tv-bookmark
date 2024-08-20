@@ -6,12 +6,15 @@ import { CommonModule } from '@angular/common';
 import { User } from '@supabase/supabase-js/';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends AbstractComponent implements OnInit {
   selectUser$!: Observable<User | null>;

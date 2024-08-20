@@ -7,7 +7,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Alert, notificationType } from '../../interfaces/alert.interface';
 import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
-import { SearchMovieSelectors } from '../search-movie';
 //to-do refractor in state globale (?)
 export interface AlertState {
   alerts: Alert[];
@@ -21,11 +20,11 @@ export class NotifierStore extends ComponentStore<AlertState> {
   readonly selectAlerts$ = this.select((state) => state.alerts);
   //to-do i18e + refractor
   private readonly ALERT_MESSAGE_MAP: any = {
-    update: 'Bookmark updated!',
-    createUpdate: 'Bookmark added!',
-    delete: 'Bookmark deleted!',
-    create: 'Bookmark added!',
-    unchanged: 'Bookmark updated!',
+    update: 'added in ',
+    createUpdate: 'added in ',
+    delete: 'deleted from the bookmark!',
+    create: 'added in ',
+    unchanged: 'added in ',
   };
 
   readonly isFailure = (action: any & TypedAction<string>) => {
@@ -38,12 +37,9 @@ export class NotifierStore extends ComponentStore<AlertState> {
     return type.toLowerCase().includes('is loading');
   };
 
-  readonly isSuccessOrNotify = (action: any & TypedAction<string>) => {
+  readonly isNotify = (action: any & TypedAction<string>) => {
     let { type }: { type: string } = action;
-    return (
-      type.toLowerCase().includes('success') &&
-      type.toLowerCase().includes('notify')
-    );
+    return type.toLowerCase().includes('notify');
   };
 
   constructor() {
@@ -57,7 +53,7 @@ export class NotifierStore extends ComponentStore<AlertState> {
       type: alert.type,
     };
 
-    return { ...state, alerts: [newAlert, ...state.alerts] };
+    return { ...state, alerts: [...state.alerts, newAlert] };
   });
 
   readonly removeAlert = this.updater((state, id: number) => {
@@ -72,25 +68,19 @@ export class NotifierStore extends ComponentStore<AlertState> {
     return this.actions$.pipe(
       filter(this.isFailure),
       tap((action: any & TypedAction<string>) => {
-        let msg = "Errore, non è stato possibile eseguire l'operazione";
+        let msg = 'Error, something went wrong';
         this.notify(action, msg, 'error');
       })
     );
   });
 
-  // readonly showLoadingBar = this.effect(() => {
-
-  // });
-
   readonly showAlertSuccess = this.effect(() => {
     return this.actions$.pipe(
-      filter(this.isSuccessOrNotify),
+      filter(this.isNotify),
       tap((action: any & TypedAction<string>) => {
-        let { operation, type }: { operation: string; type: string } = action;
-        let msg = `${type.toLowerCase().includes('movie') ? 'Movie' : 'TV'} ${
-          this.ALERT_MESSAGE_MAP[operation]
-        }`;
-        this.notify(action, msg, 'success');
+        if (action['notifyMsg']) {
+          this.notify(action, action['notifyMsg'], 'success');
+        }
       })
     );
   });
@@ -122,3 +112,49 @@ export class NotifierStore extends ComponentStore<AlertState> {
     console.error(error);
   }
 }
+
+/*
+  readonly showAlertSuccess = this.effect(() => {
+    return this.actions$.pipe(
+      filter(this.isSuccessOrNotify),
+      tap(
+        (
+          action: {
+            operation: string;
+            movieLifecycleMap?: MovieLifecycleMap;
+            tvLifecycleMap?: TVLifecycleMap;
+          } & TypedAction<string>
+        ) => {
+          let lifecycle: lifecycleEnum;
+          let msg = '';
+          if (
+            action.type.toLowerCase().includes('movie' as MediaType) &&
+            action.movieLifecycleMap
+          ) {
+            lifecycle =
+              action['movieLifecycleMap'][
+                +Object.keys(action['movieLifecycleMap'])[0]
+              ];
+            msg = `Movie ${this.ALERT_MESSAGE_MAP[action.operation]} ${
+              action.operation != 'delete' ? `${lifecycle} bookmark!` : ''
+            }`;
+          } else if (
+            action.type.toLowerCase().includes('tv' as MediaType) &&
+            action.tvLifecycleMap
+          ) {
+            lifecycle =
+              action['tvLifecycleMap'][
+                +Object.keys(action['tvLifecycleMap'])[0]
+              ];
+            msg = `TV Show ${this.ALERT_MESSAGE_MAP[action.operation]} ${
+              action.operation != 'delete' ? `${lifecycle} bookmark!` : ''
+            }`;
+          }
+
+          this.notify(action, msg, 'success');
+        }
+      )
+    );
+  });
+
+*/

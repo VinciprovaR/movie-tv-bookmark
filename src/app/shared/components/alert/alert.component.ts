@@ -2,14 +2,19 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   DestroyRef,
+  ElementRef,
   EventEmitter,
   inject,
   Inject,
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { Subject, takeUntil, timer } from 'rxjs';
+import { AbstractComponent } from '../abstract/abstract-component.component';
+
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
@@ -17,10 +22,11 @@ import { Subject, takeUntil, timer } from 'rxjs';
   imports: [CommonModule],
   templateUrl: 'alert.component.html',
   styleUrl: 'alert.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AlertComponent implements OnInit {
-  private readonly destroyRef$ = inject(DestroyRef);
-  destroyed$ = new Subject();
+export class AlertComponent extends AbstractComponent implements OnInit {
+  @ViewChild('alert')
+  alert!: ElementRef;
 
   @Input({ required: true })
   id!: number;
@@ -32,13 +38,21 @@ export class AlertComponent implements OnInit {
   @Output()
   closeAlert = new EventEmitter<number>();
 
-  constructor() {}
+  isVisible: boolean = false;
+
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
-    this.destroyRef$.onDestroy(() => {
-      this.destroyed$.next(true);
-      this.destroyed$.complete();
-    });
+    this.initSubscriptions();
+  }
+
+  override initSelectors(): void {}
+  override initSubscriptions(): void {
+    // timer(200)
+    //   .pipe(takeUntil(this.destroyed$))
+    //   .subscribe(() => this.onShow());
 
     timer(7000)
       .pipe(takeUntil(this.destroyed$))
@@ -47,5 +61,11 @@ export class AlertComponent implements OnInit {
 
   onClose(): void {
     this.closeAlert.emit(this.id);
+  }
+
+  onShow() {
+    this.renderer.removeClass(this.alert.nativeElement, 'hidden');
+
+    this.renderer.addClass(this.alert.nativeElement, 'block');
   }
 }

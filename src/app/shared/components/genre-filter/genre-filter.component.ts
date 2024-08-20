@@ -8,12 +8,15 @@ import {
   GenreGroup,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-genre-filter',
   standalone: true,
   imports: [SelectTagComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './genre-filter.component.html',
   styleUrl: './genre-filter.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenreFilterComponent {
   protected readonly fb = inject(FormBuilder);

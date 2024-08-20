@@ -92,7 +92,6 @@ export class MovieSearchComponent extends AbstractComponent implements OnInit {
   createUpdateDeleteMovieLifecycle(
     mediaLifecycleDTO: MediaLifecycleDTO<Movie>
   ) {
-    console.log(mediaLifecycleDTO);
     this.store.dispatch(
       MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
         mediaLifecycleDTO,

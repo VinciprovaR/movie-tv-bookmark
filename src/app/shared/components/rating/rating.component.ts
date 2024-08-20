@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-rating',
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './rating.component.html',
   styleUrl: './rating.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RatingComponent {
   @Input({ required: true })

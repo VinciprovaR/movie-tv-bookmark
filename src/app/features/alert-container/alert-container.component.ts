@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { NotifierStore } from '../../shared/store/component-store/notifier-store.service';
@@ -12,6 +6,7 @@ import { filter, Observable, Subject, takeUntil, timer } from 'rxjs';
 import { AlertComponent } from '../../shared/components/alert/alert.component';
 import { NavigationStart, Router } from '@angular/router';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-alert-container',

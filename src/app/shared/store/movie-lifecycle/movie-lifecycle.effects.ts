@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import {
+  MediaType,
   Movie,
   MovieDetail,
   MovieResult,
@@ -16,7 +17,10 @@ import { MovieLifecycleActions, MovieLifecycleSelectors } from '.';
 
 import { SearchMovieActions } from '../search-movie';
 import { DiscoveryMovieActions } from '../discovery-movie';
-import { MovieLifecycleMap } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import {
+  lifecycleEnum,
+  MovieLifecycleMap,
+} from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { SupabaseMovieLifecycleService } from '../../services/supabase';
 import {
   Movie_Data,
@@ -154,6 +158,9 @@ export class MovieLifecycleEffects {
               return MovieLifecycleActions.createMovieLifecycleSuccess({
                 movieLifecycleMap: movieLifecycleMap,
                 operation,
+                notifyMsg: `${mediaLifecycleDTO.mediaDataDTO.title} added in ${
+                  movieLifecycleMap[+Object.keys(movieLifecycleMap)[0]]
+                } bookmark!`,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
@@ -180,6 +187,9 @@ export class MovieLifecycleEffects {
               return MovieLifecycleActions.updateMovieLifecycleSuccess({
                 movieLifecycleMap: movieLifecycleMap,
                 operation,
+                notifyMsg: `${mediaLifecycleDTO.mediaDataDTO.title} added in ${
+                  movieLifecycleMap[+Object.keys(movieLifecycleMap)[0]]
+                } bookmark!`,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
@@ -207,6 +217,7 @@ export class MovieLifecycleEffects {
               return MovieLifecycleActions.deleteMovieLifecycleSuccess({
                 movieLifecycleMap: movieLifecycleMap,
                 operation,
+                notifyMsg: `${mediaLifecycleDTO.mediaDataDTO.title} removed from bookmark!`,
               });
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
@@ -256,7 +267,11 @@ export class MovieLifecycleEffects {
         MovieLifecycleActions.updateMovieLifecycleSuccess
       ),
       switchMap((action) => {
-        return of(MovieLifecycleActions.notifySearchMovieByLifecycle());
+        return of(
+          MovieLifecycleActions.notifySearchMovieByLifecycle({
+            notifyMsg: action.notifyMsg,
+          })
+        );
       })
     );
   });

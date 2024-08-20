@@ -36,6 +36,8 @@ import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lif
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-movie-discovery',
   standalone: true,
@@ -48,6 +50,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   providers: [BridgeDataService],
   templateUrl: './movie-discovery.component.html',
   styleUrl: './movie-discovery.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDiscoveryComponent
   extends AbstractComponent

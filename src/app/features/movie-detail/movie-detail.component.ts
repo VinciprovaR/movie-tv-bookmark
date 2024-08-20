@@ -39,6 +39,8 @@ import {
 } from '@angular/router';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-movie-detail',
   standalone: true,
@@ -61,6 +63,7 @@ import { MissingFieldPlaceholderComponent } from '../../shared/components/missin
   providers: [BridgeDataService],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailComponent
   extends AbstractMediaDetailComponent

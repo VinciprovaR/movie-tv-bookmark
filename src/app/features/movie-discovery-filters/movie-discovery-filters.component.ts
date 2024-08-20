@@ -22,6 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DiscoveryMovieSelectors } from '../../shared/store/discovery-movie';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-discovery-movie-filters',
   standalone: true,
@@ -38,6 +40,7 @@ import { DiscoveryMovieSelectors } from '../../shared/store/discovery-movie';
   ],
   templateUrl: './movie-discovery-filters.component.html',
   styleUrl: './movie-discovery-filters.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDiscoveryFiltersComponent
   extends AbstractDiscoveryFilter<

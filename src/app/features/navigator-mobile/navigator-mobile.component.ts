@@ -3,12 +3,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-navigator-mobile',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navigator-mobile.component.html',
   styleUrl: './navigator-mobile.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorMobileComponent implements OnInit {
   @Input({ required: true })

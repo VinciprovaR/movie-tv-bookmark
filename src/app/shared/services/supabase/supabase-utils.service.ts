@@ -74,7 +74,7 @@ export class SupabaseUtilsService {
     });
     return movieLifecycleMap;
   }
-  
+
   movieDataObjFactory(movie: Movie | Movie_Data | MovieDetail): Movie_Data {
     let movieData: Partial<Movie_Data> = {
       id: movie.id,
@@ -99,7 +99,6 @@ export class SupabaseUtilsService {
     return (movie as MovieDetail).genres !== undefined;
   }
 
-  
   tvLifecycleMapFactory(
     tvLifecycleEntityList: TV_Life_Cycle[] | (TV_Life_Cycle[] & TV_Data[])
   ): TVLifecycleMap {
@@ -134,8 +133,6 @@ export class SupabaseUtilsService {
   private isTVDetailEntity(tv: object): tv is TVDetail {
     return (tv as TVDetail).genres !== undefined;
   }
-
-
 
   removeMediaWithLifecycle(
     entityMediaLifecycle: Movie_Life_Cycle[] | TV_Life_Cycle[],

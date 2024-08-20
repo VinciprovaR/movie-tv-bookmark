@@ -30,6 +30,8 @@ import { PayloadMovieLifecycle } from '../../shared/interfaces/store/movie-lifec
 import { MovieLifecycleFiltersComponent } from '../movie-lifecycle-filters/movie-lifecycle-filters.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-movie-lifecycle-search',
   standalone: true,
@@ -42,6 +44,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   providers: [BridgeDataService],
   templateUrl: './movie-lifecycle-search.component.html',
   styleUrl: './movie-lifecycle-search.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieLifecycleSearchComponent
   extends AbstractComponent

@@ -7,12 +7,15 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { User } from '@supabase/supabase-js/';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-user-profile',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent implements OnInit {
   private readonly router = inject(Router);

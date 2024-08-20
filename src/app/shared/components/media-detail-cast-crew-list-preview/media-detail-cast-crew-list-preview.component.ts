@@ -24,6 +24,7 @@ import {
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { MatIconModule } from '@angular/material/icon';
+
 @Component({
   selector: 'app-media-detail-cast-crew-list-preview',
   standalone: true,

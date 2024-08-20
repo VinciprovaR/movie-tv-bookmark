@@ -11,12 +11,15 @@ import { Observable } from 'rxjs';
 import { ImgComponent } from '../img/img.component';
 import { MatDialog } from '@angular/material/dialog';
 import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.component';
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-youtube-embeded-preview',
   standalone: true,
   imports: [ImgComponent, YoutubeEmbededComponent],
   templateUrl: './youtube-embeded-preview.component.html',
   styleUrl: './youtube-embeded-preview.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YoutubeEmbededPreviewComponent implements OnInit {
   readonly domSanitizer = inject(DomSanitizer);

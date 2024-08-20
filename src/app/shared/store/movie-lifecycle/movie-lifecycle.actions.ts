@@ -46,10 +46,11 @@ export const updateMovieLifecycle = createAction(
   }>()
 );
 export const updateMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle] Update Movie Lifecycle Success & Notify',
+  '[Movie-Lifecycle] Update Movie Lifecycle Success',
   props<{
     movieLifecycleMap: MovieLifecycleMap;
     operation: crud_operations;
+    notifyMsg: string;
   }>()
 );
 export const updateMovieLifecycleFailure = createAction(
@@ -67,14 +68,15 @@ export const deleteMovieLifecycle = createAction(
   }>()
 );
 export const deleteMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle] Delete Movie Lifecycle Success & Notify',
+  '[Movie-Lifecycle] Delete Movie Lifecycle Success',
   props<{
     movieLifecycleMap: MovieLifecycleMap;
     operation: crud_operations;
+    notifyMsg: string;
   }>()
 );
 export const deleteMovieLifecycleFailure = createAction(
-  '[Movie-Lifecycle] Delete Movie Lifecycle Failure & Notify',
+  '[Movie-Lifecycle] Delete Movie Lifecycle Failure',
   props<{
     httpErrorResponse: HttpErrorResponse;
   }>()
@@ -88,10 +90,11 @@ export const createMovieLifecycle = createAction(
   }>()
 );
 export const createMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle] Create Movie Lifecycle Success & Notify',
+  '[Movie-Lifecycle] Create Movie Lifecycle Success',
   props<{
     movieLifecycleMap: MovieLifecycleMap;
     operation: crud_operations;
+    notifyMsg: string;
   }>()
 );
 export const createMovieLifecycleFailure = createAction(
@@ -109,7 +112,7 @@ export const unchangedMovieLifecycle = createAction(
   }>()
 );
 export const unchangedMovieLifecycleSuccess = createAction(
-  '[Movie-Lifecycle] Unchanged Movie Lifecycle Success & Notify',
+  '[Movie-Lifecycle] Unchanged Movie Lifecycle Success',
   props<{
     movieLifecycleMap: MovieLifecycleMap;
     operation: crud_operations;
@@ -124,7 +127,8 @@ export const unchangedMovieLifecycleFailure = createAction(
 
 //search movie by lifecycle
 export const notifySearchMovieByLifecycle = createAction(
-  '[Movie-Lifecycle] Notify Search Movie By Lifecycle'
+  '[Movie-Lifecycle] Notify Search Movie By Lifecycle',
+  props<{ notifyMsg: string }>()
 );
 
 //search movie by lifecycle

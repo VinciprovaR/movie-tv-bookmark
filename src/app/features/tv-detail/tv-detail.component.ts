@@ -35,6 +35,8 @@ import { VideosContainerComponent } from '../../shared/components/videos-contain
 import { TVDetailMainInfoContentComponent } from '../../shared/components/tv-detail-main-info/tv-detail-main-info.component';
 import { NavigationExtras } from '@angular/router';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-tv-detail',
   standalone: true,
@@ -54,6 +56,7 @@ import { NavigationExtras } from '@angular/router';
   providers: [BridgeDataService],
   templateUrl: './tv-detail.component.html',
   styleUrl: './tv-detail.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDetailComponent
   extends AbstractMediaDetailComponent

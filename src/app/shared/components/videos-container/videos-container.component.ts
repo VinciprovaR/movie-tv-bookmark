@@ -31,6 +31,8 @@ import { SwiperContainer } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-videos-container',
   standalone: true,
@@ -45,6 +47,7 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './videos-container.component.html',
   styleUrl: './videos-container.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideosContainerComponent implements OnInit {
   //Injections

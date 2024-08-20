@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TVLifecycleSelectors } from '../../shared/store/tv-lifecycle';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-tv-lifecycle-filters',
   standalone: true,
@@ -27,6 +29,7 @@ import { TVLifecycleSelectors } from '../../shared/store/tv-lifecycle';
   ],
   templateUrl: './tv-lifecycle-filters.component.html',
   styleUrl: './tv-lifecycle-filters.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVLifecycleFiltersComponent extends AbstractLifecycleFilters<
   PayloadTVLifecycle,

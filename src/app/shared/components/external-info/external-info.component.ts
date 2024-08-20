@@ -8,12 +8,15 @@ import {
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-external-info',
   standalone: true,
   imports: [ImdbIconComponent, TmdbIconComponent],
   templateUrl: './external-info.component.html',
   styleUrl: './external-info.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExternalInfoComponent extends AbstractComponent {
   @Input({ required: true })

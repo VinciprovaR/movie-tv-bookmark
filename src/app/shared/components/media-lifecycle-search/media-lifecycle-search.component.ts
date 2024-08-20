@@ -13,6 +13,8 @@ import {
 } from '../../interfaces/navigator.interface';
 import { LIFECYCLE_NAV_ELEMENTS } from '../../../providers';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-media-lifecycle-search',
   standalone: true,
@@ -20,6 +22,7 @@ import { LIFECYCLE_NAV_ELEMENTS } from '../../../providers';
   providers: [BridgeDataService],
   templateUrl: './media-lifecycle-search.component.html',
   styleUrl: './media-lifecycle-search.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaLifecycleSearchComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);

@@ -5,6 +5,7 @@
   color: white;
   cursor: pointer;
   border-radius: 4px;
+  transition: all 0.8s;
 }
 .alert-success {
   padding: 16px;
@@ -13,4 +14,9 @@
   color: white;
   cursor: pointer;
   border-radius: 4px;
+  transition: all 0.8s;
+}
+
+.transition {
+  transition: all 0.8s;
 }

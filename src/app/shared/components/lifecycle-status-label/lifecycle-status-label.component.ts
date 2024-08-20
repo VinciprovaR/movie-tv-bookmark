@@ -3,12 +3,15 @@ import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
 import { CommonModule } from '@angular/common';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-lifecycle-status-label',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './lifecycle-status-label.component.html',
   styleUrl: './lifecycle-status-label.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LifecycleStatusLabelComponent {
   readonly lifecycleStatusMap = inject(LIFECYCLE_STATUS_MAP);

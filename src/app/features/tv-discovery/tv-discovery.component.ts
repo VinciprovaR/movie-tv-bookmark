@@ -30,6 +30,8 @@ import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-tv-discovery',
   standalone: true,
@@ -42,6 +44,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   providers: [BridgeDataService],
   templateUrl: './tv-discovery.component.html',
   styleUrl: './tv-discovery.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDiscoveryComponent
   extends AbstractComponent

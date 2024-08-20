@@ -15,6 +15,8 @@ import { MediaDetailMainInfoComponent } from '../abstract/abstract-media-detail-
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { OverviewComponent } from '../overview/overview.component';
 import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-tv-detail-main-info',
   standalone: true,
@@ -32,6 +34,7 @@ import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.componen
   ],
   templateUrl: './tv-detail-main-info.component.html',
   styleUrl: './tv-detail-main-info.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDetailMainInfoContentComponent
   extends MediaDetailMainInfoComponent

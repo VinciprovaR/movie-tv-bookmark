@@ -14,6 +14,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-reset-password-request',
   standalone: true,
@@ -26,6 +28,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   ],
   templateUrl: './reset-password-request.component.html',
   styleUrl: './reset-password-request.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordRequestComponent {
   private readonly store = inject(Store);

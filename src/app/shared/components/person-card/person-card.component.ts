@@ -10,6 +10,8 @@ import { AbstractPersonCardComponent } from '../abstract/abstract-person-card.co
 import { ImgComponent } from '../img/img.component';
 import { IMG_SIZES } from '../../../providers';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-person-card',
   standalone: true,
@@ -26,6 +28,7 @@ import { IMG_SIZES } from '../../../providers';
   ],
   templateUrl: './person-card.component.html',
   styleUrl: './person-card.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonCardComponent
   extends AbstractPersonCardComponent

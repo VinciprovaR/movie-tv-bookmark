@@ -14,12 +14,15 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-input-query',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatInputModule],
   templateUrl: './input-query.component.html',
   styleUrl: './input-query.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputQueryComponent implements OnInit {
   destroyed$ = new Subject();

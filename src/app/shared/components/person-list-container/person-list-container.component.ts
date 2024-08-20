@@ -21,6 +21,8 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-person-list-container',
   standalone: true,
@@ -34,6 +36,7 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
   ],
   templateUrl: './person-list-container.component.html',
   styleUrl: './person-list-container.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonListContainerComponent
   extends AbstractComponent

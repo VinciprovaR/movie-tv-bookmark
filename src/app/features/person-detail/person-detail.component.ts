@@ -16,6 +16,8 @@ import { AbstractMediaDetailComponent } from '../../shared/components/abstract/a
 import { PersonDetailMainInfoContentComponent } from '../../shared/components/person-detail-main-info/person-detail-main-info.component';
 import { PersonTVsComponent } from '../person-movies copy/person-tvs.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-person-detail',
   standalone: true,
@@ -30,6 +32,7 @@ import { PersonTVsComponent } from '../person-movies copy/person-tvs.component';
 
   templateUrl: './person-detail.component.html',
   styleUrl: './person-detail.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonDetailComponent
   extends AbstractMediaDetailComponent

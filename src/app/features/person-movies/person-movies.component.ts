@@ -27,6 +27,8 @@ import { PersonDetailMovieCreditsStore } from '../../shared/store/component-stor
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-person-movies',
   standalone: true,
@@ -38,6 +40,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   providers: [BridgeDataService],
   templateUrl: './person-movies.component.html',
   styleUrl: './person-movies.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonMoviesComponent
   extends AbstractComponent

@@ -19,6 +19,8 @@ import { YouTubePlayer } from '@angular/youtube-player';
 import { Subject, Observable, fromEvent, takeUntil, debounceTime } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 
+import { ChangeDetectionStrategy } from '@angular/core';
+
 @Component({
   selector: 'app-youtube-embeded',
   standalone: true,
@@ -31,6 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   templateUrl: './youtube-embeded.component.html',
   styleUrl: './youtube-embeded.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YoutubeEmbededComponent implements OnInit {
   readonly data = inject(MAT_DIALOG_DATA);

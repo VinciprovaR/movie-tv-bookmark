@@ -20,23 +20,24 @@
 - ogni failure ha la sua action di failure (search movie failure, discovery movie failure, create lifecycle failure, update lifecycle failure ecc..)
 - tipizzazioni a any da elimiare
 - Card e altri componenti con grandezze placeholder mentre aspettano dati async per evitare cambi dimensione
-- check http://localhost:4200/#/person-detail/1964445
+- Spinner loading async disattivare roba
+- alert stile
+
 
 ################ GENERIC ################
 - CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
 - Refractor index models export
-- Spinner loading async disattivare roba
+- check http://localhost:4200/#/person-detail/1964445
 - [Violation] 'setTimeout' handler took 345ms
 - Eliminare zorro (auth, altro cercare)
 - Proxy con action supabase per nascondere chiave API
 - html semantico
 - aria accessibility
 
-- alert stile
+
 - Gestione timeout chiamate
 - Refractor interfaccie, stato confuso, separazione dto entity non ordinato
 - Nelle subcribe custom next e error
-
 - Abount / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
 - Hai dimenticato alcune destroyed ref...
 - aria accessibility
@@ -89,19 +90,11 @@
 - page not found
 - person detail, read more solo esplosione se testo più lungo di tot
 - search additional check if no additional store allora non triggerare evento
-- 
-
-################ DUBBIO, FORSE NO ################
-- notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)
-- http interceptor e/o handling error generalizzato con log (log service)
-- sintassi semplificata con rxjs and ngrx, no return e graffe
-- tv_data movie_data, decoupling da fare
-
-################ AUTH ################
-
+- modificare messaggi di success e error + label
+- controllare tutti i to-do comment 
+AUTH:
 - Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)
 quindi pushare l'utente nei reducer da sessione (da verificare)
-
 - Test form input/accessibility etc.;
 
 -Login
@@ -120,9 +113,13 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
     - Refractor form builder
 
 
+################ DUBBIO, FORSE NO ################
+- notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)
+- http interceptor e/o handling error generalizzato con log (log service)
+- sintassi semplificata con rxjs and ngrx, no return e graffe
+- tv_data movie_data, decoupling da fare
 
-################ DISCOVERY FILTERS ################
-  - Certifications i18e, servizio filters 
+
 
 
 ################ Search Filter ################
@@ -153,15 +150,6 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
 - Immagini media-item card
 
 ################ CACHING ################
-
-
-
-
-
-
-
-
-
 
 
   isMovieEntity(
