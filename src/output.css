@@ -936,7 +936,7 @@ body.light-theme {
   --bg-header-person-detail: rgba(199, 199, 199, 0.411);
   --text-color-inverted: rgb(215, 218, 223);
   --sub-text-color: rgb(87, 87, 87);
-  --lifecycle-info-bkg-color: #252222;
+  --bookmark-info-bkg-color: #252222;
   --mat-card-border-color: #d7d7d7;
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(32, 33, 34);
@@ -961,7 +961,7 @@ body.dark-theme {
   --mat-card-border-color: rgb(111, 111, 111);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(234, 236, 240);
-  --lifecycle-info-bkg-color: rgb(255, 255, 255);
+  --bookmark-info-bkg-color: rgb(255, 255, 255);
   --box-shadow: 0 1px 3px 0 rgb(255, 255, 255, 0.401),
     0 1px 2px -1px rgb(255, 255, 255, 0.401) !important;
   --bkg-color-nav-sub-menu: #444444;
@@ -1197,7 +1197,7 @@ select {
   text-decoration: underline;
 }
 
-.noLifecycle-color {
+.noBookmark-color {
   color: rgb(158, 158, 158);
 }
 
@@ -1325,7 +1325,7 @@ select {
   }
 }
 
-.border-lifecycle-label {
+.border-bookmark-label {
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }

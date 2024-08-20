@@ -3,7 +3,7 @@ import { Directive, inject, Input } from '@angular/core';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { BridgeDataService } from '../../services/bridge-data.service';
-import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { AbstractComponent } from './abstract-component.component';
 
 @Directive()
@@ -15,7 +15,7 @@ export abstract class AbstractMediaCard extends AbstractComponent {
   protected readonly TMDB_SEARCH_LIST_2X_IMG_URL = inject(
     IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL
   );
-  protected readonly lifecycleStatusMap = inject(LIFECYCLE_STATUS_MAP);
+  protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
   @Input({ required: true })
   mediaType!: MediaType;
@@ -24,7 +24,7 @@ export abstract class AbstractMediaCard extends AbstractComponent {
 
   detailMediaPath: string = '';
 
-  lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
+  bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
 
   constructor() {
     super();
@@ -38,7 +38,7 @@ export abstract class AbstractMediaCard extends AbstractComponent {
     );
   }
 
-  setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
-    this.lifecycleEnumSelected = lifecycleEnumSelected;
+  setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
+    this.bookmarkEnumSelected = bookmarkEnumSelected;
   }
 }

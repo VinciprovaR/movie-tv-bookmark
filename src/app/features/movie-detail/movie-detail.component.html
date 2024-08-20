@@ -37,18 +37,18 @@
           [isPlaceholderPerson]="false"
         ></app-img>
 
-        <app-lifecycle-selector
-          (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
+        <app-bookmark-selector
+          (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
           [mediaData]="movieDetail"
           [index]="0"
           [mediaType]="'movie'"
-        ></app-lifecycle-selector>
+        ></app-bookmark-selector>
 
         <div class="w-full absolute bottom-0">
-          <app-lifecycle-status-label
-            [lifecycleEnumSelected]="lifecycleEnumSelected"
-            [customClass]="'border-lifecycle-label'"
-          ></app-lifecycle-status-label>
+          <app-bookmark-status-label
+            [bookmarkEnumSelected]="bookmarkEnumSelected"
+            [customClass]="'border-bookmark-label'"
+          ></app-bookmark-status-label>
         </div>
       </div>
 

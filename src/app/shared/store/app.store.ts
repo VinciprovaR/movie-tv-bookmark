@@ -9,14 +9,14 @@ import { AuthState } from '../interfaces/store/auth-state.interface';
 import { DiscoveryMovieState } from '../interfaces/store/discovery-movie-state.interface';
 import { SearchMovieState } from '../interfaces/store/search-movie-state.interface';
 import { SearchTVState } from '../interfaces/store/search-tv-state.interface';
-import { MovieLifecycleReducers } from './movie-lifecycle';
-import { TVLifecycleReducers } from './tv-lifecycle';
-import { MovieLifecycleState } from '../interfaces/store/movie-lifecycle-state.interface';
-import { TVLifecycleState } from '../interfaces/store/tv-lifecycle-state.interface';
+import { MovieBookmarkReducers } from './movie-bookmark';
+import { TVBookmarkReducers } from './tv-bookmark';
+import { MovieBookmarkState } from '../interfaces/store/movie-bookmark-state.interface';
+import { TVBookmarkState } from '../interfaces/store/tv-bookmark-state.interface';
 import { DiscoveryTVState } from '../interfaces/store/discovery-tv-state.interface';
 import { DiscoveryTVReducers } from './discovery-tv';
-import { LifecycleMetadataReducers } from './lifecycle-metadata';
-import { LifecycleMetadataState } from '../interfaces/store/lifecycle-metadata-state.interface';
+import { BookmarkMetadataReducers } from './bookmark-metadata';
+import { BookmarkMetadataState } from '../interfaces/store/bookmark-metadata-state.interface';
 import { FiltersMetadataReducers } from './filters-metadata';
 import { FiltersMetadataState } from '../interfaces/store/filters-metadata-state.interface';
 import { SearchPeopleState } from '../interfaces/store/search-people-state.interface';
@@ -28,9 +28,9 @@ interface State {
   [SearchTVReducers.searchTVFeatureKey]: SearchTVState;
   [DiscoveryMovieReducers.discoveryMovieFeatureKey]: DiscoveryMovieState;
   [DiscoveryTVReducers.discoveryTVFeatureKey]: DiscoveryTVState;
-  [MovieLifecycleReducers.movieLifecycleStateFeatureKey]: MovieLifecycleState;
-  [TVLifecycleReducers.tvLifecycleStateFeatureKey]: TVLifecycleState;
-  [LifecycleMetadataReducers.lifecycleMetadataStateFeatureKey]: LifecycleMetadataState;
+  [MovieBookmarkReducers.movieBookmarkStateFeatureKey]: MovieBookmarkState;
+  [TVBookmarkReducers.tvBookmarkStateFeatureKey]: TVBookmarkState;
+  [BookmarkMetadataReducers.bookmarkMetadataStateFeatureKey]: BookmarkMetadataState;
   [FiltersMetadataReducers.filtersMetadataFeatureKey]: FiltersMetadataState;
   [SearchPeopleReducers.searchPeopleFeatureKey]: SearchPeopleState;
 }
@@ -44,12 +44,12 @@ export const reducers: ActionReducerMap<State> = {
     DiscoveryMovieReducers.discoveryMovieReducer,
   [DiscoveryTVReducers.discoveryTVFeatureKey]:
     DiscoveryTVReducers.discoveryTVReducer,
-  [MovieLifecycleReducers.movieLifecycleStateFeatureKey]:
-    MovieLifecycleReducers.movieLifecycleReducer,
-  [TVLifecycleReducers.tvLifecycleStateFeatureKey]:
-    TVLifecycleReducers.tvLifecycleReducer,
-  [LifecycleMetadataReducers.lifecycleMetadataStateFeatureKey]:
-    LifecycleMetadataReducers.LifecycleMetadataReducer,
+  [MovieBookmarkReducers.movieBookmarkStateFeatureKey]:
+    MovieBookmarkReducers.movieBookmarkReducer,
+  [TVBookmarkReducers.tvBookmarkStateFeatureKey]:
+    TVBookmarkReducers.tvBookmarkReducer,
+  [BookmarkMetadataReducers.bookmarkMetadataStateFeatureKey]:
+    BookmarkMetadataReducers.BookmarkMetadataReducer,
   [FiltersMetadataReducers.filtersMetadataFeatureKey]:
     FiltersMetadataReducers.filtersMetadataReducer,
   [SearchPeopleReducers.searchPeopleFeatureKey]:

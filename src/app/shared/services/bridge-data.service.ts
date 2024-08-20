@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { MediaLifecycleDTO } from '../interfaces/supabase/DTO';
+import { MediaBookmarkDTO } from '../interfaces/supabase/DTO';
 import {
-  MovieLifecycleMap,
-  TVLifecycleMap,
-} from '../interfaces/supabase/supabase-lifecycle.interface';
+  MovieBookmarkMap,
+  TVBookmarkMap,
+} from '../interfaces/supabase/supabase-bookmark.interface';
 import {
   MediaType,
   Movie,
@@ -17,66 +17,65 @@ import { Movie_Data, TV_Data } from '../interfaces/supabase/entities';
 //to-do refractor with signals?
 @Injectable()
 export class BridgeDataService {
-  //mediaLifecycleMap
-  private readonly mediaLifecycleMap$ = new BehaviorSubject<
-    MovieLifecycleMap | TVLifecycleMap
+  //mediaBookmarkMap
+  private readonly mediaBookmarkMap$ = new BehaviorSubject<
+    MovieBookmarkMap | TVBookmarkMap
   >({});
-  readonly mediaLifecycleMapObs$: Observable<
-    MovieLifecycleMap | TVLifecycleMap
-  > = this.mediaLifecycleMap$.asObservable();
+  readonly mediaBookmarkMapObs$: Observable<MovieBookmarkMap | TVBookmarkMap> =
+    this.mediaBookmarkMap$.asObservable();
 
-  //inputLifecycleOptions TV
-  private readonly tvInputLifecycleOptions$ = new Subject<
-    MediaLifecycleDTO<TV | TVDetail | TV_Data>
+  //inputBookmarkOptions TV
+  private readonly tvInputBookmarkOptions$ = new Subject<
+    MediaBookmarkDTO<TV | TVDetail | TV_Data>
   >();
-  readonly tvInputLifecycleOptionsObs$: Observable<
-    MediaLifecycleDTO<TV | TVDetail | TV_Data>
-  > = this.tvInputLifecycleOptions$.asObservable();
+  readonly tvInputBookmarkOptionsObs$: Observable<
+    MediaBookmarkDTO<TV | TVDetail | TV_Data>
+  > = this.tvInputBookmarkOptions$.asObservable();
 
-  //inputLifecycleOptions Movie
-  private readonly movieInputLifecycleOptions$ = new Subject<
-    MediaLifecycleDTO<Movie | MovieDetail | Movie_Data>
+  //inputBookmarkOptions Movie
+  private readonly movieInputBookmarkOptions$ = new Subject<
+    MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
   >();
-  readonly movieInputLifecycleOptionsObs$: Observable<
-    MediaLifecycleDTO<Movie | MovieDetail | Movie_Data>
-  > = this.movieInputLifecycleOptions$.asObservable();
+  readonly movieInputBookmarkOptionsObs$: Observable<
+    MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
+  > = this.movieInputBookmarkOptions$.asObservable();
 
   constructor() {}
 
-  pushMediaLifecycleMap(mediaLifecycleMap: MovieLifecycleMap | TVLifecycleMap) {
-    this.mediaLifecycleMap$.next(mediaLifecycleMap);
+  pushMediaBookmarkMap(mediaBookmarkMap: MovieBookmarkMap | TVBookmarkMap) {
+    this.mediaBookmarkMap$.next(mediaBookmarkMap);
   }
 
-  pushInputLifecycleOptions(
+  pushInputBookmarkOptions(
     mediaType: MediaType,
-    mediaLifecycleDTO: MediaLifecycleDTO<
+    mediaBookmarkDTO: MediaBookmarkDTO<
       Movie | MovieDetail | Movie_Data | TV | TVDetail | TV_Data
     >
   ) {
     if (mediaType === 'movie') {
-      let mediaLifecycleDTOMovie = mediaLifecycleDTO as MediaLifecycleDTO<
+      let mediaBookmarkDTOMovie = mediaBookmarkDTO as MediaBookmarkDTO<
         Movie | MovieDetail | Movie_Data
       >;
 
-      this.pushMovieInputLifecycleOptions(mediaLifecycleDTOMovie);
+      this.pushMovieInputBookmarkOptions(mediaBookmarkDTOMovie);
     } else if (mediaType === 'tv') {
-      let mediaLifecycleDTOTV = mediaLifecycleDTO as MediaLifecycleDTO<
+      let mediaBookmarkDTOTV = mediaBookmarkDTO as MediaBookmarkDTO<
         TV | TVDetail | TV_Data
       >;
 
-      this.pushTVInputLifecycleOptions(mediaLifecycleDTOTV);
+      this.pushTVInputBookmarkOptions(mediaBookmarkDTOTV);
     }
   }
 
-  pushTVInputLifecycleOptions(
-    mediaLifecycleDTO: MediaLifecycleDTO<TV | TVDetail | TV_Data>
+  pushTVInputBookmarkOptions(
+    mediaBookmarkDTO: MediaBookmarkDTO<TV | TVDetail | TV_Data>
   ) {
-    this.tvInputLifecycleOptions$.next(mediaLifecycleDTO);
+    this.tvInputBookmarkOptions$.next(mediaBookmarkDTO);
   }
 
-  pushMovieInputLifecycleOptions(
-    mediaLifecycleDTO: MediaLifecycleDTO<Movie | MovieDetail | Movie_Data>
+  pushMovieInputBookmarkOptions(
+    mediaBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
   ) {
-    this.movieInputLifecycleOptions$.next(mediaLifecycleDTO);
+    this.movieInputBookmarkOptions$.next(mediaBookmarkDTO);
   }
 }

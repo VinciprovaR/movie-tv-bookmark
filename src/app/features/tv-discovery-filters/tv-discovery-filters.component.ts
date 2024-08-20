@@ -86,8 +86,8 @@ export class TVDiscoveryFiltersComponent
       allEpisode: this.initAllEpisodeControl(filterSelected.allEpisode),
       sortBy: this.initSortByControl(filterSelected.sortBy),
       airDate: this.initDateRangeGroup(filterSelected.airDate),
-      includeLifecycle: this.initIncludeLifecycleControl(
-        filterSelected.includeMediaWithLifecycle
+      includeBookmark: this.initIncludeBookmarkControl(
+        filterSelected.includeMediaWithBookmark
       ),
       languages: this.initLanguagesControl(filterSelected.language),
       voteAverage: this.initVoteAverageGroup(filterSelected.voteAverage),
@@ -126,8 +126,8 @@ export class TVDiscoveryFiltersComponent
       ),
       sortBy: this.buildSortByPayload(this.filterForm.controls.sortBy),
       airDate: this.buildDateRangePayload(this.filterForm.controls.airDate),
-      includeMediaWithLifecycle: this.buildIncludeLifecyclePayload(
-        this.filterForm.controls.includeLifecycle
+      includeMediaWithBookmark: this.buildIncludeBookmarkPayload(
+        this.filterForm.controls.includeBookmark
       ),
 
       language: this.buildLanguagePayload(this.filterForm.controls.languages),

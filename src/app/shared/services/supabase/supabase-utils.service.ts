@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import {
-  MediaLifecycleDTO,
-  LifecycleOption,
+  MediaBookmarkDTO,
+  BookmarkOption,
 } from '../../interfaces/supabase/DTO';
 import {
-  Lifecycle_Metadata,
+  Bookmark_Metadata,
   Movie_Data,
-  Movie_Life_Cycle,
+  Movie_Bookmark,
   TV_Data,
-  TV_Life_Cycle,
+  TV_Bookmark,
 } from '../../interfaces/supabase/entities';
 import {
-  lifecycleEnum,
-  MovieLifecycleMap,
-  TVLifecycleMap,
-} from '../../interfaces/supabase/supabase-lifecycle.interface';
+  bookmarkEnum,
+  MovieBookmarkMap,
+  TVBookmarkMap,
+} from '../../interfaces/supabase/supabase-bookmark.interface';
 import {
   MediaType,
   Movie,
@@ -25,54 +25,54 @@ import {
   TVResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 
-import { LifecycleTypeIdMap } from '../../interfaces/store/lifecycle-metadata-state.interface';
+import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
 import {
   crud_operations,
-  LifecycleCrudConditions,
-} from '../../interfaces/supabase/supabase-lifecycle-crud-cases.interface';
+  BookmarkCrudConditions,
+} from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { Genre } from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseUtilsService {
-  private readonly LIFECYCLE_CASES: LifecycleCrudConditions = {
-    noEntityANDInLifecycleSelected: 'create', //Case #0 - Create - Movie/tv doesn't have its own lifecycle and lifecycle selected is > 0, must create the lifecycle item
-    oneEntityANDNoLifecycleSelected: 'delete', //Case #1 - Delete - Movie/tv has its own lifecycle and lifecycle selected is == 0, must fake delete the lifecycle item , update the lifecycle to 0
-    oneEntityANDInLifecycleSelected: 'update', //Case #2 - Update - Movie/tv has its own lifecycle and lifecycle selected is > 0, must update the lifecycle item
+  private readonly LIFECYCLE_CASES: BookmarkCrudConditions = {
+    noEntityANDInBookmarkSelected: 'create', //Case #0 - Create - Movie/tv doesn't have its own bookmark and bookmark selected is > 0, must create the bookmark item
+    oneEntityANDNoBookmarkSelected: 'delete', //Case #1 - Delete - Movie/tv has its own bookmark and bookmark selected is == 0, must fake delete the bookmark item , update the bookmark to 0
+    oneEntityANDInBookmarkSelected: 'update', //Case #2 - Update - Movie/tv has its own bookmark and bookmark selected is > 0, must update the bookmark item
 
-    noEntityANDNoLifecycleSelected: 'unchanged', //Case #3 - Nothing - Movie/tv doesn't have its own lifecycle and lifecycle selected is == 0, must do nothing, count as delete return lifecycle 0
-    oneEntityANDInLifecycleSelectedButNoLifecycleInEntity: 'createUpdate', //  //Case #4 - Create Update - Movie/tv has its own lifecycle, the lifecycle is 0 and lifecycle selected is > 0, must fake create the item, is an update
+    noEntityANDNoBookmarkSelected: 'unchanged', //Case #3 - Nothing - Movie/tv doesn't have its own bookmark and bookmark selected is == 0, must do nothing, count as delete return bookmark 0
+    oneEntityANDInBookmarkSelectedButNoBookmarkInEntity: 'createUpdate', //  //Case #4 - Create Update - Movie/tv has its own bookmark, the bookmark is 0 and bookmark selected is > 0, must fake create the item, is an update
     default: 'default', //#Case #99/Default - Default - All cases covered, should not be possible
   };
 
   constructor() {}
 
-  transformLifecycleMetadata(mediaLifecycleOptions: Lifecycle_Metadata[]): {
-    lifecycleOptions: LifecycleOption[];
-    lifecycleTypeIdMap: LifecycleTypeIdMap;
+  transformBookmarkMetadata(mediaBookmarkOptions: Bookmark_Metadata[]): {
+    bookmarkOptions: BookmarkOption[];
+    bookmarkTypeIdMap: BookmarkTypeIdMap;
   } {
-    let lifecycleOptions: LifecycleOption[] = [];
-    let lifecycleTypeIdMap: LifecycleTypeIdMap = {};
-    mediaLifecycleOptions.forEach((lc) => {
-      lifecycleOptions.push({ label: lc.label, value: lc.enum });
-      lifecycleTypeIdMap[lc.enum] = lc.enum as lifecycleEnum;
+    let bookmarkOptions: BookmarkOption[] = [];
+    let bookmarkTypeIdMap: BookmarkTypeIdMap = {};
+    mediaBookmarkOptions.forEach((lc) => {
+      bookmarkOptions.push({ label: lc.label, value: lc.enum });
+      bookmarkTypeIdMap[lc.enum] = lc.enum as bookmarkEnum;
     });
 
-    return { lifecycleOptions, lifecycleTypeIdMap };
+    return { bookmarkOptions, bookmarkTypeIdMap };
   }
 
-  movieLifecycleMapFactory(
-    movieLifecycleEntityList:
-      | Movie_Life_Cycle[]
-      | (Movie_Life_Cycle[] & Movie_Data[])
-  ): MovieLifecycleMap {
-    let movieLifecycleMap: MovieLifecycleMap = {};
-    movieLifecycleEntityList.forEach((movieLifecycleEntity) => {
-      movieLifecycleMap[movieLifecycleEntity.movie_id] =
-        movieLifecycleEntity.lifecycle_enum;
+  movieBookmarkMapFactory(
+    movieBookmarkEntityList:
+      | Movie_Bookmark[]
+      | (Movie_Bookmark[] & Movie_Data[])
+  ): MovieBookmarkMap {
+    let movieBookmarkMap: MovieBookmarkMap = {};
+    movieBookmarkEntityList.forEach((movieBookmarkEntity) => {
+      movieBookmarkMap[movieBookmarkEntity.movie_id] =
+        movieBookmarkEntity.bookmark_enum;
     });
-    return movieLifecycleMap;
+    return movieBookmarkMap;
   }
 
   movieDataObjFactory(movie: Movie | Movie_Data | MovieDetail): Movie_Data {
@@ -99,15 +99,14 @@ export class SupabaseUtilsService {
     return (movie as MovieDetail).genres !== undefined;
   }
 
-  tvLifecycleMapFactory(
-    tvLifecycleEntityList: TV_Life_Cycle[] | (TV_Life_Cycle[] & TV_Data[])
-  ): TVLifecycleMap {
-    let tvLifecycleMap: TVLifecycleMap = {};
-    tvLifecycleEntityList.forEach((tvLifecycleEntity) => {
-      tvLifecycleMap[tvLifecycleEntity.tv_id] =
-        tvLifecycleEntity.lifecycle_enum;
+  tvBookmarkMapFactory(
+    tvBookmarkEntityList: TV_Bookmark[] | (TV_Bookmark[] & TV_Data[])
+  ): TVBookmarkMap {
+    let tvBookmarkMap: TVBookmarkMap = {};
+    tvBookmarkEntityList.forEach((tvBookmarkEntity) => {
+      tvBookmarkMap[tvBookmarkEntity.tv_id] = tvBookmarkEntity.bookmark_enum;
     });
-    return tvLifecycleMap;
+    return tvBookmarkMap;
   }
 
   tvDataObjFactory(tv: TV | TV_Data | TVDetail): TV_Data {
@@ -134,14 +133,14 @@ export class SupabaseUtilsService {
     return (tv as TVDetail).genres !== undefined;
   }
 
-  removeMediaWithLifecycle(
-    entityMediaLifecycle: Movie_Life_Cycle[] | TV_Life_Cycle[],
+  removeMediaWithBookmark(
+    entityMediaBookmark: Movie_Bookmark[] | TV_Bookmark[],
     mediaIdMapIndex: { [key: number]: number },
     mediaResult: MovieResult | TVResult
   ): MovieResult | TVResult {
     let indexListToRemove: number[] = [];
-    entityMediaLifecycle.forEach((mlc: Movie_Life_Cycle | TV_Life_Cycle) => {
-      if (mlc.lifecycle_enum != 'noLifecycle') {
+    entityMediaBookmark.forEach((mlc: Movie_Bookmark | TV_Bookmark) => {
+      if (mlc.bookmark_enum != 'noBookmark') {
         if (this.isMovieEntity(mlc)) {
           indexListToRemove.push(mediaIdMapIndex[mlc.movie_id]);
         } else {
@@ -187,47 +186,47 @@ export class SupabaseUtilsService {
   }
 
   checkCase(
-    mediaLifecycleFromDB:
-      | Movie_Life_Cycle[]
-      | TV_Life_Cycle[]
-      | (Movie_Life_Cycle[] & Movie_Data[])
-      | (TV_Life_Cycle[] & TV_Data[]),
-    mediaLifecycleDTO: MediaLifecycleDTO<
+    mediaBookmarkFromDB:
+      | Movie_Bookmark[]
+      | TV_Bookmark[]
+      | (Movie_Bookmark[] & Movie_Data[])
+      | (TV_Bookmark[] & TV_Data[]),
+    mediaBookmarkDTO: MediaBookmarkDTO<
       Movie | MovieDetail | TV | TVDetail | TV_Data | Movie_Data
     >
   ): crud_operations {
-    let isEntity = mediaLifecycleFromDB.length === 1;
-    let isLifecycleSelected = mediaLifecycleDTO.lifecycleEnum != 'noLifecycle';
-    let isEntityButNoLifecycleInEntity = false;
+    let isEntity = mediaBookmarkFromDB.length === 1;
+    let isBookmarkSelected = mediaBookmarkDTO.bookmarkEnum != 'noBookmark';
+    let isEntityButNoBookmarkInEntity = false;
 
     if (isEntity) {
-      isEntityButNoLifecycleInEntity =
-        mediaLifecycleFromDB[0].lifecycle_enum === 'noLifecycle';
+      isEntityButNoBookmarkInEntity =
+        mediaBookmarkFromDB[0].bookmark_enum === 'noBookmark';
     }
 
     let condition =
-      (!isEntity && isLifecycleSelected && !isEntityButNoLifecycleInEntity
-        ? 'noEntityANDInLifecycleSelected'
+      (!isEntity && isBookmarkSelected && !isEntityButNoBookmarkInEntity
+        ? 'noEntityANDInBookmarkSelected'
         : false) ||
-      (isEntity && !isLifecycleSelected && !isEntityButNoLifecycleInEntity
-        ? 'oneEntityANDNoLifecycleSelected'
+      (isEntity && !isBookmarkSelected && !isEntityButNoBookmarkInEntity
+        ? 'oneEntityANDNoBookmarkSelected'
         : false) ||
-      (isEntity && isLifecycleSelected && !isEntityButNoLifecycleInEntity
-        ? 'oneEntityANDInLifecycleSelected'
+      (isEntity && isBookmarkSelected && !isEntityButNoBookmarkInEntity
+        ? 'oneEntityANDInBookmarkSelected'
         : false) ||
-      (isEntity && isLifecycleSelected && isEntityButNoLifecycleInEntity
-        ? 'oneEntityANDInLifecycleSelectedButNoLifecycleInEntity'
+      (isEntity && isBookmarkSelected && isEntityButNoBookmarkInEntity
+        ? 'oneEntityANDInBookmarkSelectedButNoBookmarkInEntity'
         : false) ||
-      (!isEntity && !isLifecycleSelected && !isEntityButNoLifecycleInEntity
-        ? 'noEntityANDNoLifecycleSelected'
+      (!isEntity && !isBookmarkSelected && !isEntityButNoBookmarkInEntity
+        ? 'noEntityANDNoBookmarkSelected'
         : 'default');
 
     return this.LIFECYCLE_CASES[condition];
   }
 
   isMovieEntity(
-    entityMediaLifeCycle: object
-  ): entityMediaLifeCycle is Movie_Life_Cycle {
-    return (entityMediaLifeCycle as Movie_Life_Cycle).movie_id !== undefined;
+    entityMediaBookmark: object
+  ): entityMediaBookmark is Movie_Bookmark {
+    return (entityMediaBookmark as Movie_Bookmark).movie_id !== undefined;
   }
 }

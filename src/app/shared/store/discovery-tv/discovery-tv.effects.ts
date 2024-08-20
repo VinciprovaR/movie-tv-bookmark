@@ -4,7 +4,7 @@ import { DiscoveryTVActions, DiscoveryTVSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { SupabaseTVLifecycleService } from '../../services/supabase';
+import { SupabaseTVBookmarkService } from '../../services/supabase';
 import { TMDBDiscoveryTVService } from '../../services/tmdb';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -18,8 +18,8 @@ export class DiscoveryTVEffects {
         let [actionType, payload] = action;
         return this.TMDBDiscoveryTVService.tvDiscovery(payload).pipe(
           switchMap((tvResult: TVResult) => {
-            if (!payload.includeMediaWithLifecycle) {
-              return this.supabaseTVLifecycleService.removeTVWithLifecycle(
+            if (!payload.includeMediaWithBookmark) {
+              return this.supabaseTVBookmarkService.removeTVWithBookmark(
                 tvResult
               );
             }
@@ -49,8 +49,8 @@ export class DiscoveryTVEffects {
         let { payload } = action;
         return this.TMDBDiscoveryTVService.tvDiscovery(payload).pipe(
           switchMap((tvResult: TVResult) => {
-            if (!payload.includeMediaWithLifecycle) {
-              return this.supabaseTVLifecycleService.removeTVWithLifecycle(
+            if (!payload.includeMediaWithBookmark) {
+              return this.supabaseTVBookmarkService.removeTVWithBookmark(
                 tvResult
               );
             }
@@ -89,8 +89,8 @@ export class DiscoveryTVEffects {
             payload
           ).pipe(
             switchMap((tvResult: TVResult) => {
-              if (!payload.includeMediaWithLifecycle) {
-                return this.supabaseTVLifecycleService.removeTVWithLifecycle(
+              if (!payload.includeMediaWithBookmark) {
+                return this.supabaseTVBookmarkService.removeTVWithBookmark(
                   tvResult
                 );
               }
@@ -120,6 +120,6 @@ export class DiscoveryTVEffects {
     private actions$: Actions,
     private TMDBDiscoveryTVService: TMDBDiscoveryTVService,
     private store: Store,
-    private supabaseTVLifecycleService: SupabaseTVLifecycleService
+    private supabaseTVBookmarkService: SupabaseTVBookmarkService
   ) {}
 }

@@ -10,17 +10,17 @@ import { Store } from '@ngrx/store';
 import { Subject, Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
-import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
+import { TVBookmarkMap } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import {
   TV,
   PersonDetailTVCredits,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
-  TVLifecycleSelectors,
-  TVLifecycleActions,
-} from '../../shared/store/tv-lifecycle';
+  TVBookmarkSelectors,
+  TVBookmarkActions,
+} from '../../shared/store/tv-bookmark';
 
 import { CommonModule } from '@angular/common';
 import { PersonDetailTVCreditsStore } from '../../shared/store/component-store/person-detail-tv-credits-store.service';
@@ -55,7 +55,7 @@ export class PersonTVsComponent
 
   selectIsLoading$!: Observable<boolean>;
   personDetailTVCredits$!: Observable<PersonDetailTVCredits>;
-  selectTVLifecycleMap$!: Observable<TVLifecycleMap>;
+  selectTVBookmarkMap$!: Observable<TVBookmarkMap>;
 
   @Input({ required: true })
   personId: number = 0;
@@ -71,19 +71,19 @@ export class PersonTVsComponent
   }
 
   initDataBridge() {
-    //data to lifecycle-selector, lifecycle selected
-    this.selectTVLifecycleMap$
+    //data to bookmark-selector, bookmark selected
+    this.selectTVBookmarkMap$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((tvLifecycleMap) => {
-        this.bridgeDataService.pushMediaLifecycleMap(tvLifecycleMap);
+      .subscribe((tvBookmarkMap) => {
+        this.bridgeDataService.pushMediaBookmarkMap(tvBookmarkMap);
       });
 
-    // data from lifecycle-selector
-    this.bridgeDataService.tvInputLifecycleOptionsObs$
+    // data from bookmark-selector
+    this.bridgeDataService.tvInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteTVLifecycle(
-          mediaLifecycleDTO as MediaLifecycleDTO<TV>
+      .subscribe((mediaBookmarkDTO) => {
+        this.createUpdateDeleteTVBookmark(
+          mediaBookmarkDTO as MediaBookmarkDTO<TV>
         );
       });
   }
@@ -93,8 +93,8 @@ export class PersonTVsComponent
     this.personDetailTVCredits$ =
       this.personDetailCreditsTVStore.selectCreditsTVPersonDetail$;
 
-    this.selectTVLifecycleMap$ = this.store.select(
-      TVLifecycleSelectors.selectTVLifecycleMap
+    this.selectTVBookmarkMap$ = this.store.select(
+      TVBookmarkSelectors.selectTVBookmarkMap
     );
   }
 
@@ -104,10 +104,10 @@ export class PersonTVsComponent
     this.personDetailCreditsTVStore.personDetailTVCredits(this.personId);
   }
 
-  createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {
+  createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TV>) {
     this.store.dispatch(
-      TVLifecycleActions.createUpdateDeleteTVLifecycle({
-        mediaLifecycleDTO,
+      TVBookmarkActions.createUpdateDeleteTVBookmark({
+        mediaBookmarkDTO,
       })
     );
   }

@@ -19,9 +19,9 @@ export const selectSortByDiscoveryMovie = createSelector(
   FiltersMetadataFeatureSelector,
   FiltersMetadataReducer.getSortyByDiscoveryMovie
 );
-export const selectSortByLifecycleMovie = createSelector(
+export const selectSortByBookmarkMovie = createSelector(
   FiltersMetadataFeatureSelector,
-  FiltersMetadataReducer.getSortyByLifecycleMovie
+  FiltersMetadataReducer.getSortyByBookmarkMovie
 );
 export const selectGenreListTV = createSelector(
   FiltersMetadataFeatureSelector,
@@ -31,9 +31,9 @@ export const selectSortByDiscoveryTV = createSelector(
   FiltersMetadataFeatureSelector,
   FiltersMetadataReducer.getSortyByDiscoveryTV
 );
-export const selectSortByLifecycleTV = createSelector(
+export const selectSortByBookmarkTV = createSelector(
   FiltersMetadataFeatureSelector,
-  FiltersMetadataReducer.getSortyByLifecycleTV
+  FiltersMetadataReducer.getSortyByBookmarkTV
 );
 export const selectLanguageListMedia = createSelector(
   FiltersMetadataFeatureSelector,

@@ -121,33 +121,33 @@ export class NotifierStore extends ComponentStore<AlertState> {
         (
           action: {
             operation: string;
-            movieLifecycleMap?: MovieLifecycleMap;
-            tvLifecycleMap?: TVLifecycleMap;
+            movieBookmarkMap?: MovieBookmarkMap;
+            tvBookmarkMap?: TVBookmarkMap;
           } & TypedAction<string>
         ) => {
-          let lifecycle: lifecycleEnum;
+          let bookmark: bookmarkEnum;
           let msg = '';
           if (
             action.type.toLowerCase().includes('movie' as MediaType) &&
-            action.movieLifecycleMap
+            action.movieBookmarkMap
           ) {
-            lifecycle =
-              action['movieLifecycleMap'][
-                +Object.keys(action['movieLifecycleMap'])[0]
+            bookmark =
+              action['movieBookmarkMap'][
+                +Object.keys(action['movieBookmarkMap'])[0]
               ];
             msg = `Movie ${this.ALERT_MESSAGE_MAP[action.operation]} ${
-              action.operation != 'delete' ? `${lifecycle} bookmark!` : ''
+              action.operation != 'delete' ? `${bookmark} bookmark!` : ''
             }`;
           } else if (
             action.type.toLowerCase().includes('tv' as MediaType) &&
-            action.tvLifecycleMap
+            action.tvBookmarkMap
           ) {
-            lifecycle =
-              action['tvLifecycleMap'][
-                +Object.keys(action['tvLifecycleMap'])[0]
+            bookmark =
+              action['tvBookmarkMap'][
+                +Object.keys(action['tvBookmarkMap'])[0]
               ];
             msg = `TV Show ${this.ALERT_MESSAGE_MAP[action.operation]} ${
-              action.operation != 'delete' ? `${lifecycle} bookmark!` : ''
+              action.operation != 'delete' ? `${bookmark} bookmark!` : ''
             }`;
           }
 

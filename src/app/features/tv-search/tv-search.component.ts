@@ -13,12 +13,12 @@ import {
   MediaType,
   TV,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
+import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
-  TVLifecycleActions,
-  TVLifecycleSelectors,
-} from '../../shared/store/tv-lifecycle';
+  TVBookmarkActions,
+  TVBookmarkSelectors,
+} from '../../shared/store/tv-bookmark';
 
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
@@ -69,27 +69,27 @@ export class TVSearchComponent extends AbstractComponent implements OnInit {
   override initSubscriptions(): void {}
 
   initDataBridge() {
-    //data to lifecycle-selector, lifecycle selected
+    //data to bookmark-selector, bookmark selected
     this.store
-      .select(TVLifecycleSelectors.selectTVLifecycleMap)
+      .select(TVBookmarkSelectors.selectTVBookmarkMap)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((tvLifecycleMap) => {
-        this.bridgeDataService.pushMediaLifecycleMap(tvLifecycleMap);
+      .subscribe((tvBookmarkMap) => {
+        this.bridgeDataService.pushMediaBookmarkMap(tvBookmarkMap);
       });
 
-    // data from lifecycle-selector
-    this.bridgeDataService.tvInputLifecycleOptionsObs$
+    // data from bookmark-selector
+    this.bridgeDataService.tvInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mediaLifecycleDTO) => {
-        let tvLifecycleDTO = mediaLifecycleDTO as MediaLifecycleDTO<TV>;
-        this.createUpdateDeleteTVLifecycle(tvLifecycleDTO);
+      .subscribe((mediaBookmarkDTO) => {
+        let tvBookmarkDTO = mediaBookmarkDTO as MediaBookmarkDTO<TV>;
+        this.createUpdateDeleteTVBookmark(tvBookmarkDTO);
       });
   }
 
-  createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {
+  createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TV>) {
     this.store.dispatch(
-      TVLifecycleActions.createUpdateDeleteTVLifecycle({
-        mediaLifecycleDTO,
+      TVBookmarkActions.createUpdateDeleteTVBookmark({
+        mediaBookmarkDTO,
       })
     );
   }

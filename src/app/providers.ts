@@ -2,13 +2,13 @@ import { APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { AuthActions } from './shared/store/auth';
-import { LifecycleMetadataActions } from './shared/store/lifecycle-metadata';
+import { BookmarkMetadataActions } from './shared/store/bookmark-metadata';
 import { FiltersMetadataActions } from './shared/store/filters-metadata';
 import {
-  LifecycleNavElement,
+  BookmarkNavElement,
   NavElements,
 } from './shared/interfaces/navigator.interface';
-import { LifecycleStatusMap } from './shared/interfaces/supabase/supabase-lifecycle.interface';
+import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -53,7 +53,7 @@ export const IMG_SIZES = {
   ),
 };
 
-export const LIFECYCLE_NAV_ELEMENTS = new InjectionToken<LifecycleNavElement[]>(
+export const LIFECYCLE_NAV_ELEMENTS = new InjectionToken<BookmarkNavElement[]>(
   'LIFECYCLE_NAV_ELEMENTS'
 );
 
@@ -61,7 +61,7 @@ export const HEADER_NAV_ELEMENTS = new InjectionToken<NavElements>(
   'HEADER_NAV_ELEMENTS'
 );
 
-export const LIFECYCLE_STATUS_MAP = new InjectionToken<LifecycleStatusMap>(
+export const LIFECYCLE_STATUS_MAP = new InjectionToken<BookmarkStatusMap>(
   'LIFECYCLE_STATUS_MAP'
 );
 export const THEME_KEY_LOCAL_STORAGE = new InjectionToken<string>(
@@ -160,11 +160,11 @@ export function provideCurrentUser() {
   };
 }
 
-export function provideLifecycleSelect() {
+export function provideBookmarkSelect() {
   return {
     provide: APP_INITIALIZER,
     useFactory: (store: Store) => () => {
-      store.dispatch(LifecycleMetadataActions.retriveLifecycleMetadata());
+      store.dispatch(BookmarkMetadataActions.retriveBookmarkMetadata());
     },
     deps: [Store],
     multi: true,
@@ -189,7 +189,7 @@ export function provideDarkThemeLocalStorageKey() {
   };
 }
 
-export function provideLifecycleNavElements() {
+export function provideBookmarkNavElements() {
   return {
     provide: LIFECYCLE_NAV_ELEMENTS,
     useValue: [
@@ -210,7 +210,7 @@ export function provideHeaderNavElements() {
         subMenu: [
           { label: 'Search', path: 'movie' },
           { label: 'Discovery', path: 'discovery-movie' },
-          { label: 'Bookmarks', path: 'movie-lifecycle-search' },
+          { label: 'Bookmarks', path: 'movie-bookmark-search' },
         ],
       },
       tv: {
@@ -218,7 +218,7 @@ export function provideHeaderNavElements() {
         subMenu: [
           { label: 'Search', path: 'tv' },
           { label: 'Discovery', path: 'discovery-tv' },
-          { label: 'Bookmarks', path: 'tv-lifecycle-search' },
+          { label: 'Bookmarks', path: 'tv-bookmark-search' },
         ],
       },
       people: {
@@ -233,12 +233,12 @@ export function provideHeaderNavElements() {
   };
 }
 
-export function provideLifecycleStatusList() {
+export function provideBookmarkStatusList() {
   return {
     provide: LIFECYCLE_STATUS_MAP,
     useValue: {
-      noLifecycle: {
-        key: 'noLifecycle',
+      noBookmark: {
+        key: 'noBookmark',
         label: 'No bookmark',
         description: 'No bookmark',
       },

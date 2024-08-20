@@ -17,11 +17,11 @@ import {
 import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
+import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import {
-  MovieLifecycleActions,
-  MovieLifecycleSelectors,
-} from '../../shared/store/movie-lifecycle';
+  MovieBookmarkActions,
+  MovieBookmarkSelectors,
+} from '../../shared/store/movie-bookmark';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
 @Component({
@@ -56,20 +56,20 @@ export class MovieSearchComponent extends AbstractComponent implements OnInit {
   }
 
   initDataBridge() {
-    //data to lifecycle-selector, lifecycle selected
+    //data to bookmark-selector, bookmark selected
     this.store
-      .select(MovieLifecycleSelectors.selectMovieLifecycleMap)
+      .select(MovieBookmarkSelectors.selectMovieBookmarkMap)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((movieLifecycleMap) => {
-        this.bridgeDataService.pushMediaLifecycleMap(movieLifecycleMap);
+      .subscribe((movieBookmarkMap) => {
+        this.bridgeDataService.pushMediaBookmarkMap(movieBookmarkMap);
       });
 
-    // data from lifecycle-selector
-    this.bridgeDataService.movieInputLifecycleOptionsObs$
+    // data from bookmark-selector
+    this.bridgeDataService.movieInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteMovieLifecycle(
-          mediaLifecycleDTO as MediaLifecycleDTO<Movie>
+      .subscribe((mediaBookmarkDTO) => {
+        this.createUpdateDeleteMovieBookmark(
+          mediaBookmarkDTO as MediaBookmarkDTO<Movie>
         );
       });
   }
@@ -89,12 +89,10 @@ export class MovieSearchComponent extends AbstractComponent implements OnInit {
 
   override initSubscriptions(): void {}
 
-  createUpdateDeleteMovieLifecycle(
-    mediaLifecycleDTO: MediaLifecycleDTO<Movie>
-  ) {
+  createUpdateDeleteMovieBookmark(mediaBookmarkDTO: MediaBookmarkDTO<Movie>) {
     this.store.dispatch(
-      MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
-        mediaLifecycleDTO,
+      MovieBookmarkActions.createUpdateDeleteMovieBookmark({
+        mediaBookmarkDTO,
       })
     );
   }

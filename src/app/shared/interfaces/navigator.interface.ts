@@ -1,4 +1,4 @@
-import { lifecycleEnum } from './supabase/supabase-lifecycle.interface';
+import { bookmarkEnum } from './supabase/supabase-bookmark.interface';
 
 export interface LinkPath {
   path: string;
@@ -9,7 +9,7 @@ export interface NavElements {
   [key: string]: { label: string; subMenu: LinkPath[] };
 }
 
-export interface LifecycleNavElement {
-  path: lifecycleEnum;
+export interface BookmarkNavElement {
+  path: bookmarkEnum;
   label: string;
 }

@@ -10,17 +10,17 @@ import { Store } from '@ngrx/store';
 import { Subject, Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
-import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
+import { MovieBookmarkMap } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import {
   Movie,
   PersonDetailMovieCredits,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
-  MovieLifecycleSelectors,
-  MovieLifecycleActions,
-} from '../../shared/store/movie-lifecycle';
+  MovieBookmarkSelectors,
+  MovieBookmarkActions,
+} from '../../shared/store/movie-bookmark';
 
 import { CommonModule } from '@angular/common';
 import { PersonDetailMovieCreditsStore } from '../../shared/store/component-store/person-detail-movie-credits-store.service';
@@ -55,7 +55,7 @@ export class PersonMoviesComponent
 
   selectIsLoading$!: Observable<boolean>;
   personDetailMovieCredits$!: Observable<PersonDetailMovieCredits>;
-  selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
+  selectMovieBookmarkMap$!: Observable<MovieBookmarkMap>;
 
   @Input({ required: true })
   personId: number = 0;
@@ -71,19 +71,19 @@ export class PersonMoviesComponent
   }
 
   initDataBridge() {
-    //data to lifecycle-selector, lifecycle selected
-    this.selectMovieLifecycleMap$
+    //data to bookmark-selector, bookmark selected
+    this.selectMovieBookmarkMap$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((movieLifecycleMap) => {
-        this.bridgeDataService.pushMediaLifecycleMap(movieLifecycleMap);
+      .subscribe((movieBookmarkMap) => {
+        this.bridgeDataService.pushMediaBookmarkMap(movieBookmarkMap);
       });
 
-    // data from lifecycle-selector
-    this.bridgeDataService.movieInputLifecycleOptionsObs$
+    // data from bookmark-selector
+    this.bridgeDataService.movieInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteMovieLifecycle(
-          mediaLifecycleDTO as MediaLifecycleDTO<Movie>
+      .subscribe((mediaBookmarkDTO) => {
+        this.createUpdateDeleteMovieBookmark(
+          mediaBookmarkDTO as MediaBookmarkDTO<Movie>
         );
       });
   }
@@ -93,8 +93,8 @@ export class PersonMoviesComponent
     this.personDetailMovieCredits$ =
       this.personDetailMovieCreditsStore.selectCreditsMoviePersonDetail$;
 
-    this.selectMovieLifecycleMap$ = this.store.select(
-      MovieLifecycleSelectors.selectMovieLifecycleMap
+    this.selectMovieBookmarkMap$ = this.store.select(
+      MovieBookmarkSelectors.selectMovieBookmarkMap
     );
   }
 
@@ -104,12 +104,10 @@ export class PersonMoviesComponent
     this.personDetailMovieCreditsStore.movieCredits(this.personId);
   }
 
-  createUpdateDeleteMovieLifecycle(
-    mediaLifecycleDTO: MediaLifecycleDTO<Movie>
-  ) {
+  createUpdateDeleteMovieBookmark(mediaBookmarkDTO: MediaBookmarkDTO<Movie>) {
     this.store.dispatch(
-      MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
-        mediaLifecycleDTO,
+      MovieBookmarkActions.createUpdateDeleteMovieBookmark({
+        mediaBookmarkDTO,
       })
     );
   }

@@ -4,7 +4,7 @@ import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { SupabaseMovieLifecycleService } from '../../services/supabase';
+import { SupabaseMovieBookmarkService } from '../../services/supabase';
 import { TMDBDiscoveryMovieService } from '../../services/tmdb';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -18,8 +18,8 @@ export class DiscoveryMovieEffects {
         let [actionType, payload] = action;
         return this.TMDBDiscoveryMovieService.movieDiscovery(payload).pipe(
           switchMap((movieResult: MovieResult) => {
-            if (!payload.includeMediaWithLifecycle) {
-              return this.supabaseMovieLifecycleService.removeMovieWithLifecycle(
+            if (!payload.includeMediaWithBookmark) {
+              return this.supabaseMovieBookmarkService.removeMovieWithBookmark(
                 movieResult
               );
             }
@@ -49,8 +49,8 @@ export class DiscoveryMovieEffects {
         let { payload } = action;
         return this.TMDBDiscoveryMovieService.movieDiscovery(payload).pipe(
           switchMap((movieResult: MovieResult) => {
-            if (!payload.includeMediaWithLifecycle) {
-              return this.supabaseMovieLifecycleService.removeMovieWithLifecycle(
+            if (!payload.includeMediaWithBookmark) {
+              return this.supabaseMovieBookmarkService.removeMovieWithBookmark(
                 movieResult
               );
             }
@@ -89,8 +89,8 @@ export class DiscoveryMovieEffects {
             payload
           ).pipe(
             switchMap((movieResult: MovieResult) => {
-              if (!payload.includeMediaWithLifecycle) {
-                return this.supabaseMovieLifecycleService.removeMovieWithLifecycle(
+              if (!payload.includeMediaWithBookmark) {
+                return this.supabaseMovieBookmarkService.removeMovieWithBookmark(
                   movieResult
                 );
               }
@@ -120,6 +120,6 @@ export class DiscoveryMovieEffects {
     private actions$: Actions,
     private TMDBDiscoveryMovieService: TMDBDiscoveryMovieService,
     private store: Store,
-    private supabaseMovieLifecycleService: SupabaseMovieLifecycleService
+    private supabaseMovieBookmarkService: SupabaseMovieBookmarkService
   ) {}
 }

@@ -10,17 +10,17 @@
     ></app-img>
   </div>
 
-  <app-lifecycle-selector
-    (lifecycleStatusElementEmitter)="setLifecycleStatusElement($event)"
+  <app-bookmark-selector
+    (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
     [mediaData]="media"
     [index]="index"
     [mediaType]="mediaType"
     [personIdentifier]="personIdentifier"
-  ></app-lifecycle-selector>
+  ></app-bookmark-selector>
 
-  <app-lifecycle-status-label
-    [lifecycleEnumSelected]="lifecycleEnumSelected"
-  ></app-lifecycle-status-label>
+  <app-bookmark-status-label
+    [bookmarkEnumSelected]="bookmarkEnumSelected"
+  ></app-bookmark-status-label>
 
   <div class="card-content">
     <h4>

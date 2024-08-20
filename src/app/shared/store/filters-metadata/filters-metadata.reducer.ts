@@ -23,7 +23,7 @@ export const initialState: FiltersMetadataState = {
       { value: 'title.asc', label: 'Title (A-Z)' },
       { value: 'title.desc', label: 'Title (Z-A)' },
     ],
-    sortByLifecycle: [
+    sortByBookmark: [
       {
         value: 'primary_release_date.desc',
         label: 'Release Date Descending',
@@ -45,7 +45,7 @@ export const initialState: FiltersMetadataState = {
       { value: 'name.asc', label: 'Name (A-Z)' },
       { value: 'name.desc', label: 'Name (Z-A)' },
     ],
-    sortByLifecycle: [
+    sortByBookmark: [
       { value: 'first_air_date.desc', label: 'First Air Date Descending' },
       { value: 'first_air_date.asc', label: 'First Air Date Ascending' },
       { value: 'name.asc', label: 'Name (A-Z)' },
@@ -137,12 +137,12 @@ export const getCertificationListMovie = (state: FiltersMetadataState) =>
   state.movie.certificationList;
 export const getSortyByDiscoveryMovie = (state: FiltersMetadataState) =>
   state.movie.sortByDiscovery;
-export const getSortyByLifecycleMovie = (state: FiltersMetadataState) =>
-  state.movie.sortByLifecycle;
+export const getSortyByBookmarkMovie = (state: FiltersMetadataState) =>
+  state.movie.sortByBookmark;
 export const getSortyByDiscoveryTV = (state: FiltersMetadataState) =>
   state.tv.sortByDiscovery;
-export const getSortyByLifecycleTV = (state: FiltersMetadataState) =>
-  state.tv.sortByLifecycle;
+export const getSortyByBookmarkTV = (state: FiltersMetadataState) =>
+  state.tv.sortByBookmark;
 export const getIsLoading = (state: FiltersMetadataState) => state.isLoading;
 export const getFiltersMetadataError = (state: FiltersMetadataState) =>
   state.error;

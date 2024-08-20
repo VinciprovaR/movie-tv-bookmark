@@ -58,10 +58,10 @@ export abstract class AbstractDiscoveryFilter<
     });
   }
 
-  initIncludeLifecycleControl(
-    includeMediaWithLifecycleSelected: boolean
+  initIncludeBookmarkControl(
+    includeMediaWithBookmarkSelected: boolean
   ): FormControl<boolean> {
-    return this.fb.control<boolean>(includeMediaWithLifecycleSelected, {
+    return this.fb.control<boolean>(includeMediaWithBookmarkSelected, {
       nonNullable: true,
     });
   }
@@ -118,12 +118,10 @@ export abstract class AbstractDiscoveryFilter<
     };
   }
 
-  buildIncludeLifecyclePayload(
-    includeLifecycleControl: FormControl<boolean>
+  buildIncludeBookmarkPayload(
+    includeBookmarkControl: FormControl<boolean>
   ): boolean {
-    return includeLifecycleControl.value
-      ? includeLifecycleControl.value
-      : false;
+    return includeBookmarkControl.value ? includeBookmarkControl.value : false;
   }
 
   buildLanguagePayload(lnguageControl: FormControl<string>): string {

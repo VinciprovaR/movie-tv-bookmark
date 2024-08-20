@@ -29,12 +29,12 @@ import {
   provideTMDBApiKey,
   provideTMDBBaseUrl,
   provideCurrentUser,
-  provideLifecycleSelect,
+  provideBookmarkSelect,
   provideSelectFilters,
-  provideLifecycleNavElements,
+  provideBookmarkNavElements,
   provideHeaderNavElements,
   provideImgUrl,
-  provideLifecycleStatusList,
+  provideBookmarkStatusList,
   provideDarkThemeLocalStorageKey,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
@@ -42,10 +42,10 @@ import { SearchMovieEffects } from './shared/store/search-movie/search-movie.eff
 import { SearchTVEffects } from './shared/store/search-tv/search-tv.effects';
 import { DiscoveryMovieEffects } from './shared/store/discovery-movie/discovery-movie.effects';
 import { TitleStrategyService } from './shared/services/title-strategy.service';
-import { MovieLifecycleEffects } from './shared/store/movie-lifecycle/movie-lifecycle.effects';
-import { TVLifecycleEffects } from './shared/store/tv-lifecycle/tv-lifecycle.effects';
+import { MovieBookmarkEffects } from './shared/store/movie-bookmark/movie-bookmark.effects';
+import { TVBookmarkEffects } from './shared/store/tv-bookmark/tv-bookmark.effects';
 import { DiscoveryTVEffects } from './shared/store/discovery-tv/discovery-tv.effects';
-import { LifecycleMetadataEffects } from './shared/store/lifecycle-metadata/lifecycle-metadata.effects';
+import { BookmarkMetadataEffects } from './shared/store/bookmark-metadata/bookmark-metadata.effects';
 import { FiltersMetadataEffects } from './shared/store/filters-metadata/filters-metadata.effects';
 import { ErrorInterceptor } from './shared/interceptors/ErrorInterceptor.interceptor';
 import { SearchPeopleEffects } from './shared/store/search-people/search-people.effects';
@@ -56,7 +56,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     provideCurrentUser(),
-    provideLifecycleSelect(),
+    provideBookmarkSelect(),
     provideSelectFilters(),
     provideSupabaseClient(),
     provideAnimations(),
@@ -64,9 +64,9 @@ export const appConfig: ApplicationConfig = {
     provideTMDBBaseUrl(),
     provideImgUrl(),
 
-    provideLifecycleNavElements(),
+    provideBookmarkNavElements(),
     provideHeaderNavElements(),
-    provideLifecycleStatusList(),
+    provideBookmarkStatusList(),
     provideDarkThemeLocalStorageKey(),
     provideHttpClient(withInterceptors([])),
     provideRouter(
@@ -84,9 +84,9 @@ export const appConfig: ApplicationConfig = {
       SearchTVEffects,
       DiscoveryMovieEffects,
       DiscoveryTVEffects,
-      MovieLifecycleEffects,
-      TVLifecycleEffects,
-      LifecycleMetadataEffects,
+      MovieBookmarkEffects,
+      TVBookmarkEffects,
+      BookmarkMetadataEffects,
       FiltersMetadataEffects,
       SearchPeopleEffects,
     ]),

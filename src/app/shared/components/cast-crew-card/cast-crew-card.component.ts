@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
+import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +21,7 @@ import { ImgComponent } from '../img/img.component';
     DatePipe,
     MatCardModule,
     MatButtonModule,
-    LifecycleSelectorComponent,
+    BookmarkSelectorComponent,
     RouterModule,
     PercentPipe,
     MatIconModule,

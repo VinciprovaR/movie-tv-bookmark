@@ -21,13 +21,13 @@ import { MovieDetailMainInfoContentComponent } from '../../shared/components/mov
 import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
-  MovieLifecycleActions,
-  MovieLifecycleSelectors,
-} from '../../shared/store/movie-lifecycle';
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
-import { LifecycleSelectorComponent } from '../../shared/components/lifecycle-selector/lifecycle-selector.component';
-import { LifecycleStatusLabelComponent } from '../../shared/components/lifecycle-status-label/lifecycle-status-label.component';
-import { lifecycleEnum } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+  MovieBookmarkActions,
+  MovieBookmarkSelectors,
+} from '../../shared/store/movie-bookmark';
+import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
+import { BookmarkSelectorComponent } from '../../shared/components/bookmark-selector/bookmark-selector.component';
+import { BookmarkStatusLabelComponent } from '../../shared/components/bookmark-status-label/bookmark-status-label.component';
+import { bookmarkEnum } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { ExternalInfoComponent } from '../../shared/components/external-info/external-info.component';
 import { MediaKeywordsComponent } from '../../shared/components/media-keywords/media-keywords.component';
@@ -50,8 +50,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
     MediaDetailCastCrewListPreviewComponent,
     ImgComponent,
     MovieDetailMainInfoContentComponent,
-    LifecycleSelectorComponent,
-    LifecycleStatusLabelComponent,
+    BookmarkSelectorComponent,
+    BookmarkStatusLabelComponent,
     MatIconModule,
     ExternalInfoComponent,
     VideosContainerComponent,
@@ -80,7 +80,7 @@ export class MovieDetailComponent
   @Input({ required: true })
   movieId: number = 0;
 
-  lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
+  bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
   mediaType: MediaType = 'movie';
 
   movieCreditsPath: string = '';
@@ -121,37 +121,37 @@ export class MovieDetailComponent
   }
 
   initDataBridge() {
-    //data to lifecycle-selector, lifecycle selected
+    //data to bookmark-selector, bookmark selected
     this.store
-      .select(MovieLifecycleSelectors.selectMovieLifecycleMap)
+      .select(MovieBookmarkSelectors.selectMovieBookmarkMap)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((movieLifecycleMap) => {
-        this.bridgeDataService.pushMediaLifecycleMap(movieLifecycleMap);
+      .subscribe((movieBookmarkMap) => {
+        this.bridgeDataService.pushMediaBookmarkMap(movieBookmarkMap);
       });
 
-    // data from lifecycle-selector
-    this.bridgeDataService.movieInputLifecycleOptionsObs$
+    // data from bookmark-selector
+    this.bridgeDataService.movieInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteMovieLifecycle(
-          mediaLifecycleDTO as MediaLifecycleDTO<MovieDetail>
+      .subscribe((mediaBookmarkDTO) => {
+        this.createUpdateDeleteMovieBookmark(
+          mediaBookmarkDTO as MediaBookmarkDTO<MovieDetail>
         );
       });
   }
 
-  createUpdateDeleteMovieLifecycle(
-    mediaLifecycleDTO: MediaLifecycleDTO<MovieDetail>
+  createUpdateDeleteMovieBookmark(
+    mediaBookmarkDTO: MediaBookmarkDTO<MovieDetail>
   ) {
-    console.log(mediaLifecycleDTO);
+    console.log(mediaBookmarkDTO);
     this.store.dispatch(
-      MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
-        mediaLifecycleDTO,
+      MovieBookmarkActions.createUpdateDeleteMovieBookmark({
+        mediaBookmarkDTO,
       })
     );
   }
 
-  setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
-    this.lifecycleEnumSelected = lifecycleEnumSelected;
+  setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
+    this.bookmarkEnumSelected = bookmarkEnumSelected;
   }
 
   navigateToCredits(movieDetail: MovieDetail) {

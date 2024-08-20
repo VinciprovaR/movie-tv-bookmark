@@ -1,0 +1,18 @@
+@if(bookmarkNavElements){
+<nav class="flex justify-between items-center">
+  <ul class="list-none flex pl-0 mt-2 mb-2">
+    @for(bookmarkNavElement of bookmarkNavElements ; track
+    bookmarkNavElement.path){
+    <li>
+      <a
+        href="#"
+        routerLinkActive="active"
+        [routerLink]="bookmarkNavElement.path"
+        class="block py-2 pr-2"
+        >{{ bookmarkNavElement.label }}</a
+      >
+    </li>
+    }
+  </ul>
+</nav>
+}

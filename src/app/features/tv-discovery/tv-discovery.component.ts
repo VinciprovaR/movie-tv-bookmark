@@ -11,7 +11,7 @@ import {
 
 import { TV } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
+import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { PayloadDiscoveryTV } from '../../shared/interfaces/store/discovery-tv-state.interface';
 import {
@@ -21,10 +21,10 @@ import {
   OptionFilter,
 } from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import {
-  TVLifecycleActions,
-  TVLifecycleSelectors,
-} from '../../shared/store/tv-lifecycle';
-import { TVLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+  TVBookmarkActions,
+  TVBookmarkSelectors,
+} from '../../shared/store/tv-bookmark';
+import { TVBookmarkMap } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discovery-filters.component';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
@@ -59,7 +59,7 @@ export class TVDiscoveryComponent
   selectIsLoading$!: Observable<boolean>;
   selectNoAdditional$!: Observable<boolean>;
   selectTVList$!: Observable<TV[]>;
-  selectTVLifecycleMap$!: Observable<TVLifecycleMap>;
+  selectTVBookmarkMap$!: Observable<TVBookmarkMap>;
   selectCombinedDiscoveryFilters$!: Observable<[PayloadDiscoveryTV, Genre[]]>;
   selectCertificationList$!: Observable<Certification[]>;
   selectLanguageList$!: Observable<Language[]>;
@@ -82,8 +82,8 @@ export class TVDiscoveryComponent
       DiscoveryTVSelectors.selectIsLoading
     );
 
-    this.selectTVLifecycleMap$ = this.store.select(
-      TVLifecycleSelectors.selectTVLifecycleMap
+    this.selectTVBookmarkMap$ = this.store.select(
+      TVBookmarkSelectors.selectTVBookmarkMap
     );
 
     this.selectTVList$ = this.store.select(DiscoveryTVSelectors.selectTVList);
@@ -108,27 +108,27 @@ export class TVDiscoveryComponent
   override initSubscriptions(): void {}
 
   initDataBridge() {
-    //data to lifecycle-selector, lifecycle selected
-    this.selectTVLifecycleMap$
+    //data to bookmark-selector, bookmark selected
+    this.selectTVBookmarkMap$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((tvLifecycleMap) => {
-        this.bridgeDataService.pushMediaLifecycleMap(tvLifecycleMap);
+      .subscribe((tvBookmarkMap) => {
+        this.bridgeDataService.pushMediaBookmarkMap(tvBookmarkMap);
       });
 
-    // data from lifecycle-selector
-    this.bridgeDataService.tvInputLifecycleOptionsObs$
+    // data from bookmark-selector
+    this.bridgeDataService.tvInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteTVLifecycle(
-          mediaLifecycleDTO as MediaLifecycleDTO<TV>
+      .subscribe((mediaBookmarkDTO) => {
+        this.createUpdateDeleteTVBookmark(
+          mediaBookmarkDTO as MediaBookmarkDTO<TV>
         );
       });
   }
 
-  createUpdateDeleteTVLifecycle(mediaLifecycleDTO: MediaLifecycleDTO<TV>) {
+  createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TV>) {
     this.store.dispatch(
-      TVLifecycleActions.createUpdateDeleteTVLifecycle({
-        mediaLifecycleDTO,
+      TVBookmarkActions.createUpdateDeleteTVBookmark({
+        mediaBookmarkDTO,
       })
     );
   }

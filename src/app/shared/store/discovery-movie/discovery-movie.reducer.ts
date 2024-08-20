@@ -10,7 +10,7 @@ export const initialState: DiscoveryMovieState = {
     genreIdList: [],
     sortBy: 'popularity.desc',
     releaseDate: { from: '', to: '' },
-    includeMediaWithLifecycle: false,
+    includeMediaWithBookmark: false,
     certification: '',
     language: '',
     voteAverage: { voteAverageMin: 0, voteAverageMax: 10 },

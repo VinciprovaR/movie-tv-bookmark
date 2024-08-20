@@ -5,7 +5,7 @@ import { StateMediaBookmark } from './state-media-bookmark.interface';
 export interface PayloadDiscoveryMovie {
   genreIdList: number[];
   sortBy: string;
-  includeMediaWithLifecycle: boolean;
+  includeMediaWithBookmark: boolean;
   language: string;
   voteAverage: VoteAverage;
   minVote: number;

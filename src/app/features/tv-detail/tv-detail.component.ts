@@ -21,13 +21,13 @@ import { ImgComponent } from '../../shared/components/img/img.component';
 import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import {
-  TVLifecycleActions,
-  TVLifecycleSelectors,
-} from '../../shared/store/tv-lifecycle';
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
-import { LifecycleSelectorComponent } from '../../shared/components/lifecycle-selector/lifecycle-selector.component';
-import { LifecycleStatusLabelComponent } from '../../shared/components/lifecycle-status-label/lifecycle-status-label.component';
-import { lifecycleEnum } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+  TVBookmarkActions,
+  TVBookmarkSelectors,
+} from '../../shared/store/tv-bookmark';
+import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
+import { BookmarkSelectorComponent } from '../../shared/components/bookmark-selector/bookmark-selector.component';
+import { BookmarkStatusLabelComponent } from '../../shared/components/bookmark-status-label/bookmark-status-label.component';
+import { bookmarkEnum } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { ExternalInfoComponent } from '../../shared/components/external-info/external-info.component';
 import { MediaKeywordsComponent } from '../../shared/components/media-keywords/media-keywords.component';
@@ -46,8 +46,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
     MediaDetailCastCrewListPreviewComponent,
     ImgComponent,
     TVDetailMainInfoContentComponent,
-    LifecycleSelectorComponent,
-    LifecycleStatusLabelComponent,
+    BookmarkSelectorComponent,
+    BookmarkStatusLabelComponent,
     MatIconModule,
     ExternalInfoComponent,
     VideosContainerComponent,
@@ -73,7 +73,7 @@ export class TVDetailComponent
   @Input({ required: true })
   tvId: number = 0;
 
-  lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
+  bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
   tvCreditsPath: string = '';
 
   mediaType: MediaType = 'tv';
@@ -107,37 +107,35 @@ export class TVDetailComponent
 
   override initSubscriptions(): void {}
   initDataBridge() {
-    //data to lifecycle-selector, lifecycle selected
+    //data to bookmark-selector, bookmark selected
     this.store
-      .select(TVLifecycleSelectors.selectTVLifecycleMap)
+      .select(TVBookmarkSelectors.selectTVBookmarkMap)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((tvLifecycleMap) => {
-        this.bridgeDataService.pushMediaLifecycleMap(tvLifecycleMap);
+      .subscribe((tvBookmarkMap) => {
+        this.bridgeDataService.pushMediaBookmarkMap(tvBookmarkMap);
       });
 
-    // data from lifecycle-selector
-    this.bridgeDataService.tvInputLifecycleOptionsObs$
+    // data from bookmark-selector
+    this.bridgeDataService.tvInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteTVLifecycle(
-          mediaLifecycleDTO as MediaLifecycleDTO<TVDetail>
+      .subscribe((mediaBookmarkDTO) => {
+        this.createUpdateDeleteTVBookmark(
+          mediaBookmarkDTO as MediaBookmarkDTO<TVDetail>
         );
       });
   }
 
-  createUpdateDeleteTVLifecycle(
-    mediaLifecycleDTO: MediaLifecycleDTO<TVDetail>
-  ) {
-    console.log(mediaLifecycleDTO);
+  createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TVDetail>) {
+    console.log(mediaBookmarkDTO);
     this.store.dispatch(
-      TVLifecycleActions.createUpdateDeleteTVLifecycle({
-        mediaLifecycleDTO,
+      TVBookmarkActions.createUpdateDeleteTVBookmark({
+        mediaBookmarkDTO,
       })
     );
   }
 
-  setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
-    this.lifecycleEnumSelected = lifecycleEnumSelected;
+  setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
+    this.bookmarkEnumSelected = bookmarkEnumSelected;
   }
 
   navigateToCredits(tVDetail: TVDetail) {

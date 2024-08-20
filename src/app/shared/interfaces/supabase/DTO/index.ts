@@ -1,1 +1,1 @@
-export * from './media-lifecycle.DTO.interface';
+export * from './media-bookmark.DTO.interface';

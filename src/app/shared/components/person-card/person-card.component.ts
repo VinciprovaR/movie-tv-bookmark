@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
+import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
 import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
 import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
@@ -20,7 +20,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     DatePipe,
     MatCardModule,
     MatButtonModule,
-    LifecycleSelectorComponent,
+    BookmarkSelectorComponent,
     RouterModule,
     PercentPipe,
     MatIconModule,

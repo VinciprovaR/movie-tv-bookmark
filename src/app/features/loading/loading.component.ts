@@ -15,9 +15,9 @@ import { SearchTVSelectors } from '../../shared/store/search-tv';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthSelectors } from '../../shared/store/auth';
 import { DiscoveryMovieSelectors } from '../../shared/store/discovery-movie';
-import { MovieLifecycleSelectors } from '../../shared/store/movie-lifecycle';
+import { MovieBookmarkSelectors } from '../../shared/store/movie-bookmark';
 import { DiscoveryTVSelectors } from '../../shared/store/discovery-tv';
-import { TVLifecycleSelectors } from '../../shared/store/tv-lifecycle';
+import { TVBookmarkSelectors } from '../../shared/store/tv-bookmark';
 import { SearchPeopleSelectors } from '../../shared/store/search-people';
 import { MovieDetailCreditsStore } from '../../shared/store/component-store/movie-detail-credits.store.service';
 import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
@@ -101,7 +101,7 @@ export class LoadingComponent
       DiscoveryMovieSelectors.selectIsLoading
     );
     this.movieBookmarksSelectIsLoading$ = this.store.select(
-      MovieLifecycleSelectors.selectIsLoading
+      MovieBookmarkSelectors.selectIsLoading
     );
     this.movieDetailSelectIsLoading$ = this.movieDetailStore.selectIsLoading$;
     this.movieDetailCreditsSelectIsLoading$ =
@@ -114,7 +114,7 @@ export class LoadingComponent
       DiscoveryTVSelectors.selectIsLoading
     );
     this.TVBookmarksSelectIsLoading$ = this.store.select(
-      TVLifecycleSelectors.selectIsLoading
+      TVBookmarkSelectors.selectIsLoading
     );
     this.TVDetailSelectIsLoading$ = this.tvDetailStore.selectIsLoading$;
     this.TVDetailCreditsSelectIsLoading$ =

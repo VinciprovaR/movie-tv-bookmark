@@ -19,7 +19,7 @@ import {
 import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MovieDiscoveryFiltersComponent } from '../movie-discovery-filters/movie-discovery-filters.component';
-import { MediaLifecycleDTO } from '../../shared/interfaces/supabase/DTO';
+import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { PayloadDiscoveryMovie } from '../../shared/interfaces/store/discovery-movie-state.interface';
 import {
@@ -29,10 +29,10 @@ import {
   OptionFilter,
 } from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import {
-  MovieLifecycleActions,
-  MovieLifecycleSelectors,
-} from '../../shared/store/movie-lifecycle';
-import { MovieLifecycleMap } from '../../shared/interfaces/supabase/supabase-lifecycle.interface';
+  MovieBookmarkActions,
+  MovieBookmarkSelectors,
+} from '../../shared/store/movie-bookmark';
+import { MovieBookmarkMap } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 
@@ -59,7 +59,7 @@ export class MovieDiscoveryComponent
   private readonly bridgeDataService = inject(BridgeDataService);
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
-  selectMovieLifecycleMap$!: Observable<MovieLifecycleMap>;
+  selectMovieBookmarkMap$!: Observable<MovieBookmarkMap>;
   selectCombinedDiscoveryFilters$!: Observable<
     [PayloadDiscoveryMovie, Genre[]]
   >;
@@ -88,8 +88,8 @@ export class MovieDiscoveryComponent
       DiscoveryMovieSelectors.selectIsLoading
     );
 
-    this.selectMovieLifecycleMap$ = this.store.select(
-      MovieLifecycleSelectors.selectMovieLifecycleMap
+    this.selectMovieBookmarkMap$ = this.store.select(
+      MovieBookmarkSelectors.selectMovieBookmarkMap
     );
 
     this.selectMovieList$ = this.store.select(
@@ -120,29 +120,27 @@ export class MovieDiscoveryComponent
   override initSubscriptions(): void {}
 
   initDataBridge() {
-    //data to lifecycle-selector, lifecycle selected
-    this.selectMovieLifecycleMap$
+    //data to bookmark-selector, bookmark selected
+    this.selectMovieBookmarkMap$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((movieLifecycleMap) => {
-        this.bridgeDataService.pushMediaLifecycleMap(movieLifecycleMap);
+      .subscribe((movieBookmarkMap) => {
+        this.bridgeDataService.pushMediaBookmarkMap(movieBookmarkMap);
       });
 
-    // data from lifecycle-selector
-    this.bridgeDataService.movieInputLifecycleOptionsObs$
+    // data from bookmark-selector
+    this.bridgeDataService.movieInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mediaLifecycleDTO) => {
-        this.createUpdateDeleteMovieLifecycle(
-          mediaLifecycleDTO as MediaLifecycleDTO<Movie>
+      .subscribe((mediaBookmarkDTO) => {
+        this.createUpdateDeleteMovieBookmark(
+          mediaBookmarkDTO as MediaBookmarkDTO<Movie>
         );
       });
   }
 
-  createUpdateDeleteMovieLifecycle(
-    mediaLifecycleDTO: MediaLifecycleDTO<Movie>
-  ) {
+  createUpdateDeleteMovieBookmark(mediaBookmarkDTO: MediaBookmarkDTO<Movie>) {
     this.store.dispatch(
-      MovieLifecycleActions.createUpdateDeleteMovieLifecycle({
-        mediaLifecycleDTO,
+      MovieBookmarkActions.createUpdateDeleteMovieBookmark({
+        mediaBookmarkDTO,
       })
     );
   }

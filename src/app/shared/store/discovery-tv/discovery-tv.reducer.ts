@@ -10,7 +10,7 @@ export const initialState: DiscoveryTVState = {
     genreIdList: [],
     sortBy: 'popularity.desc',
     airDate: { from: '', to: '' },
-    includeMediaWithLifecycle: false,
+    includeMediaWithBookmark: false,
     language: '',
     voteAverage: { voteAverageMin: 0, voteAverageMax: 10 },
     minVote: 0,

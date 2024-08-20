@@ -4,19 +4,19 @@ export interface DiscoveryMovieFilterForm {
   genres: FormGroup<GenreGroup>;
   sortBy: FormControl<string>;
   releaseDate: FormGroup<DateRangeGroup>;
-  includeLifecycle: FormControl<boolean>;
+  includeBookmark: FormControl<boolean>;
   certifications: FormControl<string>;
   languages: FormControl<string>;
   voteAverage: FormGroup<VoteAverageGroup>;
   minVote: FormControl<number>;
 }
 
-export interface LifecycleMovieFilterForm {
+export interface BookmarkMovieFilterForm {
   genres: FormGroup<GenreGroup>;
   sortBy: FormControl<string>;
 }
 
-export interface LifecycleTVFilterForm {
+export interface BookmarkTVFilterForm {
   genres: FormGroup<GenreGroup>;
   sortBy: FormControl<string>;
 }
@@ -25,7 +25,7 @@ export interface DiscoveryTVFilterForm {
   genres: FormGroup<GenreGroup>;
   sortBy: FormControl<string>;
   airDate: FormGroup<DateRangeGroup>;
-  includeLifecycle: FormControl<boolean>;
+  includeBookmark: FormControl<boolean>;
   languages: FormControl<string>;
   voteAverage: FormGroup<VoteAverageGroup>;
   minVote: FormControl<number>;

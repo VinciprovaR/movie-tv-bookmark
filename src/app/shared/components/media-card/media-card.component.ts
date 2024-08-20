@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { LifecycleSelectorComponent } from '../lifecycle-selector/lifecycle-selector.component';
+import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 import {
   MediaType,
@@ -20,10 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { AbstractMediaCard } from '../abstract/abstract-media-card.component';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
-import { LifecycleStatusLabelComponent } from '../lifecycle-status-label/lifecycle-status-label.component';
+import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
-import { lifecycleEnum } from '../../interfaces/supabase/supabase-lifecycle.interface';
+import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { BridgeDataService } from '../../services/bridge-data.service';
 
 @Component({
@@ -34,13 +34,13 @@ import { BridgeDataService } from '../../services/bridge-data.service';
     DatePipe,
     MatCardModule,
     MatButtonModule,
-    LifecycleSelectorComponent,
+    BookmarkSelectorComponent,
     RouterModule,
     PercentPipe,
     MatIconModule,
     ImgComponent,
     RatingComponent,
-    LifecycleStatusLabelComponent,
+    BookmarkStatusLabelComponent,
   ],
   templateUrl: './media-card.component.html',
   styleUrl: './media-card.component.css',
@@ -54,7 +54,7 @@ export class MediaCardComponent extends AbstractComponent implements OnInit {
   protected readonly TMDB_SEARCH_LIST_2X_IMG_URL = inject(
     IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL
   );
-  protected readonly lifecycleStatusMap = inject(LIFECYCLE_STATUS_MAP);
+  protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
   @Input({ required: true })
   media!: Movie | Movie_Data | TV | TV_Data;
   @Input({ required: true })
@@ -67,7 +67,7 @@ export class MediaCardComponent extends AbstractComponent implements OnInit {
 
   detailMediaPath: string = '';
 
-  lifecycleEnumSelected: lifecycleEnum = 'noLifecycle';
+  bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
 
   voteIcon: string = '';
 
@@ -125,7 +125,7 @@ export class MediaCardComponent extends AbstractComponent implements OnInit {
     );
   }
 
-  setLifecycleStatusElement(lifecycleEnumSelected: lifecycleEnum) {
-    this.lifecycleEnumSelected = lifecycleEnumSelected;
+  setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
+    this.bookmarkEnumSelected = bookmarkEnumSelected;
   }
 }

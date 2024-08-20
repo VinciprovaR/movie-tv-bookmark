@@ -101,11 +101,11 @@ export const routes: Routes = [
     title: 'Discovery TV',
   },
   {
-    path: 'movie-lifecycle-search',
+    path: 'movie-bookmark-search',
     loadComponent: () =>
       import(
-        './shared/components/media-lifecycle-search/media-lifecycle-search.component'
-      ).then((m) => m.MediaLifecycleSearchComponent),
+        './shared/components/media-bookmark-search/media-bookmark-search.component'
+      ).then((m) => m.MediaBookmarkSearchComponent),
     canActivate: [authGuard],
     title: 'Movie Bookmarks',
     children: [
@@ -115,22 +115,22 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: ':lifecycleType',
+        path: ':bookmarkType',
         loadComponent: () =>
           import(
-            './features/movie-lifecycle-search/movie-lifecycle-search.component'
-          ).then((m) => m.MovieLifecycleSearchComponent),
+            './features/movie-bookmark-search/movie-bookmark-search.component'
+          ).then((m) => m.MovieBookmarkSearchComponent),
         canActivate: [authGuard],
-        title: 'Movie Lifecycle List', //to-do lifecycle list con variabile
+        title: 'Movie Bookmark List', //to-do bookmark list con variabile
       },
     ],
   },
   {
-    path: 'tv-lifecycle-search',
+    path: 'tv-bookmark-search',
     loadComponent: () =>
       import(
-        './shared/components/media-lifecycle-search/media-lifecycle-search.component'
-      ).then((m) => m.MediaLifecycleSearchComponent),
+        './shared/components/media-bookmark-search/media-bookmark-search.component'
+      ).then((m) => m.MediaBookmarkSearchComponent),
     canActivate: [authGuard],
     title: 'TV Bookmarks',
     children: [
@@ -140,13 +140,13 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: ':lifecycleType',
+        path: ':bookmarkType',
         loadComponent: () =>
           import(
-            './features/tv-lifecycle-search/tv-lifecycle-search.component'
-          ).then((m) => m.TVLifecycleSearchComponent),
+            './features/tv-bookmark-search/tv-bookmark-search.component'
+          ).then((m) => m.TVBookmarkSearchComponent),
         canActivate: [authGuard],
-        title: 'TV Lifecycle List', //to-do lifecycle list con variabile
+        title: 'TV Bookmark List', //to-do bookmark list con variabile
       },
     ],
   },

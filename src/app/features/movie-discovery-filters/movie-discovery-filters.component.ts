@@ -101,8 +101,8 @@ export class MovieDiscoveryFiltersComponent
       genres: this.initGenreGroup(filterSelected.genreIdList, genreList),
       sortBy: this.initSortByControl(filterSelected.sortBy),
       releaseDate: this.initDateRangeGroup(filterSelected.releaseDate),
-      includeLifecycle: this.initIncludeLifecycleControl(
-        filterSelected.includeMediaWithLifecycle
+      includeBookmark: this.initIncludeBookmarkControl(
+        filterSelected.includeMediaWithBookmark
       ),
       certifications: this.initCertificationsControl(
         filterSelected.certification
@@ -145,8 +145,8 @@ export class MovieDiscoveryFiltersComponent
       releaseDate: this.buildDateRangePayload(
         this.filterForm.controls.releaseDate
       ),
-      includeMediaWithLifecycle: this.buildIncludeLifecyclePayload(
-        this.filterForm.controls.includeLifecycle
+      includeMediaWithBookmark: this.buildIncludeBookmarkPayload(
+        this.filterForm.controls.includeBookmark
       ),
       certification: this.buildCertificationPayload(
         this.filterForm.controls.certifications

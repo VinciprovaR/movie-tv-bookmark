@@ -5,7 +5,7 @@
 
 ################ FATTO, RICONTROLLARE ################
  
-- Quando l'azione va in errore, la selector deve riprendersi il lifecycle id nello state movie/tv-lifecycle
+- Quando l'azione va in errore, la selector deve riprendersi il bookmark id nello state movie/tv-bookmark
 - Scroll infinito quando non ci sono media in lista
 - Scroll infinito solo verticale
 - LIFECYCLEENUM COME CRUD CONDITION ENUM
@@ -15,9 +15,9 @@
 - Error notification
 - Success notification
 - refractor inject with method (anche i destroy ref)
-- Refractor action, chiavi più comprensibili, ogni action con la feature, quindi per movie-lifecycle esempio, 1 crud per discovery, 1 per search, 1 per lifecycle list
-- generalizzare navigator (usabile per header e sotto route come movie lifecycle)
-- ogni failure ha la sua action di failure (search movie failure, discovery movie failure, create lifecycle failure, update lifecycle failure ecc..)
+- Refractor action, chiavi più comprensibili, ogni action con la feature, quindi per movie-bookmark esempio, 1 crud per discovery, 1 per search, 1 per bookmark list
+- generalizzare navigator (usabile per header e sotto route come movie bookmark)
+- ogni failure ha la sua action di failure (search movie failure, discovery movie failure, create bookmark failure, update bookmark failure ecc..)
 - tipizzazioni a any da elimiare
 - Card e altri componenti con grandezze placeholder mentre aspettano dati async per evitare cambi dimensione
 - Spinner loading async disattivare roba
@@ -33,8 +33,6 @@
 - Proxy con action supabase per nascondere chiave API
 - html semantico
 - aria accessibility
-
-
 - Gestione timeout chiamate
 - Refractor interfaccie, stato confuso, separazione dto entity non ordinato
 - Nelle subcribe custom next e error
@@ -42,14 +40,14 @@
 - Hai dimenticato alcune destroyed ref...
 - aria accessibility
 - oggetti placeholder dove ci sono dati asincroni
-- astratta tra discovery.filter.directive e lifecycle.filter.directive
-- lifecycle rinominare in bookmark
+- astratta tra discovery.filter.directive e bookmark.filter.directive
+- bookmark rinominare in bookmark
 - initSubscription ovunque (?)
 - ricerca automatica per i discovery (?)
 - range date filter validatori error 
 - via tutti gli item prima di card 
 - card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
-- scroll infinito anche per i media lifecycle (bookmark)
+- scroll infinito anche per i media bookmark (bookmark)
 - far funzionare bene 1x 2x immagini
 - immagini placeholder da cambiare + su smarthphone sono troppo piccole
 - header giu su dopo n y scroll
@@ -153,9 +151,9 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
 
 
   isMovieEntity(
-    entityMediaLifeCycle: object
-  ): entityMediaLifeCycle is Movie_Life_Cycle {
-    return (entityMediaLifeCycle as Movie_Life_Cycle).movie_id !== undefined;
+    entityMediaBookmark: object
+  ): entityMediaBookmark is Movie_Bookmark {
+    return (entityMediaBookmark as Movie_Bookmark).movie_id !== undefined;
   }
 
 
@@ -163,41 +161,41 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
 
 
           // let caseResult:number = this.supabaseUtilsService.checkCase(
-          //   movieLifecycleFromDB,
-          //   movieLifecycleDTO
+          //   movieBookmarkFromDB,
+          //   movieBookmarkDTO
           // )
-          //  return this.CUSTOM[1]({movieLifecycleDTO, user})
+          //  return this.CUSTOM[1]({movieBookmarkDTO, user})
   // readonly CUSTOM = {
-  //   0: (params: { movieLifecycleDTO: MediaLifecycleDTO; user: User }) => {
-  //     let { movieLifecycleDTO, user } = params;
-  //     return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
-  //       movieLifecycleDTO.lifecycleEnum,
-  //       movieLifecycleDTO.mediaId,
+  //   0: (params: { movieBookmarkDTO: MediaBookmarkDTO; user: User }) => {
+  //     let { movieBookmarkDTO, user } = params;
+  //     return this.supabaseMovieBookmarkDAO.createMovieBookmark(
+  //       movieBookmarkDTO.bookmarkEnum,
+  //       movieBookmarkDTO.mediaId,
   //       user
   //     );
   //   },
   //   1: (params: {
-  //     movieLifecycleDTO: MediaLifecycleDTO;
+  //     movieBookmarkDTO: MediaBookmarkDTO;
   //     user: User;
-  //   }): Observable<Movie_Life_Cycle[]> => {
-  //     let { movieLifecycleDTO } = params;
-  //     return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
-  //       movieLifecycleDTO.mediaId,
-  //       movieLifecycleDTO.lifecycleEnum
+  //   }): Observable<Movie_Bookmark[]> => {
+  //     let { movieBookmarkDTO } = params;
+  //     return this.supabaseMovieBookmarkDAO.deleteMovieBookmark(
+  //       movieBookmarkDTO.mediaId,
+  //       movieBookmarkDTO.bookmarkEnum
   //     );
   //   },
-  //   2: (movieLifecycleDTO: MediaLifecycleDTO) => {
-  //     return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
-  //       movieLifecycleDTO.lifecycleEnum,
-  //       movieLifecycleDTO.mediaId
+  //   2: (movieBookmarkDTO: MediaBookmarkDTO) => {
+  //     return this.supabaseMovieBookmarkDAO.updateMovieBookmark(
+  //       movieBookmarkDTO.bookmarkEnum,
+  //       movieBookmarkDTO.mediaId
   //     );
   //   },
-  //   3: (movieLifecycleDTO: MediaLifecycleDTO) => {
-  //     let movieLifecycleFromDBCustom: Movie_Life_Cycle = {
-  //       lifecycleId: 0,
-  //       movie_id: movieLifecycleDTO.mediaId,
+  //   3: (movieBookmarkDTO: MediaBookmarkDTO) => {
+  //     let movieBookmarkFromDBCustom: Movie_Bookmark = {
+  //       bookmarkId: 0,
+  //       movie_id: movieBookmarkDTO.mediaId,
   //     };
-  //     return of([movieLifecycleFromDBCustom]);
+  //     return of([movieBookmarkFromDBCustom]);
   //   },
   //   99: () => {
   //     throw new Error('Something went wrong. Case 99'); //to-do traccia errore su db, anche se impossibile che passi qui
@@ -208,29 +206,29 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
 
   
   private readonly COND_MOVIE: {
-    [key: number]: (props: any) => Observable<Movie_Life_Cycle[]>;
+    [key: number]: (props: any) => Observable<Movie_Bookmark[]>;
   } = {
     0: (props: any) => {
-      return this.supabaseMovieLifecycleDAO.createMovieLifeCycle(
-        props.lifecycleEnum,
+      return this.supabaseMovieBookmarkDAO.createMovieBookmark(
+        props.bookmarkEnum,
         props.mediaId,
         props.user
       );
     },
     1: (props: any) => {
-      return this.supabaseMovieLifecycleDAO.deleteMovieLifeCycle(
-        props.lifecycleEnum,
+      return this.supabaseMovieBookmarkDAO.deleteMovieBookmark(
+        props.bookmarkEnum,
         props.mediaId
       );
     },
     2: (props: any) => {
-      return this.supabaseMovieLifecycleDAO.updateMovieLifeCycle(
-        props.lifecycleEnum,
+      return this.supabaseMovieBookmarkDAO.updateMovieBookmark(
+        props.bookmarkEnum,
         props.mediaId
       );
     },
     3: (props: any) => {
-      return of([props.movieLifecycleFromDBCustom]);
+      return of([props.movieBookmarkFromDBCustom]);
     },
     99: (props: any) => {
       throw new Error('Something went wrong. Case -99');
@@ -238,68 +236,68 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
   };
 
 
-    // createOrUpdateOrDeleteMovieLifecycle(
-  //   movieLifecycleDTO: MediaLifecycleDTO,
+    // createOrUpdateOrDeleteMovieBookmark(
+  //   movieBookmarkDTO: MediaBookmarkDTO,
   //   user: User,
-  //   movieLifecycleMap: MediaLifecycleMap
-  // ): Observable<MediaLifecycleMap> {
-  //   return this.supabaseMovieLifecycleDAO
-  //     .findLifecycleListByMovieIds([movieLifecycleDTO.mediaId])
+  //   movieBookmarkMap: MediaBookmarkMap
+  // ): Observable<MediaBookmarkMap> {
+  //   return this.supabaseMovieBookmarkDAO
+  //     .findBookmarkListByMovieIds([movieBookmarkDTO.mediaId])
   //     .pipe(
-  //       switchMap((movieLifecycleFromDB: Movie_Life_Cycle[]) => {
+  //       switchMap((movieBookmarkFromDB: Movie_Bookmark[]) => {
   //         let c = this.supabaseUtilsService.checkCase(
-  //           movieLifecycleFromDB,
-  //           movieLifecycleDTO
+  //           movieBookmarkFromDB,
+  //           movieBookmarkDTO
   //         );
   //         return this.COND_MOVIE[c]({
-  //           lifecycleEnum: movieLifecycleDTO.lifecycleEnum,
-  //           mediaId: movieLifecycleDTO.mediaId,
+  //           bookmarkEnum: movieBookmarkDTO.bookmarkEnum,
+  //           mediaId: movieBookmarkDTO.mediaId,
   //           user: user,
-  //           movieLifecycleFromDBCustom: {
-  //             lifecycleId: 0,
-  //             movie_id: movieLifecycleDTO.mediaId,
+  //           movieBookmarkFromDBCustom: {
+  //             bookmarkId: 0,
+  //             movie_id: movieBookmarkDTO.mediaId,
   //             user_id: user.id,
   //           },
   //         });
 
   //       }),
-  //       map((movieMovieLifecycle: Movie_Life_Cycle[]) => {
-  //         return this.supabaseUtilsService.injectInMovieLifecycleMap(
-  //           movieMovieLifecycle,
-  //           movieLifecycleMap
+  //       map((movieMovieBookmark: Movie_Bookmark[]) => {
+  //         return this.supabaseUtilsService.injectInMovieBookmarkMap(
+  //           movieMovieBookmark,
+  //           movieBookmarkMap
   //         );
   //       })
   //     );
   // }
 
             let c: number = this.supabaseUtilsService.checkCase(
-            tvLifecycleFromDB,
-            tvLifecycleDTO
+            tvBookmarkFromDB,
+            tvBookmarkDTO
           );
 
           if (c === 0) {
-            return this.supabaseTVLifecycleDAO.createTVLifeCycle(
-              tvLifecycleDTO.lifecycleEnum,
-              tvLifecycleDTO.mediaId,
+            return this.supabaseTVBookmarkDAO.createTVBookmark(
+              tvBookmarkDTO.bookmarkEnum,
+              tvBookmarkDTO.mediaId,
               user
             );
           } else if (c === 1) {
-            return this.supabaseTVLifecycleDAO.deleteTVLifeCycle(
-              tvLifecycleDTO.mediaId,
-              tvLifecycleDTO.lifecycleEnum
+            return this.supabaseTVBookmarkDAO.deleteTVBookmark(
+              tvBookmarkDTO.mediaId,
+              tvBookmarkDTO.bookmarkEnum
             );
           } else if (c === 2) {
-            return this.supabaseTVLifecycleDAO.updateTVLifeCycle(
-              tvLifecycleDTO.lifecycleEnum,
-              tvLifecycleDTO.mediaId
+            return this.supabaseTVBookmarkDAO.updateTVBookmark(
+              tvBookmarkDTO.bookmarkEnum,
+              tvBookmarkDTO.mediaId
             );
           } else if (c === 3) {
-            let tvLifecycleFromDBCustom: TV_Life_Cycle = {
-              lifecycleId: 0,
-              tv_id: tvLifecycleDTO.mediaId,
+            let tvBookmarkFromDBCustom: TV_Bookmark = {
+              bookmarkId: 0,
+              tv_id: tvBookmarkDTO.mediaId,
               user_id: user.id,
             };
-            return of([tvLifecycleFromDBCustom]);
+            return of([tvBookmarkFromDBCustom]);
           } else {
             throw new Error('Something went wrong. Case -99');
           }
