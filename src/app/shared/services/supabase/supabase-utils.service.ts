@@ -16,7 +16,6 @@ import {
   TVBookmarkMap,
 } from '../../interfaces/supabase/supabase-bookmark.interface';
 import {
-  MediaType,
   Movie,
   MovieDetail,
   MovieResult,

@@ -9,11 +9,10 @@ import {
 import { CommonModule } from '@angular/common';
 import {
   MediaType,
-  MovieCredit,
   MovieDetail,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { map, Observable, takeUntil } from 'rxjs';
-import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
+import { MovieDetailStore } from '../../shared/component-store';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
 import { MediaDetailCastCrewListPreviewComponent } from '../../shared/components/media-detail-cast-crew-list-preview/media-detail-cast-crew-list-preview.component';
 import { ImgComponent } from '../../shared/components/img/img.component';

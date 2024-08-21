@@ -5,7 +5,7 @@ import { AuthSelectors } from './shared/store/auth';
 import { map } from 'rxjs';
 import { ContentComponent } from './shared/layout/content/content.component';
 import { AlertContainerComponent } from './features/alert-container/alert-container.component';
-import { NotifierStore } from './shared/store/component-store/notifier-store.service';
+import { NotifierStore } from './shared/component-store';
 import { LoadingComponent } from './features/loading/loading.component';
 import { RouterOutlet } from '@angular/router';
 import { AbstractComponent } from './shared/components/abstract/abstract-component.component';

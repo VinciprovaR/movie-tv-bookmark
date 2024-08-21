@@ -1,19 +1,25 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { SupabaseAuthService } from '../../services/supabase';
+
 import { Router } from '@angular/router';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
   User,
 } from '@supabase/supabase-js/';
-import { ErrorResponse } from '../../interfaces/error.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SupabaseAuthService } from '../../services/supabase';
 
 @Injectable()
 export class AuthEffects {
+  private readonly router = inject(Router);
+  private readonly actions$ = inject(Actions);
+  private readonly supabaseAuthService = inject(SupabaseAuthService);
+
+  constructor() {}
+
   login$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.login),
@@ -111,10 +117,4 @@ export class AuthEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private supabaseAuthService: SupabaseAuthService,
-    private router: Router
-  ) {}
 }

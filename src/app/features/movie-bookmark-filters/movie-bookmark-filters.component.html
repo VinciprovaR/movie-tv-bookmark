@@ -3,7 +3,7 @@
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
   <div class="box-border border-container mb-4">
     <div
-      class="px-3 py-5 flex justify-between hover:cursor-pointer"
+      class="p-3 flex justify-between hover:cursor-pointer"
       (click)="toggleMenuSort()"
       [ngClass]="{
         'border-separator': !isHideSortContainer
@@ -35,7 +35,7 @@
 
   <div class="box-border border-container mb-4">
     <div
-      class="px-3 py-5 flex justify-between hover:cursor-pointer"
+      class="p-3 flex justify-between hover:cursor-pointer"
       [ngClass]="{
         'border-separator': !isHideFilterContainer
       }"

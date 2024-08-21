@@ -1,13 +1,5 @@
-import {
-  Component,
-  DestroyRef,
-  inject,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subject, Observable, takeUntil } from 'rxjs';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
@@ -21,12 +13,10 @@ import {
   MovieBookmarkSelectors,
   MovieBookmarkActions,
 } from '../../shared/store/movie-bookmark';
-
 import { CommonModule } from '@angular/common';
-import { PersonDetailMovieCreditsStore } from '../../shared/store/component-store/person-detail-movie-credits-store.service';
+import { PersonDetailMovieCreditsStore } from '../../shared/component-store/person-detail-movie-credits-store.service';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

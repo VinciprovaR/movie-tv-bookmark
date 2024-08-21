@@ -1,5 +1,5 @@
 //to-do rinominare file in tmdb-media
-
+export type TimeWindow = 'day' | 'week';
 export type MediaType = 'movie' | 'tv' | 'person';
 
 export interface MediaResult {
@@ -364,4 +364,21 @@ export interface KeywordsTV {
 export interface MainCrewCast {
   id: number;
   name: string;
+}
+
+export interface MovieDepartments {
+  key: string;
+  value: CrewMovie[];
+}
+export interface TVDepartments {
+  key: string;
+  value: CrewTV[];
+}
+
+export interface Banner {
+  id: number;
+  poster_path: string;
+  title: string;
+  backdrop_path: string;
+  release_date: string;
 }

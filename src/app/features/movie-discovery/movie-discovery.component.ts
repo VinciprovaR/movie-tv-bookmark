@@ -1,21 +1,12 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
-import { Store } from '@ngrx/store';
-import { Observable, Subject, combineLatest, takeUntil } from 'rxjs';
+import { Observable, combineLatest, takeUntil } from 'rxjs';
 import {
   DiscoveryMovieActions,
   DiscoveryMovieSelectors,
 } from '../../shared/store/discovery-movie';
-
 import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MovieDiscoveryFiltersComponent } from '../movie-discovery-filters/movie-discovery-filters.component';
@@ -75,7 +66,7 @@ export class MovieDiscoveryComponent
     super();
   }
   ngAfterViewInit(): void {
-    //    this.discoveryMovieLanding();
+    this.discoveryMovieLanding();
   }
 
   ngOnInit(): void {

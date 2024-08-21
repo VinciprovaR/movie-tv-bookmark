@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ImgComponent } from '../components/img/img.component';
-import { MediaType } from '../interfaces/TMDB/tmdb-media.interface';
-
+import { ImgComponent } from '../../components/img/img.component';
+import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { AbstractComponent } from '../components/abstract/abstract-component.component';
+import { AbstractComponent } from '../../components/abstract/abstract-component.component';
 
 @Component({
   selector: 'app-tmdb-icon',

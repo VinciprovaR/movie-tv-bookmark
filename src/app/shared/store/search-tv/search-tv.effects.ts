@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchTVActions, SearchTVSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
@@ -9,6 +9,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class SearchTVEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly TMDBSearchTVService = inject(TMDBSearchTVService);
+  private readonly store = inject(Store);
+  constructor() {}
+
   searchTV$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SearchTVActions.searchTV),
@@ -62,10 +67,4 @@ export class SearchTVEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private TMDBSearchTVService: TMDBSearchTVService,
-    private store: Store
-  ) {}
 }

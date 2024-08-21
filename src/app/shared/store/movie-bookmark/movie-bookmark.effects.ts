@@ -1,35 +1,36 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import {
-  MediaType,
-  Movie,
   MovieDetail,
   MovieResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
-import { ErrorResponse } from '../../interfaces/error.interface';
 import { MovieBookmarkActions, MovieBookmarkSelectors } from '.';
-
 import { SearchMovieActions } from '../search-movie';
 import { DiscoveryMovieActions } from '../discovery-movie';
-import {
-  bookmarkEnum,
-  MovieBookmarkMap,
-} from '../../interfaces/supabase/supabase-bookmark.interface';
+import { MovieBookmarkMap } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseMovieBookmarkService } from '../../services/supabase';
 import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
 import { HttpErrorResponse } from '@angular/common/http';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
-import { personDetailMovieCreditsSuccess } from '../component-store/person-detail-movie-credits-store.service';
-import { movieDetailSuccess } from '../component-store/movie-detail-store.service';
+import {
+  personDetailMovieCreditsSuccess,
+  movieDetailSuccess,
+} from '../../component-store';
 
 @Injectable()
 export class MovieBookmarkEffects {
+  private readonly store = inject(Store);
+  private readonly actions$ = inject(Actions);
+  private readonly supabaseMovieBookmarkService = inject(
+    SupabaseMovieBookmarkService
+  );
+
+  constructor() {}
+
   initMovieBookmarkMapFromList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
@@ -325,10 +326,4 @@ export class MovieBookmarkEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private supabaseMovieBookmarkService: SupabaseMovieBookmarkService
-  ) {}
 }

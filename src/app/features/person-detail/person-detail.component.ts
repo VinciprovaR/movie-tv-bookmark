@@ -1,21 +1,17 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PersonDetailStore } from '../../shared/store/component-store/person-detail-store.service';
+import { PersonDetailStore } from '../../shared/component-store';
 import {
   MediaType,
   PersonDetail,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { CommonModule } from '@angular/common';
-
 import { PersonMoviesComponent } from '../person-movies/person-movies.component';
-
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { ExternalInfoComponent } from '../../shared/components/external-info/external-info.component';
 import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
-
 import { PersonDetailMainInfoContentComponent } from '../../shared/components/person-detail-main-info/person-detail-main-info.component';
 import { PersonTVsComponent } from '../person-tv/person-tvs.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

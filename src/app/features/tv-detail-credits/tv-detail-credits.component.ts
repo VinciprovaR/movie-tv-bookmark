@@ -7,46 +7,29 @@ import {
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PersonCardComponent } from '../../shared/components/person-card/person-card.component';
 import { CastCrewCardComponent } from '../../shared/components/cast-crew-card/cast-crew-card.component';
-import {
-  BehaviorSubject,
-  map,
-  Observable,
-  Subject,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, map, Observable, takeUntil } from 'rxjs';
 import { FadeScrollerDirective } from '../../shared/directives/fade-scroller.directive';
 import {
+  Banner,
   CastTV,
   CrewTV,
   Job,
   Role,
   TVCredit,
+  TVDepartments,
   TVDetail,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { TVDetailCreditsStore } from '../../shared/store/component-store/tv-detail-credits.store.service';
 import { CastCrewCreditCardComponent } from '../../shared/components/cast-crew-credit-card/cast-crew-credit-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Event, RouterLink } from '@angular/router';
-import { TVDetailStore } from '../../shared/store/component-store/tv-detail-store.service';
+import {
+  TVDetailStore,
+  TVDetailCreditsStore,
+} from '../../shared/component-store';
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { AbstractMediaDetailCreditsComponent } from '../../shared/components/abstract/abstract-media-detail-credits.component';
-
-export interface Departments {
-  key: string;
-  value: CrewTV[];
-}
-
-export interface TVBanner {
-  id: number;
-  poster_path: string;
-  title: string;
-  backdrop_path: string;
-  release_date: string;
-}
 
 @Component({
   selector: 'app-tv-detail-credits',
@@ -79,10 +62,10 @@ export class TVDetailCreditsComponent
 
   castListSub$ = new BehaviorSubject<CastTV[]>([]);
   castList$!: Observable<CastTV[]>;
-  departmentsSub$ = new BehaviorSubject<Departments[]>([]);
-  departments$!: Observable<Departments[]>;
-  tvBannerSub$ = new BehaviorSubject<TVBanner | null>(null);
-  tvBanner$!: Observable<TVBanner | null>;
+  departmentsSub$ = new BehaviorSubject<TVDepartments[]>([]);
+  departments$!: Observable<TVDepartments[]>;
+  bannerSub$ = new BehaviorSubject<Banner | null>(null);
+  banner$!: Observable<Banner | null>;
 
   @Input()
   tvId: number = 0;
@@ -92,7 +75,7 @@ export class TVDetailCreditsComponent
 
   detailMediaPath: string = '';
 
-  departments: Departments[] = [
+  departments: TVDepartments[] = [
     { key: 'Directing', value: [] },
     { key: 'Writing', value: [] },
     { key: 'Production', value: [] },
@@ -138,7 +121,7 @@ export class TVDetailCreditsComponent
     this.initDynamicSelectors(
       this.castListSub$.asObservable(),
       this.departmentsSub$.asObservable(),
-      this.tvBannerSub$.asObservable()
+      this.bannerSub$.asObservable()
     );
 
     this.pushTVDetail(tvDetail);
@@ -153,7 +136,7 @@ export class TVDetailCreditsComponent
         return [];
       })
     );
-    const forDepartments$ = this.tvDetail$.pipe(
+    const forTVDepartments$ = this.tvDetail$.pipe(
       map((tvDetail: TVDetail | null) => {
         if (tvDetail) {
           return this.buildCrewObject(tvDetail.aggregate_credits.crew);
@@ -162,16 +145,16 @@ export class TVDetailCreditsComponent
       })
     );
 
-    const tvBanner$ = this.tvDetail$.pipe(
+    const banner$ = this.tvDetail$.pipe(
       map((tvDetail: TVDetail | null) => {
         if (tvDetail) {
-          return this.buildTVBanner(tvDetail);
+          return this.buildBanner(tvDetail);
         }
         return null;
       })
     );
 
-    this.initDynamicSelectors(forCastList$, forDepartments$, tvBanner$);
+    this.initDynamicSelectors(forCastList$, forTVDepartments$, banner$);
 
     this.searchTVDetail();
   }
@@ -195,12 +178,12 @@ export class TVDetailCreditsComponent
 
   initDynamicSelectors(
     forCastList$: Observable<CastTV[]>,
-    forDepartments$: Observable<Departments[]>,
-    forTVBanner$: Observable<TVBanner | null>
+    forTVDepartments$: Observable<TVDepartments[]>,
+    forBanner$: Observable<Banner | null>
   ) {
     this.castList$ = forCastList$;
-    this.departments$ = forDepartments$;
-    this.tvBanner$ = forTVBanner$;
+    this.departments$ = forTVDepartments$;
+    this.banner$ = forBanner$;
   }
 
   searchTVCredits() {
@@ -214,10 +197,10 @@ export class TVDetailCreditsComponent
   pushTVDetail(tvDetail: TVDetail) {
     const departments = this.buildCrewObject(tvDetail.aggregate_credits.crew);
     const castList = this.buildCastObject(tvDetail.aggregate_credits.cast);
-    const tvBanner = this.buildTVBanner(tvDetail);
+    const banner = this.buildBanner(tvDetail);
     this.castListSub$.next(castList);
     this.departmentsSub$.next(departments);
-    this.tvBannerSub$.next(tvBanner);
+    this.bannerSub$.next(banner);
   }
 
   buildCastObject(castList: CastTV[]) {
@@ -238,7 +221,7 @@ export class TVDetailCreditsComponent
     return this.departments;
   }
 
-  buildTVBanner(tvDetail: TVDetail): TVBanner {
+  buildBanner(tvDetail: TVDetail): Banner {
     return {
       ...{
         id: tvDetail.id,

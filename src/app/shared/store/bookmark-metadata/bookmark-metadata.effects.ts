@@ -1,16 +1,21 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, delay, map, of, switchMap } from 'rxjs';
-import {} from '../../services/supabase';
-import { ErrorResponse } from '../../interfaces/error.interface';
+import { catchError, map, of, switchMap } from 'rxjs';
+import { SupabaseBookmarkMetadataService } from '../../services/supabase';
 import { BookmarkMetadataActions } from '.';
 import { BookmarkOption } from '../../interfaces/supabase/DTO';
 import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
-import { SupabaseBookmarkMetadataService } from '../../services/supabase/supabase-bookmark-metadata.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class BookmarkMetadataEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly supabaseBookmarkMetadataService = inject(
+    SupabaseBookmarkMetadataService
+  );
+
+  constructor() {}
+
   retriveBookmarkMetadata$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BookmarkMetadataActions.retriveBookmarkMetadata),
@@ -39,9 +44,4 @@ export class BookmarkMetadataEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private supabaseBookmarkMetadataService: SupabaseBookmarkMetadataService
-  ) {}
 }

@@ -69,7 +69,7 @@ export class TVDiscoveryComponent
     super();
   }
   ngAfterViewInit(): void {
-    // this.discoveryTVLanding();
+    this.discoveryTVLanding();
   }
 
   ngOnInit(): void {

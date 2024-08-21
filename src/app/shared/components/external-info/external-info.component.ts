@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ImdbIconComponent } from '../../imdb-icon/imdb-icon.component';
-import { TmdbIconComponent } from '../../tmdb-icon/tmdb-icon.component';
+import { ImdbIconComponent } from '../imdb-icon/imdb-icon.component';
+import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
 import {
   MediaType,
   MovieDetail,

@@ -5,9 +5,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props, Store } from '@ngrx/store';
-import { TVCredit, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
-import { TMDBTVDetailService } from '../../services/tmdb/tmdb-tv-detail.service';
-import { StateMediaBookmark } from '../../interfaces/store/state-media-bookmark.interface';
+import { TVCredit } from '../interfaces/TMDB/tmdb-media.interface';
+import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
+import { TMDBTVDetailService } from '../services/tmdb';
 
 export interface TVDetailCreditsState extends StateMediaBookmark {
   tvCredit: TVCredit | null;

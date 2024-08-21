@@ -14,7 +14,7 @@ import {
   TVDetail,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { map, Observable, takeUntil } from 'rxjs';
-import { TVDetailStore } from '../../shared/store/component-store/tv-detail-store.service';
+import { TVDetailStore } from '../../shared/component-store';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
 import { MediaDetailCastCrewListPreviewComponent } from '../../shared/components/media-detail-cast-crew-list-preview/media-detail-cast-crew-list-preview.component';
 import { ImgComponent } from '../../shared/components/img/img.component';
@@ -34,7 +34,6 @@ import { MediaKeywordsComponent } from '../../shared/components/media-keywords/m
 import { VideosContainerComponent } from '../../shared/components/videos-container/videos-container.component';
 import { TVDetailMainInfoContentComponent } from '../../shared/components/tv-detail-main-info/tv-detail-main-info.component';
 import { NavigationExtras } from '@angular/router';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

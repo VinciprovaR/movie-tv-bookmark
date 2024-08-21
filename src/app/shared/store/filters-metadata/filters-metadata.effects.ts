@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import {
   switchMap,
@@ -10,17 +10,21 @@ import {
   mergeMap,
 } from 'rxjs';
 import { FiltersMetadataActions } from '.';
-import { ErrorResponse } from '../../interfaces/error.interface';
 import {
   Certification,
   Genre,
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
-import { TMDBFilterMediaService } from '../../services/tmdb/tmdb-filter-media.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TMDBFilterMediaService } from '../../services/tmdb';
 
 @Injectable()
 export class FiltersMetadataEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly TMDBFilterMediaService = inject(TMDBFilterMediaService);
+
+  constructor() {}
+
   getFiltersMetadata$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FiltersMetadataActions.getFiltersMetadata),
@@ -108,9 +112,4 @@ export class FiltersMetadataEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private TMDBFilterMediaService: TMDBFilterMediaService
-  ) {}
 }

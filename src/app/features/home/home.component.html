@@ -1,1 +1,167 @@
-<p>home works!</p>
+<section class="w-full max-w-screen-2xl mx-auto pt-[60px]">
+  <!-- Header Section -->
+  @if(randomImage$ | async; as randomImage){
+  <header
+    class="bg-cover bg-top h-[50vh] text-white"
+    [ngStyle]="{ 'background-image': buildBgStyle(randomImage) }"
+  >
+    <div class="flex justify-center h-full bg-black bg-opacity-50">
+      <div class="text-center px-2 py-6">
+        <h1 class="text-4xl md:text-6xl">
+          Welcome to Movie {{ "\u0026" }} TV Bookmark
+        </h1>
+        <p class="mt-2 text-lg md:text-2xl">
+          Search and save your favourite movies and tv shows
+        </p>
+      </div>
+    </div>
+  </header>
+
+  }
+
+  <!-- Explanation Section -->
+  <section class="py-12 px-4 md:px-12 space-y-12">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl md:text-4xl text-center">
+        About Movie {{ "\u0026" }} TV Bookmark
+      </h2>
+      <p class="mt-4 text-center">
+        A simple skill showcase web-app for searching and saving movies and tv
+        shows in dedicated bookmarks. Explore and update your movies and tv
+        shows saved in the bookmarks section as you wish! You can also remove a
+        media from the bookmark.
+      </p>
+      <div>
+        <ul class="space-y-6 p-0">
+          <li class="flex items-start">
+            <span class="flex-shrink-0 h-8 w-8 text-lime-500">
+              <!-- Icon (optional) -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </span>
+            <div class="ml-4">
+              <h3 class="text-xl font-medium text-lime-500">
+                Watchlist Bookmark
+              </h3>
+              <p class="mt-1">
+                Save movies and tv shows that you'd like to watch someday!
+              </p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="flex-shrink-0 h-8 w-8 text-lime-500">
+              <!-- Icon (optional) -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </span>
+            <div class="ml-4">
+              <h3 class="text-xl font-medium text-lime-500">
+                Watched Bookmark
+              </h3>
+              <p class="mt-1">
+                A list of movies and tv show that you've already watched, just
+                to keep in mind!
+              </p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="flex-shrink-0 h-8 w-8 text-lime-500">
+              <!-- Icon (optional) -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </span>
+            <div class="ml-4">
+              <h3 class="text-xl font-medium text-lime-500">
+                Rewatch Bookmark
+              </h3>
+              <p class="mt-1">
+                A list of movies and tv show that you'd like to watch again!
+              </p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="flex-shrink-0 h-8 w-8 text-lime-500">
+              <!-- Icon (optional) -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </span>
+            <div class="ml-4">
+              <h3 class="text-xl font-medium text-lime-500">
+                Still Watching Bookmark
+              </h3>
+              <p class="mt-1">
+                A list of movies and tv show that you haven't not finished yet!
+              </p>
+            </div>
+          </li>
+          <!-- Add more features as needed -->
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-2xl md:text-4xl">Powered by</h2>
+      <p class="mt-4">
+        Movie {{ "\u0026" }} TV Bookmark uses the TMDB API but is not endorsed
+        or certified by TMDB.
+      </p>
+      <div class="w-[50%] aspect-[2/1] items-center m-auto">
+        <a [href]="'https://www.themoviedb.org/'" target="_blank">
+          <app-img
+            [alt]="'TMDB logo'"
+            [title]="'TMDB logo'"
+            [imgSrc]="
+              'https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg'
+            "
+            [priority]="true"
+            [customClasses]="'border-container-no-color'"
+            [isPlaceholderPerson]="false"
+          ></app-img
+        ></a>
+      </div>
+    </div>
+  </section>
+</section>

@@ -19,13 +19,18 @@ import { MovieBookmarkSelectors } from '../../shared/store/movie-bookmark';
 import { DiscoveryTVSelectors } from '../../shared/store/discovery-tv';
 import { TVBookmarkSelectors } from '../../shared/store/tv-bookmark';
 import { SearchPeopleSelectors } from '../../shared/store/search-people';
-import { MovieDetailCreditsStore } from '../../shared/store/component-store/movie-detail-credits.store.service';
-import { MovieDetailStore } from '../../shared/store/component-store/movie-detail-store.service';
-import { PersonDetailStore } from '../../shared/store/component-store/person-detail-store.service';
-import { PersonDetailMovieCreditsStore } from '../../shared/store/component-store/person-detail-movie-credits-store.service';
-import { PersonDetailTVCreditsStore } from '../../shared/store/component-store/person-detail-tv-credits-store.service';
-import { TVDetailCreditsStore } from '../../shared/store/component-store/tv-detail-credits.store.service';
-import { TVDetailStore } from '../../shared/store/component-store/tv-detail-store.service';
+import {
+  MovieDetailCreditsStore,
+  MovieDetailStore,
+  TVDetailCreditsStore,
+  TVDetailStore,
+  PersonDetailStore,
+  PersonDetailMovieCreditsStore,
+  PersonDetailTVCreditsStore,
+  TrendingMediaStore,
+} from '../../shared/component-store';
+import { RandomMediaImageService } from '../../shared/services/random-media-image.service';
+
 // to-do refractor
 @Component({
   selector: 'app-loading',
@@ -43,6 +48,10 @@ export class LoadingComponent
   loadingBar!: ElementRef;
   @ViewChild('loadingBarLanding')
   loadingBarLanding!: ElementRef;
+
+  //Media
+  private readonly randomMediaImageService = inject(RandomMediaImageService);
+  randomImage$!: Observable<string>;
 
   //Auth
   authSelectIsLoading$!: Observable<boolean>;
@@ -88,6 +97,8 @@ export class LoadingComponent
   ngOnInit(): void {}
 
   override initSelectors(): void {
+    //Media
+    this.randomImage$ = this.randomMediaImageService.randomImage$;
     //Auth
     this.authSelectIsLoading$ = this.store.select(
       AuthSelectors.selectIsLoading
@@ -180,7 +191,6 @@ export class LoadingComponent
         this.toggleLoadingBar(isLoading);
       });
 
-    // landing
     this.movieDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DiscoveryTVActions, DiscoveryTVSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
@@ -10,6 +10,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class DiscoveryTVEffects {
+  private readonly store = inject(Store);
+  private readonly actions$ = inject(Actions);
+  private readonly TMDBDiscoveryTVService = inject(TMDBDiscoveryTVService);
+  private readonly supabaseTVBookmarkService = inject(
+    SupabaseTVBookmarkService
+  );
+  constructor() {}
+
   discoveryTVLanding$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DiscoveryTVActions.discoveryTVLanding),
@@ -115,11 +123,4 @@ export class DiscoveryTVEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private TMDBDiscoveryTVService: TMDBDiscoveryTVService,
-    private store: Store,
-    private supabaseTVBookmarkService: SupabaseTVBookmarkService
-  ) {}
 }

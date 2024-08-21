@@ -13,13 +13,13 @@ export const routes: Routes = [
     canActivate: [authGuard],
     title: 'User Profile',
   },
-  // {
-  //   path: 'home',
-  //   loadComponent: () =>
-  //     import('./features/home/home.component').then((m) => m.HomeComponent),
-  //   canActivate: [authGuard],
-  //   title: 'Home',
-  // },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./features/home/home.component').then((m) => m.HomeComponent),
+    canActivate: [authGuard],
+    title: 'Home',
+  },
   {
     path: 'login',
     loadComponent: () =>

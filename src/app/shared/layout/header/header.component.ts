@@ -6,10 +6,9 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-
 import { map, Observable } from 'rxjs';
 import { AuthSelectors } from '../../store/auth';
-import { ToggleThemeStore } from '../../store/component-store/toggle-theme-store.service';
+import { ToggleThemeStore } from '../../component-store';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigatorMobileComponent } from '../../../features/navigator-mobile/navigator-mobile.component';

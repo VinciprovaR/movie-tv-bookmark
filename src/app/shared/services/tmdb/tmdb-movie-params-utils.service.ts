@@ -3,7 +3,6 @@ import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-st
 import { AbstractTMDBParamsUtilsService } from './abstract/abstract-tmdb-params-utils.service';
 import { DateRange } from '../../interfaces/store/discovery-state.interface';
 
-
 @Injectable({
   providedIn: 'root',
 })

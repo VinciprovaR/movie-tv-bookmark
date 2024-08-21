@@ -1,23 +1,23 @@
 <section class="w-full max-w-[1536px] mx-auto mb-20 pt-[60px]">
-  @if((tvBanner$|async); as tvBanner ){
+  @if((banner$|async); as banner ){
 
   <div
     class="flex flex-col-reverse sm:flex-row sm:w-[90%] mx-auto sm:mx-auto py-4 sm:space-x-6 bg-[var(--bkg-container-color)] sm:bg-transparent"
   >
-    <a [routerLink]="buildDetailPath(tvBanner.id)" [title]="tvBanner.title">
+    <a [routerLink]="buildDetailPath(banner.id)" [title]="banner.title">
       <div
         class="bg-cover bg-no-repeat bg-center items-center overflow-hidden aspect-[50/22] w-full sm:w-[460px]"
         [ngStyle]="{
-          'background-image': tvBanner.backdrop_path
-            ? 'url(' + TMDB_MULTI_FACE_1X_IMG_URL + tvBanner.backdrop_path + ')'
+          'background-image': banner.backdrop_path
+            ? 'url(' + TMDB_MULTI_FACE_1X_IMG_URL + banner.backdrop_path + ')'
             : ''
         }"
       ></div
     ></a>
 
     <div class="text-center pb-4 sm:py-0 underline">
-      <a [routerLink]="buildDetailPath(tvBanner.id)" [title]="tvBanner.title">
-        <h1>{{ tvBanner.title }}</h1></a
+      <a [routerLink]="buildDetailPath(banner.id)" [title]="banner.title">
+        <h1>{{ banner.title }}</h1></a
       >
     </div>
   </div>

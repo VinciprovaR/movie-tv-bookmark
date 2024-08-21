@@ -1,7 +1,6 @@
-import { inject, Inject, Injectable } from '@angular/core';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { inject, Injectable } from '@angular/core';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { Observable, from, map, tap } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 import { Bookmark_Metadata } from '../../interfaces/supabase/entities';
 
 @Injectable({

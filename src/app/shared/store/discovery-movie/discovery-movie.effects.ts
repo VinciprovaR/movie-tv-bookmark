@@ -1,15 +1,25 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '.';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { SupabaseMovieBookmarkService } from '../../services/supabase';
 import { TMDBDiscoveryMovieService } from '../../services/tmdb';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SupabaseMovieBookmarkService } from '../../services/supabase';
 
 @Injectable()
 export class DiscoveryMovieEffects {
+  private readonly store = inject(Store);
+  private readonly actions$ = inject(Actions);
+  private readonly TMDBDiscoveryMovieService = inject(
+    TMDBDiscoveryMovieService
+  );
+  private readonly supabaseMovieBookmarkService = inject(
+    SupabaseMovieBookmarkService
+  );
+  constructor() {}
+
   discoveryMovieLanding$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(DiscoveryMovieActions.discoveryMovieLanding),
@@ -115,11 +125,4 @@ export class DiscoveryMovieEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private TMDBDiscoveryMovieService: TMDBDiscoveryMovieService,
-    private store: Store,
-    private supabaseMovieBookmarkService: SupabaseMovieBookmarkService
-  ) {}
 }

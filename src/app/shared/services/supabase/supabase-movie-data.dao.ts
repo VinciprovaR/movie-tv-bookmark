@@ -1,5 +1,5 @@
-import { inject, Inject, Injectable } from '@angular/core';
-import { PostgrestSingleResponse, SupabaseClient } from '@supabase/supabase-js';
+import { inject, Injectable } from '@angular/core';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
 import { Movie } from '../../interfaces/TMDB/tmdb-media.interface';

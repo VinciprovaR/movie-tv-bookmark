@@ -9,6 +9,7 @@ import {
   NavElements,
 } from './shared/interfaces/navigator.interface';
 import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
+import { RandomMediaImageService } from './shared/services/random-media-image.service';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -51,6 +52,8 @@ export const IMG_SIZES = {
   TMDB_CREDITS_HQ_IMG_URL: new InjectionToken<string>(
     'TMDB_CREDITS_HQ_IMG_URL'
   ),
+  TMDB_HOME_LG_IMG_URL: new InjectionToken<string>('TMDB_HOME_LG_IMG_URL'),
+  TMDB_HOME_SM_IMG_URL: new InjectionToken<string>('TMDB_HOME_SM_IMG_URL'),
 };
 
 export const LIFECYCLE_NAV_ELEMENTS = new InjectionToken<BookmarkNavElement[]>(
@@ -145,6 +148,14 @@ export function provideImgUrl() {
     {
       provide: IMG_SIZES.TMDB_CREDITS_HQ_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w132_and_h132_face',
+    },
+    {
+      provide: IMG_SIZES.TMDB_HOME_LG_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w1920_and_h600_multi_faces',
+    },
+    {
+      provide: IMG_SIZES.TMDB_HOME_SM_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w880_and_h600_multi_faces',
     },
   ];
 }
@@ -263,6 +274,17 @@ export function provideBookmarkStatusList() {
         description: "I've already watched it!",
       },
     },
+  };
+}
+
+export function provideRandomMediaImage() {
+  return {
+    provide: APP_INITIALIZER,
+    useFactory: (randomMediaImageService: RandomMediaImageService) => () => {
+      randomMediaImageService.initMedia();
+    },
+    deps: [RandomMediaImageService],
+    multi: true,
   };
 }
 

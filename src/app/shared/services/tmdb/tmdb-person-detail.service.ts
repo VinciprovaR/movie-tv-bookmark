@@ -4,19 +4,20 @@ import {
   PersonDetailMovieCredits,
   PersonDetailTVCredits,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
 import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
+import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class TMDBPersonDetailService {
-  protected readonly tmdbApiKey: string = inject(TMDB_API_KEY);
-  protected readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
-  protected readonly httpClient = inject(HttpClient);
-  protected readonly TMDBMovieParamsUtilsService = inject(
+  private readonly TMDBMovieParamsUtilsService = inject(
     TMDBMovieParamsUtilsService
   );
+
+  private readonly tmdbApiKey: string = inject(TMDB_API_KEY);
+  private readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
+  private readonly httpClient = inject(HttpClient);
 
   constructor() {}
 

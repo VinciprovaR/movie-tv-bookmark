@@ -1,11 +1,85 @@
-################ IGNORATO ################
+
+################################ GENERIC ################################
+
+################ PRIORITA ALTA ################
+- Largest Contentful Paint (LCP) error, check (almeno una immagine markata priority)
+- Proxy con action supabase per nascondere chiave API
+- Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore)
+- check http://localhost:4200/#/person-detail/1964445
+- card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
+- Eliminare zorro (auth, altro cercare)
+- About / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
+- ricerca automatica per i discovery (?)
+- range date filter validatori error 
+- click fuori chiude sub menu header mobile
+- fallback if img not found...
+- dialog video max-height cell orizzontale
+- scrollbar cast crew container detail diventa troppo piccola
+- numero cast e crew su tv e movie credit
+- page not found
+- person detail, read more solo esplosione se testo più lungo di tot
+- Validators and control on search digit sulla input query (number, symbol, length...) 
+- controllare tutti i to-do comment 
+- eliminare commenti inutili es. vecchio codice
+- aggiungere commenti esplicativi
+- scroll in memoria
+- button per tornare in cima alla pagina
+-home component link to portfolio
+
+----AUTH----
+- Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)
+quindi pushare l'utente nei reducer da sessione (da verificare)
+- Test form input/accessibility etc.;
+
+-Login
+    - Test flow;
+    - Forgot Password
+        - Password Reset capcta
+    - Validators;
+    - Refractor form builder
+
+-Register
+    - User already registered(?);
+    - Validators;
+    - Verification message + landing page;
+    - Test flow;
+    - Register success flow + mail + style
+    - Refractor form builder
+
+
+
+
+- [Violation] 'setTimeout' handler took 345ms
+
+- html semantico
+- aria accessibility
+- Gestione timeout chiamate
+- Nelle subcribe custom next e error
+- Hai dimenticato alcune destroyed ref...
+- troppi chunk al primo atterraggio
+- check for @defer
+- tutto ciò che è in hidden con css @if non renderizzato
+
+- stile globale refractor
+- domsanitizer tutta app
+- Video not found handler
+- separazione membri classe  come in videos-container.components
+- astrazione  per i servizi 
+- modificare messaggi di success e error + label
+- http interceptor e/o handling error generalizzato con log (log service) (?)
+
+
+
+################################ IGNORATO ################################
  
 - i18e (anche date filter) + label tutte in un file json (?)
 - tutti i campi, if else palceholder
 - astratta tra discovery.filter.directive e bookmark.filter.directive
 - vedere se riesci a eliminare if els from route store in movie and tv detail credits
+- far funzionare bene 1x 2x immagini
+- card search e discovery in orizzontale su smarthphone
 
-################ FATTO, RICONTROLLARE ################
+################################ FATTO, RICONTROLLARE ################################
  - CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
 - Quando l'azione va in errore, la selector deve riprendersi il bookmark id nello state movie/tv-bookmark
 - Scroll infinito quando non ci sono media in lista
@@ -37,266 +111,21 @@
 - lifecycle rinominare in bookmark
 - oggetti placeholder dove ci sono dati asincroni
 - initSubscription ovunque (?)
-################ GENERIC ################
-
+- Media detail assenza di cast, crew, video... sezioni condizionali
 - Refractor index models export
-- check http://localhost:4200/#/person-detail/1964445
-- [Violation] 'setTimeout' handler took 345ms
-- Eliminare zorro (auth, altro cercare)
-- Proxy con action supabase per nascondere chiave API
-- html semantico
-- aria accessibility
-- Gestione timeout chiamate
 - Refractor interfaccie, stato confuso, separazione dto entity non ordinato
-- Nelle subcribe custom next e error
-- Abount / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
-- Hai dimenticato alcune destroyed ref...
-
-- ricerca automatica per i discovery (?)
-- range date filter validatori error 
-- via tutti gli item prima di card 
-- card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
-- scroll infinito anche per i media bookmark (bookmark)
-- far funzionare bene 1x 2x immagini
-- immagini placeholder da cambiare + su smarthphone sono troppo piccole
-- header giu su dopo n y scroll
-- troppi chunk al primo atterraggio
-- click fuori chiude sub menu header mobile
-- check for @defer
-- tutto ciò che è in hidden con css @if non renderizzato
-- Largest Contentful Paint (LCP) error, check
-- stile globale refractor
-- card search e discovery in orizzontale su smarthphone
 - media deteail usare solo mediaData
 - media detail append_to_response per chiamate in sequenza
-- domsanitizer tutta app
-- Video not found handler
-- Media detail assenza di cast, crew, video... sezioni condizionali
-- hover card e altri, lieve colore
-- fallback if img not found...
-- dialog video max-height cell orizzontale
-- separazione membri classe  come in videos-container.components
 - refractor ref on destroy, instance tipo renderer, subscription, ecc. (destro ref potresti usare una classe astratta per tutti i componenti)
 - integrare AbstractComponent (arrivato a movie discovery da sopra a sotto)
-
 - verificare componenti che hanno bisogno di astratta, tipo movie discovery e tv discovery
-- scrollbar cast crew container detail diventa troppo piccola
-- numero cast e crew su tv e movie credit
-- astrazione  per i servizi 
-- page not found
-- person detail, read more solo esplosione se testo più lungo di tot
-- modificare messaggi di success e error + label
-- controllare tutti i to-do comment 
-- img not found, fallback
-
-AUTH:
-- Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)
-quindi pushare l'utente nei reducer da sessione (da verificare)
-- Test form input/accessibility etc.;
-
--Login
-    - Test flow;
-    - Forgot Password
-        - Password Reset capcta
-    - Validators;
-    - Refractor form builder
-
--Register
-    - User already registered(?);
-    - Validators;
-    - Verification message + landing page;
-    - Test flow;
-    - Register success flow + mail + style
-    - Refractor form builder
-
-
-################ DUBBIO, FORSE NO ################
-- notificator come stato globale (D:\WEB-DEVELOPER\Portfolio-personale\projects-showcase\movie-bookmark-root\backup\notificator)
-- http interceptor e/o handling error generalizzato con log (log service)
-- sintassi semplificata con rxjs and ngrx, no return e graffe
-- tv_data movie_data, decoupling da fare
-
-
-
-
-################ Search Filter ################
-  - Validators and control on search digit (number, symbol, length...) 
-  - Refractor to angular material
-
-################ MOVIE DETAILS ################
-
-- Sanificazione elementi null nella risposta
-- Se img non presente, caricare img placeholder
-- Clean detail nello stato in destroy
 
 
 
 
 
-################ HANDLING ERRORS ################
-
-- Clean Error generic, only one time;
-- Alert/popup errors detail generic;
-<app-form-error [errors]="authSelectError$ | async"></app-form-error>
-  authSelectError$: Observable<ErrorResponse | null> = this.store.select(
-    AuthSelectors.selectError
-  );
-
-################ LAZY LOAD ################
-
-- Immagini media-item card
-
-################ CACHING ################
-
-
-  isMovieEntity(
-    entityMediaBookmark: object
-  ): entityMediaBookmark is Movie_Bookmark {
-    return (entityMediaBookmark as Movie_Bookmark).movie_id !== undefined;
-  }
 
 
 
 
 
-          // let caseResult:number = this.supabaseUtilsService.checkCase(
-          //   movieBookmarkFromDB,
-          //   movieBookmarkDTO
-          // )
-          //  return this.CUSTOM[1]({movieBookmarkDTO, user})
-  // readonly CUSTOM = {
-  //   0: (params: { movieBookmarkDTO: MediaBookmarkDTO; user: User }) => {
-  //     let { movieBookmarkDTO, user } = params;
-  //     return this.supabaseMovieBookmarkDAO.createMovieBookmark(
-  //       movieBookmarkDTO.bookmarkEnum,
-  //       movieBookmarkDTO.mediaId,
-  //       user
-  //     );
-  //   },
-  //   1: (params: {
-  //     movieBookmarkDTO: MediaBookmarkDTO;
-  //     user: User;
-  //   }): Observable<Movie_Bookmark[]> => {
-  //     let { movieBookmarkDTO } = params;
-  //     return this.supabaseMovieBookmarkDAO.deleteMovieBookmark(
-  //       movieBookmarkDTO.mediaId,
-  //       movieBookmarkDTO.bookmarkEnum
-  //     );
-  //   },
-  //   2: (movieBookmarkDTO: MediaBookmarkDTO) => {
-  //     return this.supabaseMovieBookmarkDAO.updateMovieBookmark(
-  //       movieBookmarkDTO.bookmarkEnum,
-  //       movieBookmarkDTO.mediaId
-  //     );
-  //   },
-  //   3: (movieBookmarkDTO: MediaBookmarkDTO) => {
-  //     let movieBookmarkFromDBCustom: Movie_Bookmark = {
-  //       bookmarkId: 0,
-  //       movie_id: movieBookmarkDTO.mediaId,
-  //     };
-  //     return of([movieBookmarkFromDBCustom]);
-  //   },
-  //   99: () => {
-  //     throw new Error('Something went wrong. Case 99'); //to-do traccia errore su db, anche se impossibile che passi qui
-  //   },
-  // };
-
-
-
-  
-  private readonly COND_MOVIE: {
-    [key: number]: (props: any) => Observable<Movie_Bookmark[]>;
-  } = {
-    0: (props: any) => {
-      return this.supabaseMovieBookmarkDAO.createMovieBookmark(
-        props.bookmarkEnum,
-        props.mediaId,
-        props.user
-      );
-    },
-    1: (props: any) => {
-      return this.supabaseMovieBookmarkDAO.deleteMovieBookmark(
-        props.bookmarkEnum,
-        props.mediaId
-      );
-    },
-    2: (props: any) => {
-      return this.supabaseMovieBookmarkDAO.updateMovieBookmark(
-        props.bookmarkEnum,
-        props.mediaId
-      );
-    },
-    3: (props: any) => {
-      return of([props.movieBookmarkFromDBCustom]);
-    },
-    99: (props: any) => {
-      throw new Error('Something went wrong. Case -99');
-    },
-  };
-
-
-    // createOrUpdateOrDeleteMovieBookmark(
-  //   movieBookmarkDTO: MediaBookmarkDTO,
-  //   user: User,
-  //   movieBookmarkMap: MediaBookmarkMap
-  // ): Observable<MediaBookmarkMap> {
-  //   return this.supabaseMovieBookmarkDAO
-  //     .findBookmarkListByMovieIds([movieBookmarkDTO.mediaId])
-  //     .pipe(
-  //       switchMap((movieBookmarkFromDB: Movie_Bookmark[]) => {
-  //         let c = this.supabaseUtilsService.checkCase(
-  //           movieBookmarkFromDB,
-  //           movieBookmarkDTO
-  //         );
-  //         return this.COND_MOVIE[c]({
-  //           bookmarkEnum: movieBookmarkDTO.bookmarkEnum,
-  //           mediaId: movieBookmarkDTO.mediaId,
-  //           user: user,
-  //           movieBookmarkFromDBCustom: {
-  //             bookmarkId: 0,
-  //             movie_id: movieBookmarkDTO.mediaId,
-  //             user_id: user.id,
-  //           },
-  //         });
-
-  //       }),
-  //       map((movieMovieBookmark: Movie_Bookmark[]) => {
-  //         return this.supabaseUtilsService.injectInMovieBookmarkMap(
-  //           movieMovieBookmark,
-  //           movieBookmarkMap
-  //         );
-  //       })
-  //     );
-  // }
-
-            let c: number = this.supabaseUtilsService.checkCase(
-            tvBookmarkFromDB,
-            tvBookmarkDTO
-          );
-
-          if (c === 0) {
-            return this.supabaseTVBookmarkDAO.createTVBookmark(
-              tvBookmarkDTO.bookmarkEnum,
-              tvBookmarkDTO.mediaId,
-              user
-            );
-          } else if (c === 1) {
-            return this.supabaseTVBookmarkDAO.deleteTVBookmark(
-              tvBookmarkDTO.mediaId,
-              tvBookmarkDTO.bookmarkEnum
-            );
-          } else if (c === 2) {
-            return this.supabaseTVBookmarkDAO.updateTVBookmark(
-              tvBookmarkDTO.bookmarkEnum,
-              tvBookmarkDTO.mediaId
-            );
-          } else if (c === 3) {
-            let tvBookmarkFromDBCustom: TV_Bookmark = {
-              bookmarkId: 0,
-              tv_id: tvBookmarkDTO.mediaId,
-              user_id: user.id,
-            };
-            return of([tvBookmarkFromDBCustom]);
-          } else {
-            throw new Error('Something went wrong. Case -99');
-          }

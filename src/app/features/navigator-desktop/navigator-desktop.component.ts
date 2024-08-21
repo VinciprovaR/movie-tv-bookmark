@@ -1,25 +1,8 @@
-import {
-  Component,
-  DestroyRef,
-  ElementRef,
-  inject,
-  Input,
-  OnInit,
-  Renderer2,
-  RendererFactory2,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { CommonModule } from '@angular/common';
-import {
-  NavigationEnd,
-  NavigationStart,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  Event,
-} from '@angular/router';
-import { filter, map, Observable, Subject, takeUntil, timer } from 'rxjs';
+import { NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter, map, takeUntil, timer } from 'rxjs';
 
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';

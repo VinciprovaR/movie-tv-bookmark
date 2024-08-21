@@ -1,14 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-
 import { AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
 import { TVBookmarkActions, TVBookmarkSelectors } from '.';
-
 import { SearchTVActions } from '../search-tv';
 import { DiscoveryTVActions } from '../discovery-tv';
 import { TVBookmarkMap } from '../../interfaces/supabase/supabase-bookmark.interface';
@@ -16,10 +13,17 @@ import { SupabaseTVBookmarkService } from '../../services/supabase';
 import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
 import { HttpErrorResponse } from '@angular/common/http';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
-import { personDetailTVCreditsSuccess } from '../component-store/person-detail-tv-credits-store.service';
+import { personDetailTVCreditsSuccess } from '../../component-store';
 
 @Injectable()
 export class TVBookmarkEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly supabaseTVBookmarkService = inject(
+    SupabaseTVBookmarkService
+  );
+  private readonly store = inject(Store);
+  constructor() {}
+
   initTVBookmarkMapFromList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
@@ -288,10 +292,4 @@ export class TVBookmarkEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private supabaseTVBookmarkService: SupabaseTVBookmarkService
-  ) {}
 }

@@ -1,13 +1,13 @@
-import { inject, Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props, Store } from '@ngrx/store';
-import { MovieDetail } from '../../interfaces/TMDB/tmdb-media.interface';
-import { TMDBMovieDetailService } from '../../services/tmdb/tmdb-movie-detail.service';
-import { StateMediaBookmark } from '../../interfaces/store/state-media-bookmark.interface';
+import { MovieDetail } from '../interfaces/TMDB/tmdb-media.interface';
+import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
+import { TMDBMovieDetailService } from '../services/tmdb';
 
 export interface MovieDetailState extends StateMediaBookmark {
   movieDetail: MovieDetail | null;
@@ -49,7 +49,6 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
   });
 
   private readonly addMovieDetailInit = this.updater((state) => {
-    console.log('movie detail loading');
     return {
       ...state,
       isLoading: true,

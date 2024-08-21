@@ -36,6 +36,7 @@ import {
   provideImgUrl,
   provideBookmarkStatusList,
   provideDarkThemeLocalStorageKey,
+  provideRandomMediaImage,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 
@@ -63,7 +64,7 @@ export const appConfig: ApplicationConfig = {
     provideTMDBApiKey(),
     provideTMDBBaseUrl(),
     provideImgUrl(),
-
+    provideRandomMediaImage(),
     provideBookmarkNavElements(),
     provideHeaderNavElements(),
     provideBookmarkStatusList(),

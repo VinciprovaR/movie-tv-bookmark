@@ -1,18 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
-
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props, Store } from '@ngrx/store';
-
-import { StateMediaBookmark } from '../../interfaces/store/state-media-bookmark.interface';
-import { TMDBPersonDetailService } from '../../services/tmdb/tmdb-person-detail.service';
+import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import {
-  Movie,
   MovieResult,
   PersonDetailMovieCredits,
-} from '../../interfaces/TMDB/tmdb-media.interface';
+} from '../interfaces/TMDB/tmdb-media.interface';
+import { TMDBPersonDetailService } from '../services/tmdb';
 
 export interface PersonDetailMovieCreditsStoreState extends StateMediaBookmark {
   personDetailMovieCredits: PersonDetailMovieCredits;
