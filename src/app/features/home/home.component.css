@@ -1,0 +1,16 @@
+.home-header {
+  height: calc(100vh - 60px);
+}
+
+.explore {
+  border-color: var(--tag-border-color);
+  border-style: solid;
+  border-width: 1px;
+}
+
+.border-feature {
+  border-color: var(--mat-card-border-color);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--border-radius);
+}

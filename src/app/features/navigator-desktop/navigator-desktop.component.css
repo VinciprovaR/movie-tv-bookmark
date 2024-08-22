@@ -2,7 +2,7 @@
   transition: max-height 0.5s;
   overflow: hidden;
   max-height: 0;
-  background-color: var(--bkg-color-nav-sub-menu);
+  background-color: var(--bg-color-1-nav-sub-menu);
 }
 
 .show-sub-menu:hover ul {
@@ -10,7 +10,7 @@
 }
 
 .el-hover:hover {
-  background-color: var(--bkg-color-nav-sub-menu-hover);
+  background-color: var(--bg-color-1-nav-sub-menu-hover);
 }
 
 a {

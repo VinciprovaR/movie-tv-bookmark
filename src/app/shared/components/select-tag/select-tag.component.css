@@ -1,16 +1,14 @@
 .tag-container {
   border-color: var(--tag-border-color);
-  box-shadow: var(--box-shadow);
+
   border-style: solid;
   border-width: 1px;
 }
 
-.tag-container:hover {
-  border-color: var(--hover-selected-color);
-}
+/* .tag-container:hover {
+  border-color: var(--bg-color-2);
+} */
 
 .tag-selected {
-  background-color: var(--hover-selected-color);
-  color: var(--text-color-inverted);
-  border-color: var(--hover-selected-color);
+  background-color: var(--bg-color-2);
 }

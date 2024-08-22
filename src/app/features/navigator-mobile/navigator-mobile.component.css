@@ -1,6 +1,6 @@
 nav {
   transition: all 0.3s;
-  background-color: var(--bkg-color-nav-sub-menu);
+  background-color: var(--bg-color-1-nav-sub-menu);
   opacity: 0;
   overflow: hidden;
   visibility: hidden;
@@ -20,5 +20,5 @@ a {
 }
 
 .el-hover:hover {
-  background-color: var(--bkg-color-nav-sub-menu-hover);
+  background-color: var(--bg-color-1-nav-sub-menu-hover);
 }

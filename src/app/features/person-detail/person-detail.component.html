@@ -35,7 +35,7 @@
   </div>
 
   @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
-  <div class="block lg:hidden h-full bg-[var(--bkg-container-color)] mb-4">
+  <div class="block lg:hidden h-full bg-[var(--bg-container-color)] mb-4">
     <app-person-detail-main-info [personDetail]="personDetail">
     </app-person-detail-main-info>
   </div>
@@ -44,7 +44,7 @@
 
   <div class="w-full lg:w-[70%] max-w-[1536px] lg:mx-auto">
     <div class="w-full lg:hidden space-y-4 lg:space-y-8 mb-4 lg:mb-0">
-      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+      <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
         <h2 class="mb-4 pl-4">For more info go to</h2>
         <div class="pl-4">
           <app-external-info
@@ -56,10 +56,10 @@
       </div>
     </div>
     <div class="w-full space-y-4 lg:space-y-8 lg:mr-12">
-      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+      <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
         <app-person-movies [personId]="personId"></app-person-movies>
       </div>
-      <div class="bg-[var(--bkg-container-color)] lg:bg-transparent py-4">
+      <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
         <app-person-tvs [personId]="personId"></app-person-tvs>
       </div>
     </div>

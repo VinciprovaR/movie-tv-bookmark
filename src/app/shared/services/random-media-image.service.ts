@@ -58,7 +58,6 @@ export class RandomMediaImageService {
 
     this.randomImage$ = this.mediaCombined$.pipe(
       map((mediaLists: [Movie[], TV[]]) => {
-        console.log(mediaLists);
         return this.getRandomMediaImage(mediaLists);
       })
     );
@@ -70,9 +69,7 @@ export class RandomMediaImageService {
   }
 
   getRandomMediaImage(mediaLists: [Movie[], TV[]]) {
-    const mediaList = mediaLists[Math.floor(Math.random() * 2)];
-
-    return mediaList[
+    return mediaLists[Math.floor(Math.random() * 2)][
       Math.floor(
         Math.random() * mediaLists[Math.floor(Math.random() * 2)].length
       )

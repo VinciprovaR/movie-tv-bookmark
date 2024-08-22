@@ -1,6 +1,6 @@
 header {
   transition: top 0.5s;
-  background-color: var(--bkg-color);
+
   color: var(--text-color);
   max-height: 70px;
 }
@@ -11,4 +11,8 @@ header a {
 
 .header-up {
   top: -70px;
+}
+
+.text-home {
+  color: var(--header-li-color);
 }

@@ -7,7 +7,7 @@
   >
     {{ tagline }}
   </p>
-  } @if( overview){
+  } @if(overview){
   <div>
     @for(p of splitByDoubleNewline(overview); track p){
     <p class="pb-6">{{ p }}</p>

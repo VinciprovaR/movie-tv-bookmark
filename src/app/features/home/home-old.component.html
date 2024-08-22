@@ -1,0 +1,200 @@
+<section class="w-full max-w-screen-2xl mx-auto pt-[60px]">
+  <!-- to-do e se randomimage non c'è -->
+
+  <section
+    class="bg-cover bg-top text-white"
+    [ngStyle]="{
+      'background-image': backgroundImageStyle
+    }"
+  >
+    <div
+      class="h-screen w-full py-14"
+      [ngStyle]="{
+        'background-image': headerMediaGradient
+      }"
+    >
+      <div class="mx-auto text-center">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">
+          Welcome to Movie &amp; TV Bookmark
+        </h1>
+        <p class="text-xl mb-8">
+          Search, discover, and save your favorite movies and tv shows.
+        </p>
+      </div>
+      <!-- Features  -->
+      <!-- <div id="features" class="py-8 px-4">
+        <div class="mx-auto text-center">
+          <h2 class="text-4xl font-bold mb-10">Features</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-800/85 p-6 rounded-lg">
+              <h3 class="text-2xl font-bold mb-4">Search Movies</h3>
+              <p>
+                Find movies by title, genre, year or other available filters.
+              </p>
+            </div>
+            <div class="bg-gray-800/85 p-6 rounded-lg">
+              <h3 class="text-2xl font-bold mb-4">Save to Bookmarks</h3>
+              <p>
+                Easily save and organize your favorite movies to watch later.
+              </p>
+            </div>
+            <div class="bg-gray-800/85 p-6 rounded-lg">
+              <h3 class="text-2xl font-bold mb-4">Search by cast or crew</h3>
+              <p>
+                You can also search actors and crew to view in which movies or
+                tv shows they have partecipated.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="bg-gray-800 p-8 space-y-8">
+    <h2 class="text-4xl font-bold text-center">
+      About Movie &amp; TV Bookmark
+    </h2>
+    <div class="text-xl">
+      <p class="text-center">
+        A simple skill showcase web-app for searching and saving movies and tv
+        shows in dedicated bookmarks. Explore and update your movies and tv
+        shows saved in the bookmarks section as you wish! You can also remove a
+        media from the bookmark.
+      </p>
+
+      <ul class="space-y-6 p-0">
+        <li class="flex items-start">
+          <span class="flex-shrink-0 h-8 w-8 text-lime-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </span>
+          <div class="ml-4">
+            <h3 class="text-xl font-medium text-lime-500">
+              Watchlist Bookmark
+            </h3>
+            <p class="mt-1">
+              Save movies and tv shows that you'd like to watch someday!
+            </p>
+          </div>
+        </li>
+        <li class="flex items-start">
+          <span class="flex-shrink-0 h-8 w-8 text-lime-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </span>
+          <div class="ml-4">
+            <h3 class="text-xl font-medium text-lime-500">Watched Bookmark</h3>
+            <p class="mt-1">
+              A list of movies and tv show that you've already watched, just to
+              keep in mind!
+            </p>
+          </div>
+        </li>
+        <li class="flex items-start">
+          <span class="flex-shrink-0 h-8 w-8 text-lime-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </span>
+          <div class="ml-4">
+            <h3 class="text-xl font-medium text-lime-500">Rewatch Bookmark</h3>
+            <p class="mt-1">
+              A list of movies and tv show that you'd like to watch again!
+            </p>
+          </div>
+        </li>
+        <li class="flex items-start">
+          <span class="flex-shrink-0 h-8 w-8 text-lime-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </span>
+          <div class="ml-4">
+            <h3 class="text-xl font-medium text-lime-500">
+              Still Watching Bookmark
+            </h3>
+            <p class="mt-1">
+              A list of movies and tv show that you haven't finished yet!
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-2xl md:text-4xl">Powered by</h2>
+      <p class="mt-4">
+        Movie &amp; TV Bookmark uses the TMDB API but is not endorsed or
+        certified by TMDB.
+      </p>
+      <div class="w-[50%] aspect-[2/1] items-center m-auto">
+        <a [href]="'https://www.themoviedb.org/'" target="_blank">
+          <app-img
+            [alt]="'TMDB logo'"
+            [title]="'TMDB logo'"
+            [imgSrc]="
+              'https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg'
+            "
+            [priority]="true"
+            [customClasses]="'border-container-no-color'"
+            [isPlaceholderPerson]="false"
+          ></app-img
+        ></a>
+      </div>
+    </div>
+  </section>
+  <!-- to-do spostare footer -->
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-6">
+    <div class="container mx-auto text-center">
+      <!-- to-do cambiare disclaimer footer -->
+      <p class="text-gray-500">
+        &copy; 2024 Movie &amp; TV Bookmark. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</section>

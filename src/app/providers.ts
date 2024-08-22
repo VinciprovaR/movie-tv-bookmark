@@ -54,6 +54,7 @@ export const IMG_SIZES = {
   ),
   TMDB_HOME_LG_IMG_URL: new InjectionToken<string>('TMDB_HOME_LG_IMG_URL'),
   TMDB_HOME_SM_IMG_URL: new InjectionToken<string>('TMDB_HOME_SM_IMG_URL'),
+  TMDB_HOME_3XL_IMG_URL: new InjectionToken<string>('TMDB_HOME_3XL_IMG_URL'),
 };
 
 export const LIFECYCLE_NAV_ELEMENTS = new InjectionToken<BookmarkNavElement[]>(
@@ -156,6 +157,10 @@ export function provideImgUrl() {
     {
       provide: IMG_SIZES.TMDB_HOME_SM_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w880_and_h600_multi_faces',
+    },
+    {
+      provide: IMG_SIZES.TMDB_HOME_3XL_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces',
     },
   ];
 }

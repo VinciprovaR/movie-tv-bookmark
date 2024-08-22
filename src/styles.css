@@ -18,15 +18,17 @@
   --bg-header-media-detail-not-lg: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(59, 61, 63);
   --link-color-light: rgb(207, 214, 223);
-  --app-main-color: rgb(138, 15, 72);
+
   --mat-dialog-container-small-max-width: 95vw !important;
 }
 
 /* variables */
 body.light-theme {
-  --bkg-color: rgb(255, 255, 255);
-  --bkg-container-color: rgb(250, 250, 250);
-  --text-color: rgb(25, 25, 25);
+  --bg-color-1: rgb(253, 251, 255);
+  --bg-color-2: rgb(215, 227, 255);
+  --header-li-color: rgb(0, 92, 187);
+  --bg-container-color: rgb(250, 250, 250);
+  --text-color: rgb(0, 27, 63);
   --bg-header-person-detail: rgba(199, 199, 199, 0.411);
   --text-color-inverted: rgb(215, 218, 223);
   --sub-text-color: rgb(87, 87, 87);
@@ -35,18 +37,21 @@ body.light-theme {
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(32, 33, 34);
   --box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
-  --bkg-color-nav-sub-menu: rgb(243 244 246);
-  --bkg-color-nav-sub-menu-hover: rgb(185, 185, 185);
+  --bg-color-1-nav-sub-menu: rgb(243 244 246);
+  --bg-color-1-nav-sub-menu-hover: rgb(185, 185, 185);
   --gradient-color-header-detail-a: rgba(13, 42, 80, 0.8);
   --gradient-color-header-detail-b: rgba(13, 42, 80, 0.9);
   --scroll-thumb-active-color: rgb(152, 152, 152);
   --scroll-thumb-hover-color: rgb(136, 136, 136);
   --scroll-thumb-color: rgb(120, 120, 120);
   --bg-color-arrow-slider: rgba(18, 18, 18, 0.45);
+  --mat-divider-color: rgb(116, 119, 127);
 }
 body.dark-theme {
-  --bkg-color: rgb(35, 35, 35);
-  --bkg-container-color: rgb(40, 40, 40);
+  --bg-color-1: rgb(25, 28, 28);
+  --bg-color-2: rgb(0, 80, 80);
+  --header-li-color: rgb(0, 221, 221);
+  --bg-container-color: rgb(40, 40, 40);
   --text-color: rgb(215, 218, 223);
   --bg-header-person-detail: rgba(0, 0, 0, 0.411);
   --text-color-inverted: rgb(25, 25, 25);
@@ -57,14 +62,15 @@ body.dark-theme {
   --bookmark-info-bkg-color: rgb(255, 255, 255);
   --box-shadow: 0 1px 3px 0 rgb(255, 255, 255, 0.401),
     0 1px 2px -1px rgb(255, 255, 255, 0.401) !important;
-  --bkg-color-nav-sub-menu: #444444;
-  --bkg-color-nav-sub-menu-hover: #353535fd;
+  --bg-color-1-nav-sub-menu: rgb(32, 35, 35);
+  --bg-color-1-nav-sub-menu-hover: #353535fd;
   --gradient-color-header-detail-a: rgba(18, 59, 112, 0.7);
   --gradient-color-header-detail-b: rgba(18, 59, 113, 0.8);
   --scroll-thumb-active-color: rgb(128, 128, 128);
   --scroll-thumb-hover-color: rgb(112, 112, 112);
   --scroll-thumb-color: rgb(96, 96, 96);
   --bg-color-arrow-slider: rgba(87, 87, 87, 0.45);
+  --mat-divider-color: rgb(136, 147, 146);
 }
 
 html,
@@ -73,17 +79,22 @@ body {
   height: auto;
   margin: 0px;
   font-family: Roboto, Arial, sans-serif;
-  background-color: var(--bkg-color);
+  background-color: var(--bg-color-1);
   color: var(--text-color);
   transition: all 0.1s;
 }
 
+header,
+footer {
+  background-color: var(--bg-color-2);
+}
+
 .bg-container {
-  background-color: var(--bkg-container-color);
+  background-color: var(--bg-container-color);
 }
 
 input {
-  background-color: var(--bkg-color);
+  background-color: var(--bg-color-1);
   color: var(--text-color);
   transition: all 0.1s;
 }
@@ -93,8 +104,12 @@ input::placeholder {
 }
 
 select {
-  background-color: var(--bkg-color);
+  background-color: var(--bg-color-1);
   color: var(--text-color);
+}
+
+.main-li-desktop {
+  color: var(--header-li-color);
 }
 
 a {
@@ -117,7 +132,7 @@ img {
 }
 
 mat-card {
-  background-color: var(--bkg-color) !important;
+  background-color: var(--bg-color-1) !important;
 }
 
 mat-icon {
@@ -130,7 +145,7 @@ mat-icon:hover {
 
 .border-container {
   border-color: var(--mat-card-border-color);
-  box-shadow: var(--box-shadow);
+  /* box-shadow: var(--box-shadow); */
   border-style: solid;
   border-width: 1px;
   border-radius: var(--border-radius);
@@ -233,6 +248,12 @@ label {
   font-size: 1rem;
 }
 
+p,
+span,
+label {
+  opacity: 0.9;
+}
+
 a {
   font-size: 1em;
 }
@@ -261,19 +282,19 @@ select {
   margin: 0px;
 }
 
-.submit {
-  background-color: var(--hover-selected-color);
+button {
+  color: var(--text-color);
+  background-color: var(--bg-color-2);
   border-color: var(--tag-border-color);
-  box-shadow: var(--box-shadow);
   border-style: solid;
   border-width: 1px;
 }
 
-.submit:hover {
+button:hover {
   background-color: rgb(30 64 175);
 }
 
-.submit:disabled {
+button:disabled {
   background-color: var(--disabled-bg);
   color: var(--disabled-text-color);
   cursor: auto;
@@ -427,7 +448,7 @@ select {
     background-image: linear-gradient(
       to right,
       rgba(255, 255, 255, 0) 0,
-      var(--bkg-color) 100%
+      var(--bg-color-1) 100%
     );
   }
 }
@@ -437,7 +458,7 @@ select {
     background-image: linear-gradient(
       to right,
       rgba(255, 255, 255, 0) 0,
-      var(--bkg-container-color) 100%
+      var(--bg-container-color) 100%
     );
   }
 }
@@ -458,12 +479,12 @@ select {
 }
 
 .clickable-icon:active {
-  color: var(--app-main-color);
+  color: var(--disabled-text-color);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .clickable-icon:hover {
-    color: var(--app-main-color);
+    color: var(--disabled-text-color);
   }
 }
 

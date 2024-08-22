@@ -4,7 +4,7 @@
 ################ PRIORITA ALTA ################
 - Largest Contentful Paint (LCP) error, check (almeno una immagine markata priority)
 - Proxy con action supabase per nascondere chiave API
-- Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore)
+- Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore, refracto html)
 - check http://localhost:4200/#/person-detail/1964445
 - card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
 - Eliminare zorro (auth, altro cercare)
@@ -25,6 +25,8 @@
 - scroll in memoria
 - button per tornare in cima alla pagina
 -home component link to portfolio
+- colori dark light prenderli dalla home e sostituirli anche 
+https://image.tmdb.org/t/p/w440_and_h660_face/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg"`) has detected that this image is the Largest Contentful Paint (LCP) element but was not marked "priority". This image should be marked "priority" in order to prioritize its loading. To fix this, add the "priority" attribute.
 
 ----AUTH----
 - Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)

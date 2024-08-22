@@ -14,5 +14,5 @@ select {
 }
 
 .icon-bg {
-  background-color: var(--bkg-color);
+  background-color: var(--bg-color-1);
 }

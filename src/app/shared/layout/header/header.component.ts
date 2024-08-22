@@ -88,4 +88,9 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
     this.hiddenNavMenu = !this.hiddenNavMenu;
     this.changeDetectorRef.detectChanges();
   }
+
+  closeNavMenuMobile() {
+    this.hiddenNavMenu = true;
+    this.changeDetectorRef.detectChanges();
+  }
 }
