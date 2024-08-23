@@ -23,8 +23,12 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
 export class ImgComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })
   imgSrc: string = '';
+  // @Input()
+  // baseUrl: string = '';
   @Input()
-  baseUrl: string = '';
+  baseUrlSm: string = '';
+  @Input()
+  baseUrlLg: string = '';
   @Input()
   width!: number;
   @Input()
@@ -48,6 +52,8 @@ export class ImgComponent extends AbstractComponent implements OnInit {
   @Output()
   predominantColor = new EventEmitter<FastAverageColorResult>();
 
+  readonly native: boolean = false;
+
   fullSrc: string = '';
   placeholderSrc: string = '';
 
@@ -64,32 +70,28 @@ export class ImgComponent extends AbstractComponent implements OnInit {
   override initSelectors(): void {}
   override initSubscriptions(): void {}
 
-  ngOnInit(): void {
-    // this.buildCompleteUrl();
+  ngOnInit(): void {}
+
+  getFullSrc() {
+    if (window.innerWidth <= 660) {
+      return `${this.baseUrlSm}${this.imgSrc}`;
+    }
+    return `${this.baseUrlLg}${this.imgSrc}`;
   }
 
-  buildCompleteUrl() {
-    if (this.imgSrc) {
-      this.fullSrc = `${this.baseUrl}${this.imgSrc}`;
-    } else {
-      this.placeholderSrc = this.isPlaceholderPerson
-        ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
-        : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg';
-    }
+  getFullSrcSet() {
+    return `${this.baseUrlSm}${this.imgSrc} 660w, ${this.baseUrlLg}${this.imgSrc} 1920w`;
+  }
+
+  getImgBackground() {
+    return this.isPlaceholderPerson
+      ? `url('../../../../assets/images/glyphicons-basic-4-user-grey.svg')`
+      : `url('../../../../assets/images/glyphicons-basic-38-picture-grey.svg')`;
   }
 
   navigateTo() {
     if (this.link) {
       this.router.navigate([`${this.link}`]);
-    }
-  }
-
-  @Input()
-  isOnLoad: boolean = false;
-
-  onLoad() {
-    if (this.isOnLoad) {
-      console.log('onload');
     }
   }
 }

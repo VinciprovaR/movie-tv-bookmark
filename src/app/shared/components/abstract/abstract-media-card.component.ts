@@ -8,12 +8,7 @@ import { AbstractComponent } from './abstract-component.component';
 @Directive()
 export abstract class AbstractMediaCard extends AbstractComponent {
   protected readonly bridgeDataService = inject(BridgeDataService);
-  protected readonly TMDB_SEARCH_LIST_1X_IMG_URL = inject(
-    IMG_SIZES.TMDB_SEARCH_LIST_1X_IMG_URL
-  );
-  protected readonly TMDB_SEARCH_LIST_2X_IMG_URL = inject(
-    IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL
-  );
+
   protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
   @Input({ required: true })

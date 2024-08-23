@@ -8,10 +8,10 @@ export class PredominantImgColorService {
   private readonly destroyRef$ = inject(DestroyRef);
   destroyed$ = new Subject();
   fac: FastAverageColor = new FastAverageColor();
-  readonly TMDB_DETAIL_LIST_1X_IMG_URL = inject(
-    IMG_SIZES.TMDB_DETAIL_LIST_1X_IMG_URL
+
+  readonly TMDB_PROFILE_92W_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_92W_IMG_URL
   );
-  readonly TMDB_LOGO_SIZE_IMG = inject(IMG_SIZES.TMDB_LOGO_SIZE_IMG);
 
   constructor() {
     this.destroyRef$.onDestroy(() => {
@@ -19,10 +19,10 @@ export class PredominantImgColorService {
       this.destroyed$.complete();
     });
   }
-  // ${this.TMDB_LOGO_SIZE_IMG}${imgSrc}
+  // ${this.TMDB_PROFILE_92W_IMG_URL}${imgSrc}
   evaluatePredominantColor(imgSrc: string): Observable<FastAverageColorResult> {
     return from(
-      this.fac.getColorAsync(`${this.TMDB_LOGO_SIZE_IMG}${imgSrc}`, {
+      this.fac.getColorAsync(`${this.TMDB_PROFILE_92W_IMG_URL}${imgSrc}`, {
         algorithm: 'simple',
       })
     );

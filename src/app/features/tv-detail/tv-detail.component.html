@@ -8,12 +8,15 @@
     class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[85vh] mb-0 lg:mb-8"
     [ngStyle]="{
       'background-image': tvDetail.backdrop_path
-        ? 'url(' + TMDB_MULTI_FACE_2X_IMG_URL + tvDetail.backdrop_path + ')'
+        ? 'url(' +
+          TMDB_PROFILE_1920W_800H_IMG_URL +
+          tvDetail.backdrop_path +
+          ')'
         : ''
     }"
   >
     <div
-      class="flex flex-row h-full w-full p-4 justify-center lg:justify-normal lg:p-8 space-x-8"
+      class="flex flex-row h-full w-full p-4 justify-center lg:p-8 space-x-8"
       [ngStyle]="{
         'background-image':
           ((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024
@@ -31,7 +34,8 @@
           [alt]="tvDetail.name"
           [title]="tvDetail.name"
           [imgSrc]="tvDetail.poster_path"
-          [baseUrl]="TMDB_PROFILE_2X_IMG_URL"
+          [baseUrlLg]="TMDB_PROFILE_600W_900H_IMG_URL"
+          [baseUrlSm]="TMDB_PROFILE_300W_450H_IMG_URL"
           [priority]="true"
           [customClasses]="'border-container-no-color'"
           [isPlaceholderPerson]="false"
@@ -53,7 +57,7 @@
       </div>
 
       @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
-      <div class="hidden lg:block max-w-[1100px]">
+      <div class="hidden lg:block max-w-[1100px] py-8">
         <app-tv-detail-main-info
           [textColorBlend]="textColorBlend"
           [isDark]="isDark"

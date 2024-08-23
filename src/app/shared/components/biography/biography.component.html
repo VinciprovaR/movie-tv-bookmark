@@ -1,10 +1,21 @@
 <div class="space-y-1">
   <h3>Biography</h3>
   @if( biography){
-  <div>
-    @for(p of splitByDoubleNewline(biography); track p){
-    <p class="pb-6">{{ p }}</p>
-    }
+
+  <div class="mx-auto mt-10">
+    <div #textContainer class="relative overflow-hidden max-h-20">
+      @for(p of splitByDoubleNewline(biography); track p){
+      <p class="pb-6">{{ p }}</p>
+      }
+    </div>
+    <button
+      id="toggleButton"
+      (click)="toggleReadMore()"
+      #toggleButton
+      class="mt-2 text-blue-500 hover:underline"
+    >
+      Read More
+    </button>
   </div>
   } @else {
   <app-missing-field-placeholder

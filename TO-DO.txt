@@ -1,35 +1,28 @@
 
-################################ GENERIC ################################
 
-################ PRIORITA ALTA ################
+################ TO-DO ################
 - Largest Contentful Paint (LCP) error, check (almeno una immagine markata priority)
 - Proxy con action supabase per nascondere chiave API
 - Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore, refracto html)
-- check http://localhost:4200/#/person-detail/1964445
+
 - card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
 - Eliminare zorro (auth, altro cercare)
-- About / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
-- ricerca automatica per i discovery (?)
 - range date filter validatori error 
 - click fuori chiude sub menu header mobile
-- fallback if img not found...
-- dialog video max-height cell orizzontale
 - scrollbar cast crew container detail diventa troppo piccola
 - numero cast e crew su tv e movie credit
 - page not found
 - person detail, read more solo esplosione se testo più lungo di tot
 - Validators and control on search digit sulla input query (number, symbol, length...) 
 - controllare tutti i to-do comment 
+- controllare tutti i console.log 
 - eliminare commenti inutili es. vecchio codice
 - aggiungere commenti esplicativi
-- scroll in memoria
+
 - button per tornare in cima alla pagina
--home component link to portfolio
-- colori dark light prenderli dalla home e sostituirli anche 
-https://image.tmdb.org/t/p/w440_and_h660_face/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg"`) has detected that this image is the Largest Contentful Paint (LCP) element but was not marked "priority". This image should be marked "priority" in order to prioritize its loading. To fix this, add the "priority" attribute.
--atterraggio discovery non si vede il caricamento
 -bookmark sort data di aggiunga al bookmark
 - discovery bookmark cellulare button visibile per search
+- abstract person card inutile
 
 ----AUTH----
 - Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)
@@ -72,19 +65,34 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
 - astrazione  per i servizi 
 - modificare messaggi di success e error + label
 - http interceptor e/o handling error generalizzato con log (log service) (?)
+- img if error 500 onerror fallback (?)
+
+
+
+
+
+
 
 
 
 ################################ IGNORATO ################################
- 
+- check http://localhost:4200/#/person-detail/1964445
+ - scroll in memoria
 - i18e (anche date filter) + label tutte in un file json (?)
 - tutti i campi, if else palceholder
 - astratta tra discovery.filter.directive e bookmark.filter.directive
 - vedere se riesci a eliminare if els from route store in movie and tv detail credits
 - far funzionare bene 1x 2x immagini
 - card search e discovery in orizzontale su smarthphone
+- dialog video max-height cell orizzontale
+-home component link to portfolio
 
 ################################ FATTO, RICONTROLLARE ################################
+-atterraggio discovery non si vede il caricamento
+- colori dark light prenderli dalla home e sostituirli anche 
+- About / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb
+- fallback if img not found...
+- ricerca automatica per i discovery (?)
  - CAMBIARE NOME APP, MOVIE BOOKMARK.... MEDIA BOOKMARK
 - Quando l'azione va in errore, la selector deve riprendersi il bookmark id nello state movie/tv-bookmark
 - Scroll infinito quando non ci sono media in lista

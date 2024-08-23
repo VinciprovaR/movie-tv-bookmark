@@ -16,15 +16,11 @@
     </li>
     }
   </ul>
-  @if(isLoading){
-  <div class="flex justify-center">
-    <mat-spinner [diameter]="40"></mat-spinner>
-  </div>
-  } } @else {
+  } @else { @if(!isLoading){
   <div class="flex justify-center">
     <app-missing-field-placeholder
       [caption]="placeholder"
     ></app-missing-field-placeholder>
   </div>
-  }
+  } }
 </div>

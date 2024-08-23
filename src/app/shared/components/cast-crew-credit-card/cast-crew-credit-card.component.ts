@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -12,6 +13,7 @@ import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AbstractPersonCardComponent } from '../abstract/abstract-person-card.component';
 import { ImgComponent } from '../img/img.component';
+import { IMG_SIZES } from '../../../providers';
 
 @Component({
   selector: 'app-cast-crew-credit-card',
@@ -35,6 +37,14 @@ export class CastCrewCreditCardComponent
   extends AbstractPersonCardComponent
   implements OnInit
 {
+  protected readonly TMDB_PROFILE_66W_66H_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_66W_66H_IMG_URL
+  );
+
+  protected readonly TMDB_PROFILE_132W_132H_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_132W_132H_IMG_URL
+  );
+
   @Input({ required: true })
   id: number = 0;
   @Input({ required: true })

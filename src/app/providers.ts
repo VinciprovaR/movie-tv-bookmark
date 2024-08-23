@@ -20,41 +20,47 @@ export const TMDB_BASE_URL = new InjectionToken<string>('TMDB_BASE_URL');
 
 export const IMG_SIZES = {
   TMDB_ORIGINAL_IMG_URL: new InjectionToken<string>('TMDB_ORIGINAL_IMG_URL'),
-  TMDB_PROFILE_1X_IMG_URL: new InjectionToken<string>(
-    'TMDB_PROFILE_1X_IMG_URL'
+  TMDB_PROFILE_300W_450H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_300W_450H_IMG_URL'
   ),
-  TMDB_PROFILE_2X_IMG_URL: new InjectionToken<string>(
-    'TMDB_PROFILE_2X_IMG_URL'
+  TMDB_PROFILE_600W_900H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_600W_900H_IMG_URL'
   ),
-  TMDB_DETAIL_LIST_1X_IMG_URL: new InjectionToken<string>(
-    'TMDB_DETAIL_LIST_1X_IMG_URL'
+
+  TMDB_PROFILE_440W_660H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_440W_660H_IMG_URL'
   ),
-  TMDB_DETAIL_LIST_2X_IMG_URL: new InjectionToken<string>(
-    'TMDB_DETAIL_LIST_2X_IMG_URL'
+  TMDB_PROFILE_260W_390H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_260W_390H_IMG_URL'
   ),
-  TMDB_SEARCH_LIST_1X_IMG_URL: new InjectionToken<string>(
-    'TMDB_SEARCH_LIST_1X_IMG_URL'
+  TMDB_PROFILE_1000W_450H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_1000W_450H_IMG_URL'
   ),
-  TMDB_SEARCH_LIST_2X_IMG_URL: new InjectionToken<string>(
-    'TMDB_SEARCH_LIST_2X_IMG_URL'
+  TMDB_PROFILE_1920W_800H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_1920W_800H_IMG_URL'
   ),
-  TMDB_MULTI_FACE_1X_IMG_URL: new InjectionToken<string>(
-    'TMDB_MULTI_FACE_1X_IMG_URL'
-  ),
-  TMDB_MULTI_FACE_2X_IMG_URL: new InjectionToken<string>(
-    'TMDB_MULTI_FACE_2X_IMG_URL'
-  ),
-  TMDB_W_300_IMG_URL: new InjectionToken<string>('TMDB_W_300_IMG_URL'),
+
   TMDB_W_400_IMG_URL: new InjectionToken<string>('TMDB_W_400_IMG_URL'),
-  TMDB_W_500_IMG_URL: new InjectionToken<string>('TMDB_W_500_IMG_URL'),
-  TMDB_LOGO_SIZE_IMG: new InjectionToken<string>('TMDB_LOGO_SIZE_IMG'),
-  TMDB_CREDITS_IMG_URL: new InjectionToken<string>('TMDB_CREDITS_IMG_URL'),
-  TMDB_CREDITS_HQ_IMG_URL: new InjectionToken<string>(
-    'TMDB_CREDITS_HQ_IMG_URL'
+  TMDB_W_300_IMG_URL: new InjectionToken<string>('TMDB_W_300_IMG_URL'),
+
+  TMDB_PROFILE_92W_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_92W_IMG_URL'
   ),
-  TMDB_HOME_LG_IMG_URL: new InjectionToken<string>('TMDB_HOME_LG_IMG_URL'),
-  TMDB_HOME_SM_IMG_URL: new InjectionToken<string>('TMDB_HOME_SM_IMG_URL'),
-  TMDB_HOME_3XL_IMG_URL: new InjectionToken<string>('TMDB_HOME_3XL_IMG_URL'),
+  TMDB_PROFILE_66W_66H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_66W_66H_IMG_URL'
+  ),
+  TMDB_PROFILE_132W_132H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_132W_132H_IMG_URL'
+  ),
+  TMDB_PROFILE_1920W_1080H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_1920W_1080H_IMG_URL'
+  ),
+  TMDB_PROFILE_138W_175H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_138W_175H_IMG_URL'
+  ),
+  TMDB_PROFILE_276W_350H_IMG_URL: new InjectionToken<string>(
+    'TMDB_PROFILE_1920W_1080H_IMG_URL'
+  ),
 };
 
 export const LIFECYCLE_NAV_ELEMENTS = new InjectionToken<BookmarkNavElement[]>(
@@ -93,38 +99,28 @@ export function provideImgUrl() {
       useValue: 'https://image.tmdb.org/t/p/original',
     },
     {
-      provide: IMG_SIZES.TMDB_PROFILE_1X_IMG_URL,
+      provide: IMG_SIZES.TMDB_PROFILE_300W_450H_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2',
     },
     {
-      provide: IMG_SIZES.TMDB_PROFILE_2X_IMG_URL,
+      provide: IMG_SIZES.TMDB_PROFILE_600W_900H_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2',
     },
-
     {
-      provide: IMG_SIZES.TMDB_DETAIL_LIST_1X_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w138_and_h175_face',
+      provide: IMG_SIZES.TMDB_PROFILE_440W_660H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w440_and_h660_bestv2',
     },
     {
-      provide: IMG_SIZES.TMDB_DETAIL_LIST_2X_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w276_and_h350_face',
-    },
-
-    {
-      provide: IMG_SIZES.TMDB_SEARCH_LIST_1X_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w220_and_h330_face',
+      provide: IMG_SIZES.TMDB_PROFILE_260W_390H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w260_and_h390_bestv2',
     },
     {
-      provide: IMG_SIZES.TMDB_SEARCH_LIST_2X_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w440_and_h660_face',
+      provide: IMG_SIZES.TMDB_PROFILE_1920W_800H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w1920_and_h800_bestv2',
     },
     {
-      provide: IMG_SIZES.TMDB_MULTI_FACE_2X_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces',
-    },
-    {
-      provide: IMG_SIZES.TMDB_MULTI_FACE_1X_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w1000_and_h450_multi_faces',
+      provide: IMG_SIZES.TMDB_PROFILE_1000W_450H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w1000_and_h450_bestv2',
     },
     {
       provide: IMG_SIZES.TMDB_W_300_IMG_URL,
@@ -135,32 +131,28 @@ export function provideImgUrl() {
       useValue: 'https://image.tmdb.org/t/p/w400',
     },
     {
-      provide: IMG_SIZES.TMDB_W_500_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w500',
-    },
-    {
-      provide: IMG_SIZES.TMDB_LOGO_SIZE_IMG,
+      provide: IMG_SIZES.TMDB_PROFILE_92W_IMG_URL,
       useValue: 'https://image.tmdb.org/t/p/w92',
     },
     {
-      provide: IMG_SIZES.TMDB_CREDITS_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w66_and_h66_face',
+      provide: IMG_SIZES.TMDB_PROFILE_66W_66H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w66_and_h66_bestv2',
     },
     {
-      provide: IMG_SIZES.TMDB_CREDITS_HQ_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w132_and_h132_face',
+      provide: IMG_SIZES.TMDB_PROFILE_132W_132H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w132_and_h132_bestv2',
     },
     {
-      provide: IMG_SIZES.TMDB_HOME_LG_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w1920_and_h600_multi_faces',
+      provide: IMG_SIZES.TMDB_PROFILE_1920W_1080H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w1920_and_h1080_bestv2',
     },
     {
-      provide: IMG_SIZES.TMDB_HOME_SM_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w880_and_h600_multi_faces',
+      provide: IMG_SIZES.TMDB_PROFILE_138W_175H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w138_and_h175_bestv2',
     },
     {
-      provide: IMG_SIZES.TMDB_HOME_3XL_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces',
+      provide: IMG_SIZES.TMDB_PROFILE_276W_350H_IMG_URL,
+      useValue: 'https://image.tmdb.org/t/p/w276_and_h350_bestv2',
     },
   ];
 }

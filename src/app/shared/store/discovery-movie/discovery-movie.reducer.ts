@@ -30,6 +30,7 @@ export const discoveryMovieReducer = createReducer(
   initialState,
   on(
     DiscoveryMovieActions.discoveryAdditionalMovie,
+    DiscoveryMovieActions.discoveryMovieLanding,
     (state): DiscoveryMovieState => {
       return {
         ...state,
@@ -40,6 +41,7 @@ export const discoveryMovieReducer = createReducer(
   ),
   on(
     DiscoveryMovieActions.discoveryMovie,
+
     (state, { payload }): DiscoveryMovieState => {
       return {
         ...state,

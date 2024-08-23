@@ -6,18 +6,35 @@
     'pointer-events-none': !link ,
   }"
   >
-    @if(priority){
+    <!-- img content -->
+    @if(native){ @if(imgSrc){
+
     <img
-      class="bg-size-placeholder"
+      class="fill"
       [alt]="alt"
       [title]="title"
-      [ngSrc]="
-        imgSrc
-          ? baseUrl + imgSrc
-          : isPlaceholderPerson
-          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
-          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
-      "
+      [srcset]="getFullSrcSet()"
+      (click)="navigateTo()"
+      [ngClass]="customClasses"
+      [loading]="priority ? 'eager' : 'lazy'"
+    />
+    } @else {
+    <div
+      [title]="title"
+      [routerLink]="link"
+      [ngClass]="customClasses"
+      class="h-full bg-no-repeat bg-center hover:cursor-pointer"
+      [ngStyle]="{
+        'background-image': getImgBackground()
+      }"
+    ></div>
+    } } @else { @if(imgSrc && priority){
+
+    <img
+      class="placeholder-bg-center"
+      [alt]="alt"
+      [title]="title"
+      [ngSrc]="getFullSrc()"
       (click)="navigateTo()"
       fill="true"
       [ngClass]="customClasses"
@@ -27,117 +44,103 @@
         isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
       "
     />
-    } @else{
+    } @else if(imgSrc && !priority){
+
+    <img
+      class="placeholder-bg-center"
+      [alt]="alt"
+      [title]="title"
+      [ngSrc]="getFullSrc()"
+      (click)="navigateTo()"
+      fill="true"
+      [ngClass]="customClasses"
+      [loading]="'lazy'"
+      [placeholderConfig]="{ blur: false, }"
+      [placeholder]="
+        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
+      "
+    />
+    } @else {
+    <div
+      [title]="title"
+      [routerLink]="link"
+      [ngClass]="customClasses"
+      class="h-full bg-no-repeat bg-center hover:cursor-pointer"
+      [ngStyle]="{
+        'background-image': getImgBackground()
+      }"
+    ></div>
+    }}
+
+    <!-- img content -->
+  </div>
+</div>
+<!--     @if(imgSrc && priority){
+
     <img
       class="bg-size-placeholder"
       [alt]="alt"
       [title]="title"
-      [ngSrc]="
-        imgSrc
-          ? baseUrl + imgSrc
-          : isPlaceholderPerson
-          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
-          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
-      "
-      (click)="navigateTo()"
-      fill="true"
-      [ngClass]="customClasses"
-      [loading]="'lazy'"
-      [placeholderConfig]="{ blur: false }"
-      [placeholder]="
-        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-      "
-    />
-    }
-  </div>
-</div>
-
-<!--     @defer ( ) { @if(fullSrc){
-    <img
-      class="fill-img"
-      [alt]="alt"
-      [title]="title"
-      [srcset]="fullSrc"
-      (click)="navigateTo()"
-      fill="true"
-      [ngClass]="customClasses"
-      [loading]="'lazy'"
-    />
-    } @else if(placeholderSrc){
-    <img
-      class="fill-img"
-      [alt]="alt"
-      [title]="title"
-      [srcset]="placeholderSrc"
-      (click)="navigateTo()"
-      fill="true"
-      [ngClass]="customClasses"
-      [loading]="'lazy'"
-    />
-    } } -->
-
-<!--  -->
-
-<!-- 
-<div [ngClass]="customContainerHeightClass">
-  <div
-    class="relative overflow-hidden h-full"
-    [ngClass]="{
-    'pointer-events-none': !link ,
-  }"
-  >
-    @if(priority){ @defer (on viewport) {
-
-    <img
-      [alt]="alt"
-      [title]="title"
-      [ngSrc]="fullSrc"
+      [ngSrc]="getFullSrc()"
       (click)="navigateTo()"
       fill="true"
       [ngClass]="customClasses"
       [priority]="priority"
-    />
-    } @placeholder {
-    <img
-      [alt]="alt"
-      [title]="title"
-      [ngSrc]="
-        isPlaceholderPerson
-          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
-          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
-      "
-      fill="true"
-      [ngClass]="customClasses"
-      [priority]="priority"
+      [placeholderConfig]="{ blur: false, }"
       [placeholder]="
         isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
       "
-    />} } @else{ @defer (on viewport) {
+    />
+    } @else if(imgSrc && !priority){
 
     <img
+      class="bg-size-placeholder"
       [alt]="alt"
       [title]="title"
-      [ngSrc]="fullSrc"
+      ngOptimizedImage
+      [ngSrc]="getFullSrc()"
       (click)="navigateTo()"
       fill="true"
       [ngClass]="customClasses"
       [loading]="'lazy'"
-    />
-    } @placeholder {
-    <img
-      [alt]="alt"
-      [title]="title"
-      [ngSrc]="
-        isPlaceholderPerson
-          ? '../../../../assets/images/glyphicons-basic-4-user-grey.svg'
-          : '../../../../assets/images/glyphicons-basic-38-picture-grey.svg'
-      "
-      fill="true"
-      [ngClass]="customClasses"
-      [loading]="'lazy'"
+      [placeholderConfig]="{ blur: false, }"
       [placeholder]="
         isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
       "
-    />} }
-  </div>
-</div> -->
+    />
+    } @else {
+    <div
+      [title]="title"
+      [routerLink]="link"
+      [ngClass]="customClasses"
+      class="h-full bg-no-repeat bg-center"
+      [ngStyle]="{
+        'background-image': getImgBackground()
+      }"
+    ></div>
+    } -->
+
+<!-- NATIVE -->
+
+<!--     @if(imgSrc){
+
+    <img
+      class="bg-size-placeholder fill"
+      [alt]="alt"
+      [title]="title"
+      [srcset]="getFullSrcSet()"
+      (click)="navigateTo()"
+      [ngClass]="customClasses"
+      [loading]="priority ? 'eager' : 'lazy'"
+    />
+    } @else {
+    <div
+      [title]="title"
+      [routerLink]="link"
+      [ngClass]="customClasses"
+      class="h-full bg-no-repeat bg-center"
+      [ngStyle]="{
+        'background-image': getImgBackground()
+      }"
+    ></div>
+    } -->

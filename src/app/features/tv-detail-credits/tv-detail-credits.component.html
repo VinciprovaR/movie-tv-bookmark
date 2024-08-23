@@ -9,7 +9,10 @@
         class="bg-cover bg-no-repeat bg-center items-center overflow-hidden aspect-[50/22] w-full sm:w-[460px]"
         [ngStyle]="{
           'background-image': banner.backdrop_path
-            ? 'url(' + TMDB_MULTI_FACE_1X_IMG_URL + banner.backdrop_path + ')'
+            ? 'url(' +
+              TMDB_PROFILE_1000W_450H_IMG_URL +
+              banner.backdrop_path +
+              ')'
             : ''
         }"
       ></div

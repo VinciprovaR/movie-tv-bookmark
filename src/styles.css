@@ -8,7 +8,7 @@
   --disabled-bg: rgb(168, 168, 168);
   --disabled-text-color: rgb(114, 114, 114);
   --border-radius: 0.45rem;
-  --text-color-light: rgb(234, 236, 240);
+  --text-color-light: rgb(255, 255, 255);
   --text-color-dark: rgb(32, 33, 34);
   --border-light: rgb(234, 236, 240);
   --border-dark: #332e2ec5;
@@ -16,8 +16,8 @@
   --a-hover: rgb(1, 180, 228);
   --a-hover-dark: rgb(0, 52, 196);
   --bg-header-media-detail-not-lg: rgba(0, 0, 0, 0.411);
-  --link-color-dark: rgb(59, 61, 63);
-  --link-color-light: rgb(207, 214, 223);
+  --link-color-dark: rgb(49, 51, 53);
+  --link-color-light: rgb(236, 239, 243);
 
   --mat-dialog-container-small-max-width: 95vw !important;
 }
@@ -88,7 +88,6 @@ header,
 footer {
   background-color: var(--bg-color-2);
 }
-
 
 .bg-container {
   background-color: var(--bg-container-color);
@@ -249,11 +248,11 @@ label {
   font-size: 1rem;
 }
 
-p,
+/* p,
 span,
 label {
   opacity: 0.9;
-}
+} */
 
 a {
   font-size: 1em;

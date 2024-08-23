@@ -8,13 +8,17 @@ import { IMG_SIZES } from '../../../providers';
 @Directive()
 export abstract class AbstractMediaDetailComponent extends AbstractComponent {
   readonly predominantImgColorService = inject(PredominantImgColorService);
-  readonly TMDB_PROFILE_1X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_1X_IMG_URL);
-  readonly TMDB_PROFILE_2X_IMG_URL = inject(IMG_SIZES.TMDB_PROFILE_2X_IMG_URL);
-  readonly TMDB_MULTI_FACE_1X_IMG_URL = inject(
-    IMG_SIZES.TMDB_MULTI_FACE_1X_IMG_URL
+  readonly TMDB_PROFILE_300W_450H_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_300W_450H_IMG_URL
   );
-  readonly TMDB_MULTI_FACE_2X_IMG_URL = inject(
-    IMG_SIZES.TMDB_MULTI_FACE_2X_IMG_URL
+  readonly TMDB_PROFILE_600W_900H_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_600W_900H_IMG_URL
+  );
+  readonly TMDB_PROFILE_1000W_450H_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_1000W_450H_IMG_URL
+  );
+  readonly TMDB_PROFILE_1920W_800H_IMG_URL = inject(
+    IMG_SIZES.TMDB_PROFILE_1920W_800H_IMG_URL
   );
   readonly TMDB_ORIGINAL_IMG_URL = inject(IMG_SIZES.TMDB_ORIGINAL_IMG_URL);
 

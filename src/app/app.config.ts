@@ -19,7 +19,11 @@ import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './shared/store/auth/auth.effects';
 import { WebStorageService } from './shared/services/web-storage.service';
 
-import { registerLocaleData } from '@angular/common';
+import {
+  IMAGE_LOADER,
+  ImageLoaderConfig,
+  registerLocaleData,
+} from '@angular/common';
 import en from '@angular/common/locales/en';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -56,6 +60,7 @@ registerLocaleData(en);
 export const appConfig: ApplicationConfig = {
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
     provideCurrentUser(),
     provideBookmarkSelect(),
     provideSelectFilters(),

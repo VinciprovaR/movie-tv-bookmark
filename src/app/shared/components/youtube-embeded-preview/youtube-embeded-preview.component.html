@@ -1,13 +1,10 @@
 <div class="w-full relative hover:cursor-pointer" (click)="openDialog()">
   <div class="inline-block aspect-[16/9] w-full">
-    <app-img
-      [alt]="videoName"
+    <div
+      #thumbnail
       [title]="videoName"
-      [imgSrc]="urlThumbnail"
-      [priority]="true"
-      [customClasses]="'border-container-no-color'"
-      [isPlaceholderPerson]="false"
-    ></app-img>
+      class="h-full border-container-no-color bg-no-repeat bg-cover"
+    ></div>
   </div>
   <div class="absolute right-[30%] top-[30%] h-[40%] aspect-[16/9] flex">
     <div
