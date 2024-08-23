@@ -43,4 +43,8 @@ export abstract class AbstractComponent {
   detectChanges() {
     this.changeDetectorRef.detectChanges();
   }
+
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
 }

@@ -124,7 +124,4 @@ export class HomeComponent extends AbstractComponent implements OnInit {
     }
     return 'var(--text-color-dark) !important';
   }
-  scroll(el: HTMLElement) {
-    el.scrollIntoView();
-  }
 }

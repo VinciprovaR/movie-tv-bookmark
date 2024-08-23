@@ -64,6 +64,7 @@
 
   <div class="px-3 py-5">
     <button
+      (click)="scroll(mediaContainerRef)"
       type="submit"
       class="py-3 rounded-full cursor-pointer w-full disabled:"
       [disabled]="!filterForm.valid || isDisableButton"

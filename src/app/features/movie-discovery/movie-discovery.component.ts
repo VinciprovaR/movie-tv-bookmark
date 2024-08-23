@@ -65,6 +65,7 @@ export class MovieDiscoveryComponent
   constructor() {
     super();
   }
+
   ngAfterViewInit(): void {
     this.discoveryMovieLanding();
   }

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { AuthSelectors } from './shared/store/auth';
@@ -9,6 +14,7 @@ import { NotifierStore } from './shared/component-store';
 import { LoadingComponent } from './features/loading/loading.component';
 import { RouterOutlet } from '@angular/router';
 import { AbstractComponent } from './shared/components/abstract/abstract-component.component';
+import { FooterComponent } from './shared/layout/footer/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +26,17 @@ import { AbstractComponent } from './shared/components/abstract/abstract-compone
     AlertContainerComponent,
     LoadingComponent,
     RouterOutlet,
+    FooterComponent,
   ],
   providers: [NotifierStore],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent extends AbstractComponent implements OnInit {
+export class AppComponent
+  extends AbstractComponent
+  implements OnInit, AfterContentInit
+{
   readonly isUserAuthenticated$ = this.store
     .select(AuthSelectors.selectUser)
     .pipe(map((user) => !!user));
@@ -34,6 +44,7 @@ export class AppComponent extends AbstractComponent implements OnInit {
   constructor() {
     super();
   }
+  ngAfterContentInit(): void {}
 
   override initSelectors(): void {}
   override initSubscriptions(): void {}

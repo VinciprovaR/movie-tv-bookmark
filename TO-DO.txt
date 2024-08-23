@@ -27,6 +27,9 @@
 -home component link to portfolio
 - colori dark light prenderli dalla home e sostituirli anche 
 https://image.tmdb.org/t/p/w440_and_h660_face/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg"`) has detected that this image is the Largest Contentful Paint (LCP) element but was not marked "priority". This image should be marked "priority" in order to prioritize its loading. To fix this, add the "priority" attribute.
+-atterraggio discovery non si vede il caricamento
+-bookmark sort data di aggiunga al bookmark
+- discovery bookmark cellulare button visibile per search
 
 ----AUTH----
 - Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)

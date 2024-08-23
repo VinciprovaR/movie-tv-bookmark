@@ -1,8 +1,15 @@
 <app-alert-container></app-alert-container>
 <app-loading></app-loading>
 
-@if(isUserAuthenticated$ | async ){
-<app-header></app-header>
-}
-<router-outlet></router-outlet>
-<!-- <app-content></app-content> -->
+<div class="page-wrapper">
+  @if(isUserAuthenticated$ | async ){
+  <div class="header-wrapper">
+    <app-header></app-header>
+  </div>
+  }
+  <div class="content-wrapper"><app-content></app-content></div>
+
+  <div class="footer-wrapper">
+    <app-footer></app-footer>
+  </div>
+</div>
