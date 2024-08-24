@@ -1,15 +1,10 @@
-import { inject, Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, from, tap } from 'rxjs';
 import {
   LoginPayload,
   RegisterPayload,
 } from '../../interfaces/supabase/supabase-auth.interface';
-import {
-  AuthResponse,
-  AuthTokenResponsePassword,
-  PostgrestSingleResponse,
-  SupabaseClient,
-} from '@supabase/supabase-js';
+import { AuthResponse, AuthTokenResponsePassword } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { HttpErrorResponse } from '@angular/common/http';
 

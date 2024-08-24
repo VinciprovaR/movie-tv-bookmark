@@ -2,6 +2,7 @@ import {
   AfterContentInit,
   ChangeDetectionStrategy,
   Component,
+  inject,
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,7 @@ import { LoadingComponent } from './features/loading/loading.component';
 import { RouterOutlet } from '@angular/router';
 import { AbstractComponent } from './shared/components/abstract/abstract-component.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
+import { GlobalErrorStore } from './shared/component-store/global-error-store.service';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +39,8 @@ export class AppComponent
   extends AbstractComponent
   implements OnInit, AfterContentInit
 {
+  private readonly globalErrorHandler = inject(GlobalErrorStore);
+
   readonly isUserAuthenticated$ = this.store
     .select(AuthSelectors.selectUser)
     .pipe(map((user) => !!user));

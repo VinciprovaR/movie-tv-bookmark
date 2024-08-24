@@ -3,6 +3,8 @@ import { AbstractTMDBParamsUtilsService } from './abstract/abstract-tmdb-params-
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
 import { DateRange } from '../../interfaces/store/discovery-state.interface';
 
+import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
+
 @Injectable({
   providedIn: 'root',
 })

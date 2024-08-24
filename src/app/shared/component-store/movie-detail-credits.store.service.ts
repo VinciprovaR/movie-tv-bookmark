@@ -89,7 +89,7 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
             // );
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
+            return of(null).pipe(
               tap(() => {
                 this.addMovieDetailFailure(httpErrorResponse);
                 this.store.dispatch(

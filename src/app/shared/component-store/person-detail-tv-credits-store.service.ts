@@ -129,7 +129,7 @@ export class PersonDetailTVCreditsStore extends ComponentStore<PersonDetailTVCre
               // );
             }),
             catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of().pipe(
+              return of(null).pipe(
                 tap(() => {
                   this.personDetailTVCreditsFailure(httpErrorResponse);
                   this.store.dispatch(

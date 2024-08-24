@@ -131,7 +131,7 @@ export class PersonDetailMovieCreditsStore extends ComponentStore<PersonDetailMo
             this.movieCreditsSuccess({ personDetailMovieCredits });
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
+            return of(null).pipe(
               tap(() => {
                 this.movieCreditsFailure(httpErrorResponse);
                 this.store.dispatch(

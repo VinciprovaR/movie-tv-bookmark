@@ -141,7 +141,6 @@ export class MovieDetailComponent
   createUpdateDeleteMovieBookmark(
     mediaBookmarkDTO: MediaBookmarkDTO<MovieDetail>
   ) {
-    console.log(mediaBookmarkDTO);
     this.store.dispatch(
       MovieBookmarkActions.createUpdateDeleteMovieBookmark({
         mediaBookmarkDTO,

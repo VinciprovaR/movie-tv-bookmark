@@ -7,36 +7,39 @@ import {
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
 import { map, Observable } from 'rxjs';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
-import { HttpClient } from '@angular/common/http';
+import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TMDBFilterMediaService {
-  private readonly tmdbApiKey: string = inject(TMDB_API_KEY);
-  private readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
-  private readonly httpClient = inject(HttpClient);
+  private readonly supabaseProxyToTMDBService = inject(
+    SupabaseProxyToTMDBService
+  );
 
   constructor() {}
 
   retriveGenreMovieList(): Observable<Genre[]> {
-    return this.httpClient
-      .get<GenresResult>(
-        `${this.tmdbBaseUrl}/genre/movie/list?language=en-US&api_key=${this.tmdbApiKey}`
-      )
+    return this.supabaseProxyToTMDBService
+      .callSupabaseFunction<GenresResult>({
+        method: 'GET',
+        pathKey: `genre-movie-list`,
+        queryStrings: `language=en-US`,
+      })
       .pipe(
-        map((genreResult) => {
+        map((genreResult: GenresResult) => {
           return genreResult.genres;
         })
       );
   }
 
   retriveCertificationMovieList(): Observable<Certification[]> {
-    return this.httpClient
-      .get<CertificationResult>(
-        `${this.tmdbBaseUrl}/certification/movie/list?&api_key=${this.tmdbApiKey}`
-      )
+    return this.supabaseProxyToTMDBService
+      .callSupabaseFunction<CertificationResult>({
+        method: 'GET',
+        pathKey: `certification-movie-list`,
+        queryStrings: ``,
+      })
       .pipe(
         map((certificationResult: CertificationResult) => {
           //to-do i18e inietta origin
@@ -46,10 +49,12 @@ export class TMDBFilterMediaService {
   }
 
   retriveGenreTVList(): Observable<Genre[]> {
-    return this.httpClient
-      .get<GenresResult>(
-        `${this.tmdbBaseUrl}/genre/tv/list?language=en-US&api_key=${this.tmdbApiKey}`
-      )
+    return this.supabaseProxyToTMDBService
+      .callSupabaseFunction<GenresResult>({
+        method: 'GET',
+        pathKey: `genre-tv-list`,
+        queryStrings: `language=en-US`,
+      })
       .pipe(
         map((genreResult) => {
           return genreResult.genres;
@@ -58,8 +63,10 @@ export class TMDBFilterMediaService {
   }
 
   retriveLanguagesList(): Observable<Language[]> {
-    return this.httpClient.get<Language[]>(
-      `${this.tmdbBaseUrl}/configuration/languages?api_key=${this.tmdbApiKey}`
-    );
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<Language[]>({
+      method: 'GET',
+      pathKey: `configuration-languages`,
+      queryStrings: ``,
+    });
   }
 }

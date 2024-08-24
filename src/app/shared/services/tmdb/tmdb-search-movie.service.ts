@@ -1,16 +1,15 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
-import { HttpClient } from '@angular/common/http';
+import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TMDBSearchMovieService {
-  private readonly tmdbApiKey: string = inject(TMDB_API_KEY);
-  private readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
-  private readonly httpClient = inject(HttpClient);
+  private readonly supabaseProxyToTMDBService = inject(
+    SupabaseProxyToTMDBService
+  );
 
   constructor() {}
 
@@ -23,8 +22,10 @@ export class TMDBSearchMovieService {
   }
 
   private movieSearch(page: number, query: string): Observable<MovieResult> {
-    return this.httpClient.get<MovieResult>(
-      `${this.tmdbBaseUrl}/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
-    );
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<MovieResult>({
+      method: 'GET',
+      pathKey: `search-movie`,
+      queryStrings: `query=${query}&include_adult=false&language=en-US&page=${page}`,
+    });
   }
 }

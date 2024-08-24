@@ -92,7 +92,7 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
             // this.store.dispatch(movieDetailIsLoading({ isLoading: false }));
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
+            return of(null).pipe(
               tap(() => {
                 this.addMovieDetailFailure(httpErrorResponse);
                 this.store.dispatch(movieDetailFailure({ httpErrorResponse }));

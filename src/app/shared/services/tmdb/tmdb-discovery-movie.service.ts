@@ -3,20 +3,19 @@ import { Observable } from 'rxjs';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
-import { HttpClient } from '@angular/common/http';
+import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TMDBDiscoveryMovieService {
-  private readonly tmdbApiKey: string = inject(TMDB_API_KEY);
-  private readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
-  private readonly httpClient = inject(HttpClient);
-
   private readonly TMDBMovieParamsUtilsService = inject(
     TMDBMovieParamsUtilsService
   );
+  private readonly supabaseProxyToTMDBService = inject(
+    SupabaseProxyToTMDBService
+  );
+
   constructor() {}
 
   movieDiscovery(payload: PayloadDiscoveryMovie): Observable<MovieResult> {
@@ -40,8 +39,11 @@ export class TMDBDiscoveryMovieService {
     page: number,
     queryParams: string
   ): Observable<MovieResult> {
-    return this.httpClient.get<MovieResult>(
-      `${this.tmdbBaseUrl}/discover/movie?include_adult=false${queryParams}&certification_country=US&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
-    );
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<MovieResult>({
+      method: 'GET',
+      pathParam: '',
+      pathKey: `discover-movie`,
+      queryStrings: `include_adult=false${queryParams}&certification_country=US&language=en-US&page=${page}`,
+    });
   }
 }

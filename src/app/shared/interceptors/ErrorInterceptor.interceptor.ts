@@ -21,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         // Optionally log to the console or show a user-friendly message
-        console.log('custom error');
+
         console.error(error.message);
         throw new HttpErrorResponse({ error: error.message });
       })

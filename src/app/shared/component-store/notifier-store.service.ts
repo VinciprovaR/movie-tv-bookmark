@@ -90,16 +90,10 @@ export class NotifierStore extends ComponentStore<AlertState> {
     message: string,
     type: notificationType
   ) {
-    if (type === 'error') this.logError(action.httpErrorResponse);
-
     this.addAlert({
       message,
       type,
       id: new Date().getTime(),
     });
-  }
-
-  private logError(error: HttpErrorResponse) {
-    console.error(error);
   }
 }

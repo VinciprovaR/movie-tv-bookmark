@@ -92,7 +92,7 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
             });
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
+            return of(null).pipe(
               tap(() => {
                 this.addTVDetailFailure(httpErrorResponse);
                 this.store.dispatch(tvDetailFailure({ httpErrorResponse }));

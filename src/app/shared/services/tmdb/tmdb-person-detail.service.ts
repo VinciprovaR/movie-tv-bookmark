@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import {
   PersonDetail,
   PersonDetailMovieCredits,
@@ -6,36 +6,45 @@ import {
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { inject, Injectable } from '@angular/core';
 import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
-import { HttpClient } from '@angular/common/http';
+
+import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({ providedIn: 'root' })
 export class TMDBPersonDetailService {
-  private readonly TMDBMovieParamsUtilsService = inject(
-    TMDBMovieParamsUtilsService
+  private readonly supabaseProxyToTMDBService = inject(
+    SupabaseProxyToTMDBService
   );
-
-  private readonly tmdbApiKey: string = inject(TMDB_API_KEY);
-  private readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
-  private readonly httpClient = inject(HttpClient);
 
   constructor() {}
 
   personDetail(personId: number): Observable<PersonDetail> {
-    return this.httpClient.get<PersonDetail>(
-      `${this.tmdbBaseUrl}/person/${personId}?language=en-US&&api_key=${this.tmdbApiKey}`
-    );
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<PersonDetail>({
+      method: 'GET',
+      pathParam: `${personId}`,
+      pathKey: `person-detail`,
+      queryStrings: `language=en-US`,
+    });
   }
 
   personMovieCredit(personId: number): Observable<PersonDetailMovieCredits> {
-    return this.httpClient.get<PersonDetailMovieCredits>(
-      `${this.tmdbBaseUrl}/person/${personId}/movie_credits?language=en-US&&api_key=${this.tmdbApiKey}`
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<PersonDetailMovieCredits>(
+      {
+        method: 'GET',
+        pathParam: `${personId}`,
+        pathKey: `person-movie-credits`,
+        queryStrings: `language=en-US`,
+      }
     );
   }
 
   personTVCredit(personId: number): Observable<PersonDetailTVCredits> {
-    return this.httpClient.get<PersonDetailTVCredits>(
-      `${this.tmdbBaseUrl}/person/${personId}/tv_credits?language=en-US&&api_key=${this.tmdbApiKey}`
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<PersonDetailTVCredits>(
+      {
+        method: 'GET',
+        pathParam: `${personId}`,
+        pathKey: `person-tv-credits`,
+        queryStrings: `language=en-US`,
+      }
     );
   }
 }

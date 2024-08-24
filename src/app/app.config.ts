@@ -30,8 +30,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import {
   provideSupabaseClient,
-  provideTMDBApiKey,
-  provideTMDBBaseUrl,
   provideCurrentUser,
   provideBookmarkSelect,
   provideSelectFilters,
@@ -66,8 +64,6 @@ export const appConfig: ApplicationConfig = {
     provideSelectFilters(),
     provideSupabaseClient(),
     provideAnimations(),
-    provideTMDBApiKey(),
-    provideTMDBBaseUrl(),
     provideImgUrl(),
     provideRandomMediaImage(),
     provideBookmarkNavElements(),

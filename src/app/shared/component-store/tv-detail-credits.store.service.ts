@@ -87,7 +87,7 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
             // this.store.dispatch(tvDetailCreditsIsLoading({ isLoading: false }));
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
+            return of(null).pipe(
               tap(() => {
                 this.addTVDetailFailure(httpErrorResponse);
                 this.store.dispatch(

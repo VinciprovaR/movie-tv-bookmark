@@ -23,7 +23,11 @@
 -bookmark sort data di aggiunga al bookmark
 - discovery bookmark cellulare button visibile per search
 - abstract person card inutile
-
+- https://fahpcnjaykumnjwfmkdy.supabase.co/rest/v1/movie_bookm (ogni ricerca chiama supabase per i dati del bookmark, cachare)
+- chiamata in errore rimane barra loading appesa (quindi, se l'atterraggio va in errore, reindirizzare su pagina errore)
+- rivedere bene la gestione degli errori, attenzione a non far cozzare il global error con auth
+- versionare edge function
+- rifinire edge funciton proxy
 ----AUTH----
 - Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)
 quindi pushare l'utente nei reducer da sessione (da verificare)

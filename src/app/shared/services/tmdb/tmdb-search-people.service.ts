@@ -1,16 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PeopleResult } from '../../interfaces/TMDB/tmdb-media.interface';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
-import { HttpClient } from '@angular/common/http';
+import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TMDBSearchPeopleService {
-  private readonly tmdbApiKey: string = inject(TMDB_API_KEY);
-  private readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
-  private readonly httpClient = inject(HttpClient);
+  private readonly supabaseProxyToTMDBService = inject(
+    SupabaseProxyToTMDBService
+  );
 
   constructor() {}
 
@@ -26,8 +25,10 @@ export class TMDBSearchPeopleService {
   }
 
   private peopleSearch(page: number, query: string): Observable<PeopleResult> {
-    return this.httpClient.get<PeopleResult>(
-      `${this.tmdbBaseUrl}/search/person?query=${query}&include_adult=false&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
-    );
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<PeopleResult>({
+      method: 'GET',
+      pathKey: `search-person`,
+      queryStrings: `query=${query}&include_adult=false&language=en-US&page=${page}`,
+    });
   }
 }

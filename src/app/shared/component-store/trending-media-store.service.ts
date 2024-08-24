@@ -133,7 +133,7 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
             });
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
+            return of(null).pipe(
               tap(() => {
                 //this.store.dispatch(movieTrendingFailure({ httpErrorResponse }));
                 this.movieTrendingFailure(httpErrorResponse);
@@ -159,7 +159,7 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
             });
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
+            return of(null).pipe(
               tap(() => {
                 //this.store.dispatch(tvTrendingFailure({ httpErrorResponse }));
                 this.tvTrendingFailure(httpErrorResponse);

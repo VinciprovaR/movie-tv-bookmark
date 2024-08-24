@@ -1,26 +1,29 @@
 import { Observable } from 'rxjs';
 import { TVCredit, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { inject, Injectable } from '@angular/core';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
-import { HttpClient } from '@angular/common/http';
+import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({ providedIn: 'root' })
 export class TMDBTVDetailService {
-  private readonly tmdbApiKey: string = inject(TMDB_API_KEY);
-  private readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
-  private readonly httpClient = inject(HttpClient);
+  private readonly supabaseProxyToTMDBService = inject(
+    SupabaseProxyToTMDBService
+  );
 
   constructor() {}
 
   tvDetailChained(tvId: number): Observable<TVDetail> {
-    return this.httpClient.get<TVDetail>(
-      `${this.tmdbBaseUrl}/tv/${tvId}?append_to_response=aggregate_credits%2Ccontent_ratings%2Cvideos%2Ckeywords&language=en-US&api_key=${this.tmdbApiKey}`
-    );
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<TVDetail>({
+      method: 'GET',
+      pathKey: `tv-detail`,
+      queryStrings: `append_to_response=aggregate_credits%2Ccontent_ratings%2Cvideos%2Ckeywords&language=en-US`,
+    });
   }
 
   tvCredits(tvId: number): Observable<TVCredit> {
-    return this.httpClient.get<TVCredit>(
-      `${this.tmdbBaseUrl}/tv/${tvId}/credits?language=en-US&api_key=${this.tmdbApiKey}`
-    );
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<TVCredit>({
+      method: 'GET',
+      pathKey: `tv-credits`,
+      queryStrings: `language=en-US`,
+    });
   }
 }

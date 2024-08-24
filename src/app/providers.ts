@@ -14,9 +14,6 @@ import { RandomMediaImageService } from './shared/services/random-media-image.se
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
 );
-//to-do Temporary test api key
-export const TMDB_API_KEY = new InjectionToken<string>('TMDB_API_KEY');
-export const TMDB_BASE_URL = new InjectionToken<string>('TMDB_BASE_URL');
 
 export const IMG_SIZES = {
   TMDB_ORIGINAL_IMG_URL: new InjectionToken<string>('TMDB_ORIGINAL_IMG_URL'),
@@ -77,20 +74,6 @@ export const LIFECYCLE_STATUS_MAP = new InjectionToken<BookmarkStatusMap>(
 export const THEME_KEY_LOCAL_STORAGE = new InjectionToken<string>(
   'THEME_KEY_LOCAL_STORAGE'
 );
-
-export function provideTMDBApiKey() {
-  return {
-    provide: TMDB_API_KEY,
-    useValue: '752d0986327eafd63e68291a07153a54',
-  };
-}
-
-export function provideTMDBBaseUrl() {
-  return {
-    provide: TMDB_BASE_URL,
-    useValue: 'https://api.themoviedb.org/3',
-  };
-}
 
 export function provideImgUrl() {
   return [

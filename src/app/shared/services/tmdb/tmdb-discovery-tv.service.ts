@@ -3,17 +3,17 @@ import { Observable } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
 import { TMDBTVParamsUtilsService } from './tmdb-tv-params-utils.service';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../../../providers';
-import { HttpClient } from '@angular/common/http';
+import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TMDBDiscoveryTVService {
   private readonly TMDBTVParamsUtilsService = inject(TMDBTVParamsUtilsService);
-  private readonly tmdbApiKey: string = inject(TMDB_API_KEY);
-  private readonly tmdbBaseUrl: string = inject(TMDB_BASE_URL);
-  private readonly httpClient = inject(HttpClient);
+
+  private readonly supabaseProxyToTMDBService = inject(
+    SupabaseProxyToTMDBService
+  );
 
   constructor() {}
 
@@ -55,8 +55,10 @@ export class TMDBDiscoveryTVService {
     page: number,
     queryParams: string
   ): Observable<TVResult> {
-    return this.httpClient.get<TVResult>(
-      `${this.tmdbBaseUrl}/discover/tv?include_adult=false${queryParams}&certification_country=US&language=en-US&page=${page}&api_key=${this.tmdbApiKey}`
-    );
+    return this.supabaseProxyToTMDBService.callSupabaseFunction<TVResult>({
+      method: 'GET',
+      pathKey: `discover-tv`,
+      queryStrings: `include_adult=false${queryParams}&certification_country=US&language=en-US&page=${page}`,
+    });
   }
 }

@@ -95,7 +95,7 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
             // this.store.dispatch(personDetailIsLoading({ isLoading: false }));
           }),
           catchError((httpErrorResponse: HttpErrorResponse) => {
-            return of().pipe(
+            return of(null).pipe(
               tap(() => {
                 this.personDetailFailure(httpErrorResponse);
                 this.store.dispatch(personDetailFailure({ httpErrorResponse }));
