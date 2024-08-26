@@ -4,11 +4,10 @@ import { SUPABASE_CLIENT } from '../../../providers';
 import { FunctionsResponse } from '@supabase/functions-js';
 import { HttpErrorResponse } from '@angular/common/http';
 
-export interface TMDBProxyParams {
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-  pathKey: string;
-  pathParam?: string;
-  queryStrings: string;
+export interface TMDBApiPayload {
+  serviceKey: string;
+  pathParams?: { [key: string]: string | number };
+  queryParams?: { [key: string]: string };
 }
 
 @Injectable({
@@ -19,10 +18,10 @@ export class SupabaseProxyToTMDBService {
 
   constructor() {}
 
-  callSupabaseFunction<T>(TMDBProxyParams: TMDBProxyParams) {
+  callSupabaseFunction<T>(TMDBProxyPayload: TMDBApiPayload) {
     return from(
-      this.supabase.functions.invoke('tmdb-proxy', {
-        body: TMDBProxyParams,
+      this.supabase.functions.invoke('tmdb-api', {
+        body: TMDBProxyPayload,
       })
     ).pipe(
       tap((result: FunctionsResponse<T>) => {
@@ -35,4 +34,21 @@ export class SupabaseProxyToTMDBService {
       })
     );
   }
+
+  // callSupabaseFunction<T>(TMDBProxyParams: TMDBProxyParams) {
+  //   return from(
+  //     this.supabase.functions.invoke('tmdb-proxy', {
+  //       body: TMDBProxyParams,
+  //     })
+  //   ).pipe(
+  //     tap((result: FunctionsResponse<T>) => {
+  //       if (result.error) {
+  //         throw new HttpErrorResponse(result.error);
+  //       }
+  //     }),
+  //     map((res: FunctionsResponse<T>) => {
+  //       return res.data as T;
+  //     })
+  //   );
+  // }
 }

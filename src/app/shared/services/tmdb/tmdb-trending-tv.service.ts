@@ -18,10 +18,11 @@ export class TMDBTrendingTVService {
 
   trendingTV(timeWindow: TimeWindow): Observable<TVResult> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<TVResult>({
-      method: 'GET',
-      pathParam: `${timeWindow}`,
-      pathKey: `trending-tv`,
-      queryStrings: `language=en-US`,
+      serviceKey: `/trending/tv/{time_window}`,
+      pathParams: { '{time_window}': timeWindow },
+      queryParams: {
+        language: 'en-US',
+      },
     });
   }
 }

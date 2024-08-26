@@ -78,8 +78,6 @@ export class SupabaseMovieBookmarkDAO {
     );
   }
 
-  //to-do user null? non possibile
-  //to-do tipizzare ritorni
   createMovieBookmark(
     bookmarkEnum: bookmarkEnum,
     movieId: number,

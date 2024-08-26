@@ -55,7 +55,6 @@ export class BookmarkSelectorComponent
 {
   private readonly fb = inject(FormBuilder);
   private readonly bridgeDataService = inject(BridgeDataService);
-  //to-do refractor type
   readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
   bookmarkOptions$!: Observable<BookmarkOption[]>;

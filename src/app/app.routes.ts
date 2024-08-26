@@ -121,7 +121,7 @@ export const routes: Routes = [
             './features/movie-bookmark-search/movie-bookmark-search.component'
           ).then((m) => m.MovieBookmarkSearchComponent),
         canActivate: [authGuard],
-        title: 'Movie Bookmark List', //to-do bookmark list con variabile
+        title: 'Movie Bookmark List',
       },
     ],
   },
@@ -146,7 +146,7 @@ export const routes: Routes = [
             './features/tv-bookmark-search/tv-bookmark-search.component'
           ).then((m) => m.TVBookmarkSearchComponent),
         canActivate: [authGuard],
-        title: 'TV Bookmark List', //to-do bookmark list con variabile
+        title: 'TV Bookmark List',
       },
     ],
   },

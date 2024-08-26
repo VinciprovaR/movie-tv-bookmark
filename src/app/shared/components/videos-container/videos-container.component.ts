@@ -181,7 +181,7 @@ export class VideosContainerComponent
       .afterClosed()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((result) => {
-        // console.log(`Dialog result: ${result}`);
+        `Dialog result: ${result}`;
         this.renderer.removeClass(
           this.window.document.body,
           'cdk-global-scrollblock-custom'

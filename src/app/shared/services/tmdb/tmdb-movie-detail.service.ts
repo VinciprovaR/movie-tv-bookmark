@@ -17,19 +17,22 @@ export class TMDBMovieDetailService {
 
   movieDetailChained(movieId: number): Observable<MovieDetail> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<MovieDetail>({
-      method: 'GET',
-      pathParam: `${movieId}`,
-      pathKey: `movie-detail`,
-      queryStrings: `append_to_response=credits%2Crelease_dates%2Cvideos%2Ckeywords&language=en-US`,
+      serviceKey: `/movie/{movie_id}`,
+      pathParams: { '{movie_id}': movieId },
+      queryParams: {
+        append_to_response: 'credits,release_dates,videos,keywords',
+        language: 'en-US',
+      },
     });
   }
 
   movieCredits(movieId: number): Observable<MovieCredit> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<MovieCredit>({
-      method: 'GET',
-      pathParam: `${movieId}`,
-      pathKey: `movie-credits`,
-      queryStrings: `language=en-US`,
+      serviceKey: `/movie/{movie_id}/credits`,
+      pathParams: { '{movie_id}': movieId },
+      queryParams: {
+        language: 'en-US',
+      },
     });
   }
 }

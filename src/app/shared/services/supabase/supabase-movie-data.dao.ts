@@ -26,8 +26,6 @@ export class SupabaseMovieDataDAO {
     );
   }
 
-  //to-do user null? non possibile
-  //to-do tipizzare ritorni
   createMovieData(movieDataDTO: Movie_Data): Observable<Movie_Data[]> {
     return from(
       this.supabase

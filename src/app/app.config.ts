@@ -58,7 +58,6 @@ registerLocaleData(en);
 export const appConfig: ApplicationConfig = {
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
     provideCurrentUser(),
     provideBookmarkSelect(),
     provideSelectFilters(),

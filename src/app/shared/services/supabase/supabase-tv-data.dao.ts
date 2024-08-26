@@ -24,8 +24,6 @@ export class SupabaseTVDataDAO {
     );
   }
 
-  //to-do user null? non possibile
-  //to-do tipizzare ritorni
   createTVData(tvDataDTO: TV_Data): Observable<TV_Data[]> {
     return from(
       this.supabase

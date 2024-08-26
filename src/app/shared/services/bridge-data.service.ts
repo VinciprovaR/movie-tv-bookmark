@@ -14,7 +14,6 @@ import {
 } from '../interfaces/TMDB/tmdb-media.interface';
 import { Movie_Data, TV_Data } from '../interfaces/supabase/entities';
 
-//to-do refractor with signals?
 @Injectable()
 export class BridgeDataService {
   //mediaBookmarkMap

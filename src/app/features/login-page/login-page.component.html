@@ -1,87 +1,47 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-  <div class="mb-4">
-    <label for="email" class="block text-gray-700 text-sm font-bold mb-2"
-      >Email</label
-    >
-    <input
-      type="text"
-      id="username"
-      formControlName="email"
-      required
-      class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-    />
-  </div>
-  <div class="mb-6">
-    <label for="password" class="block text-gray-700 text-sm font-bold mb-2"
-      >Password</label
-    >
-    <input
-      type="password"
-      id="password"
-      formControlName="password"
-      required
-      class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-    />
-  </div>
-  <button
-    type="submit"
-    class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-  >
-    Login
-  </button>
-</form>
+<div class="flex justify-center items-center p-8">
+  <div class="p-8 rounded-lg w-full max-w-sm border-container">
+    <h2 class="text-2xl font-semibold text-center">Login</h2>
 
-<form
-  nz-form
-  [formGroup]="loginForm"
-  class="login-form"
-  id="login-form"
-  (ngSubmit)="onSubmit()"
->
-  <fieldset [disabled]="selectIsLoading$ | async">
-    <nz-form-item>
-      <nz-form-control [nzErrorTip]="emailErrorTpl">
-        <nz-input-group nzPrefixIcon="user">
-          <input
-            type="text"
-            nz-input
-            formControlName="email"
-            placeholder="Email"
-          />
-          <ng-template #emailErrorTpl let-control>
-            @if (control.errors?.['email']) { The input is not valid E-mail! }
-            @if (control.errors?.['required']) { Please input your E-mail! }
-          </ng-template>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Password!">
-        <nz-input-group nzPrefixIcon="lock">
-          <input
-            type="password"
-            nz-input
-            formControlName="password"
-            placeholder="Password"
-          />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <div nz-row class="login-form-margin">
-      <div nz-col [nzSpan]="24">
-        <a [routerLink]="'/reset-password'">Forgot password</a>
-      </div>
-    </div>
-    <button
-      [disabled]="!loginForm.valid"
-      nz-button
-      class="login-form-button login-form-margin"
-      [nzType]="'primary'"
-      [nzLoading]="selectIsLoading$ | async"
-    >
-      Log in
-    </button>
-    Or
-    <a [routerLink]="'/register'"> register now!</a>
-  </fieldset>
-</form>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-6">
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          autocomplete="username"
+          placeholder="Enter your email"
+          formControlName="email"
+          type="email"
+        />
+        @if(loginForm.get('email')?.hasError('required')){
+        <mat-error>Email is required</mat-error>
+        } @if(loginForm.get('email')?.hasError('email')){
+        <mat-error>Invalid email address</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <mat-label>Password</mat-label>
+        <input
+          autocomplete="current-password"
+          matInput
+          placeholder="Enter your password"
+          formControlName="password"
+          type="password"
+        />
+        @if(loginForm.get('password')?.hasError('required')){
+        <mat-error>Password is required</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        [disabled]="!loginForm.valid"
+        mat-raised-button
+        color="primary"
+        class="w-full hover:cursor-pointer w-full hover:cursor-pointer px-6 border-0 py-3 rounded-full text-lg mb-2"
+      >
+        Login
+      </button>
+      <div>Or <a [routerLink]="'/register'"> register now!</a></div>
+    </form>
+  </div>
+</div>

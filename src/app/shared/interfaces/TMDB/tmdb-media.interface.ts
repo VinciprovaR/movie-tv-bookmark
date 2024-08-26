@@ -1,4 +1,3 @@
-//to-do rinominare file in tmdb-media
 export type TimeWindow = 'day' | 'week';
 export type MediaType = 'movie' | 'tv' | 'person';
 

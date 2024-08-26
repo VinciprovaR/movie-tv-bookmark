@@ -125,7 +125,6 @@ export class TVDetailComponent
   }
 
   createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TVDetail>) {
-    console.log(mediaBookmarkDTO);
     this.store.dispatch(
       TVBookmarkActions.createUpdateDeleteTVBookmark({
         mediaBookmarkDTO,

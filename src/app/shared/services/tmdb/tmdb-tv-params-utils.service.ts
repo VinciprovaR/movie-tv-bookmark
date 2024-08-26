@@ -13,66 +13,37 @@ export class TMDBTVParamsUtilsService extends AbstractTMDBParamsUtilsService {
     super();
   }
 
-  buildParamsFeatureTVDiscovery(payload: PayloadDiscoveryTV) {
-    let filtersQueryParams = '';
+  buildParamsFeatureTVDiscovery(
+    payload: PayloadDiscoveryTV
+  ): Record<string, string> {
+    let filtersQueryParams: Record<string, string> = {};
+
     if (payload.genreIdList.length > 0) {
-      filtersQueryParams = filtersQueryParams.concat(
-        this.buildGenresIdParam(payload.genreIdList)
+      filtersQueryParams['with_genres'] = this.buildGenresIdParam(
+        payload.genreIdList
       );
     }
     if (payload.sortBy) {
-      filtersQueryParams = filtersQueryParams.concat(
-        this.buildSortBy(payload.sortBy)
-      );
+      filtersQueryParams['sort_by'] = payload.sortBy;
     }
     if (payload.airDate?.from || payload.airDate?.to) {
-      filtersQueryParams = filtersQueryParams.concat(
-        this.buildAirDateParams(payload.airDate, payload.allEpisode)
-      );
+      const airType = payload.allEpisode ? 'air_date' : 'first_air_date';
+      filtersQueryParams[`${airType}.gte`] = payload.airDate.from;
+      filtersQueryParams[`${airType}.lte`] = payload.airDate.to;
     }
 
     if (payload.language) {
-      filtersQueryParams = filtersQueryParams.concat(
-        this.buildLanguage(payload.language)
-      );
+      filtersQueryParams['with_original_language'] = payload.language;
     }
     if (payload.voteAverage) {
-      filtersQueryParams = filtersQueryParams.concat(
-        this.buildVoteAverageParams(payload.voteAverage)
-      );
+      filtersQueryParams['vote_average.gte'] =
+        payload.voteAverage.voteAverageMin.toString();
+      filtersQueryParams['vote_average.lte'] =
+        payload.voteAverage.voteAverageMax.toString();
     }
     if (payload.minVote) {
-      filtersQueryParams = filtersQueryParams.concat(
-        this.buildMinVoteParams(payload.minVote)
-      );
+      filtersQueryParams['vote_count.gte'] = payload.minVote.toString();
     }
     return filtersQueryParams;
-  }
-
-  buildParamsPersonDetailTVDiscovery(personId: number) {
-    let filtersQueryParams = '';
-    if (personId) {
-      filtersQueryParams = filtersQueryParams.concat(
-        this.buildPeopleParams(personId.toString())
-      );
-    }
-    return filtersQueryParams;
-  }
-
-  private buildAirDateParams(airDate: DateRange, allEpisode: boolean) {
-    let releaseDateQueryParams = '';
-    let airType = allEpisode ? 'air_date' : 'first_air_date';
-    if (airDate.from) {
-      releaseDateQueryParams = releaseDateQueryParams.concat(
-        `&${airType}.gte=${airDate.from}`
-      );
-    }
-    if (airDate.to) {
-      releaseDateQueryParams = releaseDateQueryParams.concat(
-        `&${airType}.lte=${airDate.to}`
-      );
-    }
-
-    return releaseDateQueryParams;
   }
 }

@@ -8,7 +8,7 @@ import { Alert, notificationType } from '../interfaces/alert.interface';
 import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 import { Router } from '@angular/router';
-//to-do refractor in state globale (?)
+
 export interface GlobalErrorState {
   error: HttpErrorResponse | null;
 }
@@ -47,8 +47,9 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
       filter(this.isFailure),
       tap((action: any & TypedAction<string>) => {
         const { httpErrorResponse } = action;
-        //to-do redirect pagina di errore
-        this.router.navigate(['/home']);
+
+        //this.router.navigate(['/home']);
+
         this.onError(httpErrorResponse);
         this.logError(httpErrorResponse);
       })

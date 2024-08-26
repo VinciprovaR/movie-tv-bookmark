@@ -2,11 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PeopleResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
+import { SanitizeInputService } from '../sanitize-input.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TMDBSearchPeopleService {
+  private readonly sanitizeInputService = inject(SanitizeInputService);
+
   private readonly supabaseProxyToTMDBService = inject(
     SupabaseProxyToTMDBService
   );
@@ -25,10 +28,16 @@ export class TMDBSearchPeopleService {
   }
 
   private peopleSearch(page: number, query: string): Observable<PeopleResult> {
+    const sanitizedQuery = this.sanitizeInputService.escapeHtml(query);
+
     return this.supabaseProxyToTMDBService.callSupabaseFunction<PeopleResult>({
-      method: 'GET',
-      pathKey: `search-person`,
-      queryStrings: `query=${query}&include_adult=false&language=en-US&page=${page}`,
+      serviceKey: `/search/person`,
+      queryParams: {
+        query: sanitizedQuery,
+        page: page.toString(),
+        language: 'en-US',
+        include_adult: 'false',
+      },
     });
   }
 }

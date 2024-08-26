@@ -93,13 +93,13 @@ export class SupabaseMovieBookmarkService {
             movieBookmarkDTO
           );
           if (operation === 'default') {
-            throw new Error('Something went wrong. Case default'); //to-do traccia errore su db, anche se impossibile che passi qui
+            throw new Error('Something went wrong. Case default');
           }
           return operation;
         })
       );
   }
-  //to-do udate del movie data?
+
   updateMovieBookmark(
     movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
   ): Observable<MovieBookmarkMap> {

@@ -37,13 +37,17 @@ export class TMDBDiscoveryMovieService {
 
   private discoverMovieCall(
     page: number,
-    queryParams: string
+    queryParams: Record<string, string>
   ): Observable<MovieResult> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<MovieResult>({
-      method: 'GET',
-      pathParam: '',
-      pathKey: `discover-movie`,
-      queryStrings: `include_adult=false${queryParams}&certification_country=US&language=en-US&page=${page}`,
+      serviceKey: `/discover/movie`,
+      queryParams: {
+        ...queryParams,
+        language: 'en-US',
+        include_adult: 'false',
+        certification_country: 'US',
+        page: page.toString(),
+      },
     });
   }
 }

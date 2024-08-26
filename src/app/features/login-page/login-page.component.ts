@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthActions, AuthSelectors } from '../../shared/store/auth';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import {
   LoginForm,
@@ -13,29 +13,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { RouterModule } from '@angular/router';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
+
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NzFormModule,
-    NzInputModule,
-    NzButtonModule,
-    NzIconModule,
-    NzCheckboxModule,
-    RouterModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatInputModule],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,7 +50,7 @@ export class LoginPageComponent extends AbstractComponent {
       password: new FormControl<string>('', {
         validators: [Validators.required],
         nonNullable: true,
-      }),
+      }), //
       // stayConnected: new FormControl<boolean>(false),
     });
   }

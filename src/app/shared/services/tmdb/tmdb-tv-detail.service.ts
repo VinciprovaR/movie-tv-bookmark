@@ -13,17 +13,22 @@ export class TMDBTVDetailService {
 
   tvDetailChained(tvId: number): Observable<TVDetail> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<TVDetail>({
-      method: 'GET',
-      pathKey: `tv-detail`,
-      queryStrings: `append_to_response=aggregate_credits%2Ccontent_ratings%2Cvideos%2Ckeywords&language=en-US`,
+      serviceKey: `/tv/{tv_id}`,
+      pathParams: { '{tv_id}': tvId },
+      queryParams: {
+        append_to_response: 'aggregate_credits,content_ratings,videos,keywords',
+        language: 'en-US',
+      },
     });
   }
 
   tvCredits(tvId: number): Observable<TVCredit> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<TVCredit>({
-      method: 'GET',
-      pathKey: `tv-credits`,
-      queryStrings: `language=en-US`,
+      serviceKey: `/tv/{tv_id}`,
+      pathParams: { '{tv_id}': tvId },
+      queryParams: {
+        language: 'en-US',
+      },
     });
   }
 }

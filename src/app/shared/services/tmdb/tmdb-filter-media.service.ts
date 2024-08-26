@@ -22,9 +22,10 @@ export class TMDBFilterMediaService {
   retriveGenreMovieList(): Observable<Genre[]> {
     return this.supabaseProxyToTMDBService
       .callSupabaseFunction<GenresResult>({
-        method: 'GET',
-        pathKey: `genre-movie-list`,
-        queryStrings: `language=en-US`,
+        serviceKey: `/genre/movie/list`,
+        queryParams: {
+          language: 'en-US',
+        },
       })
       .pipe(
         map((genreResult: GenresResult) => {
@@ -36,13 +37,11 @@ export class TMDBFilterMediaService {
   retriveCertificationMovieList(): Observable<Certification[]> {
     return this.supabaseProxyToTMDBService
       .callSupabaseFunction<CertificationResult>({
-        method: 'GET',
-        pathKey: `certification-movie-list`,
-        queryStrings: ``,
+        serviceKey: `/certification/movie/list`,
       })
       .pipe(
         map((certificationResult: CertificationResult) => {
-          //to-do i18e inietta origin
+          //not i18e
           return certificationResult.certifications['US'];
         })
       );
@@ -51,12 +50,13 @@ export class TMDBFilterMediaService {
   retriveGenreTVList(): Observable<Genre[]> {
     return this.supabaseProxyToTMDBService
       .callSupabaseFunction<GenresResult>({
-        method: 'GET',
-        pathKey: `genre-tv-list`,
-        queryStrings: `language=en-US`,
+        serviceKey: `/genre/tv/list`,
+        queryParams: {
+          language: 'en-US',
+        },
       })
       .pipe(
-        map((genreResult) => {
+        map((genreResult: GenresResult) => {
           return genreResult.genres;
         })
       );
@@ -64,9 +64,7 @@ export class TMDBFilterMediaService {
 
   retriveLanguagesList(): Observable<Language[]> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<Language[]>({
-      method: 'GET',
-      pathKey: `configuration-languages`,
-      queryStrings: ``,
+      serviceKey: `/configuration/languages`,
     });
   }
 }

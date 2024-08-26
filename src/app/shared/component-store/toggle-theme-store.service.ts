@@ -10,7 +10,6 @@ export interface ToggleThemeState {
   icon: string;
 }
 
-//to-do preferenze da device + salvare scelta in storage o db
 @Injectable({
   providedIn: 'root',
 })

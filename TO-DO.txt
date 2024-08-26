@@ -1,38 +1,18 @@
 
 
-################ TO-DO ################
+################ TO-DO PRIORITARIO ################
 - Largest Contentful Paint (LCP) error, check (almeno una immagine markata priority)
-- Proxy con action supabase per nascondere chiave API
-- Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore, refracto html)
-
-- card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
 - Eliminare zorro (auth, altro cercare)
-- range date filter validatori error 
-- click fuori chiude sub menu header mobile
 - scrollbar cast crew container detail diventa troppo piccola
-- numero cast e crew su tv e movie credit
 - page not found
 - person detail, read more solo esplosione se testo più lungo di tot
 - Validators and control on search digit sulla input query (number, symbol, length...) 
-- controllare tutti i to-do comment 
-- controllare tutti i console.log 
-- eliminare commenti inutili es. vecchio codice
-- aggiungere commenti esplicativi
+- CORS su edge function
+- troppi chunk al primo atterraggio
+- resetPasswordForEmail captcha e redirect to (?)
+- Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente) quindi pushare l'utente nei reducer da sessione (da verificare)
 
-- button per tornare in cima alla pagina
--bookmark sort data di aggiunga al bookmark
-- discovery bookmark cellulare button visibile per search
-- abstract person card inutile
-- https://fahpcnjaykumnjwfmkdy.supabase.co/rest/v1/movie_bookm (ogni ricerca chiama supabase per i dati del bookmark, cachare)
-- chiamata in errore rimane barra loading appesa (quindi, se l'atterraggio va in errore, reindirizzare su pagina errore)
-- rivedere bene la gestione degli errori, attenzione a non far cozzare il global error con auth
-- versionare edge function
-- rifinire edge funciton proxy
-----AUTH----
-- Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente)
-quindi pushare l'utente nei reducer da sessione (da verificare)
-- Test form input/accessibility etc.;
-
+- User profile, logout, cambio Password
 -Login
     - Test flow;
     - Forgot Password
@@ -50,31 +30,40 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
 
 
 
+################ TO-DO AFTER DEPLOY ################
 
+- Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore, refracto html)
+- card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
+- range date filter validatori error 
+- click fuori chiude sub menu header mobile
+- numero cast e crew su tv e movie credit
+- aggiungere commenti esplicativi
+- se random image non c'è su home component
+- loading component modo di non avere tutte quelle subscribe 
+- global error, redirect non home bensi pagina di errore, ma solo se errore in fase di landing
+- button per tornare in cima alla pagina
+- bookmark sort data di aggiunga al bookmark
+- discovery bookmark cellulare button visibile per search
+- abstract person card inutile
+- https://fahpcnjaykumnjwfmkdy.supabase.co/rest/v1/movie_bookm (ogni ricerca chiama supabase per i dati del bookmark, cachare)
+- rivedere bene la gestione degli errori, attenzione a non far cozzare il global error con auth
+- check not i18e
+- ricerca query con y:1980
+- liste personalizzate 
 - [Violation] 'setTimeout' handler took 345ms
-
 - html semantico
 - aria accessibility
 - Gestione timeout chiamate
 - Nelle subcribe custom next e error
 - Hai dimenticato alcune destroyed ref...
-- troppi chunk al primo atterraggio
 - check for @defer
-- tutto ciò che è in hidden con css @if non renderizzato
-
 - stile globale refractor
 - domsanitizer tutta app
 - Video not found handler
 - separazione membri classe  come in videos-container.components
-- astrazione  per i servizi 
 - modificare messaggi di success e error + label
 - http interceptor e/o handling error generalizzato con log (log service) (?)
 - img if error 500 onerror fallback (?)
-
-
-
-
-
 
 
 
@@ -92,6 +81,10 @@ quindi pushare l'utente nei reducer da sessione (da verificare)
 -home component link to portfolio
 
 ################################ FATTO, RICONTROLLARE ################################
+
+- Proxy con action supabase per nascondere chiave API
+- controllare tutti i console.log 
+- controllare tutti i to-do comment 
 -atterraggio discovery non si vede il caricamento
 - colori dark light prenderli dalla home e sostituirli anche 
 - About / credit con logo tmdb+ sezione info con testo di api appartenenza a tmdb

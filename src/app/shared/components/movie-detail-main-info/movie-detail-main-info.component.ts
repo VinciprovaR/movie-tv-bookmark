@@ -100,7 +100,7 @@ export class MovieDetailMainInfoContentComponent
 
   override populateRating() {
     for (let releaseDate of this.movieData.release_dates.results) {
-      //to-do i18e?
+      //not i18e
       if (releaseDate.iso_3166_1 === 'US') {
         this.rating = releaseDate.release_dates[0].certification;
       }

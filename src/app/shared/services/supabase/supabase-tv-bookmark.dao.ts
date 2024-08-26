@@ -69,8 +69,6 @@ export class SupabaseTVBookmarkDAO {
     );
   }
 
-  //to-do user null? non possibile
-  //to-do tipizzare ritorni
   createTVBookmark(
     bookmarkEnum: bookmarkEnum,
     tvId: number,

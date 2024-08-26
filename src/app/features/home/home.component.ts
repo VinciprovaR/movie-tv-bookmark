@@ -69,7 +69,6 @@ export class HomeComponent extends AbstractComponent implements OnInit {
 
   getFullImageUrl(imgSrc: string) {
     return `${this.TMDB_PROFILE_1920W_1080H_IMG_URL}${imgSrc}`;
-    // return 'https://image.tmdb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,00192f,00baff)/tfw5LKySp7uEYJ3CUuD4TKx3s8y.jpg';
   }
 
   evaluatePredominantColor(backdropPath: string) {

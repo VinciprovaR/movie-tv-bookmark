@@ -18,7 +18,6 @@
   --bg-header-media-detail-not-lg: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(49, 51, 53);
   --link-color-light: rgb(236, 239, 243);
-
   --mat-dialog-container-small-max-width: 95vw !important;
 }
 
@@ -82,6 +81,14 @@ body {
   background-color: var(--bg-color-1);
   color: var(--text-color);
   transition: all 0.1s;
+  --mdc-outlined-text-field-input-text-color: var(--text-color);
+  --mdc-outlined-text-field-label-text-color: var(--text-color);
+  --mdc-outlined-text-field-hover-label-text-color: var(--bg-color-2);
+  --mdc-outlined-text-field-outline-color: var(--mat-card-border-color);
+}
+
+input::placeholder {
+  color: var(--bg-color-2) !important;
 }
 
 header,
@@ -488,7 +495,7 @@ button:disabled {
   }
 }
 
-/* to-do controllare rimanenti più altri browser */
+/* evita il colore blu su click to-do controllare elementi rimanenti più altri browser engine*/
 input,
 textarea,
 button,

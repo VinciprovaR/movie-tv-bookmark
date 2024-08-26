@@ -84,7 +84,7 @@ export class SupabaseTVBookmarkService {
             tvBookmarkDTO
           );
           if (operation === 'default') {
-            throw new Error('Something went wrong. Case default'); //to-do traccia errore su db, anche se impossibile che passi qui
+            throw new Error('Something went wrong. Case default');
           }
           return operation;
         })

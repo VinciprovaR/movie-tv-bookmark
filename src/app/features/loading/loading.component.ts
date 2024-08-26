@@ -31,7 +31,6 @@ import {
 } from '../../shared/component-store';
 import { RandomMediaImageService } from '../../shared/services/random-media-image.service';
 
-// to-do refractor
 @Component({
   selector: 'app-loading',
   standalone: true,

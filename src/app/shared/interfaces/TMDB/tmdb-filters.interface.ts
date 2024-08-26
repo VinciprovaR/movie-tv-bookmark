@@ -1,5 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
-//to-do refractor per movie e tv
+
 export interface DiscoveryMovieFilterForm {
   genres: FormGroup<GenreGroup>;
   sortBy: FormControl<string>;

@@ -55,7 +55,7 @@ export class SupabaseAuthDAO {
           if (result.error) throw new HttpErrorResponse(result.error);
         }
       })
-    ); //to-do captcha e redirect to
+    );
   }
 
   signOut(): Observable<any> {

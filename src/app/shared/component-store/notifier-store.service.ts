@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Alert, notificationType } from '../interfaces/alert.interface';
 import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
-//to-do refractor in state globale (?)
+
 export interface AlertState {
   alerts: Alert[];
 }
@@ -18,7 +18,7 @@ export class NotifierStore extends ComponentStore<AlertState> {
   readonly store = inject(Store);
 
   readonly selectAlerts$ = this.select((state) => state.alerts);
-  //to-do i18e + refractor
+
   readonly isFailure = (action: any & TypedAction<string>) => {
     let { type }: { type: string } = action;
     return type.toLowerCase().includes('failure');
@@ -84,7 +84,6 @@ export class NotifierStore extends ComponentStore<AlertState> {
     );
   });
 
-  //to-do i18e + refractor
   private notify(
     action: any & TypedAction<string>,
     message: string,

@@ -19,20 +19,22 @@ export class TMDBPersonDetailService {
 
   personDetail(personId: number): Observable<PersonDetail> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<PersonDetail>({
-      method: 'GET',
-      pathParam: `${personId}`,
-      pathKey: `person-detail`,
-      queryStrings: `language=en-US`,
+      serviceKey: `/person/{person_id}`,
+      pathParams: { '{person_id}': personId },
+      queryParams: {
+        language: 'en-US',
+      },
     });
   }
 
   personMovieCredit(personId: number): Observable<PersonDetailMovieCredits> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<PersonDetailMovieCredits>(
       {
-        method: 'GET',
-        pathParam: `${personId}`,
-        pathKey: `person-movie-credits`,
-        queryStrings: `language=en-US`,
+        serviceKey: `/person/{person_id}/movie_credits`,
+        pathParams: { '{person_id}': personId },
+        queryParams: {
+          language: 'en-US',
+        },
       }
     );
   }
@@ -40,10 +42,11 @@ export class TMDBPersonDetailService {
   personTVCredit(personId: number): Observable<PersonDetailTVCredits> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<PersonDetailTVCredits>(
       {
-        method: 'GET',
-        pathParam: `${personId}`,
-        pathKey: `person-tv-credits`,
-        queryStrings: `language=en-US`,
+        serviceKey: `/person/{person_id}/tv_credits`,
+        pathParams: { '{person_id}': personId },
+        queryParams: {
+          language: 'en-US',
+        },
       }
     );
   }

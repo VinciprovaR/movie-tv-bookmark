@@ -34,31 +34,19 @@ export class TMDBDiscoveryTVService {
     );
   }
 
-  tvDiscoveryByPersonId(personId: number): Observable<TVResult> {
-    return this.discoverTVCall(
-      1,
-      this.TMDBTVParamsUtilsService.buildParamsPersonDetailTVDiscovery(personId)
-    );
-  }
-
-  additionalTVDiscoveryByPersonId(
-    page: number,
-    personId: number
-  ): Observable<TVResult> {
-    return this.discoverTVCall(
-      page + 1,
-      this.TMDBTVParamsUtilsService.buildParamsPersonDetailTVDiscovery(personId)
-    );
-  }
-
   private discoverTVCall(
     page: number,
-    queryParams: string
+    queryParams: Record<string, string>
   ): Observable<TVResult> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<TVResult>({
-      method: 'GET',
-      pathKey: `discover-tv`,
-      queryStrings: `include_adult=false${queryParams}&certification_country=US&language=en-US&page=${page}`,
+      serviceKey: `/discover/tv`,
+      queryParams: {
+        ...queryParams,
+        language: 'en-US',
+        include_adult: 'false',
+        certification_country: 'US',
+        page: page.toString(),
+      },
     });
   }
 }

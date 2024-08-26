@@ -128,7 +128,7 @@ export class MovieDiscoveryFiltersComponent
   }
 
   override onSubmit(): void {
-    // console.log(this.filterForm.value);
+    this.filterForm.value;
     if (this.filterForm.valid) {
       this.toggleButtonSearch(true);
       let payload: PayloadDiscoveryMovie = this.buildPayload();

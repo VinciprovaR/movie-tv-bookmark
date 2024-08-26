@@ -85,7 +85,7 @@ export class TVDetailMainInfoContentComponent
 
   override populateRating() {
     for (let contentRating of this.tvData.content_ratings.results) {
-      //to-do i18e?
+      //not i18e
       if (contentRating.iso_3166_1 === 'US') {
         this.rating = contentRating.rating;
       }

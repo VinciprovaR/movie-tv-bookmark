@@ -70,6 +70,5 @@ export class YoutubeEmbededComponent
 
   onCloseDialog() {
     this.closeDialog$.next(null);
-    console.log('close');
   }
 }

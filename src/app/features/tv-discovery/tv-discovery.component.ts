@@ -137,7 +137,6 @@ export class TVDiscoveryComponent
   }
 
   discoveryTV(payload: PayloadDiscoveryTV) {
-    console.log(payload);
     this.store.dispatch(
       DiscoveryTVActions.discoveryTV({
         payload: payload,
