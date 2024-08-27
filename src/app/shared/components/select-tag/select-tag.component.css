@@ -6,9 +6,9 @@
 }
 
 /* .tag-container:hover {
-  border-color: var(--bg-color-2);
+  border-color: var(--theme-color-2);
 } */
 
 .tag-selected {
-  background-color: var(--bg-color-2);
+  background-color: var(--theme-color-2);
 }

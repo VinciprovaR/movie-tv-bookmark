@@ -12,6 +12,7 @@ import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
+import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +47,13 @@ export class SupabaseMovieBookmarkDAO {
         .in(`movie_id`, movieIdList)
     ).pipe(
       map((result: PostgrestSingleResponse<Movie_Bookmark[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );
@@ -71,7 +78,13 @@ export class SupabaseMovieBookmarkDAO {
     ).pipe(
       map(
         (result: PostgrestSingleResponse<Movie_Bookmark[] & Movie_Data[]>) => {
-          if (result.error) throw new Error(result.error.message);
+          if (result.error) {
+            throw new CustomHttpErrorResponse({
+              error: result.error,
+              message: result.error.message,
+            });
+          }
+
           return result.data;
         }
       )
@@ -94,7 +107,13 @@ export class SupabaseMovieBookmarkDAO {
         .select()
     ).pipe(
       map((result: PostgrestSingleResponse<Movie_Bookmark[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );
@@ -114,7 +133,13 @@ export class SupabaseMovieBookmarkDAO {
         .select()
     ).pipe(
       map((result: PostgrestSingleResponse<Movie_Bookmark[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );
@@ -134,7 +159,13 @@ export class SupabaseMovieBookmarkDAO {
         .select()
     ).pipe(
       map((result: PostgrestSingleResponse<Movie_Bookmark[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );

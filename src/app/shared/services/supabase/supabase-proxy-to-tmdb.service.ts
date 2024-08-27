@@ -3,6 +3,8 @@ import { from, map, tap } from 'rxjs';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { FunctionsResponse } from '@supabase/functions-js';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 export interface TMDBApiPayload {
   serviceKey: string;
@@ -26,7 +28,14 @@ export class SupabaseProxyToTMDBService {
     ).pipe(
       tap((result: FunctionsResponse<T>) => {
         if (result.error) {
-          throw new HttpErrorResponse(result.error);
+          const error = result.error as CustomHttpErrorResponseInterface;
+          throw new CustomHttpErrorResponse({
+            error,
+            message: error.message,
+            status: error.status,
+            statusText: error.statusText,
+            url: error.url,
+          });
         }
       }),
       map((res: FunctionsResponse<T>) => {

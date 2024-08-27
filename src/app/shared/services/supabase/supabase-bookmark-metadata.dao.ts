@@ -2,6 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
 import { Bookmark_Metadata } from '../../interfaces/supabase/entities';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
+import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +18,15 @@ export class SupabaseMediaBookmarkMetadataDAO {
     return from(
       this.supabase
         .from('bookmark_metadata')
-        .select('{id, enum, description, label}')
+        .select('*')
         .order('order', { ascending: true })
     ).pipe(
-      map((result: any) => {
-        if (result.error) throw new Error(result.error.message);
+      map((result: PostgrestSingleResponse<Bookmark_Metadata[]>) => {
+        if (result.error)
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
         return result.data;
       })
     );

@@ -4,6 +4,8 @@ import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
 import { Movie } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Movie_Data } from '../../interfaces/supabase/entities';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,14 @@ export class SupabaseMovieDataDAO {
       this.supabase.from(this.TABLE).select('*').eq(`id`, movieId)
     ).pipe(
       map((result: PostgrestSingleResponse<Movie_Data[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          if (result.error)
+            throw new CustomHttpErrorResponse({
+              error: result.error,
+              message: result.error.message,
+            });
+        }
+
         return result.data;
       })
     );
@@ -40,7 +49,13 @@ export class SupabaseMovieDataDAO {
         .select()
     ).pipe(
       map((result: PostgrestSingleResponse<Movie_Data[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );
@@ -59,7 +74,13 @@ export class SupabaseMovieDataDAO {
         .select()
     ).pipe(
       map((result: PostgrestSingleResponse<Movie_Data[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );

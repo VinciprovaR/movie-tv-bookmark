@@ -16,13 +16,19 @@ import {
 import { RouterModule } from '@angular/router';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { ChangeDetectionStrategy } from '@angular/core';
-
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatInputModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatInputModule,
+    MatIconModule,
+  ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

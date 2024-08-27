@@ -4,6 +4,8 @@ import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
 import { TV, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data } from '../../interfaces/supabase/entities';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,13 @@ export class SupabaseTVDataDAO {
   findByTVId(tvId: number): Observable<TV_Data[]> {
     return from(this.supabase.from(this.TABLE).select('*').eq(`id`, tvId)).pipe(
       map((result: PostgrestSingleResponse<TV_Data[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );
@@ -38,7 +46,13 @@ export class SupabaseTVDataDAO {
         .select()
     ).pipe(
       map((result: PostgrestSingleResponse<TV_Data[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );
@@ -57,7 +71,13 @@ export class SupabaseTVDataDAO {
         .select()
     ).pipe(
       map((result: PostgrestSingleResponse<TV_Data[]>) => {
-        if (result.error) throw new Error(result.error.message);
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+
         return result.data;
       })
     );

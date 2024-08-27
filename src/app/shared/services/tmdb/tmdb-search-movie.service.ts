@@ -4,6 +4,7 @@ import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SanitizeInputService } from '../sanitize-input.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',

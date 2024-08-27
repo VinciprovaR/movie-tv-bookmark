@@ -23,8 +23,10 @@
 
 /* variables */
 body.light-theme {
-  --bg-color-1: rgb(253, 251, 255);
-  --bg-color-2: rgb(215, 227, 255);
+  --theme-color-1: rgb(253, 251, 255);
+  --theme-color-2: rgb(215, 227, 255);
+  --theme-color-2-hover: rgb(186, 206, 250);
+  --theme-color-3: rgb(253, 251, 255);
   --header-li-color: rgb(0, 92, 187);
   --bg-container-color: rgb(250, 250, 250);
   --text-color: rgb(0, 27, 63);
@@ -36,8 +38,8 @@ body.light-theme {
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(32, 33, 34);
   --box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
-  --bg-color-1-nav-sub-menu: rgb(243 244 246);
-  --bg-color-1-nav-sub-menu-hover: rgb(185, 185, 185);
+  --theme-color-1-nav-sub-menu: rgb(243 244 246);
+  --theme-color-1-nav-sub-menu-hover: rgb(185, 185, 185);
   --gradient-color-header-detail-a: rgba(13, 42, 80, 0.8);
   --gradient-color-header-detail-b: rgba(13, 42, 80, 0.9);
   --scroll-thumb-active-color: rgb(152, 152, 152);
@@ -47,8 +49,10 @@ body.light-theme {
   --mat-divider-color: rgb(116, 119, 127);
 }
 body.dark-theme {
-  --bg-color-1: rgb(25, 28, 28);
-  --bg-color-2: rgb(0, 80, 80);
+  --theme-color-1: rgb(25, 28, 28);
+  --theme-color-2: rgb(0, 80, 80);
+  --theme-color-2-hover: rgb(0, 112, 112);
+  --theme-color-3: rgb(48, 53, 53);
   --header-li-color: rgb(0, 221, 221);
   --bg-container-color: rgb(40, 40, 40);
   --text-color: rgb(215, 218, 223);
@@ -57,12 +61,12 @@ body.dark-theme {
   --sub-text-color: rgb(190, 190, 190);
   --mat-card-border-color: rgb(111, 111, 111);
   --tag-border-color: #a5a5a5;
-  --icon-color: rgb(234, 236, 240);
+  --icon-color: rgb(185, 185, 185);
   --bookmark-info-bkg-color: rgb(255, 255, 255);
   --box-shadow: 0 1px 3px 0 rgb(255, 255, 255, 0.401),
     0 1px 2px -1px rgb(255, 255, 255, 0.401) !important;
-  --bg-color-1-nav-sub-menu: rgb(32, 35, 35);
-  --bg-color-1-nav-sub-menu-hover: #353535fd;
+  --theme-color-1-nav-sub-menu: rgb(32, 35, 35);
+  --theme-color-1-nav-sub-menu-hover: #353535fd;
   --gradient-color-header-detail-a: rgba(18, 59, 112, 0.7);
   --gradient-color-header-detail-b: rgba(18, 59, 113, 0.8);
   --scroll-thumb-active-color: rgb(128, 128, 128);
@@ -78,22 +82,23 @@ body {
   height: auto;
   margin: 0px;
   font-family: Roboto, Arial, sans-serif;
-  background-color: var(--bg-color-1);
+  background-color: var(--theme-color-1);
   color: var(--text-color);
   transition: all 0.1s;
-  --mdc-outlined-text-field-input-text-color: var(--text-color);
+  /* --mdc-outlined-text-field-input-text-color: var(--text-color);
   --mdc-outlined-text-field-label-text-color: var(--text-color);
-  --mdc-outlined-text-field-hover-label-text-color: var(--bg-color-2);
+  --mdc-outlined-text-field-hover-label-text-color: var(--theme-color-2);
   --mdc-outlined-text-field-outline-color: var(--mat-card-border-color);
+  --mdc-outlined-text-field-container-shape: var(8px) !important; */
 }
 
-input::placeholder {
-  color: var(--bg-color-2) !important;
-}
+/* input::placeholder {
+  color: var(--theme-color-2) !important;
+} */
 
 header,
 footer {
-  background-color: var(--bg-color-2);
+  background-color: var(--theme-color-2);
 }
 
 .bg-container {
@@ -101,7 +106,7 @@ footer {
 }
 
 input {
-  background-color: var(--bg-color-1);
+  background-color: var(--theme-color-1);
   color: var(--text-color);
   transition: all 0.1s;
 }
@@ -111,7 +116,7 @@ input::placeholder {
 }
 
 select {
-  background-color: var(--bg-color-1);
+  background-color: var(--theme-color-1);
   color: var(--text-color);
 }
 
@@ -139,7 +144,7 @@ img {
 }
 
 mat-card {
-  background-color: var(--bg-color-1) !important;
+  background-color: var(--theme-color-1) !important;
 }
 
 mat-icon {
@@ -291,14 +296,14 @@ select {
 
 button {
   color: var(--text-color);
-  background-color: var(--bg-color-2);
+  background-color: var(--theme-color-2);
   border-color: var(--tag-border-color);
   border-style: solid;
   border-width: 1px;
 }
 
 button:hover {
-  background-color: rgb(30 64 175);
+  background-color: var(--theme-color-2-hover);
 }
 
 button:disabled {
@@ -455,7 +460,7 @@ button:disabled {
     background-image: linear-gradient(
       to right,
       rgba(255, 255, 255, 0) 0,
-      var(--bg-color-1) 100%
+      var(--theme-color-1) 100%
     );
   }
 }
