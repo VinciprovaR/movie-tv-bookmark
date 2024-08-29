@@ -39,7 +39,7 @@ export const tvBookmarkReducer = createReducer(
       };
     }
   ),
-  on(TVBookmarkActions.notifySearchTVByBookmark, (state): TVBookmarkState => {
+  on(TVBookmarkActions.updateSearchTVByBookmark, (state): TVBookmarkState => {
     return {
       ...state,
       updateSearch: true,

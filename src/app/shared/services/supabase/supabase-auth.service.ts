@@ -25,6 +25,10 @@ export class SupabaseAuthService {
     return this.supabaseAuthDAO.resetPasswordForEmail(credentials);
   }
 
+  updatePassword(password: string): Observable<any> {
+    return this.supabaseAuthDAO.updatePassword(password);
+  }
+
   logout(): Observable<any> {
     return this.supabaseAuthDAO.signOut();
   }

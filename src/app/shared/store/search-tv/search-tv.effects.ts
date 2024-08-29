@@ -5,7 +5,7 @@ import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchTVService } from '../../services/tmdb';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class SearchTVEffects {
@@ -25,7 +25,7 @@ export class SearchTVEffects {
               tvResult: tvResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(SearchTVActions.searchTVFailure({ httpErrorResponse }));
           })
         );
@@ -53,13 +53,15 @@ export class SearchTVEffects {
                 tvResult: tvResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                SearchTVActions.searchTVFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  SearchTVActions.searchTVFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
         } else {
           return of(SearchTVActions.noAdditionalTV());

@@ -1,36 +1,78 @@
-<div class="flex flex-col items-center login-wrapper justify-center">
-  <!-- Top Row -->
-  <div class="max-w-md space-y-4">
-    <div class="flex-1">
-      @if(loginForm.invalid && loginForm.touched && loginForm.statusChanges){
-      <div class="bg-red-600 text-sm p-3 rounded-md">
-        <ul class="list-none p-0 m-0">
-          @if( loginForm.get('email')?.hasError('required')){
-          <li><mat-error>Email is required</mat-error></li>
-          } @if(loginForm.get('email')?.hasError('email')){
-          <li><mat-error>Invalid email address</mat-error></li>
-          } @if( loginForm.get('password')?.hasError('required')){
-          <li><mat-error>Password is required</mat-error></li>
-          }
-        </ul>
-      </div>
-      }
-    </div>
-
-    <!-- Center Row (Content) -->
+<div class="flex flex-col items-center auth-wrapper">
+  @if(selectIsRequestResetPassword$ | async; as selectIsRequestResetPassword){
+  <div class="w-[95%] max-w-sm pt-8">
     <div class="flex-none">
-      <div class="bg-[var(--theme-color-3)] p-8 rounded-lg shadow-lg">
+      <div class="bg-[var(--bg-success-container)] text-sm p-3 rounded-md">
+        <div class="flex space-x-2">
+          <div>
+            <mat-icon
+              class="text-[var(--success-icon-color)]"
+              aria-hidden="false"
+              aria-label=""
+              fontIcon="check_circle"
+            ></mat-icon>
+          </div>
+          <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
+            <li>
+              We've sent you an email with instructions to reset your password,
+              if the account exist. Please check your inbox, and don't forget to
+              check your spam or junk folder if you don't see the email within a
+              few minutes!
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+  <div class="w-[95%] max-w-sm pt-8">
+    <div class="flex-none">
+      <div class="bg-[var(--theme-color-3)] p-6 rounded-lg shadow-lg">
         <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
+        <div
+          class="flex-1 mb-4 transition-all duration-250 transform"
+          #errorContainer
+        >
+          @if(submitted && !isFormValid){
+          <div class="bg-[var(--bg-failure-container)] text-sm p-3 rounded-md">
+            <div class="flex space-x-2">
+              <div>
+                <mat-icon
+                  class="text-[var(--failure-icon-color)]"
+                  aria-hidden="false"
+                  aria-label=""
+                  fontIcon="error"
+                ></mat-icon>
+              </div>
+              <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
+                @if(loginForm.get('email')?.errors){
+                @if(loginForm.get('email')?.hasError('required') ){
+                <li><mat-error>Please enter your email</mat-error></li>
+                } @if(loginForm.get('email')?.hasError('email')){
+                <li><mat-error>Invalid email address</mat-error></li>
+                } } @if(loginForm.get('password')?.hasError('required') ){
+                <li><mat-error>Please enter your password</mat-error></li>
+                }
+              </ul>
+            </div>
+          </div>
+          }
+        </div>
         <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="space-y-4">
           <div>
             <label class="block text-sm font-medium" for="email">Email</label>
             <div class="relative">
               <input
+                [ngClass]="{
+                  'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
+                    !isEmailError,
+                  'border-1 border-red-600 focus:outline-0 ': isEmailError
+                }"
                 autocomplete="username"
                 type="email"
                 id="email"
                 formControlName="email"
-                class="pl-12 mt-1 block w-full box-border px-3 py-2 border-0 focus:outline outline-[3px] outline-[var(--theme-color-2)] rounded-md placeholder-gray-400 sm:text-sm"
+                class="pl-12 mt-1 block w-full box-border px-3 py-2 rounded-md placeholder-gray-400 sm:text-sm"
               />
               <div
                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
@@ -50,11 +92,16 @@
             >
             <div class="relative">
               <input
+                [ngClass]="{
+                  'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
+                    !isPasswordError,
+                  'border-1 border-red-600 focus:outline-0 ': isPasswordError
+                }"
                 autocomplete="current-password"
                 type="password"
                 id="password"
                 formControlName="password"
-                class="pl-12 mt-1 block w-full box-border px-3 py-2 border-0 focus:outline outline-[3px] outline-[var(--theme-color-2)] rounded-md placeholder-gray-400 sm:text-sm"
+                class="pl-12 mt-1 block w-full box-border px-3 py-2 rounded-md placeholder-gray-400 sm:text-sm"
               />
               <div
                 class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
@@ -70,84 +117,37 @@
           </div>
           <div class="flex items-center justify-between">
             <div class="text-sm">
-              <a href="#" class="font-medium">Forgot your password?</a>
+              <a [routerLink]="'/reset-password'" class="font-medium"
+                >Forgot your password?
+              </a>
             </div>
           </div>
           <button
             type="submit"
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 hover:cursor-pointer focus:ring-offset-2 focus:ring-indigo-500"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 hover:cursor-pointer focus:ring-offset-2 focus:ring-indigo-500"
           >
             Sign in
           </button>
+          <mat-divider
+            role="separator"
+            class="mat-divider mat-divider-horizontal"
+            aria-orientation="horizontal"
+          ></mat-divider>
+          <div class="flex items-center justify-between">
+            <div class="text-sm">
+              <span>Don't have an account? </span>
+              <a [routerLink]="'/register'" class="font-medium">Sign up </a>
+            </div>
+          </div>
+          <!-- <button
+            type="button"
+            (click)="redirectTo('/register')"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 hover:cursor-pointer focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Create an Account
+          </button> -->
         </form>
       </div>
     </div>
-
-    <!-- Bottom Row -->
-    <div class="flex-1 bg-gray-200">
-      <!-- Empty or can have a background color, image, etc. -->
-    </div>
   </div>
 </div>
-
-<!-- <div class="grid grid-rows-3 grid-flow-col gap-4">
-  <div>1</div>
-  <div>
-
-  </div>
-  <div>3</div>
-</div> -->
-
-<!--  -->
-
-<!--  -->
-
-<!-- <div class="flex justify-center items-center p-8 login">
-  <div class="p-8 rounded-lg w-full max-w-sm border-container">
-    <h2 class="text-2xl font-semibold text-center">Login</h2>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-6">
-      <mat-form-field appearance="outline" class="w-full mb-4">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          autocomplete="username"
-          placeholder="Enter your email"
-          formControlName="email"
-          type="email"
-        />
-        @if(loginForm.get('email')?.hasError('required')){
-        <mat-error>Email is required</mat-error>
-        } @if(loginForm.get('email')?.hasError('email')){
-        <mat-error>Invalid email address</mat-error>
-        }
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="w-full mb-4">
-        <mat-label>Password</mat-label>
-        <input
-          autocomplete="current-password"
-          matInput
-          placeholder="Enter your password"
-          formControlName="password"
-          type="password"
-        />
-        @if(loginForm.get('password')?.hasError('required')){
-        <mat-error>Password is required</mat-error>
-        }
-      </mat-form-field>
-
-      <button
-        [disabled]="!loginForm.valid"
-        mat-raised-button
-        color="primary"
-        class="w-full hover:cursor-pointer w-full hover:cursor-pointer px-6 border-0 py-3 rounded-full text-lg mb-2"
-      >
-        Login
-      </button>
-      <div>Or <a [routerLink]="'/register'"> register now!</a></div>
-    </form>
-  </div>
-</div> -->
-
-<!--  -->

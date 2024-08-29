@@ -3,11 +3,12 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { createAction, props, Store } from '@ngrx/store';
 import { TVDetail } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBTVDetailService } from '../services/tmdb';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface TVDetailState extends StateMediaBookmark {
   tvDetail: TVDetail | null;
@@ -23,7 +24,7 @@ export const tvDetailSuccess = createAction(
 );
 export const tvDetailFailure = createAction(
   '[TV-Detail] TV Detail Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 @Injectable({ providedIn: 'root' })
@@ -68,7 +69,7 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
   );
 
   private readonly addTVDetailFailure = this.updater(
-    (state, { error }: { error: HttpErrorResponse }) => {
+    (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
         isLoading: false,
@@ -91,7 +92,7 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
               tvDetail,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
                 this.addTVDetailFailure(httpErrorResponse);

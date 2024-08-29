@@ -16,10 +16,11 @@ import { AbstractDiscoveryFilter } from '../../shared/components/abstract/abstra
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { DiscoveryTVSelectors } from '../../shared/store/discovery-tv';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 
 @Component({
   selector: 'app-discovery-tv-filters',
@@ -43,7 +44,7 @@ export class TVDiscoveryFiltersComponent
   extends AbstractDiscoveryFilter<PayloadDiscoveryTV, DiscoveryTVFilterForm>
   implements OnInit
 {
-  selectDiscoveryFailure$: Observable<HttpErrorResponse | null> =
+  selectDiscoveryFailure$: Observable<CustomHttpErrorResponseInterface | null> =
     this.store.select(DiscoveryTVSelectors.selectError);
 
   constructor() {
@@ -70,9 +71,11 @@ export class TVDiscoveryFiltersComponent
     this.selectDiscoveryFailure$
       .pipe(
         takeUntil(this.destroyed$),
-        filter((error: HttpErrorResponse | null) => error != null)
+        filter(
+          (error: CustomHttpErrorResponseInterface | null) => error != null
+        )
       )
-      .subscribe((error: HttpErrorResponse | null) => {
+      .subscribe((error: CustomHttpErrorResponseInterface | null) => {
         this.toggleButtonSearch(false);
       });
   }
@@ -99,6 +102,7 @@ export class TVDiscoveryFiltersComponent
     );
 
     this.registerBehaviourValueChange();
+    this.detectChanges();
   }
 
   initAllEpisodeControl(allEpisode: boolean): FormControl<boolean> {

@@ -5,7 +5,7 @@ import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchMovieService } from '../../services/tmdb';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class SearchMovieEffects {
@@ -26,7 +26,7 @@ export class SearchMovieEffects {
               movieResult: movieResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
               SearchMovieActions.searchMovieFailure({ httpErrorResponse })
             );
@@ -56,13 +56,15 @@ export class SearchMovieEffects {
                 movieResult: movieResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                SearchMovieActions.searchMovieFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  SearchMovieActions.searchMovieFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
         } else {
           return of(SearchMovieActions.noAdditionalMovie());

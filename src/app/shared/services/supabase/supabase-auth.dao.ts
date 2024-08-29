@@ -6,7 +6,7 @@ import {
 } from '../../interfaces/supabase/supabase-auth.interface';
 import { AuthResponse, AuthTokenResponsePassword } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({
@@ -27,12 +27,13 @@ export class SupabaseAuthDAO {
       })
     ).pipe(
       tap((result: AuthTokenResponsePassword) => {
-        if (result.error)
+        if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
             message: result.error.message,
             status: result.error.status,
           });
+        }
       })
     );
   }
@@ -74,8 +75,23 @@ export class SupabaseAuthDAO {
     );
   }
 
+  updatePassword(password: string): Observable<any> {
+    return from(this.supabase.auth.updateUser({ password })).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          if (result.error)
+            throw new CustomHttpErrorResponse({
+              error: result.error,
+              message: result.error.message,
+              status: result.error.status,
+            });
+        }
+      })
+    );
+  }
+
   signOut(): Observable<any> {
-    return from(this.supabase.auth.signOut()).pipe(
+    return from(this.supabase.auth.signOut({ scope: 'local' })).pipe(
       tap((result: any) => {
         if (result.error) {
           if (result.error)

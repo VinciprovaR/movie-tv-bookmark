@@ -3,14 +3,15 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { Alert, notificationType } from '../interfaces/alert.interface';
 import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 import { Router } from '@angular/router';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface GlobalErrorState {
-  error: HttpErrorResponse | null;
+  error: CustomHttpErrorResponseInterface | null;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -21,7 +22,9 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
 
   readonly selectError$ = this.select((state) => state.error);
 
-  readonly isFailure = (action: any & TypedAction<string>) => {
+  readonly isFailure = (
+    action: CustomHttpErrorResponseInterface & TypedAction<string>
+  ) => {
     let { type }: { type: string } = action;
     return type.toLowerCase().includes('failure');
   };
@@ -34,9 +37,11 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
     super({ error: null });
   }
 
-  readonly onError = this.updater((state, error: HttpErrorResponse) => {
-    return { error };
-  });
+  readonly onError = this.updater(
+    (state, error: CustomHttpErrorResponseInterface) => {
+      return { error };
+    }
+  );
 
   readonly onSuccess = this.updater((state) => {
     return { error: null };
@@ -65,7 +70,7 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
     );
   });
 
-  private logError(error: HttpErrorResponse) {
+  private logError(error: CustomHttpErrorResponseInterface) {
     console.error(error);
   }
 }

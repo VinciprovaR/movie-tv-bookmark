@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 //search
 export const searchTV = createAction(
@@ -13,7 +13,7 @@ export const searchTVSuccess = createAction(
 );
 export const searchTVFailure = createAction(
   '[Search-TV] Search TV Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 //search additional
@@ -26,6 +26,6 @@ export const searchAdditionalTVSuccess = createAction(
 );
 export const searchAdditionalTVFailure = createAction(
   '[Search-TV] Search TV Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 export const noAdditionalTV = createAction('[Search-tv] No Additional TV');

@@ -12,10 +12,11 @@ import { PayloadTVBookmark } from '../../shared/interfaces/store/tv-bookmark-sta
 import { GenreFilterComponent } from '../../shared/components/genre-filter/genre-filter.component';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { TVBookmarkSelectors } from '../../shared/store/tv-bookmark';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 
 @Component({
   selector: 'app-tv-bookmark-filters',
@@ -35,7 +36,7 @@ export class TVBookmarkFiltersComponent extends AbstractBookmarkFilters<
   PayloadTVBookmark,
   BookmarkTVFilterForm
 > {
-  selectBookmarkFailure$: Observable<HttpErrorResponse | null> =
+  selectBookmarkFailure$: Observable<CustomHttpErrorResponseInterface | null> =
     this.store.select(TVBookmarkSelectors.selectTVBookmarkError);
   constructor() {
     super();
@@ -61,9 +62,11 @@ export class TVBookmarkFiltersComponent extends AbstractBookmarkFilters<
     this.selectBookmarkFailure$
       .pipe(
         takeUntil(this.destroyed$),
-        filter((error: HttpErrorResponse | null) => error != null)
+        filter(
+          (error: CustomHttpErrorResponseInterface | null) => error != null
+        )
       )
-      .subscribe((error: HttpErrorResponse | null) => {
+      .subscribe((error: CustomHttpErrorResponseInterface | null) => {
         this.toggleButtonSearch(false);
       });
   }
@@ -78,6 +81,7 @@ export class TVBookmarkFiltersComponent extends AbstractBookmarkFilters<
     });
 
     this.registerBehaviourValueChange();
+    this.detectChanges();
   }
 
   override onSubmit(): void {

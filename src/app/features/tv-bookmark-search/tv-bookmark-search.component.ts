@@ -1,15 +1,8 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { combineLatest, filter, Observable, Subject, takeUntil } from 'rxjs';
-
+import { combineLatest, filter, Observable, takeUntil } from 'rxjs';
 import { CommonModule, TitleCasePipe } from '@angular/common';
-import {
-  MediaType,
-  TV,
-} from '../../shared/interfaces/TMDB/tmdb-media.interface';
-
-import { Store } from '@ngrx/store';
+import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import {
   bookmarkEnum,
   TVBookmarkMap,
@@ -18,15 +11,12 @@ import {
   TVBookmarkActions,
   TVBookmarkSelectors,
 } from '../../shared/store/tv-bookmark';
-
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import { TV_Data } from '../../shared/interfaces/supabase/entities';
-
 import {
   OptionFilter,
   Genre,
 } from '../../shared/interfaces/TMDB/tmdb-filters.interface';
-
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { PayloadTVBookmark } from '../../shared/interfaces/store/tv-bookmark-state.interface';

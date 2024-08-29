@@ -4,7 +4,7 @@ import {
   LoginPayload,
   RegisterPayload,
 } from '../../interfaces/supabase/supabase-auth.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 //login
 export const login = createAction('[Auth] User Login', props<LoginPayload>());
@@ -26,7 +26,20 @@ export const requestResetPassword = createAction(
   props<{ email: string }>()
 );
 export const requestResetPasswordSuccess = createAction(
-  '[Auth] Request Reset Password Success'
+  '[Auth] Request Reset Password Success',
+  props<{ notifyMsg: string }>()
+);
+export const clearRequestResetPassword = createAction(
+  '[Auth] Clear Request Reset Password '
+);
+
+//update psw
+export const updatePassword = createAction(
+  '[Auth] Update Password',
+  props<{ password: string }>()
+);
+export const updatePasswordSuccess = createAction(
+  '[Auth] Update Password Success'
 );
 
 //current user
@@ -43,5 +56,5 @@ export const logoutSuccess = createAction('[Logout] Logout success');
 //generic failure
 export const authFailure = createAction(
   '[Auth] Auth Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );

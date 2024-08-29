@@ -8,8 +8,9 @@ import { TV, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
 
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { PayloadTVBookmark } from '../../interfaces/store/tv-bookmark-state.interface';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 //populate bookmark map
 export const populateTVBookmarkMapSuccess = createAction(
@@ -19,7 +20,7 @@ export const populateTVBookmarkMapSuccess = createAction(
 export const populateTVBookmarkMapFailure = createAction(
   '[TV-Bookmark] Populate TV Bookmark Map Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -30,7 +31,7 @@ export const createUpdateDeleteTVBookmark = createAction(
 );
 export const createUpdateDeleteTVBookmarkFailure = createAction(
   '[TV-Bookmark] Create or Update or Delete TV Bookmark Failure & Notify',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 export const updateTVBookmark = createAction(
@@ -41,7 +42,7 @@ export const updateTVBookmark = createAction(
   }>()
 );
 export const updateTVBookmarkSuccess = createAction(
-  '[TV-Bookmark] Update TV Bookmark Success',
+  '[TV-Bookmark] Update TV Bookmark Success Notify',
   props<{
     tvBookmarkMap: TVBookmarkMap;
     operation: crud_operations;
@@ -51,7 +52,7 @@ export const updateTVBookmarkSuccess = createAction(
 export const updateTVBookmarkFailure = createAction(
   '[TV-Bookmark] Update TV Bookmark Failure & Notify',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -63,7 +64,7 @@ export const deleteTVBookmark = createAction(
   }>()
 );
 export const deleteTVBookmarkSuccess = createAction(
-  '[TV-Bookmark] Delete TV Bookmark Success ',
+  '[TV-Bookmark] Delete TV Bookmark Success & Notify',
   props<{
     tvBookmarkMap: TVBookmarkMap;
     operation: crud_operations;
@@ -73,7 +74,7 @@ export const deleteTVBookmarkSuccess = createAction(
 export const deleteTVBookmarkFailure = createAction(
   '[TV-Bookmark] Delete TV Bookmark Failure & Notify',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -85,7 +86,7 @@ export const createTVBookmark = createAction(
   }>()
 );
 export const createTVBookmarkSuccess = createAction(
-  '[TV-Bookmark] Create TV Bookmark Success',
+  '[TV-Bookmark] Create TV Bookmark Success & Notify',
   props<{
     tvBookmarkMap: TVBookmarkMap;
     operation: crud_operations;
@@ -95,7 +96,7 @@ export const createTVBookmarkSuccess = createAction(
 export const createTVBookmarkFailure = createAction(
   '[TV-Bookmark] Create TV Bookmark Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -116,14 +117,13 @@ export const unchangedTVBookmarkSuccess = createAction(
 export const unchangedTVBookmarkFailure = createAction(
   '[TV-Bookmark] Unchanged TV Bookmark Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
 //search tv by bookmark
-export const notifySearchTVByBookmark = createAction(
-  '[TV-Bookmark] Notify Search TV By Bookmark',
-  props<{ notifyMsg: string }>()
+export const updateSearchTVByBookmark = createAction(
+  '[TV-Bookmark] Update Search TV By Bookmark'
 );
 
 //search tv by bookmark
@@ -138,7 +138,7 @@ export const searchTVByBookmarkLandingSuccess = createAction(
 export const searchTVByBookmarkLandingeFailure = createAction(
   '[TV-Bookmark] Search TV By Bookmark Landing Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -153,7 +153,7 @@ export const searchTVByBookmarkSubmitSuccess = createAction(
 export const searchTVByBookmarkSubmitFailure = createAction(
   '[TV-Bookmark] Search TV By Bookmark Submit Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 

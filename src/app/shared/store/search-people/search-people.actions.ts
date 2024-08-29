@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { PeopleResult } from '../../interfaces/TMDB/tmdb-media.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 //search
 export const searchPeople = createAction(
@@ -13,7 +13,7 @@ export const searchPeopleSuccess = createAction(
 );
 export const searchPeopleFailure = createAction(
   '[Search-People] Search People Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 //search additional
@@ -26,7 +26,7 @@ export const searchAdditionalPeopleSuccess = createAction(
 );
 export const searchAdditionalPeopleFailure = createAction(
   '[Search-People] Search People Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 export const noAdditionalPeople = createAction(
   '[Search-people] No Additional People'

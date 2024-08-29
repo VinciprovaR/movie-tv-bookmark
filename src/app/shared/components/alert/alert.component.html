@@ -7,12 +7,24 @@
   }"
   (click)="onClose()"
 >
-  <div class="space-y-1">
-    <h2>
-      @if(type==='error'){
-      <span>Failure!</span>
-      } @else {<span>Success!</span>}
-    </h2>
-    <p>{{ message }}</p>
+  <div class="flex space-x-2">
+    <div>
+      <mat-icon
+        [ngClass]="{
+          'text-[var(--failure-icon-color)]': type === 'error',
+          'text-[var(--success-icon-color)]': type === 'success'
+        }"
+        class="text-[var(--success-icon-color)]"
+        aria-hidden="false"
+        aria-label=""
+        [fontIcon]="type === 'success' ? 'check_circle' : 'error'"
+      ></mat-icon>
+    </div>
+    <div class="space-y-1 text-[var(--text-color-dark)]">
+      <h2>
+        <span> @if(type==='error'){Failure!}@else {Success!}</span>
+      </h2>
+      <p>{{ message }}</p>
+    </div>
   </div>
 </div>

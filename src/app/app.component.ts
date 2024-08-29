@@ -17,6 +17,7 @@ import { RouterOutlet } from '@angular/router';
 import { AbstractComponent } from './shared/components/abstract/abstract-component.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { GlobalErrorStore } from './shared/component-store/global-error-store.service';
+import { SupabaseAuthEventsService } from './shared/services/supabase-auth-events.service';
 
 @Component({
   selector: 'app-root',

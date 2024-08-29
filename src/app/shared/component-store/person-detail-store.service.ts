@@ -2,11 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { createAction, props, Store } from '@ngrx/store';
 import { PersonDetail } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBPersonDetailService } from '../services/tmdb';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface PersonDetailState extends StateMediaBookmark {
   personDetail: PersonDetail | null;
@@ -20,7 +21,7 @@ export interface PersonDetailState extends StateMediaBookmark {
 // );
 export const personDetailFailure = createAction(
   '[Person-Detail] Person Detail Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 @Injectable({ providedIn: 'root' })
@@ -73,7 +74,7 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
   );
 
   private readonly personDetailFailure = this.updater(
-    (state, { error }: { error: HttpErrorResponse }) => {
+    (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
         isLoading: false,
@@ -94,7 +95,7 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
             this.personDetailSuccess({ personDetail });
             // this.store.dispatch(personDetailIsLoading({ isLoading: false }));
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
                 this.personDetailFailure(httpErrorResponse);

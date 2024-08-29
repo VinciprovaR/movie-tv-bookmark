@@ -13,13 +13,13 @@ import {
 } from '@angular/core';
 import { Subject, takeUntil, timer } from 'rxjs';
 import { AbstractComponent } from '../abstract/abstract-component.component';
-
+import { MatIconModule } from '@angular/material/icon';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: 'alert.component.html',
   styleUrl: 'alert.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
-import { authGuard, nonAuthGuard } from './shared/guards';
+import {
+  authGuard,
+  nonAuthGuard,
+  passwordRecoveryGuard,
+} from './shared/guards';
 import { redirectGuard } from './shared/guards/redirect.guard';
 
 export const routes: Routes = [
@@ -39,13 +43,15 @@ export const routes: Routes = [
     title: 'Reset Password',
   },
   {
-    path: 'reset-password-sent',
+    //to-do guard verify token
+    //passwordRecoveryGuard
+    path: 'reset-password-form',
     loadComponent: () =>
       import(
-        './features/reset-password/reset-password-sent/reset-password-sent.component'
-      ).then((m) => m.ResetPasswordSentComponent),
-    canActivate: [nonAuthGuard],
-    title: 'Reset Password Sent',
+        './features/reset-password/reset-password-form/reset-password-form.component'
+      ).then((m) => m.ResetPasswordFormComponent),
+    canActivate: [authGuard, passwordRecoveryGuard],
+    title: 'Reset Password Form',
   },
   {
     path: 'register',

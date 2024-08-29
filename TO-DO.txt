@@ -9,16 +9,24 @@
 - Validators and control on search digit sulla input query (number, symbol, length...) 
 - CORS su edge function
 - troppi chunk al primo atterraggio
-- resetPasswordForEmail captcha e redirect to (?)
+-footer rivedere
 - Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente) quindi pushare l'utente nei reducer da sessione (da verificare)
+- Non fare chiamate a edge function che non servono quando non autenticato, tipo genere list e altro
+-limitare invio reset passowrd stessa email 
 
+-init form ovunque
+
+n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
+
+
+-show password sulla login
+-login e register devono avere failure specifiche
 - User profile, logout, cambio Password
+- Template reset password
+- Template confirmation account
+
 -Login
     - Test flow;
-    - Forgot Password
-        - Password Reset capcta
-    - Validators;
-    - Refractor form builder
 
 -Register
     - User already registered(?);
@@ -81,7 +89,12 @@
 -home component link to portfolio
 
 ################################ FATTO, RICONTROLLARE ################################
+. login     - Forgot Password
+        - Password Reset capcta
+    - Validators;
+    - Refractor form builder
 
+- build form attenzione, asincrono, delle volte non viene renderizzato
 - Proxy con action supabase per nascondere chiave API
 - controllare tutti i console.log 
 - controllare tutti i to-do comment 

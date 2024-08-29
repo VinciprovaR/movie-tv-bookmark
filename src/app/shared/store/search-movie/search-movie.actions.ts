@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 //search
 export const searchMovie = createAction(
@@ -13,7 +13,7 @@ export const searchMovieSuccess = createAction(
 );
 export const searchMovieFailure = createAction(
   '[Search-Movie] Search Movie Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 //search additional
@@ -26,7 +26,7 @@ export const searchAdditionalMovieSuccess = createAction(
 );
 export const searchAdditionalMovieFailure = createAction(
   '[Search-Movie] Search Movie Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 export const noAdditionalMovie = createAction(
   '[Search-movie] No Additional Movie'

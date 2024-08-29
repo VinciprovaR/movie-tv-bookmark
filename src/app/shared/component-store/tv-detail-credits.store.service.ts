@@ -3,11 +3,12 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { createAction, props, Store } from '@ngrx/store';
 import { TVCredit } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBTVDetailService } from '../services/tmdb';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface TVDetailCreditsState extends StateMediaBookmark {
   tvCredit: TVCredit | null;
@@ -19,7 +20,7 @@ export interface TVDetailCreditsState extends StateMediaBookmark {
 // );
 export const tvDetailCreditsFailure = createAction(
   '[TV-Detail-Credits] TV Detail Credits Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 @Injectable({ providedIn: 'root' })
@@ -64,7 +65,7 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
   );
 
   private readonly addTVDetailFailure = this.updater(
-    (state, { error }: { error: HttpErrorResponse }) => {
+    (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
         isLoading: false,
@@ -86,7 +87,7 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
             });
             // this.store.dispatch(tvDetailCreditsIsLoading({ isLoading: false }));
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
                 this.addTVDetailFailure(httpErrorResponse);

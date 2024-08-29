@@ -10,6 +10,7 @@ import {
 } from './shared/interfaces/navigator.interface';
 import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
 import { RandomMediaImageService } from './shared/services/random-media-image.service';
+import { SupabaseAuthEventsService } from './shared/services/supabase-auth-events.service';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -74,6 +75,29 @@ export const LIFECYCLE_STATUS_MAP = new InjectionToken<BookmarkStatusMap>(
 export const THEME_KEY_LOCAL_STORAGE = new InjectionToken<string>(
   'THEME_KEY_LOCAL_STORAGE'
 );
+
+export function provideSupabaseClient() {
+  return {
+    provide: SUPABASE_CLIENT,
+    useFactory: () =>
+      createClient(
+        'https://fahpcnjaykumnjwfmkdy.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhaHBjbmpheWt1bW5qd2Zta2R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTgwMjYzOTUsImV4cCI6MjAzMzYwMjM5NX0.wq98GdUuiqA1e_9aYJlQC1TKyoLeRdh_IP2mALY7mCc'
+      ),
+  };
+}
+
+export function provideAuthEvent() {
+  return {
+    provide: APP_INITIALIZER,
+    useFactory:
+      (supabaseAuthEventsService: SupabaseAuthEventsService) => () => {
+        supabaseAuthEventsService.initEvent();
+      },
+    deps: [SupabaseAuthEventsService],
+    multi: true,
+  };
+}
 
 export function provideImgUrl() {
   return [
@@ -265,16 +289,5 @@ export function provideRandomMediaImage() {
     },
     deps: [RandomMediaImageService],
     multi: true,
-  };
-}
-
-export function provideSupabaseClient() {
-  return {
-    provide: SUPABASE_CLIENT,
-    useFactory: () =>
-      createClient(
-        'https://fahpcnjaykumnjwfmkdy.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhaHBjbmpheWt1bW5qd2Zta2R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTgwMjYzOTUsImV4cCI6MjAzMzYwMjM5NX0.wq98GdUuiqA1e_9aYJlQC1TKyoLeRdh_IP2mALY7mCc'
-      ),
   };
 }

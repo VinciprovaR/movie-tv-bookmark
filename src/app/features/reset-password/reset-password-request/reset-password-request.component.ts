@@ -5,32 +5,28 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { Observable } from 'rxjs';
+
+import { Observable, takeUntil } from 'rxjs';
 import { AuthActions, AuthSelectors } from '../../../shared/store/auth';
-import { NzInputModule } from 'ng-zorro-antd/input';
 import { CommonModule } from '@angular/common';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { AbstractComponent } from '../../../shared/components/abstract/abstract-component.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { AbstractAuthComponent } from '../../../shared/components/abstract/abstract-auth.component';
 
 @Component({
   selector: 'app-reset-password-request',
   standalone: true,
-  imports: [
-    CommonModule,
-    NzFormModule,
-    ReactiveFormsModule,
-    NzInputModule,
-    NzButtonModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatIconModule],
   templateUrl: './reset-password-request.component.html',
   styleUrl: './reset-password-request.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResetPasswordRequestComponent extends AbstractComponent {
+export class ResetPasswordRequestComponent extends AbstractAuthComponent {
   private readonly fb = inject(FormBuilder);
-  resetPasswordForm!: FormGroup;
+  resetPasswordRequestForm!: FormGroup;
+
+  submitted = false;
 
   selectIsLoading$: Observable<boolean> = this.store.select(
     AuthSelectors.selectIsLoading
@@ -41,19 +37,44 @@ export class ResetPasswordRequestComponent extends AbstractComponent {
   }
 
   ngOnInit(): void {
-    this.resetPasswordForm = this.fb.group({
+    this.buildForm();
+    this.initSubscriptions();
+  }
+
+  override buildForm(): void {
+    this.resetPasswordRequestForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
     });
   }
 
   override initSelectors(): void {}
-  override initSubscriptions(): void {}
+
+  override initSubscriptions(): void {
+    this.resetPasswordRequestForm.statusChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((status) => {
+        this.isFormValid = status === 'INVALID' ? false : true;
+      });
+  }
+
+  get isEmailError() {
+    return (
+      this.submitted &&
+      (this.resetPasswordRequestForm.get('email')?.hasError('email') ||
+        this.resetPasswordRequestForm.get('email')?.hasError('required'))
+    );
+  }
 
   onSubmit(): void {
-    if (this.resetPasswordForm.valid) {
+    this.submitted = true;
+    if (this.resetPasswordRequestForm.valid) {
+      this.isFormValid = true;
       this.store.dispatch(
-        AuthActions.requestResetPassword(this.resetPasswordForm.value)
+        AuthActions.requestResetPassword(this.resetPasswordRequestForm.value)
       );
+    } else {
+      this.errorContainerTransition();
+      this.isFormValid = false;
     }
   }
 }

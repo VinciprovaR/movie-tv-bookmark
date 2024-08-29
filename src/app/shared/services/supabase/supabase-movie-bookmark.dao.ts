@@ -10,7 +10,7 @@ import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interf
 import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
 
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 

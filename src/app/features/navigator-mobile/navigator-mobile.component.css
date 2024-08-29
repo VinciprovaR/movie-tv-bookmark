@@ -1,6 +1,6 @@
 nav {
   transition: all 0.3s;
-  background-color: var(--theme-color-1-nav-sub-menu);
+  background-color: var(--theme-color-3);
   opacity: 0;
   overflow: hidden;
   visibility: hidden;
@@ -17,8 +17,4 @@ mat-icon#mobile-menu-btn {
 
 a {
   color: var(--text-color);
-}
-
-.el-hover:hover {
-  background-color: var(--theme-color-1-nav-sub-menu-hover);
 }

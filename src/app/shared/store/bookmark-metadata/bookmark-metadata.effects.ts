@@ -5,7 +5,7 @@ import { SupabaseBookmarkMetadataService } from '../../services/supabase';
 import { BookmarkMetadataActions } from '.';
 import { BookmarkOption } from '../../interfaces/supabase/DTO';
 import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class BookmarkMetadataEffects {
@@ -33,13 +33,15 @@ export class BookmarkMetadataEffects {
                 );
               }
             ),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                BookmarkMetadataActions.bookmarkMetadataFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  BookmarkMetadataActions.bookmarkMetadataFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );

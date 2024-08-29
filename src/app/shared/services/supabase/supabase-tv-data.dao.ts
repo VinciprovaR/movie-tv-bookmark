@@ -4,7 +4,7 @@ import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
 import { TV, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data } from '../../interfaces/supabase/entities';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({

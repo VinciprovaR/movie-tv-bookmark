@@ -5,8 +5,9 @@ import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { TMDBDiscoveryMovieService } from '../../services/tmdb';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { SupabaseMovieBookmarkService } from '../../services/supabase';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class DiscoveryMovieEffects {
@@ -40,7 +41,7 @@ export class DiscoveryMovieEffects {
               movieResult: movieResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
               DiscoveryMovieActions.discoveryMovieFailure({
                 httpErrorResponse,
@@ -71,7 +72,7 @@ export class DiscoveryMovieEffects {
               movieResult: movieResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
               DiscoveryMovieActions.discoveryMovieFailure({
                 httpErrorResponse,
@@ -111,13 +112,15 @@ export class DiscoveryMovieEffects {
                 movieResult: movieResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                DiscoveryMovieActions.discoveryAdditionaMovieFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  DiscoveryMovieActions.discoveryAdditionaMovieFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
         } else {
           return of(DiscoveryMovieActions.noAdditionalMovie());

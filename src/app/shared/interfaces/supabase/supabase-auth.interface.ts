@@ -1,9 +1,13 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+
+export interface PasswordGroup {
+  password: FormControl<string>;
+  confirmPassword: FormControl<string>;
+}
 
 export interface RegisterForm {
   email: FormControl<string>;
-  password: FormControl<string>;
-  confirmPassword: FormControl<string>;
+  passwordGroup: FormGroup<PasswordGroup>;
   username?: FormControl<string>;
 }
 
@@ -23,4 +27,9 @@ export interface LoginPayload {
   email: string;
   password: string;
   stayConnected?: boolean;
+}
+
+export interface PasswordResetFormForm {
+  oldPassword?: FormControl<string>;
+  passwordGroup: FormGroup<PasswordGroup>;
 }

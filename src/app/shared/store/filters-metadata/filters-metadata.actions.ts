@@ -4,7 +4,7 @@ import {
   Genre,
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 export const getFiltersMetadata = createAction(
   '[Filters-Metadata] Get Filters Metadata Init'
@@ -17,7 +17,7 @@ export const getGenreListMovieSuccess = createAction(
 );
 export const getGenreListMovieFailure = createAction(
   '[Filters-Metadata] Get Genre List Movie Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 //certification movie
@@ -27,7 +27,7 @@ export const getCertificationListMovieSuccess = createAction(
 );
 export const getCertificationListMovieFailure = createAction(
   '[Filters-Metadata] Get Certification List Movie Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 //genres tv
@@ -37,7 +37,7 @@ export const getGenreListTVSuccess = createAction(
 );
 export const getGenreListTVFailure = createAction(
   '[Filters-Metadata] Get Genre List TV Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 //languages media
@@ -47,5 +47,5 @@ export const getLanguagesListMediaSuccess = createAction(
 );
 export const getLanguagesListMediaFailure = createAction(
   '[Filters-Metadata] Get Languages Media Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );

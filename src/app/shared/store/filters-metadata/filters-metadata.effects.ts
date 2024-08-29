@@ -15,8 +15,9 @@ import {
   Genre,
   Language,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { TMDBFilterMediaService } from '../../services/tmdb';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class FiltersMetadataEffects {
@@ -37,13 +38,15 @@ export class FiltersMetadataEffects {
                 genreList,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                FiltersMetadataActions.getGenreListMovieFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  FiltersMetadataActions.getGenreListMovieFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
         const getCertificationListMovie$ =
           this.TMDBFilterMediaService.retriveCertificationMovieList().pipe(
@@ -53,13 +56,15 @@ export class FiltersMetadataEffects {
                 certificationList,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                FiltersMetadataActions.getCertificationListMovieFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  FiltersMetadataActions.getCertificationListMovieFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
 
         const genreListTV$ =
@@ -70,13 +75,15 @@ export class FiltersMetadataEffects {
                 genreList,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                FiltersMetadataActions.getGenreListTVFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  FiltersMetadataActions.getGenreListTVFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
 
         const getLanguagesListMedia$ =
@@ -87,13 +94,15 @@ export class FiltersMetadataEffects {
                 languageList,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                FiltersMetadataActions.getLanguagesListMediaFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  FiltersMetadataActions.getLanguagesListMediaFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
 
         return forkJoin([

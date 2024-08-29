@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { createAction, props, Store } from '@ngrx/store';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 
@@ -11,6 +11,7 @@ import {
   PersonDetailTVCredits,
 } from '../interfaces/TMDB/tmdb-media.interface';
 import { TMDBPersonDetailService } from '../services/tmdb';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface PersonDetailTVCreditsState extends StateMediaBookmark {
   personDetailTVCredits: PersonDetailTVCredits;
@@ -27,7 +28,7 @@ export const personDetailTVCreditsSuccess = createAction(
 );
 export const personDetailTVCreditsFailure = createAction(
   '[Person-Detail-TV-Credits] Person Detail TV Credits Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 @Injectable({ providedIn: 'root' })
@@ -94,7 +95,7 @@ export class PersonDetailTVCreditsStore extends ComponentStore<PersonDetailTVCre
   );
 
   private readonly personDetailTVCreditsFailure = this.updater(
-    (state, { error }: { error: HttpErrorResponse }) => {
+    (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
         isLoading: false,
@@ -128,19 +129,21 @@ export class PersonDetailTVCreditsStore extends ComponentStore<PersonDetailTVCre
               //   personDetailTVCreditsIsLoading({ isLoading: false })
               // );
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(null).pipe(
-                tap(() => {
-                  this.personDetailTVCreditsFailure(httpErrorResponse);
-                  this.store.dispatch(
-                    personDetailTVCreditsFailure({ httpErrorResponse })
-                  );
-                  // this.store.dispatch(
-                  //   personDetailTVCreditsIsLoading({ isLoading: false })
-                  // );
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(null).pipe(
+                  tap(() => {
+                    this.personDetailTVCreditsFailure(httpErrorResponse);
+                    this.store.dispatch(
+                      personDetailTVCreditsFailure({ httpErrorResponse })
+                    );
+                    // this.store.dispatch(
+                    //   personDetailTVCreditsIsLoading({ isLoading: false })
+                    // );
+                  })
+                );
+              }
+            )
           );
         })
       );

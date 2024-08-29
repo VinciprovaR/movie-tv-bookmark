@@ -47,4 +47,8 @@ export abstract class AbstractComponent {
   scroll(el: HTMLElement) {
     el.scrollIntoView();
   }
+
+  redirectTo(path: string) {
+    this.router.navigate([path]);
+  }
 }

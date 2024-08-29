@@ -1,7 +1,6 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
-import { combineLatest, filter, Observable, Subject, takeUntil } from 'rxjs';
+import { combineLatest, filter, Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import {
@@ -16,11 +15,8 @@ import {
   MovieBookmarkActions,
   MovieBookmarkSelectors,
 } from '../../shared/store/movie-bookmark';
-import { Store } from '@ngrx/store';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
-
 import { Movie_Data } from '../../shared/interfaces/supabase/entities';
-
 import {
   Genre,
   OptionFilter,

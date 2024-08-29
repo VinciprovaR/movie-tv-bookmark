@@ -2,7 +2,7 @@
   transition: max-height 0.5s;
   overflow: hidden;
   max-height: 0;
-  background-color: var(--theme-color-1-nav-sub-menu);
+  background-color: var(--theme-color-3);
 }
 
 .show-sub-menu:hover ul {

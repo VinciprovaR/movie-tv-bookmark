@@ -3,14 +3,15 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
   User,
 } from '@supabase/supabase-js/';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { SupabaseAuthService } from '../../services/supabase';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class AuthEffects {
@@ -33,7 +34,7 @@ export class AuthEffects {
               user: result.data.user as User,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );
@@ -54,7 +55,7 @@ export class AuthEffects {
           map(() => {
             return AuthActions.registerSuccess();
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );
@@ -72,7 +73,7 @@ export class AuthEffects {
               user: result.data.session?.user,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );
@@ -91,7 +92,7 @@ export class AuthEffects {
           map(() => {
             return AuthActions.logoutSuccess();
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );
@@ -105,12 +106,30 @@ export class AuthEffects {
       switchMap((credentials) => {
         return this.supabaseAuthService.sendMailResetPassword(credentials).pipe(
           tap((result: any) => {
-            this.router.navigate(['/reset-password-sent']);
+            this.router.navigate(['/login']);
           }),
           map(() => {
-            return AuthActions.requestResetPasswordSuccess();
+            return AuthActions.requestResetPasswordSuccess({
+              notifyMsg: 'Request reset password sent!',
+            });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
+            return of(AuthActions.authFailure({ httpErrorResponse }));
+          })
+        );
+      })
+    );
+  });
+
+  updatePassword$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.updatePassword),
+      switchMap((action) => {
+        return this.supabaseAuthService.updatePassword(action.password).pipe(
+          map(() => {
+            return AuthActions.updatePasswordSuccess();
+          }),
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
           })
         );

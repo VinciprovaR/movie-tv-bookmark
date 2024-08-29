@@ -3,12 +3,13 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { createAction, props, Store } from '@ngrx/store';
 import { MovieResult, TVResult } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBTrendingTVService } from '../services/tmdb/tmdb-trending-tv.service';
 import { TMDBTrendingMovieService } from '../services/tmdb/tmdb-trending-movie.service';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface TrendingMediaState extends StateMediaBookmark {
   movieResult: MovieResult;
@@ -21,7 +22,7 @@ export const movieTrendingSuccess = createAction(
 );
 export const movieTrendingFailure = createAction(
   '[Media-Trending] Movie Trending Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 export const tvTrendingSuccess = createAction(
   '[Media-Trending] TV Trending Success',
@@ -29,7 +30,7 @@ export const tvTrendingSuccess = createAction(
 );
 export const tvTrendingFailure = createAction(
   '[Media-Trending] TV Trending Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 @Injectable({ providedIn: 'root' })
@@ -81,7 +82,7 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
   );
 
   private readonly movieTrendingFailure = this.updater(
-    (state, { error }: { error: HttpErrorResponse }) => {
+    (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
         isLoading: false,
@@ -110,7 +111,7 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
   );
 
   private readonly tvTrendingFailure = this.updater(
-    (state, { error }: { error: HttpErrorResponse }) => {
+    (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
         isLoading: false,
@@ -132,7 +133,7 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
               movieResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
                 //this.store.dispatch(movieTrendingFailure({ httpErrorResponse }));
@@ -158,7 +159,7 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
               tvResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
                 //this.store.dispatch(tvTrendingFailure({ httpErrorResponse }));

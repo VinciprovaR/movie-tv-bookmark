@@ -43,7 +43,7 @@ export const movieBookmarkReducer = createReducer(
     }
   ),
   on(
-    MovieBookmarkActions.notifySearchMovieByBookmark,
+    MovieBookmarkActions.updateSearchMovieByBookmark,
     (state): MovieBookmarkState => {
       return {
         ...state,

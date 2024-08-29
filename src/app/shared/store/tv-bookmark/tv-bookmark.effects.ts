@@ -11,9 +11,10 @@ import { DiscoveryTVActions } from '../discovery-tv';
 import { TVBookmarkMap } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseTVBookmarkService } from '../../services/supabase';
 import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { personDetailTVCreditsSuccess } from '../../component-store';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class TVBookmarkEffects {
@@ -40,13 +41,15 @@ export class TVBookmarkEffects {
                 tvBookmarkMap: tvBookmarkMapResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.populateTVBookmarkMapFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.populateTVBookmarkMapFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -71,13 +74,15 @@ export class TVBookmarkEffects {
                 tvBookmarkMap: tvBookmarkMapResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.populateTVBookmarkMapFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.populateTVBookmarkMapFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -97,13 +102,15 @@ export class TVBookmarkEffects {
                 mediaBookmarkDTO,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.createUpdateDeleteTVBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.createUpdateDeleteTVBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -127,13 +134,15 @@ export class TVBookmarkEffects {
                 } bookmark!`,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.createTVBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.createTVBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -156,13 +165,15 @@ export class TVBookmarkEffects {
                 } bookmark!`,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.updateTVBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.updateTVBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -184,13 +195,15 @@ export class TVBookmarkEffects {
                 notifyMsg: `${mediaBookmarkDTO.mediaDataDTO.name} removed from bookmark!`,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.deleteTVBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.deleteTVBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -211,19 +224,21 @@ export class TVBookmarkEffects {
                 operation,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.unchangedTVBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.unchangedTVBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
   });
 
-  notifySearchTVByBookmark$ = createEffect(() => {
+  updateSearchTVByBookmark$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
         TVBookmarkActions.createTVBookmarkSuccess,
@@ -231,11 +246,7 @@ export class TVBookmarkEffects {
         TVBookmarkActions.updateTVBookmarkSuccess
       ),
       switchMap((action) => {
-        return of(
-          TVBookmarkActions.notifySearchTVByBookmark({
-            notifyMsg: action.notifyMsg,
-          })
-        );
+        return of(TVBookmarkActions.updateSearchTVByBookmark());
       })
     );
   });
@@ -255,13 +266,15 @@ export class TVBookmarkEffects {
                 tvList,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.searchTVByBookmarkLandingeFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.searchTVByBookmarkLandingeFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -281,13 +294,15 @@ export class TVBookmarkEffects {
                 tvList,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                TVBookmarkActions.searchTVByBookmarkSubmitFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.searchTVByBookmarkSubmitFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );

@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 //search
 export const discoveryMovieLanding = createAction(
@@ -17,7 +17,7 @@ export const discoveryMovieSuccess = createAction(
 );
 export const discoveryMovieFailure = createAction(
   '[Discovery-Movie] Discovery Movie Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 export const discoveryAdditionalMovie = createAction(
@@ -29,7 +29,7 @@ export const discoveryAdditionalMovieSuccess = createAction(
 );
 export const discoveryAdditionaMovieFailure = createAction(
   '[Discovery-Movie] Discovery Additional Movie Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 export const noAdditionalMovie = createAction(

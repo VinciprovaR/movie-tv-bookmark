@@ -14,12 +14,13 @@ import { DiscoveryMovieActions } from '../discovery-movie';
 import { MovieBookmarkMap } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseMovieBookmarkService } from '../../services/supabase';
 import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import {
   personDetailMovieCreditsSuccess,
   movieDetailSuccess,
 } from '../../component-store';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class MovieBookmarkEffects {
@@ -48,13 +49,15 @@ export class MovieBookmarkEffects {
                 movieBookmarkMap: movieBookmarkMapResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.populateMovieBookmarkMapFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.populateMovieBookmarkMapFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -79,13 +82,15 @@ export class MovieBookmarkEffects {
                 movieBookmarkMap: movieBookmarkMapResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.populateMovieBookmarkMapFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.populateMovieBookmarkMapFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -105,13 +110,15 @@ export class MovieBookmarkEffects {
                 movieBookmarkMap: movieBookmarkMapResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.populateMovieBookmarkMapFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.populateMovieBookmarkMapFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -131,13 +138,15 @@ export class MovieBookmarkEffects {
                 mediaBookmarkDTO,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.createUpdateDeleteMovieBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.createUpdateDeleteMovieBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -161,13 +170,15 @@ export class MovieBookmarkEffects {
                 } bookmark!`,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.createMovieBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.createMovieBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -190,13 +201,15 @@ export class MovieBookmarkEffects {
                 } bookmark!`,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.updateMovieBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.updateMovieBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -218,13 +231,15 @@ export class MovieBookmarkEffects {
                 notifyMsg: `${mediaBookmarkDTO.mediaDataDTO.title} removed from bookmark!`,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.deleteMovieBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.deleteMovieBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -245,19 +260,21 @@ export class MovieBookmarkEffects {
                 operation,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.unchangedMovieBookmarkFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.unchangedMovieBookmarkFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
   });
 
-  notifySearchMovieByBookmark$ = createEffect(() => {
+  updateSearchMovieByBookmark$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
         MovieBookmarkActions.createMovieBookmarkSuccess,
@@ -265,11 +282,7 @@ export class MovieBookmarkEffects {
         MovieBookmarkActions.updateMovieBookmarkSuccess
       ),
       switchMap((action) => {
-        return of(
-          MovieBookmarkActions.notifySearchMovieByBookmark({
-            notifyMsg: action.notifyMsg,
-          })
-        );
+        return of(MovieBookmarkActions.updateSearchMovieByBookmark());
       })
     );
   });
@@ -289,13 +302,15 @@ export class MovieBookmarkEffects {
                 movieList,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.searchMovieByBookmarkLandingeFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.searchMovieByBookmarkLandingeFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );
@@ -315,13 +330,15 @@ export class MovieBookmarkEffects {
                 movieList,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                MovieBookmarkActions.searchMovieByBookmarkSubmitFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  MovieBookmarkActions.searchMovieByBookmarkSubmitFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
       })
     );

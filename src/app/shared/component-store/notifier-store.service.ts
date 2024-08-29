@@ -3,10 +3,11 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { Alert, notificationType } from '../interfaces/alert.interface';
 import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface AlertState {
   alerts: Alert[];
@@ -31,6 +32,7 @@ export class NotifierStore extends ComponentStore<AlertState> {
 
   readonly isNotify = (action: any & TypedAction<string>) => {
     let { type }: { type: string } = action;
+
     return type.toLowerCase().includes('notify');
   };
   constructor() {
@@ -58,10 +60,17 @@ export class NotifierStore extends ComponentStore<AlertState> {
   readonly showAlertError = this.effect(() => {
     return this.actions$.pipe(
       filter(this.isFailure),
-      tap((action: any & TypedAction<string>) => {
-        let msg = 'Error, something went wrong';
-        this.notify(action, msg, 'error');
-      })
+      tap(
+        (action: {
+          httpErrorResponse: CustomHttpErrorResponseInterface;
+          type: TypedAction<string>;
+        }) => {
+          let msg = action.httpErrorResponse.message
+            ? action.httpErrorResponse.message
+            : 'Error, something went wrong';
+          this.notify(action, msg, 'error');
+        }
+      )
     );
   });
 

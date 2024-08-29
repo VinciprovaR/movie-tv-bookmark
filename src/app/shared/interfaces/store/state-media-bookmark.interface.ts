@@ -1,6 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../customHttpErrorResponse.interface';
 
 export interface StateMediaBookmark {
   isLoading: boolean;
-  error: HttpErrorResponse | null;
+  error: CustomHttpErrorResponseInterface | null;
 }

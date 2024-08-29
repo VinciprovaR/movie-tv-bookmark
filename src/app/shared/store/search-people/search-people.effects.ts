@@ -5,7 +5,7 @@ import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBSearchPeopleService } from '../../services/tmdb';
 import { PeopleResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class SearchPeopleEffects {
@@ -25,7 +25,7 @@ export class SearchPeopleEffects {
               peopleResult: peopleResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
               SearchPeopleActions.searchPeopleFailure({ httpErrorResponse })
             );
@@ -55,13 +55,15 @@ export class SearchPeopleEffects {
                 peopleResult: peopleResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                SearchPeopleActions.searchPeopleFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  SearchPeopleActions.searchPeopleFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
         } else {
           return of(SearchPeopleActions.noAdditionalPeople());

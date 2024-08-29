@@ -25,3 +25,13 @@ export const selectError = createSelector(
   authFeatureSelector,
   AuthReducer.getAuthError
 );
+
+export const selectIsRequestResetPassword = createSelector(
+  authFeatureSelector,
+  AuthReducer.getIsRequestResetPassword
+);
+
+export const selectIsResetPasswordSuccess = createSelector(
+  authFeatureSelector,
+  AuthReducer.getIsResetPasswordSuccess
+);

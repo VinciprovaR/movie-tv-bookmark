@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
 import { Bookmark_Metadata } from '../../interfaces/supabase/entities';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 

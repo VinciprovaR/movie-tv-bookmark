@@ -39,6 +39,7 @@ import {
   provideBookmarkStatusList,
   provideDarkThemeLocalStorageKey,
   provideRandomMediaImage,
+  provideAuthEvent,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 
@@ -50,7 +51,7 @@ import { TVBookmarkEffects } from './shared/store/tv-bookmark/tv-bookmark.effect
 import { DiscoveryTVEffects } from './shared/store/discovery-tv/discovery-tv.effects';
 import { BookmarkMetadataEffects } from './shared/store/bookmark-metadata/bookmark-metadata.effects';
 import { FiltersMetadataEffects } from './shared/store/filters-metadata/filters-metadata.effects';
-import { ErrorInterceptor } from './shared/interceptors/ErrorInterceptor.interceptor';
+
 import { SearchPeopleEffects } from './shared/store/search-people/search-people.effects';
 
 registerLocaleData(en);
@@ -58,10 +59,11 @@ registerLocaleData(en);
 export const appConfig: ApplicationConfig = {
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    provideSupabaseClient(),
+    provideAuthEvent(),
     provideCurrentUser(),
     provideBookmarkSelect(),
     provideSelectFilters(),
-    provideSupabaseClient(),
     provideAnimations(),
     provideImgUrl(),
     provideRandomMediaImage(),
@@ -72,7 +74,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([])),
     provideRouter(
       routes,
-      withHashLocation(),
+      // withHashLocation(),
       withComponentInputBinding(),
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',

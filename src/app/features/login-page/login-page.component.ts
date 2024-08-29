@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AuthActions, AuthSelectors } from '../../shared/store/auth';
-
-import { Observable } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import {
   LoginForm,
   LoginPayload,
@@ -14,10 +13,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatDivider } from '@angular/material/divider';
+import { AbstractAuthComponent } from '../../shared/components/abstract/abstract-auth.component';
 
 @Component({
   selector: 'app-login-page',
@@ -28,26 +28,33 @@ import { MatInputModule } from '@angular/material/input';
     RouterModule,
     MatInputModule,
     MatIconModule,
+    MatDivider,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPageComponent extends AbstractComponent {
-  loginForm!: FormGroup<LoginForm>;
+export class LoginPageComponent
+  extends AbstractAuthComponent
+  implements OnDestroy
+{
+  selectIsLoading$!: Observable<boolean>;
+  selectIsRequestResetPassword$!: Observable<boolean>;
 
-  selectIsLoading$: Observable<boolean> = this.store.select(
-    AuthSelectors.selectIsLoading
-  );
+  loginForm!: FormGroup<LoginForm>;
+  submitted = false;
 
   constructor() {
     super();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
-
   ngOnInit(): void {
+    this.buildForm();
+    this.initSelectors();
+    this.initSubscriptions();
+  }
+
+  override buildForm() {
     this.loginForm = new FormGroup<LoginForm>({
       email: new FormControl<string>('', {
         validators: [Validators.required, Validators.email],
@@ -56,16 +63,55 @@ export class LoginPageComponent extends AbstractComponent {
       password: new FormControl<string>('', {
         validators: [Validators.required],
         nonNullable: true,
-      }), //
-      // stayConnected: new FormControl<boolean>(false),
+      }),
     });
   }
 
+  override initSelectors(): void {
+    this.selectIsLoading$ = this.store.select(AuthSelectors.selectIsLoading);
+
+    this.selectIsRequestResetPassword$ = this.store.select(
+      AuthSelectors.selectIsRequestResetPassword
+    );
+  }
+
+  override initSubscriptions(): void {
+    this.loginForm.statusChanges
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((status) => {
+        this.isFormValid = status === 'INVALID' ? false : true;
+      });
+  }
+
+  get isEmailError() {
+    return (
+      this.submitted &&
+      (this.loginForm.get('email')?.hasError('email') ||
+        this.loginForm.get('email')?.hasError('required'))
+    );
+  }
+
+  get isPasswordError() {
+    return (
+      this.submitted && this.loginForm.get('password')?.hasError('required')
+    );
+  }
+
   onSubmit(): void {
+    this.submitted = true;
+
     if (this.loginForm.valid) {
+      this.isFormValid = true;
       this.store.dispatch(
         AuthActions.login(this.loginForm.value as LoginPayload)
       );
+    } else {
+      this.errorContainerTransition();
+      this.isFormValid = false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(AuthActions.clearRequestResetPassword());
   }
 }

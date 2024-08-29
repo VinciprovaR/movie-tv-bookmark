@@ -3,11 +3,12 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { createAction, props, Store } from '@ngrx/store';
 import { MovieDetail } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBMovieDetailService } from '../services/tmdb';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface MovieDetailState extends StateMediaBookmark {
   movieDetail: MovieDetail | null;
@@ -23,7 +24,7 @@ export const movieDetailSuccess = createAction(
 );
 export const movieDetailFailure = createAction(
   '[Movie-Detail] Movie Detail Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 @Injectable({ providedIn: 'root' })
@@ -68,7 +69,7 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
   );
 
   private readonly addMovieDetailFailure = this.updater(
-    (state, { error }: { error: HttpErrorResponse }) => {
+    (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
         isLoading: false,
@@ -91,7 +92,7 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
             });
             // this.store.dispatch(movieDetailIsLoading({ isLoading: false }));
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
                 this.addMovieDetailFailure(httpErrorResponse);

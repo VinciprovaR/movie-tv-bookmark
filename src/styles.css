@@ -8,37 +8,43 @@
   --disabled-bg: rgb(168, 168, 168);
   --disabled-text-color: rgb(114, 114, 114);
   --border-radius: 0.45rem;
-  --text-color-light: rgb(255, 255, 255);
-  --text-color-dark: rgb(32, 33, 34);
+  --text-color-light: rgb(215, 218, 223);
+  --text-color-dark: rgb(0, 27, 63);
   --border-light: rgb(234, 236, 240);
   --border-dark: #332e2ec5;
   --color-header-media-detail: rgba(36, 36, 36, 0.76);
-  --a-hover: rgb(1, 180, 228);
+  /* --a-hover: rgb(1, 180, 228); */
   --a-hover-dark: rgb(0, 52, 196);
   --bg-header-media-detail-not-lg: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(49, 51, 53);
   --link-color-light: rgb(236, 239, 243);
   --mat-dialog-container-small-max-width: 95vw !important;
+  --bg-success-container: rgb(195, 255, 196);
+  --success-icon-color: rgb(34, 141, 18);
+  --bg-failure-container: rgb(253, 168, 168);
+  --failure-icon-color: rgb(186, 70, 57);
 }
 
 /* variables */
 body.light-theme {
-  --theme-color-1: rgb(253, 251, 255);
+  --theme-color-1: rgb(243, 243, 243);
   --theme-color-2: rgb(215, 227, 255);
   --theme-color-2-hover: rgb(186, 206, 250);
-  --theme-color-3: rgb(253, 251, 255);
+  --theme-color-3: rgb(212, 209, 209);
+  /* --theme-color-3: rgb(253, 204, 172); */
   --header-li-color: rgb(0, 92, 187);
   --bg-container-color: rgb(250, 250, 250);
-  --text-color: rgb(0, 27, 63);
+  --text-color: var(--text-color-dark);
+  --link-color: rgb(0, 154, 197);
   --bg-header-person-detail: rgba(199, 199, 199, 0.411);
-  --text-color-inverted: rgb(215, 218, 223);
+  --text-color-inverted: var(--text-color-light);
   --sub-text-color: rgb(87, 87, 87);
   --bookmark-info-bkg-color: #252222;
   --mat-card-border-color: #d7d7d7;
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(32, 33, 34);
   --box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
-  --theme-color-1-nav-sub-menu: rgb(243 244 246);
+  /* --theme-color-1-nav-sub-menu: rgb(243 244 246); */
   --theme-color-1-nav-sub-menu-hover: rgb(185, 185, 185);
   --gradient-color-header-detail-a: rgba(13, 42, 80, 0.8);
   --gradient-color-header-detail-b: rgba(13, 42, 80, 0.9);
@@ -55,9 +61,10 @@ body.dark-theme {
   --theme-color-3: rgb(48, 53, 53);
   --header-li-color: rgb(0, 221, 221);
   --bg-container-color: rgb(40, 40, 40);
-  --text-color: rgb(215, 218, 223);
+  --text-color: var(--text-color-light);
+  --link-color: rgb(1, 180, 228);
   --bg-header-person-detail: rgba(0, 0, 0, 0.411);
-  --text-color-inverted: rgb(25, 25, 25);
+  --text-color-inverted: var(--text-color-dark);
   --sub-text-color: rgb(190, 190, 190);
   --mat-card-border-color: rgb(111, 111, 111);
   --tag-border-color: #a5a5a5;
@@ -65,8 +72,8 @@ body.dark-theme {
   --bookmark-info-bkg-color: rgb(255, 255, 255);
   --box-shadow: 0 1px 3px 0 rgb(255, 255, 255, 0.401),
     0 1px 2px -1px rgb(255, 255, 255, 0.401) !important;
-  --theme-color-1-nav-sub-menu: rgb(32, 35, 35);
-  --theme-color-1-nav-sub-menu-hover: #353535fd;
+  /* --theme-color-1-nav-sub-menu: rgb(32, 35, 35); */
+  --theme-color-1-nav-sub-menu-hover: rgb(70, 78, 78);
   --gradient-color-header-detail-a: rgba(18, 59, 112, 0.7);
   --gradient-color-header-detail-b: rgba(18, 59, 113, 0.8);
   --scroll-thumb-active-color: rgb(128, 128, 128);
@@ -101,6 +108,10 @@ footer {
   background-color: var(--theme-color-2);
 }
 
+.auth-wrapper {
+  height: calc(100dvh - 50px);
+}
+
 .bg-container {
   background-color: var(--bg-container-color);
 }
@@ -125,13 +136,14 @@ select {
 }
 
 a {
-  color: var(--text-color);
+  color: var(--link-color);
   text-decoration: none;
   transition: all 0.2s;
 }
 
 a:hover {
-  color: var(--a-hover);
+  /* color: var(--a-hover); */
+  text-decoration: underline;
 }
 
 a.disabled {
@@ -564,4 +576,12 @@ youtube-player div:first-child {
 iframe {
   width: 100% !important;
   height: 100% !important;
+}
+
+.scale-110 {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }

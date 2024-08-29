@@ -6,7 +6,7 @@ import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { SupabaseTVBookmarkService } from '../../services/supabase';
 import { TMDBDiscoveryTVService } from '../../services/tmdb';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
 export class DiscoveryTVEffects {
@@ -38,7 +38,7 @@ export class DiscoveryTVEffects {
               tvResult: tvResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
               DiscoveryTVActions.discoveryTVFailure({
                 httpErrorResponse,
@@ -69,7 +69,7 @@ export class DiscoveryTVEffects {
               tvResult: tvResult,
             });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
               DiscoveryTVActions.discoveryTVFailure({
                 httpErrorResponse,
@@ -109,13 +109,15 @@ export class DiscoveryTVEffects {
                 tvResult: tvResult,
               });
             }),
-            catchError((httpErrorResponse: HttpErrorResponse) => {
-              return of(
-                DiscoveryTVActions.discoveryAdditionaTVFailure({
-                  httpErrorResponse,
-                })
-              );
-            })
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  DiscoveryTVActions.discoveryAdditionaTVFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
           );
         } else {
           return of(DiscoveryTVActions.noAdditionalTV());

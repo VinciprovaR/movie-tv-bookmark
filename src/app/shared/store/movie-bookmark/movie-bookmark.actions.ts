@@ -8,8 +8,9 @@ import { Movie, MovieDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
 
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 //populate bookmark map
 export const populateMovieBookmarkMapSuccess = createAction(
@@ -19,7 +20,7 @@ export const populateMovieBookmarkMapSuccess = createAction(
 export const populateMovieBookmarkMapFailure = createAction(
   '[Movie-Bookmark] Populate Movie Bookmark Map Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -32,7 +33,7 @@ export const createUpdateDeleteMovieBookmark = createAction(
 );
 export const createUpdateDeleteMovieBookmarkFailure = createAction(
   '[Movie-Bookmark] Create or Update or Delete Movie Bookmark Failure & Notify',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 export const updateMovieBookmark = createAction(
@@ -43,7 +44,7 @@ export const updateMovieBookmark = createAction(
   }>()
 );
 export const updateMovieBookmarkSuccess = createAction(
-  '[Movie-Bookmark] Update Movie Bookmark Success',
+  '[Movie-Bookmark] Update Movie Bookmark Success & Notify',
   props<{
     movieBookmarkMap: MovieBookmarkMap;
     operation: crud_operations;
@@ -53,7 +54,7 @@ export const updateMovieBookmarkSuccess = createAction(
 export const updateMovieBookmarkFailure = createAction(
   '[Movie-Bookmark] Update Movie Bookmark Failure & Notify',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -65,7 +66,7 @@ export const deleteMovieBookmark = createAction(
   }>()
 );
 export const deleteMovieBookmarkSuccess = createAction(
-  '[Movie-Bookmark] Delete Movie Bookmark Success',
+  '[Movie-Bookmark] Delete Movie Bookmark Success & Notify',
   props<{
     movieBookmarkMap: MovieBookmarkMap;
     operation: crud_operations;
@@ -75,7 +76,7 @@ export const deleteMovieBookmarkSuccess = createAction(
 export const deleteMovieBookmarkFailure = createAction(
   '[Movie-Bookmark] Delete Movie Bookmark Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -87,7 +88,7 @@ export const createMovieBookmark = createAction(
   }>()
 );
 export const createMovieBookmarkSuccess = createAction(
-  '[Movie-Bookmark] Create Movie Bookmark Success',
+  '[Movie-Bookmark] Create Movie Bookmark Success & Notify',
   props<{
     movieBookmarkMap: MovieBookmarkMap;
     operation: crud_operations;
@@ -97,7 +98,7 @@ export const createMovieBookmarkSuccess = createAction(
 export const createMovieBookmarkFailure = createAction(
   '[Movie-Bookmark] Create Movie Bookmark Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -118,14 +119,13 @@ export const unchangedMovieBookmarkSuccess = createAction(
 export const unchangedMovieBookmarkFailure = createAction(
   '[Movie-Bookmark] Unchanged Movie Bookmark Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
 //search movie by bookmark
-export const notifySearchMovieByBookmark = createAction(
-  '[Movie-Bookmark] Notify Search Movie By Bookmark',
-  props<{ notifyMsg: string }>()
+export const updateSearchMovieByBookmark = createAction(
+  '[Movie-Bookmark] Update Search Movie By Bookmark'
 );
 
 //search movie by bookmark
@@ -140,7 +140,7 @@ export const searchMovieByBookmarkLandingSuccess = createAction(
 export const searchMovieByBookmarkLandingeFailure = createAction(
   '[Movie-Bookmark] Search Movie By Bookmark Landing Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 
@@ -155,7 +155,7 @@ export const searchMovieByBookmarkSubmitSuccess = createAction(
 export const searchMovieByBookmarkSubmitFailure = createAction(
   '[Movie-Bookmark] Search Movie By Bookmark Submit Failure',
   props<{
-    httpErrorResponse: HttpErrorResponse;
+    httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
 

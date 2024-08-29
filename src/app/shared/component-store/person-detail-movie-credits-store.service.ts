@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { createAction, props, Store } from '@ngrx/store';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import {
@@ -10,6 +10,7 @@ import {
   PersonDetailMovieCredits,
 } from '../interfaces/TMDB/tmdb-media.interface';
 import { TMDBPersonDetailService } from '../services/tmdb';
+import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 
 export interface PersonDetailMovieCreditsStoreState extends StateMediaBookmark {
   personDetailMovieCredits: PersonDetailMovieCredits;
@@ -26,7 +27,7 @@ export const personDetailMovieCreditsSuccess = createAction(
 );
 export const personDetailMovieCreditsFailure = createAction(
   '[Person-Detail-Movie-Credit] Person Detail Movie Credits  Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 @Injectable({ providedIn: 'root' })
@@ -94,7 +95,7 @@ export class PersonDetailMovieCreditsStore extends ComponentStore<PersonDetailMo
   );
 
   private readonly movieCreditsFailure = this.updater(
-    (state, { error }: { error: HttpErrorResponse }) => {
+    (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
         isLoading: false,
@@ -130,7 +131,7 @@ export class PersonDetailMovieCreditsStore extends ComponentStore<PersonDetailMo
             );
             this.movieCreditsSuccess({ personDetailMovieCredits });
           }),
-          catchError((httpErrorResponse: HttpErrorResponse) => {
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
                 this.movieCreditsFailure(httpErrorResponse);

@@ -5,7 +5,7 @@
 
   <div
     id="header-detail"
-    class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[85vh] mb-0 lg:mb-8"
+    class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[80vh] mb-0 lg:mb-8"
     [ngStyle]="{
       'background-image': tvDetail.backdrop_path
         ? 'url(' +
@@ -29,7 +29,7 @@
       }"
       [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"
     >
-      <div class="h-[35vh] lg:h-[85vh] aspect-[2/3] w-xxxsm relative">
+      <div class="h-[35vh] lg:h-[80vh] aspect-[2/3] w-xxxsm relative">
         <app-img
           [alt]="tvDetail.name"
           [title]="tvDetail.name"

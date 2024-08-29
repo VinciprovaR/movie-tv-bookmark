@@ -8,6 +8,8 @@ export const initialState: AuthState = {
   isLoading: false,
   error: null,
   user: null,
+  isRequestResetPassword: false,
+  isResetPasswordSuccess: false,
 };
 
 export const authReducer = createReducer(
@@ -18,6 +20,7 @@ export const authReducer = createReducer(
     AuthActions.currentUser,
     AuthActions.requestResetPassword,
     AuthActions.logout,
+    AuthActions.updatePassword,
     (state): AuthState => {
       return {
         ...state,
@@ -31,6 +34,7 @@ export const authReducer = createReducer(
     AuthActions.currentUserSuccess,
     (state, { user }): AuthState => {
       return {
+        ...state,
         error: null,
         isLoading: false,
         user,
@@ -39,6 +43,7 @@ export const authReducer = createReducer(
   ),
   on(AuthActions.registerSuccess, (state): AuthState => {
     return {
+      ...state,
       error: null,
       isLoading: false,
       user: null, //to-do user cmq valorizzato
@@ -51,21 +56,45 @@ export const authReducer = createReducer(
       error: httpErrorResponse,
     };
   }),
-  on(
-    AuthActions.logoutSuccess,
-    AuthActions.requestResetPasswordSuccess,
-    (state): AuthState => {
-      //to-do check se necessario qui
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        user: null,
-      };
-    }
-  )
+  on(AuthActions.logoutSuccess, (state): AuthState => {
+    //to-do check se necessario qui
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      user: null,
+    };
+  }),
+  on(AuthActions.requestResetPasswordSuccess, (state): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      isRequestResetPassword: true,
+    };
+  }),
+  on(AuthActions.clearRequestResetPassword, (state): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      isRequestResetPassword: false,
+    };
+  }),
+  on(AuthActions.updatePasswordSuccess, (state): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      isResetPasswordSuccess: true,
+    };
+  })
 );
 export const getAuthState = (state: AuthState) => state;
 export const getIsLoading = (state: AuthState) => state.isLoading;
 export const getUser = (state: AuthState) => state.user;
 export const getAuthError = (state: AuthState) => state.error;
+export const getIsRequestResetPassword = (state: AuthState) =>
+  state.isRequestResetPassword;
+export const getIsResetPasswordSuccess = (state: AuthState) =>
+  state.isResetPasswordSuccess;

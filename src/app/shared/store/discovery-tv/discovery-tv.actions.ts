@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 //search
 export const discoveryTVLanding = createAction(
@@ -17,7 +17,7 @@ export const discoveryTVSuccess = createAction(
 );
 export const discoveryTVFailure = createAction(
   '[Discovery-TV] Discovery TV Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 export const discoveryAdditionalTV = createAction(
@@ -29,7 +29,7 @@ export const discoveryAdditionalTVSuccess = createAction(
 );
 export const discoveryAdditionaTVFailure = createAction(
   '[Discovery-TV] Discovery Additional TV Failure',
-  props<{ httpErrorResponse: HttpErrorResponse }>()
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 export const noAdditionalTV = createAction(

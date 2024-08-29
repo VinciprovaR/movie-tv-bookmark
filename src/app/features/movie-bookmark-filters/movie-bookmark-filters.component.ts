@@ -13,9 +13,9 @@ import { GenreFilterComponent } from '../../shared/components/genre-filter/genre
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MovieBookmarkSelectors } from '../../shared/store/movie-bookmark';
-import { HttpErrorResponse } from '@angular/common/http';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 
 @Component({
   selector: 'app-movie-bookmark-filters',
@@ -35,7 +35,7 @@ export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
   PayloadMovieBookmark,
   BookmarkMovieFilterForm
 > {
-  selectBookmarkFailure$: Observable<HttpErrorResponse | null> =
+  selectBookmarkFailure$: Observable<CustomHttpErrorResponseInterface | null> =
     this.store.select(MovieBookmarkSelectors.selectMovieBookmarkError);
 
   constructor() {
@@ -61,9 +61,11 @@ export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
     this.selectBookmarkFailure$
       .pipe(
         takeUntil(this.destroyed$),
-        filter((error: HttpErrorResponse | null) => error != null)
+        filter(
+          (error: CustomHttpErrorResponseInterface | null) => error != null
+        )
       )
-      .subscribe((error: HttpErrorResponse | null) => {
+      .subscribe((error: CustomHttpErrorResponseInterface | null) => {
         this.toggleButtonSearch(false);
       });
   }
@@ -77,6 +79,7 @@ export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
       sortBy: this.initSortByControl(filterSelected.sortBy),
     });
     this.registerBehaviourValueChange();
+    this.detectChanges();
   }
 
   override onSubmit(): void {

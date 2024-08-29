@@ -19,10 +19,10 @@ import { SelectFilterComponent } from '../../shared/components/select-filter/sel
 import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 
-import { HttpErrorResponse } from '@angular/common/http';
 import { DiscoveryMovieSelectors } from '../../shared/store/discovery-movie';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 
 @Component({
   selector: 'app-discovery-movie-filters',
@@ -60,7 +60,7 @@ export class MovieDiscoveryFiltersComponent
     value: '',
   };
 
-  selectDiscoveryFailure$: Observable<HttpErrorResponse | null> =
+  selectDiscoveryFailure$: Observable<CustomHttpErrorResponseInterface | null> =
     this.store.select(DiscoveryMovieSelectors.selectError);
 
   constructor() {
@@ -86,9 +86,11 @@ export class MovieDiscoveryFiltersComponent
     this.selectDiscoveryFailure$
       .pipe(
         takeUntil(this.destroyed$),
-        filter((error: HttpErrorResponse | null) => error != null)
+        filter(
+          (error: CustomHttpErrorResponseInterface | null) => error != null
+        )
       )
-      .subscribe((error: HttpErrorResponse | null) => {
+      .subscribe((error: CustomHttpErrorResponseInterface | null) => {
         this.toggleButtonSearch(false);
       });
   }
@@ -117,6 +119,8 @@ export class MovieDiscoveryFiltersComponent
     );
 
     this.registerBehaviourValueChange();
+
+    this.detectChanges();
   }
 
   initCertificationsControl(

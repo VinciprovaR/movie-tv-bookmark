@@ -7,7 +7,7 @@ import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interf
 
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
 import { PayloadTVBookmark } from '../../interfaces/store/tv-bookmark-state.interface';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({
