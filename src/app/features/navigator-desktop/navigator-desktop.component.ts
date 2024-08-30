@@ -3,9 +3,8 @@ import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter, map, takeUntil, timer } from 'rxjs';
-
 import { ChangeDetectionStrategy } from '@angular/core';
-import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
+import { AbstractNavComponent } from '../../shared/components/abstract/abstract-nav.component';
 
 @Component({
   selector: 'app-navigator-desktop',
@@ -16,15 +15,13 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorDesktopComponent
-  extends AbstractComponent
+  extends AbstractNavComponent
   implements OnInit
 {
   urlAfterRedirects!: string;
 
   @ViewChild('submenu')
   submenu!: ElementRef;
-  @ViewChild('menuEl')
-  menuEl!: ElementRef;
 
   @Input({ required: true })
   navElements!: NavElements;
@@ -51,18 +48,19 @@ export class NavigatorDesktopComponent
       });
   }
 
-  hideSubMenu() {
-    this.renderer.removeClass(this.menuEl.nativeElement, 'show-sub-menu');
+  hideSubMenu(menuEl: HTMLElement) {
+    console.log('hide sub menu');
+    this.renderer.removeClass(menuEl, 'show-sub-menu');
     timer(500)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
-        this.renderer.addClass(this.menuEl.nativeElement, 'show-sub-menu');
+        this.renderer.addClass(menuEl, 'show-sub-menu');
       });
   }
 
-  checkIsActive(navElementKey: string) {
+  checkIsActive(paths: string[]) {
     if (this.urlAfterRedirects) {
-      return this.urlAfterRedirects.indexOf(navElementKey) != -1;
+      return paths.indexOf(this.urlAfterRedirects) != -1;
     }
 
     return false;

@@ -4,7 +4,11 @@ import {
   LoginPayload,
   RegisterPayload,
 } from '../../interfaces/supabase/supabase-auth.interface';
-import { AuthResponse, AuthTokenResponsePassword } from '@supabase/supabase-js';
+import {
+  AuthResponse,
+  AuthTokenResponsePassword,
+  SignOut,
+} from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
@@ -47,12 +51,11 @@ export class SupabaseAuthDAO {
     ).pipe(
       tap((result: AuthResponse) => {
         if (result.error) {
-          if (result.error)
-            throw new CustomHttpErrorResponse({
-              error: result.error,
-              message: result.error.message,
-              status: result.error.status,
-            });
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+            status: result.error.status,
+          });
         }
       })
     );
@@ -64,12 +67,11 @@ export class SupabaseAuthDAO {
     ).pipe(
       tap((result: any) => {
         if (result.error) {
-          if (result.error)
-            throw new CustomHttpErrorResponse({
-              error: result.error,
-              message: result.error.message,
-              status: result.error.status,
-            });
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+            status: result.error.status,
+          });
         }
       })
     );
@@ -79,42 +81,45 @@ export class SupabaseAuthDAO {
     return from(this.supabase.auth.updateUser({ password })).pipe(
       tap((result: any) => {
         if (result.error) {
-          if (result.error)
-            throw new CustomHttpErrorResponse({
-              error: result.error,
-              message: result.error.message,
-              status: result.error.status,
-            });
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+            status: result.error.status,
+          });
         }
       })
     );
   }
 
-  signOut(): Observable<any> {
-    return from(this.supabase.auth.signOut({ scope: 'local' })).pipe(
+  signOut(signout: SignOut): Observable<any> {
+    console.log('logout: ', signout);
+    return from(this.supabase.auth.signOut(signout)).pipe(
       tap((result: any) => {
         if (result.error) {
-          if (result.error)
-            throw new CustomHttpErrorResponse({
-              error: result.error,
-              message: result.error.message,
-              status: result.error.status,
-            });
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+            status: result.error.status,
+          });
         }
       })
     );
+  }
+
+  getUser(): Observable<any> {
+    //Throw error is handled on effect side for this service, because if the session is invalid on server side, it needed to clean the session on client side first
+    return from(this.supabase.auth.getUser());
   }
 
   getSession(): Observable<any> {
     return from(this.supabase.auth.getSession()).pipe(
       tap((result: any) => {
         if (result.error) {
-          if (result.error)
-            throw new CustomHttpErrorResponse({
-              error: result.error,
-              message: result.error.message,
-              status: result.error.status,
-            });
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+            status: result.error.status,
+          });
         }
       })
     );

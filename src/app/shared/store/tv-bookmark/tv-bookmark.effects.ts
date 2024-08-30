@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { AuthSelectors } from '../auth';
+import { AuthActions, AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
 import { TVBookmarkActions, TVBookmarkSelectors } from '.';
 import { SearchTVActions } from '../search-tv';
@@ -304,6 +304,15 @@ export class TVBookmarkEffects {
               }
             )
           );
+      })
+    );
+  });
+
+  cleanState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(TVBookmarkActions.cleanState());
       })
     );
   });

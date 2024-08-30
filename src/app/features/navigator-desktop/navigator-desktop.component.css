@@ -13,6 +13,6 @@
   background-color: var(--theme-color-1-nav-sub-menu-hover);
 }
 
-a {
-  color: var(--text-color);
+.main-li-desktop {
+  color: var(--header-li-color);
 }

@@ -33,6 +33,7 @@ import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 import { MatIconModule } from '@angular/material/icon';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractComponent } from '../abstract/abstract-component.component';
+import { AuthSelectors } from '../../store/auth';
 
 @Component({
   selector: 'app-bookmark-selector',

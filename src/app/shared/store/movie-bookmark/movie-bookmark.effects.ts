@@ -6,7 +6,7 @@ import {
   MovieResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
-import { AuthSelectors } from '../auth';
+import { AuthActions, AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
 import { MovieBookmarkActions, MovieBookmarkSelectors } from '.';
 import { SearchMovieActions } from '../search-movie';
@@ -340,6 +340,15 @@ export class MovieBookmarkEffects {
               }
             )
           );
+      })
+    );
+  });
+
+  cleanState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(MovieBookmarkActions.cleanState());
       })
     );
   });

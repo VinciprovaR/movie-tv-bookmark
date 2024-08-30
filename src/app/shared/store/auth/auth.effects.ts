@@ -12,13 +12,17 @@ import {
 
 import { SupabaseAuthService } from '../../services/supabase';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
+import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
+import { WebStorageService } from '../../services/web-storage.service';
+import { STORAGE_KEY_TOKEN } from '../../../providers';
 
 @Injectable()
 export class AuthEffects {
   private readonly router = inject(Router);
   private readonly actions$ = inject(Actions);
   private readonly supabaseAuthService = inject(SupabaseAuthService);
-
+  private readonly storageKey = inject(STORAGE_KEY_TOKEN);
+  private readonly webStorageService = inject(WebStorageService);
   constructor() {}
 
   login$ = createEffect(() => {
@@ -67,11 +71,38 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.currentUser),
       switchMap(() => {
-        return this.supabaseAuthService.getCurrentUser().pipe(
-          map((result: any) => {
-            return AuthActions.currentUserSuccess({
-              user: result.data.session?.user,
-            });
+        return this.supabaseAuthService.getCurrentSession().pipe(
+          switchMap((result: any) => {
+            console.log('current session', result);
+            if (result.data.session) {
+              //session is present in local storage, verify server side if is valid
+              console.log('session present, check if valid server side');
+              return this.supabaseAuthService.getCurrentUser().pipe(
+                tap((result: any) => {
+                  if (result.error) {
+                    this.webStorageService.destroyItem(this.storageKey);
+                    throw new CustomHttpErrorResponse({
+                      error: result.error,
+                      message: 'User session not valid, please login again',
+                      status: result.error.status,
+                    });
+                  }
+                }),
+                map((result: any) => {
+                  console.log('result user from server', result);
+                  return AuthActions.currentUserSuccess({
+                    user: result.data.user,
+                  });
+                })
+              );
+            }
+            //session is not present in local storage, user is null, no login
+            console.log('session not preset, null user, not login');
+            return of(
+              AuthActions.currentUserSuccess({
+                user: null,
+              })
+            );
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
@@ -83,14 +114,18 @@ export class AuthEffects {
 
   logout$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.logout),
-      switchMap(() => {
-        return this.supabaseAuthService.logout().pipe(
+      ofType(AuthActions.logoutLocal, AuthActions.logoutGlobal),
+      switchMap((action) => {
+        const { scope } = action;
+        return this.supabaseAuthService.logOut({ scope }).pipe(
           tap(() => {
             this.router.navigate(['/login']);
           }),
           map(() => {
-            return AuthActions.logoutSuccess();
+            if (scope === 'global') {
+              return AuthActions.logoutGlobalSuccess();
+            }
+            return AuthActions.logoutLocalSuccess();
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
@@ -105,7 +140,7 @@ export class AuthEffects {
       ofType(AuthActions.requestResetPassword),
       switchMap((credentials) => {
         return this.supabaseAuthService.sendMailResetPassword(credentials).pipe(
-          tap((result: any) => {
+          tap(() => {
             this.router.navigate(['/login']);
           }),
           map(() => {

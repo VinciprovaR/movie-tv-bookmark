@@ -2,33 +2,51 @@
 <nav class="hidden sm:flex justify-between items-center">
   <ul class="list-none flex space-x-10 pl-0 mt-2 mb-2">
     @for(navElement of this.navElements |keyvalue; track navElement.key){
+    @if(canRender(navElement.value.needAuth, navElement.value.onlyNonAuth) ){
+    @if(navElement.value.single){
     <li #menuEl class="show-sub-menu main-li-desktop">
-      <span
+      <a
+        href="#"
+        routerLinkActive="active"
+        [routerLink]="navElement.value.paths[0]"
+        class="block text-[var(--header-li-color)]"
+      >
+        {{ navElement.value.label }}</a
+      >
+
+      <!-- submenu -->
+    </li>
+
+    } @else {
+    <li #menuEl class="show-sub-menu main-li-desktop">
+      <div
         [ngClass]="{
-          active: checkIsActive(navElement.key)
+          active: checkIsActive(navElement.value.paths)
         }"
         class="hover:cursor-pointer"
-        >{{ navElement.value.label }}</span
       >
+        {{ navElement.value.label }}
+      </div>
       <!-- submenu -->
       <ul
         #submenu
         class="list-none p-0 mt-2 group-hover:max-h-200 fixed z-20 rounded-md sub-menu"
       >
         @for(path of navElement.value.subMenu ; track path.path){
-        <li class="el-hover" (click)="hideSubMenu()">
+        @if(canRender(path.needAuth)){
+        <li class="el-hover" (click)="hideSubMenu(menuEl)">
           <a
             href="#"
             routerLinkActive="active"
             [routerLink]="path.path"
-            class="block p-2"
+            class="block p-2 text-[var(--text-color)]"
             >{{ path.label }}</a
           >
         </li>
-        }
+        } }
       </ul>
     </li>
-    }
+    } } }
   </ul>
 </nav>
 }

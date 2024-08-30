@@ -12,6 +12,8 @@ import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-cru
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
+export const cleanState = createAction('[Movie-Bookmark] Clean State');
+
 //populate bookmark map
 export const populateMovieBookmarkMapSuccess = createAction(
   '[Movie-Bookmark] Populate Movie Bookmark Map Success',

@@ -16,6 +16,12 @@ export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
 );
 
+const STORAGE_KEY = 'sb-movie-tv-bookmark-auth-token';
+
+export const STORAGE_KEY_TOKEN = new InjectionToken<string>(
+  'STORAGE_KEY_TOKEN'
+);
+
 export const IMG_SIZES = {
   TMDB_ORIGINAL_IMG_URL: new InjectionToken<string>('TMDB_ORIGINAL_IMG_URL'),
   TMDB_PROFILE_300W_450H_IMG_URL: new InjectionToken<string>(
@@ -76,13 +82,23 @@ export const THEME_KEY_LOCAL_STORAGE = new InjectionToken<string>(
   'THEME_KEY_LOCAL_STORAGE'
 );
 
+export function provideStorageKey() {
+  return [
+    {
+      provide: STORAGE_KEY_TOKEN,
+      useValue: STORAGE_KEY,
+    },
+  ];
+}
+
 export function provideSupabaseClient() {
   return {
     provide: SUPABASE_CLIENT,
     useFactory: () =>
       createClient(
         'https://fahpcnjaykumnjwfmkdy.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhaHBjbmpheWt1bW5qd2Zta2R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTgwMjYzOTUsImV4cCI6MjAzMzYwMjM5NX0.wq98GdUuiqA1e_9aYJlQC1TKyoLeRdh_IP2mALY7mCc'
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhaHBjbmpheWt1bW5qd2Zta2R5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTgwMjYzOTUsImV4cCI6MjAzMzYwMjM5NX0.wq98GdUuiqA1e_9aYJlQC1TKyoLeRdh_IP2mALY7mCc',
+        { auth: { storageKey: STORAGE_KEY } }
       ),
   };
 }
@@ -220,29 +236,48 @@ export function provideHeaderNavElements() {
   return {
     provide: HEADER_NAV_ELEMENTS,
     useValue: {
-      movie: {
+      a_movie: {
+        single: false,
         label: 'Movie',
+        paths: ['/movie', '/discovery-movie', '/movie-bookmark-search'],
         subMenu: [
-          { label: 'Search', path: 'movie' },
-          { label: 'Discovery', path: 'discovery-movie' },
-          { label: 'Bookmarks', path: 'movie-bookmark-search' },
+          { label: 'Search', path: 'movie', needAuth: false },
+          { label: 'Discovery', path: 'discovery-movie', needAuth: false },
+          { label: 'Bookmarks', path: 'movie-bookmark-search', needAuth: true },
         ],
+        needAuth: false,
       },
-      tv: {
+      b_tv: {
+        single: false,
         label: 'TV Shows',
+        paths: ['/tv', '/discovery-tv', '/tv-bookmark-search'],
         subMenu: [
-          { label: 'Search', path: 'tv' },
-          { label: 'Discovery', path: 'discovery-tv' },
-          { label: 'Bookmarks', path: 'tv-bookmark-search' },
+          { label: 'Search', path: 'tv', needAuth: false },
+          { label: 'Discovery', path: 'discovery-tv', needAuth: false },
+          { label: 'Bookmarks', path: 'tv-bookmark-search', needAuth: true },
         ],
+        needAuth: false,
       },
-      people: {
+      c_people: {
+        single: false,
         label: 'People',
-        subMenu: [{ label: 'Search', path: 'people' }],
+        paths: ['/people'],
+        subMenu: [{ label: 'Search', path: 'people', needAuth: false }],
+        needAuth: false,
       },
-      userProfile: {
+      d_userProfile: {
+        single: false,
         label: 'User Profile',
+        paths: ['/user-profile'],
         subMenu: [{ label: 'User Profile', path: 'user-profile' }],
+        needAuth: true,
+      },
+      d_signIn: {
+        single: true,
+        label: 'Sign In',
+        paths: ['/login'],
+        needAuth: false,
+        onlyNonAuth: true,
       },
     },
   };

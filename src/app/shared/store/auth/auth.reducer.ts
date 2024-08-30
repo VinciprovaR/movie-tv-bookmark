@@ -19,7 +19,8 @@ export const authReducer = createReducer(
     AuthActions.register,
     AuthActions.currentUser,
     AuthActions.requestResetPassword,
-    AuthActions.logout,
+    AuthActions.logoutGlobal,
+    AuthActions.logoutLocal,
     AuthActions.updatePassword,
     (state): AuthState => {
       return {
@@ -54,17 +55,22 @@ export const authReducer = createReducer(
       ...state,
       isLoading: false,
       error: httpErrorResponse,
-    };
-  }),
-  on(AuthActions.logoutSuccess, (state): AuthState => {
-    //to-do check se necessario qui
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
       user: null,
     };
   }),
+  on(
+    AuthActions.logoutLocalSuccess,
+    AuthActions.logoutGlobal,
+    (state): AuthState => {
+      //to-do check se necessario qui
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        user: null,
+      };
+    }
+  ),
   on(AuthActions.requestResetPasswordSuccess, (state): AuthState => {
     return {
       ...state,

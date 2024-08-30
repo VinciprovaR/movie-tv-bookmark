@@ -15,6 +15,11 @@ export const initialState: TVBookmarkState = {
 
 export const tvBookmarkReducer = createReducer(
   initialState,
+  on(TVBookmarkActions.cleanState, (state): TVBookmarkState => {
+    return {
+      ...initialState,
+    };
+  }),
   on(
     TVBookmarkActions.createUpdateDeleteTVBookmark,
     TVBookmarkActions.searchTVByBookmarkLanding,

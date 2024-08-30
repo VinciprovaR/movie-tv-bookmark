@@ -40,6 +40,7 @@ import {
   provideDarkThemeLocalStorageKey,
   provideRandomMediaImage,
   provideAuthEvent,
+  provideStorageKey,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
 
@@ -59,6 +60,7 @@ registerLocaleData(en);
 export const appConfig: ApplicationConfig = {
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    provideStorageKey(),
     provideSupabaseClient(),
     provideAuthEvent(),
     provideCurrentUser(),

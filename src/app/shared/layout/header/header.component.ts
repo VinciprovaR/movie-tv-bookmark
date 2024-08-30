@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  Input,
   OnInit,
 } from '@angular/core';
 
@@ -35,7 +36,9 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   private readonly toggleThemeStore = inject(ToggleThemeStore);
   readonly navElements = inject(HEADER_NAV_ELEMENTS);
 
-  isUserAuthenticated$!: Observable<boolean>;
+  @Input({ required: true })
+  isUserAuthenticated: boolean = false;
+
   icon$!: Observable<string>;
   isDarkTheme$!: Observable<boolean>;
   toggleThemeIcon: string = '';
@@ -59,9 +62,6 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   override initSelectors() {
     this.icon$ = this.toggleThemeStore.selectIcon$;
     this.isDarkTheme$ = this.toggleThemeStore.selectIsDarkTheme$;
-    this.isUserAuthenticated$ = this.store
-      .select(AuthSelectors.selectUser)
-      .pipe(map((user) => !!user));
   }
 
   override initSubscriptions(): void {}

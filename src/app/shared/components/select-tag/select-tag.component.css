@@ -5,9 +5,11 @@
   border-width: 1px;
 }
 
-/* .tag-container:hover {
-  border-color: var(--theme-color-2);
-} */
+@media (hover: hover) and (pointer: fine) {
+  .translate-tag:hover {
+    transform: translateY(0.125rem);
+  }
+}
 
 .tag-selected {
   background-color: var(--theme-color-2);

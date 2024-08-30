@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '@supabase/supabase-js';
+import { SignOut, User } from '@supabase/supabase-js';
 import {
   LoginPayload,
   RegisterPayload,
@@ -50,8 +50,17 @@ export const currentUserSuccess = createAction(
 );
 
 //logout
-export const logout = createAction('[Logout] User Logout');
-export const logoutSuccess = createAction('[Logout] Logout success');
+export const logoutLocal = createAction(
+  '[Auth] User Logout Local',
+  props<{ scope: 'local' }>()
+);
+export const logoutLocalSuccess = createAction('[Auth] Logout Local Success');
+
+export const logoutGlobal = createAction(
+  '[Auth] User Logout Global',
+  props<{ scope: 'global' }>()
+);
+export const logoutGlobalSuccess = createAction('[Auth] Logout Global Success');
 
 //generic failure
 export const authFailure = createAction(

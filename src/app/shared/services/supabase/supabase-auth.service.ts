@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { SupabaseAuthDAO } from './supabase-auth.dao';
-import { AuthTokenResponsePassword, AuthResponse } from '@supabase/supabase-js';
+import {
+  AuthTokenResponsePassword,
+  AuthResponse,
+  SignOut,
+} from '@supabase/supabase-js';
 import { Observable, from, tap } from 'rxjs';
 import {
   LoginPayload,
@@ -29,11 +33,15 @@ export class SupabaseAuthService {
     return this.supabaseAuthDAO.updatePassword(password);
   }
 
-  logout(): Observable<any> {
-    return this.supabaseAuthDAO.signOut();
+  logOut(signout: SignOut): Observable<any> {
+    return this.supabaseAuthDAO.signOut(signout);
   }
 
   getCurrentUser(): Observable<any> {
+    return this.supabaseAuthDAO.getUser();
+  }
+
+  getCurrentSession(): Observable<any> {
     return this.supabaseAuthDAO.getSession();
   }
 }

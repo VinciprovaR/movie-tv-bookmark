@@ -28,6 +28,6 @@ export class UserProfileComponent extends AbstractComponent implements OnInit {
   }
 
   logout() {
-    this.store.dispatch(AuthActions.logout());
+    this.store.dispatch(AuthActions.logoutLocal({ scope: 'local' }));
   }
 }

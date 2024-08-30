@@ -17,7 +17,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { AbstractMediaCard } from '../abstract/abstract-media-card.component';
+import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
 import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
@@ -25,6 +25,8 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { BridgeDataService } from '../../services/bridge-data.service';
+import { AuthSelectors } from '../../store/auth';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-media-card',
@@ -41,6 +43,7 @@ import { BridgeDataService } from '../../services/bridge-data.service';
     ImgComponent,
     RatingComponent,
     BookmarkStatusLabelComponent,
+    OverlayModule,
   ],
   templateUrl: './media-card.component.html',
   styleUrl: './media-card.component.css',
@@ -48,7 +51,7 @@ import { BridgeDataService } from '../../services/bridge-data.service';
 })
 export class MediaCardComponent extends AbstractComponent implements OnInit {
   protected readonly bridgeDataService = inject(BridgeDataService);
-
+  protected readonly overlay = inject(Overlay);
   protected readonly TMDB_PROFILE_440W_660H_IMG_URL = inject(
     IMG_SIZES.TMDB_PROFILE_440W_660H_IMG_URL
   );
@@ -56,7 +59,13 @@ export class MediaCardComponent extends AbstractComponent implements OnInit {
   protected readonly TMDB_PROFILE_260W_390H_IMG_URL = inject(
     IMG_SIZES.TMDB_PROFILE_260W_390H_IMG_URL
   );
+
   protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
+
+  protected scrollStrategy = this.overlay.scrollStrategies.close();
+
+  isUserAuthenticated$!: Observable<boolean>;
+
   @Input({ required: true })
   media!: Movie | Movie_Data | TV | TV_Data;
   @Input({ required: true })
@@ -73,15 +82,22 @@ export class MediaCardComponent extends AbstractComponent implements OnInit {
 
   voteIcon: string = '';
 
+  bookmarkSelectorAbsentIsOpen = false;
+
   constructor() {
     super();
   }
 
   ngOnInit(): void {
+    this.initSelectors();
     this.buildDetailPath(this.media.id);
   }
 
-  override initSelectors(): void {}
+  override initSelectors(): void {
+    this.isUserAuthenticated$ = this.store
+      .select(AuthSelectors.selectUser)
+      .pipe(map((user) => !!user));
+  }
   override initSubscriptions(): void {}
 
   get voteAverage(): number | null {
@@ -129,5 +145,9 @@ export class MediaCardComponent extends AbstractComponent implements OnInit {
 
   setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
     this.bookmarkEnumSelected = bookmarkEnumSelected;
+  }
+
+  toggleBookmarkAbsent() {
+    this.bookmarkSelectorAbsentIsOpen = !this.bookmarkSelectorAbsentIsOpen;
   }
 }

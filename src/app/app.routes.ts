@@ -15,13 +15,14 @@ export const routes: Routes = [
       ),
 
     canActivate: [authGuard],
+
     title: 'User Profile',
   },
   {
     path: 'home',
     loadComponent: () =>
       import('./features/home/home.component').then((m) => m.HomeComponent),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     title: 'Home',
   },
   {
@@ -50,7 +51,7 @@ export const routes: Routes = [
       import(
         './features/reset-password/reset-password-form/reset-password-form.component'
       ).then((m) => m.ResetPasswordFormComponent),
-    canActivate: [authGuard, passwordRecoveryGuard],
+    canActivate: [authGuard],
     title: 'Reset Password Form',
   },
   {
@@ -68,6 +69,7 @@ export const routes: Routes = [
       import('./features/register-success/register-success.component').then(
         (m) => m.RegisterSuccessComponent
       ),
+    canActivate: [nonAuthGuard],
     title: 'Register Success',
   },
   {
@@ -76,7 +78,7 @@ export const routes: Routes = [
       import('./features/movie-search/movie-search.component').then(
         (m) => m.MovieSearchComponent
       ),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     title: 'Search Movie',
   },
   {
@@ -85,7 +87,7 @@ export const routes: Routes = [
       import('./features/tv-search/tv-search.component').then(
         (m) => m.TVSearchComponent
       ),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     title: 'Search TV',
   },
   {
@@ -94,7 +96,7 @@ export const routes: Routes = [
       import('./features/movie-discovery/movie-discovery.component').then(
         (m) => m.MovieDiscoveryComponent
       ),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     title: 'Discovery Movie',
   },
   {
@@ -103,7 +105,7 @@ export const routes: Routes = [
       import('./features/tv-discovery/tv-discovery.component').then(
         (m) => m.TVDiscoveryComponent
       ),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     title: 'Discovery TV',
   },
   {
@@ -162,7 +164,7 @@ export const routes: Routes = [
       import('./features/movie-detail/movie-detail.component').then(
         (m) => m.MovieDetailComponent
       ),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     title: 'Movie Detail',
   },
   {
@@ -171,7 +173,7 @@ export const routes: Routes = [
       import(
         './features/movie-detail-credits/movie-detail-credits.component'
       ).then((m) => m.MovieDetailCreditsComponent),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     title: 'Movie Detail Credits',
   },
   {
@@ -180,7 +182,7 @@ export const routes: Routes = [
       import('./features/tv-detail/tv-detail.component').then(
         (m) => m.TVDetailComponent
       ),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     title: 'TV Detail',
   },
   {
@@ -189,7 +191,7 @@ export const routes: Routes = [
       import('./features/tv-detail-credits/tv-detail-credits.component').then(
         (m) => m.TVDetailCreditsComponent
       ),
-    canActivate: [authGuard],
+    //  canActivate: [authGuard],
     title: 'TV Detail Credits',
   },
   {
@@ -198,7 +200,7 @@ export const routes: Routes = [
       import('./features/people-search/people-search.component').then(
         (m) => m.PeopleSearchComponent
       ),
-    canActivate: [authGuard],
+    //   canActivate: [authGuard],
     title: 'Search People',
   },
   {
@@ -207,7 +209,7 @@ export const routes: Routes = [
       import('./features/person-detail/person-detail.component').then(
         (m) => m.PersonDetailComponent
       ),
-    canActivate: [authGuard],
+    //  canActivate: [authGuard],
     title: 'Person Detail',
   },
   {

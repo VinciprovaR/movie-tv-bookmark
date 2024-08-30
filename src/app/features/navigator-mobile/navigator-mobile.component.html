@@ -8,28 +8,46 @@
 >
   <ul class="list-none p-0 text-center m-0 transition">
     @for(navElement of navElements | keyvalue; track navElement.key){
+    @if(canRender(navElement.value.needAuth) ){ @if(navElement.value.single){
+
+    <li class="el-hover mb-3">
+      <a
+        [ngClass]="{
+              'disabled': hiddenNavMenu,
+              
+            }"
+        href="#"
+        routerLinkActive="active"
+        [routerLink]="navElement.value.paths[0]"
+        class="block"
+        (click)="onClickLink()"
+        >{{ navElement.value.label }}</a
+      >
+    </li>
+    } @else {
     <li class="mb-3">
       <h4 class="m-0">{{ navElement.value.label }}</h4>
       <ul class="list-none p-0">
-        @for(path of navElement.value.subMenu ; track path.path){
+        @for(subMenuEl of navElement.value.subMenu ; track subMenuEl.path){
+
         <li class="el-hover">
           <a
             [ngClass]="{
-          'disabled': hiddenNavMenu,
-          
-        }"
+                'disabled': hiddenNavMenu,
+                
+              }"
             href="#"
             routerLinkActive="active"
-            [routerLink]="path.path"
+            [routerLink]="subMenuEl.path"
             class="block"
             (click)="onClickLink()"
-            >{{ path.label }}</a
+            >{{ subMenuEl.label }}</a
           >
         </li>
         }
       </ul>
     </li>
-    }
+    } }}
   </ul>
 </nav>
 }

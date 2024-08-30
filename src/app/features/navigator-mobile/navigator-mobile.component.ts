@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
+import { AbstractNavComponent } from '../../shared/components/abstract/abstract-nav.component';
 
 @Component({
   selector: 'app-navigator-mobile',
@@ -14,7 +14,7 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorMobileComponent
-  extends AbstractComponent
+  extends AbstractNavComponent
   implements OnInit
 {
   @Input({ required: true })

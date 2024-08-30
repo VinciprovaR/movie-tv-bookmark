@@ -18,6 +18,11 @@ export const initialState: MovieBookmarkState = {
 
 export const movieBookmarkReducer = createReducer(
   initialState,
+  on(MovieBookmarkActions.cleanState, (state): MovieBookmarkState => {
+    return {
+      ...initialState,
+    };
+  }),
   on(
     MovieBookmarkActions.createUpdateDeleteMovieBookmark,
     MovieBookmarkActions.searchMovieByBookmarkLanding,
