@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanMatchFn, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, skipWhile } from 'rxjs';
+import { map, skipWhile, tap } from 'rxjs';
 import { AuthActions, AuthSelectors } from '../store/auth';
 import { AuthState } from '../interfaces/store/auth-state.interface';
 

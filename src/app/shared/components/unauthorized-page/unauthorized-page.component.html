@@ -1,0 +1,38 @@
+<div class="mt-4 space-y-6">
+  @if(!(isLoading$ | async)){
+  <div class="bg-[var(--bg-failure-container)] text-sm p-3 rounded-md">
+    <div class="flex space-x-2">
+      <div>
+        <mat-icon
+          class="text-[var(--failure-icon-color)]"
+          aria-hidden="false"
+          aria-label=""
+          fontIcon="lock"
+        ></mat-icon>
+      </div>
+      <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
+        <li class="space-y-2">
+          <p>
+            @if(params){
+            <strong>You don't have permission to access this page.</strong>
+            {{ params.error_description }}. } @else { You don't have permission
+            to access this page. }
+          </p>
+          @if(!(isUserAuthenticated$ | async)){
+          <p>For security reason you have been logged out.</p>
+          <p>
+            You've tried to request a page that requires you to be logged in.
+          </p>
+          <p>Log in to your account.</p>
+          }
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="flex space-x-4 px-10">
+    @if(!(isUserAuthenticated$ | async)){
+    <button type="button" (click)="redirectTo('/login')">Sign In</button>
+    } @else { <button type="button" (click)="redirectTo('/home')">Home</button>}
+  </div>
+  }
+</div>

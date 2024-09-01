@@ -17,8 +17,8 @@ export class PageEventService {
   private readonly zone = inject(NgZone);
   destroyed$ = new Subject();
 
-  window$ = new BehaviorSubject<Window>(window);
-
+  private window$ = new BehaviorSubject<Window>(window);
+  resizeEvent$ = this.window$.asObservable();
   windowInnerWidth$!: Observable<number>;
 
   resize$!: Observable<any>;
@@ -34,7 +34,7 @@ export class PageEventService {
   // , debounceTime(500)
   initSelectors() {
     fromEvent(window, 'resize')
-      .pipe(takeUntil(this.destroyed$))
+      .pipe(takeUntil(this.destroyed$), debounceTime(300))
       .subscribe(() => {
         this.window$.next(window);
       });

@@ -2,6 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
+export const cleanState = createAction('[Search-tv] Clean State');
+
 //search
 export const searchTV = createAction(
   '[Search-tv] Search TV Init',

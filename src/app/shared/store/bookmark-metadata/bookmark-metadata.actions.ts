@@ -19,3 +19,5 @@ export const bookmarkMetadataFailure = createAction(
     httpErrorResponse: CustomHttpErrorResponseInterface;
   }>()
 );
+
+export const cleanState = createAction('[Bookmark-Metadata] Clean State');

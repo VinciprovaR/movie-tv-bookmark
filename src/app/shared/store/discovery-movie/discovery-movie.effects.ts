@@ -8,6 +8,7 @@ import { TMDBDiscoveryMovieService } from '../../services/tmdb';
 
 import { SupabaseMovieBookmarkService } from '../../services/supabase';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class DiscoveryMovieEffects {
@@ -125,6 +126,15 @@ export class DiscoveryMovieEffects {
         } else {
           return of(DiscoveryMovieActions.noAdditionalMovie());
         }
+      })
+    );
+  });
+
+  cleanState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(DiscoveryMovieActions.cleanState());
       })
     );
   });

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
@@ -10,6 +10,7 @@ import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.int
 import { TMDBTrendingTVService } from '../services/tmdb/tmdb-trending-tv.service';
 import { TMDBTrendingMovieService } from '../services/tmdb/tmdb-trending-movie.service';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../store/auth';
 
 export interface TrendingMediaState extends StateMediaBookmark {
   movieResult: MovieResult;
@@ -36,6 +37,7 @@ export const tvTrendingFailure = createAction(
 @Injectable({ providedIn: 'root' })
 export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
   private readonly TMDBTrendingTVService = inject(TMDBTrendingTVService);
+  readonly actions$ = inject(Actions);
   private readonly TMDBTrendingMovieService = inject(TMDBTrendingMovieService);
 
   readonly selectMovieResult$ = this.select((state) => state.movieResult);
@@ -61,6 +63,25 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
       error: null,
     });
   }
+
+  private readonly cleanMovieTrending = this.updater((state) => {
+    return {
+      movieResult: {
+        page: 1,
+        results: [],
+        total_pages: 1,
+        total_results: 0,
+      },
+      tvResult: {
+        page: 1,
+        results: [],
+        total_pages: 1,
+        total_results: 0,
+      },
+      isLoading: false,
+      error: null,
+    };
+  });
 
   private readonly movieTrendingInit = this.updater((state) => {
     return {
@@ -119,6 +140,15 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
       };
     }
   );
+
+  readonly cleanState$ = this.effect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(this.cleanMovieTrending());
+      })
+    );
+  });
 
   readonly movieTrending = this.effect(() => {
     return of('').pipe(

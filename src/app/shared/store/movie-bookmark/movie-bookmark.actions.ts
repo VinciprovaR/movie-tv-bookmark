@@ -6,9 +6,7 @@ import {
 } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { Movie, MovieDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
-
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
-
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 

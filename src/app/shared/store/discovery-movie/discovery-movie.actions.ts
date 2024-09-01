@@ -3,6 +3,8 @@ import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryMovie } from '../../interfaces/store/discovery-movie-state.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
+export const cleanState = createAction('[Discovery-movie] Clean State');
+
 //search
 export const discoveryMovieLanding = createAction(
   '[Discovery-movie] Discovery Movie Landing Init'

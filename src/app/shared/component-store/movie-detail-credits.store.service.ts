@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { MovieCredit } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBMovieDetailService } from '../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../store/auth';
 
 export interface MovieDetailCreditsState extends StateMediaBookmark {
   movieCredit: MovieCredit | null;
@@ -38,7 +39,6 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
 
   readonly cleanMovieDetailCredits = this.updater((state) => {
     return {
-      ...state,
       isLoading: false,
       error: null,
       movieCredit: null,
@@ -73,6 +73,16 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
       };
     }
   );
+
+  readonly cleanState$ = this.effect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(this.cleanMovieDetailCredits());
+      })
+    );
+  });
+
   readonly searchMovieCredits = this.effect((movieId$: Observable<number>) => {
     return movieId$.pipe(
       tap(() => {

@@ -4,6 +4,7 @@ import {
   AuthTokenResponsePassword,
   AuthResponse,
   SignOut,
+  ResendParams,
 } from '@supabase/supabase-js';
 import { Observable, from, tap } from 'rxjs';
 import {
@@ -23,6 +24,10 @@ export class SupabaseAuthService {
 
   register(credentials: RegisterPayload): Observable<AuthResponse> {
     return this.supabaseAuthDAO.signUp(credentials);
+  }
+
+  resendConfirmationRegister(email: string): Observable<AuthResponse> {
+    return this.supabaseAuthDAO.resendConfirmationRegister(email);
   }
 
   sendMailResetPassword(credentials: { email: string }): Observable<any> {

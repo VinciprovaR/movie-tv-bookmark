@@ -40,7 +40,7 @@
           [customClasses]="'border-container-no-color'"
           [isPlaceholderPerson]="false"
         ></app-img>
-
+        @if(isUserAuthenticated$ | async; as isUserAuthenticated){
         <app-bookmark-selector
           (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
           [mediaData]="tvDetail"
@@ -54,6 +54,8 @@
             [customClass]="'border-bookmark-label'"
           ></app-bookmark-status-label>
         </div>
+        } @else {
+        <app-overlay-bookmark-disabled></app-overlay-bookmark-disabled>}
       </div>
 
       @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {

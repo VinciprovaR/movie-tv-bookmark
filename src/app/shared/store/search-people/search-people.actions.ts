@@ -2,6 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { PeopleResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
+export const cleanState = createAction('[Search-people] Clean State');
+
 //search
 export const searchPeople = createAction(
   '[Search-people] Search People Init',

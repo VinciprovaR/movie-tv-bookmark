@@ -39,6 +39,8 @@ import {
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { AuthSelectors } from '../../shared/store/auth';
+import { OverlayBookmarkDisabledComponent } from '../../shared/components/overlay-bookmark-disabled/overlay-bookmark-disabled.component';
 
 @Component({
   selector: 'app-movie-detail',
@@ -58,6 +60,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     RouterLink,
     RouterLinkActive,
     MissingFieldPlaceholderComponent,
+    OverlayBookmarkDisabledComponent,
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-detail.component.html',
@@ -73,6 +76,7 @@ export class MovieDetailComponent
 
   movieDetail$!: Observable<MovieDetail | null>;
   isLoading$!: Observable<boolean>;
+  isUserAuthenticated$!: Observable<boolean>;
 
   @ViewChild('headerMediaDetail')
   headerMediaDetail!: ElementRef;
@@ -102,6 +106,9 @@ export class MovieDetailComponent
   }
 
   override initSelectors() {
+    this.isUserAuthenticated$ = this.store
+      .select(AuthSelectors.selectUser)
+      .pipe(map((user) => !!user));
     this.movieDetail$ = this.movieDetailstore.selectMovieDetail$;
     this.isLoading$ = this.movieDetailstore.selectIsLoading$;
   }

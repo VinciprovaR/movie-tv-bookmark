@@ -35,6 +35,8 @@ import { VideosContainerComponent } from '../../shared/components/videos-contain
 import { TVDetailMainInfoContentComponent } from '../../shared/components/tv-detail-main-info/tv-detail-main-info.component';
 import { NavigationExtras } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { OverlayBookmarkDisabledComponent } from '../../shared/components/overlay-bookmark-disabled/overlay-bookmark-disabled.component';
+import { AuthSelectors } from '../../shared/store/auth';
 
 @Component({
   selector: 'app-tv-detail',
@@ -51,6 +53,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     ExternalInfoComponent,
     VideosContainerComponent,
     MediaKeywordsComponent,
+    OverlayBookmarkDisabledComponent,
   ],
   providers: [BridgeDataService],
   templateUrl: './tv-detail.component.html',
@@ -66,6 +69,7 @@ export class TVDetailComponent
 
   tvDetail$!: Observable<TVDetail | null>;
   isLoading$!: Observable<boolean>;
+  isUserAuthenticated$!: Observable<boolean>;
 
   @ViewChild('headerMediaDetail')
   headerMediaDetail!: ElementRef;
@@ -90,6 +94,9 @@ export class TVDetailComponent
   }
 
   override initSelectors() {
+    this.isUserAuthenticated$ = this.store
+      .select(AuthSelectors.selectUser)
+      .pipe(map((user) => !!user));
     this.tvDetail$ = this.tvDetailstore.selectTVDetail$;
     this.isLoading$ = this.tvDetailstore.selectIsLoading$;
     this.tvDetail$

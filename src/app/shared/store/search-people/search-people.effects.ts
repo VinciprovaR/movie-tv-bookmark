@@ -6,6 +6,7 @@ import { TMDBSearchPeopleService } from '../../services/tmdb';
 import { PeopleResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class SearchPeopleEffects {
@@ -68,6 +69,15 @@ export class SearchPeopleEffects {
         } else {
           return of(SearchPeopleActions.noAdditionalPeople());
         }
+      })
+    );
+  });
+
+  cleanState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(SearchPeopleActions.cleanState());
       })
     );
   });

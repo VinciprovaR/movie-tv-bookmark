@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { SupabaseTVBookmarkService } from '../../services/supabase';
 import { TMDBDiscoveryTVService } from '../../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class DiscoveryTVEffects {
@@ -122,6 +123,15 @@ export class DiscoveryTVEffects {
         } else {
           return of(DiscoveryTVActions.noAdditionalTV());
         }
+      })
+    );
+  });
+
+  cleanState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(DiscoveryTVActions.cleanState());
       })
     );
   });

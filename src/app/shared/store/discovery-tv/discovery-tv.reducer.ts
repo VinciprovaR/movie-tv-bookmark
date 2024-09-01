@@ -28,6 +28,11 @@ export const initialState: DiscoveryTVState = {
 
 export const discoveryTVReducer = createReducer(
   initialState,
+  on(DiscoveryTVActions.cleanState, (state): DiscoveryTVState => {
+    return {
+      ...initialState,
+    };
+  }),
   on(
     DiscoveryTVActions.discoveryAdditionalTV,
     DiscoveryTVActions.discoveryTVLanding,

@@ -20,10 +20,10 @@ export class SupabaseProxyToTMDBService {
 
   constructor() {}
 
-  callSupabaseFunction<T>(TMDBProxyPayload: TMDBApiPayload) {
+  callSupabaseFunction<T>(TMDBApiPayload: TMDBApiPayload) {
     return from(
       this.supabase.functions.invoke('tmdb-api', {
-        body: TMDBProxyPayload,
+        body: TMDBApiPayload,
       })
     ).pipe(
       tap((result: FunctionsResponse<T>) => {

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { TVCredit } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBTVDetailService } from '../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../store/auth';
 
 export interface TVDetailCreditsState extends StateMediaBookmark {
   tvCredit: TVCredit | null;
@@ -38,7 +39,6 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
 
   readonly cleanTVDetailCredits = this.updater((state) => {
     return {
-      ...state,
       isLoading: false,
       error: null,
       tvCredit: null,
@@ -73,6 +73,16 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
       };
     }
   );
+
+  readonly cleanState$ = this.effect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(this.cleanTVDetailCredits());
+      })
+    );
+  });
+
   readonly searchTVCredits = this.effect((tvId$: Observable<number>) => {
     return tvId$.pipe(
       tap(() => {

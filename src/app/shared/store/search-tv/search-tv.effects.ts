@@ -6,6 +6,7 @@ import { TMDBSearchTVService } from '../../services/tmdb';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class SearchTVEffects {
@@ -66,6 +67,15 @@ export class SearchTVEffects {
         } else {
           return of(SearchTVActions.noAdditionalTV());
         }
+      })
+    );
+  });
+
+  cleanState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(SearchTVActions.cleanState());
       })
     );
   });

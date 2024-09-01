@@ -6,6 +6,7 @@ import { TMDBSearchMovieService } from '../../services/tmdb';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class SearchMovieEffects {
@@ -69,6 +70,15 @@ export class SearchMovieEffects {
         } else {
           return of(SearchMovieActions.noAdditionalMovie());
         }
+      })
+    );
+  });
+
+  cleanState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(SearchMovieActions.cleanState());
       })
     );
   });

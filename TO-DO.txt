@@ -1,39 +1,35 @@
 
 
 ################ TO-DO PRIORITARIO ################
+
 - Largest Contentful Paint (LCP) error, check (almeno una immagine markata priority)
 - Eliminare zorro (auth, altro cercare)
-- scrollbar cast crew container detail diventa troppo piccola
+- scrollbar cast crew container detail diventa troppo piccola (attenzione webkit)
 - page not found
 - person detail, read more solo esplosione se testo più lungo di tot
 - Validators and control on search digit sulla input query (number, symbol, length...) 
 - CORS su edge function
 - troppi chunk al primo atterraggio
--footer rivedere
-- Utente in sessione e utente in stato potrebbero essere non sincronizzati (es 2 tab, su una faccio logout, cancello local storage, sull'altra stato ngrx ha ancora dati utente) quindi pushare l'utente nei reducer da sessione (da verificare)
+- footer rivedere
 - Non fare chiamate a edge function che non servono quando non autenticato, tipo genere list e altro
 -limitare invio reset passowrd stessa email 
 - in auth ci sono Observable<any>, refractorare
 -init form ovunque
-
 - verificare che il recoveryPasswordGuard sia attivo e template
-n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
-- bookmark disattivo ovunque se non loggato, finire overlay con login register
-- non loggato evitare di fare chiamate per bookmark
--show password sulla login
+- cast crew card, fare in modo tale che il nome dell'attore si veda tutto
+-n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
+
+- se reset password e confirm email scaduto, landing su pagina errore
+
 -login e register devono avere failure specifiche
 - User profile, logout, cambio Password
 - Template reset password
 - Template confirmation account
 
--se sessione non valida, refresh va bene che butta fuori, ma se si fa chiamata http tipo movie bookmark funziona cmq
-- CLEAN ALL STATE AT LOGOUT (solo parti che necessitano login) (meglio tutto, hai fatto solo bookmark movie e tv)
-- ALLA LOGOUT, SE LA SESSIONE NON è VALIDA, SI RIMANE BLOCCATI, SE NON è VALIDA SEMPLICEMENTE PULIRE STORAGE E TORANRE USER NULL
 -validazione input, trim ecc... (email specialmente)
 - Cancellazione account...
 
--Login
-    - Test flow;
+
 
 -Register
     - User already registered(?);
@@ -96,6 +92,11 @@ n a recent navigation chain, one or more websites accessed some form of local st
 -home component link to portfolio
 
 ################################ FATTO, RICONTROLLARE ################################
+-Login
+    - Test flow;
+- bookmark disattivo ovunque se non loggato, finire overlay con login register
+- ALLA LOGOUT, SE LA SESSIONE NON è VALIDA, SI RIMANE BLOCCATI, SE NON è VALIDA SEMPLICEMENTE PULIRE STORAGE E TORANRE USER NULL
+- CLEAN ALL STATE AT LOGOUT (solo parti che necessitano login) (meglio tutto, hai fatto solo bookmark movie e tv)
 . login     - Forgot Password
         - Password Reset capcta
     - Validators;

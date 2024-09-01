@@ -28,6 +28,11 @@ export const initialState: DiscoveryMovieState = {
 
 export const discoveryMovieReducer = createReducer(
   initialState,
+  on(DiscoveryMovieActions.cleanState, (state): DiscoveryMovieState => {
+    return {
+      ...initialState,
+    };
+  }),
   on(
     DiscoveryMovieActions.discoveryAdditionalMovie,
     DiscoveryMovieActions.discoveryMovieLanding,

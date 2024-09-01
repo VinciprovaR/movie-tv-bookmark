@@ -52,7 +52,7 @@ export class AuthEffects {
       switchMap((credentials) => {
         return this.supabaseAuthService.register(credentials).pipe(
           tap((result: AuthResponse) => {
-            this.router.navigate(['/register-success'], {
+            this.router.navigate(['/login'], {
               queryParams: { email: result.data.user?.email },
             });
           }),
@@ -60,9 +60,37 @@ export class AuthEffects {
             return AuthActions.registerSuccess();
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(AuthActions.authFailure({ httpErrorResponse }));
+            return of(AuthActions.registerFailure({ httpErrorResponse }));
           })
         );
+      })
+    );
+  });
+
+  resendConfirmationRegister$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.resendConfirmationRegister),
+      switchMap((action) => {
+        return this.supabaseAuthService
+          .resendConfirmationRegister(action.email)
+          .pipe(
+            tap((result: AuthResponse) => {
+              console.log(result);
+              this.router.navigate(['/login'], {
+                queryParams: { email: action.email },
+              });
+            }),
+            map(() => {
+              return AuthActions.resendConfirmationRegisterSuccess({
+                notifyMsg: 'Request confirmation email sent!',
+              });
+            }),
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(AuthActions.registerFailure({ httpErrorResponse }));
+              }
+            )
+          );
       })
     );
   });
@@ -73,10 +101,8 @@ export class AuthEffects {
       switchMap(() => {
         return this.supabaseAuthService.getCurrentSession().pipe(
           switchMap((result: any) => {
-            console.log('current session', result);
             if (result.data.session) {
               //session is present in local storage, verify server side if is valid
-              console.log('session present, check if valid server side');
               return this.supabaseAuthService.getCurrentUser().pipe(
                 tap((result: any) => {
                   if (result.error) {
@@ -89,7 +115,6 @@ export class AuthEffects {
                   }
                 }),
                 map((result: any) => {
-                  console.log('result user from server', result);
                   return AuthActions.currentUserSuccess({
                     user: result.data.user,
                   });
@@ -97,7 +122,6 @@ export class AuthEffects {
               );
             }
             //session is not present in local storage, user is null, no login
-            console.log('session not preset, null user, not login');
             return of(
               AuthActions.currentUserSuccess({
                 user: null,
@@ -117,15 +141,53 @@ export class AuthEffects {
       ofType(AuthActions.logoutLocal, AuthActions.logoutGlobal),
       switchMap((action) => {
         const { scope } = action;
-        return this.supabaseAuthService.logOut({ scope }).pipe(
-          tap(() => {
-            this.router.navigate(['/login']);
-          }),
-          map(() => {
-            if (scope === 'global') {
-              return AuthActions.logoutGlobalSuccess();
+        return this.supabaseAuthService.getCurrentSession().pipe(
+          switchMap((result: any) => {
+            if (result.data.session) {
+              //session is present in local storage, verify server side if is valid
+              return this.supabaseAuthService.getCurrentUser().pipe(
+                map((result: any) => {
+                  if (result.error) {
+                    return { currentUserError: true };
+                  }
+                  return { currentUserError: false };
+                }),
+                switchMap((result: { currentUserError: boolean }) => {
+                  if (result.currentUserError) {
+                    return of(AuthActions.logoutLocalSuccess()).pipe(
+                      tap(() => {
+                        this.webStorageService.destroyItem(this.storageKey);
+                        this.router.navigate(['/login']);
+                      })
+                    );
+                  }
+                  return this.supabaseAuthService.logOut({ scope }).pipe(
+                    tap(() => {
+                      this.router.navigate(['/login']);
+                    }),
+                    map(() => {
+                      if (scope === 'global') {
+                        return AuthActions.logoutGlobalSuccess();
+                      }
+                      return AuthActions.logoutLocalSuccess();
+                    }),
+                    catchError(
+                      (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                        return of(
+                          AuthActions.authFailure({ httpErrorResponse })
+                        );
+                      }
+                    )
+                  );
+                })
+              );
             }
-            return AuthActions.logoutLocalSuccess();
+            //session is not present in local storage, user is null, silent logout
+            return of(AuthActions.logoutLocalSuccess()).pipe(
+              tap(() => {
+                this.router.navigate(['/login']);
+              })
+            );
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.authFailure({ httpErrorResponse }));
@@ -140,8 +202,10 @@ export class AuthEffects {
       ofType(AuthActions.requestResetPassword),
       switchMap((credentials) => {
         return this.supabaseAuthService.sendMailResetPassword(credentials).pipe(
-          tap(() => {
-            this.router.navigate(['/login']);
+          tap((result: AuthResponse) => {
+            this.router.navigate(['/login'], {
+              queryParams: { email: credentials.email },
+            });
           }),
           map(() => {
             return AuthActions.requestResetPasswordSuccess({
@@ -165,7 +229,7 @@ export class AuthEffects {
             return AuthActions.updatePasswordSuccess();
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(AuthActions.authFailure({ httpErrorResponse }));
+            return of(AuthActions.updatePasswordFailure({ httpErrorResponse }));
           })
         );
       })

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { TVDetail } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBTVDetailService } from '../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../store/auth';
 
 export interface TVDetailState extends StateMediaBookmark {
   tvDetail: TVDetail | null;
@@ -42,7 +43,6 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
 
   readonly cleanTVDetail = this.updater((state) => {
     return {
-      ...state,
       isLoading: false,
       error: null,
       tvDetail: null,
@@ -77,6 +77,16 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
       };
     }
   );
+
+  readonly cleanState$ = this.effect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(this.cleanTVDetail());
+      })
+    );
+  });
+
   readonly searchTVDetail = this.effect((tvId$: Observable<number>) => {
     return tvId$.pipe(
       tap(() => {

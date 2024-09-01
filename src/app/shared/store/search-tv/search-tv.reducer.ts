@@ -19,6 +19,11 @@ export const initialState: SearchTVState = {
 
 export const searchTVReducer = createReducer(
   initialState,
+  on(SearchTVActions.cleanState, (state): SearchTVState => {
+    return {
+      ...initialState,
+    };
+  }),
   on(SearchTVActions.searchAdditionalTV, (state): SearchTVState => {
     return {
       ...state,

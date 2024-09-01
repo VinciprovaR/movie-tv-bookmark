@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Observable, takeUntil } from 'rxjs';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { map, Observable, skipWhile, takeUntil } from 'rxjs';
 import { NavigationStart, RouterModule } from '@angular/router';
 import { SupabaseAuthEventsService } from '../../../shared/services/supabase-auth-events.service';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,7 @@ import {
   PasswordGroup,
   PasswordResetFormForm,
 } from '../../../shared/interfaces/supabase/supabase-auth.interface';
+import { UnauthorizedPageComponent } from '../../../shared/components/unauthorized-page/unauthorized-page.component';
 
 @Component({
   selector: 'app-reset-password-form',
@@ -31,20 +32,22 @@ import {
     MatInputModule,
     MatDivider,
     MatIconModule,
+    UnauthorizedPageComponent,
   ],
   templateUrl: './reset-password-form.component.html',
   styleUrl: './reset-password-form.component.css',
 })
 export class ResetPasswordFormComponent
   extends AbstractAuthComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   private readonly supabaseAuthEventsService = inject(
     SupabaseAuthEventsService
   );
 
+  isUserAuthenticated$!: Observable<boolean>;
+  isAuthorized$!: Observable<boolean>;
   passwordResetForm!: FormGroup<PasswordResetFormForm>;
-
   selectIsLoading$!: Observable<boolean>;
   selectIsResetPasswordSuccess$!: Observable<boolean>;
 
@@ -52,7 +55,7 @@ export class ResetPasswordFormComponent
 
   constructor() {
     super();
-    this.initRouteSubscription();
+    // this.initRouteSubscription();
   }
 
   ngOnInit(): void {
@@ -84,6 +87,21 @@ export class ResetPasswordFormComponent
   }
 
   override initSelectors(): void {
+    this.isUserAuthenticated$ = this.store
+      .select(AuthSelectors.selectUser)
+      .pipe(map((user) => !!user));
+
+    this.isAuthorized$ = this.supabaseAuthEventsService.combined$.pipe(
+      skipWhile((combined) => combined.isLoading),
+      map((combined) => {
+        if (!combined.isPasswordRecovery) {
+          //console.log('NOT allowed to go to password-recovery-form :(');
+          return false;
+        }
+        return true;
+      })
+    );
+
     this.selectIsLoading$ = this.store.select(AuthSelectors.selectIsLoading);
 
     this.selectIsResetPasswordSuccess$ = this.store.select(
@@ -95,19 +113,8 @@ export class ResetPasswordFormComponent
     this.passwordResetForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status) => {
-        console.log(status, this.passwordResetForm);
         this.isFormValid = status === 'INVALID' ? false : true;
       });
-  }
-
-  initRouteSubscription() {
-    this.router.events.pipe(takeUntil(this.destroyed$)).subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        console.log(event);
-        if (event.url !== '/reset-password-form')
-          this.supabaseAuthEventsService.passwordRecoveryFlowEnd();
-      }
-    });
   }
 
   get isPasswordError() {
@@ -162,5 +169,9 @@ export class ResetPasswordFormComponent
     return this.passwordResetForm.controls[
       'passwordGroup'
     ] as FormGroup<PasswordGroup>;
+  }
+
+  ngOnDestroy(): void {
+    this.supabaseAuthEventsService.passwordRecoveryFlowEnd();
   }
 }

@@ -19,6 +19,11 @@ export const initialState: SearchMovieState = {
 
 export const searchMovieReducer = createReducer(
   initialState,
+  on(SearchMovieActions.cleanState, (state): SearchMovieState => {
+    return {
+      ...initialState,
+    };
+  }),
   on(SearchMovieActions.searchAdditionalMovie, (state): SearchMovieState => {
     return {
       ...state,

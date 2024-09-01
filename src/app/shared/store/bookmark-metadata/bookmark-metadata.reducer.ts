@@ -14,6 +14,11 @@ export const initialState: BookmarkMetadataState = {
 
 export const BookmarkMetadataReducer = createReducer(
   initialState,
+  on(BookmarkMetadataActions.cleanState, (state): BookmarkMetadataState => {
+    return {
+      ...initialState,
+    };
+  }),
   on(
     BookmarkMetadataActions.retriveBookmarkMetadata,
     (state): BookmarkMetadataState => {

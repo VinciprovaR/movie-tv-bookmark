@@ -35,7 +35,7 @@ import { Genre } from '../../interfaces/TMDB/tmdb-filters.interface';
   providedIn: 'root',
 })
 export class SupabaseUtilsService {
-  private readonly LIFECYCLE_CASES: BookmarkCrudConditions = {
+  private readonly BOOKMARK_CASES: BookmarkCrudConditions = {
     noEntityANDInBookmarkSelected: 'create', //Case #0 - Create - Movie/tv doesn't have its own bookmark and bookmark selected is > 0, must create the bookmark item
     oneEntityANDNoBookmarkSelected: 'delete', //Case #1 - Delete - Movie/tv has its own bookmark and bookmark selected is == 0, must fake delete the bookmark item , update the bookmark to 0
     oneEntityANDInBookmarkSelected: 'update', //Case #2 - Update - Movie/tv has its own bookmark and bookmark selected is > 0, must update the bookmark item
@@ -220,7 +220,7 @@ export class SupabaseUtilsService {
         ? 'noEntityANDNoBookmarkSelected'
         : 'default');
 
-    return this.LIFECYCLE_CASES[condition];
+    return this.BOOKMARK_CASES[condition];
   }
 
   isMovieEntity(

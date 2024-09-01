@@ -7,6 +7,7 @@ import {
 import {
   AuthResponse,
   AuthTokenResponsePassword,
+  ResendParams,
   SignOut,
 } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
@@ -49,6 +50,20 @@ export class SupabaseAuthDAO {
         password: credentials.password,
       })
     ).pipe(
+      tap((result: AuthResponse) => {
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+            status: result.error.status,
+          });
+        }
+      })
+    );
+  }
+
+  resendConfirmationRegister(email: string): Observable<AuthResponse> {
+    return from(this.supabase.auth.resend({ email, type: 'signup' })).pipe(
       tap((result: AuthResponse) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
@@ -108,6 +123,7 @@ export class SupabaseAuthDAO {
 
   getUser(): Observable<any> {
     //Throw error is handled on effect side for this service, because if the session is invalid on server side, it needed to clean the session on client side first
+
     return from(this.supabase.auth.getUser());
   }
 

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { MovieDetail } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBMovieDetailService } from '../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../store/auth';
 
 export interface MovieDetailState extends StateMediaBookmark {
   movieDetail: MovieDetail | null;
@@ -42,7 +43,6 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
 
   readonly cleanMovieDetail = this.updater((state) => {
     return {
-      ...state,
       isLoading: false,
       error: null,
       movieDetail: null,
@@ -77,6 +77,16 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
       };
     }
   );
+
+  readonly cleanState$ = this.effect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(this.cleanMovieDetail());
+      })
+    );
+  });
+
   readonly searchMovieDetail = this.effect((movieId$: Observable<number>) => {
     return movieId$.pipe(
       tap(() => {

@@ -142,11 +142,6 @@ export class LoadingComponent
   }
   override initSubscriptions(): void {
     //not landing
-    this.authSelectIsLoading$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading);
-      });
 
     this.movieSearchSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
@@ -188,6 +183,14 @@ export class LoadingComponent
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
         this.toggleLoadingBar(isLoading);
+      });
+
+    //landing
+
+    this.authSelectIsLoading$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isLoading) => {
+        this.toggleLoadingBar(isLoading, true);
       });
 
     this.movieDetailSelectIsLoading$

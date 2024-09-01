@@ -11,6 +11,8 @@ import {
 } from '../interfaces/TMDB/tmdb-media.interface';
 import { TMDBPersonDetailService } from '../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
+import { Actions, ofType } from '@ngrx/effects';
+import { AuthActions } from '../store/auth';
 
 export interface PersonDetailMovieCreditsStoreState extends StateMediaBookmark {
   personDetailMovieCredits: PersonDetailMovieCredits;
@@ -33,7 +35,7 @@ export const personDetailMovieCreditsFailure = createAction(
 @Injectable({ providedIn: 'root' })
 export class PersonDetailMovieCreditsStore extends ComponentStore<PersonDetailMovieCreditsStoreState> {
   private readonly store = inject(Store);
-
+  readonly actions$ = inject(Actions);
   private readonly TMDBPersonDetailService = inject(TMDBPersonDetailService);
 
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
@@ -55,7 +57,6 @@ export class PersonDetailMovieCreditsStore extends ComponentStore<PersonDetailMo
 
   readonly cleanPersonDetailCreditsMovie = this.updater((state) => {
     return {
-      ...state,
       isLoading: false,
       error: null,
       personDetailMovieCredits: {
@@ -103,6 +104,15 @@ export class PersonDetailMovieCreditsStore extends ComponentStore<PersonDetailMo
       };
     }
   );
+
+  readonly cleanState$ = this.effect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(this.cleanPersonDetailCreditsMovie());
+      })
+    );
+  });
 
   readonly movieCredits = this.effect((personId$: Observable<number>) => {
     return personId$.pipe(

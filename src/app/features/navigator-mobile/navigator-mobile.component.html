@@ -3,7 +3,6 @@
   class="fixed w-full sm:hidden flex justify-center pt-3"
   [ngClass]="{
     'header-mobile-show': !hiddenNavMenu,
-   
   }"
 >
   <ul class="list-none p-0 text-center m-0 transition">
@@ -14,7 +13,6 @@
       <a
         [ngClass]="{
               'disabled': hiddenNavMenu,
-              
             }"
         href="#"
         routerLinkActive="active"
@@ -26,16 +24,16 @@
     </li>
     } @else {
     <li class="mb-3">
-      <h4 class="m-0">{{ navElement.value.label }}</h4>
+      <h4 class="m-0 text-lg">{{ navElement.value.label }}</h4>
       <ul class="list-none p-0">
         @for(subMenuEl of navElement.value.subMenu ; track subMenuEl.path){
-
+        @if(canRender(subMenuEl.needAuth) ){
         <li class="el-hover">
           <a
             [ngClass]="{
-                'disabled': hiddenNavMenu,
-                
-              }"
+                    'disabled': hiddenNavMenu,
+                    
+                  }"
             href="#"
             routerLinkActive="active"
             [routerLink]="subMenuEl.path"
@@ -44,7 +42,7 @@
             >{{ subMenuEl.label }}</a
           >
         </li>
-        }
+        } }
       </ul>
     </li>
     } }}

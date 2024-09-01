@@ -20,6 +20,29 @@ export const register = createAction(
 );
 export const registerSuccess = createAction('[Auth] Register Success');
 
+export const registerFailure = createAction(
+  '[Auth] Register Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+);
+export const cleanRegisterFlow = createAction('[Auth] Clean Register Flow');
+
+export const resendConfirmationRegister = createAction(
+  '[Auth] Resend Confirmation Email',
+  props<{ email: string }>()
+);
+export const resendConfirmationRegisterSuccess = createAction(
+  '[Auth] Resend Confirmation Email Success',
+  props<{ notifyMsg: string }>()
+);
+export const resendConfirmationRegisterFailure = createAction(
+  '[Auth] Resend Confirmation Email Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+);
+
+export const cleanResendConfirmationRegisterFlow = createAction(
+  '[Auth] Clean Resend Confirmation Email Flow'
+);
+
 //request reset psw
 export const requestResetPassword = createAction(
   '[Auth] Request Reset Password',
@@ -29,8 +52,8 @@ export const requestResetPasswordSuccess = createAction(
   '[Auth] Request Reset Password Success',
   props<{ notifyMsg: string }>()
 );
-export const clearRequestResetPassword = createAction(
-  '[Auth] Clear Request Reset Password '
+export const cleanRequestResetPassword = createAction(
+  '[Auth] Clean Request Reset Password '
 );
 
 //update psw
@@ -40,6 +63,11 @@ export const updatePassword = createAction(
 );
 export const updatePasswordSuccess = createAction(
   '[Auth] Update Password Success'
+);
+
+export const updatePasswordFailure = createAction(
+  '[Auth] Update Password Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 //current user

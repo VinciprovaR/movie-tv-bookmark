@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { AuthActions, AuthSelectors } from '../../shared/store/auth';
 import { Observable, takeUntil } from 'rxjs';
 import {
@@ -12,7 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { NavigationStart, RouterModule } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -40,6 +40,10 @@ export class LoginPageComponent
 {
   selectIsLoading$!: Observable<boolean>;
   selectIsRequestResetPassword$!: Observable<boolean>;
+  selectIsResendConfirmationRegister$!: Observable<boolean>;
+  registerFlowEnd$!: Observable<boolean>;
+
+  @Input('email') email?: string;
 
   loginForm!: FormGroup<LoginForm>;
   submitted = false;
@@ -72,6 +76,14 @@ export class LoginPageComponent
 
     this.selectIsRequestResetPassword$ = this.store.select(
       AuthSelectors.selectIsRequestResetPassword
+    );
+
+    this.selectIsResendConfirmationRegister$ = this.store.select(
+      AuthSelectors.selectIsResendConfirmationRegister
+    );
+
+    this.registerFlowEnd$ = this.store.select(
+      AuthSelectors.selectRegisterFlowEnd
     );
   }
 
@@ -112,6 +124,8 @@ export class LoginPageComponent
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(AuthActions.clearRequestResetPassword());
+    this.store.dispatch(AuthActions.cleanRequestResetPassword());
+    this.store.dispatch(AuthActions.cleanRegisterFlow());
+    this.store.dispatch(AuthActions.cleanResendConfirmationRegisterFlow());
   }
 }

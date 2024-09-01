@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   inject,
@@ -17,7 +18,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { Overlay, OverlayModule } from '@angular/cdk/overlay';
+
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
 import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
@@ -27,6 +28,7 @@ import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interf
 import { BridgeDataService } from '../../services/bridge-data.service';
 import { AuthSelectors } from '../../store/auth';
 import { map, Observable } from 'rxjs';
+import { OverlayBookmarkDisabledComponent } from '../overlay-bookmark-disabled/overlay-bookmark-disabled.component';
 
 @Component({
   selector: 'app-media-card',
@@ -43,15 +45,18 @@ import { map, Observable } from 'rxjs';
     ImgComponent,
     RatingComponent,
     BookmarkStatusLabelComponent,
-    OverlayModule,
+    OverlayBookmarkDisabledComponent,
   ],
   templateUrl: './media-card.component.html',
   styleUrl: './media-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MediaCardComponent extends AbstractComponent implements OnInit {
+export class MediaCardComponent
+  extends AbstractComponent
+  implements OnInit, AfterViewInit
+{
   protected readonly bridgeDataService = inject(BridgeDataService);
-  protected readonly overlay = inject(Overlay);
+
   protected readonly TMDB_PROFILE_440W_660H_IMG_URL = inject(
     IMG_SIZES.TMDB_PROFILE_440W_660H_IMG_URL
   );
@@ -61,8 +66,6 @@ export class MediaCardComponent extends AbstractComponent implements OnInit {
   );
 
   protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
-
-  protected scrollStrategy = this.overlay.scrollStrategies.close();
 
   isUserAuthenticated$!: Observable<boolean>;
 
@@ -90,14 +93,18 @@ export class MediaCardComponent extends AbstractComponent implements OnInit {
 
   ngOnInit(): void {
     this.initSelectors();
+    this.initSubscriptions();
     this.buildDetailPath(this.media.id);
   }
+
+  ngAfterViewInit(): void {}
 
   override initSelectors(): void {
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
   }
+
   override initSubscriptions(): void {}
 
   get voteAverage(): number | null {

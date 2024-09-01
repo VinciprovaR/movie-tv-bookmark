@@ -1,5 +1,6 @@
 <div class="flex flex-col items-center auth-wrapper pt-[70px]">
-  @if(selectIsRequestResetPassword$ | async; as selectIsRequestResetPassword){
+  @if((registerFlowEnd$ | async) || (selectIsResendConfirmationRegister$ |
+  async); as isSentEmailConfirmation){
   <div class="w-[95%] max-w-sm pt-8">
     <div class="flex-none">
       <div class="bg-[var(--bg-success-container)] text-sm p-3 rounded-md">
@@ -14,10 +15,36 @@
           </div>
           <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
             <li>
-              We've sent you an email with instructions to reset your password,
-              if the account exist. Please check your inbox, and don't forget to
-              check your spam or junk folder if you don't see the email within a
-              few minutes!
+              We've sent you an email to <strong>{{ email }}</strong> with
+              instructions to confirm your account, if not confirmed yet and if
+              created. Please check your inbox, and don't forget to check your
+              spam or junk folder if you don't see the email within a few
+              minutes!
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  } @if(selectIsRequestResetPassword$ | async; as selectIsRequestResetPassword){
+  <div class="w-[95%] max-w-sm pt-8">
+    <div class="flex-none">
+      <div class="bg-[var(--bg-success-container)] text-sm p-3 rounded-md">
+        <div class="flex space-x-2">
+          <div>
+            <mat-icon
+              class="text-[var(--success-icon-color)]"
+              aria-hidden="false"
+              aria-label=""
+              fontIcon="check_circle"
+            ></mat-icon>
+          </div>
+          <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
+            <li>
+              We've sent you an email to <strong>{{ email }}</strong> with
+              instructions to reset your password, if the account exist. Please
+              check your inbox, and don't forget to check your spam or junk
+              folder if you don't see the email within a few minutes!
             </li>
           </ul>
         </div>

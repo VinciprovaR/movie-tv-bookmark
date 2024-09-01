@@ -28,6 +28,14 @@ export class AlertContainerComponent
   }
 
   ngOnInit(): void {
+    this.initSubscriptions();
+    this.initSelectors();
+  }
+
+  override initSelectors() {
+    this.selectAlerts$ = this.notifierStore.selectAlerts$;
+  }
+  override initSubscriptions(): void {
     this.router.events
       .pipe(
         takeUntil(this.destroyed$),
@@ -36,14 +44,7 @@ export class AlertContainerComponent
       .subscribe((event) => {
         this.cleanAlert();
       });
-
-    this.initSelectors();
   }
-
-  override initSelectors() {
-    this.selectAlerts$ = this.notifierStore.selectAlerts$;
-  }
-  override initSubscriptions(): void {}
 
   closeAlert(id: number) {
     this.notifierStore.closeAlert(id);

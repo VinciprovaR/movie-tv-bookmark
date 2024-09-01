@@ -35,3 +35,13 @@ export const selectIsResetPasswordSuccess = createSelector(
   authFeatureSelector,
   AuthReducer.getIsResetPasswordSuccess
 );
+
+export const selectRegisterFlowEnd = createSelector(
+  authFeatureSelector,
+  AuthReducer.getRegisterFlowEnd
+);
+
+export const selectIsResendConfirmationRegister = createSelector(
+  authFeatureSelector,
+  AuthReducer.getIsResendConfirmationRegister
+);

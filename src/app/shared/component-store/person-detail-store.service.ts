@@ -8,6 +8,8 @@ import { PersonDetail } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBPersonDetailService } from '../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
+import { Actions, ofType } from '@ngrx/effects';
+import { AuthActions } from '../store/auth';
 
 export interface PersonDetailState extends StateMediaBookmark {
   personDetail: PersonDetail | null;
@@ -27,6 +29,7 @@ export const personDetailFailure = createAction(
 @Injectable({ providedIn: 'root' })
 export class PersonDetailStore extends ComponentStore<PersonDetailState> {
   private readonly store = inject(Store);
+  readonly actions$ = inject(Actions);
   private readonly TMDBPersonDetailService = inject(TMDBPersonDetailService);
 
   readonly selectPersonDetail$ = this.select((state) => state.personDetail);
@@ -43,7 +46,6 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
 
   readonly cleanPersonDetail = this.updater((state) => {
     return {
-      ...state,
       isLoading: false,
       error: null,
       personDetail: null,
@@ -82,6 +84,15 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
       };
     }
   );
+
+  readonly cleanState$ = this.effect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(this.cleanPersonDetail());
+      })
+    );
+  });
 
   readonly searchPersonDetail = this.effect((personId$: Observable<number>) => {
     return personId$.pipe(

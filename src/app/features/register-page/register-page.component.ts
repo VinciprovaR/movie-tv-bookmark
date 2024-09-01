@@ -95,8 +95,6 @@ export class RegisterPageComponent extends AbstractAuthComponent {
   }
 
   diffPsw(group: AbstractControl<PasswordGroup>): ValidationErrors | null {
-    console.log(group);
-
     return group.value.password !== group.value.confirmPassword
       ? { diffPsw: true }
       : null;

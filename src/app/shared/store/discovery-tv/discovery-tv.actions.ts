@@ -3,6 +3,8 @@ import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PayloadDiscoveryTV } from '../../interfaces/store/discovery-tv-state.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
+export const cleanState = createAction('[Discovery-tv] Clean State');
+
 //search
 export const discoveryTVLanding = createAction(
   '[Discovery-tv] Discovery TV Landing Init'

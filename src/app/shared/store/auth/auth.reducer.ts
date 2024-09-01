@@ -10,6 +10,8 @@ export const initialState: AuthState = {
   user: null,
   isRequestResetPassword: false,
   isResetPasswordSuccess: false,
+  isResendConfirmationRegister: false,
+  registerFlowEnd: false,
 };
 
 export const authReducer = createReducer(
@@ -22,11 +24,13 @@ export const authReducer = createReducer(
     AuthActions.logoutGlobal,
     AuthActions.logoutLocal,
     AuthActions.updatePassword,
+    AuthActions.resendConfirmationRegister,
     (state): AuthState => {
       return {
         ...state,
         error: null,
         isLoading: true,
+        registerFlowEnd: false,
       };
     }
   ),
@@ -39,6 +43,7 @@ export const authReducer = createReducer(
         error: null,
         isLoading: false,
         user,
+        registerFlowEnd: false,
       };
     }
   ),
@@ -47,17 +52,11 @@ export const authReducer = createReducer(
       ...state,
       error: null,
       isLoading: false,
-      user: null, //to-do user cmq valorizzato
-    };
-  }),
-  on(AuthActions.authFailure, (state, { httpErrorResponse }): AuthState => {
-    return {
-      ...state,
-      isLoading: false,
-      error: httpErrorResponse,
       user: null,
+      registerFlowEnd: true,
     };
   }),
+
   on(
     AuthActions.logoutLocalSuccess,
     AuthActions.logoutGlobal,
@@ -68,6 +67,7 @@ export const authReducer = createReducer(
         error: null,
         isLoading: false,
         user: null,
+        registerFlowEnd: false,
       };
     }
   ),
@@ -77,14 +77,34 @@ export const authReducer = createReducer(
       error: null,
       isLoading: false,
       isRequestResetPassword: true,
+      registerFlowEnd: false,
     };
   }),
-  on(AuthActions.clearRequestResetPassword, (state): AuthState => {
+  on(AuthActions.resendConfirmationRegisterSuccess, (state): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      isResendConfirmationRegister: true,
+      registerFlowEnd: false,
+    };
+  }),
+  on(AuthActions.cleanRequestResetPassword, (state): AuthState => {
     return {
       ...state,
       error: null,
       isLoading: false,
       isRequestResetPassword: false,
+      registerFlowEnd: false,
+    };
+  }),
+  on(AuthActions.cleanResendConfirmationRegisterFlow, (state): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      isResendConfirmationRegister: false,
+      registerFlowEnd: false,
     };
   }),
   on(AuthActions.updatePasswordSuccess, (state): AuthState => {
@@ -93,6 +113,28 @@ export const authReducer = createReducer(
       error: null,
       isLoading: false,
       isResetPasswordSuccess: true,
+      registerFlowEnd: false,
+    };
+  }),
+  on(
+    AuthActions.updatePasswordFailure,
+    AuthActions.resendConfirmationRegisterFailure,
+    (state, { httpErrorResponse }): AuthState => {
+      return {
+        ...state,
+        isLoading: false,
+        error: httpErrorResponse,
+        registerFlowEnd: false,
+      };
+    }
+  ),
+  on(AuthActions.authFailure, (state, { httpErrorResponse }): AuthState => {
+    return {
+      ...state,
+      isLoading: false,
+      error: httpErrorResponse,
+      user: null,
+      registerFlowEnd: false,
     };
   })
 );
@@ -104,3 +146,6 @@ export const getIsRequestResetPassword = (state: AuthState) =>
   state.isRequestResetPassword;
 export const getIsResetPasswordSuccess = (state: AuthState) =>
   state.isResetPasswordSuccess;
+export const getIsResendConfirmationRegister = (state: AuthState) =>
+  state.isResendConfirmationRegister;
+export const getRegisterFlowEnd = (state: AuthState) => state.registerFlowEnd;

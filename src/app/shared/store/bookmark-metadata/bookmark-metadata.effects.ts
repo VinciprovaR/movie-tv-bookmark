@@ -6,6 +6,7 @@ import { BookmarkMetadataActions } from '.';
 import { BookmarkOption } from '../../interfaces/supabase/DTO';
 import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class BookmarkMetadataEffects {
@@ -43,6 +44,15 @@ export class BookmarkMetadataEffects {
               }
             )
           );
+      })
+    );
+  });
+
+  cleanState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.logoutLocalSuccess),
+      switchMap((action) => {
+        return of(BookmarkMetadataActions.cleanState());
       })
     );
   });

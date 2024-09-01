@@ -44,16 +44,33 @@ export const routes: Routes = [
     title: 'Reset Password',
   },
   {
-    //to-do guard verify token
-    //passwordRecoveryGuard
+    path: 'resend-confirmation-email',
+    loadComponent: () =>
+      import(
+        './features/confirmation-email-request/confirmation-email-request.component'
+      ).then((m) => m.ConfirmationRmailRequestComponent),
+    canActivate: [nonAuthGuard],
+    title: 'Resend Confirmation Email',
+  },
+  {
+    path: 'email-confirmed',
+    loadComponent: () =>
+      import('./features/confirm-email/confirm-email.component').then(
+        (m) => m.ConfirmEmailComponent
+      ),
+    title: 'Confirmation Email Result',
+  },
+  {
+    //    canActivate: [authGuard, passwordRecoveryGuard],
     path: 'reset-password-form',
     loadComponent: () =>
       import(
         './features/reset-password/reset-password-form/reset-password-form.component'
       ).then((m) => m.ResetPasswordFormComponent),
-    canActivate: [authGuard],
+
     title: 'Reset Password Form',
   },
+
   {
     path: 'register',
     loadComponent: () =>
@@ -62,15 +79,6 @@ export const routes: Routes = [
       ),
     canActivate: [nonAuthGuard],
     title: 'Register',
-  },
-  {
-    path: 'register-success',
-    loadComponent: () =>
-      import('./features/register-success/register-success.component').then(
-        (m) => m.RegisterSuccessComponent
-      ),
-    canActivate: [nonAuthGuard],
-    title: 'Register Success',
   },
   {
     path: 'movie',
@@ -220,7 +228,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
 ];

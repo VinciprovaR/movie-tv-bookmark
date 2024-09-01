@@ -19,6 +19,11 @@ export const initialState: SearchPeopleState = {
 
 export const searchPeopleReducer = createReducer(
   initialState,
+  on(SearchPeopleActions.cleanState, (state): SearchPeopleState => {
+    return {
+      ...initialState,
+    };
+  }),
   on(SearchPeopleActions.searchAdditionalPeople, (state): SearchPeopleState => {
     return {
       ...state,
