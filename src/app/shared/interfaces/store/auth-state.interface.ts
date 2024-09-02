@@ -6,5 +6,6 @@ export interface AuthState extends StateMediaBookmark {
   isRequestResetPassword: boolean;
   isResetPasswordSuccess: boolean;
   isResendConfirmationRegister: boolean;
+  isAccountDeleted: boolean;
   registerFlowEnd: boolean;
 }

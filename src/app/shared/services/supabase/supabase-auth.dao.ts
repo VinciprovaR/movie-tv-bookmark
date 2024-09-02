@@ -1,14 +1,18 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, from, tap } from 'rxjs';
+import { Observable, from, map, tap } from 'rxjs';
 import {
+  CustomSessionResponse,
   LoginPayload,
   RegisterPayload,
+  UserSupabase,
 } from '../../interfaces/supabase/supabase-auth.interface';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
+  PostgrestSingleResponse,
   ResendParams,
   SignOut,
+  UserResponse,
 } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 
@@ -35,7 +39,7 @@ export class SupabaseAuthDAO {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
-            message: result.error.message,
+            message: `${result.error.message} for ${credentials.email}`,
             status: result.error.status,
           });
         }
@@ -58,6 +62,22 @@ export class SupabaseAuthDAO {
             status: result.error.status,
           });
         }
+      })
+    );
+  }
+
+  getUserByEmail(credentials: RegisterPayload): Observable<UserSupabase[]> {
+    return from(
+      this.supabase.from('users').select('*').eq(`email`, credentials.email)
+    ).pipe(
+      map((result: PostgrestSingleResponse<UserSupabase[]>) => {
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
+        }
+        return result.data;
       })
     );
   }
@@ -107,7 +127,6 @@ export class SupabaseAuthDAO {
   }
 
   signOut(signout: SignOut): Observable<any> {
-    console.log('logout: ', signout);
     return from(this.supabase.auth.signOut(signout)).pipe(
       tap((result: any) => {
         if (result.error) {
@@ -121,15 +140,48 @@ export class SupabaseAuthDAO {
     );
   }
 
-  getUser(): Observable<any> {
+  deleteUserAccount(userId: string): Observable<any> {
+    return from(
+      this.supabase.from('users').delete().eq(`user_id`, userId).select()
+    ).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+            status: result.error.status,
+          });
+        }
+      })
+    );
+  }
+
+  deleteUserFromPublicSchema(userId: string): Observable<any> {
+    console.log('deleteUserFromPublicSchema, user id: ', userId);
+    return from(
+      this.supabase.from('users').delete().eq('user_id', userId).select()
+    ).pipe(
+      tap((result: any) => {
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+            status: result.error.status,
+          });
+        }
+      })
+    );
+  }
+
+  getUser(): Observable<UserResponse> {
     //Throw error is handled on effect side for this service, because if the session is invalid on server side, it needed to clean the session on client side first
 
     return from(this.supabase.auth.getUser());
   }
 
-  getSession(): Observable<any> {
+  getSession(): Observable<CustomSessionResponse> {
     return from(this.supabase.auth.getSession()).pipe(
-      tap((result: any) => {
+      tap((result) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,

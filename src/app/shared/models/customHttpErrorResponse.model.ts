@@ -10,6 +10,7 @@ export class CustomHttpErrorResponse
   status: number | undefined;
   statusText: string | undefined;
   url: string | undefined;
+  type: string | undefined;
 
   constructor(init: {
     error?: any;
@@ -17,6 +18,7 @@ export class CustomHttpErrorResponse
     status?: number;
     statusText?: string;
     url?: string;
+    type?: string;
   }) {
     this.error = init.error;
     this.message = init.message;

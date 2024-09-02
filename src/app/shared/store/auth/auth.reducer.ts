@@ -11,6 +11,7 @@ export const initialState: AuthState = {
   isRequestResetPassword: false,
   isResetPasswordSuccess: false,
   isResendConfirmationRegister: false,
+  isAccountDeleted: false,
   registerFlowEnd: false,
 };
 
@@ -25,6 +26,7 @@ export const authReducer = createReducer(
     AuthActions.logoutLocal,
     AuthActions.updatePassword,
     AuthActions.resendConfirmationRegister,
+    AuthActions.deleteAccount,
     (state): AuthState => {
       return {
         ...state,
@@ -116,9 +118,50 @@ export const authReducer = createReducer(
       registerFlowEnd: false,
     };
   }),
+  on(AuthActions.deleteAccountSuccess, (state, { user }): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      isAccountDeleted: true,
+      user,
+      registerFlowEnd: false,
+    };
+  }),
   on(
+    AuthActions.currentUserFailure,
+    AuthActions.deleteAccountFailureUserInvalid,
+    (state, { httpErrorResponse }): AuthState => {
+      return {
+        ...state,
+        isLoading: false,
+        error: httpErrorResponse,
+        registerFlowEnd: false,
+        user: null,
+      };
+    }
+  ),
+  on(
+    AuthActions.cleanAccountDeletedFlow,
+
+    (state): AuthState => {
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        registerFlowEnd: false,
+        isAccountDeleted: false,
+        user: null,
+      };
+    }
+  ),
+  on(
+    AuthActions.authFailure,
+    AuthActions.loginFailure,
     AuthActions.updatePasswordFailure,
     AuthActions.resendConfirmationRegisterFailure,
+    AuthActions.registerFailure,
+    AuthActions.deleteAccountFailure,
     (state, { httpErrorResponse }): AuthState => {
       return {
         ...state,
@@ -127,16 +170,7 @@ export const authReducer = createReducer(
         registerFlowEnd: false,
       };
     }
-  ),
-  on(AuthActions.authFailure, (state, { httpErrorResponse }): AuthState => {
-    return {
-      ...state,
-      isLoading: false,
-      error: httpErrorResponse,
-      user: null,
-      registerFlowEnd: false,
-    };
-  })
+  )
 );
 export const getAuthState = (state: AuthState) => state;
 export const getIsLoading = (state: AuthState) => state.isLoading;
@@ -149,3 +183,4 @@ export const getIsResetPasswordSuccess = (state: AuthState) =>
 export const getIsResendConfirmationRegister = (state: AuthState) =>
   state.isResendConfirmationRegister;
 export const getRegisterFlowEnd = (state: AuthState) => state.registerFlowEnd;
+export const getisAccountDeleted = (state: AuthState) => state.isAccountDeleted;

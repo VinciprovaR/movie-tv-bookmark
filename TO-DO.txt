@@ -11,33 +11,21 @@
 - CORS su edge function
 - troppi chunk al primo atterraggio
 - footer rivedere
-- Non fare chiamate a edge function che non servono quando non autenticato, tipo genere list e altro
--limitare invio reset passowrd stessa email 
 - in auth ci sono Observable<any>, refractorare
--init form ovunque
 - verificare che il recoveryPasswordGuard sia attivo e template
 - cast crew card, fare in modo tale che il nome dell'attore si veda tutto
 -n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
-
-- se reset password e confirm email scaduto, landing su pagina errore
-
+-Sono su bookmark movie, cancello session in storage, search bookmark movie torna null ma dovrebbe buttarmi fuori
 -login e register devono avere failure specifiche
 - User profile, logout, cambio Password
-- Template reset password
-- Template confirmation account
-
--validazione input, trim ecc... (email specialmente)
-- Cancellazione account...
-
-
-
+- validazione input, trim ecc... (email specialmente)
+- spostare resend confirmation email in login
+- Cancellazione account..
+- uscita login pulizia messaggi template non con destroy
 -Register
     - User already registered(?);
-    - Validators;
-    - Verification message + landing page;
     - Test flow;
-    - Register success flow + mail + style
-    - Refractor form builder
+
 
 
 
@@ -75,7 +63,7 @@
 - modificare messaggi di success e error + label
 - http interceptor e/o handling error generalizzato con log (log service) (?)
 - img if error 500 onerror fallback (?)
-
+- init form ovunque
 
 
 
@@ -91,7 +79,18 @@
 - dialog video max-height cell orizzontale
 -home component link to portfolio
 
+
 ################################ FATTO, RICONTROLLARE ################################
+
+-Register
+    - Validators;
+    - Verification message + landing page;
+    - Register success flow + mail + style
+
+- Template reset password
+- Template confirmation account
+
+- se reset password e confirm email scaduto, landing su pagina errore
 -Login
     - Test flow;
 - bookmark disattivo ovunque se non loggato, finire overlay con login register

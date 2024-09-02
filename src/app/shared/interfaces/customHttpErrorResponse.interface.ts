@@ -6,4 +6,5 @@ export interface CustomHttpErrorResponseInterface {
   status: number | undefined;
   statusText: string | undefined;
   url: string | undefined;
+  type: string | undefined;
 }

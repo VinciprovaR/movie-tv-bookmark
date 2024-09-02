@@ -41,6 +41,11 @@ export const selectRegisterFlowEnd = createSelector(
   AuthReducer.getRegisterFlowEnd
 );
 
+export const selectIsAccountDeleted = createSelector(
+  authFeatureSelector,
+  AuthReducer.getisAccountDeleted
+);
+
 export const selectIsResendConfirmationRegister = createSelector(
   authFeatureSelector,
   AuthReducer.getIsResendConfirmationRegister

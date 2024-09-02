@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthError, Session } from '@supabase/supabase-js';
 
 export interface PasswordGroup {
   password: FormControl<string>;
@@ -33,3 +34,28 @@ export interface PasswordResetFormForm {
   oldPassword?: FormControl<string>;
   passwordGroup: FormGroup<PasswordGroup>;
 }
+
+export interface UserSupabase {
+  id: string;
+  email: string;
+}
+
+export type CustomSessionResponse =
+  | {
+      data: {
+        session: Session;
+      };
+      error: null;
+    }
+  | {
+      data: {
+        session: null;
+      };
+      error: AuthError;
+    }
+  | {
+      data: {
+        session: null;
+      };
+      error: null;
+    };

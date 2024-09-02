@@ -30,4 +30,8 @@ export class UserProfileComponent extends AbstractComponent implements OnInit {
   logout() {
     this.store.dispatch(AuthActions.logoutLocal({ scope: 'local' }));
   }
+
+  deleteAccount() {
+    this.store.dispatch(AuthActions.deleteAccount());
+  }
 }

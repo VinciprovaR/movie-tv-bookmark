@@ -99,43 +99,21 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.currentUser),
       switchMap(() => {
-        return this.supabaseAuthService.getCurrentSession().pipe(
-          switchMap((result: any) => {
-            if (result.data.session) {
-              //session is present in local storage, verify server side if is valid
-              return this.supabaseAuthService.getCurrentUser().pipe(
-                tap((result: any) => {
-                  if (result.error) {
-                    this.webStorageService.destroyItem(this.storageKey);
-                    throw new CustomHttpErrorResponse({
-                      error: result.error,
-                      message: 'User session not valid, please login again',
-                      status: result.error.status,
-                    });
-                  }
-                }),
-                map((result: any) => {
-                  return AuthActions.currentUserSuccess({
-                    user: result.data.user,
-                  });
-                })
-              );
-            }
-            //session is not present in local storage, user is null, no login
-            return of(
-              AuthActions.currentUserSuccess({
-                user: null,
-              })
-            );
+        return this.supabaseAuthService.validateCurrentUser().pipe(
+          map((user: User | null) => {
+            return AuthActions.currentUserSuccess({
+              user,
+            });
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(AuthActions.authFailure({ httpErrorResponse }));
+            return of(AuthActions.currentUserFailure({ httpErrorResponse }));
           })
         );
       })
     );
   });
 
+  //to-do refractor in service
   logout$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.logoutLocal, AuthActions.logoutGlobal),
@@ -146,14 +124,8 @@ export class AuthEffects {
             if (result.data.session) {
               //session is present in local storage, verify server side if is valid
               return this.supabaseAuthService.getCurrentUser().pipe(
-                map((result: any) => {
+                switchMap((result: any) => {
                   if (result.error) {
-                    return { currentUserError: true };
-                  }
-                  return { currentUserError: false };
-                }),
-                switchMap((result: { currentUserError: boolean }) => {
-                  if (result.currentUserError) {
                     return of(AuthActions.logoutLocalSuccess()).pipe(
                       tap(() => {
                         this.webStorageService.destroyItem(this.storageKey);
@@ -235,4 +207,72 @@ export class AuthEffects {
       })
     );
   });
+
+  deleteUserAccount$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.deleteAccount),
+      switchMap(() => {
+        return this.supabaseAuthService.validateCurrentUser().pipe(
+          tap((user: User | null) => {
+            if (!user) {
+              this.router.navigate(['/login']);
+            }
+          }),
+          map((user: User | null) => {
+            if (!user) {
+              throw new CustomHttpErrorResponse({
+                type: 'userNull',
+                error: 'User session not valid, please login again',
+                message: 'User session not valid, please login again',
+                status: 403,
+              });
+            }
+            return user;
+          }),
+          switchMap((user: User) => {
+            console.log('delete account, user is valid: ', user);
+            return this.supabaseAuthService.deleteUserAccount(user.id).pipe(
+              map((result) => {
+                console.log('delete success result: ', result);
+                return AuthActions.deleteAccountSuccess({ user: null });
+              }),
+              tap(() => {
+                this.webStorageService.destroyItem(this.storageKey);
+                this.router.navigate(['/login']);
+              })
+            );
+          }),
+          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
+            if (
+              httpErrorResponse.type &&
+              httpErrorResponse.type === 'userNull'
+            ) {
+              return of(
+                AuthActions.deleteAccountFailureUserInvalid({
+                  httpErrorResponse,
+                })
+              );
+            }
+            return of(AuthActions.deleteAccountFailure({ httpErrorResponse }));
+          })
+        );
+      })
+    );
+  });
+
+  // deleteUserAccountt$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(AuthActions.deleteAccount),
+  //     switchMap((action) => {
+  //       return this.supabaseAuthService.deleteUserAccount().pipe(
+  //         map((result: any) => {
+  //           return AuthActions.deleteAccountSuccess(result);
+  //         }),
+  //         catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
+  //           return of(AuthActions.updatePasswordFailure({ httpErrorResponse }));
+  //         })
+  //       );
+  //     })
+  //   );
+  // });
 }
