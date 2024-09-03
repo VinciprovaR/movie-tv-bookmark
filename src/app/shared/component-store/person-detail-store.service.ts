@@ -34,6 +34,7 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
 
   readonly selectPersonDetail$ = this.select((state) => state.personDetail);
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
+  readonly selectError$ = this.select((state) => state.error);
 
   constructor() {
     super({

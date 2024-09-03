@@ -36,6 +36,7 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
 
   readonly selectMovieDetail$ = this.select((state) => state.movieDetail);
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
+  readonly selectError$ = this.select((state) => state.error);
 
   constructor() {
     super({ movieDetail: null, isLoading: false, error: null });

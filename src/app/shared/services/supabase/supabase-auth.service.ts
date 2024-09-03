@@ -12,6 +12,7 @@ import { Observable, from, map, of, switchMap, tap } from 'rxjs';
 import {
   CustomSessionResponse,
   LoginPayload,
+  PublicUserEntity,
   RegisterPayload,
   UserSupabase,
 } from '../../interfaces/supabase/supabase-auth.interface';
@@ -107,7 +108,7 @@ export class SupabaseAuthService {
     return this.supabaseAuthDAO.getSession();
   }
 
-  deleteUserAccount(userId: string): Observable<any> {
+  deleteUserAccount(userId: string): Observable<PublicUserEntity[]> {
     return this.supabaseAuthDAO.deleteUserFromPublicSchema(userId);
   }
 }

@@ -32,6 +32,7 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
 
   readonly selectMovieCredits$ = this.select((state) => state.movieCredit);
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
+  readonly selectError$ = this.select((state) => state.error);
 
   constructor() {
     super({ movieCredit: null, isLoading: false, error: null });

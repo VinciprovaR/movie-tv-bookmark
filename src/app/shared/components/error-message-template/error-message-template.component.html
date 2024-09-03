@@ -1,0 +1,25 @@
+<div class="space-y-6">
+  <div class="text-sm p-3">
+    <div class="flex items-baseline space-x-4">
+      <div>
+        <mat-icon
+          class="text-[var(--failure-icon-color)]"
+          aria-hidden="false"
+          aria-label=""
+          fontIcon="error"
+        ></mat-icon>
+      </div>
+      <div class="space-y-4">
+        <h1>{{ title }}</h1>
+        <ul class="list-none p-0 m-0">
+          <li>
+            {{ message }}
+            <a [routerLink]="'/home'" class="font-medium"> Back to home.</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div></div>
+  </div>
+</div>

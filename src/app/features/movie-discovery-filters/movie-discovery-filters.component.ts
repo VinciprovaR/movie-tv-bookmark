@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   Certification,
   DiscoveryMovieFilterForm,
@@ -18,9 +18,7 @@ import { AbstractDiscoveryFilter } from '../../shared/components/abstract/abstra
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
 import { MatIconModule } from '@angular/material/icon';
-
 import { DiscoveryMovieSelectors } from '../../shared/store/discovery-movie';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 

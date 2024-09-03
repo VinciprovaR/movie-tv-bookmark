@@ -5,7 +5,7 @@ import {
   User,
 } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { Observable, from, map } from 'rxjs';
+import { Observable, from, map, tap } from 'rxjs';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
 
@@ -76,7 +76,7 @@ export class SupabaseMovieBookmarkDAO {
           this.orderByConfigSupabase[payload.sortBy].rule
         )
     ).pipe(
-      map(
+      tap(
         (result: PostgrestSingleResponse<Movie_Bookmark[] & Movie_Data[]>) => {
           if (result.error) {
             throw new CustomHttpErrorResponse({
@@ -84,8 +84,11 @@ export class SupabaseMovieBookmarkDAO {
               message: result.error.message,
             });
           }
-
-          return result.data;
+        }
+      ),
+      map(
+        (result: PostgrestSingleResponse<Movie_Bookmark[] & Movie_Data[]>) => {
+          return result.data as Movie_Bookmark[] & Movie_Data[];
         }
       )
     );

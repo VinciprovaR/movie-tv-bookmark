@@ -265,11 +265,10 @@ export function provideHeaderNavElements() {
         subMenu: [{ label: 'Search', path: 'people', needAuth: false }],
         needAuth: false,
       },
-      d_userProfile: {
-        single: false,
-        label: 'User Profile',
-        paths: ['/user-profile'],
-        subMenu: [{ label: 'User Profile', path: 'user-profile' }],
+      d_settings: {
+        single: true,
+        label: 'Settings',
+        paths: ['/settings'],
         needAuth: true,
       },
       d_signIn: {

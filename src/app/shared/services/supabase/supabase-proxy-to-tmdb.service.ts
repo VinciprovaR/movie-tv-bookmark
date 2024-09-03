@@ -1,9 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { from, map, tap } from 'rxjs';
+import { from, map, of, switchMap, tap } from 'rxjs';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { FunctionsResponse } from '@supabase/functions-js';
-
-import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 export interface TMDBApiPayload {
@@ -26,21 +24,34 @@ export class SupabaseProxyToTMDBService {
         body: TMDBApiPayload,
       })
     ).pipe(
+      switchMap((result: FunctionsResponse<T>) => {
+        if (result.error) {
+          return from(this.readStream<T>(result.error.context.body));
+        }
+        return of(result);
+      }),
       tap((result: FunctionsResponse<T>) => {
         if (result.error) {
-          const error = result.error as CustomHttpErrorResponseInterface;
-          throw new CustomHttpErrorResponse({
-            error,
-            message: error.message,
-            status: error.status,
-            statusText: error.statusText,
-            url: error.url,
-          });
+          throw result.error;
         }
       }),
       map((res: FunctionsResponse<T>) => {
         return res.data as T;
       })
     );
+  }
+
+  async readStream<T>(body: any): Promise<FunctionsResponse<T>> {
+    const reader = body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    let done = false;
+    let chunks = '';
+    while (!done) {
+      const { value, done: streamDone } = await reader.read();
+      done = streamDone;
+      chunks += decoder.decode(value, { stream: !done });
+    }
+    const error: CustomHttpErrorResponseInterface = JSON.parse(chunks);
+    return { data: null, error };
   }
 }

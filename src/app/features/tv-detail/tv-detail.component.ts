@@ -37,6 +37,8 @@ import { NavigationExtras } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OverlayBookmarkDisabledComponent } from '../../shared/components/overlay-bookmark-disabled/overlay-bookmark-disabled.component';
 import { AuthSelectors } from '../../shared/store/auth';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
+import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
 
 @Component({
   selector: 'app-tv-detail',
@@ -54,6 +56,7 @@ import { AuthSelectors } from '../../shared/store/auth';
     VideosContainerComponent,
     MediaKeywordsComponent,
     OverlayBookmarkDisabledComponent,
+    ErrorMessageTemplateComponent,
   ],
   providers: [BridgeDataService],
   templateUrl: './tv-detail.component.html',
@@ -70,9 +73,14 @@ export class TVDetailComponent
   tvDetail$!: Observable<TVDetail | null>;
   isLoading$!: Observable<boolean>;
   isUserAuthenticated$!: Observable<boolean>;
+  error$!: Observable<CustomHttpErrorResponseInterface | null>;
 
   @ViewChild('headerMediaDetail')
   headerMediaDetail!: ElementRef;
+
+  errorTitle: string = `Oops! We can't find the page you're looking for`;
+  errorMessage: string = `It seems that this tv detail you're searching for doesn't exist.`;
+
   @Input({ required: true })
   tvId: number = 0;
 
@@ -90,6 +98,7 @@ export class TVDetailComponent
 
     this.initSelectors();
     this.initDataBridge();
+    this.initSubscriptions();
     this.searchTVDetail();
   }
 
@@ -99,6 +108,10 @@ export class TVDetailComponent
       .pipe(map((user) => !!user));
     this.tvDetail$ = this.tvDetailstore.selectTVDetail$;
     this.isLoading$ = this.tvDetailstore.selectIsLoading$;
+    this.error$ = this.tvDetailstore.selectError$;
+  }
+
+  override initSubscriptions(): void {
     this.tvDetail$
       .pipe(
         takeUntil(this.destroyed$),
@@ -110,8 +123,6 @@ export class TVDetailComponent
         this.evaluatePredominantColor(backdrop_path);
       });
   }
-
-  override initSubscriptions(): void {}
   initDataBridge() {
     //data to bookmark-selector, bookmark selected
     this.store

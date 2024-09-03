@@ -29,6 +29,8 @@ import {
 } from '../../shared/component-store';
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { AbstractMediaDetailCreditsComponent } from '../../shared/components/abstract/abstract-media-detail-credits.component';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
+import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
 
 @Component({
   selector: 'app-movie-detail-credits',
@@ -42,6 +44,7 @@ import { AbstractMediaDetailCreditsComponent } from '../../shared/components/abs
     MatIconModule,
     ImgComponent,
     RouterLink,
+    ErrorMessageTemplateComponent,
   ],
 
   templateUrl: './movie-detail-credits.component.html',
@@ -58,6 +61,7 @@ export class MovieDetailCreditsComponent
   movieDetail$!: Observable<MovieDetail | null>;
   isLoading$!: Observable<boolean>;
   routerEvent$!: Observable<Event>;
+  error$!: Observable<CustomHttpErrorResponseInterface | null>;
 
   castListSub$ = new BehaviorSubject<CastMovie[]>([]);
   castList$!: Observable<CastMovie[]>;
@@ -68,6 +72,9 @@ export class MovieDetailCreditsComponent
 
   @Input()
   movieId: number = 0;
+
+  errorTitle: string = `Oops! We can't find the page you're looking for`;
+  errorMessage: string = `It seems that this movie detail credits you're searching for doesn't exist.`;
 
   isHideCastContainer: boolean = false;
   isHideCrewContainer: boolean = false;
@@ -161,6 +168,7 @@ export class MovieDetailCreditsComponent
     this.movieCredits$ = this.movieDetailCreditsStore.selectMovieCredits$;
     this.movieDetail$ = this.movieDetailstore.selectMovieDetail$;
     this.isLoading$ = this.movieDetailstore.selectIsLoading$;
+    this.error$ = this.movieDetailstore.selectError$;
   }
 
   override initSubscriptions() {

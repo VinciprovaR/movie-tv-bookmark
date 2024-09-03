@@ -3,9 +3,5 @@ import { StateMediaBookmark } from './state-media-bookmark.interface';
 
 export interface AuthState extends StateMediaBookmark {
   user: User | null;
-  isRequestResetPassword: boolean;
-  isResetPasswordSuccess: boolean;
-  isResendConfirmationRegister: boolean;
-  isAccountDeleted: boolean;
-  registerFlowEnd: boolean;
+  messageSuccessOperation: string;
 }

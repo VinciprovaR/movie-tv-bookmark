@@ -1,27 +1,12 @@
-<div class="flex flex-col items-center auth-wrapper pt-[70px]">
-  @if((registerFlowEnd$ | async) || (selectIsResendConfirmationRegister$ |
-  async); as isSentEmailConfirmation){
+<div class="flex flex-col items-center auth-wrapper pt-[60px]">
+  @if(selectMessageSuccessOperation$ | async; as selectMessageSuccessOperation){
   <div class="w-[95%] max-w-sm pt-8">
     <app-success-message-template
-      [message]="confirmationEmailMessage"
-    ></app-success-message-template>
-  </div>
-
-  } @if(selectIsRequestResetPassword$ | async; as selectIsRequestResetPassword){
-  <div class="w-[95%] max-w-sm pt-8">
-    <app-success-message-template
-      [message]="requestResetPasswordMessage"
-    ></app-success-message-template>
-  </div>
-  } @if(selectIsAccountDeleted$ | async; as selectIsAccountDeleted){
-  <div class="w-[95%] max-w-sm pt-8">
-    <app-success-message-template
-      [message]="accountDeletedMessage"
+      [message]="selectMessageSuccessOperation"
     ></app-success-message-template>
   </div>
 
   }
-
   <div class="w-[95%] max-w-sm pt-8">
     <div class="flex-none">
       <div class="bg-[var(--theme-color-3)] p-6 rounded-lg shadow-lg">
@@ -114,12 +99,12 @@
           </div>
           <div class="flex items-center justify-between">
             <div class="text-sm">
-              <a [routerLink]="'/reset-password'" class="font-medium"
+              <a [routerLink]="'/reset-password-request'" class="font-medium"
                 >Forgot your password?
               </a>
             </div>
           </div>
-          <button type="submit">Sign in</button>
+          <button class="button-mt" type="submit">Sign in</button>
           <mat-divider
             role="separator"
             class="mat-divider mat-divider-horizontal"
@@ -138,14 +123,6 @@
               </a>
             </div>
           </div>
-
-          <!-- <button
-            type="button"
-            (click)="logout()"
-            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 hover:cursor-pointer focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Logout
-          </button> -->
         </form>
       </div>
     </div>

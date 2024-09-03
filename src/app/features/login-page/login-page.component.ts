@@ -12,7 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NavigationStart, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -41,10 +41,7 @@ export class LoginPageComponent
   implements OnDestroy
 {
   selectIsLoading$!: Observable<boolean>;
-  selectIsRequestResetPassword$!: Observable<boolean>;
-  selectIsResendConfirmationRegister$!: Observable<boolean>;
-  selectIsAccountDeleted$!: Observable<boolean>;
-  registerFlowEnd$!: Observable<boolean>;
+  selectMessageSuccessOperation$!: Observable<string>;
 
   confirmationEmailMessage: string = '';
   requestResetPasswordMessage: string = '';
@@ -59,19 +56,6 @@ export class LoginPageComponent
   }
 
   ngOnInit(): void {
-    this.confirmationEmailMessage = `We've sent you an email to ${this.email} with
-              instructions to confirm your account, if not confirmed yet and if
-              created. Please check your inbox, and don't forget to check your
-              spam or junk folder if you don't see the email within a few
-              minutes!`;
-
-    this.requestResetPasswordMessage = `We've sent you an email to ${this.email} with
-              instructions to reset your password, if the account exist. Please
-              check your inbox, and don't forget to check your spam or junk
-              folder if you don't see the email within a few minutes!`;
-
-    this.accountDeletedMessage = `Account with email ${this.email} deleted successfully!`;
-
     this.buildForm();
     this.initSelectors();
     this.initSubscriptions();
@@ -93,20 +77,8 @@ export class LoginPageComponent
   override initSelectors(): void {
     this.selectIsLoading$ = this.store.select(AuthSelectors.selectIsLoading);
 
-    this.selectIsRequestResetPassword$ = this.store.select(
-      AuthSelectors.selectIsRequestResetPassword
-    );
-
-    this.selectIsResendConfirmationRegister$ = this.store.select(
-      AuthSelectors.selectIsResendConfirmationRegister
-    );
-
-    this.selectIsAccountDeleted$ = this.store.select(
-      AuthSelectors.selectIsAccountDeleted
-    );
-
-    this.registerFlowEnd$ = this.store.select(
-      AuthSelectors.selectRegisterFlowEnd
+    this.selectMessageSuccessOperation$ = this.store.select(
+      AuthSelectors.selectMessageSuccessOperation
     );
   }
 
@@ -147,9 +119,6 @@ export class LoginPageComponent
   }
   //to-do non va bene, dispatca le action quando loggi anche e quindi strani effetti
   ngOnDestroy(): void {
-    // this.store.dispatch(AuthActions.cleanRequestResetPassword());
-    // this.store.dispatch(AuthActions.cleanRegisterFlow());
-    // this.store.dispatch(AuthActions.cleanResendConfirmationRegisterFlow());
-    // this.store.dispatch(AuthActions.cleanAccountDeletedFlow());
+    this.store.dispatch(AuthActions.cleanMessageSuccessOperation());
   }
 }

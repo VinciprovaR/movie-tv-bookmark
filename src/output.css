@@ -513,10 +513,6 @@
   max-width: 1536px;
 }
 
-.max-w-md {
-  max-width: 28rem;
-}
-
 .max-w-screen-2xl {
   max-width: 1536px;
 }
@@ -613,6 +609,10 @@
 
 .items-center {
   align-items: center;
+}
+
+.items-baseline {
+  align-items: baseline;
 }
 
 .justify-center {
@@ -773,10 +773,6 @@
 .border-red-600 {
   --tw-border-opacity: 1;
   border-color: rgb(220 38 38 / var(--tw-border-opacity));
-}
-
-.border-transparent {
-  border-color: transparent;
 }
 
 .bg-\[rgb\(253\2c 168\2c 168\)\] {
@@ -969,10 +965,6 @@
   padding-top: 60px;
 }
 
-.pt-\[70px\] {
-  padding-top: 70px;
-}
-
 .text-center {
   text-align: center;
 }
@@ -1122,12 +1114,6 @@
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-sm {
-  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -1483,7 +1469,7 @@ select {
   margin: 0px;
 }
 
-button {
+button.button-mt {
   display: flex;
   justify-content: center;
   padding-top: 0.5rem;
@@ -1496,22 +1482,25 @@ button {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  button:hover {
+  button.button-mt:hover {
     background-color: var(--theme-color-2-hover);
+  }
+
+  button:hover {
     cursor: pointer;
   }
 }
 
-button:focus {
+button.button-mt:focus {
   outline-offset: 2px;
   outline: 2px solid transparent;
 }
 
-button:active {
+button.button-mt:active {
   background-color: var(--theme-color-2-focus);
 }
 
-button:disabled {
+button.button-mt:disabled {
   background-color: var(--disabled-bg);
   color: var(--disabled-text-color);
   cursor: auto;
@@ -1747,22 +1736,6 @@ div {
   }
 }
 
-.cdk-global-scrollblock-custom {
-  overflow: hidden !important;
-}
-
-/* .cdk-overlay-pane {
-  max-height: 100vh !important;
-} */
-
-.mdc-dialog__surface {
-  overflow: hidden !important;
-}
-
-.cdk-overlay-dark-backdrop {
-  background: rgba(0, 0, 0, 0.64) !important;
-}
-
 youtube-player-placeholder {
   width: 100% !important;
   height: 100% !important;
@@ -1781,6 +1754,18 @@ youtube-player div:first-child {
 iframe {
   width: 100% !important;
   height: 100% !important;
+}
+
+.cdk-global-scrollblock-custom {
+  overflow: hidden !important;
+}
+
+.mdc-dialog__surface {
+  overflow: hidden !important;
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.64) !important;
 }
 
 .scale-110 {
@@ -1825,20 +1810,6 @@ iframe {
 .focus\:ring-blue-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-indigo-500:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(99 102 241 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-offset-2:focus {
-  --tw-ring-offset-width: 2px;
-}
-
-.active\:translate-y-1:active {
-  --tw-translate-y: 0.25rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 @media (min-width: 205px) {

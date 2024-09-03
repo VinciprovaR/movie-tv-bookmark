@@ -36,6 +36,7 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
 
   readonly selectTVDetail$ = this.select((state) => state.tvDetail);
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
+  readonly selectError$ = this.select((state) => state.error);
 
   constructor() {
     super({ tvDetail: null, isLoading: false, error: null });

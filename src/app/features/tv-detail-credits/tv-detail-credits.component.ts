@@ -30,6 +30,8 @@ import {
 } from '../../shared/component-store';
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { AbstractMediaDetailCreditsComponent } from '../../shared/components/abstract/abstract-media-detail-credits.component';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
+import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
 
 @Component({
   selector: 'app-tv-detail-credits',
@@ -43,8 +45,8 @@ import { AbstractMediaDetailCreditsComponent } from '../../shared/components/abs
     MatIconModule,
     ImgComponent,
     RouterLink,
+    ErrorMessageTemplateComponent,
   ],
-
   templateUrl: './tv-detail-credits.component.html',
   styleUrl: './tv-detail-credits.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,6 +68,10 @@ export class TVDetailCreditsComponent
   departments$!: Observable<TVDepartments[]>;
   bannerSub$ = new BehaviorSubject<Banner | null>(null);
   banner$!: Observable<Banner | null>;
+  error$!: Observable<CustomHttpErrorResponseInterface | null>;
+
+  errorTitle: string = `Oops! We can't find the page you're looking for`;
+  errorMessage: string = `It seems that this tv detail credits you're searching for doesn't exist.`;
 
   @Input()
   tvId: number = 0;
@@ -164,6 +170,7 @@ export class TVDetailCreditsComponent
     this.tvCredits$ = this.tvDetailCreditsStore.selectTVCredits$;
     this.tvDetail$ = this.tvDetailstore.selectTVDetail$;
     this.isLoading$ = this.tvDetailstore.selectIsLoading$;
+    this.error$ = this.tvDetailstore.selectError$;
   }
 
   override initSubscriptions() {

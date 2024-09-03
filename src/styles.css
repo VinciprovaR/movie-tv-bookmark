@@ -303,7 +303,7 @@ select {
   margin: 0px;
 }
 
-button {
+button.button-mt {
   display: flex;
   justify-content: center;
   padding-top: 0.5rem;
@@ -316,22 +316,24 @@ button {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  button:hover {
+  button.button-mt:hover {
     background-color: var(--theme-color-2-hover);
+  }
+  button:hover {
     cursor: pointer;
   }
 }
 
-button:focus {
+button.button-mt:focus {
   outline-offset: 2px;
   outline: 2px solid transparent;
 }
 
-button:active {
+button.button-mt:active {
   background-color: var(--theme-color-2-focus);
 }
 
-button:disabled {
+button.button-mt:disabled {
   background-color: var(--disabled-bg);
   color: var(--disabled-text-color);
   cursor: auto;
@@ -556,22 +558,6 @@ div {
   }
 }
 
-.cdk-global-scrollblock-custom {
-  overflow: hidden !important;
-}
-
-/* .cdk-overlay-pane {
-  max-height: 100vh !important;
-} */
-
-.mdc-dialog__surface {
-  overflow: hidden !important;
-}
-
-.cdk-overlay-dark-backdrop {
-  background: rgba(0, 0, 0, 0.64) !important;
-}
-
 youtube-player-placeholder {
   width: 100% !important;
   height: 100% !important;
@@ -591,6 +577,17 @@ iframe {
   height: 100% !important;
 }
 
+.cdk-global-scrollblock-custom {
+  overflow: hidden !important;
+}
+
+.mdc-dialog__surface {
+  overflow: hidden !important;
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.64) !important;
+}
 .scale-110 {
   --tw-scale-x: 1.1;
   --tw-scale-y: 1.1;

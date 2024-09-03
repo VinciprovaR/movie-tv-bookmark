@@ -1,0 +1,42 @@
+<div class="mt-4 space-y-6">
+  @if(!(isLoading$ | async)){
+  <div class="bg-[var(--bg-failure-container)] text-sm p-3 rounded-md">
+    <div class="flex space-x-2">
+      <div>
+        <mat-icon
+          class="text-[var(--failure-icon-color)]"
+          aria-hidden="false"
+          aria-label=""
+          fontIcon="lock"
+        ></mat-icon>
+      </div>
+      <div class="text-[var(--text-color-dark)]">
+        <h4>
+          Error 403 - You don't have permission to access {{ pageName }} page.
+        </h4>
+        <ul class="list-none p-0 m-0">
+          @if(params){
+          <li>{{ params.error_description }}.</li>
+          } @if(!(isUserAuthenticated$ | async) && (canForceLogOut)){
+          <li>
+            For security reason you have been logged out, if your account was
+            logged in.
+          </li>
+          <li>Log in to your account.</li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="flex space-x-4 px-10">
+    @if(!(isUserAuthenticated$ | async)){
+    <button class="button-mt" type="button" (click)="redirectTo('/login')">
+      Sign In
+    </button>
+    } @else {
+    <button class="button-mt" type="button" (click)="redirectTo('/home')">
+      Home</button
+    >}
+  </div>
+  }
+</div>

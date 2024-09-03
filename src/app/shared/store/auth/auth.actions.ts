@@ -17,12 +17,27 @@ export const loginFailure = createAction(
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
+export const loginForValidation = createAction(
+  '[Auth] Login For Validation',
+  props<{ password: string }>()
+);
+export const loginForValidationSuccess = createAction(
+  '[Auth] Login For Validation Success'
+);
+export const loginForValidationFailure = createAction(
+  '[Auth] Login For Validation Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+);
+
 //register
 export const register = createAction(
   '[Auth] User Registration',
   props<RegisterPayload>()
 );
-export const registerSuccess = createAction('[Auth] Register Success');
+export const registerSuccess = createAction(
+  '[Auth] Register Success',
+  props<{ email: string }>()
+);
 
 export const registerFailure = createAction(
   '[Auth] Register Failure',
@@ -36,15 +51,11 @@ export const resendConfirmationRegister = createAction(
 );
 export const resendConfirmationRegisterSuccess = createAction(
   '[Auth] Resend Confirmation Email Success',
-  props<{ notifyMsg: string }>()
+  props<{ email: string }>()
 );
 export const resendConfirmationRegisterFailure = createAction(
   '[Auth] Resend Confirmation Email Failure',
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
-);
-
-export const cleanResendConfirmationRegisterFlow = createAction(
-  '[Auth] Clean Resend Confirmation Email Flow'
 );
 
 //request reset psw
@@ -54,10 +65,23 @@ export const requestResetPassword = createAction(
 );
 export const requestResetPasswordSuccess = createAction(
   '[Auth] Request Reset Password Success',
-  props<{ notifyMsg: string }>()
+  props<{ email: string }>()
 );
-export const cleanRequestResetPassword = createAction(
-  '[Auth] Clean Request Reset Password '
+export const requestResetPasswordFailure = createAction(
+  '[Auth] Request Reset Password Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+);
+
+export const requestResetPasswordAuthenticated = createAction(
+  '[Auth] Request Reset Password Authenticated'
+);
+export const requestResetPasswordAuthenticatedSuccess = createAction(
+  '[Auth] Request Reset Password Authenticated Success',
+  props<{ email: string }>()
+);
+export const requestResetPasswordAuthenticatedFailure = createAction(
+  '[Auth] Request Reset Password Authenticated Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
 //update psw
@@ -72,6 +96,18 @@ export const updatePasswordFailure = createAction(
   '[Auth] Update Password Failure',
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
+
+// export const updatePasswordWithValidation = createAction(
+//   '[Auth] Update Password With Validation',
+//   props<{ currentPassword: string; newPassword: string }>()
+// );
+// export const updatePasswordWithValidationSuccess = createAction(
+//   '[Auth] Update Password With Validation Success'
+// );
+// export const updatePasswordWithValidationFailure = createAction(
+//   '[Auth] Update Password With ValidationFailure',
+//   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+// );
 
 //current user
 export const currentUser = createAction('[Auth] Current User');
@@ -101,7 +137,7 @@ export const logoutGlobalSuccess = createAction('[Auth] Logout Global Success');
 export const deleteAccount = createAction('[Auth] Delete Account');
 export const deleteAccountSuccess = createAction(
   '[Auth] Delete Account Success',
-  props<{ user: User | null }>()
+  props<{ email: string }>()
 );
 export const deleteAccountFailure = createAction(
   '[Auth] Delete Account Failure',
@@ -112,12 +148,12 @@ export const deleteAccountFailureUserInvalid = createAction(
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
-export const cleanAccountDeletedFlow = createAction(
-  '[Auth] Delete Account Flow'
-);
-
 //generic failure
 export const authFailure = createAction(
   '[Auth] Auth Failure',
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+);
+
+export const cleanMessageSuccessOperation = createAction(
+  '[Auth] Clean Message Success Operation'
 );

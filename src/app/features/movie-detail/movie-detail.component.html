@@ -1,6 +1,17 @@
 <section
   class="w-full w-max-[1920px] m-auto pt-[60px] max-w-screen-3xl overflow-hidden"
 >
+  @if(error$ | async; as error){
+
+  <div class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto py-8">
+    <app-error-message-template
+      [title]="errorTitle"
+      [message]="errorMessage"
+    ></app-error-message-template>
+  </div>
+
+  } @else {
+  <!--  -->
   @if(movieDetail$ | async; as movieDetail){
 
   <div
@@ -192,5 +203,5 @@
       </div>
     </div>
   </div>
-  }
+  }}
 </section>

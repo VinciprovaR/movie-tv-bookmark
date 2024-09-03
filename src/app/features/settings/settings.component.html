@@ -1,0 +1,33 @@
+<div class="mt-[100px]">
+  <button class="button-mt" (click)="logout()"><span>Log out</span></button>
+</div>
+
+<!-- <div class="mt-[100px]">
+  <button class="button-mt" (click)="deleteAccount()">
+    <span>Delete Account</span>
+  </button>
+</div> -->
+
+<div class="mt-[100px]">
+  <app-confirmation-dialog
+    (submitConfirmationEmitter)="deleteAccount()"
+    [buttonLabel]="'Delete Account'"
+    [message]="'message for delete account'"
+    [title]="'Confirm delete account?'"
+  ></app-confirmation-dialog>
+</div>
+
+<!-- <div class="mt-[100px]">
+  <button class="button-mt" (click)="requestChangePassword()">
+    <span>Change Password</span>
+  </button>
+</div> -->
+
+<div class="mt-[100px]">
+  <app-confirmation-dialog
+    (submitConfirmationEmitter)="requestChangePassword()"
+    [buttonLabel]="'Change Password'"
+    [message]="'message for change password'"
+    [title]="'Confirm change passowrd request?'"
+  ></app-confirmation-dialog>
+</div>

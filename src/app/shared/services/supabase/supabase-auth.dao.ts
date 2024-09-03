@@ -3,6 +3,7 @@ import { Observable, from, map, tap } from 'rxjs';
 import {
   CustomSessionResponse,
   LoginPayload,
+  PublicUserEntity,
   RegisterPayload,
   UserSupabase,
 } from '../../interfaces/supabase/supabase-auth.interface';
@@ -156,19 +157,20 @@ export class SupabaseAuthDAO {
     );
   }
 
-  deleteUserFromPublicSchema(userId: string): Observable<any> {
+  deleteUserFromPublicSchema(userId: string): Observable<PublicUserEntity[]> {
     console.log('deleteUserFromPublicSchema, user id: ', userId);
     return from(
       this.supabase.from('users').delete().eq('user_id', userId).select()
     ).pipe(
-      tap((result: any) => {
+      map((result: PostgrestSingleResponse<PublicUserEntity[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
             message: result.error.message,
-            status: result.error.status,
+            status: +result.error.code,
           });
         }
+        return result.data;
       })
     );
   }

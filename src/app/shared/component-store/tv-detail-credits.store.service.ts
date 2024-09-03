@@ -32,6 +32,7 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
 
   readonly selectTVCredits$ = this.select((state) => state.tvCredit);
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
+  readonly selectError$ = this.select((state) => state.error);
 
   constructor() {
     super({ tvCredit: null, isLoading: false, error: null });

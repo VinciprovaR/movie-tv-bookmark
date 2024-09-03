@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
-  RegisterPayload,
   RegisterForm,
   PasswordGroup,
 } from '../../shared/interfaces/supabase/supabase-auth.interface';

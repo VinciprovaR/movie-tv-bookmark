@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 
 import { NavigationExtras, Router } from '@angular/router';
 import {
@@ -15,9 +15,13 @@ import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErr
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 import { WebStorageService } from '../../services/web-storage.service';
 import { STORAGE_KEY_TOKEN } from '../../../providers';
+import { PublicUserEntity } from '../../interfaces/supabase/supabase-auth.interface';
+import { Store } from '@ngrx/store';
+import { AuthSelectors } from '.';
 
 @Injectable()
 export class AuthEffects {
+  private readonly store = inject(Store);
   private readonly router = inject(Router);
   private readonly actions$ = inject(Actions);
   private readonly supabaseAuthService = inject(SupabaseAuthService);
@@ -39,9 +43,34 @@ export class AuthEffects {
             });
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(AuthActions.authFailure({ httpErrorResponse }));
+            return of(AuthActions.loginFailure({ httpErrorResponse }));
           })
         );
+      })
+    );
+  });
+
+  fakeLoginForValidation$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.loginForValidation),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      switchMap((action) => {
+        let [{ password }, user] = action;
+        user = user as User;
+        return this.supabaseAuthService
+          .login({ email: user.email as string, password })
+          .pipe(
+            map((result: AuthTokenResponsePassword) => {
+              return AuthActions.loginForValidationSuccess();
+            }),
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  AuthActions.loginForValidationFailure({ httpErrorResponse })
+                );
+              }
+            )
+          );
       })
     );
   });
@@ -51,13 +80,12 @@ export class AuthEffects {
       ofType(AuthActions.register),
       switchMap((credentials) => {
         return this.supabaseAuthService.register(credentials).pipe(
-          tap((result: AuthResponse) => {
-            this.router.navigate(['/login'], {
-              queryParams: { email: result.data.user?.email },
-            });
+          tap(() => {
+            this.router.navigate(['/login']);
           }),
-          map(() => {
-            return AuthActions.registerSuccess();
+          map((result: AuthResponse) => {
+            const email = result.data.user?.email ? result.data.user.email : '';
+            return AuthActions.registerSuccess({ email });
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.registerFailure({ httpErrorResponse }));
@@ -74,20 +102,22 @@ export class AuthEffects {
         return this.supabaseAuthService
           .resendConfirmationRegister(action.email)
           .pipe(
-            tap((result: AuthResponse) => {
-              console.log(result);
-              this.router.navigate(['/login'], {
-                queryParams: { email: action.email },
-              });
+            tap(() => {
+              this.router.navigate(['/login']);
             }),
-            map(() => {
+            map((result: AuthResponse) => {
+              console.log(result);
               return AuthActions.resendConfirmationRegisterSuccess({
-                notifyMsg: 'Request confirmation email sent!',
+                email: action.email,
               });
             }),
             catchError(
               (httpErrorResponse: CustomHttpErrorResponseInterface) => {
-                return of(AuthActions.registerFailure({ httpErrorResponse }));
+                return of(
+                  AuthActions.resendConfirmationRegisterFailure({
+                    httpErrorResponse,
+                  })
+                );
               }
             )
           );
@@ -146,7 +176,7 @@ export class AuthEffects {
                     catchError(
                       (httpErrorResponse: CustomHttpErrorResponseInterface) => {
                         return of(
-                          AuthActions.authFailure({ httpErrorResponse })
+                          AuthActions.loginFailure({ httpErrorResponse })
                         );
                       }
                     )
@@ -174,18 +204,18 @@ export class AuthEffects {
       ofType(AuthActions.requestResetPassword),
       switchMap((credentials) => {
         return this.supabaseAuthService.sendMailResetPassword(credentials).pipe(
-          tap((result: AuthResponse) => {
-            this.router.navigate(['/login'], {
-              queryParams: { email: credentials.email },
-            });
+          tap(() => {
+            this.router.navigate(['/login']);
           }),
           map(() => {
             return AuthActions.requestResetPasswordSuccess({
-              notifyMsg: 'Request reset password sent!',
+              email: credentials.email,
             });
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(AuthActions.authFailure({ httpErrorResponse }));
+            return of(
+              AuthActions.requestResetPasswordFailure({ httpErrorResponse })
+            );
           })
         );
       })
@@ -202,6 +232,35 @@ export class AuthEffects {
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(AuthActions.updatePasswordFailure({ httpErrorResponse }));
+          })
+        );
+      })
+    );
+  });
+
+  requestResetPasswordAuthenticated$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.requestResetPasswordAuthenticated),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      tap((action) => {
+        let [type, user] = action;
+        user = user as User;
+        this.store.dispatch(AuthActions.logoutGlobal({ scope: 'global' }));
+        this.store.dispatch(
+          AuthActions.requestResetPassword({ email: user.email as string })
+        );
+      }),
+      map((action) => {
+        let [type, user] = action;
+        user = user as User;
+        return AuthActions.requestResetPasswordAuthenticatedSuccess({
+          email: user.email as string,
+        });
+      }),
+      catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
+        return of(
+          AuthActions.requestResetPasswordAuthenticatedFailure({
+            httpErrorResponse,
           })
         );
       })
@@ -232,9 +291,17 @@ export class AuthEffects {
           switchMap((user: User) => {
             console.log('delete account, user is valid: ', user);
             return this.supabaseAuthService.deleteUserAccount(user.id).pipe(
-              map((result) => {
-                console.log('delete success result: ', result);
-                return AuthActions.deleteAccountSuccess({ user: null });
+              map((publicUserEntityResult: PublicUserEntity[]) => {
+                if (publicUserEntityResult.length === 0) {
+                  throw new CustomHttpErrorResponse({
+                    type: 'userNull',
+                    error: 'User not found',
+                    message: 'User not found',
+                    status: 404,
+                  });
+                }
+                const email = publicUserEntityResult[0].email;
+                return AuthActions.deleteAccountSuccess({ email });
               }),
               tap(() => {
                 this.webStorageService.destroyItem(this.storageKey);
@@ -259,20 +326,4 @@ export class AuthEffects {
       })
     );
   });
-
-  // deleteUserAccountt$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(AuthActions.deleteAccount),
-  //     switchMap((action) => {
-  //       return this.supabaseAuthService.deleteUserAccount().pipe(
-  //         map((result: any) => {
-  //           return AuthActions.deleteAccountSuccess(result);
-  //         }),
-  //         catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-  //           return of(AuthActions.updatePasswordFailure({ httpErrorResponse }));
-  //         })
-  //       );
-  //     })
-  //   );
-  // });
 }

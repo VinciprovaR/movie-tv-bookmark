@@ -1,4 +1,10 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { map, Observable, skipWhile, takeUntil } from 'rxjs';
 import { NavigationStart, RouterModule } from '@angular/router';
 import { SupabaseAuthEventsService } from '../../../shared/services/supabase-auth-events.service';
@@ -18,12 +24,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {
   PasswordGroup,
-  PasswordResetFormForm,
+  PasswordChangeForm,
 } from '../../../shared/interfaces/supabase/supabase-auth.interface';
-import { UnauthorizedPageComponent } from '../../../shared/components/unauthorized-page/unauthorized-page.component';
+import { UnauthorizedComponent } from '../../../shared/components/unauthorized-page/unauthorized.component';
+import { SuccessMessageTemplateComponent } from '../../../shared/components/success-message-template/success-message-template.component';
 
 @Component({
-  selector: 'app-reset-password-form',
+  selector: 'app-reset-password',
   standalone: true,
   imports: [
     CommonModule,
@@ -32,12 +39,14 @@ import { UnauthorizedPageComponent } from '../../../shared/components/unauthoriz
     MatInputModule,
     MatDivider,
     MatIconModule,
-    UnauthorizedPageComponent,
+    UnauthorizedComponent,
+    SuccessMessageTemplateComponent,
   ],
-  templateUrl: './reset-password-form.component.html',
-  styleUrl: './reset-password-form.component.css',
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResetPasswordFormComponent
+export class ResetPasswordComponent
   extends AbstractAuthComponent
   implements OnInit, OnDestroy
 {
@@ -47,9 +56,10 @@ export class ResetPasswordFormComponent
 
   isUserAuthenticated$!: Observable<boolean>;
   isAuthorized$!: Observable<boolean>;
-  passwordResetForm!: FormGroup<PasswordResetFormForm>;
+  passwordResetForm!: FormGroup<PasswordChangeForm>;
   selectIsLoading$!: Observable<boolean>;
-  selectIsResetPasswordSuccess$!: Observable<boolean>;
+  // selectIsResetPasswordSuccess$!: Observable<boolean>;
+  selectMessageSuccessOperation$!: Observable<string>;
 
   submitted = false;
 
@@ -65,7 +75,7 @@ export class ResetPasswordFormComponent
   }
 
   override buildForm(): void {
-    this.passwordResetForm = new FormGroup<PasswordResetFormForm>({
+    this.passwordResetForm = new FormGroup<PasswordChangeForm>({
       passwordGroup: new FormGroup<PasswordGroup>(
         {
           password: new FormControl<string>('', {
@@ -87,6 +97,10 @@ export class ResetPasswordFormComponent
   }
 
   override initSelectors(): void {
+    this.selectMessageSuccessOperation$ = this.store.select(
+      AuthSelectors.selectMessageSuccessOperation
+    );
+
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
@@ -104,9 +118,9 @@ export class ResetPasswordFormComponent
 
     this.selectIsLoading$ = this.store.select(AuthSelectors.selectIsLoading);
 
-    this.selectIsResetPasswordSuccess$ = this.store.select(
-      AuthSelectors.selectIsResetPasswordSuccess
-    );
+    // this.selectIsResetPasswordSuccess$ = this.store.select(
+    //   AuthSelectors.selectIsResetPasswordSuccess
+    // );
   }
 
   override initSubscriptions(): void {
@@ -173,5 +187,6 @@ export class ResetPasswordFormComponent
 
   ngOnDestroy(): void {
     this.supabaseAuthEventsService.passwordRecoveryFlowEnd();
+    this.store.dispatch(AuthActions.cleanMessageSuccessOperation());
   }
 }

@@ -3,9 +3,8 @@
 ################ TO-DO PRIORITARIO ################
 
 - Largest Contentful Paint (LCP) error, check (almeno una immagine markata priority)
-- Eliminare zorro (auth, altro cercare)
 - scrollbar cast crew container detail diventa troppo piccola (attenzione webkit)
-- page not found
+
 - person detail, read more solo esplosione se testo più lungo di tot
 - Validators and control on search digit sulla input query (number, symbol, length...) 
 - CORS su edge function
@@ -15,16 +14,18 @@
 - verificare che il recoveryPasswordGuard sia attivo e template
 - cast crew card, fare in modo tale che il nome dell'attore si veda tutto
 -n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
--Sono su bookmark movie, cancello session in storage, search bookmark movie torna null ma dovrebbe buttarmi fuori
--login e register devono avere failure specifiche
+
+- overlay youtube refractor come bookmark senza stili globali
+
+
+- nelle dao e controlla anche altrove, le throw error nelle tap, non map
 - User profile, logout, cambio Password
+
 - validazione input, trim ecc... (email specialmente)
-- spostare resend confirmation email in login
-- Cancellazione account..
-- uscita login pulizia messaggi template non con destroy
--Register
-    - User already registered(?);
-    - Test flow;
+
+
+
+
 
 
 
@@ -68,6 +69,8 @@
 
 
 ################################ IGNORATO ################################
+- page not found
+-Sono su bookmark movie, cancello session in storage, search bookmark movie torna null ma dovrebbe buttarmi fuori
 - check http://localhost:4200/#/person-detail/1964445
  - scroll in memoria
 - i18e (anche date filter) + label tutte in un file json (?)
@@ -81,7 +84,13 @@
 
 
 ################################ FATTO, RICONTROLLARE ################################
-
+- Eliminare zorro (auth, altro cercare)
+-login e register devono avere failure specifiche
+-Register
+    - User already registered(?);
+    - Test flow;
+- uscita login pulizia messaggi template non con destroy
+- Cancellazione account (verificare se possibile con movie o tv in bookmark)
 -Register
     - Validators;
     - Verification message + landing page;

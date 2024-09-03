@@ -13,6 +13,8 @@ import { AbstractMediaDetailComponent } from '../../shared/components/abstract/a
 import { PersonDetailMainInfoContentComponent } from '../../shared/components/person-detail-main-info/person-detail-main-info.component';
 import { PersonTVsComponent } from '../person-tv/person-tvs.component';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
+import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
 
 @Component({
   selector: 'app-person-detail',
@@ -24,6 +26,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     ImgComponent,
     ExternalInfoComponent,
     PersonDetailMainInfoContentComponent,
+    ErrorMessageTemplateComponent,
   ],
 
   templateUrl: './person-detail.component.html',
@@ -38,6 +41,10 @@ export class PersonDetailComponent
 
   selectPersonDetail$!: Observable<PersonDetail | null>;
   selectIsLoading$!: Observable<boolean>;
+  error$!: Observable<CustomHttpErrorResponseInterface | null>;
+
+  errorTitle: string = `Oops! We can't find the page you're looking for`;
+  errorMessage: string = `It seems that this person detail you're searching for doesn't exist.`;
 
   @Input({ required: true })
   personId: number = 0;
@@ -56,6 +63,7 @@ export class PersonDetailComponent
   override initSelectors() {
     this.selectPersonDetail$ = this.personDetailStore.selectPersonDetail$;
     this.selectIsLoading$ = this.personDetailStore.selectIsLoading$;
+    this.error$ = this.personDetailStore.selectError$;
   }
   override initSubscriptions(): void {}
 

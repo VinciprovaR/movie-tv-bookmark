@@ -30,9 +30,15 @@ export interface LoginPayload {
   stayConnected?: boolean;
 }
 
-export interface PasswordResetFormForm {
-  oldPassword?: FormControl<string>;
+export interface PasswordChangeForm {
+  currentPassword?: FormControl<string>;
   passwordGroup: FormGroup<PasswordGroup>;
+}
+
+export interface PublicUserEntity {
+  id: number;
+  email: string;
+  user_id: string;
 }
 
 export interface UserSupabase {

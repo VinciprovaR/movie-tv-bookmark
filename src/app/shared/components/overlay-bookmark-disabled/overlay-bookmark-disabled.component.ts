@@ -15,11 +15,12 @@ import { Subscription, takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { PageEventService } from '../../services/page-event.service';
 import { RouterLink } from '@angular/router';
+import { BookmarkDisabledContentComponent } from '../bookmark-disabled-content/bookmark-disabled-content.component';
 
 @Component({
   selector: 'app-overlay-bookmark-disabled',
   standalone: true,
-  imports: [MatIconModule, OverlayModule],
+  imports: [MatIconModule, OverlayModule, BookmarkDisabledContentComponent],
   templateUrl: './overlay-bookmark-disabled.component.html',
   styleUrl: './overlay-bookmark-disabled.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -108,7 +109,7 @@ export class OverlayBookmarkDisabledComponent
           },
         });
 
-      const portal = new ComponentPortal(ContentComponent);
+      const portal = new ComponentPortal(BookmarkDisabledContentComponent);
 
       const intance = this.overlayRef.attach(portal);
 
@@ -137,47 +138,5 @@ export class OverlayBookmarkDisabledComponent
       console.log('Window resized');
       this.overlayRef.updatePosition(); //
     }
-  }
-}
-
-@Component({
-  selector: 'app-overlay-bookmark-content',
-  standalone: true,
-  imports: [MatIconModule, OverlayModule, RouterLink],
-  template: `
-    <div class="p-4">
-      <div class="p-4 overlay-bg  rounded-md">
-        <div>
-          To use the bookmark feature
-          <a
-            (click)="closeOverlay()"
-            [routerLink]="'/login'"
-            class="font-medium"
-          >
-            Sign In</a
-          >
-          with your account, or
-          <a
-            (click)="closeOverlay()"
-            [routerLink]="'/register'"
-            class="font-medium"
-            >Sign Up</a
-          >
-        </div>
-      </div>
-    </div>
-  `,
-  styleUrl: './overlay-bookmark-disabled.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class ContentComponent extends AbstractComponent {
-  @Output()
-  closeOverlayEmitter = new EventEmitter<null>();
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
-
-  closeOverlay() {
-    this.closeOverlayEmitter.emit(null);
   }
 }

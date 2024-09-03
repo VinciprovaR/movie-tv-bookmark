@@ -26,27 +26,7 @@ export const selectError = createSelector(
   AuthReducer.getAuthError
 );
 
-export const selectIsRequestResetPassword = createSelector(
+export const selectMessageSuccessOperation = createSelector(
   authFeatureSelector,
-  AuthReducer.getIsRequestResetPassword
-);
-
-export const selectIsResetPasswordSuccess = createSelector(
-  authFeatureSelector,
-  AuthReducer.getIsResetPasswordSuccess
-);
-
-export const selectRegisterFlowEnd = createSelector(
-  authFeatureSelector,
-  AuthReducer.getRegisterFlowEnd
-);
-
-export const selectIsAccountDeleted = createSelector(
-  authFeatureSelector,
-  AuthReducer.getisAccountDeleted
-);
-
-export const selectIsResendConfirmationRegister = createSelector(
-  authFeatureSelector,
-  AuthReducer.getIsResendConfirmationRegister
+  AuthReducer.getMessageSuccessOperation
 );

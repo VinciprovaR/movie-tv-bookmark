@@ -37,10 +37,11 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AuthSelectors } from '../../shared/store/auth';
 import { OverlayBookmarkDisabledComponent } from '../../shared/components/overlay-bookmark-disabled/overlay-bookmark-disabled.component';
+import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
+import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
 
 @Component({
   selector: 'app-movie-detail',
@@ -61,6 +62,7 @@ import { OverlayBookmarkDisabledComponent } from '../../shared/components/overla
     RouterLinkActive,
     MissingFieldPlaceholderComponent,
     OverlayBookmarkDisabledComponent,
+    ErrorMessageTemplateComponent,
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-detail.component.html',
@@ -77,11 +79,15 @@ export class MovieDetailComponent
   movieDetail$!: Observable<MovieDetail | null>;
   isLoading$!: Observable<boolean>;
   isUserAuthenticated$!: Observable<boolean>;
+  error$!: Observable<CustomHttpErrorResponseInterface | null>;
 
   @ViewChild('headerMediaDetail')
   headerMediaDetail!: ElementRef;
   @Input({ required: true })
   movieId: number = 0;
+
+  errorTitle: string = `Oops! We can't find the page you're looking for`;
+  errorMessage: string = `It seems that this movie detail you're searching for doesn't exist.`;
 
   bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
   mediaType: MediaType = 'movie';
@@ -111,6 +117,7 @@ export class MovieDetailComponent
       .pipe(map((user) => !!user));
     this.movieDetail$ = this.movieDetailstore.selectMovieDetail$;
     this.isLoading$ = this.movieDetailstore.selectIsLoading$;
+    this.error$ = this.movieDetailstore.selectError$;
   }
 
   override initSubscriptions() {

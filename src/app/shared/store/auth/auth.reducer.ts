@@ -8,20 +8,18 @@ export const initialState: AuthState = {
   isLoading: false,
   error: null,
   user: null,
-  isRequestResetPassword: false,
-  isResetPasswordSuccess: false,
-  isResendConfirmationRegister: false,
-  isAccountDeleted: false,
-  registerFlowEnd: false,
+  messageSuccessOperation: '',
 };
 
 export const authReducer = createReducer(
   initialState,
   on(
     AuthActions.login,
+    AuthActions.loginForValidation,
     AuthActions.register,
     AuthActions.currentUser,
     AuthActions.requestResetPassword,
+    AuthActions.requestResetPasswordAuthenticated,
     AuthActions.logoutGlobal,
     AuthActions.logoutLocal,
     AuthActions.updatePassword,
@@ -32,7 +30,17 @@ export const authReducer = createReducer(
         ...state,
         error: null,
         isLoading: true,
-        registerFlowEnd: false,
+      };
+    }
+  ),
+  on(
+    AuthActions.loginForValidationSuccess,
+
+    (state): AuthState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
       };
     }
   ),
@@ -45,17 +53,20 @@ export const authReducer = createReducer(
         error: null,
         isLoading: false,
         user,
-        registerFlowEnd: false,
       };
     }
   ),
-  on(AuthActions.registerSuccess, (state): AuthState => {
+  on(AuthActions.registerSuccess, (state, { email }): AuthState => {
     return {
       ...state,
       error: null,
       isLoading: false,
       user: null,
-      registerFlowEnd: true,
+      messageSuccessOperation: `We've sent you an email to ${email} with
+              instructions to confirm your account, if not confirmed yet and if
+              created. Please check your inbox, and don't forget to check your
+              spam or junk folder if you don't see the email within a few
+              minutes!`,
     };
   }),
 
@@ -69,63 +80,70 @@ export const authReducer = createReducer(
         error: null,
         isLoading: false,
         user: null,
-        registerFlowEnd: false,
       };
     }
   ),
-  on(AuthActions.requestResetPasswordSuccess, (state): AuthState => {
+  on(
+    AuthActions.requestResetPasswordAuthenticatedSuccess,
+    (state, { email }): AuthState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        messageSuccessOperation: `We've sent you an email to ${email} with
+              instructions to reset your password. Please
+              check your inbox, and don't forget to check your spam or junk
+              folder if you don't see the email within a few minutes!`,
+      };
+    }
+  ),
+  on(AuthActions.requestResetPasswordSuccess, (state, { email }): AuthState => {
     return {
       ...state,
       error: null,
       isLoading: false,
-      isRequestResetPassword: true,
-      registerFlowEnd: false,
+      messageSuccessOperation: `We've sent you an email to ${email} with
+              instructions to reset your password, if the account exist. Please
+              check your inbox, and don't forget to check your spam or junk
+              folder if you don't see the email within a few minutes!`,
     };
   }),
-  on(AuthActions.resendConfirmationRegisterSuccess, (state): AuthState => {
+  on(
+    AuthActions.resendConfirmationRegisterSuccess,
+    (state, { email }): AuthState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        messageSuccessOperation: `We've sent you an email to ${email} with
+              instructions to confirm your account, if not confirmed yet and if
+              created. Please check your inbox, and don't forget to check your
+              spam or junk folder if you don't see the email within a few
+              minutes!`,
+      };
+    }
+  ),
+
+  on(
+    AuthActions.updatePasswordSuccess,
+
+    (state): AuthState => {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        messageSuccessOperation: `Your password has been changed successfully`,
+      };
+    }
+  ),
+  on(AuthActions.deleteAccountSuccess, (state, { email }): AuthState => {
     return {
       ...state,
       error: null,
       isLoading: false,
-      isResendConfirmationRegister: true,
-      registerFlowEnd: false,
-    };
-  }),
-  on(AuthActions.cleanRequestResetPassword, (state): AuthState => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      isRequestResetPassword: false,
-      registerFlowEnd: false,
-    };
-  }),
-  on(AuthActions.cleanResendConfirmationRegisterFlow, (state): AuthState => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      isResendConfirmationRegister: false,
-      registerFlowEnd: false,
-    };
-  }),
-  on(AuthActions.updatePasswordSuccess, (state): AuthState => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      isResetPasswordSuccess: true,
-      registerFlowEnd: false,
-    };
-  }),
-  on(AuthActions.deleteAccountSuccess, (state, { user }): AuthState => {
-    return {
-      ...state,
-      error: null,
-      isLoading: false,
-      isAccountDeleted: true,
-      user,
-      registerFlowEnd: false,
+
+      messageSuccessOperation: `Account with email ${email} deleted successfully!`,
+      user: null,
     };
   }),
   on(
@@ -136,28 +154,26 @@ export const authReducer = createReducer(
         ...state,
         isLoading: false,
         error: httpErrorResponse,
-        registerFlowEnd: false,
-        user: null,
-      };
-    }
-  ),
-  on(
-    AuthActions.cleanAccountDeletedFlow,
 
-    (state): AuthState => {
-      return {
-        ...state,
-        isLoading: false,
-        error: null,
-        registerFlowEnd: false,
-        isAccountDeleted: false,
         user: null,
       };
     }
   ),
+
+  on(AuthActions.cleanMessageSuccessOperation, (state): AuthState => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      messageSuccessOperation: '',
+    };
+  }),
   on(
     AuthActions.authFailure,
     AuthActions.loginFailure,
+    AuthActions.loginForValidationFailure,
+    AuthActions.requestResetPasswordFailure,
+    AuthActions.requestResetPasswordAuthenticatedFailure,
     AuthActions.updatePasswordFailure,
     AuthActions.resendConfirmationRegisterFailure,
     AuthActions.registerFailure,
@@ -167,7 +183,6 @@ export const authReducer = createReducer(
         ...state,
         isLoading: false,
         error: httpErrorResponse,
-        registerFlowEnd: false,
       };
     }
   )
@@ -176,11 +191,5 @@ export const getAuthState = (state: AuthState) => state;
 export const getIsLoading = (state: AuthState) => state.isLoading;
 export const getUser = (state: AuthState) => state.user;
 export const getAuthError = (state: AuthState) => state.error;
-export const getIsRequestResetPassword = (state: AuthState) =>
-  state.isRequestResetPassword;
-export const getIsResetPasswordSuccess = (state: AuthState) =>
-  state.isResetPasswordSuccess;
-export const getIsResendConfirmationRegister = (state: AuthState) =>
-  state.isResendConfirmationRegister;
-export const getRegisterFlowEnd = (state: AuthState) => state.registerFlowEnd;
-export const getisAccountDeleted = (state: AuthState) => state.isAccountDeleted;
+export const getMessageSuccessOperation = (state: AuthState) =>
+  state.messageSuccessOperation;

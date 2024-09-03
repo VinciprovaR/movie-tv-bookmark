@@ -5,16 +5,17 @@ import { CommonModule } from '@angular/common';
 import { User } from '@supabase/supabase-js/';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
+import { ConfirmationDialogComponent } from '../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
-  selector: 'app-user-profile',
+  selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css',
+  imports: [CommonModule, ConfirmationDialogComponent],
+  templateUrl: './settings.component.html',
+  styleUrl: './settings.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProfileComponent extends AbstractComponent implements OnInit {
+export class SettingsComponent extends AbstractComponent implements OnInit {
   userSelector$!: Observable<User | null>;
 
   constructor() {
@@ -33,5 +34,9 @@ export class UserProfileComponent extends AbstractComponent implements OnInit {
 
   deleteAccount() {
     this.store.dispatch(AuthActions.deleteAccount());
+  }
+
+  requestChangePassword() {
+    this.store.dispatch(AuthActions.requestResetPasswordAuthenticated());
   }
 }
