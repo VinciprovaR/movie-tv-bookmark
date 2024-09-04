@@ -48,6 +48,32 @@ export class SupabaseAuthDAO {
     );
   }
 
+  validateCurrentPassword(credentials: LoginPayload): Observable<any> {
+    console.log('validate current password: ', credentials.password);
+    return from(
+      this.supabase.rpc('verify_user_password', {
+        password: credentials.password,
+      })
+    ).pipe(
+      tap((result: PostgrestSingleResponse<boolean>) => {
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: `${result.error.message} for ${credentials.email}`,
+            status: +result.error.code,
+          });
+        }
+        if (result.data === false) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: `Password verification failed, wrong password`,
+            status: 403,
+          });
+        }
+      })
+    );
+  }
+
   signUp(credentials: RegisterPayload): Observable<AuthResponse> {
     return from(
       this.supabase.auth.signUp({
@@ -158,7 +184,6 @@ export class SupabaseAuthDAO {
   }
 
   deleteUserFromPublicSchema(userId: string): Observable<PublicUserEntity[]> {
-    console.log('deleteUserFromPublicSchema, user id: ', userId);
     return from(
       this.supabase.from('users').delete().eq('user_id', userId).select()
     ).pipe(

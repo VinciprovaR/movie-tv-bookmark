@@ -15,6 +15,8 @@
 - cast crew card, fare in modo tale che il nome dell'attore si veda tutto
 -n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
 
+assword forms should have (optionally hidden) username fields for accessibility: (More
+
 - overlay youtube refractor come bookmark senza stili globali
 
 

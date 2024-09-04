@@ -6,6 +6,7 @@ export const authFeatureKey = 'auth';
 
 export const initialState: AuthState = {
   isLoading: false,
+  isLoadingForPasswordValidation: false,
   error: null,
   user: null,
   messageSuccessOperation: '',
@@ -15,7 +16,6 @@ export const authReducer = createReducer(
   initialState,
   on(
     AuthActions.login,
-    AuthActions.loginForValidation,
     AuthActions.register,
     AuthActions.currentUser,
     AuthActions.requestResetPassword,
@@ -24,7 +24,6 @@ export const authReducer = createReducer(
     AuthActions.logoutLocal,
     AuthActions.updatePassword,
     AuthActions.resendConfirmationRegister,
-    AuthActions.deleteAccount,
     (state): AuthState => {
       return {
         ...state,
@@ -33,17 +32,13 @@ export const authReducer = createReducer(
       };
     }
   ),
-  on(
-    AuthActions.loginForValidationSuccess,
-
-    (state): AuthState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-      };
-    }
-  ),
+  on(AuthActions.deleteAccount, (state): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoadingForPasswordValidation: true,
+    };
+  }),
   on(
     AuthActions.loginSuccess,
     AuthActions.currentUserSuccess,
@@ -123,43 +118,47 @@ export const authReducer = createReducer(
       };
     }
   ),
+  on(AuthActions.updatePasswordSuccess, (state): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      messageSuccessOperation: `Your password has been changed successfully`,
+    };
+  }),
 
-  on(
-    AuthActions.updatePasswordSuccess,
-
-    (state): AuthState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        messageSuccessOperation: `Your password has been changed successfully`,
-      };
-    }
-  ),
   on(AuthActions.deleteAccountSuccess, (state, { email }): AuthState => {
     return {
       ...state,
       error: null,
       isLoading: false,
-
+      isLoadingForPasswordValidation: false,
       messageSuccessOperation: `Account with email ${email} deleted successfully!`,
       user: null,
     };
   }),
   on(
     AuthActions.currentUserFailure,
-    AuthActions.deleteAccountFailureUserInvalid,
     (state, { httpErrorResponse }): AuthState => {
       return {
         ...state,
         isLoading: false,
         error: httpErrorResponse,
-
         user: null,
       };
     }
   ),
-
+  on(
+    AuthActions.deleteAccountFailureUserInvalid,
+    (state, { httpErrorResponse }): AuthState => {
+      return {
+        ...state,
+        isLoadingForPasswordValidation: false,
+        error: httpErrorResponse,
+        user: null,
+      };
+    }
+  ),
   on(AuthActions.cleanMessageSuccessOperation, (state): AuthState => {
     return {
       ...state,
@@ -171,13 +170,11 @@ export const authReducer = createReducer(
   on(
     AuthActions.authFailure,
     AuthActions.loginFailure,
-    AuthActions.loginForValidationFailure,
     AuthActions.requestResetPasswordFailure,
     AuthActions.requestResetPasswordAuthenticatedFailure,
     AuthActions.updatePasswordFailure,
     AuthActions.resendConfirmationRegisterFailure,
     AuthActions.registerFailure,
-    AuthActions.deleteAccountFailure,
     (state, { httpErrorResponse }): AuthState => {
       return {
         ...state,
@@ -185,10 +182,22 @@ export const authReducer = createReducer(
         error: httpErrorResponse,
       };
     }
+  ),
+  on(
+    AuthActions.deleteAccountFailure,
+    (state, { httpErrorResponse }): AuthState => {
+      return {
+        ...state,
+        isLoadingForPasswordValidation: false,
+        error: httpErrorResponse,
+      };
+    }
   )
 );
 export const getAuthState = (state: AuthState) => state;
 export const getIsLoading = (state: AuthState) => state.isLoading;
+export const getIsLoadingForPasswordValidation = (state: AuthState) =>
+  state.isLoadingForPasswordValidation;
 export const getUser = (state: AuthState) => state.user;
 export const getAuthError = (state: AuthState) => state.error;
 export const getMessageSuccessOperation = (state: AuthState) =>

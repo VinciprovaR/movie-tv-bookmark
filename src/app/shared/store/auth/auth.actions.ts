@@ -17,17 +17,17 @@ export const loginFailure = createAction(
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
-export const loginForValidation = createAction(
-  '[Auth] Login For Validation',
-  props<{ password: string }>()
-);
-export const loginForValidationSuccess = createAction(
-  '[Auth] Login For Validation Success'
-);
-export const loginForValidationFailure = createAction(
-  '[Auth] Login For Validation Failure',
-  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
-);
+// export const loginForValidation = createAction(
+//   '[Auth] Login For Validation',
+//   props<{ password: string }>()
+// );
+// export const loginForValidationSuccess = createAction(
+//   '[Auth] Login For Validation Success'
+// );
+// export const loginForValidationFailure = createAction(
+//   '[Auth] Login For Validation Failure',
+//   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+// );
 
 //register
 export const register = createAction(
@@ -97,18 +97,6 @@ export const updatePasswordFailure = createAction(
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
-// export const updatePasswordWithValidation = createAction(
-//   '[Auth] Update Password With Validation',
-//   props<{ currentPassword: string; newPassword: string }>()
-// );
-// export const updatePasswordWithValidationSuccess = createAction(
-//   '[Auth] Update Password With Validation Success'
-// );
-// export const updatePasswordWithValidationFailure = createAction(
-//   '[Auth] Update Password With ValidationFailure',
-//   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
-// );
-
 //current user
 export const currentUser = createAction('[Auth] Current User');
 export const currentUserSuccess = createAction(
@@ -134,7 +122,10 @@ export const logoutGlobal = createAction(
 export const logoutGlobalSuccess = createAction('[Auth] Logout Global Success');
 
 //delete account
-export const deleteAccount = createAction('[Auth] Delete Account');
+export const deleteAccount = createAction(
+  '[Auth] Delete Account',
+  props<{ password: string }>()
+);
 export const deleteAccountSuccess = createAction(
   '[Auth] Delete Account Success',
   props<{ email: string }>()

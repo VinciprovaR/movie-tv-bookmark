@@ -54,6 +54,7 @@ export class LoadingComponent
 
   //Auth
   authSelectIsLoading$!: Observable<boolean>;
+  authSelectIsLoadingForPasswordValidation$!: Observable<boolean>;
 
   //Movie
   private readonly movieDetailCreditsStore = inject(MovieDetailCreditsStore);
@@ -102,6 +103,9 @@ export class LoadingComponent
     this.authSelectIsLoading$ = this.store.select(
       AuthSelectors.selectIsLoading
     );
+    this.authSelectIsLoadingForPasswordValidation$ = this.store.select(
+      AuthSelectors.selectIsLoadingForPasswordValidation
+    );
 
     //Movie
     this.movieSearchSelectIsLoading$ = this.store.select(
@@ -142,6 +146,12 @@ export class LoadingComponent
   }
   override initSubscriptions(): void {
     //not landing
+
+    this.authSelectIsLoadingForPasswordValidation$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isLoadingForPasswordValidation) => {
+        this.toggleLoadingBar(isLoadingForPasswordValidation);
+      });
 
     this.movieSearchSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))

@@ -7,7 +7,8 @@
 >
   <ul class="list-none p-0 text-center m-0 transition">
     @for(navElement of navElements | keyvalue; track navElement.key){
-    @if(canRender(navElement.value.needAuth) ){ @if(navElement.value.single){
+    @if(canRender(navElement.value.needAuth, navElement.value.onlyNonAuth) ){
+    @if(navElement.value.single){
 
     <li class="el-hover mb-3">
       <a

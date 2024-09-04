@@ -64,7 +64,7 @@
           ></app-bookmark-status-label>
         </div>
         } @else {
-        <app-overlay-bookmark-disabled></app-overlay-bookmark-disabled>}
+        <app-bookmark-disabled-dialog></app-bookmark-disabled-dialog>}
       </div>
 
       @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {

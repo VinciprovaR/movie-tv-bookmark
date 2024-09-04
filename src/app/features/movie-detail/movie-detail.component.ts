@@ -39,7 +39,7 @@ import {
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AuthSelectors } from '../../shared/store/auth';
-import { OverlayBookmarkDisabledComponent } from '../../shared/components/overlay-bookmark-disabled/overlay-bookmark-disabled.component';
+import { BookmarkDisabledDialogComponent } from '../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
 
@@ -61,7 +61,7 @@ import { ErrorMessageTemplateComponent } from '../../shared/components/error-mes
     RouterLink,
     RouterLinkActive,
     MissingFieldPlaceholderComponent,
-    OverlayBookmarkDisabledComponent,
+    BookmarkDisabledDialogComponent,
     ErrorMessageTemplateComponent,
   ],
   providers: [BridgeDataService],

@@ -18,7 +18,6 @@ import {
 import { RouterModule } from '@angular/router';
 import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
 import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
@@ -28,7 +27,7 @@ import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interf
 import { BridgeDataService } from '../../services/bridge-data.service';
 import { AuthSelectors } from '../../store/auth';
 import { map, Observable } from 'rxjs';
-import { OverlayBookmarkDisabledComponent } from '../overlay-bookmark-disabled/overlay-bookmark-disabled.component';
+import { BookmarkDisabledDialogComponent } from '../bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 
 @Component({
   selector: 'app-media-card',
@@ -45,7 +44,7 @@ import { OverlayBookmarkDisabledComponent } from '../overlay-bookmark-disabled/o
     ImgComponent,
     RatingComponent,
     BookmarkStatusLabelComponent,
-    OverlayBookmarkDisabledComponent,
+    BookmarkDisabledDialogComponent,
   ],
   templateUrl: './media-card.component.html',
   styleUrl: './media-card.component.css',

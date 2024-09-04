@@ -538,6 +538,10 @@ div {
   -webkit-tap-highlight-color: transparent;
 }
 
+.test-panel-class {
+  background-color: red;
+}
+/* 
 @media (max-width: 599px) {
   :root {
     --mat-dialog-content: 95vw !important;
@@ -587,7 +591,8 @@ iframe {
 
 .cdk-overlay-dark-backdrop {
   background: rgba(0, 0, 0, 0.64) !important;
-}
+} */
+
 .scale-110 {
   --tw-scale-x: 1.1;
   --tw-scale-y: 1.1;

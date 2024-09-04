@@ -35,7 +35,7 @@ import { VideosContainerComponent } from '../../shared/components/videos-contain
 import { TVDetailMainInfoContentComponent } from '../../shared/components/tv-detail-main-info/tv-detail-main-info.component';
 import { NavigationExtras } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { OverlayBookmarkDisabledComponent } from '../../shared/components/overlay-bookmark-disabled/overlay-bookmark-disabled.component';
+import { BookmarkDisabledDialogComponent } from '../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { AuthSelectors } from '../../shared/store/auth';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
@@ -55,7 +55,7 @@ import { ErrorMessageTemplateComponent } from '../../shared/components/error-mes
     ExternalInfoComponent,
     VideosContainerComponent,
     MediaKeywordsComponent,
-    OverlayBookmarkDisabledComponent,
+    BookmarkDisabledDialogComponent,
     ErrorMessageTemplateComponent,
   ],
   providers: [BridgeDataService],

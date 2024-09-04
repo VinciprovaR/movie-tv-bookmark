@@ -209,6 +209,14 @@
   margin: auto;
 }
 
+.m-6 {
+  margin: 1.5rem;
+}
+
+.m-4 {
+  margin: 1rem;
+}
+
 .mx-12 {
   margin-left: 3rem;
   margin-right: 3rem;
@@ -523,6 +531,14 @@
 
 .max-w-sm {
   max-width: 24rem;
+}
+
+.max-w-\[600px\] {
+  max-width: 600px;
+}
+
+.max-w-\[450px\] {
+  max-width: 450px;
 }
 
 .flex-1 {
@@ -1716,6 +1732,11 @@ div {
   -webkit-tap-highlight-color: transparent;
 }
 
+.test-panel-class {
+  background-color: red;
+}
+
+/* 
 @media (max-width: 599px) {
   :root {
     --mat-dialog-content: 95vw !important;
@@ -1740,7 +1761,6 @@ youtube-player-placeholder {
   width: 100% !important;
   height: 100% !important;
 }
-
 youtube-player {
   display: block !important;
   width: 100% !important;
@@ -1766,7 +1786,7 @@ iframe {
 
 .cdk-overlay-dark-backdrop {
   background: rgba(0, 0, 0, 0.64) !important;
-}
+} */
 
 .scale-110 {
   --tw-scale-x: 1.1;
@@ -1859,6 +1879,22 @@ iframe {
 }
 
 @media (min-width: 382px) {
+  .xsm\:flex-row {
+    flex-direction: row;
+  }
+
+  .xsm\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .xsm\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
   .xsm\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;

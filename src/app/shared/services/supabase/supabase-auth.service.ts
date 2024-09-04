@@ -35,6 +35,10 @@ export class SupabaseAuthService {
     return this.supabaseAuthDAO.signInWithPassword(credentials);
   }
 
+  validateCurrentPassword(credentials: LoginPayload): Observable<any> {
+    return this.supabaseAuthDAO.validateCurrentPassword(credentials);
+  }
+
   register(credentials: RegisterPayload): Observable<AuthResponse> {
     return this.supabaseAuthDAO.getUserByEmail(credentials).pipe(
       tap((userSupabaseResultList: UserSupabase[]) => {

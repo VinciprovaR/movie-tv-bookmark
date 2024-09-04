@@ -2,14 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-
 import { NavigationExtras, Router } from '@angular/router';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
   User,
 } from '@supabase/supabase-js/';
-
 import { SupabaseAuthService } from '../../services/supabase';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
@@ -46,31 +44,6 @@ export class AuthEffects {
             return of(AuthActions.loginFailure({ httpErrorResponse }));
           })
         );
-      })
-    );
-  });
-
-  fakeLoginForValidation$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(AuthActions.loginForValidation),
-      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
-      switchMap((action) => {
-        let [{ password }, user] = action;
-        user = user as User;
-        return this.supabaseAuthService
-          .login({ email: user.email as string, password })
-          .pipe(
-            map((result: AuthTokenResponsePassword) => {
-              return AuthActions.loginForValidationSuccess();
-            }),
-            catchError(
-              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
-                return of(
-                  AuthActions.loginForValidationFailure({ httpErrorResponse })
-                );
-              }
-            )
-          );
       })
     );
   });
@@ -270,7 +243,8 @@ export class AuthEffects {
   deleteUserAccount$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.deleteAccount),
-      switchMap(() => {
+      switchMap((action) => {
+        const { password } = action;
         return this.supabaseAuthService.validateCurrentUser().pipe(
           tap((user: User | null) => {
             if (!user) {
@@ -289,25 +263,35 @@ export class AuthEffects {
             return user;
           }),
           switchMap((user: User) => {
-            console.log('delete account, user is valid: ', user);
-            return this.supabaseAuthService.deleteUserAccount(user.id).pipe(
-              map((publicUserEntityResult: PublicUserEntity[]) => {
-                if (publicUserEntityResult.length === 0) {
-                  throw new CustomHttpErrorResponse({
-                    type: 'userNull',
-                    error: 'User not found',
-                    message: 'User not found',
-                    status: 404,
-                  });
-                }
-                const email = publicUserEntityResult[0].email;
-                return AuthActions.deleteAccountSuccess({ email });
-              }),
-              tap(() => {
-                this.webStorageService.destroyItem(this.storageKey);
-                this.router.navigate(['/login']);
+            return this.supabaseAuthService
+              .validateCurrentPassword({
+                email: user.email as string,
+                password,
               })
-            );
+              .pipe(
+                switchMap((result: any) => {
+                  return this.supabaseAuthService
+                    .deleteUserAccount(user.id)
+                    .pipe(
+                      map((publicUserEntityResult: PublicUserEntity[]) => {
+                        if (publicUserEntityResult.length === 0) {
+                          throw new CustomHttpErrorResponse({
+                            type: 'userNull',
+                            error: 'User not found',
+                            message: 'User not found',
+                            status: 404,
+                          });
+                        }
+                        const email = publicUserEntityResult[0].email;
+                        return AuthActions.deleteAccountSuccess({ email });
+                      }),
+                      tap(() => {
+                        this.webStorageService.destroyItem(this.storageKey);
+                        this.router.navigate(['/login']);
+                      })
+                    );
+                })
+              );
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             if (
@@ -327,3 +311,24 @@ export class AuthEffects {
     );
   });
 }
+
+/*
+            return this.supabaseAuthService.deleteUserAccount(user.id).pipe(
+              map((publicUserEntityResult: PublicUserEntity[]) => {
+                if (publicUserEntityResult.length === 0) {
+                  throw new CustomHttpErrorResponse({
+                    type: 'userNull',
+                    error: 'User not found',
+                    message: 'User not found',
+                    status: 404,
+                  });
+                }
+                const email = publicUserEntityResult[0].email;
+                return AuthActions.deleteAccountSuccess({ email });
+              }),
+              tap(() => {
+                this.webStorageService.destroyItem(this.storageKey);
+                this.router.navigate(['/login']);
+              })
+            );
+*/
