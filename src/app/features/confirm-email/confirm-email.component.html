@@ -47,11 +47,17 @@
 
     <div class="flex px-10">
       @if(!(isUserAuthenticated$ | async)){
-      <button class="button-mt" type="button" (click)="redirectTo('/login')">
+      <div (click)="redirectTo('/login')"></div>
+
+      <button class="button-mt button-mt-role-normal" type="button">
         Sign In
       </button>
       } @else {
-      <button class="button-mt" type="button" (click)="redirectTo('/home')">
+      <button
+        class="button-mt button-mt-role-normal"
+        type="button"
+        (click)="redirectTo('/home')"
+      >
         Home</button
       >}
     </div>

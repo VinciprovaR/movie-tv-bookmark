@@ -1,12 +1,8 @@
 <div class="bg-[var(--theme-color-3)] max-w-[450px] m-4">
-  <div class="flex py-6">
-    <div class="w-full space-y-6">
+  <div class="flex py-4">
+    <div class="w-full space-y-4">
       <div class="flex justify-between px-4">
-        <h2
-          class="text-[1rem] smc:text-[1.1rem] md:text-[1.35rem] text-[var(--text-color)]"
-        >
-          Confirm Delete Account?
-        </h2>
+        <h2>Confirm Delete Account?</h2>
         <div (click)="cancel()">
           <mat-icon
             aria-hidden="false"
@@ -20,7 +16,7 @@
         class="mat-divider mat-divider-horizontal"
         aria-orientation="horizontal"
       ></mat-divider>
-      <div class="px-4 space-y-6">
+      <div class="px-4 space-y-4">
         <div
           class="flex-1 transition-all duration-250 transform"
           #errorContainer
@@ -41,23 +37,32 @@
                 ){
                 <li><mat-error>Please enter your password</mat-error></li>
                 }
+                @if(passwordValidationForm.get('securityPrompt')?.hasError('required')
+                ){
+                <li><mat-error>Please enter the prompt</mat-error></li>
+                }
+                <!--  -->
+                @if(passwordValidationForm.get('securityPrompt')?.hasError('invalidPrompt')
+                ){
+                <li><mat-error>The prompt is not valid</mat-error></li>
+                }
               </ul>
             </div>
           </div>
           }
         </div>
         <div>
+          <p>You've just entered the <strong>danger zone!</strong></p>
           <p>
-            You've just entered the <strong>danger zone!</strong> If you would
-            like to continue and remove your account, you can do so by entering
-            your password below and confirming the prompts.
+            If you would like to continue and remove your account, you can do so
+            by entering your password below and validating the prompt.
           </p>
         </div>
 
         <form
           (ngSubmit)="onSubmit()"
           [formGroup]="passwordValidationForm"
-          class="space-y-6"
+          class="space-y-4"
         >
           <div>
             <label class="block text-sm font-medium" for="chrome_you_silly"
@@ -67,14 +72,10 @@
               <input
                 class="hidden"
                 autocomplete="username"
-                type="username"
-                id="username"
                 name="username"
-                [value]="
-                  'P& zwnj;ho& zwnj;ne Si sta come d autunno sugli alberi le foglie'
-                "
+                type="text"
+                [value]="'Si sta come d autunno sugli alberi le foglie'"
               />
-
               <input
                 [ngClass]="{
                   'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
@@ -86,7 +87,6 @@
                 id="chrome_you_silly"
                 name="chrome_you_silly"
                 formControlName="password"
-                [value]="'\x08'"
                 class="pl-12 mt-1 block w-full box-border px-3 py-2 rounded-md placeholder-gray-400 sm:text-sm"
               />
               <div
@@ -101,11 +101,54 @@
               </div>
             </div>
           </div>
+          <div>
+            <div class="mb-2">
+              <p>
+                <span> {{ "To confirm, type" }}</span>
+                <span class="italic px-2 font-medium">{{ randomPrompt }}</span>
+                <span>{{ "in the box below" }}</span>
+              </p>
+            </div>
+            <label class="block text-sm font-semibold" for="prompt"
+              >Prompt</label
+            >
+            <div class="relative">
+              <input
+                [ngClass]="{
+                  'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
+                    !isSecurityPromptError,
+                  'border-1 border-red-600 focus:outline-0 ':
+                    isSecurityPromptError
+                }"
+                autocomplete="off"
+                type="text"
+                id="prompt"
+                formControlName="securityPrompt"
+                class="pl-12 mt-1 block w-full box-border px-3 py-2 rounded-md placeholder-gray-400 sm:text-sm"
+              />
+              <div
+                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+              >
+                <mat-icon
+                  class="text-[var(--icon-color)]"
+                  aria-hidden="false"
+                  aria-label=""
+                  fontIcon="edit"
+                ></mat-icon>
+              </div>
+            </div>
+          </div>
           <div
             class="flex flex-col xsm:flex-row space-y-4 xsm:space-y-0 space-x-0 xsm:space-x-4"
           >
-            <button type="submit" class="button-mt">Confirm</button>
-            <button type="button" (click)="cancel()" class="button-mt">
+            <button type="submit" class="button-mt button-mt-role-danger">
+              Confirm
+            </button>
+            <button
+              type="button"
+              (click)="cancel()"
+              class="button-mt button-mt-role-normal"
+            >
               Cancel
             </button>
           </div>

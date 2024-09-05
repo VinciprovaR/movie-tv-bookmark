@@ -1,0 +1,7 @@
+.play {
+  transition: all 0.3s;
+}
+
+.backdrop-class {
+  background: rgba(0, 0, 0, 0.5);
+}

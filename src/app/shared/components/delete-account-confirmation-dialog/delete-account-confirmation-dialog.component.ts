@@ -2,12 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  OnDestroy,
   OnInit,
   Output,
-  ViewEncapsulation,
 } from '@angular/core';
-import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import {
@@ -18,14 +16,17 @@ import {
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { AbstractAuthComponent } from '../abstract/abstract-auth.component';
 import { MatDivider } from '@angular/material/divider';
+import { DeleteAccountForm } from '../../interfaces/supabase/supabase-auth.interface';
 
 @Component({
   selector: 'app-delete-account-confirmation-dialog',
@@ -94,8 +95,48 @@ export class DeleteAccountDialogContentComponent extends AbstractAuthComponent {
   @Output()
   submitDialogContentEmitter = new EventEmitter<SubmitDialog>();
 
-  passwordValidationForm!: FormGroup<{ password: FormControl<string> }>;
+  passwordValidationForm!: FormGroup<DeleteAccountForm>;
   submitted = false;
+
+  randomPrompt!: string;
+  labelRandomPrompt!: string;
+
+  private readonly prompts = [
+    'The Shawshank Redemption',
+    'The Godfather',
+    'The Dark Knight',
+    'Pulp Fiction',
+    'Forrest Gump',
+    'Inception',
+    'The Matrix',
+    'Fight Club',
+    'Star Wars',
+    'Titanic',
+    'Jurassic Park',
+    'The Silence of the Lambs',
+    "Schindler's List",
+    'The Lion King',
+    'Gladiator',
+    'Back to the Future',
+    'Saving Private Ryan',
+    'The Avengers',
+    'Raiders of the Lost Ark',
+    'Breaking Bad',
+    'Game of Thrones',
+    'Friends',
+    'Stranger Things',
+    'The Office',
+    'The Simpsons',
+    'The Sopranos',
+    'Sherlock',
+    'The Walking Dead',
+    'Seinfeld',
+    'Better Call Saul',
+    'House of Cards',
+    'The Mandalorian',
+    'Lost',
+    'Westworld',
+  ];
 
   constructor() {
     super();
@@ -117,17 +158,26 @@ export class DeleteAccountDialogContentComponent extends AbstractAuthComponent {
   }
 
   ngOnInit(): void {
+    this.generateRandomPrompt();
     this.buildForm();
     this.initSelectors();
     this.initSubscriptions();
   }
 
+  generateRandomPrompt() {
+    const randomIndex = Math.floor(Math.random() * this.prompts.length);
+    this.randomPrompt = this.prompts[randomIndex];
+    this.labelRandomPrompt = `To confirm, type  "${this.randomPrompt}"  in the box below`;
+  }
+
   buildForm() {
-    this.passwordValidationForm = new FormGroup<{
-      password: FormControl<string>;
-    }>({
+    this.passwordValidationForm = new FormGroup<DeleteAccountForm>({
       password: new FormControl<string>('', {
         validators: [Validators.required],
+        nonNullable: true,
+      }),
+      securityPrompt: new FormControl<string>('', {
+        validators: [Validators.required, this.isPromptValid.bind(this)],
         nonNullable: true,
       }),
     });
@@ -148,6 +198,22 @@ export class DeleteAccountDialogContentComponent extends AbstractAuthComponent {
       this.submitted &&
       this.passwordValidationForm.get('password')?.hasError('required')
     );
+  }
+
+  get isSecurityPromptError() {
+    return (
+      this.submitted &&
+      (this.passwordValidationForm
+        .get('securityPrompt')
+        ?.hasError('required') ||
+        this.passwordValidationForm
+          .get('securityPrompt')
+          ?.hasError('invalidPrompt'))
+    );
+  }
+
+  isPromptValid(control: AbstractControl<string>): ValidationErrors | null {
+    return control.value != this.randomPrompt ? { invalidPrompt: true } : null;
   }
 
   onSubmit(): void {

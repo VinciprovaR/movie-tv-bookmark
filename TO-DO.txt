@@ -15,13 +15,12 @@
 - cast crew card, fare in modo tale che il nome dell'attore si veda tutto
 -n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
 
-assword forms should have (optionally hidden) username fields for accessibility: (More
-
+- active sugli input
 - overlay youtube refractor come bookmark senza stili globali
 
-
+- colori theme chiaro e scuro rivedere (grigio sul theme chiaro non mi piace)
 - nelle dao e controlla anche altrove, le throw error nelle tap, non map
-- User profile, logout, cambio Password
+
 
 - validazione input, trim ecc... (email specialmente)
 
@@ -86,6 +85,8 @@ assword forms should have (optionally hidden) username fields for accessibility:
 
 
 ################################ FATTO, RICONTROLLARE ################################
+- User profile, logout, cambio Password
+- password forms should have (optionally hidden) username fields for accessibility
 - Eliminare zorro (auth, altro cercare)
 -login e register devono avere failure specifiche
 -Register

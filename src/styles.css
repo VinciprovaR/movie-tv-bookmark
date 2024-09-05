@@ -23,6 +23,8 @@
   --success-icon-color: rgb(34, 141, 18);
   --bg-failure-container: rgb(253, 168, 168);
   --failure-icon-color: rgb(186, 70, 57);
+  --bg-danger: rgb(162, 13, 35);
+  --bg-danger-hover: rgb(214, 16, 46);
 }
 
 /* variables */
@@ -303,6 +305,8 @@ select {
   margin: 0px;
 }
 
+/* button */
+
 button.button-mt {
   display: flex;
   justify-content: center;
@@ -310,14 +314,30 @@ button.button-mt {
   padding-bottom: 0.5rem;
   border-radius: 0.375rem;
   width: 100%;
-  color: var(--text-color);
-  background-color: var(--theme-color-2);
   border-color: transparent;
 }
 
+button.button-mt.button-mt-role-normal {
+  color: var(--text-color);
+  background-color: var(--theme-color-2);
+}
+button.button-mt.button-mt-role-normal:active {
+  background-color: var(--theme-color-2-focus);
+}
+button.button-mt.button-mt-role-danger {
+  color: var(--text-color-light);
+  background-color: var(--bg-danger);
+}
+/* button.button-mt.button-mt-role-danger:active {
+  background-color: var(--theme-color-2-focus);
+} */
+
 @media (hover: hover) and (pointer: fine) {
-  button.button-mt:hover {
+  button.button-mt.button-mt-role-normal:hover {
     background-color: var(--theme-color-2-hover);
+  }
+  button.button-mt.button-mt-role-danger:hover {
+    background-color: var(--bg-danger-hover);
   }
   button:hover {
     cursor: pointer;
@@ -327,10 +347,6 @@ button.button-mt {
 button.button-mt:focus {
   outline-offset: 2px;
   outline: 2px solid transparent;
-}
-
-button.button-mt:active {
-  background-color: var(--theme-color-2-focus);
 }
 
 button.button-mt:disabled {
@@ -538,36 +554,17 @@ div {
   -webkit-tap-highlight-color: transparent;
 }
 
-.test-panel-class {
-  background-color: red;
-}
-/* 
-@media (max-width: 599px) {
-  :root {
-    --mat-dialog-content: 95vw !important;
-  }
+/*  */
+.backdrop-class-youtube-dialog {
+  background: rgba(0, 0, 0, 0.6);
 }
 
-@media (min-width: 600px) {
-  :root {
-    --mat-dialog-container-max-width: 85vw !important;
-    --mat-dialog-content: 85vw !important;
-  }
-}
-
-@media (min-width: 1400px) {
-  :root {
-    --mat-dialog-container-max-width: 1200px !important;
-    --mat-dialog-content: 1200px !important;
-  }
-}
-
-youtube-player-placeholder {
+youtube-player {
+  display: block !important;
   width: 100% !important;
   height: 100% !important;
 }
-youtube-player {
-  display: block !important;
+youtube-player-placeholder {
   width: 100% !important;
   height: 100% !important;
 }
@@ -575,23 +572,7 @@ youtube-player {
 youtube-player div:first-child {
   height: 100% !important;
 }
-
-iframe {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.cdk-global-scrollblock-custom {
-  overflow: hidden !important;
-}
-
-.mdc-dialog__surface {
-  overflow: hidden !important;
-}
-
-.cdk-overlay-dark-backdrop {
-  background: rgba(0, 0, 0, 0.64) !important;
-} */
+/*  */
 
 .scale-110 {
   --tw-scale-x: 1.1;

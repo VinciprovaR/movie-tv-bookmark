@@ -30,11 +30,10 @@
 
         <div swiperSlide class="swiper-slide">
           <div class="w-[98%]">
-            <app-youtube-embeded-preview
+            <app-youtube-embeded-dialog
               [videoId]="video.key"
               [videoName]="video.name"
-              (openDialogEmitter)="openDialog($event)"
-            ></app-youtube-embeded-preview>
+            ></app-youtube-embeded-dialog>
           </div>
         </div>
         }

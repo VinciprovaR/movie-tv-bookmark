@@ -69,12 +69,12 @@ export const authReducer = createReducer(
     AuthActions.logoutLocalSuccess,
     AuthActions.logoutGlobal,
     (state): AuthState => {
-      //to-do check se necessario qui
       return {
         ...state,
         error: null,
         isLoading: false,
         user: null,
+        messageSuccessOperation: `You have been successfully logged out!`,
       };
     }
   ),

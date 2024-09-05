@@ -213,14 +213,23 @@ export const routes: Routes = [
     title: 'Person Detail',
   },
   {
-    path: 'page-not-found',
+    path: 'logout',
     loadComponent: () =>
-      import('./features/page-not-found/page-not-found.component').then(
-        (m) => m.PageNotFoundComponent
+      import('./features/logout/logout.component').then(
+        (m) => m.LogoutComponent
       ),
-
-    title: 'Page not found',
+    canActivate: [authGuard],
+    title: 'Sign out',
   },
+  // {
+  //   path: 'page-not-found',
+  //   loadComponent: () =>
+  //     import('./features/page-not-found/page-not-found.component').then(
+  //       (m) => m.PageNotFoundComponent
+  //     ),
+
+  //   title: 'Page not found',
+  // },
   {
     path: '',
     pathMatch: 'full',
@@ -229,7 +238,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/page-not-found',
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];

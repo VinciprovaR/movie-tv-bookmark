@@ -74,7 +74,7 @@
                     !isEmailError,
                   'border-1 border-red-600 focus:outline-0 ': isEmailError
                 }"
-                autocomplete="username"
+                autocomplete="email"
                 type="email"
                 id="email"
                 formControlName="email"
@@ -98,6 +98,12 @@
                 >Password</label
               >
               <div class="relative">
+                <input
+                  class="hidden"
+                  autocomplete="username"
+                  type="text"
+                  [value]="'Si sta come d autunno sugli alberi le foglie'"
+                />
                 <input
                   [ngClass]="{
                     'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
@@ -154,7 +160,9 @@
             </div>
           </div>
 
-          <button class="button-mt" type="submit">Sign up</button>
+          <button class="button-mt button-mt-role-normal" type="submit">
+            Sign up
+          </button>
           <mat-divider
             role="separator"
             class="mat-divider mat-divider-horizontal"

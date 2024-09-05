@@ -1,11 +1,9 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthSelectors } from '../../shared/store/auth';
 import { Observable, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { User } from '@supabase/supabase-js/';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { RandomMediaImageService } from '../../shared/services/random-media-image.service';
 import { IMG_SIZES } from '../../providers';

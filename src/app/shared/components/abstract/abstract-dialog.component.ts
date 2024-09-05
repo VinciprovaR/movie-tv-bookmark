@@ -21,6 +21,7 @@ import { Subscription, takeUntil } from 'rxjs';
 export type confirm = 'confirm';
 export type cancel = 'cancel';
 export type submitDialogType = confirm | cancel;
+export type scrollStrategies = 'block' | 'close' | 'noop' | 'reposition';
 
 export interface SubmitDialog {
   typeSubmit: submitDialogType;
@@ -47,9 +48,12 @@ export abstract class AbstractDialogComponent
   protected positions: ConnectedPosition[] = [];
   protected panelClass: string = '';
   protected backdropClass: string = '';
+  protected window!: Window;
+  protected scrollStrategiesTypeSelected!: scrollStrategies;
 
   constructor() {
     super();
+    this.window = window;
   }
 
   toggleOverlay() {
@@ -82,7 +86,9 @@ export abstract class AbstractDialogComponent
 
       let overlayConfig: OverlayConfig = {
         positionStrategy: positionStrategy,
-        scrollStrategy: this.overlay.scrollStrategies.close(),
+        scrollStrategy: this.scrollStrategiesTypeSelected
+          ? this.overlay.scrollStrategies[this.scrollStrategiesTypeSelected]()
+          : this.overlay.scrollStrategies.close(),
         hasBackdrop: true,
       };
 

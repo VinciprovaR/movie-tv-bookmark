@@ -1,17 +1,46 @@
-<section class="w-[90%] max-w-screen-2xl mx-auto pt-[60px]">
-  <div class="mt-[100px]">
-    <button class="button-mt" (click)="logout()"><span>Log out</span></button>
-  </div>
+<section class="w-[90%] sm:w-[80%] max-w-screen-2xl mx-auto pt-[60px]">
+  <div class="space-y-14 mt-8">
+    <div class="flex space-x-2">
+      @if(email$ | async; as email){
+      <div>
+        <h1>
+          <mat-icon
+            class="text-[var(--icon-color)]"
+            aria-hidden="false"
+            aria-label=""
+            fontIcon="email"
+          ></mat-icon>
+        </h1>
+      </div>
+      <div>
+        <h1>{{ email }}</h1>
+      </div>
+      }
+    </div>
 
-  <div class="mt-[100px]">
-    <app-delete-account-confirmation-dialog
-      (submitDialogEmitter)="deleteAccount($event)"
-    ></app-delete-account-confirmation-dialog>
-  </div>
-
-  <div class="mt-[100px]">
-    <app-change-password-confirmation-dialog
-      (submitDialogEmitter)="requestChangePassword($event)"
-    ></app-change-password-confirmation-dialog>
+    <div class="space-y-2 max-w-[30rem]">
+      <h2>Change Password</h2>
+      <p>
+        By clicking the button below a confirmation dialog will open with the
+        instructions to change your password.
+      </p>
+      <div class="max-w-[18rem]">
+        <app-change-password-confirmation-dialog
+          (submitDialogEmitter)="requestChangePassword($event)"
+        ></app-change-password-confirmation-dialog>
+      </div>
+    </div>
+    <div class="space-y-2 max-w-[30rem]">
+      <h2>Delete Account</h2>
+      <p>
+        By clicking the button below a confirmation dialog will open with the
+        instructions to delete your account.
+      </p>
+      <div class="max-w-[18rem]">
+        <app-delete-account-confirmation-dialog
+          (submitDialogEmitter)="deleteAccount($event)"
+        ></app-delete-account-confirmation-dialog>
+      </div>
+    </div>
   </div>
 </section>

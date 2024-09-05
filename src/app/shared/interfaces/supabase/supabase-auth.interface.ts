@@ -65,3 +65,8 @@ export type CustomSessionResponse =
       };
       error: null;
     };
+
+export interface DeleteAccountForm {
+  password: FormControl<string>;
+  securityPrompt: FormControl<string>;
+}

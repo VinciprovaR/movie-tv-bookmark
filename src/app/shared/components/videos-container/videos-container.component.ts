@@ -1,44 +1,34 @@
 import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  DestroyRef,
   ElementRef,
   inject,
   Input,
-  OnDestroy,
   OnInit,
-  Renderer2,
-  RendererFactory2,
   ViewChild,
 } from '@angular/core';
-import { YoutubeEmbededPreviewComponent } from '../youtube-embeded-preview/youtube-embeded-preview.component';
 import {
   Videos,
   Video,
   MediaType,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ImgComponent } from '../img/img.component';
 import { ArrowSliderComponent } from '../arrow-slider/arrow-slider.component';
-import { PageEventService } from '../../services/page-event.service';
-import { Subject, takeUntil } from 'rxjs';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { YoutubeEmbededComponent } from '../youtube-embeded/youtube-embeded.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Overlay } from '@angular/cdk/overlay';
 import { SwiperContainer } from 'swiper/element';
-import { SwiperOptions } from 'swiper/types';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
+import { YoutubeEmbededDialogComponent } from '../youtube-embeded-dialog/youtube-embeded-dialog.component';
 
 @Component({
   selector: 'app-videos-container',
   standalone: true,
   imports: [
-    YoutubeEmbededPreviewComponent,
+    YoutubeEmbededDialogComponent,
     CommonModule,
     MatIcon,
     ImgComponent,
@@ -131,20 +121,17 @@ export class VideosContainerComponent
     }
   }
 
-  openDialog(videoMetadata: { videoId: string; videoName: string }) {
-    const dialogRef = this.dialog.open(YoutubeEmbededComponent, {
-      data: {
-        videoId: videoMetadata.videoId,
-        videoName: videoMetadata.videoName,
-      },
-      scrollStrategy: this.overlay.scrollStrategies.noop(),
-    });
-    this.renderer.addClass(
-      this.window.document.body,
-      'cdk-global-scrollblock-custom'
-    );
-    this.handleCloseDialog(dialogRef);
-  }
+  // openDialog(videoMetadata: { videoId: string; videoName: string }) {
+  //   const dialogRef = this.dialog.open(YoutubeEmbededComponent, {
+  //     data: {
+  //       videoId: videoMetadata.videoId,
+  //       videoName: videoMetadata.videoName,
+  //     },
+  //     scrollStrategy: this.overlay.scrollStrategies.noop(),
+  //   });
+  //   this.renderer.addClass(this.window.document.body, '');
+  //   this.handleCloseDialog(dialogRef);
+  // }
 
   private filterVideosType(): Video[] {
     if (this.videoTypeFilter.videosType.length > 0) {
@@ -169,23 +156,23 @@ export class VideosContainerComponent
     this.isEnd = isEnd;
   }
 
-  private handleCloseDialog(
-    dialogRef: MatDialogRef<YoutubeEmbededComponent, any>
-  ) {
-    dialogRef.componentInstance.closeDialogObs$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        dialogRef.close();
-      });
-    dialogRef
-      .afterClosed()
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((result) => {
-        `Dialog result: ${result}`;
-        this.renderer.removeClass(
-          this.window.document.body,
-          'cdk-global-scrollblock-custom'
-        );
-      });
-  }
+  // private handleCloseDialog(
+  //   dialogRef: MatDialogRef<YoutubeEmbededComponent, any>
+  // ) {
+  //   dialogRef.componentInstance.closeDialogObs$
+  //     .pipe(takeUntil(this.destroyed$))
+  //     .subscribe(() => {
+  //       dialogRef.close();
+  //     });
+  //   dialogRef
+  //     .afterClosed()
+  //     .pipe(takeUntil(this.destroyed$))
+  //     .subscribe((result) => {
+  //       `Dialog result: ${result}`;
+  //       this.renderer.removeClass(
+  //         this.window.document.body,
+  //         'cdk-global-scrollblock-custom'
+  //       );
+  //     });
+  // }
 }
