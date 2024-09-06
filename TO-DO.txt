@@ -28,7 +28,7 @@
 
 - person detail, stile movie and tv list
 
-
+- favico
 
 ################ TO-DO AFTER DEPLOY ################
 - path varie folder tsconfig 
