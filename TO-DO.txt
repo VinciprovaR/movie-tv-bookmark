@@ -2,7 +2,9 @@
 
 ################ TO-DO PRIORITARIO ################
 
-- anchor volo style
+- anchor colore style
+
+- card mobile orizzontale
 
 - cast crew complete page, rivedere
 
