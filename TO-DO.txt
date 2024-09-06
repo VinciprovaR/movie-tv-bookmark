@@ -2,10 +2,14 @@
 
 ################ TO-DO PRIORITARIO ################
 
+- anchor colore style
 
 - suddivisione corretta (componenti feature devono avere section come wrapper) 
 -rivedere bene parte sopra (main dentro div??)
 
+- card mobile orizzontale
+
+- cast crew complete page, rivedere
 
 - modifica sto azzo di sub menu header nav mobile, colore, click fuori
 
@@ -40,6 +44,12 @@
 - chrome_you_silly
 
 - mail vanno in spam
+
+- Active button disabled
+
+- fade cast crew list container
+
+
 
 ################ TO-DO AFTER DEPLOY ################
 - path varie folder tsconfig 
