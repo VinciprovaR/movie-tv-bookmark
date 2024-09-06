@@ -1,207 +1,207 @@
-<section
-  class="w-full w-max-[1920px] m-auto pt-[60px] max-w-screen-3xl overflow-hidden"
->
-  @if(error$ | async; as error){
+<section class="w-full mb-20">
+  <div class="m-auto pt-[60px] overflow-hidden">
+    @if(error$ | async; as error){
 
-  <div class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto py-8">
-    <app-error-message-template
-      [title]="errorTitle"
-      [message]="errorMessage"
-    ></app-error-message-template>
-  </div>
+    <div class="w-full lg:w-[80%] max-w-[1920px] lg:mx-auto py-8">
+      <app-error-message-template
+        [title]="errorTitle"
+        [message]="errorMessage"
+      ></app-error-message-template>
+    </div>
 
-  } @else {
-  <!--  -->
-  @if(movieDetail$ | async; as movieDetail){
+    } @else {
+    <!--  -->
+    @if(movieDetail$ | async; as movieDetail){
 
-  <div
-    id="header-detail"
-    class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[80vh] mb-0 lg:mb-8"
-    [ngStyle]="{
-      'background-image': movieDetail.backdrop_path
-        ? 'url(' +
-          TMDB_PROFILE_1920W_800H_IMG_URL +
-          movieDetail.backdrop_path +
-          ')'
-        : ''
-    }"
-  >
     <div
-      class="flex flex-row h-full w-full p-4 justify-center lg:p-8 space-x-8"
+      class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden mb-0 lg:mb-8"
       [ngStyle]="{
-        'background-image':
-          ((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024
-            ? headerMediaGradient
-            : '',
-        'background-color':
-          ((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024
-            ? 'var(--bg-header-media-detail-not-lg)'
-            : ''
+        'background-image': movieDetail.backdrop_path
+          ? 'url(' +
+            TMDB_PROFILE_1920W_800H_IMG_URL +
+            movieDetail.backdrop_path +
+            ')'
+          : ''
       }"
-      [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"
     >
-      <div class="h-[35vh] lg:h-[80vh] aspect-[2/3] w-xxxsm relative">
-        <app-img
-          [alt]="movieDetail.title"
-          [title]="movieDetail.title"
-          [imgSrc]="movieDetail.poster_path"
-          [baseUrlLg]="TMDB_PROFILE_600W_900H_IMG_URL"
-          [baseUrlSm]="TMDB_PROFILE_300W_450H_IMG_URL"
-          [priority]="true"
-          [customClasses]="'border-container-no-color'"
-          [isPlaceholderPerson]="false"
-        ></app-img>
-        @if(isUserAuthenticated$ | async; as isUserAuthenticated){
-        <app-bookmark-selector
-          (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
-          [mediaData]="movieDetail"
-          [index]="0"
-          [mediaType]="'movie'"
-        ></app-bookmark-selector>
-
-        <div class="w-full absolute bottom-0">
-          <app-bookmark-status-label
-            [bookmarkEnumSelected]="bookmarkEnumSelected"
-            [customClass]="'border-bookmark-label'"
-          ></app-bookmark-status-label>
-        </div>
-        } @else {
-        <app-bookmark-disabled-dialog></app-bookmark-disabled-dialog>}
-      </div>
-
-      @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
-      <div class="hidden lg:block max-w-[1100px] py-8">
-        <app-movie-detail-main-info
-          [textColorBlend]="textColorBlend"
-          [isDark]="isDark"
-          [movieData]="movieDetail"
-          [releaseDate]="movieDetail.release_date"
-          [mediaTitle]="movieDetail.title"
-          [runtime]="movieDetail.runtime"
-          [cast]="movieDetail.credits.cast"
-          [crew]="movieDetail.credits.crew"
-        ></app-movie-detail-main-info>
-      </div>
-      }
-    </div>
-  </div>
-
-  @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
-  <div class="block lg:hidden h-full">
-    <app-movie-detail-main-info
-      [textColorBlend]="textColorBlend"
-      [isDark]="isDark"
-      [contentMediaGradient]="contentMediaGradient"
-      [movieData]="movieDetail"
-      [releaseDate]="movieDetail.release_date"
-      [mediaTitle]="movieDetail.title"
-      [runtime]="movieDetail.runtime"
-      [cast]="movieDetail.credits.cast"
-      [crew]="movieDetail.credits.crew"
-    ></app-movie-detail-main-info>
-  </div>
-
-  }
-
-  <div
-    class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto flex flex-col lg:flex-row-reverse"
-  >
-    <div class="w-full lg:w-[25%] space-y-4 lg:space-y-8 mb-4 lg:mb-0">
-      <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
-        <h2 class="mb-4 pl-4">For more info go to</h2>
-        <div class="pl-4">
-          <app-external-info
-            [tmdbId]="movieDetail.id"
-            [imdbId]="movieDetail.imdb_id"
-            [mediaType]="mediaType"
-          ></app-external-info>
-        </div>
-      </div>
-
       <div
-        class="bg-[var(--bg-container-color)] lg:bg-transparent py-4 mb-4 hidden lg:block"
+        class="flex flex-row h-full w-full p-4 justify-center lg:p-8 space-x-8"
+        [ngStyle]="{
+          'background-image':
+            ((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024
+              ? headerMediaGradient
+              : '',
+          'background-color':
+            ((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024
+              ? 'var(--bg-header-media-detail-not-lg)'
+              : ''
+        }"
+        [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"
       >
-        <div class="pl-4">
-          <app-media-keywords
-            [keywords]="movieDetail.keywords.keywords"
-          ></app-media-keywords>
-        </div>
-      </div>
-    </div>
-    <div class="w-full lg:w-[75%] space-y-4 lg:space-y-8 lg:mr-12">
-      <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
-        <app-media-detail-cast-crew-list-preview
-          [isLoading]="(isLoading$ | async) ?? false"
-          [castCrewList]="movieDetail.credits.cast"
-          [title]="'Cast'"
-          [mediaType]="'movie'"
-          (navigateToCreditsEmitter)="navigateToCredits(movieDetail)"
-        ></app-media-detail-cast-crew-list-preview>
-      </div>
-      <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
-        <app-media-detail-cast-crew-list-preview
-          [isLoading]="(isLoading$ | async) ?? false"
-          [castCrewList]="movieDetail.credits.crew"
-          [title]="'Crew'"
-          [mediaType]="'movie'"
-          (navigateToCreditsEmitter)="navigateToCredits(movieDetail)"
-        ></app-media-detail-cast-crew-list-preview>
-      </div>
+        <div class="max-w-[1920px]">
+          <div class="h-[300px] lg:h-[780px] aspect-[2/3] w-xxxsm relative">
+            <app-img
+              [alt]="movieDetail.title"
+              [title]="movieDetail.title"
+              [imgSrc]="movieDetail.poster_path"
+              [baseUrlLg]="W_780_IMG_URL"
+              [baseUrlSm]="W_500_IMG_URL"
+              [priority]="true"
+              [customClasses]="'border-container-no-color'"
+              [isPlaceholderPerson]="false"
+            ></app-img>
+            @if(isUserAuthenticated$ | async; as isUserAuthenticated){
+            <app-bookmark-selector
+              (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
+              [mediaData]="movieDetail"
+              [index]="0"
+              [mediaType]="'movie'"
+            ></app-bookmark-selector>
 
-      <div
-        class="bg-[var(--bg-container-color)] lg:bg-transparent py-4 mb-4 flex"
-      >
-        <a
-          [title]="'Full Cast \u0026 Crew'"
-          routerLinkActive="active"
-          class="block cursor-pointer"
-          (click)="navigateToCredits(movieDetail)"
-        >
-          <div class="flex">
-            <h2 class="pl-4">{{ "Full Cast \u0026 Crew" }}</h2>
-            <mat-icon
-              aria-hidden="false"
-              aria-label=""
-              [fontIcon]="'chevron_right'"
-            ></mat-icon>
+            <div class="w-full absolute bottom-0">
+              <app-bookmark-status-label
+                [bookmarkEnumSelected]="bookmarkEnumSelected"
+                [customClass]="'border-bookmark-label'"
+              ></app-bookmark-status-label>
+            </div>
+            } @else {
+            <app-bookmark-disabled-dialog></app-bookmark-disabled-dialog>}
           </div>
-        </a>
-      </div>
+        </div>
 
-      <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
-        <app-videos-container
-          [videos]="movieDetail.videos"
-          [videoTypeFilter]="{
-            videosType: ['trailer'],
-            typeFilter: 'include'
-          }"
-          [title]="'Trailers'"
-          [mediaType]="'movie'"
-        ></app-videos-container>
+        @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
+        <div class="hidden lg:block max-w-[1100px] py-8">
+          <app-movie-detail-main-info
+            [textColorBlend]="textColorBlend"
+            [isDark]="isDark"
+            [movieData]="movieDetail"
+            [releaseDate]="movieDetail.release_date"
+            [mediaTitle]="movieDetail.title"
+            [runtime]="movieDetail.runtime"
+            [cast]="movieDetail.credits.cast"
+            [crew]="movieDetail.credits.crew"
+          ></app-movie-detail-main-info>
+        </div>
+        }
       </div>
+    </div>
 
-      <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
-        <app-videos-container
-          [videos]="movieDetail.videos"
-          [videoTypeFilter]="{
-            videosType: ['trailer'],
-            typeFilter: 'exlude'
-          }"
-          [title]="'Clips'"
-          [mediaType]="'movie'"
-        ></app-videos-container>
+    @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
+    <div class="block lg:hidden h-full">
+      <app-movie-detail-main-info
+        [textColorBlend]="textColorBlend"
+        [isDark]="isDark"
+        [contentMediaGradient]="contentMediaGradient"
+        [movieData]="movieDetail"
+        [releaseDate]="movieDetail.release_date"
+        [mediaTitle]="movieDetail.title"
+        [runtime]="movieDetail.runtime"
+        [cast]="movieDetail.credits.cast"
+        [crew]="movieDetail.credits.crew"
+      ></app-movie-detail-main-info>
+    </div>
+
+    }
+
+    <div
+      class="w-full lg:w-[80%] max-w-[1920px] lg:mx-auto flex flex-col lg:flex-row-reverse"
+    >
+      <div class="w-full lg:w-[25%] space-y-4 lg:space-y-8 mb-4 lg:mb-0">
+        <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
+          <h2 class="mb-4 pl-4">For more info go to</h2>
+          <div class="pl-4">
+            <app-external-info
+              [tmdbId]="movieDetail.id"
+              [imdbId]="movieDetail.imdb_id"
+              [mediaType]="mediaType"
+            ></app-external-info>
+          </div>
+        </div>
+
+        <div
+          class="bg-[var(--bg-container-color)] lg:bg-transparent py-4 mb-4 hidden lg:block"
+        >
+          <div class="pl-4">
+            <app-media-keywords
+              [keywords]="movieDetail.keywords.keywords"
+            ></app-media-keywords>
+          </div>
+        </div>
       </div>
+      <div class="w-full lg:w-[75%] space-y-4 lg:space-y-8 lg:mr-12">
+        <div
+          class="bg-[var(--bg-container-color)] lg:bg-transparent py-4 mb-4 flex"
+        >
+          <a
+            [title]="'Full Cast \u0026 Crew'"
+            routerLinkActive="active"
+            class="block cursor-pointer"
+            (click)="navigateToCredits(movieDetail)"
+          >
+            <div class="flex">
+              <h2 class="pl-4">{{ "Full Cast \u0026 Crew" }}</h2>
+              <mat-icon
+                aria-hidden="false"
+                aria-label=""
+                [fontIcon]="'chevron_right'"
+              ></mat-icon>
+            </div>
+          </a>
+        </div>
+        <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
+          <app-media-detail-cast-crew-list-preview
+            [isLoading]="(isLoading$ | async) ?? false"
+            [castCrewList]="movieDetail.credits.cast"
+            [title]="'Cast'"
+            [mediaType]="'movie'"
+            (navigateToCreditsEmitter)="navigateToCredits(movieDetail)"
+          ></app-media-detail-cast-crew-list-preview>
+        </div>
+        <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
+          <app-media-detail-cast-crew-list-preview
+            [isLoading]="(isLoading$ | async) ?? false"
+            [castCrewList]="movieDetail.credits.crew"
+            [title]="'Crew'"
+            [mediaType]="'movie'"
+            (navigateToCreditsEmitter)="navigateToCredits(movieDetail)"
+          ></app-media-detail-cast-crew-list-preview>
+        </div>
 
-      <div
-        class="bg-[var(--bg-container-color)] lg:bg-transparent py-4 block lg:hidden"
-      >
-        <div class="pl-4">
-          <app-media-keywords
-            [keywords]="movieDetail.keywords.keywords"
-          ></app-media-keywords>
+        <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
+          <app-videos-container
+            [videos]="movieDetail.videos"
+            [videoTypeFilter]="{
+              videosType: ['trailer'],
+              typeFilter: 'include'
+            }"
+            [title]="'Trailers'"
+            [mediaType]="'movie'"
+          ></app-videos-container>
+        </div>
+
+        <div class="bg-[var(--bg-container-color)] lg:bg-transparent py-4">
+          <app-videos-container
+            [videos]="movieDetail.videos"
+            [videoTypeFilter]="{
+              videosType: ['trailer'],
+              typeFilter: 'exlude'
+            }"
+            [title]="'Clips'"
+            [mediaType]="'movie'"
+          ></app-videos-container>
+        </div>
+
+        <div
+          class="bg-[var(--bg-container-color)] lg:bg-transparent py-4 block lg:hidden"
+        >
+          <div class="pl-4">
+            <app-media-keywords
+              [keywords]="movieDetail.keywords.keywords"
+            ></app-media-keywords>
+          </div>
         </div>
       </div>
     </div>
+    }}
   </div>
-  }}
 </section>

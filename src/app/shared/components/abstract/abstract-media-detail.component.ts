@@ -8,6 +8,9 @@ import { IMG_SIZES } from '../../../providers';
 @Directive()
 export abstract class AbstractMediaDetailComponent extends AbstractComponent {
   readonly predominantImgColorService = inject(PredominantImgColorService);
+
+  readonly W_780_IMG_URL = inject(IMG_SIZES.W_780_IMG_URL);
+  readonly W_500_IMG_URL = inject(IMG_SIZES.W_500_IMG_URL);
   readonly TMDB_PROFILE_300W_450H_IMG_URL = inject(
     IMG_SIZES.TMDB_PROFILE_300W_450H_IMG_URL
   );

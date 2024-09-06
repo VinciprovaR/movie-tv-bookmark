@@ -3,19 +3,29 @@
   @if( biography){
 
   <div class="mx-auto mt-10">
-    <div #textContainer class="relative overflow-hidden max-h-20">
+    <div #textContainer class="relative overflow-hidden max-h-20 fade">
       @for(p of splitByDoubleNewline(biography); track p){
       <p class="pb-6">{{ p }}</p>
       }
     </div>
-    <button
-      class="button-mt button-mt-role-normal"
-      id="toggleButton"
-      (click)="toggleReadMore()"
-      #toggleButton
-    >
-      Read More
-    </button>
+
+    <div>
+      <a
+        href="javascript:void(0);"
+        class="items-center flex justify-end"
+        id="toggleButton"
+        (click)="toggleReadMore()"
+        #toggleButton
+      >
+        <span>{{ toggleReadMoreText }}</span>
+
+        <mat-icon
+          aria-hidden="false"
+          aria-label=""
+          [fontIcon]="chevron"
+        ></mat-icon>
+      </a>
+    </div>
   </div>
   } @else {
   <app-missing-field-placeholder

@@ -6,28 +6,7 @@
   }"
   >
     <!-- img content -->
-    @if(native){ @if(imgSrc){
-
-    <img
-      class="fill"
-      [alt]="alt"
-      [title]="title"
-      [srcset]="getFullSrcSet()"
-      (click)="navigateTo()"
-      [ngClass]="customClasses"
-      [loading]="priority ? 'eager' : 'lazy'"
-    />
-    } @else {
-    <div
-      [title]="title"
-      [routerLink]="link"
-      [ngClass]="customClasses"
-      class="h-full bg-no-repeat bg-center hover:cursor-pointer"
-      [ngStyle]="{
-        'background-image': getImgBackground()
-      }"
-    ></div>
-    } } @else { @if(imgSrc && priority){
+    @if(imgSrc && priority && !imageLoadIsError){
 
     <img
       class="placeholder-bg-center"
@@ -42,8 +21,9 @@
       [placeholder]="
         isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
       "
+      (error)="onError()"
     />
-    } @else if(imgSrc && !priority){
+    } @else if(imgSrc && !priority && !imageLoadIsError){
 
     <img
       class="placeholder-bg-center"
@@ -58,8 +38,9 @@
       [placeholder]="
         isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
       "
+      (error)="onError()"
     />
-    } @else {
+    } @else if(!imgSrc || imageLoadIsError){
     <div
       [title]="title"
       [routerLink]="link"
@@ -69,77 +50,6 @@
         'background-image': getImgBackground()
       }"
     ></div>
-    }}
-
-    <!-- img content -->
+    }
   </div>
 </div>
-<!--     @if(imgSrc && priority){
-
-    <img
-      class="bg-size-placeholder"
-      [alt]="alt"
-      [title]="title"
-      [ngSrc]="getFullSrc()"
-      (click)="navigateTo()"
-      fill="true"
-      [ngClass]="customClasses"
-      [priority]="priority"
-      [placeholderConfig]="{ blur: false, }"
-      [placeholder]="
-        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-      "
-    />
-    } @else if(imgSrc && !priority){
-
-    <img
-      class="bg-size-placeholder"
-      [alt]="alt"
-      [title]="title"
-      ngOptimizedImage
-      [ngSrc]="getFullSrc()"
-      (click)="navigateTo()"
-      fill="true"
-      [ngClass]="customClasses"
-      [loading]="'lazy'"
-      [placeholderConfig]="{ blur: false, }"
-      [placeholder]="
-        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-      "
-    />
-    } @else {
-    <div
-      [title]="title"
-      [routerLink]="link"
-      [ngClass]="customClasses"
-      class="h-full bg-no-repeat bg-center"
-      [ngStyle]="{
-        'background-image': getImgBackground()
-      }"
-    ></div>
-    } -->
-
-<!-- NATIVE -->
-
-<!--     @if(imgSrc){
-
-    <img
-      class="bg-size-placeholder fill"
-      [alt]="alt"
-      [title]="title"
-      [srcset]="getFullSrcSet()"
-      (click)="navigateTo()"
-      [ngClass]="customClasses"
-      [loading]="priority ? 'eager' : 'lazy'"
-    />
-    } @else {
-    <div
-      [title]="title"
-      [routerLink]="link"
-      [ngClass]="customClasses"
-      class="h-full bg-no-repeat bg-center"
-      [ngStyle]="{
-        'background-image': getImgBackground()
-      }"
-    ></div>
-    } -->

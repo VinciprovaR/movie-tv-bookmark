@@ -81,6 +81,8 @@ export class MovieDetailCreditsComponent
 
   detailMediaPath: string = '';
 
+  crewLength: number = 0;
+
   departments: MovieDepartments[] = [
     { key: 'Directing', value: [] },
     { key: 'Writing', value: [] },
@@ -122,6 +124,7 @@ export class MovieDetailCreditsComponent
   }
 
   handleDataFromRoute(movieDetail: MovieDetail) {
+    console.log('from route');
     this.initDynamicSelectors(
       this.castListSub$.asObservable(),
       this.departmentsSub$.asObservable(),
@@ -216,6 +219,7 @@ export class MovieDetailCreditsComponent
     const cl = [...crewList];
     this.departments.forEach((department) => {
       for (let i = cl.length - 1; i >= 0; --i) {
+        this.crewLength++;
         if (cl[i].department === department.key) {
           department.value.push(cl[i]);
           cl.splice(i, 1);

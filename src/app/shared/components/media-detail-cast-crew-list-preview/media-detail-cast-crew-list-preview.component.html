@@ -1,25 +1,26 @@
 <div>
   <div class="flex mb-6 pl-4">
-    <h2 class="mr-2">{{ title }}</h2>
+    <h2 class="mr-2 cursor-pointer" (click)="navigateToCredits()">
+      {{ title }}
+    </h2>
     <h5 class="content-center">{{ castCrewList.length }}</h5>
-    <a
+    <div
       [title]="'Full Cast \u0026 Crew'"
-      routerLinkActive="active"
       (click)="navigateToCredits()"
-      class="block"
+      class="block cursor-pointer"
     >
       <mat-icon
         aria-hidden="false"
         aria-label=""
         [fontIcon]="'chevron_right'"
-      ></mat-icon
-    ></a>
+      ></mat-icon>
+    </div>
   </div>
-  <div class="box-border relative">
+  <div class="box-border relative overflow-x-scroll overflow-y-hidden">
     @if(castCrewList.length > 0){
     <ul
       FadeScroller
-      class="grid grid-flow-col grid-columns auto-cols-[100px] lg:auto-cols-[120px] gap-4 lg:gap-8 p-0 pl-4 my-0 overflow-x-scroll overflow-y-hidden"
+      class="grid grid-flow-col grid-columns auto-cols-[160px] gap-4 lg:gap-8 p-0 pl-4 my-0"
     >
       @for(castCrew of castCrewList.slice(0,15); track castCrew.id){
 

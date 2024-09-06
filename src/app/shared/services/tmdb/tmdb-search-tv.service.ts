@@ -2,13 +2,11 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
-import { SanitizeInputService } from '../sanitize-input.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TMDBSearchTVService {
-  private readonly sanitizeInputService = inject(SanitizeInputService);
   private readonly supabaseProxyToTMDBService = inject(
     SupabaseProxyToTMDBService
   );
@@ -24,11 +22,10 @@ export class TMDBSearchTVService {
   }
 
   private tvSearch(page: number, query: string): Observable<TVResult> {
-    const sanitizedQuery = this.sanitizeInputService.escapeHtml(query);
     return this.supabaseProxyToTMDBService.callSupabaseFunction<TVResult>({
       serviceKey: `/search/tv`,
       queryParams: {
-        query: sanitizedQuery,
+        query: query,
         page: page.toString(),
         language: 'en-US',
         include_adult: 'false',

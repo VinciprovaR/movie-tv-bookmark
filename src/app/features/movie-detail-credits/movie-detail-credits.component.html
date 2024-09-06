@@ -9,7 +9,7 @@
   } @else {
   <!--  -->
 
-  @if((movieDetail$|async); as movieDetail ){ @if((banner$|async); as banner ){
+  @if((banner$|async); as banner ){
 
   <div
     class="flex flex-col-reverse sm:flex-row sm:w-[90%] mx-auto sm:mx-auto py-4 sm:space-x-6 bg-[var(--bg-container-color)] sm:bg-transparent"
@@ -40,15 +40,19 @@
   <div
     class="w-full sm:w-[90%] mx-auto sm:flex sm:flex-row sm:space-y-0 space-y-4 py-4"
   >
+    @if((castList$|async); as castList ){
     <div
       class="w-full sm:w-[50%] bg-[var(--bg-container-color)] sm:bg-transparent"
     >
       <div class="px-4 py-6">
-        <div
-          class="flex justify-between hover:cursor-pointer sm:hover:cursor-default"
-          (click)="toggleCast()"
-        >
-          <h2>Movie Cast</h2>
+        <div class="flex justify-between">
+          <div
+            class="flex hover:cursor-pointer sm:hover:cursor-default space-x-4"
+            (click)="toggleCast()"
+          >
+            <h2>Movie Cast</h2>
+            <h5 class="content-center">{{ castList.length }}</h5>
+          </div>
           <div class="sm:hidden">
             <mat-icon
               aria-hidden="false"
@@ -66,8 +70,7 @@
         }"
       >
         <ul class="p-0 m-0 space-y-4">
-          @if((castList$|async); as castList ){ @for(cast of castList; track
-          cast){ @defer(on viewport){
+          @for(cast of castList; track cast){ @defer(on viewport){
           <li class="list-none w-full">
             <app-cast-crew-credit-card
               [id]="cast.id"
@@ -78,20 +81,23 @@
           </li>
           } @placeholder {
           <div></div>
-          } }}
+          } }
         </ul>
       </div>
     </div>
-
+    } @if((departments$ | async); as departments){
     <div
       class="w-full sm:w-[50%] bg-[var(--bg-container-color)] sm:bg-transparent"
     >
       <div class="px-4 py-6">
-        <div
-          class="w-full flex justify-between hover:cursor-pointer sm:hover:cursor-default"
-          (click)="toggleCrew()"
-        >
-          <h2>Movie Crew</h2>
+        <div class="flex justify-between">
+          <div
+            class="flex hover:cursor-pointer sm:hover:cursor-default space-x-4"
+            (click)="toggleCrew()"
+          >
+            <h2>Movie Crew</h2>
+            <h5 class="content-center">{{ crewLength }}</h5>
+          </div>
           <div class="sm:hidden">
             <mat-icon
               aria-hidden="false"
@@ -108,8 +114,8 @@
           'hidden-container': isHideCrewContainer
         }"
       >
-        @if((departments$ | async); as departments){ @for(department of
-        departments; track department){ @if(department.value.length >0){
+        @for(department of departments; track department){
+        @if(department.value.length >0){
         <div class="space-y-4">
           <h3>{{ department.key }}</h3>
           <ul class="p-0 m-0 space-y-4">
@@ -127,9 +133,10 @@
             } }
           </ul>
         </div>
-        } } }
+        } }
       </div>
     </div>
+    }
   </div>
-  } }
+  }
 </section>

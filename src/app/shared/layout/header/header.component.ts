@@ -16,6 +16,8 @@ import { NavigatorMobileComponent } from '../../../features/navigator-mobile/nav
 import { NavigatorDesktopComponent } from '../../../features/navigator-desktop/navigator-desktop.component';
 import { HEADER_NAV_ELEMENTS } from '../../../providers';
 import { AbstractComponent } from '../../components/abstract/abstract-component.component';
+import { ImgComponent } from '../../components/img/img.component';
+import { AppLogoComponent } from '../../components/app-logo/app-logo.component';
 
 @Component({
   selector: 'app-header',
@@ -27,6 +29,8 @@ import { AbstractComponent } from '../../components/abstract/abstract-component.
     MatIconModule,
     NavigatorMobileComponent,
     NavigatorDesktopComponent,
+    ImgComponent,
+    AppLogoComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',

@@ -30,7 +30,8 @@ export const IMG_SIZES = {
   TMDB_PROFILE_600W_900H_IMG_URL: new InjectionToken<string>(
     'TMDB_PROFILE_600W_900H_IMG_URL'
   ),
-
+  W_780_IMG_URL: new InjectionToken<string>('W_780_IMG_URL'),
+  W_500_IMG_URL: new InjectionToken<string>('W_500_IMG_URL'),
   TMDB_PROFILE_440W_660H_IMG_URL: new InjectionToken<string>(
     'TMDB_PROFILE_440W_660H_IMG_URL'
   ),
@@ -116,66 +117,77 @@ export function provideAuthEvent() {
 }
 
 export function provideImgUrl() {
+  const endPointImage = 'https://image.tmdb.org';
+  const endPointMedia = 'https://media.themoviedb.org/';
+
   return [
     {
       provide: IMG_SIZES.TMDB_ORIGINAL_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/original',
+      useValue: `${endPointMedia}t/p/original`,
+    },
+    {
+      provide: IMG_SIZES.W_780_IMG_URL,
+      useValue: `${endPointMedia}t/p/w780`,
+    },
+    {
+      provide: IMG_SIZES.W_500_IMG_URL,
+      useValue: `${endPointMedia}t/p/w500`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_300W_450H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2',
+      useValue: `${endPointMedia}t/p/w300_and_h450_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_600W_900H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2',
+      useValue: `${endPointMedia}t/p/w600_and_h900_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_440W_660H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w440_and_h660_bestv2',
+      useValue: `${endPointMedia}t/p/w440_and_h660_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_260W_390H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w260_and_h390_bestv2',
+      useValue: `${endPointMedia}t/p/w260_and_h390_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_1920W_800H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w1920_and_h800_bestv2',
+      useValue: `${endPointMedia}t/p/w1920_and_h800_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_1000W_450H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w1000_and_h450_bestv2',
+      useValue: `${endPointMedia}t/p/w1000_and_h450_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_W_300_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w300',
+      useValue: `${endPointMedia}t/p/w300`,
     },
     {
       provide: IMG_SIZES.TMDB_W_400_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w400',
+      useValue: `${endPointMedia}t/p/w400`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_92W_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w92',
+      useValue: `${endPointMedia}t/p/w92`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_66W_66H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w66_and_h66_bestv2',
+      useValue: `${endPointMedia}t/p/w66_and_h66_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_132W_132H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w132_and_h132_bestv2',
+      useValue: `${endPointMedia}t/p/w132_and_h132_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_1920W_1080H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w1920_and_h1080_bestv2',
+      useValue: `${endPointMedia}t/p/w1920_and_h1080_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_138W_175H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w138_and_h175_bestv2',
+      useValue: `${endPointMedia}t/p/w138_and_h175_bestv2`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_276W_350H_IMG_URL,
-      useValue: 'https://image.tmdb.org/t/p/w276_and_h350_bestv2',
+      useValue: `${endPointMedia}t/p/w276_and_h350_bestv2`,
     },
   ];
 }

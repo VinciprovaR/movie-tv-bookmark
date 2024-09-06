@@ -39,7 +39,7 @@ body.light-theme {
   --bg-container-color: rgb(250, 250, 250);
   --text-color: var(--text-color-dark);
   --link-color: rgb(0, 154, 197);
-  --bg-header-person-detail: rgba(199, 199, 199, 0.411);
+  /* --bg-header-person-detail: rgba(199, 199, 199, 0.411); */
   --text-color-inverted: var(--text-color-light);
   --sub-text-color: rgb(87, 87, 87);
   --bookmark-info-bkg-color: #252222;
@@ -51,6 +51,7 @@ body.light-theme {
   --theme-color-1-nav-sub-menu-hover: rgb(185, 185, 185);
   --gradient-color-header-detail-a: rgba(13, 42, 80, 0.8);
   --gradient-color-header-detail-b: rgba(13, 42, 80, 0.9);
+  --scroll-background-color: rgb(240, 240, 240);
   --scroll-thumb-active-color: rgb(152, 152, 152);
   --scroll-thumb-hover-color: rgb(136, 136, 136);
   --scroll-thumb-color: rgb(120, 120, 120);
@@ -67,7 +68,7 @@ body.dark-theme {
   --bg-container-color: rgb(40, 40, 40);
   --text-color: var(--text-color-light);
   --link-color: rgb(1, 180, 228);
-  --bg-header-person-detail: rgba(0, 0, 0, 0.411);
+  /* --bg-header-person-detail: rgba(0, 0, 0, 0.411); */
   --text-color-inverted: var(--text-color-dark);
   --sub-text-color: rgb(190, 190, 190);
   --mat-card-border-color: rgb(111, 111, 111);
@@ -80,6 +81,7 @@ body.dark-theme {
   --theme-color-1-nav-sub-menu-hover: rgb(70, 78, 78);
   --gradient-color-header-detail-a: rgba(18, 59, 112, 0.7);
   --gradient-color-header-detail-b: rgba(18, 59, 113, 0.8);
+  --scroll-background-color: rgb(23, 23, 23);
   --scroll-thumb-active-color: rgb(128, 128, 128);
   --scroll-thumb-hover-color: rgb(112, 112, 112);
   --scroll-thumb-color: rgb(96, 96, 96);
@@ -142,8 +144,7 @@ a {
 }
 
 a:hover {
-  /* color: var(--a-hover); */
-  text-decoration: underline;
+  cursor: pointer;
 }
 
 a.disabled {
@@ -157,14 +158,6 @@ img {
 
 mat-card {
   background-color: var(--theme-color-1) !important;
-}
-
-mat-icon {
-  transition: all 0.2s;
-}
-
-mat-icon:hover {
-  cursor: pointer;
 }
 
 .border-container {
@@ -342,6 +335,9 @@ button.button-mt.button-mt-role-danger {
   button:hover {
     cursor: pointer;
   }
+  button.button-mt:disabled:hover {
+    background-color: var(--disabled-bg);
+  }
 }
 
 button.button-mt:focus {
@@ -380,9 +376,16 @@ button.button-mt:disabled {
   color: rgb(199, 65, 65);
 }
 
+/* scrollbar  */
+
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
+  z-index: 9999;
+}
+
+::-webkit-scrollbar:hover {
+  background-color: var(--scroll-background-color);
 }
 
 ::-webkit-scrollbar-corner,
@@ -403,8 +406,7 @@ button.button-mt:disabled {
 ::-webkit-scrollbar-thumb:active {
   background-color: var(--scroll-thumb-active-color);
 }
-/* to-do cambiare, webkit... */
-/* Buttons */
+
 ::-webkit-scrollbar-button:single-button {
   background-color: var(--scroll-button);
   display: block;
@@ -412,7 +414,6 @@ button.button-mt:disabled {
   background-repeat: no-repeat;
 }
 
-/* Up */
 ::-webkit-scrollbar-button:single-button:vertical:decrement {
   height: 12px;
   width: 16px;
@@ -428,7 +429,6 @@ button.button-mt:disabled {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='50,00 0,50 100,50'/></svg>");
 }
 
-/* Down */
 ::-webkit-scrollbar-button:single-button:vertical:increment {
   height: 12px;
   width: 16px;
@@ -444,7 +444,6 @@ button.button-mt:disabled {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,0 100,0 50,50'/></svg>");
 }
 
-/* Left */
 ::-webkit-scrollbar-button:single-button:horizontal:decrement {
   height: 12px;
   width: 12px;
@@ -460,7 +459,6 @@ button.button-mt:disabled {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,50 50,100 50,0'/></svg>");
 }
 
-/* Right */
 ::-webkit-scrollbar-button:single-button:horizontal:increment {
   height: 12px;
   width: 12px;
@@ -475,6 +473,8 @@ button.button-mt:disabled {
 ::-webkit-scrollbar-button:single-button:horizontal:increment:active {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,0 0,100 50,50'/></svg>");
 }
+
+/* scrollbar  */
 
 @media (max-width: 205px) {
   .w-xxxsm {
@@ -565,6 +565,15 @@ youtube-player {
   height: 100% !important;
 }
 youtube-player-placeholder {
+  width: 100% !important;
+  height: 100% !important;
+  border-bottom-left-radius: 0.675rem;
+  border-bottom-right-radius: 0.675rem;
+}
+
+iframe {
+  border-bottom-left-radius: 0.675rem;
+  border-bottom-right-radius: 0.675rem;
   width: 100% !important;
   height: 100% !important;
 }

@@ -2,32 +2,31 @@
 
 ################ TO-DO PRIORITARIO ################
 
-- Largest Contentful Paint (LCP) error, check (almeno una immagine markata priority)
-- scrollbar cast crew container detail diventa troppo piccola (attenzione webkit)
 
-- person detail, read more solo esplosione se testo più lungo di tot
+
 - Validators and control on search digit sulla input query (number, symbol, length...) 
+
 - CORS su edge function
+
 - troppi chunk al primo atterraggio
+
 - footer rivedere
+
 - in auth ci sono Observable<any>, refractorare
-- verificare che il recoveryPasswordGuard sia attivo e template
-- cast crew card, fare in modo tale che il nome dell'attore si veda tutto
+
 -n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
 
 - active sugli input
-- overlay youtube refractor come bookmark senza stili globali
 
 - colori theme chiaro e scuro rivedere (grigio sul theme chiaro non mi piace)
-- nelle dao e controlla anche altrove, le throw error nelle tap, non map
 
+- nelle dao e controlla anche altrove, le throw error nelle tap, non map
 
 - validazione input, trim ecc... (email specialmente)
 
+- refrator style.css
 
-
-
-
+- person detail, stile movie and tv list
 
 
 
@@ -35,13 +34,10 @@
 
 - Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore, refracto html)
 - card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
-- range date filter validatori error 
 - click fuori chiude sub menu header mobile
-- numero cast e crew su tv e movie credit
 - aggiungere commenti esplicativi
 - se random image non c'è su home component
 - loading component modo di non avere tutte quelle subscribe 
-- global error, redirect non home bensi pagina di errore, ma solo se errore in fase di landing
 - button per tornare in cima alla pagina
 - bookmark sort data di aggiunga al bookmark
 - discovery bookmark cellulare button visibile per search
@@ -69,22 +65,14 @@
 
 
 
-################################ IGNORATO ################################
-- page not found
--Sono su bookmark movie, cancello session in storage, search bookmark movie torna null ma dovrebbe buttarmi fuori
-- check http://localhost:4200/#/person-detail/1964445
- - scroll in memoria
-- i18e (anche date filter) + label tutte in un file json (?)
-- tutti i campi, if else palceholder
-- astratta tra discovery.filter.directive e bookmark.filter.directive
-- vedere se riesci a eliminare if els from route store in movie and tv detail credits
-- far funzionare bene 1x 2x immagini
-- card search e discovery in orizzontale su smarthphone
-- dialog video max-height cell orizzontale
--home component link to portfolio
-
-
 ################################ FATTO, RICONTROLLARE ################################
+- person detail, read more solo esplosione se testo più lungo di tot
+- range date filter validatori error 
+- global error, redirect non home bensi pagina di errore, ma solo se errore in fase di landing
+- numero cast e crew su tv e movie credit
+- verificare che il recoveryPasswordGuard sia attivo e template
+- cast crew card, fare in modo tale che il nome dell'attore si veda tutto
+- overlay youtube refractor come bookmark senza stili globali
 - User profile, logout, cambio Password
 - password forms should have (optionally hidden) username fields for accessibility
 - Eliminare zorro (auth, altro cercare)
@@ -162,7 +150,21 @@
 - integrare AbstractComponent (arrivato a movie discovery da sopra a sotto)
 - verificare componenti che hanno bisogno di astratta, tipo movie discovery e tv discovery
 
-
+################################ IGNORATO ################################
+- Largest Contentful Paint (LCP) error, check (almeno una immagine markata priority)
+- scrollbar cast crew container detail diventa troppo piccola (attenzione webkit)
+- page not found
+-Sono su bookmark movie, cancello session in storage, search bookmark movie torna null ma dovrebbe buttarmi fuori
+- check http://localhost:4200/#/person-detail/1964445
+ - scroll in memoria
+- i18e (anche date filter) + label tutte in un file json (?)
+- tutti i campi, if else palceholder
+- astratta tra discovery.filter.directive e bookmark.filter.directive
+- vedere se riesci a eliminare if els from route store in movie and tv detail credits
+- far funzionare bene 1x 2x immagini
+- card search e discovery in orizzontale su smarthphone
+- dialog video max-height cell orizzontale
+-home component link to portfolio
 
 
 

@@ -144,6 +144,7 @@ export abstract class AbstractDialogComponent
   abstract initContent(): void;
 
   closeOverlay() {
+    this.renderer.removeStyle(this.window.document.body, 'overflow');
     this.isOpen = false;
     if (this.overlayRef) {
       this.overlayRef.dispose();

@@ -62,6 +62,22 @@
     </div>
   </div>
   @if(dateRangeGroup.controls.from.hasError('invalidFromDate')){
-  <label class="error">From date cannot be after to date</label>
+  <div class="bg-[var(--bg-failure-container)] text-sm p-3 rounded-md">
+    <div class="flex space-x-2">
+      <div>
+        <mat-icon
+          class="text-[var(--failure-icon-color)]"
+          aria-hidden="false"
+          aria-label=""
+          fontIcon="error"
+        ></mat-icon>
+      </div>
+      <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
+        @if(dateRangeGroup.controls.from.hasError('invalidFromDate')){
+        <li><mat-error>From date cannot be after to date</mat-error></li>
+        }
+      </ul>
+    </div>
+  </div>
   }
 </div>

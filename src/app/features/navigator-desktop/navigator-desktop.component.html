@@ -6,7 +6,6 @@
     @if(navElement.value.single){
     <li #menuEl class="show-sub-menu main-li-desktop">
       <a
-        href="#"
         routerLinkActive="active"
         [routerLink]="navElement.value.paths[0]"
         class="block text-[var(--header-li-color)]"
@@ -36,7 +35,6 @@
         @if(canRender(path.needAuth)){
         <li class="el-hover" (click)="hideSubMenu(menuEl)">
           <a
-            href="#"
             routerLinkActive="active"
             [routerLink]="path.path"
             class="block p-2 text-[var(--text-color)]"

@@ -34,7 +34,7 @@ export class PageEventService {
   // , debounceTime(500)
   initSelectors() {
     fromEvent(window, 'resize')
-      .pipe(takeUntil(this.destroyed$), debounceTime(300))
+      .pipe(takeUntil(this.destroyed$), debounceTime(150))
       .subscribe(() => {
         this.window$.next(window);
       });

@@ -52,9 +52,8 @@ export class ImgComponent extends AbstractComponent implements OnInit {
   @Output()
   predominantColor = new EventEmitter<FastAverageColorResult>();
 
-  readonly native: boolean = false;
+  imageLoadIsError: boolean = false;
 
-  fullSrc: string = '';
   placeholderSrc: string = '';
 
   placeholderBase64Person: string =
@@ -79,10 +78,6 @@ export class ImgComponent extends AbstractComponent implements OnInit {
     return `${this.baseUrlLg}${this.imgSrc}`;
   }
 
-  getFullSrcSet() {
-    return `${this.baseUrlSm}${this.imgSrc} 660w, ${this.baseUrlLg}${this.imgSrc} 1920w`;
-  }
-
   getImgBackground() {
     return this.isPlaceholderPerson
       ? `url('../../../../assets/images/glyphicons-basic-4-user-grey.svg')`
@@ -93,5 +88,11 @@ export class ImgComponent extends AbstractComponent implements OnInit {
     if (this.link) {
       this.router.navigate([`${this.link}`]);
     }
+  }
+
+  onError() {
+    console.log('on error image');
+    this.imageLoadIsError = true;
+    this.detectChanges();
   }
 }
