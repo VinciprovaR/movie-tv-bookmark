@@ -30,6 +30,8 @@
 
 - favico
 
+- chrome_you_silly
+
 ################ TO-DO AFTER DEPLOY ################
 - path varie folder tsconfig 
 - Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore, refracto html)

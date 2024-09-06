@@ -74,7 +74,7 @@
                     !isEmailError,
                   'border-1 border-red-600 focus:outline-0 ': isEmailError
                 }"
-                autocomplete="email"
+                autocomplete="username"
                 type="email"
                 id="email"
                 formControlName="email"
@@ -98,7 +98,6 @@
                 >Password</label
               >
               <div class="relative">
-                <input class="hidden" autocomplete="username" type="text" />
                 <input
                   [ngClass]="{
                     'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
