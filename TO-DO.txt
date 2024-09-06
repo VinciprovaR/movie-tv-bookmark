@@ -31,7 +31,7 @@
 
 
 ################ TO-DO AFTER DEPLOY ################
-
+- path varie folder tsconfig 
 - Stile minuzia (colori, sfondi, posizionamenti, contenuto, grandezze, hover card e altri, lieve colore, refracto html)
 - card con titoli particolari escono fuori card, guardare tipo http://localhost:4200/#/person-detail/3295424
 - click fuori chiude sub menu header mobile

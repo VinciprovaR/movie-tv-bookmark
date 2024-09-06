@@ -80,8 +80,8 @@ export class ImgComponent extends AbstractComponent implements OnInit {
 
   getImgBackground() {
     return this.isPlaceholderPerson
-      ? `url('../../../../assets/images/glyphicons-basic-4-user-grey.svg')`
-      : `url('../../../../assets/images/glyphicons-basic-38-picture-grey.svg')`;
+      ? `url('assets/images/glyphicons-basic-4-user-grey.svg')`
+      : `url('assets/images/glyphicons-basic-38-picture-grey.svg')`;
   }
 
   navigateTo() {
