@@ -6,7 +6,7 @@
     "start": "ng serve --host 0.0.0.0",
     "build-css": "npx tailwindcss -i ./src/styles.css -o ./src/output.css --watch",
     "start-cmd": "start npm run start-local && start npm run build-css",
-    "build": "ng build --base-href /movie-tv-bookmark/",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
