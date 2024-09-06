@@ -2,7 +2,9 @@
 
 ################ TO-DO PRIORITARIO ################
 
+- anchor volo style
 
+- cast crew complete page, rivedere
 
 - Validators and control on search digit sulla input query (number, symbol, length...) 
 
