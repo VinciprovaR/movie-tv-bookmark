@@ -3,6 +3,11 @@
 ################ TO-DO PRIORITARIO ################
 
 
+- suddivisione corretta (componenti feature devono avere section come wrapper) 
+-rivedere bene parte sopra (main dentro div??)
+
+
+- modifica sto azzo di sub menu header nav mobile, colore, click fuori
 
 - Validators and control on search digit sulla input query (number, symbol, length...) 
 
@@ -30,7 +35,11 @@
 
 - favico
 
+- smarthphone, readmore people detail bug grafico
+
 - chrome_you_silly
+
+- mail vanno in spam
 
 ################ TO-DO AFTER DEPLOY ################
 - path varie folder tsconfig 
@@ -68,6 +77,8 @@
 
 
 ################################ FATTO, RICONTROLLARE ################################
+- alcune icone light theme colore sbagliato (x)
+- sistemare redirect mail 
 - person detail, read more solo esplosione se testo più lungo di tot
 - range date filter validatori error 
 - global error, redirect non home bensi pagina di errore, ma solo se errore in fase di landing

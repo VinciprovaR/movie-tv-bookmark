@@ -26,7 +26,7 @@ export class FadeScrollerDirective implements AfterViewInit {
   onScroll$!: Observable<Event>;
 
   @HostBinding('class')
-  elementClass = 'scroller_wrap should_fade ';
+  elementClass = 'should_fade ';
 
   @Input()
   private offSetPercentage: number = 6;

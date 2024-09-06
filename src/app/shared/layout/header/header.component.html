@@ -9,7 +9,7 @@
     <div class="mx-auto xxsm:flex xxsm:justify-between items-center space-x-6">
       @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 640) {
       <app-navigator-desktop
-        [isUserAuthenticated]="isUserAuthenticated"
+        [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
         [navElements]="navElements"
       ></app-navigator-desktop>
       }
@@ -44,7 +44,7 @@
   @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 640) {
   <!-- menu mobile -->
   <app-navigator-mobile
-    [isUserAuthenticated]="isUserAuthenticated"
+    [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
     [navElements]="navElements"
     [hiddenNavMenu]="hiddenNavMenu"
     (toggleNavMenuMobile)="toggleNavMenuMobile()"

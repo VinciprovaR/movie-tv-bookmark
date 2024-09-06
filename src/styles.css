@@ -105,17 +105,29 @@ body {
   --mdc-outlined-text-field-container-shape: var(8px) !important; */
 }
 
-/* input::placeholder {
-  color: var(--theme-color-2) !important;
-} */
-
 header,
 footer {
   background-color: var(--theme-color-2);
 }
 
-.auth-wrapper {
-  height: calc(100dvh - 50px);
+@media (min-height: 487px) {
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+}
+
+@media (max-height: 486px) {
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 486px;
+  }
+}
+
+main {
+  flex: 1;
 }
 
 .bg-container {
@@ -381,7 +393,6 @@ button.button-mt:disabled {
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
-  z-index: 9999;
 }
 
 ::-webkit-scrollbar:hover {
@@ -487,44 +498,27 @@ button.button-mt:disabled {
   border-bottom-right-radius: var(--border-radius);
 }
 
-.scroller_wrap.should_fade:after {
+.should_fade:after {
   transition: linear 0.3s;
   opacity: 1;
+  width: 70px;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0,
+    var(--theme-color-1) 100%
+  );
 }
-.scroller_wrap.is_hidden:after {
+.is_hidden:after {
   transition: linear 0.3s;
   opacity: 0;
 }
 
-/* scroller fade directive */
-@media (min-width: 1024px) {
-  .scroller_wrap.should_fade:after {
-    width: 100px;
-    background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 0,
-      var(--theme-color-1) 100%
-    );
-  }
-}
-@media (max-width: 1023px) {
-  .scroller_wrap.should_fade:after {
-    width: 90px;
-    background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 0,
-      var(--bg-container-color) 100%
-    );
-  }
-}
-
-.scroller_wrap.should_fade:after {
+.should_fade:after {
   content: "";
   height: 100%;
   position: absolute;
   top: 0;
   right: 0;
-
   will-change: opacity;
   pointer-events: none;
 }

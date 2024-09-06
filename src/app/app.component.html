@@ -1,20 +1,7 @@
 <app-alert-container></app-alert-container>
 <app-loading></app-loading>
-
+<app-header></app-header>
 <div class="page-wrapper">
-  <!-- @if(isUserAuthenticated$ | async ){
-
-  } -->
-  <div class="header-wrapper">
-    <app-header
-      [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
-    ></app-header>
-  </div>
-  <main class="content-wrapper">
-    <router-outlet></router-outlet>
-  </main>
-  <!-- <div class="footer-wrapper">
-    <app-footer></app-footer>
-  </div> -->
-  <!-- @if(isUserAuthenticated$ | async ){ } -->
+  <main><router-outlet></router-outlet></main>
+  <app-footer></app-footer>
 </div>

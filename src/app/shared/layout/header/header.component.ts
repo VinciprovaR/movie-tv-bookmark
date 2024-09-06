@@ -40,8 +40,9 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   private readonly toggleThemeStore = inject(ToggleThemeStore);
   readonly navElements = inject(HEADER_NAV_ELEMENTS);
 
-  @Input({ required: true })
-  isUserAuthenticated: boolean = false;
+  readonly isUserAuthenticated$ = this.store
+    .select(AuthSelectors.selectUser)
+    .pipe(map((user) => !!user));
 
   icon$!: Observable<string>;
   isDarkTheme$!: Observable<boolean>;
