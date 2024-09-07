@@ -6,7 +6,6 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-.rounded-top {
-  border-top-left-radius: 0.675rem;
-  border-top-right-radius: 0.675rem;
+.rounded-lg-custom {
+  border-radius: 0.675rem;
 }

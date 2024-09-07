@@ -6,7 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { PersonCardComponent } from '../../shared/components/person-card/person-card.component';
 import { CastCrewCardComponent } from '../../shared/components/cast-crew-card/cast-crew-card.component';
@@ -45,6 +45,7 @@ import { ErrorMessageTemplateComponent } from '../../shared/components/error-mes
     ImgComponent,
     RouterLink,
     ErrorMessageTemplateComponent,
+    DatePipe,
   ],
 
   templateUrl: './movie-detail-credits.component.html',
@@ -69,6 +70,8 @@ export class MovieDetailCreditsComponent
   departments$!: Observable<MovieDepartments[]>;
   bannerSub$ = new BehaviorSubject<Banner | null>(null);
   banner$!: Observable<Banner | null>;
+  yearSub$ = new BehaviorSubject<string>('');
+  year$!: Observable<string>;
 
   @Input()
   movieId: number = 0;
@@ -128,7 +131,8 @@ export class MovieDetailCreditsComponent
     this.initDynamicSelectors(
       this.castListSub$.asObservable(),
       this.departmentsSub$.asObservable(),
-      this.bannerSub$.asObservable()
+      this.bannerSub$.asObservable(),
+      this.yearSub$.asObservable()
     );
 
     this.pushMovieDetail(movieDetail);
@@ -161,7 +165,21 @@ export class MovieDetailCreditsComponent
       })
     );
 
-    this.initDynamicSelectors(forCastList$, forMovieDepartments$, banner$);
+    const year$ = this.movieDetail$.pipe(
+      map((movieDetail: MovieDetail | null) => {
+        if (movieDetail) {
+          return movieDetail.release_date;
+        }
+        return '';
+      })
+    );
+
+    this.initDynamicSelectors(
+      forCastList$,
+      forMovieDepartments$,
+      banner$,
+      year$
+    );
 
     this.searchMovieDetail();
   }
@@ -187,11 +205,13 @@ export class MovieDetailCreditsComponent
   initDynamicSelectors(
     forCastList$: Observable<CastMovie[]>,
     forMovieDepartments$: Observable<MovieDepartments[]>,
-    forBanner$: Observable<Banner | null>
+    forBanner$: Observable<Banner | null>,
+    forYear$: Observable<string>
   ) {
     this.castList$ = forCastList$;
     this.departments$ = forMovieDepartments$;
     this.banner$ = forBanner$;
+    this.year$ = forYear$;
   }
 
   searchMovieCredits() {
@@ -209,6 +229,7 @@ export class MovieDetailCreditsComponent
     this.castListSub$.next(castList);
     this.departmentsSub$.next(departments);
     this.bannerSub$.next(banner);
+    this.yearSub$.next(movieDetail.release_date);
   }
 
   buildCastObject(castList: CastMovie[]) {

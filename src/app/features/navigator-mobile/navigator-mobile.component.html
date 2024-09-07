@@ -18,7 +18,6 @@
         routerLinkActive="active"
         [routerLink]="navElement.value.paths[0]"
         class="block"
-        (click)="onClickLink()"
         >{{ navElement.value.label }}</a
       >
     </li>
@@ -37,7 +36,6 @@
             routerLinkActive="active"
             [routerLink]="subMenuEl.path"
             class="block"
-            (click)="onClickLink()"
             >{{ subMenuEl.label }}</a
           >
         </li>

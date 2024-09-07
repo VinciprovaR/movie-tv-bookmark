@@ -176,6 +176,16 @@ export class MovieDetailComponent
     this.router.navigate([this.movieCreditsPath], navigationExtras);
   }
 
+  getNavigationExtra(movieDetail: MovieDetail) {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        data: movieDetail,
+      },
+    };
+
+    return navigationExtras;
+  }
+
   ngOnDestroy(): void {
     this.movieDetailstore.cleanMovieDetail();
   }

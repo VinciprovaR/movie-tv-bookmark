@@ -158,7 +158,6 @@ export abstract class AbstractDialogComponent
 
   onWindowResize() {
     if (this.overlayRef) {
-      console.log('Window resized');
       this.overlayRef.updatePosition(); //
     }
   }

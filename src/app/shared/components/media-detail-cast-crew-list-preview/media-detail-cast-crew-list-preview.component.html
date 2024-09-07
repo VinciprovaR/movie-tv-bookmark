@@ -1,20 +1,24 @@
 <div>
-  <div class="flex mb-6 pl-4">
-    <h2 class="mr-2 cursor-pointer" (click)="navigateToCredits()">
-      {{ title }}
-    </h2>
-    <h5 class="content-center">{{ castCrewList.length }}</h5>
-    <div
+  <div class="mb-6 pl-4">
+    <a
       [title]="'Full Cast \u0026 Crew'"
+      routerLinkActive="active"
+      class="block"
       (click)="navigateToCredits()"
-      class="block cursor-pointer"
+      href="javascript:void(0);"
     >
-      <mat-icon
-        aria-hidden="false"
-        aria-label=""
-        [fontIcon]="'chevron_right'"
-      ></mat-icon>
-    </div>
+      <div class="flex">
+        <h2 class="mr-2">
+          {{ title }}
+        </h2>
+        <h5 class="content-center">{{ castCrewList.length }}</h5>
+        <mat-icon
+          aria-hidden="false"
+          aria-label=""
+          [fontIcon]="'chevron_right'"
+        ></mat-icon>
+      </div>
+    </a>
   </div>
   <div class="box-border relative">
     @if(castCrewList.length > 0){

@@ -133,6 +133,11 @@ export class YoutubeEmbededDialogContentComponent
   extends AbstractComponent
   implements OnInit
 {
+  @ViewChild('videoContentContainer')
+  videoContentContainer!: ElementRef;
+
+  videoContentWidth: number = 0;
+
   @Output()
   submitDialogContentEmitter = new EventEmitter<SubmitDialog>();
 
@@ -164,11 +169,38 @@ export class YoutubeEmbededDialogContentComponent
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initSubscriptions();
+  }
 
   override initSelectors(): void {}
 
-  override initSubscriptions(): void {}
+  override initSubscriptions(): void {
+    this.pageEventService.resizeEvent$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(() => {
+        this.calculateSize();
+      });
+  }
+
+  calculateSize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const maxWidth = 960;
+    let calculatedWidth = 0;
+    const rateW = 0.9;
+    const rateH = 0.8;
+    if (width < height) {
+      calculatedWidth = width * rateW;
+    } else if (height < width) {
+      calculatedWidth = ((height * rateH) / 9) * 16;
+    } else {
+      calculatedWidth = width * rateW;
+    }
+    this.videoContentWidth =
+      calculatedWidth < maxWidth ? calculatedWidth : maxWidth;
+    this.detectChanges();
+  }
 
   //
 }

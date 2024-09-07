@@ -69,6 +69,8 @@ export class TVDetailCreditsComponent
   bannerSub$ = new BehaviorSubject<Banner | null>(null);
   banner$!: Observable<Banner | null>;
   error$!: Observable<CustomHttpErrorResponseInterface | null>;
+  yearSub$ = new BehaviorSubject<string>('');
+  year$!: Observable<string>;
 
   errorTitle: string = `Oops! We can't find the page you're looking for`;
   errorMessage: string = `It seems that this tv detail credits you're searching for doesn't exist.`;
@@ -80,6 +82,8 @@ export class TVDetailCreditsComponent
   isHideCrewContainer: boolean = false;
 
   detailMediaPath: string = '';
+
+  crewLength: number = 0;
 
   departments: TVDepartments[] = [
     { key: 'Directing', value: [] },
@@ -127,7 +131,8 @@ export class TVDetailCreditsComponent
     this.initDynamicSelectors(
       this.castListSub$.asObservable(),
       this.departmentsSub$.asObservable(),
-      this.bannerSub$.asObservable()
+      this.bannerSub$.asObservable(),
+      this.yearSub$.asObservable()
     );
 
     this.pushTVDetail(tvDetail);
@@ -160,7 +165,16 @@ export class TVDetailCreditsComponent
       })
     );
 
-    this.initDynamicSelectors(forCastList$, forTVDepartments$, banner$);
+    const year$ = this.tvDetail$.pipe(
+      map((tvDetail: TVDetail | null) => {
+        if (tvDetail) {
+          return tvDetail.first_air_date;
+        }
+        return '';
+      })
+    );
+
+    this.initDynamicSelectors(forCastList$, forTVDepartments$, banner$, year$);
 
     this.searchTVDetail();
   }
@@ -186,11 +200,13 @@ export class TVDetailCreditsComponent
   initDynamicSelectors(
     forCastList$: Observable<CastTV[]>,
     forTVDepartments$: Observable<TVDepartments[]>,
-    forBanner$: Observable<Banner | null>
+    forBanner$: Observable<Banner | null>,
+    forYear$: Observable<string>
   ) {
     this.castList$ = forCastList$;
     this.departments$ = forTVDepartments$;
     this.banner$ = forBanner$;
+    this.year$ = forYear$;
   }
 
   searchTVCredits() {
@@ -208,6 +224,7 @@ export class TVDetailCreditsComponent
     this.castListSub$.next(castList);
     this.departmentsSub$.next(departments);
     this.bannerSub$.next(banner);
+    this.yearSub$.next(tvDetail.first_air_date);
   }
 
   buildCastObject(castList: CastTV[]) {
@@ -218,6 +235,7 @@ export class TVDetailCreditsComponent
     const cl = [...crewList];
     this.departments.forEach((department) => {
       for (let i = cl.length - 1; i >= 0; --i) {
+        this.crewLength++;
         if (cl[i].department === department.key) {
           department.value.push(cl[i]);
           cl.splice(i, 1);

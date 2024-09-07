@@ -1,29 +1,15 @@
-
-
 ################ TO-DO PRIORITARIO ################
 
-- anchor colore style
-
-- suddivisione corretta (componenti feature devono avere section come wrapper) 
--rivedere bene parte sopra (main dentro div??)
 
 - card mobile orizzontale
-
-- cast crew complete page, rivedere
-
-- modifica sto azzo di sub menu header nav mobile, colore, click fuori
-
-- Validators and control on search digit sulla input query (number, symbol, length...) 
 
 - CORS su edge function
 
 - troppi chunk al primo atterraggio
 
-- footer rivedere
-
 - in auth ci sono Observable<any>, refractorare
 
--n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
+- n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
 
 - active sugli input
 
@@ -31,23 +17,15 @@
 
 - nelle dao e controlla anche altrove, le throw error nelle tap, non map
 
-- validazione input, trim ecc... (email specialmente)
-
 - refrator style.css
 
 - person detail, stile movie and tv list
 
 - favico
 
-- smarthphone, readmore people detail bug grafico
-
-- chrome_you_silly
-
 - mail vanno in spam
 
-- Active button disabled
 
-- fade cast crew list container
 
 
 
@@ -87,6 +65,15 @@
 
 
 ################################ FATTO, RICONTROLLARE ################################
+- cast crew complete page, rivedere, giusto headaer desktop e loading 
+- smarthphone, readmore people detail bug grafico
+- chrome_you_silly
+- Active button disabled
+- fade cast crew list container
+- validazione input, trim ecc... (email specialmente)
+- Validators and control on search digit sulla input query (number, symbol, length...) 
+- suddivisione corretta (componenti feature devono avere section come wrapper) 
+- anchor colore style
 - alcune icone light theme colore sbagliato (x)
 - sistemare redirect mail 
 - person detail, read more solo esplosione se testo più lungo di tot

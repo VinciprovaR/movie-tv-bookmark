@@ -55,12 +55,10 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.zone.runOutsideAngular(() => {
-      this.initSelectors();
+    this.initSelectors();
 
-      window.addEventListener('scroll', (e) => {
-        this.windowScrollEvent();
-      });
+    window.addEventListener('scroll', (e) => {
+      this.windowScrollEvent();
     });
   }
 

@@ -1,9 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationStart, RouterLink, RouterLinkActive } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AbstractNavComponent } from '../../shared/components/abstract/abstract-nav.component';
+import { takeUntil, filter } from 'rxjs';
 
 @Component({
   selector: 'app-navigator-mobile',
@@ -23,16 +31,26 @@ export class NavigatorMobileComponent
   hiddenNavMenu: boolean = true;
   @Output()
   toggleNavMenuMobile = new EventEmitter<null>();
+  @Output()
+  closeNavMenuMobile = new EventEmitter<null>();
 
   constructor() {
     super();
   }
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.initSubscriptions();
+  }
 
   override initSelectors(): void {}
-  override initSubscriptions(): void {}
-
-  onClickLink() {
-    this.toggleNavMenuMobile.emit(null);
+  override initSubscriptions(): void {
+    this.router.events
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter((event) => event instanceof NavigationStart)
+      )
+      .subscribe((event) => {
+        this.closeNavMenuMobile.emit(null);
+      });
   }
 }

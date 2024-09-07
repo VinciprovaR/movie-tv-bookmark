@@ -1,5 +1,8 @@
 <div
-  class="bg-black w-[95vw] max-w-[95vw] sm:max-w-[85vw] sm:w-[85vw] lg:w-[75vw] lg:max-w-[960px] rounded-top"
+  class="bg-black rounded-lg-custom"
+  [ngStyle]="{
+    width: videoContentWidth + 'px'
+  }"
 >
   <div class="p-2 flex justify-between text-[var(--text-color-light)]">
     <h2 class="text-[1rem] smc:text-[1.1rem] md:text-[1.35rem]">
@@ -13,15 +16,14 @@
       ></mat-icon>
     </div>
   </div>
-  <div class="aspect-[16/9]">
-    <div class="mat-typography h-full" #youTubePlayer>
-      <youtube-player
-        [videoId]="videoId"
-        [disableCookies]="true"
-        suggestedQuality="hd720"
-        [playerVars]="playerVars"
-      >
-      </youtube-player>
-    </div>
+
+  <div class="aspect-[16/9]" #youTubePlayer>
+    <youtube-player
+      [videoId]="videoId"
+      [disableCookies]="true"
+      suggestedQuality="hd720"
+      [playerVars]="playerVars"
+    >
+    </youtube-player>
   </div>
 </div>

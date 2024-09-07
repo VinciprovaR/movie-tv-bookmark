@@ -1,0 +1,19 @@
+@media (min-height: 487px) {
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+}
+
+@media (max-height: 486px) {
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 486px;
+  }
+}
+
+main {
+  flex: 1;
+}

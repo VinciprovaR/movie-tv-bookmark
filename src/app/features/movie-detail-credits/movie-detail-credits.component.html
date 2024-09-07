@@ -1,6 +1,6 @@
-<section class="w-full max-w-[1536px] mx-auto pt-[60px]">
+<section class="w-full sm:w-[70%] mx-auto max-w-[1536px] pt-[60px]">
   @if(error$ | async; as error){
-  <div class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto py-8">
+  <div class="w-full py-8 flex justify-center">
     <app-error-message-template
       [title]="errorTitle"
       [message]="errorMessage"
@@ -10,90 +10,104 @@
   <!--  -->
 
   @if((banner$|async); as banner ){
+  <div class="w-full bg-[var(--bg-page-section)] sm:bg-transparent pt-6">
+    <div class="flex flex-col flex-col-reverse sm:flex-row sm:space-x-6">
+      <div>
+        <a [routerLink]="buildDetailPath(banner.id)" [title]="banner.title">
+          <div
+            class="bg-cover bg-no-repeat bg-center overflow-hidden aspect-[50/22] w-full sm:w-[460px] rounded-md"
+            [ngStyle]="{
+              'background-image': banner.backdrop_path
+                ? 'url(' +
+                  TMDB_PROFILE_1000W_450H_IMG_URL +
+                  banner.backdrop_path +
+                  ')'
+                : ''
+            }"
+          ></div>
+        </a>
+      </div>
 
-  <div
-    class="flex flex-col-reverse sm:flex-row sm:w-[90%] mx-auto sm:mx-auto py-4 sm:space-x-6 bg-[var(--bg-container-color)] sm:bg-transparent"
-  >
-    <a [routerLink]="buildDetailPath(banner.id)" [title]="banner.title">
       <div
-        class="bg-cover bg-no-repeat bg-center items-center overflow-hidden aspect-[50/22] w-full sm:w-[460px]"
-        [ngStyle]="{
-          'background-image': banner.backdrop_path
-            ? 'url(' +
-              TMDB_PROFILE_1000W_450H_IMG_URL +
-              banner.backdrop_path +
-              ')'
-            : ''
-        }"
-      ></div
-    ></a>
-
-    <div class="text-center pb-4 sm:py-0 underline">
-      <a [routerLink]="buildDetailPath(banner.id)" [title]="banner.title">
-        <h1>{{ banner.title }}</h1></a
+        class="text-center pb-4 sm:py-0 flex space-x-0 space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row flex-col"
       >
+        <a [routerLink]="buildDetailPath(banner.id)" [title]="banner.title">
+          <h1>
+            {{ banner.title }}
+          </h1></a
+        >
+        @if(year$| async; as year){
+        <h2 class="text-zinc-500">({{ year | date : "yyyy" }})</h2>
+        }
+      </div>
     </div>
   </div>
 
   }
 
-  <div
-    class="w-full sm:w-[90%] mx-auto sm:flex sm:flex-row sm:space-y-0 space-y-4 py-4"
-  >
+  <div class="w-full sm:flex sm:flex-row sm:space-y-0 space-y-4 py-4">
     @if((castList$|async); as castList ){
     <div
-      class="w-full sm:w-[50%] bg-[var(--bg-container-color)] sm:bg-transparent"
+      class="w-full sm:w-[50%] bg-[var(--bg-page-section)] sm:bg-transparent pb-6"
     >
-      <div class="px-4 py-6">
-        <div class="flex justify-between">
+      <div>
+        <div class="px-4 py-6">
           <div
-            class="flex hover:cursor-pointer sm:hover:cursor-default space-x-4"
+            class="flex justify-between hover:cursor-pointer sm:hover:cursor-default"
             (click)="toggleCast()"
           >
-            <h2>Movie Cast</h2>
-            <h5 class="content-center">{{ castList.length }}</h5>
-          </div>
-          <div class="sm:hidden">
-            <mat-icon
-              aria-hidden="false"
-              aria-label=""
-              [fontIcon]="isHideCastContainer ? 'expand_more' : 'chevron_right'"
-            ></mat-icon>
+            <div
+              class="flex hover:cursor-pointer sm:hover:cursor-default space-x-4"
+            >
+              <h2>Movie Cast</h2>
+              <h5 class="content-center">{{ castList.length }}</h5>
+            </div>
+            <div class="sm:hidden">
+              <mat-icon
+                aria-hidden="false"
+                aria-label=""
+                [fontIcon]="
+                  isHideCastContainer ? 'expand_more' : 'chevron_right'
+                "
+              ></mat-icon>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        class="px-4"
-        [ngClass]="{
-          'hidden-container': isHideCastContainer
-        }"
-      >
-        <ul class="p-0 m-0 space-y-4">
-          @for(cast of castList; track cast){ @defer(on viewport){
-          <li class="list-none w-full">
-            <app-cast-crew-credit-card
-              [id]="cast.id"
-              [name]="cast.name"
-              [role]="cast.character"
-              [profile_path]="cast.profile_path"
-            ></app-cast-crew-credit-card>
-          </li>
-          } @placeholder {
-          <div></div>
-          } }
-        </ul>
+        <div
+          class="px-4"
+          [ngClass]="{
+            'hidden-container': isHideCastContainer
+          }"
+        >
+          <ul class="p-0 m-0 space-y-4">
+            @for(cast of castList; track cast){ @defer(on viewport){
+            <li class="list-none w-full">
+              <app-cast-crew-credit-card
+                [id]="cast.id"
+                [name]="cast.name"
+                [role]="cast.character"
+                [profile_path]="cast.profile_path"
+              ></app-cast-crew-credit-card>
+            </li>
+            } @placeholder {
+            <div></div>
+            } }
+          </ul>
+        </div>
       </div>
     </div>
     } @if((departments$ | async); as departments){
     <div
-      class="w-full sm:w-[50%] bg-[var(--bg-container-color)] sm:bg-transparent"
+      class="w-full sm:w-[50%] bg-[var(--bg-page-section)] sm:bg-transparent pb-6"
     >
       <div class="px-4 py-6">
-        <div class="flex justify-between">
+        <div
+          class="flex justify-between hover:cursor-pointer sm:hover:cursor-default"
+          (click)="toggleCrew()"
+        >
           <div
             class="flex hover:cursor-pointer sm:hover:cursor-default space-x-4"
-            (click)="toggleCrew()"
           >
             <h2>Movie Crew</h2>
             <h5 class="content-center">{{ crewLength }}</h5>
@@ -138,5 +152,6 @@
     </div>
     }
   </div>
+
   }
 </section>
