@@ -53,7 +53,7 @@ export class MediaListContainerComponent
   scrollSelf: boolean = false;
   @Input()
   includeScrollEvents: boolean = true;
-  @Input({ required: true })
+  @Input()
   direction: 'horizontal' | 'vertical' = 'vertical';
 
   // @Input()

@@ -3,11 +3,7 @@
 
 - CORS su edge function
 
-
-
 - colori theme chiaro e scuro rivedere (grigio sul theme chiaro non mi piace)
-
-- favico
 
 - mail vanno in spam
 
@@ -16,12 +12,12 @@
 
 
 ################ TO-DO AFTER DEPLOY ################
+- favico
+- REFRACTOR GENERALE, ELIMINARE ASSET, COMMENTI, CODICE INUTILE, PULZIA E ORDINE ECC..
 - troppi chunk al primo atterraggio
 - nelle dao e controlla anche altrove, le throw error nelle tap, non map
-
 - refrator style.css
 - n a recent navigation chain, one or more websites accessed some form of local storage without prior user interaction. If these websites don't get such an interaction soon, Chrome will delete their state.
-
 - active sugli input
 - in auth ci sono Observable<any>, refractorare
 - path varie folder tsconfig 

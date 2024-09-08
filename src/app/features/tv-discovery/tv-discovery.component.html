@@ -22,6 +22,7 @@
         (emitDiscoveryAdditionalMedia)="discoveryAdditionalTV()"
         [mediaType]="mediaType"
         [noAdditional]="(selectNoAdditional$ | async) ?? false"
+        [direction]="'vertical'"
       ></app-media-list-container>
     </div>
   </div>
