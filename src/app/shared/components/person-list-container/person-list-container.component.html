@@ -12,7 +12,8 @@
   >
     @for(person of personList; track person.id){
     <li class="list-none">
-      <app-person-card [person]="person"> </app-person-card>
+      <app-person-card [person]="person" [direction]="'vertical'">
+      </app-person-card>
     </li>
     }
   </ul>

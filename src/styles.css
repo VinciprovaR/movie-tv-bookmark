@@ -174,15 +174,20 @@ img {
 
 .border-img-card-media-sm {
   border-bottom-left-radius: var(--border-radius-int);
+  border-top-left-radius: var(--border-radius-int);
 }
 
 .border-bookmark-label-card-sm {
-  border-top-right-radius: var(--border-radius-int);
+  border-top-left-radius: var(--border-radius-int);
 }
 
 .border-bookmark-label-detail {
   border-bottom-left-radius: var(--border-radius-int);
   border-bottom-right-radius: var(--border-radius-int);
+}
+
+.bg-label-detail {
+  background-color: rgb(37, 37, 37);
 }
 
 .border-img-card-full {
@@ -199,6 +204,32 @@ img {
 
 .card-content:last-child {
   padding-bottom: 16px;
+}
+
+/* bookmark selector */
+
+@media (min-width: 510px) {
+  .vertical {
+    transform: scale(1);
+    background-color: var(--bg-bookmark-icon);
+  }
+}
+
+@media (max-width: 509px) {
+  .vertical {
+    transform: scale(1.25);
+    background-color: transparent;
+  }
+}
+
+.horizontal {
+  transform: scale(1);
+  background-color: var(--bg-bookmark-icon);
+}
+
+.detail {
+  transform: scale(1.25);
+  background-color: var(--bg-bookmark-icon);
 }
 
 h1,

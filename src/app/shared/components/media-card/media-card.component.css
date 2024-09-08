@@ -1,3 +1,26 @@
-.border-separator-media {
-  border-bottom: 1px solid var(--border-color);
+@media (min-width: 510px) {
+  .bookmark-selector-wrapper-vertical {
+    position: absolute;
+  }
+
+  .bookmark-label-wrapper-vertical {
+    bottom: 0;
+  }
+}
+
+@media (max-width: 509px) {
+  .bookmark-selector-wrapper-vertical {
+    position: relative;
+    max-width: 40px;
+  }
+  .bookmark-label-wrapper-vertical {
+    top: 0;
+  }
+}
+
+.bookmark-selector-wrapper-horizontal {
+  position: absolute;
+}
+.bookmark-label-wrapper-horizontal {
+  bottom: 0;
 }

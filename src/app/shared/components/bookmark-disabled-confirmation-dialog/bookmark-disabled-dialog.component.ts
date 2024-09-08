@@ -19,6 +19,7 @@ import {
 } from '../abstract/abstract-dialog.component';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { CommonModule } from '@angular/common';
+import { scrollDirection } from '../../interfaces/layout.types';
 
 @Component({
   selector: 'app-bookmark-disabled-dialog',
@@ -32,8 +33,8 @@ export class BookmarkDisabledDialogComponent
   extends AbstractDialogComponent
   implements OnInit
 {
-  @Input()
-  direction: 'horizontal' | 'vertical' = 'vertical';
+  @Input({ required: true })
+  direction: scrollDirection = 'none';
   @Input({ required: true })
   isDetail!: boolean;
 

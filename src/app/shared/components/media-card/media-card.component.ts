@@ -78,6 +78,8 @@ export class MediaCardComponent
   mediaType!: MediaType;
   @Input()
   personIdentifier: string = '';
+  @Input()
+  isDetail: boolean = false;
 
   detailMediaPath: string = '';
 
@@ -87,7 +89,6 @@ export class MediaCardComponent
 
   bookmarkSelectorAbsentIsOpen = false;
 
-  override borderImgClassDefault: string = '';
   override borderImgClassSm: string = 'border-img-card-media-sm';
 
   constructor() {

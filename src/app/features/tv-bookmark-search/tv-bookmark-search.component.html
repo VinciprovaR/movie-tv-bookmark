@@ -12,6 +12,7 @@
       [mediaList]="(selectTVList$ | async) ?? []"
       [mediaType]="mediaType"
       [isLoading]="(selectIsLoading$ | async) ?? false"
+      [direction]="'vertical'"
     ></app-media-list-container>
   </div>
 </div>

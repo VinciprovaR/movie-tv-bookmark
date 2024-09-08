@@ -18,6 +18,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AbstractComponent } from '../abstract/abstract-component.component';
+import { scrollDirection } from '../../interfaces/layout.types';
 
 @Component({
   selector: 'app-media-list-container',
@@ -53,8 +54,8 @@ export class MediaListContainerComponent
   scrollSelf: boolean = false;
   @Input()
   includeScrollEvents: boolean = true;
-  @Input()
-  direction: 'horizontal' | 'vertical' = 'vertical';
+  @Input({ required: true })
+  direction: scrollDirection = 'none';
 
   // @Input()
   // cardSize: 'md' | 'lg' = 'md';

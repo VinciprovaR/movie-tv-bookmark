@@ -37,7 +37,7 @@
         [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"
       >
         <div class="max-w-[1920px]">
-          <div class="h-[300px] lg:h-[780px] aspect-[2/3] w-xxxsm relative">
+          <div class="h-[300px] lg:h-[80vh] aspect-[2/3] w-xxxsm relative">
             <app-img
               [alt]="tvDetail.name"
               [title]="tvDetail.name"
@@ -55,9 +55,11 @@
               [index]="0"
               [mediaType]="'tv'"
               [isDetail]="true"
+              [direction]="'none'"
             ></app-bookmark-selector>
-
-            <div class="w-full absolute bottom-0">
+            <div
+              class="w-full absolute bottom-0 bg-label-detail border-bookmark-label-detail"
+            >
               <app-bookmark-status-label
                 [bookmarkEnumSelected]="bookmarkEnumSelected"
                 [customClass]="'border-bookmark-label-detail'"
@@ -67,6 +69,7 @@
             } @else {
             <app-bookmark-disabled-dialog
               [isDetail]="false"
+              [direction]="'none'"
             ></app-bookmark-disabled-dialog
             >}
           </div>

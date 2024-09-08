@@ -1,0 +1,8 @@
+@media (min-width: 510px) {
+  .bg-label-vertical {
+    background-color: rgb(37, 37, 37);
+  }
+}
+.bg-label-horizontal {
+  background-color: rgb(37, 37, 37);
+}

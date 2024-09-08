@@ -1,10 +1,18 @@
 <div
-  class="font-bold text-sm flex justify-center min-h-[20px]"
-  [ngClass]="
-    bookmarkStatusMap[bookmarkEnumSelected].key + '-color ' + customClass
-  "
+  [ngClass]="{
+    'bg-label-vertical': direction === 'vertical',
+    'bg-label-horizontal': direction === 'horizontal',
+
+  }"
 >
-  @if(isUserAuthenticated){
-  <span> {{ bookmarkStatusMap[bookmarkEnumSelected].label }}</span>
-  }
+  <div
+    class="font-bold text-sm flex justify-center min-h-[20px] bg-label"
+    [ngClass]="
+      bookmarkStatusMap[bookmarkEnumSelected].key + '-color ' + customClass
+    "
+  >
+    @if(isUserAuthenticated){
+    <span> {{ bookmarkStatusMap[bookmarkEnumSelected].label }}</span>
+    }
+  </div>
 </div>

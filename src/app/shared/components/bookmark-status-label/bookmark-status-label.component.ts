@@ -4,6 +4,7 @@ import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interf
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
+import { scrollDirection } from '../../interfaces/layout.types';
 
 @Component({
   selector: 'app-bookmark-status-label',
@@ -18,6 +19,8 @@ export class BookmarkStatusLabelComponent extends AbstractComponent {
 
   @Input({ required: true })
   isUserAuthenticated!: boolean;
+  @Input()
+  direction: scrollDirection = 'vertical';
 
   constructor() {
     super();

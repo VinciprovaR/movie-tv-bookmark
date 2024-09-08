@@ -34,6 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { AuthSelectors } from '../../store/auth';
+import { scrollDirection } from '../../interfaces/layout.types';
 
 @Component({
   selector: 'app-bookmark-selector',
@@ -71,8 +72,8 @@ export class BookmarkSelectorComponent
   mediaData!: Movie | MovieDetail | Movie_Data | TV | TVDetail | TV_Data;
   @Input()
   personIdentifier: string = '';
-  @Input()
-  direction: 'horizontal' | 'vertical' = 'vertical';
+  @Input({ required: true })
+  direction: scrollDirection = 'none';
 
   idItem!: string;
 
@@ -91,7 +92,7 @@ export class BookmarkSelectorComponent
     this.idItem = `${this.personIdentifier ? `${this.personIdentifier}_` : ''}${
       this.index
     }_${this.mediaData.id}`;
-
+    console.log(this.isDetail);
     this.initSelectors();
     this.buildControl();
     this.initDataBridge();

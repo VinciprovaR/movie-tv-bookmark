@@ -1,36 +1,44 @@
-<div class="h-full border-container box-border relative shadow-md">
-  <div class="w-full border-separator-media">
-    <app-bookmark-status-label
-      [bookmarkEnumSelected]="bookmarkEnumSelected"
-      [customClass]="borderBookmarkLabelClass"
-      [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
-    ></app-bookmark-status-label>
-  </div>
+<div
+  class="h-full border-container box-border shadow-md 510:relative"
+  [ngClass]="{
+  'relative': direction === 'vertical',
+}"
+>
   <div
     class="flex"
     [ngClass]="{
-      'flex-row 510:flex-col': direction === 'vertical',
-      'flex-col': direction === 'horizontal'
+      '510:relative flex-row 510:flex-col': direction === 'vertical',
+      'relative flex-col': direction === 'horizontal'
     }"
   >
-    <div
-      class="min-h-[158px] aspect-[2/3] hover:opacity-80 transition-opacity ease-in-out delay-50"
-      [ngClass]="{
-        'w-[105px] 510:w-full': direction === 'vertical',
-        'w-full': direction === 'horizontal'
-      }"
-    >
-      <app-img
-        [alt]="title"
-        [title]="title"
-        [imgSrc]="media.poster_path"
-        [baseUrlLg]="TMDB_PROFILE_440W_660H_IMG_URL"
-        [baseUrlSm]="TMDB_PROFILE_260W_390H_IMG_URL"
-        [link]="detailMediaPath"
-        [customClasses]="borderImgClass"
-      ></app-img>
+    <div class="flex">
+      <div
+        class="min-h-[158px] aspect-[2/3] hover:opacity-80 transition-opacity ease-in-out delay-50"
+        [ngClass]="{
+          'w-[105px] 510:w-full': direction === 'vertical',
+          'w-full': direction === 'horizontal'
+        }"
+      >
+        <app-img
+          [alt]="title"
+          [title]="title"
+          [imgSrc]="media.poster_path"
+          [baseUrlLg]="TMDB_PROFILE_440W_660H_IMG_URL"
+          [baseUrlSm]="TMDB_PROFILE_260W_390H_IMG_URL"
+          [link]="detailMediaPath"
+          [customClasses]="borderImgClass"
+        ></app-img>
+      </div>
     </div>
     <div class="w-full">
+      <div class="w-full">
+        <app-bookmark-status-label
+          [bookmarkEnumSelected]="bookmarkEnumSelected"
+          [customClass]="borderBookmarkLabelClass"
+          [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
+          [direction]="direction"
+        ></app-bookmark-status-label>
+      </div>
       <div class="card-content space-y-1">
         <div>
           <h4>
@@ -48,21 +56,30 @@
         }
       </div>
     </div>
-    @if(isUserAuthenticated$ | async; as isUserAuthenticated){
-    <app-bookmark-selector
-      (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
-      [mediaData]="media"
-      [index]="index"
-      [mediaType]="mediaType"
-      [personIdentifier]="personIdentifier"
-      [direction]="direction"
-      [isDetail]="false"
-    ></app-bookmark-selector>
-    } @else {
-    <app-bookmark-disabled-dialog
-      [direction]="direction"
-      [isDetail]="false"
-    ></app-bookmark-disabled-dialog>
-    }
+    <div
+      class="w-full bookmark-selector-wrapper"
+      [ngClass]="{
+      'bookmark-selector-wrapper-vertical':
+        direction === 'vertical' ,
+      'bookmark-selector-wrapper-horizontal': direction === 'horizontal' ,
+    }"
+    >
+      @if(isUserAuthenticated$ | async; as isUserAuthenticated){
+      <app-bookmark-selector
+        (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
+        [mediaData]="media"
+        [index]="index"
+        [mediaType]="mediaType"
+        [personIdentifier]="personIdentifier"
+        [direction]="direction"
+        [isDetail]="false"
+      ></app-bookmark-selector>
+      } @else {
+      <app-bookmark-disabled-dialog
+        [direction]="direction"
+        [isDetail]="false"
+      ></app-bookmark-disabled-dialog>
+      }
+    </div>
   </div>
 </div>

@@ -1,13 +1,12 @@
 <div
   (click)="toggleOverlay()"
   #trigger
-  class="right-1 border-none p-1 rounded-full absolute z-10"
+  class="top-2 right-2 border-none p-1 rounded-full absolute z-10"
   [ngClass]="{
-    'bg-trasparent 510:bg-[var(--bg-bookmark-icon)] top-1 510:top-2':
-      direction === 'vertical',
-    'bg-[var(--bg-bookmark-icon)] top-2': direction === 'horizontal' || isDetail,
-    'scale-125': isDetail,
-
+    'vertical':
+      direction === 'vertical' ,
+    'horizontal': direction === 'horizontal' ,
+    'detail': direction === 'none' && isDetail,
   }"
 >
   <div class="text-[var(--text-color)] h-[24px]">
