@@ -10,11 +10,50 @@
   <ul
     class="grid p-0 m-0 py-4"
     [ngClass]="{
+      'grid-cols-1 510:grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-6 510:gap-8':
+        direction === 'vertical',
+      'grid-flow-col grid-columns auto-cols-[160px] sm:auto-cols-[180px] overflow-x-scroll overflow-y-hidden pl-6 gap-8':
+        direction === 'horizontal'
+    }"
+  >
+    @for(media of mediaList; track media.id;){
+    <li class="list-none w-full">
+      <app-media-card
+        [mediaType]="mediaType"
+        [index]="$index"
+        [media]="media"
+        [personIdentifier]="personIdentifier"
+        [direction]="direction"
+      ></app-media-card>
+    </li>
+    }
+  </ul>
+
+  } @else { @if(!isLoading){
+  <div class="flex justify-center">
+    <app-missing-field-placeholder
+      [caption]="placeholder"
+    ></app-missing-field-placeholder>
+  </div>
+  } }
+</div>
+
+<!-- <div
+  infinite-scroll
+  (scrolled)="discoveryAdditionalMedia()"
+  [infiniteScrollDisabled]="isLoading"
+  [infiniteScrollDistance]="0.4"
+  class="box-border"
+>
+  @if( mediaList.length > 0){
+
+  <ul
+    class="grid p-0 m-0 py-4"
+    [ngClass]="{
       'gap-8 smc:gap-10 ': direction === 'vertical',
-      'grid-cols-[repeat(auto-fill,_minmax(136px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(140px,_1fr))] ':
-        direction === 'vertical' && cardSize === 'md',
+
       'grid-cols-[repeat(auto-fill,_minmax(135px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))]':
-        direction === 'vertical' && cardSize === 'lg',
+        direction === 'vertical',
       'grid-flow-col grid-columns auto-cols-[120px] lg:auto-cols-[150px] overflow-x-scroll overflow-y-hidden pl-6 gap-6 smc:gap-6':
         direction === 'horizontal'
     }"
@@ -38,4 +77,4 @@
     ></app-missing-field-placeholder>
   </div>
   } }
-</div>
+</div> -->

@@ -16,6 +16,9 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
 export class BookmarkStatusLabelComponent extends AbstractComponent {
   readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
+  @Input({ required: true })
+  isUserAuthenticated!: boolean;
+
   constructor() {
     super();
   }

@@ -26,8 +26,9 @@ import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { BridgeDataService } from '../../services/bridge-data.service';
 import { AuthSelectors } from '../../store/auth';
-import { map, Observable } from 'rxjs';
+import { map, Observable, takeUntil } from 'rxjs';
 import { BookmarkDisabledDialogComponent } from '../bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
+import { AbstractCardComponent } from '../abstract/abstract-card.component';
 
 @Component({
   selector: 'app-media-card',
@@ -51,8 +52,8 @@ import { BookmarkDisabledDialogComponent } from '../bookmark-disabled-confirmati
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaCardComponent
-  extends AbstractComponent
-  implements OnInit, AfterViewInit
+  extends AbstractCardComponent
+  implements OnInit
 {
   protected readonly bridgeDataService = inject(BridgeDataService);
 
@@ -86,6 +87,9 @@ export class MediaCardComponent
 
   bookmarkSelectorAbsentIsOpen = false;
 
+  override borderImgClassDefault: string = '';
+  override borderImgClassSm: string = 'border-img-card-media-sm';
+
   constructor() {
     super();
   }
@@ -96,15 +100,19 @@ export class MediaCardComponent
     this.buildDetailPath(this.media.id);
   }
 
-  ngAfterViewInit(): void {}
-
   override initSelectors(): void {
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
   }
 
-  override initSubscriptions(): void {}
+  override initSubscriptions(): void {
+    this.pageEventService.windowInnerWidth$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((windowWidth) => {
+        this.evaluateCustomClasses(windowWidth);
+      });
+  }
 
   get voteAverage(): number | null {
     if (this.isTmdbMedia(this.media)) {

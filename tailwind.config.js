@@ -7,6 +7,7 @@ module.exports = {
       xsm: "382px",
       401: "401px",
       smc: "470px",
+      510: "510px",
       sm: "640px",
       md: "768px",
       mdc: "796px",

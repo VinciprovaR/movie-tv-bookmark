@@ -11,6 +11,7 @@ import { ImgComponent } from '../img/img.component';
 import { IMG_SIZES } from '../../../providers';
 
 import { ChangeDetectionStrategy } from '@angular/core';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-person-card',
@@ -46,11 +47,18 @@ export class PersonCardComponent
   person!: Person;
 
   override ngOnInit(): void {
+    this.initSubscriptions();
     this.buildDetailPath(this.person.id);
   }
 
   override initSelectors(): void {}
-  override initSubscriptions(): void {}
+  override initSubscriptions(): void {
+    this.pageEventService.windowInnerWidth$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((windowWidth) => {
+        this.evaluateCustomClasses(windowWidth);
+      });
+  }
 
   isPersonEntity(person: object): person is Person {
     return (person as Person).known_for !== undefined;

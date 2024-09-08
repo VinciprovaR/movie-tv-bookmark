@@ -60,6 +60,9 @@ export class BookmarkSelectorComponent
 
   bookmarkOptions$!: Observable<BookmarkOption[]>;
 
+  @Output()
+  bookmarkStatusElementEmitter = new EventEmitter<bookmarkEnum>();
+
   @Input({ required: true })
   index!: number;
   @Input({ required: true })
@@ -68,6 +71,8 @@ export class BookmarkSelectorComponent
   mediaData!: Movie | MovieDetail | Movie_Data | TV | TVDetail | TV_Data;
   @Input()
   personIdentifier: string = '';
+  @Input()
+  direction: 'horizontal' | 'vertical' = 'vertical';
 
   idItem!: string;
 
@@ -75,8 +80,8 @@ export class BookmarkSelectorComponent
 
   bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
 
-  @Output()
-  bookmarkStatusElementEmitter = new EventEmitter<bookmarkEnum>();
+  @Input({ required: true })
+  isDetail!: boolean;
 
   constructor() {
     super();

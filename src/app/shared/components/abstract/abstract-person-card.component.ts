@@ -1,9 +1,8 @@
-import { Directive, inject } from '@angular/core';
-import { IMG_SIZES } from '../../../providers';
-import { AbstractComponent } from './abstract-component.component';
+import { Directive } from '@angular/core';
+import { AbstractCardComponent } from './abstract-card.component';
 
 @Directive()
-export abstract class AbstractPersonCardComponent extends AbstractComponent {
+export abstract class AbstractPersonCardComponent extends AbstractCardComponent {
   detailMediaPath: string = '';
 
   abstract ngOnInit(): void;

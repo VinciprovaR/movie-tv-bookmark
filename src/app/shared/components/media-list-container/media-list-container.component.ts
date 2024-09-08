@@ -53,11 +53,11 @@ export class MediaListContainerComponent
   scrollSelf: boolean = false;
   @Input()
   includeScrollEvents: boolean = true;
-  @Input()
+  @Input({ required: true })
   direction: 'horizontal' | 'vertical' = 'vertical';
 
-  @Input()
-  cardSize: 'md' | 'lg' = 'md';
+  // @Input()
+  // cardSize: 'md' | 'lg' = 'md';
 
   ulContainerClass: string = '';
 
@@ -72,6 +72,7 @@ export class MediaListContainerComponent
   override initSubscriptions(): void {}
 
   ngOnInit(): void {
+    console.log(this.direction);
     this.placeholder = `No ${this.mediaType} were found that match your query.`;
   }
 

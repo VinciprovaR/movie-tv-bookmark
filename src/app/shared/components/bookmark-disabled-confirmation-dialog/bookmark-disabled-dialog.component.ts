@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -17,11 +18,12 @@ import {
   submitDialogType,
 } from '../abstract/abstract-dialog.component';
 import { AbstractComponent } from '../abstract/abstract-component.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-bookmark-disabled-dialog',
   standalone: true,
-  imports: [MatIconModule, OverlayModule],
+  imports: [MatIconModule, OverlayModule, CommonModule],
   templateUrl: './bookmark-disabled-dialog.component.html',
   styleUrl: './bookmark-disabled-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +32,11 @@ export class BookmarkDisabledDialogComponent
   extends AbstractDialogComponent
   implements OnInit
 {
+  @Input()
+  direction: 'horizontal' | 'vertical' = 'vertical';
+  @Input({ required: true })
+  isDetail!: boolean;
+
   override positions: ConnectedPosition[] = [
     {
       originX: 'start',

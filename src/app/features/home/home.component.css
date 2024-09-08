@@ -3,8 +3,8 @@
 }
 
 .border-feature {
-  border-color: var(--mat-card-border-color);
+  border-color: var(--border-color);
   border-style: solid;
   border-width: 1px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-ext);
 }

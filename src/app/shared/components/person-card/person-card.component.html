@@ -1,6 +1,6 @@
-<div class="h-full border-container flex box-border flex-col">
+<div class="h-full border-container flex box-border flex-row 510:flex-col">
   <div
-    class="w-full h-auto aspect-[2/3] hover:opacity-80 transition-opacity ease-in-out delay-50"
+    class="aspect-[2/3] hover:opacity-80 transition-opacity ease-in-out delay-50 w-[105px] 510:w-full min-h-[158px]"
   >
     <app-img
       [alt]="person.name"
@@ -10,7 +10,7 @@
       [baseUrlSm]="TMDB_PROFILE_260W_390H_IMG_URL"
       [link]="detailMediaPath"
       [state]="person"
-      [customClasses]="'border-img-card'"
+      [customClasses]="borderImgClass"
       [isPlaceholderPerson]="true"
     ></app-img>
   </div>
@@ -25,19 +25,21 @@
       <span>{{ person.known_for_department }}</span>
     </p>
     <div class="mt-1">
-      @if(isPersonEntity(person)){ @for(knowFor of person.known_for.slice(0,3);
-      track knowFor){
       <h5>
-        {{
-          $index < person.known_for.length - 1
-            ? (knowFor.title ? knowFor.title : knowFor.name) + ", "
-            : knowFor.title
-            ? knowFor.title
-            : knowFor.name
-        }}
-      </h5>
+        @if(isPersonEntity(person)){ @for(knowFor of
+        person.known_for.slice(0,3); track knowFor){
 
-      } }
+        <span>
+          {{
+            $index < person.known_for.length - 1
+              ? (knowFor.title ? knowFor.title : knowFor.name) + ", "
+              : knowFor.title
+              ? knowFor.title
+              : knowFor.name
+          }}</span
+        >
+        } }
+      </h5>
     </div>
   </div>
 </div>

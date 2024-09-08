@@ -7,7 +7,8 @@
   --hover-selected-color: rgb(59 130 246);
   --disabled-bg: rgb(168, 168, 168);
   --disabled-text-color: rgb(114, 114, 114);
-  --border-radius: 0.45rem;
+  --border-radius-ext: 7.2px;
+  --border-radius-int: 6.2px;
   --text-color-light: rgb(215, 218, 223);
   --text-color-dark: rgb(0, 27, 63);
   --border-light: rgb(234, 236, 240);
@@ -25,16 +26,18 @@
   --failure-icon-color: rgb(186, 70, 57);
   --bg-danger: rgb(162, 13, 35);
   --bg-danger-hover: rgb(214, 16, 46);
+  --bookmark-icon-selected: rgb(33, 173, 234);
 }
 
 /* variables */
 body.light-theme {
-  --theme-color-1: rgb(243, 243, 243);
+  --theme-color-1: rgb(255, 255, 255);
   --theme-color-2: rgb(215, 227, 255);
   --theme-color-2-hover: rgb(168, 195, 254);
   --theme-color-2-focus: rgb(168, 195, 254);
   --theme-color-3: rgb(212, 209, 209);
-  /* --theme-color-3: rgb(253, 204, 172); */
+  --bg-bookmark-icon: rgba(255, 255, 255, 0.85);
+  /* --bg-card: rgb(251, 251, 251); */
   --header-li-color: rgb(0, 92, 187);
   --bg-page-section: rgb(250, 250, 250);
   --text-color: var(--text-color-dark);
@@ -43,7 +46,8 @@ body.light-theme {
   --text-color-inverted: var(--text-color-light);
   --sub-text-color: rgb(87, 87, 87);
   --bookmark-info-bkg-color: #252222;
-  --mat-card-border-color: #d7d7d7;
+  --border-color: rgb(214, 194, 197);
+  --border-color-separator: rgb(132, 115, 118);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(32, 33, 34);
   --box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
@@ -56,14 +60,15 @@ body.light-theme {
   --scroll-thumb-hover-color: rgb(136, 136, 136);
   --scroll-thumb-color: rgb(120, 120, 120);
   --bg-color-arrow-slider: rgba(18, 18, 18, 0.45);
-  --mat-divider-color: rgb(116, 119, 127);
 }
 body.dark-theme {
   --theme-color-1: rgb(25, 28, 28);
   --theme-color-2: rgb(0, 80, 80);
   --theme-color-2-hover: rgb(0, 110, 110);
   --theme-color-2-focus: rgb(0, 142, 142);
-  --theme-color-3: rgb(48, 53, 53);
+  --theme-color-3: rgb(35, 39, 39);
+  --bg-bookmark-icon: rgb(18, 20, 20, 0.85);
+  /* --bg-card: rgb(12, 14, 14); */
   --header-li-color: rgb(0, 221, 221);
   --bg-page-section: rgb(40, 40, 40);
   --text-color: var(--text-color-light);
@@ -71,7 +76,8 @@ body.dark-theme {
   /* --bg-header-person-detail: rgba(0, 0, 0, 0.411); */
   --text-color-inverted: var(--text-color-dark);
   --sub-text-color: rgb(190, 190, 190);
-  --mat-card-border-color: rgb(111, 111, 111);
+  --border-color: rgb(63, 73, 72);
+  --border-color-separator: rgb(136, 147, 146);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(185, 185, 185);
   --bookmark-info-bkg-color: rgb(255, 255, 255);
@@ -86,7 +92,6 @@ body.dark-theme {
   --scroll-thumb-hover-color: rgb(112, 112, 112);
   --scroll-thumb-color: rgb(96, 96, 96);
   --bg-color-arrow-slider: rgba(87, 87, 87, 0.45);
-  --mat-divider-color: rgb(136, 147, 146);
 }
 
 html,
@@ -98,10 +103,11 @@ body {
   background-color: var(--theme-color-1);
   color: var(--text-color);
   transition: all 0.1s;
+  min-width: 320px;
   /* --mdc-outlined-text-field-input-text-color: var(--text-color);
   --mdc-outlined-text-field-label-text-color: var(--text-color);
   --mdc-outlined-text-field-hover-label-text-color: var(--theme-color-2);
-  --mdc-outlined-text-field-outline-color: var(--mat-card-border-color);
+  --mdc-outlined-text-field-outline-color: var(--border-color);
   --mdc-outlined-text-field-container-shape: var(8px) !important; */
 }
 
@@ -144,25 +150,39 @@ img {
   cursor: pointer;
 }
 
-mat-card {
-  background-color: var(--theme-color-1) !important;
-}
-
 .border-container {
-  border-color: var(--mat-card-border-color);
+  border-color: var(--border-color);
   /* box-shadow: var(--box-shadow); */
   border-style: solid;
   border-width: 1px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-ext);
 }
 
 .border-container-no-color {
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-int);
 }
 
 .border-img-card {
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius-int);
+  border-top-right-radius: var(--border-radius-int);
+}
+
+.border-img-card-sm {
+  border-top-left-radius: var(--border-radius-int);
+  border-bottom-left-radius: var(--border-radius-int);
+}
+
+.border-img-card-media-sm {
+  border-bottom-left-radius: var(--border-radius-int);
+}
+
+.border-bookmark-label-card-sm {
+  border-top-right-radius: var(--border-radius-int);
+}
+
+.border-bookmark-label-detail {
+  border-bottom-left-radius: var(--border-radius-int);
+  border-bottom-right-radius: var(--border-radius-int);
 }
 
 .border-img-card-full {
@@ -174,11 +194,11 @@ mat-card {
 }
 
 .card-content {
-  padding: 8px 8px 0px 8px;
+  padding: 14px 14px 0px 14px;
 }
 
 .card-content:last-child {
-  padding-bottom: 12px;
+  padding-bottom: 16px;
 }
 
 h1,
@@ -194,15 +214,7 @@ p {
 }
 
 .border-separator {
-  border-bottom: 1px solid var(--mat-card-border-color);
-}
-
-.border-separator-media-detail-header-dark > * {
-  border-bottom: 1px solid var(--border-dark);
-}
-
-.border-separator-media-detail-header-light > * {
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-color-separator);
 }
 
 #sub-text {
@@ -241,6 +253,7 @@ h5 {
   font-size: 0.9rem;
   font-weight: 250;
   margin: 0px;
+  color: rgb(156, 163, 175);
 }
 
 app-static-tag,
@@ -516,11 +529,6 @@ button.button-mt:disabled {
   .w-xxxsm {
     width: 100%;
   }
-}
-
-.border-bookmark-label {
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
 }
 
 .clickable-icon {

@@ -54,16 +54,21 @@
               [mediaData]="tvDetail"
               [index]="0"
               [mediaType]="'tv'"
+              [isDetail]="true"
             ></app-bookmark-selector>
 
             <div class="w-full absolute bottom-0">
               <app-bookmark-status-label
                 [bookmarkEnumSelected]="bookmarkEnumSelected"
-                [customClass]="'border-bookmark-label'"
+                [customClass]="'border-bookmark-label-detail'"
+                [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
               ></app-bookmark-status-label>
             </div>
             } @else {
-            <app-bookmark-disabled-dialog></app-bookmark-disabled-dialog>}
+            <app-bookmark-disabled-dialog
+              [isDetail]="false"
+            ></app-bookmark-disabled-dialog
+            >}
           </div>
         </div>
         @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
