@@ -71,7 +71,6 @@ export class ImgComponent extends AbstractComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  //to-do density
   getFullSrc() {
     return `${this.baseUrlLg}${this.imgSrc}`;
   }

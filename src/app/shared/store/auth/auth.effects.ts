@@ -116,7 +116,6 @@ export class AuthEffects {
     );
   });
 
-  //to-do refractor in service
   logout$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.logoutLocal, AuthActions.logoutGlobal),

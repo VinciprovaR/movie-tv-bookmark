@@ -117,7 +117,7 @@ export class LoginPageComponent
       this.isFormValid = false;
     }
   }
-  //to-do non va bene, dispatca le action quando loggi anche e quindi strani effetti
+
   ngOnDestroy(): void {
     this.store.dispatch(AuthActions.cleanMessageSuccessOperation());
   }
