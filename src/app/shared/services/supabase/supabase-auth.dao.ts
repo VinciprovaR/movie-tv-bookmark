@@ -92,21 +92,21 @@ export class SupabaseAuthDAO {
     );
   }
 
-  getUserByEmail(credentials: RegisterPayload): Observable<UserSupabase[]> {
-    return from(
-      this.supabase.from('users').select('*').eq(`email`, credentials.email)
-    ).pipe(
-      map((result: PostgrestSingleResponse<UserSupabase[]>) => {
-        if (result.error) {
-          throw new CustomHttpErrorResponse({
-            error: result.error,
-            message: result.error.message,
-          });
-        }
-        return result.data;
-      })
-    );
-  }
+  // getUserByEmail(credentials: RegisterPayload): Observable<UserSupabase[]> {
+  //   return from(
+  //     this.supabase.from('users').select('*').eq(`email`, credentials.email)
+  //   ).pipe(
+  //     map((result: PostgrestSingleResponse<UserSupabase[]>) => {
+  //       if (result.error) {
+  //         throw new CustomHttpErrorResponse({
+  //           error: result.error,
+  //           message: result.error.message,
+  //         });
+  //       }
+  //       return result.data;
+  //     })
+  //   );
+  // }
 
   resendConfirmationRegister(email: string): Observable<AuthResponse> {
     return from(this.supabase.auth.resend({ email, type: 'signup' })).pipe(

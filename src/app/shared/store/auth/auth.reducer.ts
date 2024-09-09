@@ -58,8 +58,8 @@ export const authReducer = createReducer(
       isLoading: false,
       user: null,
       messageSuccessOperation: `We've sent you an email to ${email} with
-              instructions to confirm your account, if not confirmed yet and if
-              created. Please check your inbox, and don't forget to check your
+              instructions to confirm your account, if not already registered. 
+              Please check your inbox, and don't forget to check your
               spam or junk folder if you don't see the email within a few
               minutes!`,
     };

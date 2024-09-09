@@ -40,24 +40,7 @@ export class SupabaseAuthService {
   }
 
   register(credentials: RegisterPayload): Observable<AuthResponse> {
-    return this.supabaseAuthDAO.getUserByEmail(credentials).pipe(
-      tap((userSupabaseResultList: UserSupabase[]) => {
-        if (
-          userSupabaseResultList &&
-          userSupabaseResultList.length > 0 &&
-          userSupabaseResultList[0].email === credentials.email
-        ) {
-          throw new CustomHttpErrorResponse({
-            error: 'User already registered',
-            message: `User already registered with email ${credentials.email}`,
-            status: 409,
-          });
-        }
-      }),
-      switchMap(() => {
-        return this.supabaseAuthDAO.signUp(credentials);
-      })
-    );
+    return this.supabaseAuthDAO.signUp(credentials);
   }
 
   resendConfirmationRegister(email: string): Observable<AuthResponse> {
