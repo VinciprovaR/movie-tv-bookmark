@@ -17,8 +17,6 @@ import { scrollDirection } from '../../interfaces/layout.types';
 export class BookmarkStatusLabelComponent extends AbstractComponent {
   readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
-  @Input({ required: true })
-  isUserAuthenticated!: boolean;
   @Input()
   direction: scrollDirection = 'vertical';
 

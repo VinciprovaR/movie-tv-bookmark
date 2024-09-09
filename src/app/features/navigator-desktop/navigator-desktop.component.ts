@@ -49,7 +49,6 @@ export class NavigatorDesktopComponent
   }
 
   hideSubMenu(menuEl: HTMLElement) {
-    console.log('hide sub menu');
     this.renderer.removeClass(menuEl, 'show-sub-menu');
     timer(500)
       .pipe(takeUntil(this.destroyed$))

@@ -127,7 +127,6 @@ export class MovieDetailCreditsComponent
   }
 
   handleDataFromRoute(movieDetail: MovieDetail) {
-    console.log('from route');
     this.initDynamicSelectors(
       this.castListSub$.asObservable(),
       this.departmentsSub$.asObservable(),

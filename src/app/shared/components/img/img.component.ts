@@ -25,9 +25,9 @@ export class ImgComponent extends AbstractComponent implements OnInit {
   imgSrc: string = '';
   // @Input()
   // baseUrl: string = '';
-  @Input()
+  @Input({ required: true })
   baseUrlSm: string = '';
-  @Input()
+  @Input({ required: true })
   baseUrlLg: string = '';
   @Input()
   width!: number;
@@ -71,12 +71,14 @@ export class ImgComponent extends AbstractComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  //to-do density
   getFullSrc() {
-    if (window.innerWidth <= 660) {
-      return `${this.baseUrlSm}${this.imgSrc}`;
-    }
     return `${this.baseUrlLg}${this.imgSrc}`;
   }
+
+  // getFullSrcSet() {
+  //   return `1x, 2x`;
+  // }
 
   getImgBackground() {
     return this.isPlaceholderPerson
@@ -91,7 +93,6 @@ export class ImgComponent extends AbstractComponent implements OnInit {
   }
 
   onError() {
-    console.log('on error image');
     this.imageLoadIsError = true;
     this.detectChanges();
   }

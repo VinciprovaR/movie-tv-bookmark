@@ -1237,7 +1237,7 @@ body.light-theme {
   --theme-color-2: rgb(215, 227, 255);
   --theme-color-2-hover: rgb(168, 195, 254);
   --theme-color-2-focus: rgb(168, 195, 254);
-  --theme-color-3: rgb(212, 209, 209);
+  --theme-color-3: rgb(239, 237, 240);
   --bg-bookmark-icon: rgba(255, 255, 255, 0.85);
   /* --bg-card: rgb(251, 251, 251); */
   --header-li-color: rgb(0, 92, 187);
@@ -2004,6 +2004,10 @@ youtube-player div:first-child {
     width: 70%;
   }
 
+  .sm\:w-\[700px\] {
+    width: 700px;
+  }
+
   .sm\:w-\[80\%\] {
     width: 80%;
   }
@@ -2049,6 +2053,10 @@ youtube-player div:first-child {
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
+  .sm\:rounded-md {
+    border-radius: 0.375rem;
   }
 
   .sm\:bg-transparent {

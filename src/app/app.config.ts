@@ -20,6 +20,7 @@ import { AuthEffects } from './shared/store/auth/auth.effects';
 import { WebStorageService } from './shared/services/web-storage.service';
 
 import {
+  IMAGE_CONFIG,
   IMAGE_LOADER,
   ImageLoaderConfig,
   registerLocaleData,

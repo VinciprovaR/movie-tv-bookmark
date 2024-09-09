@@ -1,17 +1,13 @@
 ################ TO-DO PRIORITARIO ################
 
 
-- CORS su edge function
-
-- colori theme chiaro e scuro rivedere (grigio sul theme chiaro non mi piace)
-
 - mail vanno in spam
 
-- movie e tv credit detail sistemalo 
-
-- se si aggiorna direttamente sul tv detail non prende il bookmark
 
 ################ TO-DO AFTER DEPLOY ################
+- colori theme chiaro e scuro rivedere (grigio sul theme chiaro non mi piace)
+- movie e tv credit detail sistemalo 
+- density img
 - favico
 - REFRACTOR GENERALE, ELIMINARE ASSET, COMMENTI, CODICE INUTILE, PULZIA E ORDINE ECC..
 - troppi chunk al primo atterraggio
@@ -55,7 +51,8 @@
 
 
 ################################ FATTO, RICONTROLLARE ################################
-
+- CORS su edge function (basterebbe *)
+- se si aggiorna direttamente sul tv detail non prende il bookmark
 - person detail, stile movie and tv list
 - card mobile orizzontale
 - cast crew complete page, rivedere, giusto headaer desktop e loading 

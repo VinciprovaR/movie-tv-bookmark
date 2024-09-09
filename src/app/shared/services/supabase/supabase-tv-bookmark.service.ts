@@ -31,7 +31,7 @@ export class SupabaseTVBookmarkService {
   constructor() {}
 
   initTVBookmarkMapFromTVResultTMDB(
-    tvList: TV_Data[]
+    tvList: TV[] | TV_Data[] | TVDetail[]
   ): Observable<TVBookmarkMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(tvList);
     return this.supabaseTVBookmarkDAO.findBookmarkListByTVIds(mediaIdList).pipe(

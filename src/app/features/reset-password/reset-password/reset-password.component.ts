@@ -109,7 +109,6 @@ export class ResetPasswordComponent
       skipWhile((combined) => combined.isLoading),
       map((combined) => {
         if (!combined.isPasswordRecovery) {
-          //console.log('NOT allowed to go to password-recovery-form :(');
           return false;
         }
         return true;
@@ -117,10 +116,6 @@ export class ResetPasswordComponent
     );
 
     this.selectIsLoading$ = this.store.select(AuthSelectors.selectIsLoading);
-
-    // this.selectIsResetPasswordSuccess$ = this.store.select(
-    //   AuthSelectors.selectIsResetPasswordSuccess
-    // );
   }
 
   override initSubscriptions(): void {

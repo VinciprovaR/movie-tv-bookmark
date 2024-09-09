@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
+import { TVDetail, TVResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { AuthActions, AuthSelectors } from '../auth';
 import { User } from '@supabase/supabase-js';
@@ -13,7 +13,10 @@ import { SupabaseTVBookmarkService } from '../../services/supabase';
 import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
 
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
-import { personDetailTVCreditsSuccess } from '../../component-store';
+import {
+  personDetailTVCreditsSuccess,
+  tvDetailSuccess,
+} from '../../component-store';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 
 @Injectable()
@@ -68,6 +71,34 @@ export class TVBookmarkEffects {
         let { tvResult }: { tvResult: TVResult } = action;
         return this.supabaseTVBookmarkService
           .initTVBookmarkMapFromTVResultTMDB(tvResult.results)
+          .pipe(
+            map((tvBookmarkMapResult: TVBookmarkMap) => {
+              return TVBookmarkActions.populateTVBookmarkMapSuccess({
+                tvBookmarkMap: tvBookmarkMapResult,
+              });
+            }),
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  TVBookmarkActions.populateTVBookmarkMapFailure({
+                    httpErrorResponse,
+                  })
+                );
+              }
+            )
+          );
+      })
+    );
+  });
+
+  initTVBookmarkMapDetail$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(tvDetailSuccess),
+      switchMap((action) => {
+        let { tvDetail }: { tvDetail: TVDetail } = action;
+
+        return this.supabaseTVBookmarkService
+          .initTVBookmarkMapFromTVResultTMDB([tvDetail])
           .pipe(
             map((tvBookmarkMapResult: TVBookmarkMap) => {
               return TVBookmarkActions.populateTVBookmarkMapSuccess({
@@ -310,7 +341,11 @@ export class TVBookmarkEffects {
 
   cleanState$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.logoutLocalSuccess),
+      ofType(
+        AuthActions.logoutLocalSuccess,
+        AuthActions.logoutGlobalSuccess,
+        AuthActions.loginSuccess
+      ),
       switchMap((action) => {
         return of(TVBookmarkActions.cleanState());
       })

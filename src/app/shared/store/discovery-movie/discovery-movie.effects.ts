@@ -132,7 +132,11 @@ export class DiscoveryMovieEffects {
 
   cleanState$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.logoutLocalSuccess),
+      ofType(
+        AuthActions.logoutLocalSuccess,
+        AuthActions.logoutGlobalSuccess,
+        AuthActions.loginSuccess
+      ),
       switchMap((action) => {
         return of(DiscoveryMovieActions.cleanState());
       })

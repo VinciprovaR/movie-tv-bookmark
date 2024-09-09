@@ -88,7 +88,11 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
 
   readonly cleanState$ = this.effect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.logoutLocalSuccess),
+      ofType(
+        AuthActions.logoutLocalSuccess,
+        AuthActions.logoutGlobalSuccess,
+        AuthActions.loginSuccess
+      ),
       switchMap((action) => {
         return of(this.cleanPersonDetail());
       })

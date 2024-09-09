@@ -65,13 +65,12 @@
             >
               <app-bookmark-status-label
                 [bookmarkEnumSelected]="bookmarkEnumSelected"
-                [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
                 [direction]="'none'"
               ></app-bookmark-status-label>
             </div>
             } @else {
             <app-bookmark-disabled-dialog
-              [isDetail]="false"
+              [isDetail]="true"
               [direction]="'none'"
             ></app-bookmark-disabled-dialog
             >}

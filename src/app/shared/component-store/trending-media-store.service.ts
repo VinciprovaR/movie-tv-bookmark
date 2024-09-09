@@ -143,7 +143,11 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
 
   readonly cleanState$ = this.effect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.logoutLocalSuccess),
+      ofType(
+        AuthActions.logoutLocalSuccess,
+        AuthActions.logoutGlobalSuccess,
+        AuthActions.loginSuccess
+      ),
       switchMap((action) => {
         return of(this.cleanMovieTrending());
       })

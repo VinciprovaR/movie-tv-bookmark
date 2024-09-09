@@ -92,7 +92,6 @@ export class BookmarkSelectorComponent
     this.idItem = `${this.personIdentifier ? `${this.personIdentifier}_` : ''}${
       this.index
     }_${this.mediaData.id}`;
-    console.log(this.isDetail);
     this.initSelectors();
     this.buildControl();
     this.initDataBridge();

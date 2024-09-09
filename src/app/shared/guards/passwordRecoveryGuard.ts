@@ -11,10 +11,8 @@ export const passwordRecoveryGuard: CanMatchFn = () => {
     skipWhile((combined) => combined.isLoading),
     map((combined) => {
       if (!combined.isPasswordRecovery) {
-        //console.log('NOT allowed to go to password-recovery-form :(');
         return router.parseUrl('/home');
       } else {
-        //console.log('ALLOWED to go to password-recovery-form :)');
         return true;
       }
     })

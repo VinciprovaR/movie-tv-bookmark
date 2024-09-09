@@ -57,18 +57,18 @@
               [isDetail]="true"
               [direction]="'none'"
             ></app-bookmark-selector>
+
             <div
               class="w-full absolute bottom-0 bg-label-detail border-bookmark-label-detail"
             >
               <app-bookmark-status-label
                 [bookmarkEnumSelected]="bookmarkEnumSelected"
                 [customClass]="'border-bookmark-label-detail'"
-                [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
               ></app-bookmark-status-label>
             </div>
             } @else {
             <app-bookmark-disabled-dialog
-              [isDetail]="false"
+              [isDetail]="true"
               [direction]="'none'"
             ></app-bookmark-disabled-dialog
             >}

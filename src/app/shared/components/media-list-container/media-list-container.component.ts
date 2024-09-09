@@ -73,7 +73,6 @@ export class MediaListContainerComponent
   override initSubscriptions(): void {}
 
   ngOnInit(): void {
-    console.log(this.direction);
     this.placeholder = `No ${this.mediaType} were found that match your query.`;
   }
 

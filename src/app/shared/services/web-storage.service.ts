@@ -28,7 +28,6 @@ export class WebStorageService {
   }
 
   destroyItem(key: string): void {
-    console.log('destroy: ', key);
     if (key) {
       window.localStorage.removeItem(key);
     }

@@ -49,7 +49,6 @@ export class SupabaseAuthDAO {
   }
 
   validateCurrentPassword(credentials: LoginPayload): Observable<any> {
-    console.log('validate current password: ', credentials.password);
     return from(
       this.supabase.rpc('verify_user_password', {
         password: credentials.password,

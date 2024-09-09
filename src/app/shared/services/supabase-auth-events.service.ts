@@ -27,20 +27,16 @@ export class SupabaseAuthEventsService {
 
   initEvent() {
     this.supabase.auth.onAuthStateChange((event, session) => {
-      // console.log(event, session);
-
       if (event === 'INITIAL_SESSION') {
       } else if (event === 'SIGNED_IN') {
         this.isLoading$.next(false);
       } else if (event === 'SIGNED_OUT') {
         this.isLoading$.next(false);
       } else if (event === 'PASSWORD_RECOVERY') {
-        // console.log('isPasswordRecovery set to: ' + true);
         this.passwordRecoveryFlowStart();
         this.isLoading$.next(false);
       } else if (event === 'TOKEN_REFRESHED') {
       } else if (event === 'USER_UPDATED') {
-        // console.log('isPasswordRecovery set to: ' + false);
         this.passwordRecoveryFlowEnd();
       }
     });
