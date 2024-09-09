@@ -130,7 +130,7 @@ export abstract class AbstractDialogComponent
         .pipe(takeUntil(this.destroyed$))
         .subscribe({
           next: (event: KeyboardEvent) => {
-            if (event.key.toLowerCase() === 'escape') {
+            if (event.key === 'Escape') {
               this.closeOverlay();
             }
           },

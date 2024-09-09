@@ -1,33 +1,37 @@
 <section class="w-full max-w-screen-3xl pt-[60px] space-y-8">
   <!-- Header Section -->
-  <div
-    class="bg-cover bg-top home-header"
-    [ngStyle]="{
-      'background-image': backgroundImageStyle
-    }"
-  >
+  <div class="bg-[var(--home-bg-asbent-image)]">
     <div
-      class="h-full inset-0 flex flex-col justify-center items-center"
+      class="bg-cover bg-top home-header"
       [ngStyle]="{
-        'background-image': headerMediaGradient
+        'background-image': backgroundImageStyle
       }"
     >
-      <h1 class="text-4xl sm:text-5xl md:text-6xl mb-4 text-white text-center">
-        Movie &amp; TV Bookmark
-      </h1>
-      <div class="px-4">
-        <p class="text-lg md:text-2xl mb-8 text-white text-center">
-          Search, discover, and save your favorite movies and tv shows.
-        </p>
-      </div>
-      <!-- text-lg md:text-xl -->
-      <div class="w-[20%] min-w-[8rem] max-w-[12rem]">
-        <button
-          class="button-mt button-mt-role-normal"
-          (click)="scroll(features)"
+      <div
+        class="h-full inset-0 flex flex-col justify-center items-center"
+        [ngStyle]="{
+          'background-image': headerMediaGradient
+        }"
+      >
+        <h1
+          class="text-4xl sm:text-5xl md:text-6xl mb-4 text-white text-center"
         >
-          Explore Now
-        </button>
+          Movie &amp; TV Bookmark
+        </h1>
+        <div class="px-4">
+          <p class="text-lg md:text-2xl mb-8 text-white text-center">
+            Search, discover, and save your favorite movies and tv shows.
+          </p>
+        </div>
+        <!-- text-lg md:text-xl -->
+        <div class="w-[20%] min-w-[8rem] max-w-[12rem]">
+          <button
+            class="button-mt button-mt-role-normal"
+            (click)="scroll(features)"
+          >
+            Explore Now
+          </button>
+        </div>
       </div>
     </div>
   </div>

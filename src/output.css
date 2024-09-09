@@ -843,6 +843,10 @@
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
+.bg-\[var\(--home-bg-asbent-image\)\] {
+  background-color: var(--home-bg-asbent-image);
+}
+
 .bg-cover {
   background-size: cover;
 }
@@ -1228,6 +1232,7 @@
   --bg-danger: rgb(162, 13, 35);
   --bg-danger-hover: rgb(214, 16, 46);
   --bookmark-icon-selected: rgb(33, 173, 234);
+  --home-bg-asbent-image: rgb(63, 78, 85);
 }
 
 /* variables */
