@@ -9,7 +9,7 @@
 
 - movie e tv credit detail sistemalo 
 
-
+- se si aggiorna direttamente sul tv detail non prende il bookmark
 
 ################ TO-DO AFTER DEPLOY ################
 - favico
