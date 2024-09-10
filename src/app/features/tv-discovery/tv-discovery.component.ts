@@ -1,14 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
-
-import { Store } from '@ngrx/store';
-import { Observable, Subject, combineLatest, takeUntil } from 'rxjs';
+import { Observable, combineLatest, takeUntil } from 'rxjs';
 import {
   DiscoveryTVActions,
   DiscoveryTVSelectors,
 } from '../../shared/store/discovery-tv';
-
 import { TV } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';

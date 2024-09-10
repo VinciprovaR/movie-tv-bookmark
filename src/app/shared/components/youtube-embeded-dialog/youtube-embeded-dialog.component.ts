@@ -13,7 +13,6 @@ import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import {
   AbstractDialogComponent,
-  scrollStrategies,
   SubmitDialog,
   submitDialogType,
 } from '../abstract/abstract-dialog.component';

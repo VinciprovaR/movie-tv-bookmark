@@ -1,20 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
-import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   SearchPeopleActions,
   SearchPeopleSelectors,
 } from '../../shared/store/search-people';
-
 import { Person } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { PersonListContainerComponent } from '../../shared/components/person-list-container/person-list-container.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

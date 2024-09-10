@@ -23,8 +23,6 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
 export class ImgComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })
   imgSrc: string = '';
-  // @Input()
-  // baseUrl: string = '';
   @Input({ required: true })
   baseUrlSm: string = '';
   @Input({ required: true })
@@ -74,10 +72,6 @@ export class ImgComponent extends AbstractComponent implements OnInit {
   getFullSrc() {
     return `${this.baseUrlLg}${this.imgSrc}`;
   }
-
-  // getFullSrcSet() {
-  //   return `1x, 2x`;
-  // }
 
   getImgBackground() {
     return this.isPlaceholderPerson

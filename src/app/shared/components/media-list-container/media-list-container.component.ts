@@ -2,12 +2,10 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../interfaces/TMDB/tmdb-media.interface';

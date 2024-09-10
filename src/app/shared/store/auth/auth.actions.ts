@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { SignOut, User, UserResponse } from '@supabase/supabase-js';
+import { User } from '@supabase/supabase-js';
 import {
   LoginPayload,
   RegisterPayload,
@@ -16,18 +16,6 @@ export const loginFailure = createAction(
   '[Auth] Login Failure',
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
-
-// export const loginForValidation = createAction(
-//   '[Auth] Login For Validation',
-//   props<{ password: string }>()
-// );
-// export const loginForValidationSuccess = createAction(
-//   '[Auth] Login For Validation Success'
-// );
-// export const loginForValidationFailure = createAction(
-//   '[Auth] Login For Validation Failure',
-//   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
-// );
 
 //register
 export const register = createAction(

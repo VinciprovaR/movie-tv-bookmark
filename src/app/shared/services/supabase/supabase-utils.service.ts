@@ -23,7 +23,6 @@ import {
   TVDetail,
   TVResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-
 import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
 import {
   crud_operations,
@@ -31,6 +30,11 @@ import {
 } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { Genre } from '../../interfaces/TMDB/tmdb-filters.interface';
 
+/**
+ * SupabaseUtilsService utils methods and data decoupling of the
+ * supabase entities
+ *
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -39,7 +43,6 @@ export class SupabaseUtilsService {
     noEntityANDInBookmarkSelected: 'create', //Case #0 - Create - Movie/tv doesn't have its own bookmark and bookmark selected is > 0, must create the bookmark item
     oneEntityANDNoBookmarkSelected: 'delete', //Case #1 - Delete - Movie/tv has its own bookmark and bookmark selected is == 0, must fake delete the bookmark item , update the bookmark to 0
     oneEntityANDInBookmarkSelected: 'update', //Case #2 - Update - Movie/tv has its own bookmark and bookmark selected is > 0, must update the bookmark item
-
     noEntityANDNoBookmarkSelected: 'unchanged', //Case #3 - Nothing - Movie/tv doesn't have its own bookmark and bookmark selected is == 0, must do nothing, count as delete return bookmark 0
     oneEntityANDInBookmarkSelectedButNoBookmarkInEntity: 'createUpdate', //  //Case #4 - Create Update - Movie/tv has its own bookmark, the bookmark is 0 and bookmark selected is > 0, must fake create the item, is an update
     default: 'default', //#Case #99/Default - Default - All cases covered, should not be possible

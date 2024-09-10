@@ -1,25 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*****************************************/
+/************* Variables *****************/
+/*****************************************/
 :root {
-  --hover-selected-color: rgb(59 130 246);
-  --disabled-bg: rgb(168, 168, 168);
-  --disabled-text-color: rgb(114, 114, 114);
   --border-radius-ext: 7.2px;
   --border-radius-int: 6.2px;
   --text-color-light: rgb(215, 218, 223);
   --text-color-dark: rgb(0, 27, 63);
-  --border-light: rgb(234, 236, 240);
-  --border-dark: #332e2ec5;
-  --color-header-media-detail: rgba(36, 36, 36, 0.76);
-  /* --a-hover: rgb(1, 180, 228); */
-  --a-hover-dark: rgb(0, 52, 196);
-  --bg-header-media-detail-not-lg: rgba(0, 0, 0, 0.411);
+  --bg-veil-media-detail: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(49, 51, 53);
   --link-color-light: rgb(236, 239, 243);
-  --mat-dialog-container-small-max-width: 95vw !important;
   --bg-success-container: rgb(195, 255, 196);
   --success-icon-color: rgb(34, 141, 18);
   --bg-failure-container: rgb(253, 168, 168);
@@ -30,7 +23,6 @@
   --home-bg-asbent-image: rgb(63, 78, 85);
 }
 
-/* variables */
 body.light-theme {
   --theme-color-1: rgb(255, 255, 255);
   --theme-color-2: rgb(215, 227, 255);
@@ -38,24 +30,15 @@ body.light-theme {
   --theme-color-2-focus: rgb(168, 195, 254);
   --theme-color-3: rgb(239, 237, 240);
   --bg-bookmark-icon: rgba(255, 255, 255, 0.85);
-  /* --bg-card: rgb(251, 251, 251); */
   --header-li-color: rgb(0, 92, 187);
   --bg-page-section: rgb(250, 250, 250);
   --text-color: var(--text-color-dark);
   --link-color: rgb(0, 154, 197);
-  /* --bg-header-person-detail: rgba(199, 199, 199, 0.411); */
-  --text-color-inverted: var(--text-color-light);
-  --sub-text-color: rgb(87, 87, 87);
-  --bookmark-info-bkg-color: #252222;
   --border-color: rgb(214, 194, 197);
   --border-color-separator: rgb(132, 115, 118);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(32, 33, 34);
-  --box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
-  /* --theme-color-1-nav-sub-menu: rgb(243 244 246); */
-  --theme-color-1-nav-sub-menu-hover: rgb(185, 185, 185);
-  --gradient-color-header-detail-a: rgba(13, 42, 80, 0.8);
-  --gradient-color-header-detail-b: rgba(13, 42, 80, 0.9);
+  --bg-li-hover: rgb(185, 185, 185);
   --scroll-background-color: rgb(240, 240, 240);
   --scroll-thumb-active-color: rgb(152, 152, 152);
   --scroll-thumb-hover-color: rgb(136, 136, 136);
@@ -69,32 +52,26 @@ body.dark-theme {
   --theme-color-2-focus: rgb(0, 142, 142);
   --theme-color-3: rgb(35, 39, 39);
   --bg-bookmark-icon: rgb(18, 20, 20, 0.85);
-  /* --bg-card: rgb(12, 14, 14); */
   --header-li-color: rgb(0, 221, 221);
   --bg-page-section: rgb(40, 40, 40);
   --text-color: var(--text-color-light);
   --link-color: rgb(1, 180, 228);
-  /* --bg-header-person-detail: rgba(0, 0, 0, 0.411); */
-  --text-color-inverted: var(--text-color-dark);
-  --sub-text-color: rgb(190, 190, 190);
   --border-color: rgb(63, 73, 72);
   --border-color-separator: rgb(136, 147, 146);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(185, 185, 185);
-  --bookmark-info-bkg-color: rgb(255, 255, 255);
-  --box-shadow: 0 1px 3px 0 rgb(255, 255, 255, 0.401),
-    0 1px 2px -1px rgb(255, 255, 255, 0.401) !important;
-  /* --theme-color-1-nav-sub-menu: rgb(32, 35, 35); */
-  --theme-color-1-nav-sub-menu-hover: rgb(70, 78, 78);
-  --gradient-color-header-detail-a: rgba(18, 59, 112, 0.7);
-  --gradient-color-header-detail-b: rgba(18, 59, 113, 0.8);
+  --bg-li-hover: rgb(70, 78, 78);
   --scroll-background-color: rgb(23, 23, 23);
   --scroll-thumb-active-color: rgb(128, 128, 128);
   --scroll-thumb-hover-color: rgb(112, 112, 112);
   --scroll-thumb-color: rgb(96, 96, 96);
   --bg-color-arrow-slider: rgba(87, 87, 87, 0.45);
 }
+/****************** End ******************/
 
+/*********************************************/
+/************* Main Elements *****************/
+/*********************************************/
 html,
 body {
   font-size: 16px;
@@ -105,16 +82,33 @@ body {
   color: var(--text-color);
   transition: all 0.1s;
   min-width: 320px;
-  /* --mdc-outlined-text-field-input-text-color: var(--text-color);
-  --mdc-outlined-text-field-label-text-color: var(--text-color);
-  --mdc-outlined-text-field-hover-label-text-color: var(--theme-color-2);
-  --mdc-outlined-text-field-outline-color: var(--border-color);
-  --mdc-outlined-text-field-container-shape: var(8px) !important; */
 }
 
 header,
 footer {
   background-color: var(--theme-color-2);
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0px;
+}
+
+p {
+  line-height: 22px;
+}
+
+input,
+textarea,
+button,
+select,
+a,
+svg,
+div {
+  -webkit-tap-highlight-color: transparent;
 }
 
 input {
@@ -149,108 +143,6 @@ a.disabled {
 
 img {
   cursor: pointer;
-}
-
-.border-container {
-  border-color: var(--border-color);
-  /* box-shadow: var(--box-shadow); */
-  border-style: solid;
-  border-width: 1px;
-  border-radius: var(--border-radius-ext);
-}
-
-.border-container-no-color {
-  border-radius: var(--border-radius-int);
-}
-
-.border-img-card {
-  border-top-left-radius: var(--border-radius-int);
-  border-top-right-radius: var(--border-radius-int);
-}
-
-.border-img-card-sm {
-  border-top-left-radius: var(--border-radius-int);
-  border-bottom-left-radius: var(--border-radius-int);
-}
-
-.border-img-card-media-sm {
-  border-bottom-left-radius: var(--border-radius-int);
-  border-top-left-radius: var(--border-radius-int);
-}
-
-.border-bookmark-label-card-sm {
-  border-top-left-radius: var(--border-radius-int);
-}
-
-.border-bookmark-label-detail {
-  border-bottom-left-radius: var(--border-radius-int);
-  border-bottom-right-radius: var(--border-radius-int);
-}
-
-.bg-label-detail {
-  background-color: rgb(37, 37, 37);
-}
-
-.border-img-card-full {
-  border-radius: 50%;
-}
-
-.person-img-margin {
-  margin-top: -25px;
-}
-
-.card-content {
-  padding: 14px 14px 0px 14px;
-}
-
-.card-content:last-child {
-  padding-bottom: 16px;
-}
-
-/* bookmark selector */
-
-@media (min-width: 510px) {
-  .vertical {
-    transform: scale(1);
-    background-color: var(--bg-bookmark-icon);
-  }
-}
-
-@media (max-width: 509px) {
-  .vertical {
-    transform: scale(1.25);
-    background-color: transparent;
-  }
-}
-
-.horizontal {
-  transform: scale(1);
-  background-color: var(--bg-bookmark-icon);
-}
-
-.detail {
-  transform: scale(1.25);
-  background-color: var(--bg-bookmark-icon);
-}
-
-h1,
-h2,
-h3,
-h4,
-p {
-  margin: 0px;
-}
-
-p {
-  line-height: 22px;
-}
-
-.border-separator {
-  border-bottom: 1px solid var(--border-color-separator);
-}
-
-#sub-text {
-  color: var(--sub-text-color);
 }
 
 @media (min-width: 641px) {
@@ -288,21 +180,10 @@ h5 {
   color: rgb(156, 163, 175);
 }
 
-app-static-tag,
-app-select-tag {
-  font-size: 0.9rem;
-}
-
 p,
 label {
   font-size: 1rem;
 }
-
-/* p,
-span,
-label {
-  opacity: 0.9;
-} */
 
 a {
   font-size: 1em;
@@ -317,21 +198,6 @@ h3 {
 select {
   width: 100%;
 }
-
-/* .filter-container {
-  transition: margin 225ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-} */
-
-.hidden-container {
-  opacity: 0;
-  overflow: hidden;
-  height: 0px;
-  padding: 0px;
-  margin: 0px;
-}
-
-/* button */
 
 button.button-mt {
   display: flex;
@@ -354,9 +220,6 @@ button.button-mt.button-mt-role-danger {
   color: var(--text-color-light);
   background-color: var(--bg-danger);
 }
-/* button.button-mt.button-mt-role-danger:active {
-  background-color: var(--theme-color-2-focus);
-} */
 
 @media (hover: hover) and (pointer: fine) {
   button.button-mt.button-mt-role-normal:hover {
@@ -390,12 +253,85 @@ button.button-mt:disabled {
   color: var(--disabled-text-color);
   cursor: auto;
 }
+/****************** End ******************/
 
-.active {
-  font-weight: 700;
-  text-decoration: underline;
+/*********************************************/
+/***************** Borders *******************/
+/*********************************************/
+.border-container {
+  border-color: var(--border-color);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--border-radius-ext);
 }
 
+.border-container-no-color {
+  border-radius: var(--border-radius-int);
+}
+
+.border-img-card {
+  border-top-left-radius: var(--border-radius-int);
+  border-top-right-radius: var(--border-radius-int);
+}
+
+.border-img-card-sm {
+  border-top-left-radius: var(--border-radius-int);
+  border-bottom-left-radius: var(--border-radius-int);
+}
+
+.border-img-card-media-sm {
+  border-bottom-left-radius: var(--border-radius-int);
+  border-top-left-radius: var(--border-radius-int);
+}
+
+.border-bookmark-label-card-sm {
+  border-top-left-radius: var(--border-radius-int);
+}
+
+.border-bookmark-label-detail {
+  border-bottom-left-radius: var(--border-radius-int);
+  border-bottom-right-radius: var(--border-radius-int);
+}
+
+.border-img-card-full {
+  border-radius: 50%;
+}
+
+.bg-label-detail {
+  background-color: rgb(37, 37, 37);
+}
+
+.border-separator {
+  border-bottom: 1px solid var(--border-color-separator);
+}
+/****************** End ******************/
+
+/********************************************************/
+/****************** Bookmark ****************************/
+/********************************************************/
+@media (min-width: 510px) {
+  .bg-bookmark-vertical {
+    transform: scale(1);
+    background-color: var(--bg-bookmark-icon);
+  }
+}
+
+@media (max-width: 509px) {
+  .bg-bookmark-vertical {
+    transform: scale(1.25);
+    background-color: transparent;
+  }
+}
+
+.bg-bookmark-horizontal {
+  transform: scale(1);
+  background-color: var(--bg-bookmark-icon);
+}
+
+.bg-bookmark-detail {
+  transform: scale(1.25);
+  background-color: var(--bg-bookmark-icon);
+}
 .noBookmark-color {
   color: rgb(158, 158, 158);
 }
@@ -415,8 +351,11 @@ button.button-mt:disabled {
 .watched-color {
   color: rgb(199, 65, 65);
 }
+/****************** End ******************/
 
-/* fade scroller */
+/********************************************************/
+/********************** Fade ****************************/
+/********************************************************/
 
 @media (min-width: 1024px) {
   .should_fade:after {
@@ -456,9 +395,100 @@ button.button-mt:disabled {
   will-change: opacity;
   pointer-events: none;
 }
+/****************** End ******************/
 
-/* scrollbar  */
+/********************************************************/
+/******************* Youtube ****************************/
+/********************************************************/
 
+.backdrop-class-youtube-dialog {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+youtube-player {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+youtube-player-placeholder {
+  width: 100% !important;
+  height: 100% !important;
+  border-bottom-left-radius: 0.675rem;
+  border-bottom-right-radius: 0.675rem;
+}
+
+iframe {
+  border-bottom-left-radius: 0.675rem;
+  border-bottom-right-radius: 0.675rem;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+youtube-player div:first-child {
+  height: 100% !important;
+}
+/****************** End ******************/
+
+/*********************************************/
+/****************** Others *******************/
+/*********************************************/
+.person-img-margin {
+  margin-top: -25px;
+}
+
+.card-content {
+  padding: 14px 14px 0px 14px;
+}
+
+.card-content:last-child {
+  padding-bottom: 16px;
+}
+
+.hidden-container {
+  opacity: 0;
+  overflow: hidden;
+  height: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.active {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+@media (max-width: 205px) {
+  .w-xxxsm {
+    width: 100%;
+  }
+}
+
+.clickable-icon {
+  color: var(--text-color-light);
+}
+
+.clickable-icon:active {
+  color: var(--disabled-text-color);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .clickable-icon:hover {
+    color: var(--disabled-text-color);
+  }
+}
+
+.scale-110 {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+/****************** End ******************/
+
+/********************************************************/
+/********************* Scrollbar ************************/
+/********************************************************/
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -554,72 +584,10 @@ button.button-mt:disabled {
 ::-webkit-scrollbar-button:single-button:horizontal:increment:active {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,0 0,100 50,50'/></svg>");
 }
+/****************** End ******************/
 
-/* scrollbar  */
+@use "@angular/material" as mat;
 
-@media (max-width: 205px) {
-  .w-xxxsm {
-    width: 100%;
-  }
-}
+@include mat.core();
 
-.clickable-icon {
-  color: var(--text-color-light);
-}
-
-.clickable-icon:active {
-  color: var(--disabled-text-color);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .clickable-icon:hover {
-    color: var(--disabled-text-color);
-  }
-}
-
-input,
-textarea,
-button,
-select,
-a,
-svg,
-div {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/*  */
-.backdrop-class-youtube-dialog {
-  background: rgba(0, 0, 0, 0.6);
-}
-
-youtube-player {
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-youtube-player-placeholder {
-  width: 100% !important;
-  height: 100% !important;
-  border-bottom-left-radius: 0.675rem;
-  border-bottom-right-radius: 0.675rem;
-}
-
-iframe {
-  border-bottom-left-radius: 0.675rem;
-  border-bottom-right-radius: 0.675rem;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-youtube-player div:first-child {
-  height: 100% !important;
-}
-/*  */
-
-.scale-110 {
-  --tw-scale-x: 1.1;
-  --tw-scale-y: 1.1;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
-    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
+@include mat.all-component-themes($movie-bookmark-theme);

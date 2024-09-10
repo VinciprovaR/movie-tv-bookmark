@@ -1,8 +1,13 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { FastAverageColor, FastAverageColorResult } from 'fast-average-color';
-import { from, Observable, of, Subject, takeUntil } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
 import { IMG_SIZES } from '../../providers';
 
+/**
+ * PredominantImgColorService evaluate the predominant color of
+ * a selected image and use it as grdient.
+ *
+ */
 @Injectable({ providedIn: 'root' })
 export class PredominantImgColorService {
   private readonly destroyRef$ = inject(DestroyRef);
@@ -19,7 +24,6 @@ export class PredominantImgColorService {
       this.destroyed$.complete();
     });
   }
-  // ${this.TMDB_PROFILE_92W_IMG_URL}${imgSrc}
   evaluatePredominantColor(imgSrc: string): Observable<FastAverageColorResult> {
     return from(
       this.fac.getColorAsync(`${this.TMDB_PROFILE_92W_IMG_URL}${imgSrc}`, {

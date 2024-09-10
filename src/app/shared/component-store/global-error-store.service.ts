@@ -49,9 +49,6 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
       filter(this.isFailure),
       tap((action: any & TypedAction<string>) => {
         const { httpErrorResponse } = action;
-
-        //this.router.navigate(['/home']);
-
         this.onError(httpErrorResponse);
         this.logError(httpErrorResponse);
       })

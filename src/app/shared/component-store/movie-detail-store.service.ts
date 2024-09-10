@@ -3,7 +3,6 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-
 import { createAction, props, Store } from '@ngrx/store';
 import { MovieDetail } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
@@ -15,10 +14,6 @@ export interface MovieDetailState extends StateMediaBookmark {
   movieDetail: MovieDetail | null;
 }
 
-// export const movieDetailIsLoading = createAction(
-//   '[Movie-Detail] Movie Detail Is Loading',
-//   props<{ isLoading: boolean }>()
-// );
 export const movieDetailSuccess = createAction(
   '[Movie-Detail] Movie Detail Success',
   props<{ movieDetail: MovieDetail }>()

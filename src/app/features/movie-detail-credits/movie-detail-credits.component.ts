@@ -7,7 +7,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-
 import { PersonCardComponent } from '../../shared/components/person-card/person-card.component';
 import { CastCrewCardComponent } from '../../shared/components/cast-crew-card/cast-crew-card.component';
 import { BehaviorSubject, map, Observable, takeUntil } from 'rxjs';

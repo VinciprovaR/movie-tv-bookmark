@@ -4,10 +4,9 @@ import {
   EventEmitter,
   OnInit,
   Output,
-  ViewEncapsulation,
 } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
-import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import {

@@ -13,7 +13,6 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
 import { BiographyComponent } from '../biography/biography.component';
 import { AgePipe } from '../../pipes/age';
 import { ExternalInfoComponent } from '../external-info/external-info.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

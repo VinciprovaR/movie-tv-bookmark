@@ -1,17 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  DestroyRef,
   ElementRef,
   EventEmitter,
-  inject,
-  Inject,
   Input,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-import { Subject, takeUntil, timer } from 'rxjs';
+import { takeUntil, timer } from 'rxjs';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ChangeDetectionStrategy } from '@angular/core';

@@ -1,6 +1,6 @@
-import { DestroyRef, Directive, inject } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { FastAverageColorResult } from 'fast-average-color';
-import { delay, Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { PredominantImgColorService } from '../../services/predominant-img-color.service';
 import { AbstractComponent } from './abstract-component.component';
 import { IMG_SIZES } from '../../../providers';

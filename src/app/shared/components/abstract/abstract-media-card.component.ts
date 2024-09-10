@@ -1,6 +1,6 @@
 import { Directive, inject, Input } from '@angular/core';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
-import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { BridgeDataService } from '../../services/bridge-data.service';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { AbstractComponent } from './abstract-component.component';

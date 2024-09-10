@@ -12,7 +12,6 @@ import {
   FormGroup,
   FormControl,
 } from '@angular/forms';
-
 import { takeUntil } from 'rxjs';
 import {
   Genre,

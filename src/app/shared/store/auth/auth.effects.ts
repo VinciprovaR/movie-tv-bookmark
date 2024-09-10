@@ -310,24 +310,3 @@ export class AuthEffects {
     );
   });
 }
-
-/*
-            return this.supabaseAuthService.deleteUserAccount(user.id).pipe(
-              map((publicUserEntityResult: PublicUserEntity[]) => {
-                if (publicUserEntityResult.length === 0) {
-                  throw new CustomHttpErrorResponse({
-                    type: 'userNull',
-                    error: 'User not found',
-                    message: 'User not found',
-                    status: 404,
-                  });
-                }
-                const email = publicUserEntityResult[0].email;
-                return AuthActions.deleteAccountSuccess({ email });
-              }),
-              tap(() => {
-                this.webStorageService.destroyItem(this.storageKey);
-                this.router.navigate(['/login']);
-              })
-            );
-*/

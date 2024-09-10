@@ -4,17 +4,14 @@ import {
   AuthTokenResponsePassword,
   AuthResponse,
   SignOut,
-  ResendParams,
   UserResponse,
   User,
 } from '@supabase/supabase-js';
-import { Observable, from, map, of, switchMap, tap } from 'rxjs';
+import { Observable, map, of, switchMap, tap } from 'rxjs';
 import {
-  CustomSessionResponse,
   LoginPayload,
   PublicUserEntity,
   RegisterPayload,
-  UserSupabase,
 } from '../../interfaces/supabase/supabase-auth.interface';
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 import { WebStorageService } from '../web-storage.service';

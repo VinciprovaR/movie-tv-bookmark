@@ -1,5 +1,4 @@
-import { Directive, Input, OnInit } from '@angular/core';
-
+import { Directive, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { AbstractFilter } from './abstract-filter.component';
 import { Observable } from 'rxjs';

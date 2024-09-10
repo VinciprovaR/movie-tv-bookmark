@@ -1,7 +1,6 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
-
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import { TVBookmarkMap } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import {

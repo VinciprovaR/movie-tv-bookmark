@@ -34,15 +34,8 @@ export class ScrollNearEndDirective {
 
   ngOnInit(): void {
     this.window = window;
-
-    // this.zone.runOutsideAngular(() => {
-    //   window.addEventListener('scroll', (e) => {
-    //     this.windowScrollEvent();
-    //   });
-    // });
   }
 
-  //@HostListener(`window:scroll`, ['$event.target'])
   windowScrollEvent() {
     if (!this.scrollSelf) {
       if (!this.scrollIsLoading) {

@@ -2,10 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  Input,
   OnInit,
 } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import { map, Observable } from 'rxjs';
 import { AuthSelectors } from '../../store/auth';

@@ -1,6 +1,5 @@
 import { Directive, inject, Input } from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
-
 import { PredominantImgColorService } from '../../services/predominant-img-color.service';
 import { FastAverageColorResult } from 'fast-average-color';
 import { Observable } from 'rxjs';

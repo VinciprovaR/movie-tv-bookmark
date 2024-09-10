@@ -1,4 +1,4 @@
-import { DestroyRef, inject, Injectable, NgZone } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import {
   fromEvent,
   takeUntil,
@@ -7,14 +7,12 @@ import {
   Observable,
   map,
   BehaviorSubject,
-  tap,
 } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PageEventService {
-  private readonly zone = inject(NgZone);
   destroyed$ = new Subject();
 
   private window$ = new BehaviorSubject<Window>(window);
@@ -31,7 +29,7 @@ export class PageEventService {
 
     this.initSelectors();
   }
-  // , debounceTime(500)
+
   initSelectors() {
     fromEvent(window, 'resize')
       .pipe(takeUntil(this.destroyed$), debounceTime(150))

@@ -33,7 +33,7 @@
       >
         @for(path of navElement.value.subMenu ; track path.path){
         @if(canRender(path.needAuth)){
-        <li class="el-hover" (click)="hideSubMenu(menuEl)">
+        <li class="sub-el" (click)="hideSubMenu(menuEl)">
           <a
             routerLinkActive="active"
             [routerLink]="path.path"

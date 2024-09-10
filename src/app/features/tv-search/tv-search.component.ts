@@ -1,14 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
-
-import { Store } from '@ngrx/store';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import {
   SearchTVActions,
   SearchTVSelectors,
 } from '../../shared/store/search-tv';
-
 import {
   MediaType,
   TV,
@@ -19,10 +16,8 @@ import {
   TVBookmarkActions,
   TVBookmarkSelectors,
 } from '../../shared/store/tv-bookmark';
-
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

@@ -27,13 +27,11 @@ import {
   TV,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-
 import { BookmarkMetadataSelectors } from '../../store/bookmark-metadata';
 import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
 import { MatIconModule } from '@angular/material/icon';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractComponent } from '../abstract/abstract-component.component';
-import { AuthSelectors } from '../../store/auth';
 import { scrollDirection } from '../../interfaces/layout.types';
 
 @Component({

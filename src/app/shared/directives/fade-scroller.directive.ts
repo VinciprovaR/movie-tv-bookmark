@@ -11,34 +11,7 @@ import {
   RendererFactory2,
 } from '@angular/core';
 import { Subject, Observable, fromEvent, takeUntil, debounceTime } from 'rxjs';
-/*
-.should_fade:after {
-  transition: linear 0.3s;
-  opacity: 1;
-  width: 70px;
-  background-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0,
-    var(--theme-color-1) 100%
-  );
-}
-.is_hidden:after {
-  transition: linear 0.3s;
-  opacity: 0;
-}
 
-.should_fade:after {
-  content: "";
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  will-change: opacity;
-  pointer-events: none;
-}
-
-
-*/
 @Directive({
   selector: '[FadeScroller]',
   standalone: true,

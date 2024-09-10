@@ -1,27 +1,21 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
   QueryList,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ListType } from '../../interfaces/list-type.type';
 import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
-
 import { PersonCardComponent } from '../person-card/person-card.component';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AbstractComponent } from '../abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

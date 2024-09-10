@@ -1,10 +1,10 @@
 <div
   class="top-2 right-2 border-none p-1 rounded-full absolute z-10"
   [ngClass]="{
-    'vertical':
+    'bg-bookmark-vertical':
       direction === 'vertical' ,
-    'horizontal': direction === 'horizontal' ,
-    'detail': direction === 'none' && isDetail,
+    'bg-bookmark-horizontal': direction === 'horizontal' ,
+    'bg-bookmark-detail': direction === 'none' && isDetail,
   }"
 >
   <div

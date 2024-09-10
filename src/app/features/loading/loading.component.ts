@@ -27,7 +27,6 @@ import {
   PersonDetailStore,
   PersonDetailMovieCreditsStore,
   PersonDetailTVCreditsStore,
-  TrendingMediaStore,
 } from '../../shared/component-store';
 import { RandomMediaImageService } from '../../shared/services/random-media-image.service';
 

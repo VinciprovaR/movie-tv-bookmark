@@ -3,8 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-
-import { createAction, props, Store } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { MovieResult, TVResult } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBTrendingTVService } from '../services/tmdb/tmdb-trending-tv.service';

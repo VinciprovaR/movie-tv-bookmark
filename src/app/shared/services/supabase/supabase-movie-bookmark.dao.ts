@@ -1,16 +1,10 @@
-import { inject, Inject, Injectable } from '@angular/core';
-import {
-  PostgrestSingleResponse,
-  SupabaseClient,
-  User,
-} from '@supabase/supabase-js';
+import { inject, Injectable } from '@angular/core';
+import { PostgrestSingleResponse, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
-
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
-
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 

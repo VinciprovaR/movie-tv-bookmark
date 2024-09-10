@@ -14,12 +14,15 @@ import {
   TVBookmarkMap,
 } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
-
 import { SupabaseUtilsService } from './supabase-utils.service';
-
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { PayloadTVBookmark } from '../../interfaces/store/tv-bookmark-state.interface';
 
+/**
+ * SupabaseTVBookmarkService init, find, create, update, delete bookmark
+ * related to tv.
+ *
+ */
 @Injectable({
   providedIn: 'root',
 })

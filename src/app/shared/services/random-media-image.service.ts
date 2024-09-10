@@ -7,23 +7,23 @@ import {
   TV,
   TVResult,
 } from '../interfaces/TMDB/tmdb-media.interface';
-
+/**
+ * RandomMediaImageService select a random image from the
+ * trending movie or tv of a window of day or week
+ *
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class RandomMediaImageService {
   private readonly trendingMediaStore = inject(TrendingMediaStore);
   protected readonly destroyRef$ = inject(DestroyRef);
-
-  destroyed$ = new Subject();
-
   private selectMovieResult$!: Observable<MovieResult>;
   private selectTVResult$!: Observable<TVResult>;
   private mediaCombined$!: Observable<[Movie[], TV[]]>;
+  destroyed$ = new Subject();
   randomImage$!: Observable<string>;
-
   selectIsLoading!: Observable<boolean>;
-
   movieList: Movie[] = [];
   tvList: TV[] = [];
 

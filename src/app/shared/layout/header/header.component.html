@@ -6,7 +6,7 @@
       </a>
     </div>
 
-    <div class="mx-auto xxsm:flex xxsm:justify-between items-center space-x-6">
+    <div class="mx-auto 244:flex 244:justify-between items-center space-x-6">
       @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 640) {
       <app-navigator-desktop
         [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"

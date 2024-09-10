@@ -14,6 +14,11 @@ import {
 } from '../interfaces/TMDB/tmdb-media.interface';
 import { Movie_Data, TV_Data } from '../interfaces/supabase/entities';
 
+/**
+ * BridgeDataService provide event message for components that
+ * are not closely related in the tree hierarchy.
+ *
+ */
 @Injectable()
 export class BridgeDataService {
   //mediaBookmarkMap

@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-
 import { createAction, props, Store } from '@ngrx/store';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import {
@@ -19,10 +18,6 @@ export interface PersonDetailMovieCreditsStoreState extends StateMediaBookmark {
   personId: number;
 }
 
-// export const personDetailMovieCreditsIsLoading = createAction(
-//   '[Person-Detail-Movie-Credit] Person Detail Movie Credit Is Loading ',
-//   props<{ isLoading: boolean }>()
-// );
 export const personDetailMovieCreditsSuccess = createAction(
   '[Person-Detail-Movie-Credit] Person Detail Movie Credits Success ',
   props<{ movieResult: MovieResult }>()

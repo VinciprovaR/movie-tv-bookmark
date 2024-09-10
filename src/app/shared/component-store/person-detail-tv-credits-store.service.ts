@@ -2,10 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-
 import { createAction, props, Store } from '@ngrx/store';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
-
 import {
   TVResult,
   PersonDetailTVCredits,
@@ -20,10 +18,6 @@ export interface PersonDetailTVCreditsState extends StateMediaBookmark {
   personId: number;
 }
 
-// export const personDetailTVCreditsIsLoading = createAction(
-//   '[Person-Detail-TV-Credits] Person Detail TV Credits Is Loading ',
-//   props<{ isLoading: boolean }>()
-// );
 export const personDetailTVCreditsSuccess = createAction(
   '[Person-Detail-TV-Credits] Person Detail TV Credits Success ',
   props<{ tvResult: TVResult }>()

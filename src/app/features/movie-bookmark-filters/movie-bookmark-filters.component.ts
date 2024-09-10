@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { filter, Observable, takeUntil } from 'rxjs';
 import { AbstractBookmarkFilters } from '../../shared/components/abstract/abstract-bookmark-filters.component';
-
 import {
   Genre,
   BookmarkMovieFilterForm,
@@ -13,7 +12,6 @@ import { GenreFilterComponent } from '../../shared/components/genre-filter/genre
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MovieBookmarkSelectors } from '../../shared/store/movie-bookmark';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 

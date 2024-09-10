@@ -1,13 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ImdbIconComponent } from '../imdb-icon/imdb-icon.component';
 import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
-import {
-  MediaType,
-  MovieDetail,
-  TVDetail,
-} from '../../interfaces/TMDB/tmdb-media.interface';
+import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { AbstractComponent } from '../abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

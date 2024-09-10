@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { NavigationStart, RouterLink, RouterLinkActive } from '@angular/router';
 import { ChangeDetectionStrategy } from '@angular/core';

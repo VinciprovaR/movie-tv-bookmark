@@ -2,11 +2,18 @@ import { inject, Injectable } from '@angular/core';
 import { SUPABASE_CLIENT } from '../../providers';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 
+/**
+ * SupabaseAuthEventsService listen to differents supabase auth events.
+ *
+ * This service listen to different supabase auth events
+ * to trigger differents behaviour based on the auth event.
+ *
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseAuthEventsService {
-  private readonly supabase = inject(SUPABASE_CLIENT);
+  private supabase;
 
   private readonly isPasswordRecovery$ = new BehaviorSubject<boolean>(false);
   readonly isPasswordRecoveryObs$ = this.isPasswordRecovery$.asObservable();
@@ -23,9 +30,12 @@ export class SupabaseAuthEventsService {
     })
   );
 
-  constructor() {}
+  constructor() {
+    this.supabase = inject(SUPABASE_CLIENT);
+    this.initListneres();
+  }
 
-  initEvent() {
+  initListneres() {
     this.supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'INITIAL_SESSION') {
       } else if (event === 'SIGNED_IN') {

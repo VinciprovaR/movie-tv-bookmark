@@ -11,6 +11,8 @@ import {
 import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
 import { RandomMediaImageService } from './shared/services/random-media-image.service';
 import { SupabaseAuthEventsService } from './shared/services/supabase-auth-events.service';
+import { ToggleThemeStore } from './shared/component-store';
+import { GlobalErrorStore } from './shared/component-store/global-error-store.service';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -104,14 +106,17 @@ export function provideSupabaseClient() {
   };
 }
 
-export function provideAuthEvent() {
+export function provideInitRootServices() {
   return {
     provide: APP_INITIALIZER,
     useFactory:
-      (supabaseAuthEventsService: SupabaseAuthEventsService) => () => {
-        supabaseAuthEventsService.initEvent();
-      },
-    deps: [SupabaseAuthEventsService],
+      (
+        a: SupabaseAuthEventsService,
+        b: GlobalErrorStore,
+        c: ToggleThemeStore
+      ) =>
+      () => {},
+    deps: [SupabaseAuthEventsService, ToggleThemeStore, GlobalErrorStore],
     multi: true,
   };
 }

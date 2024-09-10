@@ -26,7 +26,6 @@ import {
 import { MovieBookmarkMap } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

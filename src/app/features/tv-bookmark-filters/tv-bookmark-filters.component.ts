@@ -2,7 +2,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { filter, Observable, takeUntil } from 'rxjs';
 import { AbstractBookmarkFilters } from '../../shared/components/abstract/abstract-bookmark-filters.component';
-
 import {
   Genre,
   BookmarkTVFilterForm,
@@ -12,9 +11,7 @@ import { PayloadTVBookmark } from '../../shared/interfaces/store/tv-bookmark-sta
 import { GenreFilterComponent } from '../../shared/components/genre-filter/genre-filter.component';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MatIconModule } from '@angular/material/icon';
-
 import { TVBookmarkSelectors } from '../../shared/store/tv-bookmark';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 

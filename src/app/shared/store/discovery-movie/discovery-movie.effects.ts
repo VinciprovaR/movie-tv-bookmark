@@ -5,7 +5,6 @@ import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { MovieResult } from '../../interfaces/TMDB/tmdb-media.interface';
 import { Store } from '@ngrx/store';
 import { TMDBDiscoveryMovieService } from '../../services/tmdb';
-
 import { SupabaseMovieBookmarkService } from '../../services/supabase';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 import { AuthActions } from '../auth';

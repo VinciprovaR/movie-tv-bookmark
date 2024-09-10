@@ -3,7 +3,6 @@ import {
   ElementRef,
   EventEmitter,
   inject,
-  Input,
   OnDestroy,
   Output,
   ViewChild,
@@ -11,7 +10,6 @@ import {
 import { AbstractComponent } from './abstract-component.component';
 import {
   ConnectedPosition,
-  GlobalPositionStrategy,
   Overlay,
   OverlayConfig,
   OverlayRef,

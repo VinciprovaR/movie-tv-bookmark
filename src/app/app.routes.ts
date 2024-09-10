@@ -221,15 +221,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
     title: 'Sign out',
   },
-  // {
-  //   path: 'page-not-found',
-  //   loadComponent: () =>
-  //     import('./features/page-not-found/page-not-found.component').then(
-  //       (m) => m.PageNotFoundComponent
-  //     ),
-
-  //   title: 'Page not found',
-  // },
   {
     path: '',
     pathMatch: 'full',

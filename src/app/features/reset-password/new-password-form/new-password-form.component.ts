@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../../../shared/components/abstract/abstract-component.component';
 

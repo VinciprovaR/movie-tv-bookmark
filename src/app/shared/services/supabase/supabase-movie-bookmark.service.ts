@@ -15,16 +15,19 @@ import {
 } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseMovieDataDAO } from './supabase-movie-data.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
-
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
 
+/**
+ * SupabaseMovieBookmarkService init, find, create, update, delete bookmark
+ * related to movies.
+ *
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseMovieBookmarkService {
   private readonly supabaseMovieBookmarkDAO = inject(SupabaseMovieBookmarkDAO);
-
   private readonly supabaseUtilsService = inject(SupabaseUtilsService);
   private readonly supabaseMovieDataDAO = inject(SupabaseMovieDataDAO);
 

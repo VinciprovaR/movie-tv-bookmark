@@ -25,7 +25,6 @@ import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { PayloadMovieBookmark } from '../../shared/interfaces/store/movie-bookmark-state.interface';
 import { MovieBookmarkFiltersComponent } from '../movie-bookmark-filters/movie-bookmark-filters.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

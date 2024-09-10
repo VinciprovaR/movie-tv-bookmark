@@ -1,6 +1,5 @@
 import { Directive, Input } from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
-import { takeUntil } from 'rxjs';
 import { scrollDirection } from '../../interfaces/layout.types';
 
 @Directive()

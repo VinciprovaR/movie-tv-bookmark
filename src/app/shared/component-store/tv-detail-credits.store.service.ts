@@ -3,7 +3,6 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-
 import { createAction, props, Store } from '@ngrx/store';
 import { TVCredit } from '../interfaces/TMDB/tmdb-media.interface';
 import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
@@ -15,10 +14,6 @@ export interface TVDetailCreditsState extends StateMediaBookmark {
   tvCredit: TVCredit | null;
 }
 
-// export const tvDetailCreditsIsLoading = createAction(
-//   '[TV-Detail-Credits] TV Detail Credits Is Loading',
-//   props<{ isLoading: boolean }>()
-// );
 export const tvDetailCreditsFailure = createAction(
   '[TV-Detail-Credits] TV Detail Credits Failure',
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()

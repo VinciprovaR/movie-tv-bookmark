@@ -91,7 +91,7 @@ export const tvBookmarkReducer = createReducer(
         ...state,
         isLoading: false,
         error: httpErrorResponse,
-        tvBookmarkMap: { ...state.tvBookmarkMap }, //still update to push to the selector the prev value like is a next
+        tvBookmarkMap: { ...state.tvBookmarkMap },
       };
     }
   )

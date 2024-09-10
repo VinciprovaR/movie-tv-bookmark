@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { AbstractPersonCardComponent } from '../abstract/abstract-person-card.component';
 import { ImgComponent } from '../img/img.component';
 import { IMG_SIZES } from '../../../providers';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs';
 

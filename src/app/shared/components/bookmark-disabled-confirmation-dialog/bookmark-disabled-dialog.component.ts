@@ -11,7 +11,6 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-
 import {
   AbstractDialogComponent,
   SubmitDialog,
@@ -44,7 +43,7 @@ export class BookmarkDisabledDialogComponent
       originY: 'bottom',
       overlayX: 'start',
       overlayY: 'top',
-      offsetY: 8, // Adjust the offset as needed
+      offsetY: 8,
     },
   ];
 

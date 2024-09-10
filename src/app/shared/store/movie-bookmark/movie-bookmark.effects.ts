@@ -14,7 +14,6 @@ import { DiscoveryMovieActions } from '../discovery-movie';
 import { MovieBookmarkMap } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseMovieBookmarkService } from '../../services/supabase';
 import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
-
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import {
   personDetailMovieCreditsSuccess,

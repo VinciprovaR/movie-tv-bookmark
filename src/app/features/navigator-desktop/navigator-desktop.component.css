@@ -9,8 +9,8 @@
   max-height: 200px;
 }
 
-.el-hover:hover {
-  background-color: var(--theme-color-1-nav-sub-menu-hover);
+li .sub-el:hover {
+  background-color: var(--bg-li-hover);
 }
 
 .main-li-desktop {

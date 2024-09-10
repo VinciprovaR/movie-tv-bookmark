@@ -22,7 +22,6 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
 import { PayloadTVBookmark } from '../../shared/interfaces/store/tv-bookmark-state.interface';
 import { TVBookmarkFiltersComponent } from '../tv-bookmark-filters/tv-bookmark-filters.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

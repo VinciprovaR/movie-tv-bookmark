@@ -3,32 +3,19 @@ import {
   TitleStrategy,
   provideRouter,
   withComponentInputBinding,
-  withHashLocation,
   withInMemoryScrolling,
 } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
-import {
-  HTTP_INTERCEPTORS,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { reducers, metaReducers } from './shared/store/app.store';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from './shared/store/auth/auth.effects';
 import { WebStorageService } from './shared/services/web-storage.service';
-
-import {
-  IMAGE_CONFIG,
-  IMAGE_LOADER,
-  ImageLoaderConfig,
-  registerLocaleData,
-} from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
 import {
   provideSupabaseClient,
   provideCurrentUser,
@@ -40,11 +27,10 @@ import {
   provideBookmarkStatusList,
   provideDarkThemeLocalStorageKey,
   provideRandomMediaImage,
-  provideAuthEvent,
   provideStorageKey,
+  provideInitRootServices,
 } from './providers';
 import { SearchMovieEffects } from './shared/store/search-movie/search-movie.effects';
-
 import { SearchTVEffects } from './shared/store/search-tv/search-tv.effects';
 import { DiscoveryMovieEffects } from './shared/store/discovery-movie/discovery-movie.effects';
 import { TitleStrategyService } from './shared/services/title-strategy.service';
@@ -60,10 +46,9 @@ registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     provideStorageKey(),
     provideSupabaseClient(),
-    provideAuthEvent(),
+    provideInitRootServices(),
     provideCurrentUser(),
     provideBookmarkSelect(),
     provideSelectFilters(),
@@ -74,10 +59,10 @@ export const appConfig: ApplicationConfig = {
     provideHeaderNavElements(),
     provideBookmarkStatusList(),
     provideDarkThemeLocalStorageKey(),
+    provideAnimationsAsync(),
     provideHttpClient(withInterceptors([])),
     provideRouter(
       routes,
-      // withHashLocation(),
       withComponentInputBinding(),
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
@@ -101,7 +86,5 @@ export const appConfig: ApplicationConfig = {
       provide: TitleStrategy,
       useClass: TitleStrategyService,
     },
-    provideAnimationsAsync(),
-    provideAnimationsAsync(),
   ],
 };

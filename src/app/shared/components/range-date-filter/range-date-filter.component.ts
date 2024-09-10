@@ -6,7 +6,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { DateRangeGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
-
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 

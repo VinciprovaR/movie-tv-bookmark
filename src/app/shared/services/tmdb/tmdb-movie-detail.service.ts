@@ -4,7 +4,6 @@ import {
   MovieDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { inject, Injectable } from '@angular/core';
-
 import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({ providedIn: 'root' })

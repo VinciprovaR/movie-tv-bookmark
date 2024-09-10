@@ -10,6 +10,14 @@ export interface TMDBApiPayload {
   queryParams?: { [key: string]: string };
 }
 
+/**
+ * SupabaseProxyToTMDBService call a generic supabase edge function
+ * used as a proxy to mask the TMDB API key and call the TMDB services.
+ * TMDBApiPayload is used to determine which TMDB service call with is params.
+ * TMDB service are mapped in the supabase edge function, to prevent calling
+ * services that Movie&TVBookmark doesn't use.
+ *
+ */
 @Injectable({
   providedIn: 'root',
 })

@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   inject,
@@ -21,7 +20,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
 import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
-import { AbstractComponent } from '../abstract/abstract-component.component';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { BridgeDataService } from '../../services/bridge-data.service';
