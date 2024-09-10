@@ -79,6 +79,10 @@ export class ImgComponent extends AbstractComponent implements OnInit {
     }
   }
 
+  // getFullSrcSet() {
+  //   return `${this.baseUrlSm}${this.imgSrc} 1x, ${this.baseUrlLg}${this.imgSrc} 2x`;
+  // }
+
   getImgBackground() {
     return this.isPlaceholderPerson
       ? `url('assets/images/glyphicons-basic-4-user-grey.svg')`

@@ -1228,6 +1228,8 @@
   --bg-danger-hover: rgb(214, 16, 46);
   --bookmark-icon-selected: rgb(33, 173, 234);
   --home-bg-asbent-image: rgb(63, 78, 85);
+  --disabled-bg: rgb(124, 124, 124);
+  --disabled-text-color: rgb(176, 176, 176);
 }
 
 body.light-theme {

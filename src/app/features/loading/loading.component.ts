@@ -158,12 +158,6 @@ export class LoadingComponent
         this.toggleLoadingBar(isLoading);
       });
 
-    this.movieDiscoverySelectIsLoading$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading);
-      });
-
     this.movieBookmarksSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
@@ -171,12 +165,6 @@ export class LoadingComponent
       });
 
     this.TVSearchSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
-      (isLoading) => {
-        this.toggleLoadingBar(isLoading);
-      }
-    );
-
-    this.TVDiscoverySelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
         this.toggleLoadingBar(isLoading);
       }
@@ -195,6 +183,18 @@ export class LoadingComponent
       });
 
     //landing
+
+    this.TVDiscoverySelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
+      (isLoading) => {
+        this.toggleLoadingBar(isLoading, true);
+      }
+    );
+
+    this.movieDiscoverySelectIsLoading$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isLoading) => {
+        this.toggleLoadingBar(isLoading, true);
+      });
 
     this.authSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
@@ -248,6 +248,7 @@ export class LoadingComponent
   toggleLoadingBar(isLoading: boolean, isLanding: boolean = false) {
     if (isLoading) {
       if (isLanding) {
+        console.log('toggle loading bar landing, remove hidden, add block');
         this.renderer.removeClass(
           this.loadingBarLanding.nativeElement,
           'hidden'
