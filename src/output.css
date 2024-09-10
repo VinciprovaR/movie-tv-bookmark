@@ -1839,12 +1839,6 @@ youtube-player div:first-child {
 
 /****************** End ******************/
 
-@use "@angular/material" as mat;
-
-@include mat.core();
-
-@include mat.all-component-themes($movie-bookmark-theme);
-
 .hover\:cursor-pointer:hover {
   cursor: pointer;
 }
