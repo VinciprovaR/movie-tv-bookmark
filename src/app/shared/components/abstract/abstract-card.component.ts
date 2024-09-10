@@ -17,7 +17,7 @@ export abstract class AbstractCardComponent extends AbstractComponent {
   }
 
   evaluateCustomClasses(windowWidth: number) {
-    if (windowWidth >= 510) {
+    if (windowWidth >= 620) {
       this.borderBookmarkLabelClass = '';
       this.borderImgClass = this.borderImgClassDefault;
       this.detectChanges();

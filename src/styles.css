@@ -309,14 +309,14 @@ button.button-mt:disabled {
 /********************************************************/
 /****************** Bookmark ****************************/
 /********************************************************/
-@media (min-width: 510px) {
+@media (min-width: 620px) {
   .bg-bookmark-vertical {
     transform: scale(1);
     background-color: var(--bg-bookmark-icon);
   }
 }
 
-@media (max-width: 509px) {
+@media (max-width: 619px) {
   .bg-bookmark-vertical {
     transform: scale(1.25);
     background-color: transparent;

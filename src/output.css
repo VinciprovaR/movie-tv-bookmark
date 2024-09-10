@@ -1542,14 +1542,14 @@ button.button-mt:disabled {
 
 /********************************************************/
 
-@media (min-width: 510px) {
+@media (min-width: 620px) {
   .bg-bookmark-vertical {
     transform: scale(1);
     background-color: var(--bg-bookmark-icon);
   }
 }
 
-@media (max-width: 509px) {
+@media (max-width: 619px) {
   .bg-bookmark-vertical {
     transform: scale(1.25);
     background-color: transparent;
@@ -1944,24 +1944,24 @@ youtube-player div:first-child {
   }
 }
 
-@media (min-width: 510px) {
-  .\35 10\:relative {
+@media (min-width: 620px) {
+  .\36 20\:relative {
     position: relative;
   }
 
-  .\35 10\:w-full {
+  .\36 20\:w-full {
     width: 100%;
   }
 
-  .\35 10\:grid-cols-\[repeat\(auto-fill\2c _minmax\(160px\2c _1fr\)\)\] {
+  .\36 20\:grid-cols-\[repeat\(auto-fill\2c _minmax\(160px\2c _1fr\)\)\] {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 
-  .\35 10\:flex-col {
+  .\36 20\:flex-col {
     flex-direction: column;
   }
 
-  .\35 10\:gap-8 {
+  .\36 20\:gap-8 {
     gap: 2rem;
   }
 }

@@ -22,6 +22,8 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
 })
 export class ImgComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })
+  breakpointSm!: number;
+  @Input({ required: true })
   imgSrc: string = '';
   @Input({ required: true })
   baseUrlSm: string = '';
@@ -70,7 +72,11 @@ export class ImgComponent extends AbstractComponent implements OnInit {
   ngOnInit(): void {}
 
   getFullSrc() {
-    return `${this.baseUrlLg}${this.imgSrc}`;
+    if (window.innerWidth < this.breakpointSm) {
+      return `${this.baseUrlSm}${this.imgSrc}`;
+    } else {
+      return `${this.baseUrlLg}${this.imgSrc}`;
+    }
   }
 
   getImgBackground() {

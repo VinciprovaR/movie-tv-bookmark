@@ -1,5 +1,5 @@
 <div
-  class="h-full border-container box-border shadow-md 510:relative"
+  class="h-full border-container box-border shadow-md 620:relative"
   [ngClass]="{
   'relative': direction === 'vertical',
 }"
@@ -7,7 +7,7 @@
   <div
     class="flex"
     [ngClass]="{
-      '510:relative flex-row 510:flex-col': direction === 'vertical',
+      '620:relative flex-row 620:flex-col': direction === 'vertical',
       'relative flex-col': direction === 'horizontal'
     }"
   >
@@ -15,7 +15,7 @@
       <div
         class="min-h-[158px] aspect-[2/3] hover:opacity-80 transition-opacity ease-in-out delay-50"
         [ngClass]="{
-          'w-[105px] 510:w-full': direction === 'vertical',
+          'w-[105px] 620:w-full': direction === 'vertical',
           'w-full': direction === 'horizontal'
         }"
       >
@@ -27,6 +27,7 @@
           [baseUrlSm]="TMDB_PROFILE_260W_390H_IMG_URL"
           [link]="detailMediaPath"
           [customClasses]="borderImgClass"
+          [breakpointSm]="620"
         ></app-img>
       </div>
     </div>

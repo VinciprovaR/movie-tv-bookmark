@@ -1,6 +1,6 @@
-<div class="h-full border-container flex box-border flex-row 510:flex-col">
+<div class="h-full border-container flex box-border flex-row 620:flex-col">
   <div
-    class="aspect-[2/3] hover:opacity-80 transition-opacity ease-in-out delay-50 w-[105px] 510:w-full min-h-[158px]"
+    class="aspect-[2/3] hover:opacity-80 transition-opacity ease-in-out delay-50 w-[105px] 620:w-full min-h-[158px]"
   >
     <app-img
       [alt]="person.name"
@@ -12,6 +12,7 @@
       [state]="person"
       [customClasses]="borderImgClass"
       [isPlaceholderPerson]="true"
+      [breakpointSm]="620"
     ></app-img>
   </div>
   <div class="card-content">
