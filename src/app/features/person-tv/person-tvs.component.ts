@@ -13,7 +13,6 @@ import {
   TVBookmarkActions,
 } from '../../shared/store/tv-bookmark';
 import { CommonModule } from '@angular/common';
-import { PersonDetailTVCreditsStore } from '../../shared/component-store/person-detail-tv-credits-store.service';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -31,18 +30,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './person-tvs.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PersonTVsComponent
-  extends AbstractComponent
-  implements OnInit, OnDestroy
-{
+export class PersonTVsComponent extends AbstractComponent implements OnInit {
   title: string = 'TV partecipated in';
 
   private readonly bridgeDataService = inject(BridgeDataService);
-  private readonly personDetailCreditsTVStore = inject(
-    PersonDetailTVCreditsStore
-  );
 
   selectIsLoading$!: Observable<boolean>;
+  @Input({ required: true })
   personDetailTVCredits$!: Observable<PersonDetailTVCredits>;
   selectTVBookmarkMap$!: Observable<TVBookmarkMap>;
 
@@ -56,7 +50,6 @@ export class PersonTVsComponent
   ngOnInit(): void {
     this.initSelectors();
     this.initDataBridge();
-    this.creditsTV();
   }
 
   initDataBridge() {
@@ -78,20 +71,12 @@ export class PersonTVsComponent
   }
 
   override initSelectors() {
-    this.selectIsLoading$ = this.personDetailCreditsTVStore.selectIsLoading$;
-    this.personDetailTVCredits$ =
-      this.personDetailCreditsTVStore.selectCreditsTVPersonDetail$;
-
     this.selectTVBookmarkMap$ = this.store.select(
       TVBookmarkSelectors.selectTVBookmarkMap
     );
   }
 
   override initSubscriptions(): void {}
-
-  creditsTV() {
-    this.personDetailCreditsTVStore.personDetailTVCredits(this.personId);
-  }
 
   createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TV>) {
     this.store.dispatch(
@@ -108,9 +93,5 @@ export class PersonTVsComponent
       crewTVIdList.push(crewTV.id);
       return !isPresent;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.personDetailCreditsTVStore.cleanPersonDetailCreditsTV();
   }
 }

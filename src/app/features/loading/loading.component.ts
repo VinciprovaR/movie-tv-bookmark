@@ -25,8 +25,6 @@ import {
   TVDetailCreditsStore,
   TVDetailStore,
   PersonDetailStore,
-  PersonDetailMovieCreditsStore,
-  PersonDetailTVCreditsStore,
 } from '../../shared/component-store';
 
 @Component({
@@ -70,16 +68,8 @@ export class LoadingComponent
 
   //Person
   private readonly personDetailStore = inject(PersonDetailStore);
-  private readonly personDetailMovieCreditsStore = inject(
-    PersonDetailMovieCreditsStore
-  );
-  private readonly personDetailTVCreditsStore = inject(
-    PersonDetailTVCreditsStore
-  );
   personSearchSelectIsLoading$!: Observable<boolean>;
   personDetailSelectIsLoading$!: Observable<boolean>;
-  personDetailMovieCreditsSelectIsLoading$!: Observable<boolean>;
-  personDetailTVCreditsSelectIsLoading$!: Observable<boolean>;
 
   constructor() {
     super();
@@ -131,10 +121,6 @@ export class LoadingComponent
       SearchPeopleSelectors.selectIsLoading
     );
     this.personDetailSelectIsLoading$ = this.personDetailStore.selectIsLoading$;
-    this.personDetailMovieCreditsSelectIsLoading$ =
-      this.personDetailMovieCreditsStore.selectIsLoading$;
-    this.personDetailTVCreditsSelectIsLoading$ =
-      this.personDetailTVCreditsStore.selectIsLoading$;
   }
   override initSubscriptions(): void {
     //not landing
@@ -224,21 +210,10 @@ export class LoadingComponent
       .subscribe((isLoading) => {
         this.toggleLoadingBar(isLoading, true);
       });
-
-    this.personDetailMovieCreditsSelectIsLoading$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading, true);
-      });
-
-    this.personDetailTVCreditsSelectIsLoading$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading, true);
-      });
   }
 
   toggleLoadingBar(isLoading: boolean, isLanding: boolean = false) {
+    console.log('toggle loading', isLoading);
     if (isLoading) {
       if (isLanding) {
         this.renderer.removeClass(

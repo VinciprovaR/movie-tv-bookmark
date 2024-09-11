@@ -1,9 +1,11 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { PersonDetailStore } from '../../shared/component-store';
 import {
   MediaType,
   PersonDetail,
+  PersonDetailMovieCredits,
+  PersonDetailTVCredits,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { CommonModule } from '@angular/common';
 import { PersonMoviesComponent } from '../person-movies/person-movies.component';
@@ -42,6 +44,8 @@ export class PersonDetailComponent
   selectPersonDetail$!: Observable<PersonDetail | null>;
   selectIsLoading$!: Observable<boolean>;
   error$!: Observable<CustomHttpErrorResponseInterface | null>;
+  personDetailMovieCredits$!: Observable<PersonDetailMovieCredits>;
+  personDetailTVCredits$!: Observable<PersonDetailTVCredits>;
 
   errorTitle: string = `Oops! We can't find the page you're looking for`;
   errorMessage: string = `It seems that this person detail you're searching for doesn't exist.`;
@@ -63,6 +67,10 @@ export class PersonDetailComponent
   override initSelectors() {
     this.selectPersonDetail$ = this.personDetailStore.selectPersonDetail$;
     this.selectIsLoading$ = this.personDetailStore.selectIsLoading$;
+    this.personDetailTVCredits$ =
+      this.personDetailStore.selectpersonDetailTVCredits$;
+    this.personDetailMovieCredits$ =
+      this.personDetailStore.selectpersonDetailMovieCredits$;
     this.error$ = this.personDetailStore.selectError$;
   }
   override initSubscriptions(): void {}

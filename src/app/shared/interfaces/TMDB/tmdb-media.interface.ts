@@ -303,13 +303,11 @@ export interface PersonDetail {
 export interface PersonDetailMovieCredits {
   cast: Movie[];
   crew: Movie[];
-  id: number;
 }
 
 export interface PersonDetailTVCredits {
   cast: TV[];
   crew: TV[];
-  id: number;
 }
 
 export interface ReleaseDate {

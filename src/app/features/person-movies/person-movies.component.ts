@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
@@ -13,7 +13,6 @@ import {
   MovieBookmarkActions,
 } from '../../shared/store/movie-bookmark';
 import { CommonModule } from '@angular/common';
-import { PersonDetailMovieCreditsStore } from '../../shared/component-store/person-detail-movie-credits-store.service';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -31,18 +30,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './person-movies.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PersonMoviesComponent
-  extends AbstractComponent
-  implements OnInit, OnDestroy
-{
+export class PersonMoviesComponent extends AbstractComponent implements OnInit {
   title: string = 'Movie partecipated in';
 
   private readonly bridgeDataService = inject(BridgeDataService);
-  private readonly personDetailMovieCreditsStore = inject(
-    PersonDetailMovieCreditsStore
-  );
 
   selectIsLoading$!: Observable<boolean>;
+  @Input({ required: true })
   personDetailMovieCredits$!: Observable<PersonDetailMovieCredits>;
   selectMovieBookmarkMap$!: Observable<MovieBookmarkMap>;
 
@@ -56,7 +50,6 @@ export class PersonMoviesComponent
   ngOnInit(): void {
     this.initSelectors();
     this.initDataBridge();
-    this.creditsMovie();
   }
 
   initDataBridge() {
@@ -78,20 +71,12 @@ export class PersonMoviesComponent
   }
 
   override initSelectors() {
-    this.selectIsLoading$ = this.personDetailMovieCreditsStore.selectIsLoading$;
-    this.personDetailMovieCredits$ =
-      this.personDetailMovieCreditsStore.selectCreditsMoviePersonDetail$;
-
     this.selectMovieBookmarkMap$ = this.store.select(
       MovieBookmarkSelectors.selectMovieBookmarkMap
     );
   }
 
   override initSubscriptions(): void {}
-
-  creditsMovie() {
-    this.personDetailMovieCreditsStore.movieCredits(this.personId);
-  }
 
   createUpdateDeleteMovieBookmark(mediaBookmarkDTO: MediaBookmarkDTO<Movie>) {
     this.store.dispatch(
@@ -108,9 +93,5 @@ export class PersonMoviesComponent
       crewMovieIdList.push(crewMovie.id);
       return !isPresent;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.personDetailMovieCreditsStore.cleanPersonDetailCreditsMovie();
   }
 }
