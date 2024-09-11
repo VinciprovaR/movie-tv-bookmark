@@ -9,7 +9,6 @@ import {
   NavElements,
 } from './shared/interfaces/navigator.interface';
 import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
-import { RandomMediaImageService } from './shared/services/random-media-image.service';
 import { SupabaseAuthEventsService } from './shared/services/supabase-auth-events.service';
 import { ToggleThemeStore } from './shared/component-store';
 import { GlobalErrorStore } from './shared/component-store/global-error-store.service';
@@ -120,17 +119,6 @@ export function provideInitRootServices() {
     multi: true,
   };
 }
-
-// export function provideRandomMediaImage() {
-//   return {
-//     provide: APP_INITIALIZER,
-//     useFactory: (randomMediaImageService: RandomMediaImageService) => () => {
-//       randomMediaImageService.initMedia();
-//     },
-//     deps: [RandomMediaImageService],
-//     multi: true,
-//   };
-// }
 
 export function provideImgUrl() {
   const endPointImage = 'https://image.tmdb.org';

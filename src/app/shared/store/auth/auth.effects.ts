@@ -79,7 +79,6 @@ export class AuthEffects {
               this.router.navigate(['/login']);
             }),
             map((result: AuthResponse) => {
-              console.log(result);
               return AuthActions.resendConfirmationRegisterSuccess({
                 email: action.email,
               });

@@ -5,13 +5,13 @@ import { CommonModule } from '@angular/common';
 import { User } from '@supabase/supabase-js/';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { RandomMediaImageService } from '../../shared/services/random-media-image.service';
 import { IMG_SIZES } from '../../providers';
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { PredominantImgColorService } from '../../shared/services/predominant-img-color.service';
 import { FastAverageColorResult } from 'fast-average-color';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
+import { RandomImageStore } from '../../shared/component-store/random-image-store.service';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +23,7 @@ import { MatDivider } from '@angular/material/divider';
 })
 export class HomeComponent extends AbstractComponent implements OnInit {
   readonly predominantImgColorService = inject(PredominantImgColorService);
+  private readonly randomImageStore = inject(RandomImageStore);
 
   protected readonly TMDB_ORIGINAL_IMG_URL = inject(
     IMG_SIZES.TMDB_ORIGINAL_IMG_URL
@@ -31,14 +32,13 @@ export class HomeComponent extends AbstractComponent implements OnInit {
     IMG_SIZES.TMDB_PROFILE_1920W_1080H_IMG_URL
   );
 
-  private readonly randomMediaImageService = inject(RandomMediaImageService);
   selectUser$!: Observable<User | null>;
   randomImage$!: Observable<string>;
 
   headerMediaGradient: string = '';
   textColorBlend: string = '';
   backgroundImageStyle: string = '';
-
+  v!: number;
   constructor() {
     super();
   }
@@ -46,11 +46,12 @@ export class HomeComponent extends AbstractComponent implements OnInit {
   ngOnInit(): void {
     this.initSelectors();
     this.initSubscriptions();
+    this.randomImageStore.randomImageInitializer();
   }
 
   override initSelectors(): void {
     this.selectUser$ = this.store.select(AuthSelectors.selectUser);
-    this.randomImage$ = this.randomMediaImageService.randomImage$;
+    this.randomImage$ = this.randomImageStore.selectRandomImage$;
   }
   override initSubscriptions(): void {
     this.randomImage$
