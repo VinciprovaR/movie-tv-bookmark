@@ -214,7 +214,7 @@ export class AuthEffects {
       ofType(AuthActions.requestResetPasswordAuthenticated),
       withLatestFrom(this.store.select(AuthSelectors.selectUser)),
       tap((action) => {
-        let [type, user] = action;
+        let [, user] = action;
         user = user as User;
         this.store.dispatch(AuthActions.logoutGlobal({ scope: 'global' }));
         this.store.dispatch(
@@ -222,7 +222,7 @@ export class AuthEffects {
         );
       }),
       map((action) => {
-        let [type, user] = action;
+        let [, user] = action;
         user = user as User;
         return AuthActions.requestResetPasswordAuthenticatedSuccess({
           email: user.email as string,

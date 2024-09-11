@@ -126,12 +126,14 @@ input::placeholder {
 select {
   background-color: var(--theme-color-1);
   color: var(--text-color);
+  width: 100%;
 }
 
 a {
   color: var(--text-color);
   text-decoration: none;
   transition: all 0.2s;
+  font-size: 1em;
 }
 
 a:hover {
@@ -187,18 +189,10 @@ label {
   font-size: 1rem;
 }
 
-a {
-  font-size: 1em;
-}
-
 h1,
 h2,
 h3 {
   line-height: 1;
-}
-
-select {
-  width: 100%;
 }
 
 button.button-mt {
@@ -382,13 +376,6 @@ button.button-mt:disabled {
   transition: linear 0.3s;
   opacity: 1;
   width: 70px;
-}
-.is_hidden:after {
-  transition: linear 0.3s;
-  opacity: 0;
-}
-
-.should_fade:after {
   content: "";
   height: 100%;
   position: absolute;
@@ -397,6 +384,11 @@ button.button-mt:disabled {
   will-change: opacity;
   pointer-events: none;
 }
+.is_hidden:after {
+  transition: linear 0.3s;
+  opacity: 0;
+}
+
 /****************** End ******************/
 
 /********************************************************/

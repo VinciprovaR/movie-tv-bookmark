@@ -32,7 +32,6 @@ export class ToggleThemeStore extends ComponentStore<ToggleThemeState> {
         window.matchMedia('(prefers-color-scheme: dark)').matches
       ) {
         isDarkTheme = true;
-      } else {
       }
     }
 

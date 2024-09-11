@@ -82,26 +82,6 @@ export class VideosContainerComponent
     this.videoList = this.filterVideosType();
   }
 
-  onSwiperSlidesUpdated(event: any) {
-    this.checkSlideButtonDisplay(
-      !!event.target.swiper?.isEnd,
-      !!event.target.swiper?.isBeginning
-    );
-  }
-
-  onSwiperslideNextTransitionEnd(event: any) {
-    this.checkSlideButtonDisplay(
-      !!event.target.swiper?.isEnd,
-      !!event.target.swiper?.isBeginning
-    );
-  }
-  onSwiperslidePrevTransitionEnd(event: any) {
-    this.checkSlideButtonDisplay(
-      !!event.target.swiper?.isEnd,
-      !!event.target.swiper?.isBeginning
-    );
-  }
-
   nextVideo() {
     if (this.window.innerWidth > 1280) {
       this.swiperRef.nativeElement.swiper.slideNext();
@@ -118,18 +98,6 @@ export class VideosContainerComponent
       this.swiperRef.nativeElement.swiper.slidePrev();
     }
   }
-
-  // openDialog(videoMetadata: { videoId: string; videoName: string }) {
-  //   const dialogRef = this.dialog.open(YoutubeEmbededComponent, {
-  //     data: {
-  //       videoId: videoMetadata.videoId,
-  //       videoName: videoMetadata.videoName,
-  //     },
-  //     scrollStrategy: this.overlay.scrollStrategies.noop(),
-  //   });
-  //   this.renderer.addClass(this.window.document.body, '');
-  //   this.handleCloseDialog(dialogRef);
-  // }
 
   private filterVideosType(): Video[] {
     if (this.videoTypeFilter.videosType.length > 0) {
@@ -149,28 +117,8 @@ export class VideosContainerComponent
     return this.videos.results;
   }
 
-  private checkSlideButtonDisplay(isEnd: boolean, isBeginning: boolean) {
-    this.isBeginning = isBeginning;
-    this.isEnd = isEnd;
+  checkSlideButtonDisplay(event: any) {
+    this.isBeginning = !!event.target.swiper?.isBeginning;
+    this.isEnd = !!event.target.swiper?.isEnd;
   }
-
-  // private handleCloseDialog(
-  //   dialogRef: MatDialogRef<YoutubeEmbededComponent, any>
-  // ) {
-  //   dialogRef.componentInstance.closeDialogObs$
-  //     .pipe(takeUntil(this.destroyed$))
-  //     .subscribe(() => {
-  //       dialogRef.close();
-  //     });
-  //   dialogRef
-  //     .afterClosed()
-  //     .pipe(takeUntil(this.destroyed$))
-  //     .subscribe((result) => {
-  //       `Dialog result: ${result}`;
-  //       this.renderer.removeClass(
-  //         this.window.document.body,
-  //         'cdk-global-scrollblock-custom'
-  //       );
-  //     });
-  // }
 }

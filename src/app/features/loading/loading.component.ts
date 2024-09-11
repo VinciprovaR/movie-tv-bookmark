@@ -36,7 +36,7 @@ import {
 })
 export class LoadingComponent
   extends AbstractComponent
-  implements OnInit, AfterViewInit
+  implements AfterViewInit
 {
   @ViewChild('loadingBar')
   loadingBar!: ElementRef;
@@ -79,7 +79,6 @@ export class LoadingComponent
     this.initSelectors();
     this.initSubscriptions();
   }
-  ngOnInit(): void {}
 
   initSelectors(): void {
     //Auth
@@ -241,7 +240,6 @@ export class LoadingComponent
   }
 
   toggleLoadingBar(isLoading: boolean, isLanding: boolean = false) {
-    // console.log('toggle loading', isLoading);
     if (isLoading) {
       if (isLanding) {
         this.renderer.removeClass(

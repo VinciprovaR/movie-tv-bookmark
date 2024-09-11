@@ -87,9 +87,10 @@ export class BookmarkSelectorComponent
   }
 
   ngOnInit(): void {
-    this.idItem = `${this.personIdentifier ? `${this.personIdentifier}_` : ''}${
-      this.index
-    }_${this.mediaData.id}`;
+    this.idItem = this.personIdentifier
+      ? `${this.personIdentifier}_`
+      : '' + `${this.index}_${this.mediaData.id}`;
+
     this.initSelectors();
     this.buildControl();
     this.initDataBridge();
@@ -128,8 +129,6 @@ export class BookmarkSelectorComponent
       nonNullable: true,
     });
 
-    // this.updatedBookmarkChange('noBookmark');
-
     this.bookmarkControl.valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((bookmarkEnum) => {
@@ -141,7 +140,6 @@ export class BookmarkSelectorComponent
     this.bridgeDataService.pushInputBookmarkOptions(this.mediaType, {
       mediaDataDTO: this.mediaData,
       bookmarkEnum: bookmarkEnum,
-      // index: this.index,
     });
   }
 

@@ -212,10 +212,6 @@ export class MovieDetailCreditsComponent
     this.year$ = forYear$;
   }
 
-  searchMovieCredits() {
-    // this.movieDetailCreditsStore.searchMovieCredits(this.movieId);
-  }
-
   searchMovieDetail() {
     this.movieDetailstore.searchMovieDetail(this.movieId);
   }

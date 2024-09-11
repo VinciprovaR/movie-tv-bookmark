@@ -46,7 +46,7 @@ export class SearchMovieEffects {
         this.store.select(SearchMovieSelectors.selectQuery)
       ),
       switchMap((action) => {
-        let [type, currPage, totalPages, query] = action;
+        let [, currPage, totalPages, query] = action;
         if (currPage < totalPages) {
           return this.TMDBSearchMovieService.additionalMovieSearch(
             currPage,

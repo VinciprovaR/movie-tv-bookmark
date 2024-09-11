@@ -87,7 +87,6 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
     return movieId$.pipe(
       tap(() => {
         this.addMovieDetailCreditsInit();
-        // this.store.dispatch(movieDetailCreditsIsLoading({ isLoading: true }));
       }),
       switchMap((movieId) => {
         return this.TMDBMovieDetailService.movieCredits(movieId).pipe(
@@ -95,9 +94,6 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
             this.addMovieDetailCreditsSuccess({
               movieCredit,
             });
-            // this.store.dispatch(
-            // movieDetailCreditsIsLoading({ isLoading: false })
-            // );
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
@@ -106,9 +102,6 @@ export class MovieDetailCreditsStore extends ComponentStore<MovieDetailCreditsSt
                 this.store.dispatch(
                   movieDetailCreditsFailure({ httpErrorResponse })
                 );
-                // this.store.dispatch(
-                //   movieDetailCreditsIsLoading({ isLoading: false })
-                // );
               })
             );
           })

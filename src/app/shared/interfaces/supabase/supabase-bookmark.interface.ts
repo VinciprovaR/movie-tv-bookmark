@@ -11,8 +11,6 @@ export type bookmarkEnum =
   | rewatchBookmark
   | stillWatchingBookmark;
 
-// export type bookmarkMetadata = { enum: bookmarkEnum; label: string };
-
 interface MediaBookmarkMap {
   [key: number]: bookmarkEnum;
 }

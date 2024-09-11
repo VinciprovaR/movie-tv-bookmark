@@ -134,21 +134,17 @@ export abstract class AbstractDiscoveryFilter<
     let voteAverageMin = 0;
     let voteAverageMax = 100;
     if (voteAverageGroup) {
-      voteAverageMin =
-        voteAverageGroup.value.voteAverageMin ??
-        voteAverageGroup.value.voteAverageMin
-          ? voteAverageGroup.value.voteAverageMin > 0
-            ? voteAverageGroup.value.voteAverageMin / 10
-            : 0
-          : 0;
+      if (voteAverageGroup.value.voteAverageMin) {
+        if (voteAverageGroup.value.voteAverageMin > 0) {
+          voteAverageMin = voteAverageGroup.value.voteAverageMin / 10;
+        }
+      }
 
-      voteAverageMax =
-        voteAverageGroup.value.voteAverageMax ??
-        voteAverageGroup.value.voteAverageMax
-          ? voteAverageGroup.value.voteAverageMax > 0
-            ? voteAverageGroup.value.voteAverageMax / 10
-            : 0
-          : 0;
+      if (voteAverageGroup.value.voteAverageMax) {
+        if (voteAverageGroup.value.voteAverageMax > 0) {
+          voteAverageMax = voteAverageGroup.value.voteAverageMax / 10;
+        }
+      }
     }
 
     return {

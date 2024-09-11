@@ -49,13 +49,16 @@ export class SelectTagComponent
   constructor() {
     super();
   }
+  writeValue(obj: any): void {
+    this.genre.isSelected = this.genre.isSelected;
+  }
 
-  writeValue(newValue: any): void {}
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {}
-  setDisabledState?(isDisabled: boolean): void {}
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
 
   selectGenre() {
     this.genre.isSelected = !this.genre.isSelected;

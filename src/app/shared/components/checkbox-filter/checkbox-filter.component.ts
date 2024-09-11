@@ -16,10 +16,7 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
   templateUrl: './checkbox-filter.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CheckboxFilterComponent
-  extends AbstractComponent
-  implements OnInit
-{
+export class CheckboxFilterComponent extends AbstractComponent {
   @Input()
   title: string = '';
   @Input({ required: true })
@@ -32,8 +29,6 @@ export class CheckboxFilterComponent
   constructor() {
     super();
   }
-
-  ngOnInit(): void {}
 
   get checkBoxControl(): FormControl {
     return this.filterForm.controls[this.controlName] as FormControl;

@@ -11,8 +11,6 @@ export class AgePipe implements PipeTransform {
     let years = today.diff(birthdate, 'years');
     let html: string = years + ' years old';
 
-    // html += today.subtract(years, 'years').diff(birthdate, 'months') + ' mo';
-
     return html;
   }
 }

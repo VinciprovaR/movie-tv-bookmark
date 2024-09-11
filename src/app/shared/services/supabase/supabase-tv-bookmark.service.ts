@@ -115,9 +115,9 @@ export class SupabaseTVBookmarkService {
     tvBookmarkDTO: MediaBookmarkDTO<TV | TVDetail | TV_Data>
   ): Observable<TVBookmarkMap> {
     return this.supabaseTVBookmarkDAO
-      .deleteTVBookmark(
-        tvBookmarkDTO.mediaDataDTO.id,
-        tvBookmarkDTO.bookmarkEnum
+      .updateTVBookmark(
+        tvBookmarkDTO.bookmarkEnum,
+        tvBookmarkDTO.mediaDataDTO.id
       )
       .pipe(
         map((tvBookmarkEntityList: TV_Bookmark[]) => {

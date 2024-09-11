@@ -141,30 +141,4 @@ export class SupabaseMovieBookmarkDAO {
       })
     );
   }
-
-  deleteMovieBookmark(
-    mediaId: number,
-    bookmarkEnum: bookmarkEnum
-  ): Observable<Movie_Bookmark[]> {
-    return from(
-      this.supabase
-        .from(this.TABLE)
-        .update({
-          bookmark_enum: bookmarkEnum,
-        })
-        .eq(`movie_id`, mediaId)
-        .select()
-    ).pipe(
-      map((result: PostgrestSingleResponse<Movie_Bookmark[]>) => {
-        if (result.error) {
-          throw new CustomHttpErrorResponse({
-            error: result.error,
-            message: result.error.message,
-          });
-        }
-
-        return result.data;
-      })
-    );
-  }
 }

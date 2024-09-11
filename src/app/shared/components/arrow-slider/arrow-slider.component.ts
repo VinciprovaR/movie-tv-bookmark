@@ -21,7 +21,7 @@ export type arrowType = 'up' | 'right' | 'down' | 'left';
   styleUrl: './arrow-slider.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArrowSliderComponent extends AbstractComponent implements OnInit {
+export class ArrowSliderComponent extends AbstractComponent {
   @Output()
   emitClick = new EventEmitter<null>();
   @Input({ required: true })
@@ -30,8 +30,6 @@ export class ArrowSliderComponent extends AbstractComponent implements OnInit {
   constructor() {
     super();
   }
-
-  ngOnInit(): void {}
 
   onClick() {
     this.emitClick.emit();

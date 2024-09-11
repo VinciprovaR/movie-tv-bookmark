@@ -20,7 +20,7 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
   styleUrl: './img.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImgComponent extends AbstractComponent implements OnInit {
+export class ImgComponent extends AbstractComponent {
   @Input({ required: true })
   breakpointSm!: number;
   @Input({ required: true })
@@ -65,8 +65,6 @@ export class ImgComponent extends AbstractComponent implements OnInit {
   constructor() {
     super();
   }
-
-  ngOnInit(): void {}
 
   getFullSrc() {
     if (window.innerWidth < this.breakpointSm) {

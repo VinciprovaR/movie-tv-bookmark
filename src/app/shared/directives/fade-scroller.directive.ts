@@ -64,9 +64,6 @@ export class FadeScrollerDirective implements AfterViewInit {
       this.el.nativeElement.clientWidth -
       this.el.nativeElement.scrollLeft;
 
-    const offSetSpace =
-      (this.el.nativeElement.scrollWidth / 100) * this.offSetPercentage;
-
     if (spaceRemaining <= this.offSetPercenPixel) {
       this.renderer.addClass(this.el.nativeElement, 'is_hidden');
     } else {

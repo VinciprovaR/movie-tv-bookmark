@@ -135,30 +135,4 @@ export class SupabaseTVBookmarkDAO {
       })
     );
   }
-
-  deleteTVBookmark(
-    tvId: number,
-    bookmarkEnum: bookmarkEnum
-  ): Observable<TV_Bookmark[]> {
-    return from(
-      this.supabase
-        .from(this.TABLE)
-        .update({
-          bookmark_enum: bookmarkEnum,
-        })
-        .eq(`tv_id`, tvId)
-        .select()
-    ).pipe(
-      map((result: PostgrestSingleResponse<TV_Bookmark[]>) => {
-        if (result.error) {
-          throw new CustomHttpErrorResponse({
-            error: result.error,
-            message: result.error.message,
-          });
-        }
-
-        return result.data;
-      })
-    );
-  }
 }

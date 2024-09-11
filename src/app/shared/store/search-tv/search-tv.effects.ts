@@ -43,7 +43,7 @@ export class SearchTVEffects {
         this.store.select(SearchTVSelectors.selectQuery)
       ),
       switchMap((action) => {
-        let [type, currPage, totalPages, query] = action;
+        let [, currPage, totalPages, query] = action;
         if (currPage < totalPages) {
           return this.TMDBSearchTVService.additionalTVSearch(
             currPage,

@@ -161,7 +161,6 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
       switchMap(() => {
         return this.TMDBTrendingMovieService.trendingMovie('week').pipe(
           tap((movieResult: MovieResult) => {
-            // this.store.dispatch(movieTrendingSuccess({ movieResult }));
             this.movieTrendingSuccess({
               movieResult,
             });
@@ -169,7 +168,6 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
-                //this.store.dispatch(movieTrendingFailure({ httpErrorResponse }));
                 this.movieTrendingFailure(httpErrorResponse);
               })
             );
@@ -187,7 +185,6 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
       switchMap(() => {
         return this.TMDBTrendingTVService.trendingTV('week').pipe(
           tap((tvResult: TVResult) => {
-            // this.store.dispatch(tvTrendingSuccess({ tvResult }));
             this.tvTrendingSuccess({
               tvResult,
             });
@@ -195,7 +192,6 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
-                //this.store.dispatch(tvTrendingFailure({ httpErrorResponse }));
                 this.tvTrendingFailure(httpErrorResponse);
               })
             );

@@ -37,15 +37,13 @@ export class SupabaseAuthEventsService {
 
   initListeners() {
     this.supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'INITIAL_SESSION') {
-      } else if (event === 'SIGNED_IN') {
+      if (event === 'SIGNED_IN') {
         this.isLoading$.next(false);
       } else if (event === 'SIGNED_OUT') {
         this.isLoading$.next(false);
       } else if (event === 'PASSWORD_RECOVERY') {
         this.passwordRecoveryFlowStart();
         this.isLoading$.next(false);
-      } else if (event === 'TOKEN_REFRESHED') {
       } else if (event === 'USER_UPDATED') {
         this.passwordRecoveryFlowEnd();
       }

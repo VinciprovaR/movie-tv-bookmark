@@ -91,7 +91,6 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
     return movieId$.pipe(
       tap(() => {
         this.addMovieDetailInit();
-        // this.store.dispatch(movieDetailIsLoading({ isLoading: true }));
       }),
       switchMap((movieId) => {
         return this.TMDBMovieDetailService.movieDetailChained(movieId).pipe(
@@ -100,14 +99,12 @@ export class MovieDetailStore extends ComponentStore<MovieDetailState> {
             this.addMovieDetailSuccess({
               movieDetail,
             });
-            // this.store.dispatch(movieDetailIsLoading({ isLoading: false }));
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
               tap(() => {
                 this.addMovieDetailFailure(httpErrorResponse);
                 this.store.dispatch(movieDetailFailure({ httpErrorResponse }));
-                // this.store.dispatch(movieDetailIsLoading({ isLoading: false }));
               })
             );
           })

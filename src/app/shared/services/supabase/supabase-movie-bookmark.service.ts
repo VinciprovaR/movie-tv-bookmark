@@ -124,9 +124,9 @@ export class SupabaseMovieBookmarkService {
     movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
   ): Observable<MovieBookmarkMap> {
     return this.supabaseMovieBookmarkDAO
-      .deleteMovieBookmark(
-        movieBookmarkDTO.mediaDataDTO.id,
-        movieBookmarkDTO.bookmarkEnum
+      .updateMovieBookmark(
+        movieBookmarkDTO.bookmarkEnum,
+        movieBookmarkDTO.mediaDataDTO.id
       )
       .pipe(
         map((movieBookmarkEntityList: Movie_Bookmark[]) => {

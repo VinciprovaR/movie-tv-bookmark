@@ -21,9 +21,9 @@
         slides-per-view="1"
         class="w-[90%]"
         breakpoints='{"700": {"slidesPerView": 2}, "1024": {"slidesPerView": 1},"1280": {"slidesPerView": 2}}'
-        (swiperslidesupdated)="onSwiperSlidesUpdated($event)"
-        (swiperslidenexttransitionend)="onSwiperslideNextTransitionEnd($event)"
-        (swiperslideprevtransitionend)="onSwiperslidePrevTransitionEnd($event)"
+        (swiperslidesupdated)="checkSlideButtonDisplay($event)"
+        (swiperslidenexttransitionend)="checkSlideButtonDisplay($event)"
+        (swiperslideprevtransitionend)="checkSlideButtonDisplay($event)"
         #swiper
       >
         @for(video of videoList.slice(0,30); track video){

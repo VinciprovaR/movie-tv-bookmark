@@ -90,14 +90,12 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
   readonly searchTVDetail = this.effect((tvId$: Observable<number>) => {
     return tvId$.pipe(
       tap(() => {
-        // this.store.dispatch(tvDetailIsLoading({ isLoading: true }));
         this.addTVDetailInit();
       }),
       switchMap((tvId) => {
         return this.TMDBTVDetailService.tvDetailChained(tvId).pipe(
           tap((tvDetail: TVDetail) => {
             this.store.dispatch(tvDetailSuccess({ tvDetail }));
-            // this.store.dispatch(tvDetailIsLoading({ isLoading: false }));
             this.addTVDetailSuccess({
               tvDetail,
             });
@@ -107,7 +105,6 @@ export class TVDetailStore extends ComponentStore<TVDetailState> {
               tap(() => {
                 this.addTVDetailFailure(httpErrorResponse);
                 this.store.dispatch(tvDetailFailure({ httpErrorResponse }));
-                // this.store.dispatch(tvDetailIsLoading({ isLoading: false }));
               })
             );
           })

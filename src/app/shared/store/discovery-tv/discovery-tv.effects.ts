@@ -24,7 +24,7 @@ export class DiscoveryTVEffects {
       ofType(DiscoveryTVActions.discoveryTVLanding),
       withLatestFrom(this.store.select(DiscoveryTVSelectors.selectPayload)),
       switchMap((action) => {
-        let [actionType, payload] = action;
+        let [, payload] = action;
         return this.TMDBDiscoveryTVService.tvDiscovery(payload).pipe(
           switchMap((tvResult: TVResult) => {
             if (!payload.includeMediaWithBookmark) {
@@ -91,7 +91,7 @@ export class DiscoveryTVEffects {
         this.store.select(DiscoveryTVSelectors.selectPayload)
       ),
       switchMap((action) => {
-        let [type, currPage, totalPages, payload] = action;
+        let [, currPage, totalPages, payload] = action;
         if (currPage < totalPages) {
           return this.TMDBDiscoveryTVService.additionalTVDiscovery(
             currPage,

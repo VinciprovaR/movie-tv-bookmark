@@ -46,10 +46,6 @@ export class AlertComponent extends AbstractComponent implements OnInit {
   }
 
   initSubscriptions(): void {
-    // timer(200)
-    //   .pipe(takeUntil(this.destroyed$))
-    //   .subscribe(() => this.onShow());
-
     timer(7000)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => this.onClose());

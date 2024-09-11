@@ -125,7 +125,6 @@ export function provideInitRootServices() {
 }
 
 export function provideImgUrl() {
-  const endPointImage = 'https://image.tmdb.org';
   const endPointMedia = 'https://media.themoviedb.org/';
 
   return [

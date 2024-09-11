@@ -26,7 +26,7 @@ export class DiscoveryMovieEffects {
       ofType(DiscoveryMovieActions.discoveryMovieLanding),
       withLatestFrom(this.store.select(DiscoveryMovieSelectors.selectPayload)),
       switchMap((action) => {
-        let [actionType, payload] = action;
+        let [, payload] = action;
         return this.TMDBDiscoveryMovieService.movieDiscovery(payload).pipe(
           switchMap((movieResult: MovieResult) => {
             if (!payload.includeMediaWithBookmark) {
@@ -93,7 +93,7 @@ export class DiscoveryMovieEffects {
         this.store.select(DiscoveryMovieSelectors.selectPayload)
       ),
       switchMap((action) => {
-        let [type, currPage, totalPages, payload] = action;
+        let [, currPage, totalPages, payload] = action;
         if (currPage < totalPages) {
           return this.TMDBDiscoveryMovieService.additionalMovieDiscovery(
             currPage,
