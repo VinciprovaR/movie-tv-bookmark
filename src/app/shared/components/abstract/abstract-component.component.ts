@@ -7,6 +7,7 @@ import {
   NgZone,
   Renderer2,
   RendererFactory2,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
@@ -36,9 +37,6 @@ export abstract class AbstractComponent {
 
     this.renderer = this.rendererFactory.createRenderer(null, null);
   }
-
-  abstract initSelectors(): void;
-  abstract initSubscriptions(): void;
 
   detectChanges() {
     this.changeDetectorRef.detectChanges();

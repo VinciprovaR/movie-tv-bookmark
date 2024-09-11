@@ -1,9 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -57,7 +57,4 @@ export class CastCrewCreditCardComponent
   override ngOnInit(): void {
     this.buildDetailPath(this.id);
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 }

@@ -1,7 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ImgComponent } from '../img/img.component';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { AbstractComponent } from '../abstract/abstract-component.component';
 
 export type arrowType = 'up' | 'right' | 'down' | 'left';
@@ -25,8 +32,7 @@ export class ArrowSliderComponent extends AbstractComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
+
   onClick() {
     this.emitClick.emit();
   }

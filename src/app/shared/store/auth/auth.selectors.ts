@@ -16,6 +16,11 @@ export const selectIsLoading = createSelector(
   AuthReducer.getIsLoading
 );
 
+export const selectIsLoadingForCurrentUser = createSelector(
+  authFeatureSelector,
+  AuthReducer.getIsLoadingCurrentUser
+);
+
 export const selectIsLoadingForPasswordValidation = createSelector(
   authFeatureSelector,
   AuthReducer.getIsLoadingForPasswordValidation

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   DiscoveryTVFilterForm,
   Genre,
@@ -16,7 +16,7 @@ import { SelectFilterComponent } from '../../shared/components/select-filter/sel
 import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DiscoveryTVSelectors } from '../../shared/store/discovery-tv';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 
 @Component({
@@ -34,7 +34,7 @@ import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/custom
     MatIconModule,
   ],
   templateUrl: './tv-discovery-filters.component.html',
-  styleUrl: './tv-discovery-filters.component.css',
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDiscoveryFiltersComponent
@@ -52,9 +52,7 @@ export class TVDiscoveryFiltersComponent
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.combinedDiscoveryFilters$
       .pipe(
         takeUntil(this.destroyed$),
@@ -109,7 +107,6 @@ export class TVDiscoveryFiltersComponent
   }
 
   override onSubmit(): void {
-    this.filterForm.value;
     if (this.filterForm.valid) {
       this.toggleButtonSearch(true);
       let payload: PayloadDiscoveryTV = this.buildPayload();

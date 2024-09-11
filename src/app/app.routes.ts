@@ -219,6 +219,7 @@ export const routes: Routes = [
         (m) => m.LogoutComponent
       ),
     canActivate: [authGuard],
+
     title: 'Sign out',
   },
   {

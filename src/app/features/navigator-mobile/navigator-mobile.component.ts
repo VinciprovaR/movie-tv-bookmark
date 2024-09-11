@@ -1,8 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { NavigationStart, RouterLink, RouterLinkActive } from '@angular/router';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { AbstractNavComponent } from '../../shared/components/abstract/abstract-nav.component';
 import { takeUntil, filter } from 'rxjs';
 
@@ -35,8 +42,7 @@ export class NavigatorMobileComponent
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.router.events
       .pipe(
         takeUntil(this.destroyed$),

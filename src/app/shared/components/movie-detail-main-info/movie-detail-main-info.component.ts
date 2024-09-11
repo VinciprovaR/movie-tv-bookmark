@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { RatingComponent } from '../rating/rating.component';
 import {
   CastMovie,
@@ -16,7 +21,6 @@ import { MediaDetailMainInfoComponent } from '../abstract/abstract-media-detail-
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { OverviewComponent } from '../overview/overview.component';
 import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-movie-detail-main-info',
@@ -34,7 +38,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     MainCrewCastComponent,
   ],
   templateUrl: './movie-detail-main-info.component.html',
-  styleUrl: './movie-detail-main-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailMainInfoContentComponent
@@ -70,9 +73,6 @@ export class MovieDetailMainInfoContentComponent
     this.buildMainCrewMap();
     this.buildMainCastMap();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   override buildMainCrewMap() {
     this.crew.forEach((crew: CrewMovie) => {

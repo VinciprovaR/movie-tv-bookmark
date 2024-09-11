@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
@@ -14,9 +14,6 @@ export class StaticTagComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   @Input({ required: true })
   tag: string = '';

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
@@ -6,7 +6,6 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
   standalone: true,
   imports: [],
   templateUrl: './missing-field-placeholder.component.html',
-  styleUrl: './missing-field-placeholder.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MissingFieldPlaceholderComponent extends AbstractComponent {
@@ -16,7 +15,4 @@ export class MissingFieldPlaceholderComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 }

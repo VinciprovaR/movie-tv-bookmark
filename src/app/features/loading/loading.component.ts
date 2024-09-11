@@ -1,11 +1,11 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
   OnInit,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { CommonModule } from '@angular/common';
@@ -32,7 +32,6 @@ import {
   standalone: true,
   imports: [CommonModule, MatProgressBarModule],
   templateUrl: './loading.component.html',
-  styleUrl: './loading.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingComponent
@@ -47,7 +46,7 @@ export class LoadingComponent
   //Auth
   authSelectIsLoading$!: Observable<boolean>;
   authSelectIsLoadingForPasswordValidation$!: Observable<boolean>;
-
+  authSelectIsLoadingForCurrentUser$!: Observable<boolean>;
   //Movie
   private readonly movieDetailCreditsStore = inject(MovieDetailCreditsStore);
   private readonly movieDetailStore = inject(MovieDetailStore);
@@ -82,13 +81,16 @@ export class LoadingComponent
   }
   ngOnInit(): void {}
 
-  override initSelectors(): void {
+  initSelectors(): void {
     //Auth
     this.authSelectIsLoading$ = this.store.select(
       AuthSelectors.selectIsLoading
     );
     this.authSelectIsLoadingForPasswordValidation$ = this.store.select(
       AuthSelectors.selectIsLoadingForPasswordValidation
+    );
+    this.authSelectIsLoadingForCurrentUser$ = this.store.select(
+      AuthSelectors.selectIsLoadingForCurrentUser
     );
 
     //Movie
@@ -130,7 +132,7 @@ export class LoadingComponent
     );
     this.personDetailSelectIsLoading$ = this.personDetailStore.selectIsLoading$;
   }
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     //not landing
 
     this.authSelectIsLoadingForPasswordValidation$
@@ -181,6 +183,12 @@ export class LoadingComponent
         this.toggleLoadingBar(isLoading);
       });
 
+    this.authSelectIsLoadingForCurrentUser$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isLoading) => {
+        this.toggleLoadingBar(isLoading);
+      });
+
     //landing
 
     this.TVDiscoverySelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
@@ -195,11 +203,11 @@ export class LoadingComponent
         this.toggleLoadingBar(isLoading, true);
       });
 
-    // this.authSelectIsLoading$
-    //   .pipe(takeUntil(this.destroyed$))
-    //   .subscribe((isLoading) => {
-    //     this.toggleLoadingBar(isLoading, true);
-    //   });
+    this.authSelectIsLoading$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isLoading) => {
+        this.toggleLoadingBar(isLoading, true);
+      });
 
     this.movieDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))

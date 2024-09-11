@@ -1,4 +1,4 @@
-import { Directive, inject } from '@angular/core';
+import { Directive, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FastAverageColorResult } from 'fast-average-color';
 import { takeUntil } from 'rxjs';
 import { PredominantImgColorService } from '../../services/predominant-img-color.service';

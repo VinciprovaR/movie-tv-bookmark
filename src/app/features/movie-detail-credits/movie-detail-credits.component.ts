@@ -1,10 +1,10 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnDestroy,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { PersonCardComponent } from '../../shared/components/person-card/person-card.component';
@@ -48,7 +48,7 @@ import { ErrorMessageTemplateComponent } from '../../shared/components/error-mes
   ],
 
   templateUrl: './movie-detail-credits.component.html',
-  styleUrl: './movie-detail-credits.component.css',
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailCreditsComponent
@@ -182,7 +182,7 @@ export class MovieDetailCreditsComponent
     this.searchMovieDetail();
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.routerEvent$ = this.router.events;
     this.movieCredits$ = this.movieDetailCreditsStore.selectMovieCredits$;
     this.movieDetail$ = this.movieDetailstore.selectMovieDetail$;
@@ -190,7 +190,7 @@ export class MovieDetailCreditsComponent
     this.error$ = this.movieDetailstore.selectError$;
   }
 
-  override initSubscriptions() {
+  initSubscriptions() {
     this.pageEventService.windowInnerWidth$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((innerWidth) => {

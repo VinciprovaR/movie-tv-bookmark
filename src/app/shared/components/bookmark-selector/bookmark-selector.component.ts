@@ -1,11 +1,11 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
   inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   bookmarkEnum,
@@ -95,13 +95,11 @@ export class BookmarkSelectorComponent
     this.initDataBridge();
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.bookmarkOptions$ = this.store.select(
       BookmarkMetadataSelectors.selectBookmarkOptions
     );
   }
-
-  override initSubscriptions(): void {}
 
   initDataBridge() {
     this.bridgeDataService.mediaBookmarkMapObs$

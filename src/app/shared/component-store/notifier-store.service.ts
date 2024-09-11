@@ -19,17 +19,17 @@ export class NotifierStore extends ComponentStore<AlertState> {
 
   readonly selectAlerts$ = this.select((state) => state.alerts);
 
-  readonly isFailure = (action: any & TypedAction<string>) => {
+  readonly isFailure = (action: any) => {
     let { type }: { type: string } = action;
     return type.toLowerCase().includes('failure');
   };
 
-  readonly isLoading = (action: any & TypedAction<string>) => {
+  readonly isLoading = (action: any) => {
     let { type }: { type: string } = action;
     return type.toLowerCase().includes('is loading');
   };
 
-  readonly isNotify = (action: any & TypedAction<string>) => {
+  readonly isNotify = (action: any) => {
     let { type }: { type: string } = action;
 
     return type.toLowerCase().includes('notify');
@@ -76,7 +76,7 @@ export class NotifierStore extends ComponentStore<AlertState> {
   readonly showAlertSuccess = this.effect(() => {
     return this.actions$.pipe(
       filter(this.isNotify),
-      tap((action: any & TypedAction<string>) => {
+      tap((action: any) => {
         if (action['notifyMsg']) {
           this.notify(action, action['notifyMsg'], 'success');
         }
@@ -92,11 +92,7 @@ export class NotifierStore extends ComponentStore<AlertState> {
     );
   });
 
-  private notify(
-    action: any & TypedAction<string>,
-    message: string,
-    type: notificationType
-  ) {
+  private notify(action: any, message: string, type: notificationType) {
     this.addAlert({
       message,
       type,

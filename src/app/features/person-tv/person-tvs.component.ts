@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
@@ -15,7 +21,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-person-tvs',
@@ -27,7 +32,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
   providers: [BridgeDataService],
   templateUrl: './person-tvs.component.html',
-  styleUrl: './person-tvs.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonTVsComponent extends AbstractComponent implements OnInit {
@@ -70,13 +74,11 @@ export class PersonTVsComponent extends AbstractComponent implements OnInit {
       });
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.selectTVBookmarkMap$ = this.store.select(
       TVBookmarkSelectors.selectTVBookmarkMap
     );
   }
-
-  override initSubscriptions(): void {}
 
   createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TV>) {
     this.store.dispatch(

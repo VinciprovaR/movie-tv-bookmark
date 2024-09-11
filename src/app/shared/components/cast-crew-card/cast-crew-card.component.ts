@@ -1,9 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -30,7 +30,6 @@ import { IMG_SIZES } from '../../../providers';
     ImgComponent,
   ],
   templateUrl: './cast-crew-card.component.html',
-  styleUrl: './cast-crew-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CastCrewCardComponent
@@ -58,7 +57,4 @@ export class CastCrewCardComponent
   override ngOnInit(): void {
     this.buildDetailPath(this.id);
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 }

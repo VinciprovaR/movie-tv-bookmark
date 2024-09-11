@@ -1,9 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   inject,
   OnDestroy,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { map, Observable, skipWhile, takeUntil } from 'rxjs';
 import { NavigationStart, RouterModule } from '@angular/router';
@@ -43,7 +43,6 @@ import { SuccessMessageTemplateComponent } from '../../../shared/components/succ
     SuccessMessageTemplateComponent,
   ],
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordComponent
@@ -58,14 +57,13 @@ export class ResetPasswordComponent
   isAuthorized$!: Observable<boolean>;
   passwordResetForm!: FormGroup<PasswordChangeForm>;
   selectIsLoading$!: Observable<boolean>;
-  // selectIsResetPasswordSuccess$!: Observable<boolean>;
+
   selectMessageSuccessOperation$!: Observable<string>;
 
   submitted = false;
 
   constructor() {
     super();
-    // this.initRouteSubscription();
   }
 
   ngOnInit(): void {
@@ -96,7 +94,7 @@ export class ResetPasswordComponent
     });
   }
 
-  override initSelectors(): void {
+  initSelectors(): void {
     this.selectMessageSuccessOperation$ = this.store.select(
       AuthSelectors.selectMessageSuccessOperation
     );
@@ -118,7 +116,7 @@ export class ResetPasswordComponent
     this.selectIsLoading$ = this.store.select(AuthSelectors.selectIsLoading);
   }
 
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.passwordResetForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status) => {

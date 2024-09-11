@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -33,7 +34,7 @@ import { MediaKeywordsComponent } from '../../shared/components/media-keywords/m
 import { VideosContainerComponent } from '../../shared/components/videos-container/videos-container.component';
 import { TVDetailMainInfoContentComponent } from '../../shared/components/tv-detail-main-info/tv-detail-main-info.component';
 import { NavigationExtras } from '@angular/router';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { BookmarkDisabledDialogComponent } from '../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { AuthSelectors } from '../../shared/store/auth';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
@@ -59,7 +60,7 @@ import { ErrorMessageTemplateComponent } from '../../shared/components/error-mes
   ],
   providers: [BridgeDataService],
   templateUrl: './tv-detail.component.html',
-  styleUrl: './tv-detail.component.css',
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDetailComponent
@@ -101,7 +102,7 @@ export class TVDetailComponent
     this.searchTVDetail();
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
@@ -110,7 +111,7 @@ export class TVDetailComponent
     this.error$ = this.tvDetailstore.selectError$;
   }
 
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.tvDetail$
       .pipe(
         takeUntil(this.destroyed$),

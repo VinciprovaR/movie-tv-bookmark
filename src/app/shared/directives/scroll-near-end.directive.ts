@@ -8,6 +8,7 @@ import {
   Input,
   NgZone,
   Output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 @Directive({

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, MatIconModule, RouterLink],
   templateUrl: './error-message-template.component.html',
-  styleUrl: './error-message-template.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ErrorMessageTemplateComponent extends AbstractComponent {
@@ -21,7 +20,4 @@ export class ErrorMessageTemplateComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 }

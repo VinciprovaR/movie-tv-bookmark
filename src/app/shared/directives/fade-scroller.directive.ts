@@ -9,6 +9,7 @@ import {
   NgZone,
   Renderer2,
   RendererFactory2,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Subject, Observable, fromEvent, takeUntil, debounceTime } from 'rxjs';
 

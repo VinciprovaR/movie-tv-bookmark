@@ -1,16 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ImdbIconComponent } from '../imdb-icon/imdb-icon.component';
 import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { AbstractComponent } from '../abstract/abstract-component.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-external-info',
   standalone: true,
   imports: [ImdbIconComponent, TmdbIconComponent],
   templateUrl: './external-info.component.html',
-  styleUrl: './external-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExternalInfoComponent extends AbstractComponent {
@@ -20,7 +18,4 @@ export class ExternalInfoComponent extends AbstractComponent {
   tmdbId!: number;
   @Input()
   imdbId!: string;
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 }

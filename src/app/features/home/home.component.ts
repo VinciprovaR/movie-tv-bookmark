@@ -1,10 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { AuthSelectors } from '../../shared/store/auth';
 import { Observable, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { User } from '@supabase/supabase-js/';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { IMG_SIZES } from '../../providers';
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { PredominantImgColorService } from '../../shared/services/predominant-img-color.service';
@@ -49,11 +54,11 @@ export class HomeComponent extends AbstractComponent implements OnInit {
     this.randomImageStore.randomImageInitializer();
   }
 
-  override initSelectors(): void {
+  initSelectors(): void {
     this.selectUser$ = this.store.select(AuthSelectors.selectUser);
     this.randomImage$ = this.randomImageStore.selectRandomImage$;
   }
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.randomImage$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((imgSrc: string) => {

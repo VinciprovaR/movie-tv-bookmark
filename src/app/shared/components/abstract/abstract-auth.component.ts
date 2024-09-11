@@ -1,4 +1,9 @@
-import { Directive, ElementRef, ViewChild } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
 import { timer, takeUntil } from 'rxjs';
 

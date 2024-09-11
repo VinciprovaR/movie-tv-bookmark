@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { AuthActions, AuthSelectors } from '../../shared/store/auth';
 import { Observable, takeUntil } from 'rxjs';
 import {
@@ -13,7 +18,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDivider } from '@angular/material/divider';
@@ -74,7 +79,7 @@ export class LoginPageComponent
     });
   }
 
-  override initSelectors(): void {
+  initSelectors(): void {
     this.selectIsLoading$ = this.store.select(AuthSelectors.selectIsLoading);
 
     this.selectMessageSuccessOperation$ = this.store.select(
@@ -82,7 +87,7 @@ export class LoginPageComponent
     );
   }
 
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.loginForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status) => {

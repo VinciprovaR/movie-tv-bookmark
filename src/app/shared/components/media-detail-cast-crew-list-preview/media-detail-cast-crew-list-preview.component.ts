@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -7,6 +6,7 @@ import {
   Output,
   QueryList,
   ViewChildren,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PersonCardComponent } from '../person-card/person-card.component';
@@ -37,7 +37,6 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
   ],
   templateUrl: './media-detail-cast-crew-list-preview.component.html',
-  styleUrl: './media-detail-cast-crew-list-preview.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaDetailCastCrewListPreviewComponent
@@ -74,9 +73,6 @@ export class MediaDetailCastCrewListPreviewComponent
     }`;
     this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   buildRole(castCrew: CastMovie | CrewMovie | CastTV | CrewTV) {
     if (this.isCastTVEntity(castCrew)) {

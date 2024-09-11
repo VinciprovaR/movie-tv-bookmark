@@ -34,12 +34,20 @@
         @for(path of navElement.value.subMenu ; track path.path){
         @if(canRender(path.needAuth)){
         <li class="sub-el" (click)="hideSubMenu(menuEl)">
+          @if(path.path === 'logout'){
+          <a
+            href="javascript:void(0);"
+            (click)="logout()"
+            class="block p-2 text-[var(--text-color)]"
+            >{{ path.label }}</a
+          >
+          } @else {
           <a
             routerLinkActive="active"
             [routerLink]="path.path"
             class="block p-2 text-[var(--text-color)]"
             >{{ path.label }}</a
-          >
+          >}
         </li>
         } }
       </ul>

@@ -6,6 +6,7 @@ import {
   OnDestroy,
   Output,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
 import {

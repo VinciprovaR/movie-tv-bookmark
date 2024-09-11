@@ -1,9 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -99,13 +99,13 @@ export class MediaCardComponent
     this.buildDetailPath(this.media.id);
   }
 
-  override initSelectors(): void {
+  initSelectors(): void {
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
   }
 
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.pageEventService.windowInnerWidth$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((windowWidth) => {

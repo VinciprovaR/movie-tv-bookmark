@@ -1,10 +1,10 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -54,8 +54,7 @@ export class BookmarkDisabledDialogComponent
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.pageEventService.resizeEvent$
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
@@ -116,7 +115,4 @@ export class BookmarkDisabledDialogContentComponent extends AbstractComponent {
   private submitDialog(submit: submitDialogType) {
     this.submitDialogContentEmitter.emit({ typeSubmit: submit });
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 }

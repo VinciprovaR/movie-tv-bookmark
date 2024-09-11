@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   Videos,
@@ -20,7 +21,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Overlay } from '@angular/cdk/overlay';
 import { SwiperContainer } from 'swiper/element';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { YoutubeEmbededDialogComponent } from '../youtube-embeded-dialog/youtube-embeded-dialog.component';
 
@@ -80,9 +81,6 @@ export class VideosContainerComponent
     this.renderer = this.rendererFactory.createRenderer(null, null);
     this.videoList = this.filterVideosType();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   onSwiperSlidesUpdated(event: any) {
     this.checkSlideButtonDisplay(

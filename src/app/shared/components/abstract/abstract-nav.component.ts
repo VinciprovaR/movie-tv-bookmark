@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
 
 @Directive()
@@ -25,5 +25,9 @@ export abstract class AbstractNavComponent extends AbstractComponent {
     }
 
     return true;
+  }
+
+  logout() {
+    this.router.navigate(['/logout'], { skipLocationChange: true });
   }
 }

@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable, map, takeUntil } from 'rxjs';
@@ -22,7 +22,6 @@ import { SuccessMessageTemplateComponent } from '../../shared/components/success
     SuccessMessageTemplateComponent,
   ],
   templateUrl: './confirm-email.component.html',
-  styleUrl: './confirm-email.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmEmailComponent extends AbstractComponent implements OnInit {
@@ -47,10 +46,10 @@ export class ConfirmEmailComponent extends AbstractComponent implements OnInit {
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {
+  initSelectors(): void {
     this.isLoading$ = this.store.select(AuthSelectors.selectIsLoading);
   }
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));

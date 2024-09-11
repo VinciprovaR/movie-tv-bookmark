@@ -7,11 +7,11 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { takeUntil, timer } from 'rxjs';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { MatIconModule } from '@angular/material/icon';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
@@ -45,8 +45,7 @@ export class AlertComponent extends AbstractComponent implements OnInit {
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     // timer(200)
     //   .pipe(takeUntil(this.destroyed$))
     //   .subscribe(() => this.onShow());

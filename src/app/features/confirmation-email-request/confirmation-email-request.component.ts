@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +8,7 @@ import {
 import { Observable, takeUntil } from 'rxjs';
 import { AuthActions, AuthSelectors } from '../../shared/store/auth';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AbstractAuthComponent } from '../../shared/components/abstract/abstract-auth.component';
@@ -46,9 +46,7 @@ export class ConfirmationRmailRequestComponent extends AbstractAuthComponent {
     });
   }
 
-  override initSelectors(): void {}
-
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.confirmationEmailRequestForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status) => {

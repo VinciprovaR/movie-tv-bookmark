@@ -1,11 +1,11 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Movie, TV } from '../../interfaces/TMDB/tmdb-media.interface';
@@ -29,12 +29,11 @@ import { scrollDirection } from '../../interfaces/layout.types';
     MatProgressSpinnerModule,
   ],
   templateUrl: './media-list-container.component.html',
-  styleUrl: './media-list-container.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaListContainerComponent
   extends AbstractComponent
-  implements OnInit, AfterViewInit
+  implements OnInit
 {
   @Output()
   emitDiscoveryAdditionalMedia = new EventEmitter<number>();
@@ -67,14 +66,9 @@ export class MediaListContainerComponent
     super();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
-
   ngOnInit(): void {
     this.placeholder = `No ${this.mediaType} were found that match your query.`;
   }
-
-  ngAfterViewInit(): void {}
 
   discoveryAdditionalMedia() {
     if (this.mediaList.length && !this.noAdditional) {

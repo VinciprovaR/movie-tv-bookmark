@@ -1,9 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   OnInit,
   Output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs';
@@ -33,7 +33,6 @@ import { DeleteAccountForm } from '../../interfaces/supabase/supabase-auth.inter
   standalone: true,
   imports: [MatIconModule, OverlayModule],
   templateUrl: './delete-account-confirmation-dialog.component.html',
-  styleUrl: './delete-account-confirmation-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeleteAccountConfirmationDialogComponent
@@ -48,8 +47,7 @@ export class DeleteAccountConfirmationDialogComponent
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.pageEventService.resizeEvent$
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
@@ -88,7 +86,6 @@ export class DeleteAccountConfirmationDialogComponent
     MatDivider,
   ],
   templateUrl: 'delete-account-dialog-content.component.html',
-  styleUrl: './delete-account-confirmation-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeleteAccountDialogContentComponent extends AbstractAuthComponent {
@@ -160,7 +157,7 @@ export class DeleteAccountDialogContentComponent extends AbstractAuthComponent {
   ngOnInit(): void {
     this.generateRandomPrompt();
     this.buildForm();
-    this.initSelectors();
+
     this.initSubscriptions();
   }
 
@@ -183,9 +180,7 @@ export class DeleteAccountDialogContentComponent extends AbstractAuthComponent {
     });
   }
 
-  override initSelectors(): void {}
-
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.passwordValidationForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status) => {

@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   Certification,
   DiscoveryMovieFilterForm,
@@ -19,7 +24,7 @@ import { SelectFilterComponent } from '../../shared/components/select-filter/sel
 import { MinVoteFilterComponent } from '../../shared/components/min-vote-filter/min-vote-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DiscoveryMovieSelectors } from '../../shared/store/discovery-movie';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 
 @Component({
@@ -37,7 +42,6 @@ import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/custom
     MatIconModule,
   ],
   templateUrl: './movie-discovery-filters.component.html',
-  styleUrl: './movie-discovery-filters.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDiscoveryFiltersComponent
@@ -68,9 +72,8 @@ export class MovieDiscoveryFiltersComponent
   override ngOnInit(): void {
     this.initSubscriptions();
   }
-  override initSelectors(): void {}
 
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.combinedDiscoveryFilters$
       .pipe(
         takeUntil(this.destroyed$),
@@ -130,7 +133,6 @@ export class MovieDiscoveryFiltersComponent
   }
 
   override onSubmit(): void {
-    this.filterForm.value;
     if (this.filterForm.valid) {
       this.toggleButtonSearch(true);
       let payload: PayloadDiscoveryMovie = this.buildPayload();

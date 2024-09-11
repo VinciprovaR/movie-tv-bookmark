@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { CommonModule } from '@angular/common';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
@@ -8,7 +8,6 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
   standalone: true,
   imports: [CommonModule, MissingFieldPlaceholderComponent],
   templateUrl: './overview.component.html',
-  styleUrl: './overview.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OverviewComponent extends AbstractComponent {
@@ -24,9 +23,6 @@ export class OverviewComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   splitByDoubleNewline(text: string): string[] {
     return text.split('\n\n');

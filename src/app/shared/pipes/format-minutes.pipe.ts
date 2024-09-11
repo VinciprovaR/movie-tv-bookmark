@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, ChangeDetectionStrategy } from '@angular/core';
 
 @Pipe({
   name: 'formatMinutes',

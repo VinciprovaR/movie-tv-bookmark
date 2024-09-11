@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { RatingComponent } from '../rating/rating.component';
 import {
   CastTV,
@@ -15,7 +20,6 @@ import { MediaDetailMainInfoComponent } from '../abstract/abstract-media-detail-
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { OverviewComponent } from '../overview/overview.component';
 import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-tv-detail-main-info',
@@ -33,7 +37,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     MainCrewCastComponent,
   ],
   templateUrl: './tv-detail-main-info.component.html',
-  styleUrl: './tv-detail-main-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDetailMainInfoContentComponent
@@ -65,9 +68,6 @@ export class TVDetailMainInfoContentComponent
     this.buildMainCrewMap();
     this.buildMainCastMap();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   override buildMainCrewMap() {
     this.tvData.created_by.forEach((createdBy) => {

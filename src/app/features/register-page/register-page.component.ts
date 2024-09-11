@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   RegisterForm,
   PasswordGroup,
@@ -15,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { MatInputModule } from '@angular/material/input';
 import { AbstractAuthComponent } from '../../shared/components/abstract/abstract-auth.component';
 import { MatDivider } from '@angular/material/divider';
@@ -84,8 +84,6 @@ export class RegisterPageComponent extends AbstractAuthComponent {
     });
   }
 
-  override initSelectors(): void {}
-
   pswLength(control: AbstractControl): ValidationErrors | null {
     return control.value.length > 0 &&
       (control.value.length < 6 || control.value.length > 24)
@@ -99,7 +97,7 @@ export class RegisterPageComponent extends AbstractAuthComponent {
       : null;
   }
 
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.registerForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status) => {

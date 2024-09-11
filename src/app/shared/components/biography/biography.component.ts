@@ -1,9 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { CommonModule } from '@angular/common';
@@ -34,9 +34,6 @@ export class BiographyComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   splitByDoubleNewline(text: string): string[] {
     return text.split('\n\n');

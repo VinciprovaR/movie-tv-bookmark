@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { CommonModule } from '@angular/common';
 import { UnauthorizedComponent } from '../../shared/components/unauthorized-page/unauthorized.component';
@@ -18,7 +18,4 @@ export class UnauthorizedPageComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 }

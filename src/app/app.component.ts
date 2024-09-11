@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { AlertContainerComponent } from './features/alert-container/alert-container.component';
@@ -24,13 +24,8 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent extends AbstractComponent implements OnInit {
+export class AppComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
-
-  ngOnInit(): void {}
 }

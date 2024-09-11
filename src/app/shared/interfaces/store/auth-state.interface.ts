@@ -5,4 +5,5 @@ export interface AuthState extends StateMediaBookmark {
   user: User | null;
   messageSuccessOperation: string;
   isLoadingForPasswordValidation: boolean;
+  isLoadingCurrentUser: boolean;
 }

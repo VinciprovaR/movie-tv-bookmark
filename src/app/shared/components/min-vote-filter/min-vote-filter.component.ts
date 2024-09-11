@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
@@ -20,9 +20,6 @@ export class MinVoteFilterComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   get voteAverageControl(): FormControl<number> {
     return this.filterForm.controls['minVote'] as FormControl<number>;

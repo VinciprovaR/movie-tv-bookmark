@@ -1,9 +1,16 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { NavElements } from '../../shared/interfaces/navigator.interface';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter, map, takeUntil, timer } from 'rxjs';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { AbstractNavComponent } from '../../shared/components/abstract/abstract-nav.component';
 
 @Component({
@@ -35,8 +42,7 @@ export class NavigatorDesktopComponent
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.router.events
       .pipe(
         takeUntil(this.destroyed$),

@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../abstract/abstract-component.component';
@@ -15,7 +15,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, MissingFieldPlaceholderComponent, RouterLink],
   templateUrl: './main-crew-cast.component.html',
-  styleUrl: './main-crew-cast.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainCrewCastComponent extends AbstractComponent implements OnInit {
@@ -34,9 +33,6 @@ export class MainCrewCastComponent extends AbstractComponent implements OnInit {
   ngOnInit(): void {
     this.placeholder = `No ${this.title.toLowerCase()} found for this movie`;
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   buildDetailPath(id: number): string {
     return `/person-detail/${id}`;

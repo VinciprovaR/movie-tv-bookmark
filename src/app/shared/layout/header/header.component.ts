@@ -1,8 +1,8 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   inject,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { map, Observable } from 'rxjs';
@@ -60,12 +60,10 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
     });
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.icon$ = this.toggleThemeStore.selectIcon$;
     this.isDarkTheme$ = this.toggleThemeStore.selectIsDarkTheme$;
   }
-
-  override initSubscriptions(): void {}
 
   //@HostListener('window:scroll', ['$event.target'])
   windowScrollEvent() {

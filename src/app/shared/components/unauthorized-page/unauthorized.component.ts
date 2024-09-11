@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { map, Observable, takeUntil } from 'rxjs';
@@ -15,7 +15,6 @@ import { AuthSelectors } from '../../store/auth';
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './unauthorized.component.html',
-  styleUrl: './unauthorized.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnauthorizedComponent extends AbstractComponent implements OnInit {
@@ -39,13 +38,13 @@ export class UnauthorizedComponent extends AbstractComponent implements OnInit {
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {
+  initSelectors(): void {
     this.isLoading$ = this.store.select(AuthSelectors.selectIsLoading);
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
   }
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.route.fragment.pipe(takeUntil(this.destroyed$)).subscribe((f) => {
       if (f) {
         this.params = Object.fromEntries(new URLSearchParams(f));

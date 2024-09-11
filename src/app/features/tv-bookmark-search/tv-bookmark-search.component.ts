@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { combineLatest, filter, Observable, takeUntil } from 'rxjs';
 import { CommonModule, TitleCasePipe } from '@angular/common';
@@ -22,7 +28,6 @@ import { MediaListContainerComponent } from '../../shared/components/media-list-
 import { PayloadTVBookmark } from '../../shared/interfaces/store/tv-bookmark-state.interface';
 import { TVBookmarkFiltersComponent } from '../tv-bookmark-filters/tv-bookmark-filters.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-tv-bookmark-search',
@@ -35,7 +40,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
   providers: [BridgeDataService],
   templateUrl: './tv-bookmark-search.component.html',
-  styleUrl: './tv-bookmark-search.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVBookmarkSearchComponent
@@ -73,7 +77,7 @@ export class TVBookmarkSearchComponent
     this.initBridgeData();
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.selectIsLoading$ = this.store.select(
       TVBookmarkSelectors.selectIsLoading
     );
@@ -103,8 +107,6 @@ export class TVBookmarkSearchComponent
         this.searchTVByBookmarkLanding();
       });
   }
-
-  override initSubscriptions(): void {}
 
   initBridgeData() {
     //data to bookmark-selector, bookmark selected

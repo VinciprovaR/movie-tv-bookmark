@@ -6,9 +6,7 @@ import {
 } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { TV, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
-
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
-
 import { PayloadTVBookmark } from '../../interfaces/store/tv-bookmark-state.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
 

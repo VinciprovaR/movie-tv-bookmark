@@ -1,6 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
@@ -8,7 +13,6 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
   standalone: true,
   imports: [],
   templateUrl: './imdb-icon.component.html',
-  styleUrl: './imdb-icon.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImdbIconComponent extends AbstractComponent implements OnInit {
@@ -27,9 +31,6 @@ export class ImdbIconComponent extends AbstractComponent implements OnInit {
   ngOnInit(): void {
     this.buildExternalLink();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   buildExternalLink() {
     this.externalUrl = this.externalUrl.concat(

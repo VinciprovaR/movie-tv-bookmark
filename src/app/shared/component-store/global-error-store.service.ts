@@ -26,7 +26,7 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
     return type.toLowerCase().includes('failure');
   };
 
-  readonly isSuccess = (action: any & TypedAction<string>) => {
+  readonly isSuccess = (action: any) => {
     let { type }: { type: string } = action;
     return type.toLowerCase().includes('success');
   };
@@ -47,7 +47,7 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
   readonly errorEffect = this.effect(() => {
     return this.actions$.pipe(
       filter(this.isFailure),
-      tap((action: any & TypedAction<string>) => {
+      tap((action: any) => {
         const { httpErrorResponse } = action;
         this.onError(httpErrorResponse);
         this.logError(httpErrorResponse);
@@ -58,7 +58,7 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
   readonly successEffect = this.effect(() => {
     return this.actions$.pipe(
       filter(this.isSuccess),
-      tap((action: any & TypedAction<string>) => {
+      tap(() => {
         this.onSuccess();
       })
     );

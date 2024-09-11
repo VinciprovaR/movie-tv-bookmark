@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.types';
 

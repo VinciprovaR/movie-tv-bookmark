@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   OnInit,
   inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
@@ -28,7 +28,6 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
   imports: [CommonModule, InputQueryComponent, MediaListContainerComponent],
   providers: [BridgeDataService],
   templateUrl: './movie-search.component.html',
-  styleUrl: './movie-search.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieSearchComponent extends AbstractComponent implements OnInit {
@@ -70,7 +69,7 @@ export class MovieSearchComponent extends AbstractComponent implements OnInit {
       });
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.selectQuery$ = this.store.select(SearchMovieSelectors.selectQuery);
     this.selectIsLoading$ = this.store.select(
       SearchMovieSelectors.selectIsLoading
@@ -82,8 +81,6 @@ export class MovieSearchComponent extends AbstractComponent implements OnInit {
       SearchMovieSelectors.selectNoAdditional
     );
   }
-
-  override initSubscriptions(): void {}
 
   createUpdateDeleteMovieBookmark(mediaBookmarkDTO: MediaBookmarkDTO<Movie>) {
     this.store.dispatch(

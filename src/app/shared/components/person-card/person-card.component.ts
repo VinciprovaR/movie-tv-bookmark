@@ -1,4 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
@@ -9,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AbstractPersonCardComponent } from '../abstract/abstract-person-card.component';
 import { ImgComponent } from '../img/img.component';
 import { IMG_SIZES } from '../../../providers';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { takeUntil } from 'rxjs';
 
 @Component({
@@ -27,7 +33,6 @@ import { takeUntil } from 'rxjs';
     ImgComponent,
   ],
   templateUrl: './person-card.component.html',
-  styleUrl: './person-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonCardComponent
@@ -50,8 +55,7 @@ export class PersonCardComponent
     this.buildDetailPath(this.person.id);
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.pageEventService.windowInnerWidth$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((windowWidth) => {

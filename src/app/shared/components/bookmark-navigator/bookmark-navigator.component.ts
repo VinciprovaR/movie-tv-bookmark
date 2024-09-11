@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BookmarkNavElement } from '../../interfaces/navigator.interface';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { AbstractComponent } from '../abstract/abstract-component.component';
 
 @Component({
@@ -10,7 +10,6 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
   standalone: true,
   imports: [RouterModule, CommonModule, RouterLinkActive],
   templateUrl: './bookmark-navigator.component.html',
-  styleUrl: './bookmark-navigator.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorComponent extends AbstractComponent {
@@ -22,9 +21,6 @@ export class NavigatorComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   toggleNavMenu() {
     this.hiddenNavMenu = !this.hiddenNavMenu;

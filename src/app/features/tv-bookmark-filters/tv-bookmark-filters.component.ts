@@ -6,13 +6,13 @@ import {
   Genre,
   BookmarkTVFilterForm,
 } from '../../shared/interfaces/TMDB/tmdb-filters.interface';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { PayloadTVBookmark } from '../../shared/interfaces/store/tv-bookmark-state.interface';
 import { GenreFilterComponent } from '../../shared/components/genre-filter/genre-filter.component';
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { TVBookmarkSelectors } from '../../shared/store/tv-bookmark';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 
 @Component({
@@ -26,7 +26,6 @@ import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/custom
     MatIconModule,
   ],
   templateUrl: './tv-bookmark-filters.component.html',
-  styleUrl: './tv-bookmark-filters.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVBookmarkFiltersComponent extends AbstractBookmarkFilters<
@@ -43,9 +42,7 @@ export class TVBookmarkFiltersComponent extends AbstractBookmarkFilters<
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.combinedBookmarkFilters$
       .pipe(
         takeUntil(this.destroyed$),
@@ -82,7 +79,6 @@ export class TVBookmarkFiltersComponent extends AbstractBookmarkFilters<
   }
 
   override onSubmit(): void {
-    this.filterForm.value;
     if (this.filterForm.valid) {
       this.toggleButtonSearch(true);
       let payload: PayloadTVBookmark = this.buildPayload();

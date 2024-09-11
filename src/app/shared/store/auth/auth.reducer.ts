@@ -10,6 +10,7 @@ export const initialState: AuthState = {
   error: null,
   user: null,
   messageSuccessOperation: '',
+  isLoadingCurrentUser: false,
 };
 
 export const authReducer = createReducer(
@@ -17,7 +18,6 @@ export const authReducer = createReducer(
   on(
     AuthActions.login,
     AuthActions.register,
-    AuthActions.currentUser,
     AuthActions.requestResetPassword,
     AuthActions.requestResetPasswordAuthenticated,
     AuthActions.logoutGlobal,
@@ -32,6 +32,17 @@ export const authReducer = createReducer(
       };
     }
   ),
+  on(
+    AuthActions.currentUser,
+
+    (state): AuthState => {
+      return {
+        ...state,
+        error: null,
+        isLoadingCurrentUser: true,
+      };
+    }
+  ),
   on(AuthActions.deleteAccount, (state): AuthState => {
     return {
       ...state,
@@ -39,18 +50,22 @@ export const authReducer = createReducer(
       isLoadingForPasswordValidation: true,
     };
   }),
-  on(
-    AuthActions.loginSuccess,
-    AuthActions.currentUserSuccess,
-    (state, { user }): AuthState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: false,
-        user,
-      };
-    }
-  ),
+  on(AuthActions.loginSuccess, (state, { user }): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: false,
+      user,
+    };
+  }),
+  on(AuthActions.currentUserSuccess, (state, { user }): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoadingCurrentUser: false,
+      user,
+    };
+  }),
   on(AuthActions.registerSuccess, (state, { email }): AuthState => {
     return {
       ...state,
@@ -196,6 +211,8 @@ export const authReducer = createReducer(
 );
 export const getAuthState = (state: AuthState) => state;
 export const getIsLoading = (state: AuthState) => state.isLoading;
+export const getIsLoadingCurrentUser = (state: AuthState) =>
+  state.isLoadingCurrentUser;
 export const getIsLoadingForPasswordValidation = (state: AuthState) =>
   state.isLoadingForPasswordValidation;
 export const getUser = (state: AuthState) => state.user;

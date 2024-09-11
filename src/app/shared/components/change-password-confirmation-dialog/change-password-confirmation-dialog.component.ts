@@ -1,9 +1,9 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   OnInit,
   Output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -22,7 +22,6 @@ import { MatDivider } from '@angular/material/divider';
   standalone: true,
   imports: [MatIconModule, OverlayModule],
   templateUrl: './change-password-confirmation-dialog.component.html',
-  styleUrl: './change-password-confirmation-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordConfirmationDialogComponent
@@ -36,8 +35,7 @@ export class ChangePasswordConfirmationDialogComponent
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.pageEventService.resizeEvent$
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
@@ -68,7 +66,6 @@ export class ChangePasswordConfirmationDialogComponent
   standalone: true,
   imports: [MatIconModule, OverlayModule, MatDivider],
   templateUrl: './change-password-dialog-content.component.html',
-  styleUrl: './change-password-confirmation-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordDialogContentComponent extends AbstractComponent {
@@ -90,7 +87,4 @@ export class ChangePasswordDialogContentComponent extends AbstractComponent {
   private submitDialog(submit: submitDialogType) {
     this.submitDialogContentEmitter.emit({ typeSubmit: submit });
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 }

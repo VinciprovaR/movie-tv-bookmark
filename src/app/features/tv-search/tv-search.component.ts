@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { Observable, takeUntil } from 'rxjs';
 import {
@@ -18,7 +23,6 @@ import {
 } from '../../shared/store/tv-bookmark';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-tv-search',
@@ -26,7 +30,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [CommonModule, InputQueryComponent, MediaListContainerComponent],
   providers: [BridgeDataService],
   templateUrl: './tv-search.component.html',
-  styleUrl: './tv-search.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVSearchComponent extends AbstractComponent implements OnInit {
@@ -43,13 +46,12 @@ export class TVSearchComponent extends AbstractComponent implements OnInit {
   constructor() {
     super();
   }
-  ngAfterViewInit(): void {}
 
   ngOnInit(): void {
     this.initSelectors();
     this.initDataBridge();
   }
-  override initSelectors() {
+  initSelectors() {
     this.selectQuery$ = this.store.select(SearchTVSelectors.selectQuery);
     this.selectIsLoading$ = this.store.select(
       SearchTVSelectors.selectIsLoading
@@ -59,8 +61,6 @@ export class TVSearchComponent extends AbstractComponent implements OnInit {
       SearchTVSelectors.selectNoAdditional
     );
   }
-
-  override initSubscriptions(): void {}
 
   initDataBridge() {
     //data to bookmark-selector, bookmark selected

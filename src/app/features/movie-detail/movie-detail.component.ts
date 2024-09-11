@@ -5,6 +5,7 @@ import {
   Input,
   OnDestroy,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -37,7 +38,7 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { AuthSelectors } from '../../shared/store/auth';
 import { BookmarkDisabledDialogComponent } from '../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
@@ -66,7 +67,6 @@ import { ErrorMessageTemplateComponent } from '../../shared/components/error-mes
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-detail.component.html',
-  styleUrl: './movie-detail.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailComponent
@@ -111,7 +111,7 @@ export class MovieDetailComponent
     this.movieDetailstore.searchMovieDetail(this.movieId);
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
@@ -120,7 +120,7 @@ export class MovieDetailComponent
     this.error$ = this.movieDetailstore.selectError$;
   }
 
-  override initSubscriptions() {
+  initSubscriptions() {
     this.movieDetail$
       .pipe(
         takeUntil(this.destroyed$),

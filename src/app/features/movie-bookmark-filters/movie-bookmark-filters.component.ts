@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { filter, Observable, takeUntil } from 'rxjs';
@@ -12,7 +12,7 @@ import { GenreFilterComponent } from '../../shared/components/genre-filter/genre
 import { SelectFilterComponent } from '../../shared/components/select-filter/select-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MovieBookmarkSelectors } from '../../shared/store/movie-bookmark';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 
 @Component({
@@ -26,7 +26,6 @@ import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/custom
     MatIconModule,
   ],
   templateUrl: './movie-bookmark-filters.component.html',
-  styleUrl: './movie-bookmark-filters.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
@@ -43,9 +42,8 @@ export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
   override ngOnInit(): void {
     this.initSubscriptions();
   }
-  override initSelectors(): void {}
 
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.combinedBookmarkFilters$
       .pipe(
         takeUntil(this.destroyed$),
@@ -81,7 +79,6 @@ export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
   }
 
   override onSubmit(): void {
-    this.filterForm.value;
     if (this.filterForm.valid) {
       this.toggleButtonSearch(true);
       let payload: PayloadMovieBookmark = this.buildPayload();

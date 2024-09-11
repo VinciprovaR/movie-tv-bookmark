@@ -29,16 +29,25 @@
           @for(subMenuEl of navElement.value.subMenu ; track subMenuEl.path){
           @if(canRender(subMenuEl.needAuth) ){
           <li class="el-hover">
+            @if(subMenuEl.path === 'logout'){
+            <a
+              href="javascript:void(0);"
+              (click)="logout()"
+              class="block p-2 text-[var(--text-color)]"
+              >{{ subMenuEl.label }}</a
+            >
+            } @else {
             <a
               [ngClass]="{
-                  'disabled': hiddenNavMenu,
-                  
-                }"
+                    'disabled': hiddenNavMenu,
+                    
+                  }"
               routerLinkActive="active"
               [routerLink]="subMenuEl.path"
               class="block"
               >{{ subMenuEl.label }}</a
             >
+            }
           </li>
           } }
         </ul>

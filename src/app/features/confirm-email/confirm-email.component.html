@@ -8,7 +8,6 @@
           <mat-icon
             class="text-[var(--failure-icon-color)]"
             aria-hidden="false"
-            aria-label=""
             fontIcon="lock"
           ></mat-icon>
         </div>
@@ -47,7 +46,10 @@
 
     <div class="flex px-10">
       @if(!(isUserAuthenticated$ | async)){
-      <div (click)="redirectTo('/login')"></div>
+      <div
+        (keypress)="redirectTo('/login')"
+        (click)="redirectTo('/login')"
+      ></div>
 
       <button class="button-mt button-mt-role-normal" type="button">
         Sign In
@@ -56,6 +58,7 @@
       <button
         class="button-mt button-mt-role-normal"
         type="button"
+        (keypress)="redirectTo('/login')"
         (click)="redirectTo('/home')"
       >
         Home</button

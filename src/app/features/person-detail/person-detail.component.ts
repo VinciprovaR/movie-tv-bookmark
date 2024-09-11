@@ -1,4 +1,11 @@
-import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { filter, map, Observable } from 'rxjs';
 import { PersonDetailStore } from '../../shared/component-store';
 import {
@@ -14,7 +21,7 @@ import { ExternalInfoComponent } from '../../shared/components/external-info/ext
 import { AbstractMediaDetailComponent } from '../../shared/components/abstract/abstract-media-detail.component';
 import { PersonDetailMainInfoContentComponent } from '../../shared/components/person-detail-main-info/person-detail-main-info.component';
 import { PersonTVsComponent } from '../person-tv/person-tvs.component';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
 
@@ -32,7 +39,6 @@ import { ErrorMessageTemplateComponent } from '../../shared/components/error-mes
   ],
 
   templateUrl: './person-detail.component.html',
-  styleUrl: './person-detail.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonDetailComponent
@@ -64,7 +70,7 @@ export class PersonDetailComponent
     this.searchPersonDetail();
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.selectPersonDetail$ = this.personDetailStore.selectPersonDetail$;
     this.selectIsLoading$ = this.personDetailStore.selectIsLoading$;
     this.personDetailTVCredits$ =
@@ -73,7 +79,6 @@ export class PersonDetailComponent
       this.personDetailStore.selectpersonDetailMovieCredits$;
     this.error$ = this.personDetailStore.selectError$;
   }
-  override initSubscriptions(): void {}
 
   searchPersonDetail() {
     this.personDetailStore.searchPersonDetail(this.personId);

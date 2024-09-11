@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { InputQueryComponent } from '../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../shared/components/media-list-container/media-list-container.component';
 import { Observable, combineLatest, takeUntil } from 'rxjs';
@@ -26,7 +32,6 @@ import {
 import { MovieBookmarkMap } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { FiltersMetadataSelectors } from '../../shared/store/filters-metadata';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-movie-discovery',
@@ -39,7 +44,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-discovery.component.html',
-  styleUrl: './movie-discovery.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDiscoveryComponent
@@ -74,7 +78,7 @@ export class MovieDiscoveryComponent
     this.initDataBridge();
   }
 
-  override initSelectors() {
+  initSelectors() {
     this.selectIsLoading$ = this.store.select(
       DiscoveryMovieSelectors.selectIsLoading
     );
@@ -108,7 +112,6 @@ export class MovieDiscoveryComponent
       DiscoveryMovieSelectors.selectNoAdditional
     );
   }
-  override initSubscriptions(): void {}
 
   initDataBridge() {
     //data to bookmark-selector, bookmark selected

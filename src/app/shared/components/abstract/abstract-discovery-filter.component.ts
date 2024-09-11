@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';

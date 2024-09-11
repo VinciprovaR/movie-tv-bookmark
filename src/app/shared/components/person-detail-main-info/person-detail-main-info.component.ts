@@ -1,5 +1,10 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { RatingComponent } from '../rating/rating.component';
 import { PersonDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { RouterModule } from '@angular/router';
@@ -13,7 +18,6 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
 import { BiographyComponent } from '../biography/biography.component';
 import { AgePipe } from '../../pipes/age';
 import { ExternalInfoComponent } from '../external-info/external-info.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-person-detail-main-info',
@@ -34,7 +38,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     ExternalInfoComponent,
   ],
   templateUrl: './person-detail-main-info.component.html',
-  styleUrl: './person-detail-main-info.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonDetailMainInfoContentComponent
@@ -58,9 +61,6 @@ export class PersonDetailMainInfoContentComponent
   ngOnInit(): void {
     this.renderer = this.rendererFactory.createRenderer(null, null);
   }
-
-  override initSelectors(): void {}
-  override initSubscriptions(): void {}
 
   toDate(date: string): Date {
     return new Date(date);

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -7,6 +6,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs';
@@ -58,8 +58,7 @@ export class YoutubeEmbededDialogComponent
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.pageEventService.resizeEvent$
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
@@ -172,9 +171,7 @@ export class YoutubeEmbededDialogContentComponent
     this.initSubscriptions();
   }
 
-  override initSelectors(): void {}
-
-  override initSubscriptions(): void {
+  initSubscriptions(): void {
     this.pageEventService.resizeEvent$
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
