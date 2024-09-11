@@ -32,10 +32,10 @@ export class SupabaseAuthEventsService {
 
   constructor() {
     this.supabase = inject(SUPABASE_CLIENT);
-    this.initListneres();
+    this.initListeners();
   }
 
-  initListneres() {
+  initListeners() {
     this.supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'INITIAL_SESSION') {
       } else if (event === 'SIGNED_IN') {

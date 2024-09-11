@@ -121,6 +121,17 @@ export function provideInitRootServices() {
   };
 }
 
+// export function provideRandomMediaImage() {
+//   return {
+//     provide: APP_INITIALIZER,
+//     useFactory: (randomMediaImageService: RandomMediaImageService) => () => {
+//       randomMediaImageService.initMedia();
+//     },
+//     deps: [RandomMediaImageService],
+//     multi: true,
+//   };
+// }
+
 export function provideImgUrl() {
   const endPointImage = 'https://image.tmdb.org';
   const endPointMedia = 'https://media.themoviedb.org/';
@@ -292,12 +303,6 @@ export function provideHeaderNavElements() {
         ],
         needAuth: true,
       },
-      // d_settings: {
-      //   single: true,
-      //   label: 'Settings',
-      //   paths: ['/settings'],
-      //   needAuth: true,
-      // },
       d_signIn: {
         single: true,
         label: 'Sign In',
@@ -339,16 +344,5 @@ export function provideBookmarkStatusList() {
         description: "I've already watched it!",
       },
     },
-  };
-}
-
-export function provideRandomMediaImage() {
-  return {
-    provide: APP_INITIALIZER,
-    useFactory: (randomMediaImageService: RandomMediaImageService) => () => {
-      randomMediaImageService.initMedia();
-    },
-    deps: [RandomMediaImageService],
-    multi: true,
   };
 }

@@ -26,7 +26,6 @@ import {
   provideImgUrl,
   provideBookmarkStatusList,
   provideDarkThemeLocalStorageKey,
-  provideRandomMediaImage,
   provideStorageKey,
   provideInitRootServices,
 } from './providers';
@@ -54,7 +53,6 @@ export const appConfig: ApplicationConfig = {
     provideSelectFilters(),
     provideAnimations(),
     provideImgUrl(),
-    provideRandomMediaImage(),
     provideBookmarkNavElements(),
     provideHeaderNavElements(),
     provideBookmarkStatusList(),

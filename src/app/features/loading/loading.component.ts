@@ -28,7 +28,6 @@ import {
   PersonDetailMovieCreditsStore,
   PersonDetailTVCreditsStore,
 } from '../../shared/component-store';
-import { RandomMediaImageService } from '../../shared/services/random-media-image.service';
 
 @Component({
   selector: 'app-loading',
@@ -46,10 +45,6 @@ export class LoadingComponent
   loadingBar!: ElementRef;
   @ViewChild('loadingBarLanding')
   loadingBarLanding!: ElementRef;
-
-  //Media
-  private readonly randomMediaImageService = inject(RandomMediaImageService);
-  randomImage$!: Observable<string>;
 
   //Auth
   authSelectIsLoading$!: Observable<boolean>;
@@ -96,8 +91,6 @@ export class LoadingComponent
   ngOnInit(): void {}
 
   override initSelectors(): void {
-    //Media
-    this.randomImage$ = this.randomMediaImageService.randomImage$;
     //Auth
     this.authSelectIsLoading$ = this.store.select(
       AuthSelectors.selectIsLoading
@@ -248,7 +241,6 @@ export class LoadingComponent
   toggleLoadingBar(isLoading: boolean, isLanding: boolean = false) {
     if (isLoading) {
       if (isLanding) {
-        console.log('toggle loading bar landing, remove hidden, add block');
         this.renderer.removeClass(
           this.loadingBarLanding.nativeElement,
           'hidden'

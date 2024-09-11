@@ -28,12 +28,14 @@ export class RandomMediaImageService {
   tvList: TV[] = [];
 
   constructor() {
+    console.log('init RandomMediaImageService');
     this.destroyRef$.onDestroy(() => {
       this.destroyed$.next(true);
       this.destroyed$.complete();
     });
 
     this.initSelectors();
+    this.initMedia();
   }
 
   initSelectors() {
@@ -58,6 +60,7 @@ export class RandomMediaImageService {
 
     this.randomImage$ = this.mediaCombined$.pipe(
       map((mediaLists: [Movie[], TV[]]) => {
+        console.log(mediaLists);
         return this.getRandomMediaImage(mediaLists);
       })
     );
