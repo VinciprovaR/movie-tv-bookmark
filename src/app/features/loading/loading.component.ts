@@ -195,11 +195,11 @@ export class LoadingComponent
         this.toggleLoadingBar(isLoading, true);
       });
 
-    this.authSelectIsLoading$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading, true);
-      });
+    // this.authSelectIsLoading$
+    //   .pipe(takeUntil(this.destroyed$))
+    //   .subscribe((isLoading) => {
+    //     this.toggleLoadingBar(isLoading, true);
+    //   });
 
     this.movieDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
@@ -233,7 +233,7 @@ export class LoadingComponent
   }
 
   toggleLoadingBar(isLoading: boolean, isLanding: boolean = false) {
-    console.log('toggle loading', isLoading);
+    // console.log('toggle loading', isLoading);
     if (isLoading) {
       if (isLanding) {
         this.renderer.removeClass(
