@@ -9,8 +9,6 @@ export class TMDBTVDetailService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
-
   tvDetailChained(tvId: number): Observable<TVDetail> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<TVDetail>({
       serviceKey: `/tv/{tv_id}`,

@@ -11,8 +11,6 @@ export class TMDBSearchTVService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
-
   tvSearchInit(query: string): Observable<TVResult> {
     return this.tvSearch(1, query);
   }

@@ -1,6 +1,6 @@
 import { bookmarkEnum } from '../supabase-bookmark.interface';
 
-export interface Movie_Bookmark {
+export interface MovieBookmark {
   id?: number;
   created_at?: string;
   user_id: string;

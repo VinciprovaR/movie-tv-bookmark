@@ -8,7 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
-import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
+import { MovieData, TVData } from '../../interfaces/supabase/entities';
 import {
   MediaType,
   Movie,
@@ -68,7 +68,7 @@ export class MediaCardComponent
   isUserAuthenticated$!: Observable<boolean>;
 
   @Input({ required: true })
-  media!: Movie | Movie_Data | TV | TV_Data;
+  media!: Movie | MovieData | TV | TVData;
   @Input({ required: true })
   index: number = 0;
 
@@ -143,10 +143,10 @@ export class MediaCardComponent
     );
   }
 
-  isMovie(media: object): media is Movie | Movie_Data {
+  isMovie(media: object): media is Movie | MovieData {
     return (
       (media as Movie).title !== undefined ||
-      (media as Movie_Data).title !== undefined
+      (media as MovieData).title !== undefined
     );
   }
 

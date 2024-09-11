@@ -16,8 +16,6 @@ export class TMDBDiscoveryMovieService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
-
   movieDiscovery(payload: PayloadDiscoveryMovie): Observable<MovieResult> {
     return this.discoverMovieCall(
       1,

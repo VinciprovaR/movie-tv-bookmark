@@ -24,8 +24,6 @@ export class FiltersMetadataEffects {
   private readonly actions$ = inject(Actions);
   private readonly TMDBFilterMediaService = inject(TMDBFilterMediaService);
 
-  constructor() {}
-
   getFiltersMetadata$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FiltersMetadataActions.getFiltersMetadata),

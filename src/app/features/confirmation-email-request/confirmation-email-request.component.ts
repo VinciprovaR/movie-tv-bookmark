@@ -49,8 +49,8 @@ export class ConfirmationRmailRequestComponent extends AbstractAuthComponent {
   initSubscriptions(): void {
     this.confirmationEmailRequestForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((status) => {
-        this.isFormValid = status === 'INVALID' ? false : true;
+      .subscribe((status: string) => {
+        this.isFormValid = status === 'INVALID';
       });
   }
 

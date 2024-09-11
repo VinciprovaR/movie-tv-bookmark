@@ -141,83 +141,34 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
       }),
       switchMap((personId: number) => {
         return this.TMDBPersonDetailService.personDetail(personId).pipe(
-          switchMap((personDetail: PersonDetail) => {
-            return this.TMDBPersonDetailService.personMovieCredit(
-              personId
-            ).pipe(
-              map((personDetailMovieCredits: PersonDetailMovieCredits) => {
-                let results = this.mergeMovieList(personDetailMovieCredits);
-                let movieResult: MovieResult = {
-                  page: 1,
-                  total_pages: 1,
-                  total_results: results.length,
-                  results,
-                };
-                return { movieResult, personDetailMovieCredits };
-              }),
-              tap(
-                (movie: {
-                  movieResult: MovieResult;
-                  personDetailMovieCredits: PersonDetailMovieCredits;
-                }) => {
-                  this.store.dispatch(
-                    personDetailMovieCreditsSuccess({
-                      movieResult: movie.movieResult,
-                    })
-                  );
-                }
-              ),
-              switchMap(
-                (movie: {
-                  movieResult: MovieResult;
-                  personDetailMovieCredits: PersonDetailMovieCredits;
-                }) => {
-                  return this.TMDBPersonDetailService.personTVCredit(
-                    personId
-                  ).pipe(
-                    map((personDetailTVCredits: PersonDetailTVCredits) => {
-                      let results = this.mergeTVList(personDetailTVCredits);
-                      let tvResult: TVResult = {
-                        page: 1,
-                        total_pages: 1,
-                        total_results: results.length,
-                        results,
-                      };
-                      return { tvResult, personDetailTVCredits };
-                    }),
-                    tap(
-                      (tv: {
-                        tvResult: TVResult;
-                        personDetailTVCredits: PersonDetailTVCredits;
-                      }) => {
-                        this.store.dispatch(
-                          personDetailTVCreditsSuccess({
-                            tvResult: tv.tvResult,
-                          })
-                        );
-                      }
-                    ),
-                    switchMap(
-                      (tv: {
-                        tvResult: TVResult;
-                        personDetailTVCredits: PersonDetailTVCredits;
-                      }) => {
-                        return of(null).pipe(
-                          tap(() => {
-                            this.personDetailSuccess({
-                              personDetail,
-                              personDetailMovieCredits:
-                                movie.personDetailMovieCredits,
-                              personDetailTVCredits: tv.personDetailTVCredits,
-                            });
-                          })
-                        );
-                      }
-                    )
-                  );
-                }
-              )
+          tap((personDetail: PersonDetail) => {
+            let movieListMerged = this.mergeMovieList(
+              personDetail.movie_credits
             );
+            let movieResult: MovieResult = {
+              page: 1,
+              total_pages: 1,
+              total_results: movieListMerged.length,
+              results: movieListMerged,
+            };
+            this.store.dispatch(
+              personDetailMovieCreditsSuccess({ movieResult })
+            );
+
+            let tvListMerged = this.mergeTVList(personDetail.tv_credits);
+            let tvResult: TVResult = {
+              page: 1,
+              total_pages: 1,
+              total_results: tvListMerged.length,
+              results: tvListMerged,
+            };
+            this.store.dispatch(personDetailTVCreditsSuccess({ tvResult }));
+
+            this.personDetailSuccess({
+              personDetail,
+              personDetailMovieCredits: personDetail.movie_credits,
+              personDetailTVCredits: personDetail.tv_credits,
+            });
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
@@ -231,6 +182,18 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
       })
     );
   });
+
+  /*
+            tap(() => {
+              this.personDetailSuccess({
+                personDetail,
+                personDetailMovieCredits:
+                  movie.personDetailMovieCredits,
+                personDetailTVCredits: tv.personDetailTVCredits,
+              });
+            })
+
+  */
 
   private mergeMovieList(personDetailMovieCredits: PersonDetailMovieCredits) {
     return [...personDetailMovieCredits.cast, ...personDetailMovieCredits.crew];

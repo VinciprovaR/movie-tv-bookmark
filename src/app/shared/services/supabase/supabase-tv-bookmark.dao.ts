@@ -1,13 +1,11 @@
-import { inject, Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { PostgrestSingleResponse, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { Observable, from, map, tap } from 'rxjs';
-import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
+import { Observable, from, map } from 'rxjs';
+import { TVData, TVBookmark } from '../../interfaces/supabase/entities';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
-
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
 import { PayloadTVBookmark } from '../../interfaces/store/tv-bookmark-state.interface';
-
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({
@@ -31,16 +29,14 @@ export class SupabaseTVBookmarkDAO {
     'name.asc': { field: 'tv_data(name)', rule: { ascending: true } },
   };
 
-  constructor() {}
-
-  findBookmarkListByTVIds(tvIdList: number[]): Observable<TV_Bookmark[]> {
+  findBookmarkListByTVIds(tvIdList: number[]): Observable<TVBookmark[]> {
     return from(
       this.supabase
         .from(this.TABLE)
         .select('*, ...bookmark_metadata!inner(label)')
         .in(`tv_id`, tvIdList)
     ).pipe(
-      map((result: PostgrestSingleResponse<TV_Bookmark[]>) => {
+      map((result: PostgrestSingleResponse<TVBookmark[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
@@ -56,7 +52,7 @@ export class SupabaseTVBookmarkDAO {
   findTVByBookmarkId(
     bookmarkEnum: bookmarkEnum,
     payload: PayloadTVBookmark
-  ): Observable<TV_Bookmark[] & TV_Data[]> {
+  ): Observable<TVBookmark[] & TVData[]> {
     return from(
       this.supabase
         .from(this.TABLE)
@@ -70,7 +66,7 @@ export class SupabaseTVBookmarkDAO {
           this.orderByConfigSupabase[payload.sortBy].rule
         )
     ).pipe(
-      map((result: PostgrestSingleResponse<TV_Bookmark[] & TV_Data[]>) => {
+      map((result: PostgrestSingleResponse<TVBookmark[] & TVData[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
@@ -87,17 +83,17 @@ export class SupabaseTVBookmarkDAO {
     bookmarkEnum: bookmarkEnum,
     tvId: number,
     user: User
-  ): Observable<TV_Bookmark[]> {
-    let tvBookmark: TV_Bookmark = {
+  ): Observable<TVBookmark[]> {
+    let tvBookmark: TVBookmark = {
       user_id: user?.id,
       bookmark_enum: bookmarkEnum,
       tv_id: tvId,
     };
 
     return from(
-      this.supabase.from(this.TABLE).insert<TV_Bookmark>(tvBookmark).select()
+      this.supabase.from(this.TABLE).insert<TVBookmark>(tvBookmark).select()
     ).pipe(
-      map((result: PostgrestSingleResponse<TV_Bookmark[]>) => {
+      map((result: PostgrestSingleResponse<TVBookmark[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
@@ -113,7 +109,7 @@ export class SupabaseTVBookmarkDAO {
   updateTVBookmark(
     bookmarkEnum: bookmarkEnum,
     tvId: number
-  ): Observable<TV_Bookmark[]> {
+  ): Observable<TVBookmark[]> {
     return from(
       this.supabase
         .from(this.TABLE)
@@ -123,7 +119,7 @@ export class SupabaseTVBookmarkDAO {
         .eq(`tv_id`, tvId)
         .select()
     ).pipe(
-      map((result: PostgrestSingleResponse<TV_Bookmark[]>) => {
+      map((result: PostgrestSingleResponse<TVBookmark[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,

@@ -10,7 +10,7 @@ import { SearchTVActions } from '../search-tv';
 import { DiscoveryTVActions } from '../discovery-tv';
 import { TVBookmarkMap } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseTVBookmarkService } from '../../services/supabase';
-import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
+import { TVData, TVBookmark } from '../../interfaces/supabase/entities';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import {
   personDetailTVCreditsSuccess,
@@ -25,7 +25,6 @@ export class TVBookmarkEffects {
     SupabaseTVBookmarkService
   );
   private readonly store = inject(Store);
-  constructor() {}
 
   initTVBookmarkMapFromList$ = createEffect(() => {
     return this.actions$.pipe(
@@ -34,7 +33,7 @@ export class TVBookmarkEffects {
         TVBookmarkActions.searchTVByBookmarkSubmitSuccess
       ),
       switchMap((action) => {
-        let { tvList }: { tvList: TV_Bookmark[] & TV_Data[] } = action;
+        let { tvList }: { tvList: TVBookmark[] & TVData[] } = action;
         return this.supabaseTVBookmarkService
           .initTVBookmarkMapFromTVResultSupabase(tvList)
           .pipe(
@@ -291,7 +290,7 @@ export class TVBookmarkEffects {
         return this.supabaseTVBookmarkService
           .findTVByBookmarkId(bookmarkEnum, payloadState)
           .pipe(
-            map((tvList: TV_Bookmark[] & TV_Data[]) => {
+            map((tvList: TVBookmark[] & TVData[]) => {
               return TVBookmarkActions.searchTVByBookmarkLandingSuccess({
                 tvList,
               });
@@ -319,7 +318,7 @@ export class TVBookmarkEffects {
         return this.supabaseTVBookmarkService
           .findTVByBookmarkId(bookmarkEnum, payloadSubmit)
           .pipe(
-            map((tvList: TV_Bookmark[] & TV_Data[]) => {
+            map((tvList: TVBookmark[] & TVData[]) => {
               return TVBookmarkActions.searchTVByBookmarkSubmitSuccess({
                 tvList,
               });

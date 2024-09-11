@@ -1,4 +1,4 @@
-export interface Movie_Data {
+export interface MovieData {
   id: number;
   created_at?: string;
   poster_path: string;

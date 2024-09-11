@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanMatchFn, Router } from '@angular/router';
+import { CanMatchFn, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, skipWhile, tap } from 'rxjs';
+import { map, skipWhile } from 'rxjs';
 import { AuthActions, AuthSelectors } from '../store/auth';
 import { AuthState } from '../interfaces/store/auth-state.interface';
 
@@ -13,7 +13,7 @@ export const authGuardConfirmedEmail: CanMatchFn = () => {
   return store.select(AuthSelectors.selectAuth).pipe(
     skipWhile((authState: AuthState) => authState.isLoading),
     map((authState: AuthState) => {
-      if (!!authState.user == false) {
+      if (!authState.user) {
         return router.parseUrl('/login');
       } else if (!authState.user?.confirmed_at) {
         return router.parseUrl('/login');

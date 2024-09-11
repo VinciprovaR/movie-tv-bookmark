@@ -22,7 +22,7 @@ import {
   MovieBookmarkSelectors,
 } from '../../shared/store/movie-bookmark';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
-import { Movie_Data } from '../../shared/interfaces/supabase/entities';
+import { MovieData } from '../../shared/interfaces/supabase/entities';
 import {
   Genre,
   OptionFilter,
@@ -52,7 +52,7 @@ export class MovieBookmarkSearchComponent
   private readonly bridgeDataService = inject(BridgeDataService);
 
   selectMovieBookmarkMap$!: Observable<MovieBookmarkMap>;
-  selectMovieList$!: Observable<Movie_Data[]>;
+  selectMovieList$!: Observable<MovieData[]>;
   selectIsLoading$!: Observable<boolean>;
   selectSortBy$!: Observable<OptionFilter[]>;
   selectCombinedBookmarkFilters$!: Observable<[PayloadMovieBookmark, Genre[]]>;

@@ -1,4 +1,4 @@
-export interface TV_Data {
+export interface TVData {
   id: number;
   created_at?: string;
   poster_path: string;

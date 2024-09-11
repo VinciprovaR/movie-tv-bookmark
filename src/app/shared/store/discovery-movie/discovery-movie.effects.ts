@@ -19,7 +19,6 @@ export class DiscoveryMovieEffects {
   private readonly supabaseMovieBookmarkService = inject(
     SupabaseMovieBookmarkService
   );
-  constructor() {}
 
   discoveryMovieLanding$ = createEffect(() => {
     return this.actions$.pipe(

@@ -50,7 +50,7 @@ export class ResetPasswordRequestComponent extends AbstractAuthComponent {
     this.resetPasswordRequestForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status: string) => {
-        this.isFormValid = status === 'INVALID' ? false : true;
+        this.isFormValid = status === 'INVALID';
       });
   }
 

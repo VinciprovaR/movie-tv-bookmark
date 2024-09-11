@@ -5,7 +5,7 @@ import {
   TVBookmarkMap,
 } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { TV, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
-import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
+import { TVData, TVBookmark } from '../../interfaces/supabase/entities';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { PayloadTVBookmark } from '../../interfaces/store/tv-bookmark-state.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
@@ -27,7 +27,7 @@ export const populateTVBookmarkMapFailure = createAction(
 //CRUD bookmark
 export const createUpdateDeleteTVBookmark = createAction(
   '[TV-Bookmark] Create or Update or Delete TV Bookmark Init',
-  props<{ mediaBookmarkDTO: MediaBookmarkDTO<TV | TV_Data | TVDetail> }>()
+  props<{ mediaBookmarkDTO: MediaBookmarkDTO<TV | TVData | TVDetail> }>()
 );
 export const createUpdateDeleteTVBookmarkFailure = createAction(
   '[TV-Bookmark] Create or Update or Delete TV Bookmark Failure & Notify',
@@ -133,7 +133,7 @@ export const searchTVByBookmarkLanding = createAction(
 );
 export const searchTVByBookmarkLandingSuccess = createAction(
   '[TV-Bookmark] Search TV By Bookmark Landing Success',
-  props<{ tvList: TV_Bookmark[] & TV_Data[] }>()
+  props<{ tvList: TVBookmark[] & TVData[] }>()
 );
 export const searchTVByBookmarkLandingeFailure = createAction(
   '[TV-Bookmark] Search TV By Bookmark Landing Failure',
@@ -148,7 +148,7 @@ export const searchTVByBookmarkSubmit = createAction(
 );
 export const searchTVByBookmarkSubmitSuccess = createAction(
   '[TV-Bookmark] Search TV By Bookmark Submit Success',
-  props<{ tvList: TV_Bookmark[] & TV_Data[] }>()
+  props<{ tvList: TVBookmark[] & TVData[] }>()
 );
 export const searchTVByBookmarkSubmitFailure = createAction(
   '[TV-Bookmark] Search TV By Bookmark Submit Failure',

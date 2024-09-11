@@ -14,7 +14,6 @@ import {
   UserResponse,
 } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
-
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
 @Injectable({
@@ -22,8 +21,6 @@ import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.mo
 })
 export class SupabaseAuthDAO {
   private readonly supabase = inject(SUPABASE_CLIENT);
-
-  constructor() {}
 
   signInWithPassword(
     credentials: LoginPayload

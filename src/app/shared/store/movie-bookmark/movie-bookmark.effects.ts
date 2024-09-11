@@ -13,7 +13,7 @@ import { SearchMovieActions } from '../search-movie';
 import { DiscoveryMovieActions } from '../discovery-movie';
 import { MovieBookmarkMap } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseMovieBookmarkService } from '../../services/supabase';
-import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
+import { MovieData, MovieBookmark } from '../../interfaces/supabase/entities';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import {
   personDetailMovieCreditsSuccess,
@@ -29,8 +29,6 @@ export class MovieBookmarkEffects {
     SupabaseMovieBookmarkService
   );
 
-  constructor() {}
-
   initMovieBookmarkMapFromList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
@@ -38,7 +36,7 @@ export class MovieBookmarkEffects {
         MovieBookmarkActions.searchMovieByBookmarkSubmitSuccess
       ),
       switchMap((action) => {
-        let { movieList }: { movieList: Movie_Bookmark[] & Movie_Data[] } =
+        let { movieList }: { movieList: MovieBookmark[] & MovieData[] } =
           action;
         return this.supabaseMovieBookmarkService
           .initMovieBookmarkMapFromMovieResultSupabase(movieList)
@@ -296,7 +294,7 @@ export class MovieBookmarkEffects {
         return this.supabaseMovieBookmarkService
           .findMovieByBookmarkId(bookmarkEnum, payloadState)
           .pipe(
-            map((movieList: Movie_Bookmark[] & Movie_Data[]) => {
+            map((movieList: MovieBookmark[] & MovieData[]) => {
               return MovieBookmarkActions.searchMovieByBookmarkLandingSuccess({
                 movieList,
               });
@@ -324,7 +322,7 @@ export class MovieBookmarkEffects {
         return this.supabaseMovieBookmarkService
           .findMovieByBookmarkId(bookmarkEnum, payloadSubmit)
           .pipe(
-            map((movieList: Movie_Bookmark[] & Movie_Data[]) => {
+            map((movieList: MovieBookmark[] & MovieData[]) => {
               return MovieBookmarkActions.searchMovieByBookmarkSubmitSuccess({
                 movieList,
               });

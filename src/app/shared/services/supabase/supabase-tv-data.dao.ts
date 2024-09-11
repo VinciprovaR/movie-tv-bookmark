@@ -1,9 +1,9 @@
-import { inject, Inject, Injectable } from '@angular/core';
-import { PostgrestSingleResponse, SupabaseClient } from '@supabase/supabase-js';
+import { inject, Injectable } from '@angular/core';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map } from 'rxjs';
-import { TV, TVDetail } from '../../interfaces/TMDB/tmdb-media.interface';
-import { TV_Data } from '../../interfaces/supabase/entities';
+import { TV } from '../../interfaces/TMDB/tmdb-media.interface';
+import { TVData } from '../../interfaces/supabase/entities';
 
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
 
@@ -15,11 +15,9 @@ export class SupabaseTVDataDAO {
 
   private readonly TABLE = 'tv_data';
 
-  constructor() {}
-
-  findByTVId(tvId: number): Observable<TV_Data[]> {
+  findByTVId(tvId: number): Observable<TVData[]> {
     return from(this.supabase.from(this.TABLE).select('*').eq(`id`, tvId)).pipe(
-      map((result: PostgrestSingleResponse<TV_Data[]>) => {
+      map((result: PostgrestSingleResponse<TVData[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
@@ -32,11 +30,11 @@ export class SupabaseTVDataDAO {
     );
   }
 
-  createTVData(tvDataDTO: TV_Data): Observable<TV_Data[]> {
+  createTVData(tvDataDTO: TVData): Observable<TVData[]> {
     return from(
       this.supabase
         .from(this.TABLE)
-        .insert<TV_Data>({
+        .insert<TVData>({
           id: tvDataDTO.id,
           poster_path: tvDataDTO.poster_path,
           first_air_date: tvDataDTO.first_air_date,
@@ -45,7 +43,7 @@ export class SupabaseTVDataDAO {
         })
         .select()
     ).pipe(
-      map((result: PostgrestSingleResponse<TV_Data[]>) => {
+      map((result: PostgrestSingleResponse<TVData[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
@@ -58,7 +56,7 @@ export class SupabaseTVDataDAO {
     );
   }
 
-  updateTVData(tvDataDTO: TV): Observable<TV_Data[]> {
+  updateTVData(tvDataDTO: TV): Observable<TVData[]> {
     return from(
       this.supabase
         .from(this.TABLE)
@@ -70,7 +68,7 @@ export class SupabaseTVDataDAO {
         .eq(`id`, tvDataDTO.id)
         .select()
     ).pipe(
-      map((result: PostgrestSingleResponse<TV_Data[]>) => {
+      map((result: PostgrestSingleResponse<TVData[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,

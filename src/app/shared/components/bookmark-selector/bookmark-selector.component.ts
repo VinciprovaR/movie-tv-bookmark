@@ -28,7 +28,7 @@ import {
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { BookmarkMetadataSelectors } from '../../store/bookmark-metadata';
-import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
+import { MovieData, TVData } from '../../interfaces/supabase/entities';
 import { MatIconModule } from '@angular/material/icon';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractComponent } from '../abstract/abstract-component.component';
@@ -67,7 +67,7 @@ export class BookmarkSelectorComponent
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
-  mediaData!: Movie | MovieDetail | Movie_Data | TV | TVDetail | TV_Data;
+  mediaData!: Movie | MovieDetail | MovieData | TV | TVDetail | TVData;
   @Input()
   personIdentifier: string = '';
   @Input({ required: true })
@@ -108,11 +108,11 @@ export class BookmarkSelectorComponent
         takeUntil(this.destroyed$),
         distinctUntilChanged(),
         filter((mediaBookmarkMap: MovieBookmarkMap | TVBookmarkMap) => {
-          return mediaBookmarkMap &&
+          return (
+            mediaBookmarkMap &&
             (mediaBookmarkMap[this.mediaData.id] != null ||
               mediaBookmarkMap[this.mediaData.id] != undefined)
-            ? true
-            : false;
+          );
         }),
         map((mediaBookmarkMap: MovieBookmarkMap | TVBookmarkMap) => {
           return mediaBookmarkMap[this.mediaData.id];
@@ -149,7 +149,7 @@ export class BookmarkSelectorComponent
   }
 
   updateControlValue(bookmarkEnum: bookmarkEnum) {
-    this.bookmarkControl.setValue(bookmarkEnum ? bookmarkEnum : 'noBookmark', {
+    this.bookmarkControl.setValue(bookmarkEnum, {
       emitEvent: false,
     });
   }

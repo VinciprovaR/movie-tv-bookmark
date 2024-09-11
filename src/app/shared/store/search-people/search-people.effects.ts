@@ -13,7 +13,6 @@ export class SearchPeopleEffects {
   private readonly actions$ = inject(Actions);
   private readonly TMDBSearchPeopleService = inject(TMDBSearchPeopleService);
   private readonly store = inject(Store);
-  constructor() {}
 
   searchPeople$ = createEffect(() => {
     return this.actions$.pipe(

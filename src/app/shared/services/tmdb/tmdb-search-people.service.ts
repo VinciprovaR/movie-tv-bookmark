@@ -11,8 +11,6 @@ export class TMDBSearchPeopleService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
-
   peopleSearchInit(query: string): Observable<PeopleResult> {
     return this.peopleSearch(1, query);
   }

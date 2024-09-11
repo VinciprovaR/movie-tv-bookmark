@@ -5,7 +5,7 @@ import {
   MovieBookmarkMap,
 } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { Movie, MovieDetail } from '../../interfaces/TMDB/tmdb-media.interface';
-import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
+import { MovieData, MovieBookmark } from '../../interfaces/supabase/entities';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
@@ -28,7 +28,7 @@ export const populateMovieBookmarkMapFailure = createAction(
 export const createUpdateDeleteMovieBookmark = createAction(
   '[Movie-Bookmark] Create or Update or Delete Movie Bookmark Init',
   props<{
-    mediaBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>;
+    mediaBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | MovieData>;
   }>()
 );
 export const createUpdateDeleteMovieBookmarkFailure = createAction(
@@ -135,7 +135,7 @@ export const searchMovieByBookmarkLanding = createAction(
 );
 export const searchMovieByBookmarkLandingSuccess = createAction(
   '[Movie-Bookmark] Search Movie By Bookmark Landing Success',
-  props<{ movieList: Movie_Bookmark[] & Movie_Data[] }>()
+  props<{ movieList: MovieBookmark[] & MovieData[] }>()
 );
 export const searchMovieByBookmarkLandingeFailure = createAction(
   '[Movie-Bookmark] Search Movie By Bookmark Landing Failure',
@@ -150,7 +150,7 @@ export const searchMovieByBookmarkSubmit = createAction(
 );
 export const searchMovieByBookmarkSubmitSuccess = createAction(
   '[Movie-Bookmark] Search Movie By Bookmark Submit Success',
-  props<{ movieList: Movie_Bookmark[] & Movie_Data[] }>()
+  props<{ movieList: MovieBookmark[] & MovieData[] }>()
 );
 export const searchMovieByBookmarkSubmitFailure = createAction(
   '[Movie-Bookmark] Search Movie By Bookmark Submit Failure',

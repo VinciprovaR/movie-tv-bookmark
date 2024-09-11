@@ -7,7 +7,7 @@ import {
   MovieResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaBookmarkDTO } from '../../interfaces/supabase/DTO';
-import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
+import { MovieData, MovieBookmark } from '../../interfaces/supabase/entities';
 import { SupabaseMovieBookmarkDAO } from './supabase-movie-bookmark.dao';
 import {
   bookmarkEnum,
@@ -31,16 +31,14 @@ export class SupabaseMovieBookmarkService {
   private readonly supabaseUtilsService = inject(SupabaseUtilsService);
   private readonly supabaseMovieDataDAO = inject(SupabaseMovieDataDAO);
 
-  constructor() {}
-
   initMovieBookmarkMapFromMovieResultTMDB(
-    movieList: Movie[] | Movie_Data[] | MovieDetail[]
+    movieList: Movie[] | MovieData[] | MovieDetail[]
   ): Observable<MovieBookmarkMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(movieList);
     return this.supabaseMovieBookmarkDAO
       .findBookmarkListByMovieIds(mediaIdList)
       .pipe(
-        map((movieBookmarkEntityList: Movie_Bookmark[]) => {
+        map((movieBookmarkEntityList: MovieBookmark[]) => {
           return this.supabaseUtilsService.movieBookmarkMapFactory(
             movieBookmarkEntityList
           );
@@ -49,9 +47,7 @@ export class SupabaseMovieBookmarkService {
   }
 
   initMovieBookmarkMapFromMovieResultSupabase(
-    movieBookmarkEntityList:
-      | Movie_Bookmark[]
-      | (Movie_Bookmark[] & Movie_Data[])
+    movieBookmarkEntityList: MovieBookmark[] | (MovieBookmark[] & MovieData[])
   ): Observable<MovieBookmarkMap> {
     return of(
       this.supabaseUtilsService.movieBookmarkMapFactory(movieBookmarkEntityList)
@@ -64,7 +60,7 @@ export class SupabaseMovieBookmarkService {
     return this.supabaseMovieBookmarkDAO
       .findBookmarkListByMovieIds(mediaIdList)
       .pipe(
-        map((entityMediaBookmark: Movie_Bookmark[]) => {
+        map((entityMediaBookmark: MovieBookmark[]) => {
           return this.supabaseUtilsService.removeMediaWithBookmark(
             entityMediaBookmark,
             mediaIdMapIndex,
@@ -77,7 +73,7 @@ export class SupabaseMovieBookmarkService {
   findMovieByBookmarkId(
     bookmarkEnum: bookmarkEnum,
     payload: PayloadMovieBookmark
-  ): Observable<Movie_Bookmark[] & Movie_Data[]> {
+  ): Observable<MovieBookmark[] & MovieData[]> {
     return this.supabaseMovieBookmarkDAO.findMovieByBookmarkId(
       bookmarkEnum,
       payload
@@ -85,12 +81,12 @@ export class SupabaseMovieBookmarkService {
   }
 
   crudOperationResolver(
-    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
+    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | MovieData>
   ): Observable<crud_operations> {
     return this.supabaseMovieBookmarkDAO
       .findBookmarkListByMovieIds([movieBookmarkDTO.mediaDataDTO.id])
       .pipe(
-        map((movieBookmarkFromDB: Movie_Bookmark[]) => {
+        map((movieBookmarkFromDB: MovieBookmark[]) => {
           let operation = this.supabaseUtilsService.checkCase(
             movieBookmarkFromDB,
             movieBookmarkDTO
@@ -104,7 +100,7 @@ export class SupabaseMovieBookmarkService {
   }
 
   updateMovieBookmark(
-    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
+    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | MovieData>
   ): Observable<MovieBookmarkMap> {
     return this.supabaseMovieBookmarkDAO
       .updateMovieBookmark(
@@ -112,7 +108,7 @@ export class SupabaseMovieBookmarkService {
         movieBookmarkDTO.mediaDataDTO.id
       )
       .pipe(
-        map((movieBookmarkEntityList: Movie_Bookmark[]) => {
+        map((movieBookmarkEntityList: MovieBookmark[]) => {
           return this.supabaseUtilsService.movieBookmarkMapFactory(
             movieBookmarkEntityList
           );
@@ -121,15 +117,15 @@ export class SupabaseMovieBookmarkService {
   }
 
   createMovieBookmark(
-    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>,
+    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | MovieData>,
     user: User
   ): Observable<MovieBookmarkMap> {
     return this.supabaseMovieDataDAO
       .findByMovieId(movieBookmarkDTO.mediaDataDTO.id)
       .pipe(
-        switchMap((movieDataEntityList: Movie_Data[]) => {
+        switchMap((movieDataEntityList: MovieData[]) => {
           if (movieDataEntityList.length === 0) {
-            let movieData: Movie_Data =
+            let movieData: MovieData =
               this.supabaseUtilsService.movieDataObjFactory(
                 movieBookmarkDTO.mediaDataDTO
               );
@@ -144,7 +140,7 @@ export class SupabaseMovieBookmarkService {
             user
           );
         }),
-        map((movieBookmarkEntityList: Movie_Bookmark[]) => {
+        map((movieBookmarkEntityList: MovieBookmark[]) => {
           return this.supabaseUtilsService.movieBookmarkMapFactory(
             movieBookmarkEntityList
           );
@@ -156,13 +152,13 @@ export class SupabaseMovieBookmarkService {
     movieBookmarkDTO: MediaBookmarkDTO<Movie>,
     user: User
   ): Observable<MovieBookmarkMap> {
-    let movieBookmarkFromDBCustom: Movie_Bookmark = {
+    let movieBookmarkFromDBCustom: MovieBookmark = {
       bookmark_enum: 'noBookmark',
       movie_id: movieBookmarkDTO.mediaDataDTO.id,
       user_id: user.id,
     };
     return of([movieBookmarkFromDBCustom]).pipe(
-      map((movieBookmarkEntityList: Movie_Bookmark[]) => {
+      map((movieBookmarkEntityList: MovieBookmark[]) => {
         return this.supabaseUtilsService.movieBookmarkMapFactory(
           movieBookmarkEntityList
         );

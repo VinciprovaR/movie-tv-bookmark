@@ -1,12 +1,10 @@
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   PersonDetail,
   PersonDetailMovieCredits,
   PersonDetailTVCredits,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { inject, Injectable } from '@angular/core';
-import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
-
 import { SupabaseProxyToTMDBService } from '../supabase/supabase-proxy-to-tmdb.service';
 
 @Injectable({ providedIn: 'root' })
@@ -15,13 +13,15 @@ export class TMDBPersonDetailService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
-
   personDetail(personId: number): Observable<PersonDetail> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<PersonDetail>({
       serviceKey: `/person/{person_id}`,
-      pathParams: { '{person_id}': personId },
+
+      pathParams: {
+        '{person_id}': personId,
+      },
       queryParams: {
+        append_to_response: 'movie_credits,tv_credits',
         language: 'en-US',
       },
     });

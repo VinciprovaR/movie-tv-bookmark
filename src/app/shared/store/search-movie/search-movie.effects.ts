@@ -14,8 +14,6 @@ export class SearchMovieEffects {
   private readonly actions$ = inject(Actions);
   private readonly TMDBSearchMovieService = inject(TMDBSearchMovieService);
 
-  constructor() {}
-
   searchMovie$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SearchMovieActions.searchMovie),

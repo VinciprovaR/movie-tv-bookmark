@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
 import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
@@ -25,7 +25,6 @@ export class AuthEffects {
   private readonly supabaseAuthService = inject(SupabaseAuthService);
   private readonly storageKey = inject(STORAGE_KEY_TOKEN);
   private readonly webStorageService = inject(WebStorageService);
-  constructor() {}
 
   login$ = createEffect(() => {
     return this.actions$.pipe(

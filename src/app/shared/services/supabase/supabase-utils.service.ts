@@ -4,11 +4,11 @@ import {
   BookmarkOption,
 } from '../../interfaces/supabase/DTO';
 import {
-  Bookmark_Metadata,
-  Movie_Data,
-  Movie_Bookmark,
-  TV_Data,
-  TV_Bookmark,
+  BookmarkMetadata,
+  MovieData,
+  MovieBookmark,
+  TVData,
+  TVBookmark,
 } from '../../interfaces/supabase/entities';
 import {
   bookmarkEnum,
@@ -48,9 +48,7 @@ export class SupabaseUtilsService {
     default: 'default', //#Case #99/Default - Default - All cases covered, should not be possible
   };
 
-  constructor() {}
-
-  transformBookmarkMetadata(mediaBookmarkOptions: Bookmark_Metadata[]): {
+  transformBookmarkMetadata(mediaBookmarkOptions: BookmarkMetadata[]): {
     bookmarkOptions: BookmarkOption[];
     bookmarkTypeIdMap: BookmarkTypeIdMap;
   } {
@@ -58,16 +56,14 @@ export class SupabaseUtilsService {
     let bookmarkTypeIdMap: BookmarkTypeIdMap = {};
     mediaBookmarkOptions.forEach((lc) => {
       bookmarkOptions.push({ label: lc.label, value: lc.enum });
-      bookmarkTypeIdMap[lc.enum] = lc.enum as bookmarkEnum;
+      bookmarkTypeIdMap[lc.enum] = lc.enum;
     });
 
     return { bookmarkOptions, bookmarkTypeIdMap };
   }
 
   movieBookmarkMapFactory(
-    movieBookmarkEntityList:
-      | Movie_Bookmark[]
-      | (Movie_Bookmark[] & Movie_Data[])
+    movieBookmarkEntityList: MovieBookmark[] | (MovieBookmark[] & MovieData[])
   ): MovieBookmarkMap {
     let movieBookmarkMap: MovieBookmarkMap = {};
     movieBookmarkEntityList.forEach((movieBookmarkEntity) => {
@@ -77,8 +73,8 @@ export class SupabaseUtilsService {
     return movieBookmarkMap;
   }
 
-  movieDataObjFactory(movie: Movie | Movie_Data | MovieDetail): Movie_Data {
-    let movieData: Partial<Movie_Data> = {
+  movieDataObjFactory(movie: Movie | MovieData | MovieDetail): MovieData {
+    let movieData: Partial<MovieData> = {
       id: movie.id,
       poster_path: movie.poster_path,
       release_date: movie.release_date,
@@ -94,7 +90,7 @@ export class SupabaseUtilsService {
     } else {
       movieData.genre_ids = movie.genre_ids;
     }
-    return movieData as Movie_Data;
+    return movieData as MovieData;
   }
 
   private isMovieDetailEntity(movie: object): movie is MovieDetail {
@@ -102,7 +98,7 @@ export class SupabaseUtilsService {
   }
 
   tvBookmarkMapFactory(
-    tvBookmarkEntityList: TV_Bookmark[] | (TV_Bookmark[] & TV_Data[])
+    tvBookmarkEntityList: TVBookmark[] | (TVBookmark[] & TVData[])
   ): TVBookmarkMap {
     let tvBookmarkMap: TVBookmarkMap = {};
     tvBookmarkEntityList.forEach((tvBookmarkEntity) => {
@@ -111,8 +107,8 @@ export class SupabaseUtilsService {
     return tvBookmarkMap;
   }
 
-  tvDataObjFactory(tv: TV | TV_Data | TVDetail): TV_Data {
-    let tvData: Partial<TV_Data> = {
+  tvDataObjFactory(tv: TV | TVData | TVDetail): TVData {
+    let tvData: Partial<TVData> = {
       id: tv.id,
       poster_path: tv.poster_path,
       first_air_date: tv.first_air_date,
@@ -128,7 +124,7 @@ export class SupabaseUtilsService {
     } else {
       tvData.genre_ids = tv.genre_ids;
     }
-    return tvData as TV_Data;
+    return tvData as TVData;
   }
 
   private isTVDetailEntity(tv: object): tv is TVDetail {
@@ -136,12 +132,12 @@ export class SupabaseUtilsService {
   }
 
   removeMediaWithBookmark(
-    entityMediaBookmark: Movie_Bookmark[] | TV_Bookmark[],
+    entityMediaBookmark: MovieBookmark[] | TVBookmark[],
     mediaIdMapIndex: { [key: number]: number },
     mediaResult: MovieResult | TVResult
   ): MovieResult | TVResult {
     let indexListToRemove: number[] = [];
-    entityMediaBookmark.forEach((mlc: Movie_Bookmark | TV_Bookmark) => {
+    entityMediaBookmark.forEach((mlc: MovieBookmark | TVBookmark) => {
       if (mlc.bookmark_enum != 'noBookmark') {
         if (this.isMovieEntity(mlc)) {
           indexListToRemove.push(mediaIdMapIndex[mlc.movie_id]);
@@ -162,14 +158,14 @@ export class SupabaseUtilsService {
     mediaResult:
       | Movie[]
       | TV[]
-      | Movie_Data[]
-      | TV_Data[]
+      | MovieData[]
+      | TVData[]
       | MovieDetail[]
       | TVDetail[]
   ): number[] {
     let mediaIdList: number[] = [];
-    for (let i = 0; i < mediaResult.length; i++) {
-      mediaIdList.push(mediaResult[i].id);
+    for (let media of mediaResult) {
+      mediaIdList.push(media.id);
     }
     return mediaIdList;
   }
@@ -189,12 +185,12 @@ export class SupabaseUtilsService {
 
   checkCase(
     mediaBookmarkFromDB:
-      | Movie_Bookmark[]
-      | TV_Bookmark[]
-      | (Movie_Bookmark[] & Movie_Data[])
-      | (TV_Bookmark[] & TV_Data[]),
+      | MovieBookmark[]
+      | TVBookmark[]
+      | (MovieBookmark[] & MovieData[])
+      | (TVBookmark[] & TVData[]),
     mediaBookmarkDTO: MediaBookmarkDTO<
-      Movie | MovieDetail | TV | TVDetail | TV_Data | Movie_Data
+      Movie | MovieDetail | TV | TVDetail | TVData | MovieData
     >
   ): crud_operations {
     let isEntity = mediaBookmarkFromDB.length === 1;
@@ -228,7 +224,7 @@ export class SupabaseUtilsService {
 
   isMovieEntity(
     entityMediaBookmark: object
-  ): entityMediaBookmark is Movie_Bookmark {
-    return (entityMediaBookmark as Movie_Bookmark).movie_id !== undefined;
+  ): entityMediaBookmark is MovieBookmark {
+    return (entityMediaBookmark as MovieBookmark).movie_id !== undefined;
   }
 }

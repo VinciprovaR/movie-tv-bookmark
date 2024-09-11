@@ -1,6 +1,6 @@
 import { bookmarkEnum } from '../supabase-bookmark.interface';
 
-export interface TV_Bookmark {
+export interface TVBookmark {
   id?: number;
   created_at?: string;
   user_id: string;

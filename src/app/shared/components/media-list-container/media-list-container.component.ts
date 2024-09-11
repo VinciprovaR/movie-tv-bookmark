@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
@@ -8,9 +7,12 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Movie, TV } from '../../interfaces/TMDB/tmdb-media.interface';
-import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
-import { Movie_Data, TV_Data } from '../../interfaces/supabase/entities';
+import {
+  MediaType,
+  Movie,
+  TV,
+} from '../../interfaces/TMDB/tmdb-media.interface';
+import { MovieData, TVData } from '../../interfaces/supabase/entities';
 import { MediaCardComponent } from '../media-card/media-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
@@ -42,7 +44,7 @@ export class MediaListContainerComponent
   @Input()
   noAdditional: boolean = false;
   @Input({ required: true })
-  mediaList!: Movie[] | Movie_Data[] | TV[] | TV_Data[];
+  mediaList!: Movie[] | MovieData[] | TV[] | TVData[];
   @Input({ required: true })
   mediaType!: MediaType;
   @Input()

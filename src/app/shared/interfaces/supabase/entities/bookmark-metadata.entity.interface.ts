@@ -1,6 +1,6 @@
 import { bookmarkEnum } from '../supabase-bookmark.interface';
 
-export interface Bookmark_Metadata {
+export interface BookmarkMetadata {
   id: number;
   created_at?: string;
   enum: bookmarkEnum;

@@ -7,7 +7,7 @@ import {
   TVResult,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MediaBookmarkDTO } from '../../interfaces/supabase/DTO';
-import { TV_Data, TV_Bookmark } from '../../interfaces/supabase/entities';
+import { TVData, TVBookmark } from '../../interfaces/supabase/entities';
 import { SupabaseTVBookmarkDAO } from './supabase-tv-bookmark.dao';
 import {
   bookmarkEnum,
@@ -17,6 +17,8 @@ import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
 import { SupabaseUtilsService } from './supabase-utils.service';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { PayloadTVBookmark } from '../../interfaces/store/tv-bookmark-state.interface';
+
+export type mediaBookmarkDTOTVType = TV | TVDetail | TVData;
 
 /**
  * SupabaseTVBookmarkService init, find, create, update, delete bookmark
@@ -31,14 +33,12 @@ export class SupabaseTVBookmarkService {
   private readonly supabaseTVDataDAO = inject(SupabaseTVDataDAO);
   private readonly supabaseUtilsService = inject(SupabaseUtilsService);
 
-  constructor() {}
-
   initTVBookmarkMapFromTVResultTMDB(
-    tvList: TV[] | TV_Data[] | TVDetail[]
+    tvList: TV[] | TVData[] | TVDetail[]
   ): Observable<TVBookmarkMap> {
     let mediaIdList = this.supabaseUtilsService.buildMediaIdListMap(tvList);
     return this.supabaseTVBookmarkDAO.findBookmarkListByTVIds(mediaIdList).pipe(
-      map((tvBookmarkEntityList: TV_Bookmark[]) => {
+      map((tvBookmarkEntityList: TVBookmark[]) => {
         return this.supabaseUtilsService.tvBookmarkMapFactory(
           tvBookmarkEntityList
         );
@@ -47,7 +47,7 @@ export class SupabaseTVBookmarkService {
   }
 
   initTVBookmarkMapFromTVResultSupabase(
-    tvBookmarkEntityList: TV_Bookmark[] & TV_Data[]
+    tvBookmarkEntityList: TVBookmark[] & TVData[]
   ): Observable<TVBookmarkMap> {
     return of(
       this.supabaseUtilsService.tvBookmarkMapFactory(tvBookmarkEntityList)
@@ -58,7 +58,7 @@ export class SupabaseTVBookmarkService {
     let { mediaIdList, mediaIdMapIndex } =
       this.supabaseUtilsService.buildMediaIdListMapIndex(tvResult);
     return this.supabaseTVBookmarkDAO.findBookmarkListByTVIds(mediaIdList).pipe(
-      map((entityMediaBookmark: TV_Bookmark[]) => {
+      map((entityMediaBookmark: TVBookmark[]) => {
         return this.supabaseUtilsService.removeMediaWithBookmark(
           entityMediaBookmark,
           mediaIdMapIndex,
@@ -71,17 +71,17 @@ export class SupabaseTVBookmarkService {
   findTVByBookmarkId(
     bookmarkEnum: bookmarkEnum,
     payload: PayloadTVBookmark
-  ): Observable<TV_Bookmark[] & TV_Data[]> {
+  ): Observable<TVBookmark[] & TVData[]> {
     return this.supabaseTVBookmarkDAO.findTVByBookmarkId(bookmarkEnum, payload);
   }
 
   crudOperationResolver(
-    tvBookmarkDTO: MediaBookmarkDTO<TV | TVDetail | TV_Data>
+    tvBookmarkDTO: MediaBookmarkDTO<mediaBookmarkDTOTVType>
   ): Observable<crud_operations> {
     return this.supabaseTVBookmarkDAO
       .findBookmarkListByTVIds([tvBookmarkDTO.mediaDataDTO.id])
       .pipe(
-        map((tvBookmarkFromDB: TV_Bookmark[]) => {
+        map((tvBookmarkFromDB: TVBookmark[]) => {
           let operation = this.supabaseUtilsService.checkCase(
             tvBookmarkFromDB,
             tvBookmarkDTO
@@ -95,7 +95,7 @@ export class SupabaseTVBookmarkService {
   }
 
   updateTVBookmark(
-    tvBookmarkDTO: MediaBookmarkDTO<TV | TVDetail | TV_Data>
+    tvBookmarkDTO: MediaBookmarkDTO<mediaBookmarkDTOTVType>
   ): Observable<TVBookmarkMap> {
     return this.supabaseTVBookmarkDAO
       .updateTVBookmark(
@@ -103,7 +103,7 @@ export class SupabaseTVBookmarkService {
         tvBookmarkDTO.mediaDataDTO.id
       )
       .pipe(
-        map((tvBookmarkEntityList: TV_Bookmark[]) => {
+        map((tvBookmarkEntityList: TVBookmark[]) => {
           return this.supabaseUtilsService.tvBookmarkMapFactory(
             tvBookmarkEntityList
           );
@@ -112,15 +112,15 @@ export class SupabaseTVBookmarkService {
   }
 
   createTVBookmark(
-    tvBookmarkDTO: MediaBookmarkDTO<TV | TVDetail | TV_Data>,
+    tvBookmarkDTO: MediaBookmarkDTO<mediaBookmarkDTOTVType>,
     user: User
   ): Observable<TVBookmarkMap> {
     return this.supabaseTVDataDAO
       .findByTVId(tvBookmarkDTO.mediaDataDTO.id)
       .pipe(
-        switchMap((tvDataEntityList: TV_Data[]) => {
+        switchMap((tvDataEntityList: TVData[]) => {
           if (tvDataEntityList.length === 0) {
-            let tvData: TV_Data = this.supabaseUtilsService.tvDataObjFactory(
+            let tvData: TVData = this.supabaseUtilsService.tvDataObjFactory(
               tvBookmarkDTO.mediaDataDTO
             );
             return this.supabaseTVDataDAO.createTVData(tvData);
@@ -134,7 +134,7 @@ export class SupabaseTVBookmarkService {
             user
           );
         }),
-        map((tvBookmarkEntityList: TV_Bookmark[]) => {
+        map((tvBookmarkEntityList: TVBookmark[]) => {
           return this.supabaseUtilsService.tvBookmarkMapFactory(
             tvBookmarkEntityList
           );
@@ -146,13 +146,13 @@ export class SupabaseTVBookmarkService {
     tvBookmarkDTO: MediaBookmarkDTO<TV>,
     user: User
   ): Observable<TVBookmarkMap> {
-    let tvBookmarkFromDBCustom: TV_Bookmark = {
+    let tvBookmarkFromDBCustom: TVBookmark = {
       bookmark_enum: 'noBookmark',
       tv_id: tvBookmarkDTO.mediaDataDTO.id,
       user_id: user.id,
     };
     return of([tvBookmarkFromDBCustom]).pipe(
-      map((tvBookmarkEntityList: TV_Bookmark[]) => {
+      map((tvBookmarkEntityList: TVBookmark[]) => {
         return this.supabaseUtilsService.tvBookmarkMapFactory(
           tvBookmarkEntityList
         );

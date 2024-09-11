@@ -3,7 +3,7 @@ import { PostgrestSingleResponse, User } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { Observable, from, map, tap } from 'rxjs';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
-import { Movie_Data, Movie_Bookmark } from '../../interfaces/supabase/entities';
+import { MovieData, MovieBookmark } from '../../interfaces/supabase/entities';
 import { SortyByConfig } from '../../interfaces/supabase/supabase-filter-config.interface';
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
 import { CustomHttpErrorResponse } from '../../models/customHttpErrorResponse.model';
@@ -29,18 +29,16 @@ export class SupabaseMovieBookmarkDAO {
 
   private readonly TABLE = 'movie_bookmark';
 
-  constructor() {}
-
   findBookmarkListByMovieIds(
     movieIdList: number[]
-  ): Observable<Movie_Bookmark[]> {
+  ): Observable<MovieBookmark[]> {
     return from(
       this.supabase
         .from(this.TABLE)
         .select('*, ...bookmark_metadata!inner(label)')
         .in(`movie_id`, movieIdList)
     ).pipe(
-      map((result: PostgrestSingleResponse<Movie_Bookmark[]>) => {
+      map((result: PostgrestSingleResponse<MovieBookmark[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
@@ -56,7 +54,7 @@ export class SupabaseMovieBookmarkDAO {
   findMovieByBookmarkId(
     bookmarkEnum: bookmarkEnum,
     payload: PayloadMovieBookmark
-  ): Observable<Movie_Bookmark[] & Movie_Data[]> {
+  ): Observable<MovieBookmark[] & MovieData[]> {
     return from(
       this.supabase
         .from(this.TABLE)
@@ -70,21 +68,17 @@ export class SupabaseMovieBookmarkDAO {
           this.orderByConfigSupabase[payload.sortBy].rule
         )
     ).pipe(
-      tap(
-        (result: PostgrestSingleResponse<Movie_Bookmark[] & Movie_Data[]>) => {
-          if (result.error) {
-            throw new CustomHttpErrorResponse({
-              error: result.error,
-              message: result.error.message,
-            });
-          }
+      tap((result: PostgrestSingleResponse<MovieBookmark[] & MovieData[]>) => {
+        if (result.error) {
+          throw new CustomHttpErrorResponse({
+            error: result.error,
+            message: result.error.message,
+          });
         }
-      ),
-      map(
-        (result: PostgrestSingleResponse<Movie_Bookmark[] & Movie_Data[]>) => {
-          return result.data as Movie_Bookmark[] & Movie_Data[];
-        }
-      )
+      }),
+      map((result: PostgrestSingleResponse<MovieBookmark[] & MovieData[]>) => {
+        return result.data as MovieBookmark[] & MovieData[];
+      })
     );
   }
 
@@ -92,7 +86,7 @@ export class SupabaseMovieBookmarkDAO {
     bookmarkEnum: bookmarkEnum,
     movieId: number,
     user: User
-  ): Observable<Movie_Bookmark[]> {
+  ): Observable<MovieBookmark[]> {
     return from(
       this.supabase
         .from(this.TABLE)
@@ -103,7 +97,7 @@ export class SupabaseMovieBookmarkDAO {
         })
         .select()
     ).pipe(
-      map((result: PostgrestSingleResponse<Movie_Bookmark[]>) => {
+      map((result: PostgrestSingleResponse<MovieBookmark[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,
@@ -119,7 +113,7 @@ export class SupabaseMovieBookmarkDAO {
   updateMovieBookmark(
     bookmarkEnum: bookmarkEnum,
     mediaId: number
-  ): Observable<Movie_Bookmark[]> {
+  ): Observable<MovieBookmark[]> {
     return from(
       this.supabase
         .from(this.TABLE)
@@ -129,7 +123,7 @@ export class SupabaseMovieBookmarkDAO {
         .eq(`movie_id`, mediaId)
         .select()
     ).pipe(
-      map((result: PostgrestSingleResponse<Movie_Bookmark[]>) => {
+      map((result: PostgrestSingleResponse<MovieBookmark[]>) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,

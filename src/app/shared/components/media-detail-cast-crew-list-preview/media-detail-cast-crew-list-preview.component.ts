@@ -95,24 +95,18 @@ export class MediaDetailCastCrewListPreviewComponent
     );
   }
 
-  private isCrewTVEntity(
-    crew: CastMovie | CrewMovie | CastTV | CrewTV
-  ): crew is CrewTV {
+  private isCrewTVEntity(crew: castCrew): crew is CrewTV {
     return (
       (crew as CrewTV).total_episode_count !== undefined &&
       (crew as CrewTV).jobs !== undefined
     );
   }
 
-  private isCastMovieEntity(
-    cast: CastMovie | CrewMovie | CastTV | CrewTV
-  ): cast is CastMovie {
+  private isCastMovieEntity(cast: castCrew): cast is CastMovie {
     return (cast as CastMovie).character !== undefined;
   }
 
-  private isCrewMovieEntity(
-    cast: CastMovie | CrewMovie | CastTV | CrewTV
-  ): cast is CrewMovie {
+  private isCrewMovieEntity(cast: castCrew): cast is CrewMovie {
     return (cast as CrewMovie).job !== undefined;
   }
 

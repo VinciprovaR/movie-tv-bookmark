@@ -24,8 +24,6 @@ export interface TMDBApiPayload {
 export class SupabaseProxyToTMDBService {
   private readonly supabase = inject(SUPABASE_CLIENT);
 
-  constructor() {}
-
   callSupabaseFunction<T>(TMDBApiPayload: TMDBApiPayload) {
     return from(
       this.supabase.functions.invoke('tmdb-api', {

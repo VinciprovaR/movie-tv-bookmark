@@ -18,7 +18,7 @@ import {
   TVBookmarkSelectors,
 } from '../../shared/store/tv-bookmark';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
-import { TV_Data } from '../../shared/interfaces/supabase/entities';
+import { TVData } from '../../shared/interfaces/supabase/entities';
 import {
   OptionFilter,
   Genre,
@@ -56,7 +56,7 @@ export class TVBookmarkSearchComponent
 
   selectIsLoading$!: Observable<boolean>;
   selectTVBookmarkMap$!: Observable<TVBookmarkMap>;
-  selectTVList$!: Observable<TV_Data[]>;
+  selectTVList$!: Observable<TVData[]>;
 
   selectSortBy$!: Observable<OptionFilter[]>;
   selectCombinedBookmarkFilters$!: Observable<[PayloadTVBookmark, Genre[]]>;
@@ -120,12 +120,12 @@ export class TVBookmarkSearchComponent
     this.bridgeDataService.tvInputBookmarkOptionsObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mediaBookmarkDTO) => {
-        let tvBookmarkDTO = mediaBookmarkDTO as MediaBookmarkDTO<TV_Data>;
+        let tvBookmarkDTO = mediaBookmarkDTO as MediaBookmarkDTO<TVData>;
         this.createUpdateDeleteTVBookmark(tvBookmarkDTO);
       });
   }
 
-  createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TV_Data>) {
+  createUpdateDeleteTVBookmark(mediaBookmarkDTO: MediaBookmarkDTO<TVData>) {
     this.store.dispatch(
       TVBookmarkActions.createUpdateDeleteTVBookmark({
         mediaBookmarkDTO,

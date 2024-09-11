@@ -1,4 +1,4 @@
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   MovieCredit,
   MovieDetail,
@@ -11,8 +11,6 @@ export class TMDBMovieDetailService {
   private readonly supabaseProxyToTMDBService = inject(
     SupabaseProxyToTMDBService
   );
-
-  constructor() {}
 
   movieDetailChained(movieId: number): Observable<MovieDetail> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<MovieDetail>({

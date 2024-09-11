@@ -14,7 +14,6 @@ export class TMDBTrendingMovieService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
   trendingMovie(timeWindow: TimeWindow): Observable<MovieResult> {
     return this.supabaseProxyToTMDBService.callSupabaseFunction<MovieResult>({
       serviceKey: `/trending/movie/{time_window}`,

@@ -11,8 +11,6 @@ export class TMDBSearchMovieService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
-
   movieSearchInit(query: string): Observable<MovieResult> {
     return this.movieSearch(1, query);
   }

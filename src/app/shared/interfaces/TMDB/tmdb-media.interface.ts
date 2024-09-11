@@ -298,6 +298,8 @@ export interface PersonDetail {
   place_of_birth: string;
   popularity: number;
   profile_path: string;
+  movie_credits: PersonDetailMovieCredits;
+  tv_credits: PersonDetailTVCredits;
 }
 
 export interface PersonDetailMovieCredits {

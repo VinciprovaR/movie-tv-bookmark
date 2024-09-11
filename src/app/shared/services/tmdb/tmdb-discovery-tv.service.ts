@@ -15,8 +15,6 @@ export class TMDBDiscoveryTVService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
-
   tvDiscovery(payload: PayloadDiscoveryTV): Observable<TVResult> {
     return this.discoverTVCall(
       1,

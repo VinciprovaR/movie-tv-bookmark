@@ -8,7 +8,6 @@ import {
   Input,
   NgZone,
   Output,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 
 @Directive({
@@ -30,8 +29,6 @@ export class ScrollNearEndDirective {
   includeScrollEvents: boolean = true;
 
   private window!: Window;
-
-  constructor() {}
 
   ngOnInit(): void {
     this.window = window;

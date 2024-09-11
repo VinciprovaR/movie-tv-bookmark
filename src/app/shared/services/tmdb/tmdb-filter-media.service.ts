@@ -17,8 +17,6 @@ export class TMDBFilterMediaService {
     SupabaseProxyToTMDBService
   );
 
-  constructor() {}
-
   retriveGenreMovieList(): Observable<Genre[]> {
     return this.supabaseProxyToTMDBService
       .callSupabaseFunction<GenresResult>({

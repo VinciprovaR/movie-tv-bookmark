@@ -17,7 +17,6 @@ export class DiscoveryTVEffects {
   private readonly supabaseTVBookmarkService = inject(
     SupabaseTVBookmarkService
   );
-  constructor() {}
 
   discoveryTVLanding$ = createEffect(() => {
     return this.actions$.pipe(

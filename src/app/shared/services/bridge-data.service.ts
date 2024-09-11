@@ -12,8 +12,10 @@ import {
   TV,
   TVDetail,
 } from '../interfaces/TMDB/tmdb-media.interface';
-import { Movie_Data, TV_Data } from '../interfaces/supabase/entities';
+import { MovieData, TVData } from '../interfaces/supabase/entities';
 
+export type mediaBookmarkDTOTVType = TV | TVDetail | TVData;
+export type mediaBookmarkDTOMovieType = Movie | MovieDetail | MovieData;
 /**
  * BridgeDataService provide event message for components that
  * are not closely related in the tree hierarchy.
@@ -30,21 +32,19 @@ export class BridgeDataService {
 
   //inputBookmarkOptions TV
   private readonly tvInputBookmarkOptions$ = new Subject<
-    MediaBookmarkDTO<TV | TVDetail | TV_Data>
+    MediaBookmarkDTO<mediaBookmarkDTOTVType>
   >();
   readonly tvInputBookmarkOptionsObs$: Observable<
-    MediaBookmarkDTO<TV | TVDetail | TV_Data>
+    MediaBookmarkDTO<mediaBookmarkDTOTVType>
   > = this.tvInputBookmarkOptions$.asObservable();
 
   //inputBookmarkOptions Movie
   private readonly movieInputBookmarkOptions$ = new Subject<
-    MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
+    MediaBookmarkDTO<mediaBookmarkDTOMovieType>
   >();
   readonly movieInputBookmarkOptionsObs$: Observable<
-    MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
+    MediaBookmarkDTO<mediaBookmarkDTOMovieType>
   > = this.movieInputBookmarkOptions$.asObservable();
-
-  constructor() {}
 
   pushMediaBookmarkMap(mediaBookmarkMap: MovieBookmarkMap | TVBookmarkMap) {
     this.mediaBookmarkMap$.next(mediaBookmarkMap);
@@ -53,32 +53,30 @@ export class BridgeDataService {
   pushInputBookmarkOptions(
     mediaType: MediaType,
     mediaBookmarkDTO: MediaBookmarkDTO<
-      Movie | MovieDetail | Movie_Data | TV | TVDetail | TV_Data
+      mediaBookmarkDTOMovieType | mediaBookmarkDTOTVType
     >
   ) {
     if (mediaType === 'movie') {
-      let mediaBookmarkDTOMovie = mediaBookmarkDTO as MediaBookmarkDTO<
-        Movie | MovieDetail | Movie_Data
-      >;
+      let mediaBookmarkDTOMovie =
+        mediaBookmarkDTO as MediaBookmarkDTO<mediaBookmarkDTOMovieType>;
 
       this.pushMovieInputBookmarkOptions(mediaBookmarkDTOMovie);
     } else if (mediaType === 'tv') {
-      let mediaBookmarkDTOTV = mediaBookmarkDTO as MediaBookmarkDTO<
-        TV | TVDetail | TV_Data
-      >;
+      let mediaBookmarkDTOTV =
+        mediaBookmarkDTO as MediaBookmarkDTO<mediaBookmarkDTOTVType>;
 
       this.pushTVInputBookmarkOptions(mediaBookmarkDTOTV);
     }
   }
 
   pushTVInputBookmarkOptions(
-    mediaBookmarkDTO: MediaBookmarkDTO<TV | TVDetail | TV_Data>
+    mediaBookmarkDTO: MediaBookmarkDTO<mediaBookmarkDTOTVType>
   ) {
     this.tvInputBookmarkOptions$.next(mediaBookmarkDTO);
   }
 
   pushMovieInputBookmarkOptions(
-    mediaBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
+    mediaBookmarkDTO: MediaBookmarkDTO<mediaBookmarkDTOMovieType>
   ) {
     this.movieInputBookmarkOptions$.next(mediaBookmarkDTO);
   }

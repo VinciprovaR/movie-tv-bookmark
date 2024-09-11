@@ -15,8 +15,6 @@ export class BookmarkMetadataEffects {
     SupabaseBookmarkMetadataService
   );
 
-  constructor() {}
-
   retriveBookmarkMetadata$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(BookmarkMetadataActions.retriveBookmarkMetadata),
@@ -44,19 +42,6 @@ export class BookmarkMetadataEffects {
               }
             )
           );
-      })
-    );
-  });
-
-  cleanState$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(
-        AuthActions.logoutLocalSuccess,
-        AuthActions.logoutGlobalSuccess,
-        AuthActions.loginSuccess
-      ),
-      switchMap((action) => {
-        return of(BookmarkMetadataActions.cleanState());
       })
     );
   });

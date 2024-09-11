@@ -7,7 +7,6 @@ import { AbstractComponent } from '../../../shared/components/abstract/abstract-
   standalone: true,
   imports: [],
   templateUrl: './new-password-form.component.html',
-  styleUrl: './new-password-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewPasswordFormComponent extends AbstractComponent {

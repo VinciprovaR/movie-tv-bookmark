@@ -108,8 +108,8 @@ export class VideosContainerComponent
             -1
           );
         }
-        return !(
-          this.videoTypeFilter.videosType.indexOf(video.type.toLowerCase()) !=
+        return (
+          this.videoTypeFilter.videosType.indexOf(video.type.toLowerCase()) ==
           -1
         );
       });
