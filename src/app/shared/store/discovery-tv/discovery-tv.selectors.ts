@@ -16,6 +16,11 @@ export const selectIsLoading = createSelector(
   DiscoveryTVReducer.getIsLoading
 );
 
+export const selectIsLoadingAdditional = createSelector(
+  discoveryTVFeatureSelector,
+  DiscoveryTVReducer.getIsLoadingAdditional
+);
+
 export const selectPayload = createSelector(
   discoveryTVFeatureSelector,
   DiscoveryTVReducer.getPayload

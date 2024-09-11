@@ -24,6 +24,7 @@ export const initialState: DiscoveryTVState = {
     total_results: 0,
   },
   noAdditional: false,
+  isLoadingAdditional: false,
 };
 
 export const discoveryTVReducer = createReducer(
@@ -33,17 +34,20 @@ export const discoveryTVReducer = createReducer(
       ...initialState,
     };
   }),
-  on(
-    DiscoveryTVActions.discoveryAdditionalTV,
-    DiscoveryTVActions.discoveryTVLanding,
-    (state): DiscoveryTVState => {
-      return {
-        ...state,
-        error: null,
-        isLoading: true,
-      };
-    }
-  ),
+  on(DiscoveryTVActions.discoveryTVLanding, (state): DiscoveryTVState => {
+    return {
+      ...state,
+      error: null,
+      isLoading: true,
+    };
+  }),
+  on(DiscoveryTVActions.discoveryAdditionalTV, (state): DiscoveryTVState => {
+    return {
+      ...state,
+      error: null,
+      isLoadingAdditional: true,
+    };
+  }),
   on(DiscoveryTVActions.discoveryTV, (state, { payload }): DiscoveryTVState => {
     return {
       ...state,
@@ -72,7 +76,7 @@ export const discoveryTVReducer = createReducer(
       return {
         ...state,
         error: null,
-        isLoading: false,
+        isLoadingAdditional: false,
         tvResult: {
           page: tvResult?.page ? tvResult.page : 0,
           total_pages: tvResult?.total_pages ? tvResult.total_pages : 0,
@@ -106,6 +110,8 @@ export const discoveryTVReducer = createReducer(
 
 export const getDiscoveryTVState = (state: DiscoveryTVState) => state;
 export const getIsLoading = (state: DiscoveryTVState) => state.isLoading;
+export const getIsLoadingAdditional = (state: DiscoveryTVState) =>
+  state.isLoadingAdditional;
 export const getPayload = (state: DiscoveryTVState) => state.payload;
 export const getDiscoveryTVError = (state: DiscoveryTVState) => state.error;
 export const getTVResult = (state: DiscoveryTVState) => state.tvResult;

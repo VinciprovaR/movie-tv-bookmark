@@ -53,6 +53,7 @@ export class LoadingComponent
   private readonly movieDetailStore = inject(MovieDetailStore);
   movieSearchSelectIsLoading$!: Observable<boolean>;
   movieDiscoverySelectIsLoading$!: Observable<boolean>;
+  movieDiscoverySelectIsLoadingAdditional$!: Observable<boolean>;
   movieBookmarksSelectIsLoading$!: Observable<boolean>;
   movieDetailSelectIsLoading$!: Observable<boolean>;
   movieDetailCreditsSelectIsLoading$!: Observable<boolean>;
@@ -62,6 +63,7 @@ export class LoadingComponent
   private readonly tvDetailStore = inject(TVDetailStore);
   TVSearchSelectIsLoading$!: Observable<boolean>;
   TVDiscoverySelectIsLoading$!: Observable<boolean>;
+  TVDiscoverySelectIsLoadingAdditional$!: Observable<boolean>;
   TVBookmarksSelectIsLoading$!: Observable<boolean>;
   TVDetailSelectIsLoading$!: Observable<boolean>;
   TVDetailCreditsSelectIsLoading$!: Observable<boolean>;
@@ -96,6 +98,9 @@ export class LoadingComponent
     this.movieDiscoverySelectIsLoading$ = this.store.select(
       DiscoveryMovieSelectors.selectIsLoading
     );
+    this.movieDiscoverySelectIsLoadingAdditional$ = this.store.select(
+      DiscoveryMovieSelectors.selectIsLoadingAdditional
+    );
     this.movieBookmarksSelectIsLoading$ = this.store.select(
       MovieBookmarkSelectors.selectIsLoading
     );
@@ -108,6 +113,9 @@ export class LoadingComponent
     );
     this.TVDiscoverySelectIsLoading$ = this.store.select(
       DiscoveryTVSelectors.selectIsLoading
+    );
+    this.TVDiscoverySelectIsLoadingAdditional$ = this.store.select(
+      DiscoveryTVSelectors.selectIsLoadingAdditional
     );
     this.TVBookmarksSelectIsLoading$ = this.store.select(
       TVBookmarkSelectors.selectIsLoading
@@ -137,6 +145,12 @@ export class LoadingComponent
         this.toggleLoadingBar(isLoading);
       });
 
+    this.movieDiscoverySelectIsLoadingAdditional$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isLoadingAdditional) => {
+        this.toggleLoadingBar(isLoadingAdditional);
+      });
+
     this.movieBookmarksSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
@@ -148,6 +162,12 @@ export class LoadingComponent
         this.toggleLoadingBar(isLoading);
       }
     );
+
+    this.TVDiscoverySelectIsLoadingAdditional$.pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe((isLoadingAdditional) => {
+      this.toggleLoadingBar(isLoadingAdditional);
+    });
 
     this.TVBookmarksSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
