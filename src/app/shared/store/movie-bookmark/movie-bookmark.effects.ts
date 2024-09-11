@@ -221,7 +221,7 @@ export class MovieBookmarkEffects {
       switchMap((action) => {
         let { mediaBookmarkDTO, operation } = action;
         return this.supabaseMovieBookmarkService
-          .deleteMovieBookmark(mediaBookmarkDTO)
+          .updateMovieBookmark(mediaBookmarkDTO)
           .pipe(
             map((movieBookmarkMap: MovieBookmarkMap) => {
               return MovieBookmarkActions.deleteMovieBookmarkSuccess({

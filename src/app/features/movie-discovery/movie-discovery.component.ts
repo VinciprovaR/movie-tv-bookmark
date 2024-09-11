@@ -13,8 +13,10 @@ import {
   DiscoveryMovieActions,
   DiscoveryMovieSelectors,
 } from '../../shared/store/discovery-movie';
-import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  Movie,
+  MediaType,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MovieDiscoveryFiltersComponent } from '../movie-discovery-filters/movie-discovery-filters.component';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';

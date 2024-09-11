@@ -1,4 +1,4 @@
-import { Directive, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
 import { IMG_SIZES } from '../../../providers';
 

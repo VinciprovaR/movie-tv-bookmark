@@ -56,10 +56,6 @@ export class RegisterPageComponent extends AbstractAuthComponent {
 
   override buildForm(): void {
     this.registerForm = new FormGroup<RegisterForm>({
-      // username: new FormControl<string>('', {
-      //   validators: [Validators.required],
-      //   nonNullable: true,
-      // }),
       email: new FormControl<string>('', {
         validators: [Validators.required, Validators.email],
         nonNullable: true,
@@ -100,7 +96,7 @@ export class RegisterPageComponent extends AbstractAuthComponent {
   initSubscriptions(): void {
     this.registerForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((status) => {
+      .subscribe((status: string) => {
         this.isFormValid = status === 'INVALID' ? false : true;
       });
   }

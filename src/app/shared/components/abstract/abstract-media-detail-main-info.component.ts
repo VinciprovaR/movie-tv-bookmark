@@ -1,9 +1,4 @@
-import {
-  Directive,
-  inject,
-  Input,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Directive, inject, Input } from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
 import { PredominantImgColorService } from '../../services/predominant-img-color.service';
 import { FastAverageColorResult } from 'fast-average-color';

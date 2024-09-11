@@ -5,7 +5,6 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   AbstractControl,

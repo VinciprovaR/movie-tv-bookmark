@@ -12,8 +12,10 @@ import {
   DiscoveryTVActions,
   DiscoveryTVSelectors,
 } from '../../shared/store/discovery-tv';
-import { TV } from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  TV,
+  MediaType,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { PayloadDiscoveryTV } from '../../shared/interfaces/store/discovery-tv-state.interface';

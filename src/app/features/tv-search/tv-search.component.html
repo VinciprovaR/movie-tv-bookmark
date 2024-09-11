@@ -5,7 +5,7 @@
   <div class="mt-6">
     <app-input-query
       [placeholder]="'Search for a tv show'"
-      [query]="selectQuery$ | async"
+      [query]="(selectQuery$ | async) ?? ''"
       (queryEmitter)="searchTV($event)"
     ></app-input-query>
   </div>

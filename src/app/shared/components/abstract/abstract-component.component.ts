@@ -7,7 +7,6 @@ import {
   NgZone,
   Renderer2,
   RendererFactory2,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';

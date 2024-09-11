@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { map, Observable, skipWhile, takeUntil } from 'rxjs';
-import { NavigationStart, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { SupabaseAuthEventsService } from '../../../shared/services/supabase-auth-events.service';
 import { CommonModule } from '@angular/common';
 import { AuthActions, AuthSelectors } from '../../../shared/store/auth';
@@ -119,7 +119,7 @@ export class ResetPasswordComponent
   initSubscriptions(): void {
     this.passwordResetForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((status) => {
+      .subscribe((status: string) => {
         this.isFormValid = status === 'INVALID' ? false : true;
       });
   }

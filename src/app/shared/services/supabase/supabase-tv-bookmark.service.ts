@@ -111,23 +111,6 @@ export class SupabaseTVBookmarkService {
       );
   }
 
-  deleteTVBookmark(
-    tvBookmarkDTO: MediaBookmarkDTO<TV | TVDetail | TV_Data>
-  ): Observable<TVBookmarkMap> {
-    return this.supabaseTVBookmarkDAO
-      .updateTVBookmark(
-        tvBookmarkDTO.bookmarkEnum,
-        tvBookmarkDTO.mediaDataDTO.id
-      )
-      .pipe(
-        map((tvBookmarkEntityList: TV_Bookmark[]) => {
-          return this.supabaseUtilsService.tvBookmarkMapFactory(
-            tvBookmarkEntityList
-          );
-        })
-      );
-  }
-
   createTVBookmark(
     tvBookmarkDTO: MediaBookmarkDTO<TV | TVDetail | TV_Data>,
     user: User

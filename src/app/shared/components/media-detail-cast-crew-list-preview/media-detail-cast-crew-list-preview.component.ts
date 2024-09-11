@@ -25,6 +25,8 @@ import {
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { MatIconModule } from '@angular/material/icon';
 
+export type castCrew = CastMovie | CrewMovie | CastTV | CrewTV;
+
 @Component({
   selector: 'app-media-detail-cast-crew-list-preview',
   standalone: true,
@@ -74,7 +76,7 @@ export class MediaDetailCastCrewListPreviewComponent
     this.gridCol = `grid-cols-[repeat(auto-fill,_minmax(${this.minMaxCol}px,_1fr))]`;
   }
 
-  buildRole(castCrew: CastMovie | CrewMovie | CastTV | CrewTV) {
+  buildRole(castCrew: castCrew) {
     if (this.isCastTVEntity(castCrew)) {
       return this.buildCharacterTV(castCrew);
     } else if (this.isCrewTVEntity(castCrew)) {
@@ -86,9 +88,7 @@ export class MediaDetailCastCrewListPreviewComponent
     }
   }
 
-  private isCastTVEntity(
-    cast: CastMovie | CrewMovie | CastTV | CrewTV
-  ): cast is CastTV {
+  private isCastTVEntity(cast: castCrew): cast is CastTV {
     return (
       (cast as CastTV)?.total_episode_count !== undefined &&
       (cast as CastTV)?.roles !== undefined

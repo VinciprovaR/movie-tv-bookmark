@@ -1,4 +1,4 @@
-import { Directive, ChangeDetectionStrategy } from '@angular/core';
+import { Directive } from '@angular/core';
 import { AbstractCardComponent } from './abstract-card.component';
 
 @Directive()

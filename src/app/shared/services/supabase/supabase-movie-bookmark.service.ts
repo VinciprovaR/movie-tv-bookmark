@@ -120,23 +120,6 @@ export class SupabaseMovieBookmarkService {
       );
   }
 
-  deleteMovieBookmark(
-    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>
-  ): Observable<MovieBookmarkMap> {
-    return this.supabaseMovieBookmarkDAO
-      .updateMovieBookmark(
-        movieBookmarkDTO.bookmarkEnum,
-        movieBookmarkDTO.mediaDataDTO.id
-      )
-      .pipe(
-        map((movieBookmarkEntityList: Movie_Bookmark[]) => {
-          return this.supabaseUtilsService.movieBookmarkMapFactory(
-            movieBookmarkEntityList
-          );
-        })
-      );
-  }
-
   createMovieBookmark(
     movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | Movie_Data>,
     user: User

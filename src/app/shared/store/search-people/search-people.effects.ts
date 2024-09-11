@@ -45,7 +45,7 @@ export class SearchPeopleEffects {
         this.store.select(SearchPeopleSelectors.selectQuery)
       ),
       switchMap((action) => {
-        let [type, currPage, totalPages, query] = action;
+        let [, currPage, totalPages, query] = action;
         if (currPage < totalPages) {
           return this.TMDBSearchPeopleService.additionalPeopleSearch(
             currPage,

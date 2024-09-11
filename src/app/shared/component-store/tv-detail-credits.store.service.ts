@@ -87,7 +87,6 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
     return tvId$.pipe(
       tap(() => {
         this.addTVDetailCreditsInit();
-        // this.store.dispatch(tvDetailCreditsIsLoading({ isLoading: true }));
       }),
       switchMap((tvId) => {
         return this.TMDBTVDetailService.tvCredits(tvId).pipe(
@@ -95,7 +94,6 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
             this.addTVDetailCreditsSuccess({
               tvCredit,
             });
-            // this.store.dispatch(tvDetailCreditsIsLoading({ isLoading: false }));
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(null).pipe(
@@ -104,9 +102,6 @@ export class TVDetailCreditsStore extends ComponentStore<TVDetailCreditsState> {
                 this.store.dispatch(
                   tvDetailCreditsFailure({ httpErrorResponse })
                 );
-                // this.store.dispatch(
-                //   tvDetailCreditsIsLoading({ isLoading: false })
-                // );
               })
             );
           })

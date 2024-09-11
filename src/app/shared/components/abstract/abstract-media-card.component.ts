@@ -1,9 +1,4 @@
-import {
-  Directive,
-  inject,
-  Input,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Directive, inject, Input } from '@angular/core';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { BridgeDataService } from '../../services/bridge-data.service';

@@ -1,4 +1,4 @@
-import { ApplicationConfig, ChangeDetectionStrategy } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import {
   TitleStrategy,
   provideRouter,

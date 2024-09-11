@@ -6,7 +6,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { PersonDetailStore } from '../../shared/component-store';
 import {
   MediaType,

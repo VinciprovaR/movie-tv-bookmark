@@ -50,7 +50,7 @@ export class SelectTagComponent
     super();
   }
   writeValue(obj: any): void {
-    this.genre.isSelected = this.genre.isSelected;
+    this.genre.isSelected = this.genre.isSelected ? true : false;
   }
 
   registerOnChange(fn: any): void {

@@ -26,13 +26,11 @@ export class ToggleThemeStore extends ComponentStore<ToggleThemeState> {
 
     if (webStorageService.getItem(themeKeyLocalStorage) != undefined) {
       isDarkTheme = 'true' === webStorageService.getItem(themeKeyLocalStorage);
-    } else {
-      if (
-        window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-      ) {
-        isDarkTheme = true;
-      }
+    } else if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      isDarkTheme = true;
     }
 
     super({

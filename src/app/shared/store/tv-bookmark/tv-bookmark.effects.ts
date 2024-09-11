@@ -216,7 +216,7 @@ export class TVBookmarkEffects {
       switchMap((action) => {
         let { mediaBookmarkDTO, operation } = action;
         return this.supabaseTVBookmarkService
-          .deleteTVBookmark(mediaBookmarkDTO)
+          .updateTVBookmark(mediaBookmarkDTO)
           .pipe(
             map((tvBookmarkMap: TVBookmarkMap) => {
               return TVBookmarkActions.deleteTVBookmarkSuccess({

@@ -12,8 +12,10 @@ import {
   SearchMovieActions,
   SearchMovieSelectors,
 } from '../../shared/store/search-movie';
-import { Movie } from '../../shared/interfaces/TMDB/tmdb-media.interface';
-import { MediaType } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  Movie,
+  MediaType,
+} from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { BridgeDataService } from '../../shared/services/bridge-data.service';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/DTO';
 import {

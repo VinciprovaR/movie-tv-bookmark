@@ -38,8 +38,8 @@ export class InputQueryComponent extends AbstractComponent implements OnInit {
   placeholder!: string;
 
   @Input()
-  set query(query: string | null) {
-    this.searchControl.setValue(query ? query : '', { emitEvent: false });
+  set query(query: string) {
+    this.searchControl.setValue(query, { emitEvent: false });
   }
 
   constructor() {
