@@ -18,7 +18,7 @@
 <!--     <img src="https://media.giphy.com/media/lIbaRQKLbCWkUZUOYs/giphy.gif" alt="Demo example"/> -->
     <br>
     <br>
-    <a href="https://angular-example-app.netlify.app/">Movie &amp; Bookmark Demo here</a>
+    <a href="movie-tv-bookmark.netlify.app/">Movie &amp; Bookmark Demo here</a>
   </p>
 </p>
 
