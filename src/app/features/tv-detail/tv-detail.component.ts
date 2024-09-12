@@ -39,6 +39,7 @@ import { BookmarkDisabledDialogComponent } from '../../shared/components/bookmar
 import { AuthSelectors } from '../../shared/store/auth';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
+import { PredominantColor } from '../../shared/interfaces/layout.interface';
 
 @Component({
   selector: 'app-tv-detail',
@@ -112,6 +113,15 @@ export class TVDetailComponent
   }
 
   initSubscriptions(): void {
+    this.predominantImgColorService.getPredominantColorObs$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((predominantColor: PredominantColor) => {
+        this.isDark = predominantColor.isDark;
+        this.textColorBlend = predominantColor.textColorBlend;
+        this.headerMediaGradient = predominantColor.headerMediaGradient;
+        this.detectChanges();
+      });
+
     this.tvDetail$
       .pipe(
         takeUntil(this.destroyed$),
@@ -120,7 +130,7 @@ export class TVDetailComponent
         })
       )
       .subscribe((backdrop_path: string) => {
-        this.evaluatePredominantColor(backdrop_path);
+        this.predominantImgColorService.evaluatePredominantColor(backdrop_path);
       });
   }
   initDataBridge() {

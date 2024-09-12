@@ -61,7 +61,6 @@ export class MovieDiscoveryFiltersComponent
     label: 'No certification selected',
     value: '',
   };
-
   selectDiscoveryFailure$: Observable<CustomHttpErrorResponseInterface | null> =
     this.store.select(DiscoveryMovieSelectors.selectError);
 

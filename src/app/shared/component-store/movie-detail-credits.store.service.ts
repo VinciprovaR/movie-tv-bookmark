@@ -5,14 +5,10 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { createAction, props, Store } from '@ngrx/store';
 import { MovieCredit } from '../interfaces/TMDB/tmdb-media.interface';
-import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBMovieDetailService } from '../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 import { AuthActions } from '../store/auth';
-
-export interface MovieDetailCreditsState extends StateMediaBookmark {
-  movieCredit: MovieCredit | null;
-}
+import { MovieDetailCreditsState } from '../interfaces/store/media-detail.interface';
 
 export const movieDetailCreditsFailure = createAction(
   '[Movie-Detail-Credits] Movie Detail Credits Failure',

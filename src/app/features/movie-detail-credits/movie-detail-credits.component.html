@@ -55,6 +55,7 @@
         <div class="px-4 py-6">
           <div
             class="flex justify-between hover:cursor-pointer sm:hover:cursor-default"
+            (keydown)="toggleCast()"
             (click)="toggleCast()"
           >
             <div
@@ -105,6 +106,7 @@
       <div class="px-4 py-6">
         <div
           class="flex justify-between hover:cursor-pointer sm:hover:cursor-default"
+          (keydown)="toggleCrew()"
           (click)="toggleCrew()"
         >
           <div

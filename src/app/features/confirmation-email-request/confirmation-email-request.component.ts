@@ -23,13 +23,11 @@ import { AbstractAuthComponent } from '../../shared/components/abstract/abstract
 })
 export class ConfirmationRmailRequestComponent extends AbstractAuthComponent {
   private readonly fb = inject(FormBuilder);
-  confirmationEmailRequestForm!: FormGroup;
-
-  submitted = false;
-
   selectIsLoading$: Observable<boolean> = this.store.select(
     AuthSelectors.selectIsLoading
   );
+  confirmationEmailRequestForm!: FormGroup;
+  submitted = false;
 
   constructor() {
     super();

@@ -3,12 +3,7 @@ import { from, map, of, switchMap, tap } from 'rxjs';
 import { SUPABASE_CLIENT } from '../../../providers';
 import { FunctionsResponse } from '@supabase/functions-js';
 import { CustomHttpErrorResponseInterface } from '../../interfaces/customHttpErrorResponse.interface';
-
-export interface TMDBApiPayload {
-  serviceKey: string;
-  pathParams?: { [key: string]: string | number };
-  queryParams?: { [key: string]: string };
-}
+import { TMDBApiPayload } from '../../interfaces/supabase/supabase-proxy.interface';
 
 /**
  * SupabaseProxyToTMDBService call a generic supabase edge function

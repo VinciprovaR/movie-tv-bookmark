@@ -15,16 +15,10 @@ import {
   OverlayRef,
 } from '@angular/cdk/overlay';
 import { Subscription, takeUntil } from 'rxjs';
-
-export type confirm = 'confirm';
-export type cancel = 'cancel';
-export type submitDialogType = confirm | cancel;
-export type scrollStrategies = 'block' | 'close' | 'noop' | 'reposition';
-
-export interface SubmitDialog {
-  typeSubmit: submitDialogType;
-  payload?: any;
-}
+import {
+  scrollStrategies,
+  SubmitDialog,
+} from '../../interfaces/layout.interface';
 
 @Directive()
 export abstract class AbstractDialogComponent

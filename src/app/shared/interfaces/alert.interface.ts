@@ -5,3 +5,7 @@ export interface Alert {
   message: string;
   type: notificationType;
 }
+
+export interface AlertState {
+  alerts: Alert[];
+}

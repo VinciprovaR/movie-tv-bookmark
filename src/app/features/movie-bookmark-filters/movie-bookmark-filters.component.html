@@ -4,6 +4,7 @@
   <div class="box-border border-container mb-4">
     <div
       class="p-3 flex justify-between hover:cursor-pointer"
+      (keydown)="toggleMenuSort()"
       (click)="toggleMenuSort()"
       [ngClass]="{
         'border-separator': !isHideSortContainer
@@ -38,6 +39,7 @@
       [ngClass]="{
         'border-separator': !isHideFilterContainer
       }"
+      (keydown)="toggleMenuFilter()"
       (click)="toggleMenuFilter()"
     >
       <h3>Filters</h3>
@@ -63,6 +65,7 @@
   <div class="px-3 py-5">
     <button
       class="button-mt button-mt-role-normal"
+      (keydown)="scroll(mediaContainerRef)"
       (click)="scroll(mediaContainerRef)"
       type="submit"
       [disabled]="!filterForm.valid || isDisableButton"

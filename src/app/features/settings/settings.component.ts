@@ -7,8 +7,8 @@ import { User } from '@supabase/supabase-js/';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
 import { ChangePasswordConfirmationDialogComponent } from '../../shared/components/change-password-confirmation-dialog/change-password-confirmation-dialog.component';
 import { DeleteAccountConfirmationDialogComponent } from '../../shared/components/delete-account-confirmation-dialog/delete-account-confirmation-dialog.component';
-import { SubmitDialog } from '../../shared/components/abstract/abstract-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SubmitDialog } from '../../shared/interfaces/layout.interface';
 
 @Component({
   selector: 'app-settings',

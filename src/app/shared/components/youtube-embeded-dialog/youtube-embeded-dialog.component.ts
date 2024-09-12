@@ -11,11 +11,7 @@ import {
 import { OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  AbstractDialogComponent,
-  SubmitDialog,
-  submitDialogType,
-} from '../abstract/abstract-dialog.component';
+import { AbstractDialogComponent } from '../abstract/abstract-dialog.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +20,10 @@ import { MatDivider } from '@angular/material/divider';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { ImgComponent } from '../img/img.component';
 import { YouTubePlayer } from '@angular/youtube-player';
+import {
+  SubmitDialog,
+  submitDialogType,
+} from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-youtube-embeded-dialog',

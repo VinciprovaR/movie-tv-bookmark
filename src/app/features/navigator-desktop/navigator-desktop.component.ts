@@ -26,10 +26,8 @@ export class NavigatorDesktopComponent
   implements OnInit
 {
   urlAfterRedirects!: string;
-
   @ViewChild('submenu')
   submenu!: ElementRef;
-
   @Input({ required: true })
   navElements!: NavElements;
 

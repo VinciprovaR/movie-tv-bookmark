@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
+  SignOut,
   User,
 } from '@supabase/supabase-js/';
 import { SupabaseAuthService } from '../../services/supabase';
@@ -113,7 +114,7 @@ export class AuthEffects {
       })
     );
   });
-  //
+
   logout$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.logoutLocal, AuthActions.logoutGlobal),
@@ -125,32 +126,7 @@ export class AuthEffects {
               //session is present in local storage, verify server side if is valid
               return this.supabaseAuthService.getCurrentUser().pipe(
                 switchMap((result: any) => {
-                  if (result.error) {
-                    return of(AuthActions.logoutLocalSuccess()).pipe(
-                      tap(() => {
-                        this.webStorageService.destroyItem(this.storageKey);
-                        this.router.navigate(['/login']);
-                      })
-                    );
-                  }
-                  return this.supabaseAuthService.logOut({ scope }).pipe(
-                    tap(() => {
-                      this.router.navigate(['/login']);
-                    }),
-                    map(() => {
-                      if (scope === 'global') {
-                        return AuthActions.logoutGlobalSuccess();
-                      }
-                      return AuthActions.logoutLocalSuccess();
-                    }),
-                    catchError(
-                      (httpErrorResponse: CustomHttpErrorResponseInterface) => {
-                        return of(
-                          AuthActions.loginFailure({ httpErrorResponse })
-                        );
-                      }
-                    )
-                  );
+                  return this.handleLogout(scope, result);
                 })
               );
             }
@@ -168,6 +144,31 @@ export class AuthEffects {
       })
     );
   });
+
+  private handleLogout(scope: 'local' | 'global', result: any) {
+    if (result.error) {
+      return of(AuthActions.logoutLocalSuccess()).pipe(
+        tap(() => {
+          this.webStorageService.destroyItem(this.storageKey);
+          this.router.navigate(['/login']);
+        })
+      );
+    }
+    return this.supabaseAuthService.logOut({ scope }).pipe(
+      tap(() => {
+        this.router.navigate(['/login']);
+      }),
+      map(() => {
+        if (scope === 'global') {
+          return AuthActions.logoutGlobalSuccess();
+        }
+        return AuthActions.logoutLocalSuccess();
+      }),
+      catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
+        return of(AuthActions.loginFailure({ httpErrorResponse }));
+      })
+    );
+  }
 
   requestResetPassword$ = createEffect(() => {
     return this.actions$.pipe(
@@ -266,27 +267,8 @@ export class AuthEffects {
                 password,
               })
               .pipe(
-                switchMap((result: any) => {
-                  return this.supabaseAuthService
-                    .deleteUserAccount(user.id)
-                    .pipe(
-                      map((publicUserEntityResult: PublicUserEntity[]) => {
-                        if (publicUserEntityResult.length === 0) {
-                          throw new CustomHttpErrorResponse({
-                            type: 'userNull',
-                            error: 'User not found',
-                            message: 'User not found',
-                            status: 404,
-                          });
-                        }
-                        const email = publicUserEntityResult[0].email;
-                        return AuthActions.deleteAccountSuccess({ email });
-                      }),
-                      tap(() => {
-                        this.webStorageService.destroyItem(this.storageKey);
-                        this.router.navigate(['/login']);
-                      })
-                    );
+                switchMap(() => {
+                  return this.handleDeleteAccount(user);
                 })
               );
           }),
@@ -307,4 +289,25 @@ export class AuthEffects {
       })
     );
   });
+
+  private handleDeleteAccount(user: User) {
+    return this.supabaseAuthService.deleteUserAccount(user.id).pipe(
+      map((publicUserEntityResult: PublicUserEntity[]) => {
+        if (publicUserEntityResult.length === 0) {
+          throw new CustomHttpErrorResponse({
+            type: 'userNull',
+            error: 'User not found',
+            message: 'User not found',
+            status: 404,
+          });
+        }
+        const email = publicUserEntityResult[0].email;
+        return AuthActions.deleteAccountSuccess({ email });
+      }),
+      tap(() => {
+        this.webStorageService.destroyItem(this.storageKey);
+        this.router.navigate(['/login']);
+      })
+    );
+  }
 }

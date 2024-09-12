@@ -18,7 +18,7 @@ import { SupabaseUtilsService } from './supabase-utils.service';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { PayloadTVBookmark } from '../../interfaces/store/tv-bookmark-state.interface';
 
-export type mediaBookmarkDTOTVType = TV | TVDetail | TVData;
+type mediaBookmarkDTOTVType = TV | TVDetail | TVData;
 
 /**
  * SupabaseTVBookmarkService init, find, create, update, delete bookmark

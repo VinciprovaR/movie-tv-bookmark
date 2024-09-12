@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { createAction, props, Store } from '@ngrx/store';
 import {
   MovieResult,
@@ -10,18 +10,11 @@ import {
   PersonDetailTVCredits,
   TVResult,
 } from '../interfaces/TMDB/tmdb-media.interface';
-import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBPersonDetailService } from '../services/tmdb';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
 import { Actions, ofType } from '@ngrx/effects';
 import { AuthActions } from '../store/auth';
-
-export interface PersonDetailState extends StateMediaBookmark {
-  personDetail: PersonDetail | null;
-  personDetailMovieCredits: PersonDetailMovieCredits;
-  personDetailTVCredits: PersonDetailTVCredits;
-  personId: number;
-}
+import { PersonDetailState } from '../interfaces/store/person-detail.interface';
 
 export const personDetailTVCreditsSuccess = createAction(
   '[Person-Detail-TV-Credits] Person Detail TV Credits Success ',
@@ -182,18 +175,6 @@ export class PersonDetailStore extends ComponentStore<PersonDetailState> {
       })
     );
   });
-
-  /*
-            tap(() => {
-              this.personDetailSuccess({
-                personDetail,
-                personDetailMovieCredits:
-                  movie.personDetailMovieCredits,
-                personDetailTVCredits: tv.personDetailTVCredits,
-              });
-            })
-
-  */
 
   private mergeMovieList(personDetailMovieCredits: PersonDetailMovieCredits) {
     return [...personDetailMovieCredits.cast, ...personDetailMovieCredits.crew];

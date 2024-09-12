@@ -9,15 +9,11 @@ import {
   TV,
   TVResult,
 } from '../interfaces/TMDB/tmdb-media.interface';
-import { StateMediaBookmark } from '../interfaces/store/state-media-bookmark.interface';
 import { TMDBTrendingTVService } from '../services/tmdb/tmdb-trending-tv.service';
 import { TMDBTrendingMovieService } from '../services/tmdb/tmdb-trending-movie.service';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
+import { RandomImageState } from '../interfaces/layout.interface';
 
-export interface RandomImageState extends StateMediaBookmark {
-  randomImage: string;
-  mediaResult: [Movie[], TV[]];
-}
 /**
  * RandomImageStore select a random image from the
  * trending movie or tv of a window of day or week

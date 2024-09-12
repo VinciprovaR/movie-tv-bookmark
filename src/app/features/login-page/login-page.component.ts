@@ -47,12 +47,10 @@ export class LoginPageComponent
 {
   selectIsLoading$!: Observable<boolean>;
   selectMessageSuccessOperation$!: Observable<string>;
-
+  @Input('email') email?: string = '';
   confirmationEmailMessage: string = '';
   requestResetPasswordMessage: string = '';
   accountDeletedMessage: string = '';
-  @Input('email') email?: string = '';
-
   loginForm!: FormGroup<LoginForm>;
   submitted = false;
 

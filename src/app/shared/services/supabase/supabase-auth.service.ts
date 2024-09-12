@@ -84,12 +84,12 @@ export class SupabaseAuthService {
     );
   }
 
-  getCurrentUser(): Observable<any> {
-    return this.supabaseAuthDAO.getUser();
-  }
-
   getCurrentSession(): Observable<any> {
     return this.supabaseAuthDAO.getSession();
+  }
+
+  getCurrentUser(): Observable<any> {
+    return this.supabaseAuthDAO.getUser();
   }
 
   deleteUserAccount(userId: string): Observable<PublicUserEntity[]> {

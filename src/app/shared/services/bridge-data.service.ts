@@ -14,8 +14,8 @@ import {
 } from '../interfaces/TMDB/tmdb-media.interface';
 import { MovieData, TVData } from '../interfaces/supabase/entities';
 
-export type mediaBookmarkDTOTVType = TV | TVDetail | TVData;
-export type mediaBookmarkDTOMovieType = Movie | MovieDetail | MovieData;
+type mediaBookmarkDTOTVType = TV | TVDetail | TVData;
+type mediaBookmarkDTOMovieType = Movie | MovieDetail | MovieData;
 /**
  * BridgeDataService provide event message for components that
  * are not closely related in the tree hierarchy.

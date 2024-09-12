@@ -25,7 +25,7 @@ import {
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { MatIconModule } from '@angular/material/icon';
 
-export type castCrew = CastMovie | CrewMovie | CastTV | CrewTV;
+type castCrew = CastMovie | CrewMovie | CastTV | CrewTV;
 
 @Component({
   selector: 'app-media-detail-cast-crew-list-preview',

@@ -3,14 +3,14 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { Alert, notificationType } from '../interfaces/alert.interface';
+import {
+  Alert,
+  AlertState,
+  notificationType,
+} from '../interfaces/alert.interface';
 import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
-
-export interface AlertState {
-  alerts: Alert[];
-}
 
 @Injectable({ providedIn: 'root' })
 export class NotifierStore extends ComponentStore<AlertState> {

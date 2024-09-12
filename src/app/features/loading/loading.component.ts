@@ -132,7 +132,6 @@ export class LoadingComponent
   }
   initSubscriptions(): void {
     //not landing
-
     this.authSelectIsLoadingForPasswordValidation$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoadingForPasswordValidation) => {
@@ -188,7 +187,6 @@ export class LoadingComponent
       });
 
     //landing
-
     this.TVDiscoverySelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
         this.toggleLoadingBar(isLoading, true);

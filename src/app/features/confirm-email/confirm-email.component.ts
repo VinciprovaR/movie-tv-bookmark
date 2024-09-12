@@ -27,11 +27,9 @@ import { SuccessMessageTemplateComponent } from '../../shared/components/success
 export class ConfirmEmailComponent extends AbstractComponent implements OnInit {
   isUserAuthenticated$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;
-
   @Input('email')
   email!: string;
   params: any = null;
-
   confirmEmailMessage: string = '';
   confirmEmailTitle: string = '';
 

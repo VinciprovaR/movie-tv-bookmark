@@ -18,7 +18,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AbstractComponent } from '../abstract/abstract-component.component';
-import { scrollDirection } from '../../interfaces/layout.types';
+import { scrollDirection } from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-media-list-container',

@@ -11,14 +11,14 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import {
-  AbstractDialogComponent,
-  SubmitDialog,
-  submitDialogType,
-} from '../abstract/abstract-dialog.component';
+import { AbstractDialogComponent } from '../abstract/abstract-dialog.component';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { CommonModule } from '@angular/common';
-import { scrollDirection } from '../../interfaces/layout.types';
+import {
+  scrollDirection,
+  SubmitDialog,
+  submitDialogType,
+} from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-bookmark-disabled-dialog',

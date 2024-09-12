@@ -63,7 +63,6 @@ export class MovieDiscoveryComponent
   selectLanguageList$!: Observable<Language[]>;
   selectSortBy$!: Observable<OptionFilter[]>;
   selectNoAdditional$!: Observable<boolean>;
-
   title = 'Movie Discovery';
   mediaType: MediaType = 'movie';
 

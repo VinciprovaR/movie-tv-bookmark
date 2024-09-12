@@ -9,13 +9,13 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  AbstractDialogComponent,
-  SubmitDialog,
-  submitDialogType,
-} from '../abstract/abstract-dialog.component';
+import { AbstractDialogComponent } from '../abstract/abstract-dialog.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { MatDivider } from '@angular/material/divider';
+import {
+  SubmitDialog,
+  submitDialogType,
+} from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-change-password-confirmation-dialog',
@@ -31,6 +31,7 @@ export class ChangePasswordConfirmationDialogComponent
   constructor() {
     super();
   }
+
   ngOnInit(): void {
     this.initSubscriptions();
   }

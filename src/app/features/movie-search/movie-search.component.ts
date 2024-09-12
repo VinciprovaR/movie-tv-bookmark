@@ -34,12 +34,10 @@ import { AbstractComponent } from '../../shared/components/abstract/abstract-com
 })
 export class MovieSearchComponent extends AbstractComponent implements OnInit {
   private readonly bridgeDataService = inject(BridgeDataService);
-
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectMovieList$!: Observable<Movie[]>;
   selectNoAdditional$!: Observable<boolean>;
-
   title = 'Movie Search';
   mediaType: MediaType = 'movie';
 

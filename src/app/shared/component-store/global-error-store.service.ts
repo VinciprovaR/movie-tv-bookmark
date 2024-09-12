@@ -6,10 +6,7 @@ import { Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
 import { Router } from '@angular/router';
 import { CustomHttpErrorResponseInterface } from '../interfaces/customHttpErrorResponse.interface';
-
-export interface GlobalErrorState {
-  error: CustomHttpErrorResponseInterface | null;
-}
+import { GlobalErrorState } from '../interfaces/store/global-error.interface';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {

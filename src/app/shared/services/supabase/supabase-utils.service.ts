@@ -11,7 +11,6 @@ import {
   TVBookmark,
 } from '../../interfaces/supabase/entities';
 import {
-  bookmarkEnum,
   MovieBookmarkMap,
   TVBookmarkMap,
 } from '../../interfaces/supabase/supabase-bookmark.interface';

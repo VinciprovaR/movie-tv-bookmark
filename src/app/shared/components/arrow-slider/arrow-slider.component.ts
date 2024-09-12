@@ -9,8 +9,7 @@ import {
 import { ImgComponent } from '../img/img.component';
 
 import { AbstractComponent } from '../abstract/abstract-component.component';
-
-export type arrowType = 'up' | 'right' | 'down' | 'left';
+import { arrowType } from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-arrow-slider',

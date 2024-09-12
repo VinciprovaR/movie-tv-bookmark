@@ -18,6 +18,8 @@ import { SupabaseUtilsService } from './supabase-utils.service';
 import { crud_operations } from '../../interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { PayloadMovieBookmark } from '../../interfaces/store/movie-bookmark-state.interface';
 
+type movieBookmarkDTOType = Movie | MovieDetail | MovieData;
+
 /**
  * SupabaseMovieBookmarkService init, find, create, update, delete bookmark
  * related to movies.
@@ -81,7 +83,7 @@ export class SupabaseMovieBookmarkService {
   }
 
   crudOperationResolver(
-    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | MovieData>
+    movieBookmarkDTO: MediaBookmarkDTO<movieBookmarkDTOType>
   ): Observable<crud_operations> {
     return this.supabaseMovieBookmarkDAO
       .findBookmarkListByMovieIds([movieBookmarkDTO.mediaDataDTO.id])
@@ -100,7 +102,7 @@ export class SupabaseMovieBookmarkService {
   }
 
   updateMovieBookmark(
-    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | MovieData>
+    movieBookmarkDTO: MediaBookmarkDTO<movieBookmarkDTOType>
   ): Observable<MovieBookmarkMap> {
     return this.supabaseMovieBookmarkDAO
       .updateMovieBookmark(
@@ -117,7 +119,7 @@ export class SupabaseMovieBookmarkService {
   }
 
   createMovieBookmark(
-    movieBookmarkDTO: MediaBookmarkDTO<Movie | MovieDetail | MovieData>,
+    movieBookmarkDTO: MediaBookmarkDTO<movieBookmarkDTOType>,
     user: User
   ): Observable<MovieBookmarkMap> {
     return this.supabaseMovieDataDAO

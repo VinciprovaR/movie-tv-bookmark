@@ -9,7 +9,7 @@ import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interf
 import { CommonModule } from '@angular/common';
 
 import { AbstractComponent } from '../abstract/abstract-component.component';
-import { scrollDirection } from '../../interfaces/layout.types';
+import { scrollDirection } from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-bookmark-status-label',

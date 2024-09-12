@@ -8,11 +8,7 @@ import {
 import { OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  AbstractDialogComponent,
-  SubmitDialog,
-  submitDialogType,
-} from '../abstract/abstract-dialog.component';
+import { AbstractDialogComponent } from '../abstract/abstract-dialog.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import {
@@ -27,6 +23,10 @@ import { MatInputModule } from '@angular/material/input';
 import { AbstractAuthComponent } from '../abstract/abstract-auth.component';
 import { MatDivider } from '@angular/material/divider';
 import { DeleteAccountForm } from '../../interfaces/supabase/supabase-auth.interface';
+import {
+  SubmitDialog,
+  submitDialogType,
+} from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-delete-account-confirmation-dialog',

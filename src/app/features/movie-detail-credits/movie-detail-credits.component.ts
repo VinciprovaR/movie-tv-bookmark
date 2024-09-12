@@ -62,7 +62,6 @@ export class MovieDetailCreditsComponent
   isLoading$!: Observable<boolean>;
   routerEvent$!: Observable<Event>;
   error$!: Observable<CustomHttpErrorResponseInterface | null>;
-
   castListSub$ = new BehaviorSubject<CastMovie[]>([]);
   castList$!: Observable<CastMovie[]>;
   departmentsSub$ = new BehaviorSubject<MovieDepartments[]>([]);
@@ -71,20 +70,14 @@ export class MovieDetailCreditsComponent
   banner$!: Observable<Banner | null>;
   yearSub$ = new BehaviorSubject<string>('');
   year$!: Observable<string>;
-
   @Input()
   movieId: number = 0;
-
   errorTitle: string = `Oops! We can't find the page you're looking for`;
   errorMessage: string = `It seems that this movie detail credits you're searching for doesn't exist.`;
-
   isHideCastContainer: boolean = false;
   isHideCrewContainer: boolean = false;
-
   detailMediaPath: string = '';
-
   crewLength: number = 0;
-
   departments: MovieDepartments[] = [
     { key: 'Directing', value: [] },
     { key: 'Writing', value: [] },

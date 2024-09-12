@@ -4,11 +4,7 @@ import { tap } from 'rxjs';
 import { ToggleThemeService } from '../services/toggle-theme.service';
 import { WebStorageService } from '../services/web-storage.service';
 import { THEME_KEY_LOCAL_STORAGE } from '../../providers';
-
-export interface ToggleThemeState {
-  isDarkTheme: boolean;
-  icon: string;
-}
+import { ToggleThemeState } from '../interfaces/layout.interface';
 
 @Injectable({
   providedIn: 'root',

@@ -4,6 +4,7 @@
     ' tag-button-selected tag-selected ': genre.isSelected,
     ' tag-button-deselected': !genre.isSelected
   }"
+  (keydown)="selectGenre()"
   (click)="selectGenre()"
 >
   <span class="select-none">{{ genre.name }}</span>

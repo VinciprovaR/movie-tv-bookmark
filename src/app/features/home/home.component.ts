@@ -9,14 +9,13 @@ import { Observable, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { User } from '@supabase/supabase-js/';
 import { AbstractComponent } from '../../shared/components/abstract/abstract-component.component';
-
 import { IMG_SIZES } from '../../providers';
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { PredominantImgColorService } from '../../shared/services/predominant-img-color.service';
-import { FastAverageColorResult } from 'fast-average-color';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
 import { RandomImageStore } from '../../shared/component-store/random-image-store.service';
+import { PredominantColor } from '../../shared/interfaces/layout.interface';
 
 @Component({
   selector: 'app-home',
@@ -27,23 +26,20 @@ import { RandomImageStore } from '../../shared/component-store/random-image-stor
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends AbstractComponent implements OnInit {
-  readonly predominantImgColorService = inject(PredominantImgColorService);
-  private readonly randomImageStore = inject(RandomImageStore);
-
-  protected readonly TMDB_ORIGINAL_IMG_URL = inject(
-    IMG_SIZES.TMDB_ORIGINAL_IMG_URL
+  private readonly predominantImgColorService = inject(
+    PredominantImgColorService
   );
-  protected readonly TMDB_PROFILE_1920W_1080H_IMG_URL = inject(
+  private readonly randomImageStore = inject(RandomImageStore);
+  private readonly TMDB_PROFILE_1920W_1080H_IMG_URL = inject(
     IMG_SIZES.TMDB_PROFILE_1920W_1080H_IMG_URL
   );
-
   selectUser$!: Observable<User | null>;
   randomImage$!: Observable<string>;
-
   headerMediaGradient: string = '';
   textColorBlend: string = '';
   backgroundImageStyle: string = '';
   v!: number;
+
   constructor() {
     super();
   }
@@ -59,11 +55,19 @@ export class HomeComponent extends AbstractComponent implements OnInit {
     this.randomImage$ = this.randomImageStore.selectRandomImage$;
   }
   initSubscriptions(): void {
+    this.predominantImgColorService.getPredominantColorObs$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((predominantColor: PredominantColor) => {
+        this.textColorBlend = predominantColor.textColorBlend;
+        this.headerMediaGradient = predominantColor.headerMediaGradient;
+        this.detectChanges();
+      });
+
     this.randomImage$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((imgSrc: string) => {
         this.buildBgStyle(imgSrc);
-        this.evaluatePredominantColor(imgSrc);
+        this.predominantImgColorService.evaluatePredominantColor(imgSrc);
       });
   }
 
@@ -73,51 +77,5 @@ export class HomeComponent extends AbstractComponent implements OnInit {
 
   getFullImageUrl(imgSrc: string) {
     return `${this.TMDB_PROFILE_1920W_1080H_IMG_URL}${imgSrc}`;
-  }
-
-  evaluatePredominantColor(backdropPath: string) {
-    if (backdropPath) {
-      this.predominantImgColorService
-        .evaluatePredominantColor(backdropPath)
-        .pipe(takeUntil(this.destroyed$))
-        .subscribe({
-          next: (colorResult: FastAverageColorResult) => {
-            this.headerMediaGradient = this.getHeaderMediaGradient(
-              colorResult.value
-            );
-
-            this.textColorBlend = this.getTextColorBlend(colorResult.isDark);
-            this.detectChanges();
-          },
-          error: (err) => {
-            this.headerMediaGradient = this.getDefaultColorGradient();
-
-            this.textColorBlend = this.getTextColorBlend(false);
-            this.detectChanges();
-          },
-        });
-    } else {
-      this.headerMediaGradient = this.getDefaultColorGradient();
-
-      this.textColorBlend = this.getTextColorBlend(false);
-      this.detectChanges();
-    }
-  }
-
-  getDefaultColorGradient() {
-    return `linear-gradient(to bottom, rgba(${103},${108},${128}, ${255}), rgba(${103},${108},${128}, ${255}))`;
-  }
-
-  getHeaderMediaGradient(rgbaValue: number[]) {
-    return `linear-gradient(to bottom, rgba(${rgbaValue[0]},${rgbaValue[1]},${
-      rgbaValue[2]
-    }, ${0.8}), rgba(${rgbaValue[0]},${rgbaValue[1]},${rgbaValue[2]}, ${0.7}))`;
-  }
-
-  getTextColorBlend(isDark: boolean) {
-    if (isDark) {
-      return 'var(--text-color-light) !important';
-    }
-    return 'var(--text-color-dark) !important';
   }
 }

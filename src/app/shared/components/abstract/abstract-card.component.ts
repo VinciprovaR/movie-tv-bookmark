@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { AbstractComponent } from './abstract-component.component';
-import { scrollDirection } from '../../interfaces/layout.types';
+import { scrollDirection } from '../../interfaces/layout.interface';
 
 @Directive()
 export abstract class AbstractCardComponent extends AbstractComponent {

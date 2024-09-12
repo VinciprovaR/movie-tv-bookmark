@@ -23,7 +23,6 @@ export class AlertContainerComponent
   implements OnInit
 {
   readonly notifierStore = inject(NotifierStore);
-
   selectAlerts$!: Observable<any>;
 
   constructor() {

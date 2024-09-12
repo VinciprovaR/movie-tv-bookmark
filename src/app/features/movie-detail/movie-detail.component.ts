@@ -38,11 +38,11 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import { MissingFieldPlaceholderComponent } from '../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
-
 import { AuthSelectors } from '../../shared/store/auth';
 import { BookmarkDisabledDialogComponent } from '../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 import { ErrorMessageTemplateComponent } from '../../shared/components/error-message-template/error-message-template.component';
+import { PredominantColor } from '../../shared/interfaces/layout.interface';
 
 @Component({
   selector: 'app-movie-detail',
@@ -75,24 +75,20 @@ export class MovieDetailComponent
 {
   protected readonly bridgeDataService = inject(BridgeDataService);
   readonly movieDetailstore = inject(MovieDetailStore);
-
   movieDetail$!: Observable<MovieDetail | null>;
   isLoading$!: Observable<boolean>;
   isUserAuthenticated$!: Observable<boolean>;
   error$!: Observable<CustomHttpErrorResponseInterface | null>;
-
   @ViewChild('headerMediaDetail')
   headerMediaDetail!: ElementRef;
   @Input({ required: true })
   movieId: number = 0;
-
   errorTitle: string = `Oops! We can't find the page you're looking for`;
   errorMessage: string = `It seems that this movie detail you're searching for doesn't exist.`;
-
   bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
   mediaType: MediaType = 'movie';
-
   movieCreditsPath: string = '';
+
   constructor() {
     super();
   }
@@ -121,6 +117,15 @@ export class MovieDetailComponent
   }
 
   initSubscriptions() {
+    this.predominantImgColorService.getPredominantColorObs$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((predominantColor: PredominantColor) => {
+        this.isDark = predominantColor.isDark;
+        this.textColorBlend = predominantColor.textColorBlend;
+        this.headerMediaGradient = predominantColor.headerMediaGradient;
+        this.detectChanges();
+      });
+
     this.movieDetail$
       .pipe(
         takeUntil(this.destroyed$),
@@ -129,7 +134,7 @@ export class MovieDetailComponent
         })
       )
       .subscribe((backdrop_path: string) => {
-        this.evaluatePredominantColor(backdrop_path);
+        this.predominantImgColorService.evaluatePredominantColor(backdrop_path);
       });
   }
 

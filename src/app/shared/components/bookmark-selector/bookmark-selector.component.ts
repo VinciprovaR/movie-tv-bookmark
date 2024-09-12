@@ -32,7 +32,7 @@ import { MovieData, TVData } from '../../interfaces/supabase/entities';
 import { MatIconModule } from '@angular/material/icon';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractComponent } from '../abstract/abstract-component.component';
-import { scrollDirection } from '../../interfaces/layout.types';
+import { scrollDirection } from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-bookmark-selector',
