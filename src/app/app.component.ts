@@ -24,8 +24,4 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent extends AbstractComponent {
-  constructor() {
-    super();
-  }
-}
+export class AppComponent extends AbstractComponent {}
