@@ -222,15 +222,10 @@ export const routes: Routes = [
 
     title: 'Sign out',
   },
-  {
-    path: '',
-    pathMatch: 'full',
-    canActivate: [redirectGuard],
-    children: [],
-  },
+
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
 ];
