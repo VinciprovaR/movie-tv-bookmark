@@ -6,7 +6,7 @@ import { PredominantColor } from '../interfaces/layout.interface';
 
 /**
  * PredominantImgColorService evaluate the predominant color of
- * a selected image and use it as grdient.
+ * a selected image and use it as gradient.
  *
  */
 @Injectable({ providedIn: 'root' })
