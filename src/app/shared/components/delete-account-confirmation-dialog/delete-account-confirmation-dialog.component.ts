@@ -184,7 +184,7 @@ export class DeleteAccountDialogContentComponent extends AbstractAuthComponent {
     this.passwordValidationForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status: string) => {
-        this.isFormValid = status === 'INVALID';
+        this.isFormValid = status === 'VALID';
       });
   }
 

@@ -120,7 +120,7 @@ export class ResetPasswordComponent
     this.passwordResetForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status: string) => {
-        this.isFormValid = status === 'INVALID';
+        this.isFormValid = status === 'VALID';
       });
   }
 

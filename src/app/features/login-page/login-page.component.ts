@@ -89,7 +89,7 @@ export class LoginPageComponent
     this.loginForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status: string) => {
-        this.isFormValid = status === 'INVALID';
+        this.isFormValid = status === 'VALID';
       });
   }
 

@@ -97,7 +97,7 @@ export class RegisterPageComponent extends AbstractAuthComponent {
     this.registerForm.statusChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe((status: string) => {
-        this.isFormValid = status === 'INVALID';
+        this.isFormValid = status === 'VALID';
       });
   }
 
