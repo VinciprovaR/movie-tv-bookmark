@@ -41,8 +41,12 @@ export abstract class AbstractComponent {
     this.changeDetectorRef.detectChanges();
   }
 
-  scroll(el: HTMLElement) {
-    el.scrollIntoView();
+  scroll(elSm: HTMLElement, elXl: HTMLElement) {
+    if (window.innerWidth <= 1024) {
+      elSm.scrollIntoView();
+    } else {
+      elXl.scrollIntoView();
+    }
   }
 
   redirectTo(path: string) {

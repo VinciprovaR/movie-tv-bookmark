@@ -1,4 +1,4 @@
-<section class="w-[90%] max-w-screen-2xl mx-auto pt-[60px]">
+<section class="w-[90%] max-w-screen-2xl mx-auto pt-[60px]" #elXl>
   <div class="mt-6">
     <h1 class="lg:text-left text-center">{{ title }}</h1>
   </div>
@@ -12,11 +12,12 @@
         [combinedDiscoveryFilters$]="selectCombinedDiscoveryFilters$"
         [mediaType]="mediaType"
         (payloadEmitterOnSubmit)="discoveryMovie($event)"
-        [mediaContainerRef]="mediaContainer"
+        [elSm]="elSm"
+        [elXl]="elXl"
       >
       </app-discovery-movie-filters>
     </div>
-    <div class="lg:w-3/4 ml-0 lg:ml-6 mt-6 lg:mt-0" #mediaContainer>
+    <div class="lg:w-3/4 ml-0 lg:ml-6 mt-6 lg:mt-0" #elSm>
       <app-media-list-container
         [isLoading]="(selectIsLoading$ | async) ?? false"
         [mediaList]="(selectMovieList$ | async) ?? []"

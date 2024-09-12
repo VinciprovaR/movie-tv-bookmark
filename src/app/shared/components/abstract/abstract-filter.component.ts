@@ -37,7 +37,9 @@ export abstract class AbstractFilter<
   payloadEmitterOnSubmit: EventEmitter<T1> = new EventEmitter<T1>();
 
   @Input({ required: true })
-  mediaContainerRef!: HTMLElement;
+  elSm!: HTMLElement;
+  @Input({ required: true })
+  elXl!: HTMLElement;
 
   filterForm!: FormGroup<T2>;
   isHideFilterContainer: boolean = true;

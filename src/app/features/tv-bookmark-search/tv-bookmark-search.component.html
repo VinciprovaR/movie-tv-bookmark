@@ -1,13 +1,14 @@
-<div class="flex flex-col lg:flex-row mt-6">
+<div class="flex flex-col lg:flex-row mt-6" #elXl>
   <div class="lg:w-1/4">
     <app-tv-bookmark-filters
       [sortBySelect]="(selectSortBy$ | async) ?? []"
       [combinedBookmarkFilters$]="selectCombinedBookmarkFilters$"
       (payloadEmitterOnSubmit)="searchTVByBookmarkSubmit($event)"
-      [mediaContainerRef]="mediaContainer"
+      [elSm]="elSm"
+      [elXl]="elXl"
     ></app-tv-bookmark-filters>
   </div>
-  <div class="lg:w-3/4 ml-0 lg:ml-6 mt-6 lg:mt-0" #mediaContainer>
+  <div class="lg:w-3/4 ml-0 lg:ml-6 mt-6 lg:mt-0" #elSm>
     <app-media-list-container
       [mediaList]="(selectTVList$ | async) ?? []"
       [mediaType]="mediaType"

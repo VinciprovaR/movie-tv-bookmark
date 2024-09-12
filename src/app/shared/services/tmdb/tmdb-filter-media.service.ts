@@ -61,8 +61,15 @@ export class TMDBFilterMediaService {
   }
 
   retriveLanguagesList(): Observable<Language[]> {
-    return this.supabaseProxyToTMDBService.callSupabaseFunction<Language[]>({
-      serviceKey: `/configuration/languages`,
-    });
+    return this.supabaseProxyToTMDBService
+      .callSupabaseFunction<Language[]>({
+        serviceKey: `/configuration/languages`,
+      })
+      .pipe(
+        map((result) => {
+          result.sort((a, b) => a.english_name.localeCompare(b.english_name));
+          return result;
+        })
+      );
   }
 }

@@ -117,8 +117,8 @@
   <div class="px-3 py-5">
     <button
       class="button-mt button-mt-role-normal"
-      (keydown)="scroll(mediaContainerRef)"
-      (click)="scroll(mediaContainerRef)"
+      (keydown)="scroll(elSm, elXl)"
+      (click)="scroll(elSm, elXl)"
       type="submit"
       [disabled]="!filterForm.valid || isDisableButton"
     >
