@@ -3,7 +3,7 @@
     <div class="w-full space-y-4">
       <div class="flex justify-between px-4">
         <h2>Confirm Delete Account?</h2>
-        <div class="cursor-pointer" (keydown)="cancel()" (click)="cancel()">
+        <div class="cursor-pointer" (click)="cancel()">
           <mat-icon aria-hidden="false" [fontIcon]="'close'"></mat-icon>
         </div>
       </div>
@@ -129,7 +129,6 @@
             </button>
             <button
               type="button"
-              (keydown)="cancel()"
               (click)="cancel()"
               class="button-mt button-mt-role-normal"
             >
