@@ -35,7 +35,7 @@ npm start
 
 ## Server
 
-The server is implemented with Supabase, a good alternative to Firebase. Used for JWT based authentication, edge functions (Used as proxy to mask the TMDB API key), RPC functions, email notification, CRUD operation and much more.
+The server is implemented with Supabase, a good alternative to Firebase. Used for JWT based authentication, edge functions (Used as proxy to mask the TMDB API key), RPC functions, email notifications and CRUD operations for storing the bookmark saved by the user.
 
 ## What's included
 
