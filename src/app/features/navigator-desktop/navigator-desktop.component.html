@@ -33,7 +33,11 @@
       >
         @for(path of navElement.value.subMenu ; track path.path){
         @if(canRender(path.needAuth)){
-        <li class="sub-el" (click)="hideSubMenu(menuEl)">
+        <li
+          class="sub-el"
+          (keyup)="hideSubMenu(menuEl)"
+          (click)="hideSubMenu(menuEl)"
+        >
           @if(path.path === 'logout'){
           <a
             href="javascript:void(0);"
