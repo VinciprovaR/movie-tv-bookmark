@@ -197,6 +197,4 @@ export class YoutubeEmbededDialogContentComponent
       calculatedWidth < maxWidth ? calculatedWidth : maxWidth;
     this.detectChanges();
   }
-
-  //
 }
