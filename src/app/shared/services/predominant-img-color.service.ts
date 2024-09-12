@@ -1,6 +1,6 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { FastAverageColor, FastAverageColorResult } from 'fast-average-color';
-import { BehaviorSubject, from, Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, from, Subject, takeUntil } from 'rxjs';
 import { IMG_SIZES } from '../../providers';
 import { PredominantColor } from '../interfaces/layout.interface';
 

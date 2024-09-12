@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import {
   AuthResponse,
   AuthTokenResponsePassword,
-  SignOut,
   User,
 } from '@supabase/supabase-js/';
 import { SupabaseAuthService } from '../../services/supabase';

@@ -39,6 +39,8 @@ export class SelectTagComponent
   @Input({ required: true })
   genre!: GenreControl;
 
+  obj: any;
+
   onChange: (value: any) => void = () => {};
   onTouched: Function = () => {};
   isDisabled = false;
@@ -49,7 +51,9 @@ export class SelectTagComponent
   constructor() {
     super();
   }
-  writeValue(obj: any): void {}
+  writeValue(obj: any): void {
+    this.obj = obj;
+  }
 
   registerOnChange(fn: any): void {
     this.onChange = fn;

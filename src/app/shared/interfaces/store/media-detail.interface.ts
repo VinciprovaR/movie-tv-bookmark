@@ -1,8 +1,4 @@
 import {
-  CastMovie,
-  CastTV,
-  CrewMovie,
-  CrewTV,
   MovieCredit,
   MovieDetail,
   TVCredit,
