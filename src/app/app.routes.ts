@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { authGuard, nonAuthGuard } from './shared/guards';
-import { redirectGuard } from './shared/guards/redirect.guard';
 import { authGuardConfirmedEmail } from './shared/guards/authGuardConfirmedEmail';
 
 export const routes: Routes = [
@@ -17,7 +16,6 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () =>
       import('./features/home/home.component').then((m) => m.HomeComponent),
-
     title: 'Home',
   },
   {
@@ -62,10 +60,8 @@ export const routes: Routes = [
       import(
         './features/reset-password/reset-password/reset-password.component'
       ).then((m) => m.ResetPasswordComponent),
-
     title: 'Reset Password ',
   },
-
   {
     path: 'register',
     loadComponent: () =>
@@ -81,7 +77,6 @@ export const routes: Routes = [
       import('./features/movie-search/movie-search.component').then(
         (m) => m.MovieSearchComponent
       ),
-
     title: 'Search Movie',
   },
   {
@@ -90,7 +85,6 @@ export const routes: Routes = [
       import('./features/tv-search/tv-search.component').then(
         (m) => m.TVSearchComponent
       ),
-
     title: 'Search TV',
   },
   {
@@ -99,7 +93,6 @@ export const routes: Routes = [
       import('./features/movie-discovery/movie-discovery.component').then(
         (m) => m.MovieDiscoveryComponent
       ),
-
     title: 'Discovery Movie',
   },
   {
@@ -108,7 +101,6 @@ export const routes: Routes = [
       import('./features/tv-discovery/tv-discovery.component').then(
         (m) => m.TVDiscoveryComponent
       ),
-
     title: 'Discovery TV',
   },
   {
@@ -165,7 +157,6 @@ export const routes: Routes = [
       import('./features/movie-detail/movie-detail.component').then(
         (m) => m.MovieDetailComponent
       ),
-
     title: 'Movie Detail',
   },
   {
@@ -174,7 +165,6 @@ export const routes: Routes = [
       import(
         './features/movie-detail-credits/movie-detail-credits.component'
       ).then((m) => m.MovieDetailCreditsComponent),
-
     title: 'Movie Detail Credits',
   },
   {
@@ -183,7 +173,6 @@ export const routes: Routes = [
       import('./features/tv-detail/tv-detail.component').then(
         (m) => m.TVDetailComponent
       ),
-
     title: 'TV Detail',
   },
   {
@@ -192,7 +181,6 @@ export const routes: Routes = [
       import('./features/tv-detail-credits/tv-detail-credits.component').then(
         (m) => m.TVDetailCreditsComponent
       ),
-
     title: 'TV Detail Credits',
   },
   {
@@ -209,7 +197,6 @@ export const routes: Routes = [
       import('./features/person-detail/person-detail.component').then(
         (m) => m.PersonDetailComponent
       ),
-
     title: 'Person Detail',
   },
   {
@@ -219,7 +206,6 @@ export const routes: Routes = [
         (m) => m.LogoutComponent
       ),
     canActivate: [authGuard],
-
     title: 'Sign out',
   },
 
