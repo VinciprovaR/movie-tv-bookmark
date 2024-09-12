@@ -37,6 +37,7 @@
           @if(path.path === 'logout'){
           <a
             href="javascript:void(0);"
+            (keyup)="logout()"
             (click)="logout()"
             class="block p-2 text-[var(--text-color)]"
             >{{ path.label }}</a

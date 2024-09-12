@@ -21,6 +21,7 @@
             id="mobile-menu-btn"
             aria-hidden="false"
             [fontIcon]="'menu'"
+            (keyup)="toggleNavMenuMobile()"
             (click)="toggleNavMenuMobile()"
             class="focus:outline-none hover:cursor-pointer"
           ></mat-icon> </span
@@ -28,6 +29,7 @@
 
         <span>
           <mat-icon
+            (keyup)="toggleTheme()"
             (click)="toggleTheme()"
             aria-hidden="false"
             class="hover:cursor-pointer"

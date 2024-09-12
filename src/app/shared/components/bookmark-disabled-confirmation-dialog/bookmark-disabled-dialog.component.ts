@@ -87,11 +87,20 @@ export class BookmarkDisabledDialogComponent
     <div class="p-4 overlay-bg rounded-md">
       <div>
         To use the bookmark feature
-        <a (click)="cancel()" [routerLink]="'/login'" class="font-medium">
+        <a
+          (keyup)="cancel()"
+          (click)="cancel()"
+          [routerLink]="'/login'"
+          class="font-medium"
+        >
           Sign In</a
         >
         with your account, or
-        <a (click)="cancel()" [routerLink]="'/register'" class="font-medium"
+        <a
+          (keyup)="cancel()"
+          (click)="cancel()"
+          [routerLink]="'/register'"
+          class="font-medium"
           >Sign Up</a
         >
       </div>

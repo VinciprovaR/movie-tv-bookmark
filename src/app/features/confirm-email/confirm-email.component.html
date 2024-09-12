@@ -46,7 +46,7 @@
 
     <div class="flex px-10">
       @if(!(isUserAuthenticated$ | async)){
-      <div (click)="redirectTo('/login')"></div>
+      <div (keyup)="redirectTo('/login')" (click)="redirectTo('/login')"></div>
 
       <button class="button-mt button-mt-role-normal" type="button">
         Sign In
@@ -55,6 +55,7 @@
       <button
         class="button-mt button-mt-role-normal"
         type="button"
+        (keyup)="redirectTo('/home')"
         (click)="redirectTo('/home')"
       >
         Home</button
