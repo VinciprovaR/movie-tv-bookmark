@@ -1,6 +1,5 @@
 <p align="center">
   <h3 align="center">Movie &amp; TV Bookmark</h3>
-
   <p align="center">
     A front-end skill showcase web-app for searching and saving movie and tv shows. :movie_camera:
     <br>

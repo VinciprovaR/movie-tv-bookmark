@@ -123,6 +123,7 @@ export class MovieDetailComponent
         this.isDark = predominantColor.isDark;
         this.textColorBlend = predominantColor.textColorBlend;
         this.headerMediaGradient = predominantColor.headerMediaGradient;
+        this.contentMediaGradient = predominantColor.contentMediaGradient;
         this.detectChanges();
       });
 

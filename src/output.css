@@ -143,6 +143,10 @@
   left: 0px;
 }
 
+.left-3 {
+  left: 0.75rem;
+}
+
 .left-\[2\%\] {
   left: 2%;
 }
@@ -165,6 +169,10 @@
 
 .top-0 {
   top: 0px;
+}
+
+.top-1\/2 {
+  top: 50%;
 }
 
 .top-2 {
@@ -233,6 +241,16 @@
 .my-1 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .mb-0 {
@@ -367,6 +385,14 @@
   height: 0px;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
+.h-64 {
+  height: 16rem;
+}
+
 .h-8 {
   height: 2rem;
 }
@@ -443,6 +469,10 @@
   width: 0px;
 }
 
+.w-6 {
+  width: 1.5rem;
+}
+
 .w-8 {
   width: 2rem;
 }
@@ -481,10 +511,6 @@
 
 .w-\[8\%\] {
   width: 8%;
-}
-
-.w-\[80\%\] {
-  width: 80%;
 }
 
 .w-\[90\%\] {
@@ -547,6 +573,10 @@
   max-width: 450px;
 }
 
+.max-w-md {
+  max-width: 28rem;
+}
+
 .max-w-sm {
   max-width: 24rem;
 }
@@ -561,6 +591,11 @@
 
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .transform {
@@ -765,10 +800,6 @@
   border-radius: 0.375rem;
 }
 
-.border {
-  border-width: 1px;
-}
-
 .border-0 {
   border-width: 0px;
 }
@@ -783,11 +814,6 @@
 
 .border-none {
   border-style: none;
-}
-
-.border-gray-400 {
-  --tw-border-opacity: 1;
-  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
 .border-red-600 {
@@ -806,6 +832,10 @@
 
 .bg-\[var\(--bg-failure-container\)\] {
   background-color: var(--bg-failure-container);
+}
+
+.bg-\[var\(--bg-input-search\)\] {
+  background-color: var(--bg-input-search);
 }
 
 .bg-\[var\(--bg-page-section\)\] {
@@ -871,6 +901,10 @@
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-8 {
+  padding: 2rem;
 }
 
 .px-1 {
@@ -968,8 +1002,8 @@
   padding-right: 0.5rem;
 }
 
-.pr-4 {
-  padding-right: 1rem;
+.pt-2 {
+  padding-top: 0.5rem;
 }
 
 .pt-3 {
@@ -1038,6 +1072,10 @@
   font-weight: 700;
 }
 
+.font-extrabold {
+  font-weight: 800;
+}
+
 .font-medium {
   font-weight: 500;
 }
@@ -1099,6 +1137,10 @@
   color: var(--text-color-light);
 }
 
+.text-\[var\(--text-gray\)\] {
+  color: var(--text-gray);
+}
+
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -1107,6 +1149,11 @@
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.text-indigo-500 {
+  --tw-text-opacity: 1;
+  color: rgb(99 102 241 / var(--tw-text-opacity));
 }
 
 .text-white {
@@ -1205,9 +1252,11 @@
 /*****************************************/
 
 :root {
+  --bg-button: rgb(79, 70, 229);
+  --bg-button-hover: rgb(105, 99, 231);
   --border-radius-ext: 7.2px;
   --border-radius-int: 6.2px;
-  --text-color-light: rgb(215, 218, 223);
+  --text-color-light: rgb(255, 255, 255);
   --text-color-dark: rgb(0, 27, 63);
   --bg-veil-media-detail: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(49, 51, 53);
@@ -1225,17 +1274,19 @@
 }
 
 body.light-theme {
-  --theme-color-1: rgb(255, 255, 255);
-  --theme-color-2: rgb(215, 227, 255);
-  --theme-color-2-hover: rgb(168, 195, 254);
-  --theme-color-2-focus: rgb(168, 195, 254);
-  --theme-color-3: rgb(223, 219, 224);
+  --theme-color-1: rgb(243, 244, 246);
+  --theme-color-2: rgb(165, 180, 252);
+  --theme-color-3: rgb(255, 255, 255);
+  --theme-color-sub-menu: rgb(226, 226, 226);
+  --border-color: rgba(209, 213, 219);
+  --link-color: rgb(99, 102, 241);
+  --link-color-hover: rgb(134, 136, 240);
+  --text-gray: rgb(75, 85, 99);
+  --bg-input-search: rgb(249, 250, 251);
   --bg-bookmark-icon: rgba(255, 255, 255, 0.85);
   --header-li-color: rgb(0, 92, 187);
   --bg-page-section: rgb(250, 250, 250);
   --text-color: var(--text-color-dark);
-  --link-color: rgb(0, 154, 197);
-  --border-color: rgb(214, 194, 197);
   --border-color-separator: rgb(132, 115, 118);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(32, 33, 34);
@@ -1248,21 +1299,23 @@ body.light-theme {
 }
 
 body.dark-theme {
-  --theme-color-1: rgb(25, 28, 28);
-  --theme-color-2: rgb(0, 80, 80);
-  --theme-color-2-hover: rgb(0, 110, 110);
-  --theme-color-2-focus: rgb(0, 142, 142);
-  --theme-color-3: rgb(35, 39, 39);
+  --theme-color-1: rgb(17, 24, 39);
+  --theme-color-2: rgb(28, 44, 66);
+  --border-color: rgba(55, 65, 81);
+  --theme-color-3: rgb(31, 41, 55);
+  --theme-color-sub-menu: rgb(47, 61, 82);
+  --bg-input-search: rgb(31, 41, 55);
+  --link-color: rgb(99, 102, 241);
+  --link-color-hover: rgb(134, 136, 240);
+  --text-gray: rgb(177, 186, 199);
   --bg-bookmark-icon: rgb(18, 20, 20, 0.85);
   --header-li-color: rgb(0, 221, 221);
   --bg-page-section: rgb(40, 40, 40);
   --text-color: var(--text-color-light);
-  --link-color: rgb(1, 180, 228);
-  --border-color: rgb(63, 73, 72);
   --border-color-separator: rgb(136, 147, 146);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(185, 185, 185);
-  --bg-li-hover: rgb(70, 78, 78);
+  --bg-li-hover: rgb(21, 28, 37);
   --scroll-background-color: rgb(23, 23, 23);
   --scroll-thumb-active-color: rgb(128, 128, 128);
   --scroll-thumb-hover-color: rgb(112, 112, 112);
@@ -1283,7 +1336,9 @@ body {
   font-size: 16px;
   height: auto;
   margin: 0px;
-  font-family: Roboto, Arial, sans-serif;
+  /* font-family: Roboto, Arial, sans-serif; */
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   background-color: var(--theme-color-1);
   color: var(--text-color);
   transition: all 0.1s;
@@ -1392,7 +1447,7 @@ h5 {
   font-size: 0.9rem;
   font-weight: 250;
   margin: 0px;
-  color: rgb(156, 163, 175);
+  color: var(--text-gray);
 }
 
 p,
@@ -1414,11 +1469,12 @@ button.button-mt {
   border-radius: 0.375rem;
   width: 100%;
   border-color: transparent;
+  font-size: 0.9rem;
 }
 
 button.button-mt.button-mt-role-normal {
-  color: var(--text-color);
-  background-color: var(--theme-color-2);
+  color: var(--text-color-light);
+  background-color: var(--bg-button);
 }
 
 button.button-mt.button-mt-role-normal:active {
@@ -1432,7 +1488,7 @@ button.button-mt.button-mt-role-danger {
 
 @media (hover: hover) and (pointer: fine) {
   button.button-mt.button-mt-role-normal:hover {
-    background-color: var(--theme-color-2-hover);
+    background-color: var(--bg-button-hover);
   }
 
   button.button-mt.button-mt-role-danger:hover {
@@ -1480,6 +1536,13 @@ button.button-mt:disabled {
   border-style: solid;
   border-width: 1px;
   border-radius: var(--border-radius-ext);
+}
+
+.border-container-full {
+  border-color: var(--border-color);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 9999px;
 }
 
 .border-container-no-color {
@@ -1828,12 +1891,22 @@ youtube-player div:first-child {
   cursor: pointer;
 }
 
+.hover\:text-indigo-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
 
 .hover\:opacity-80:hover {
   opacity: 0.8;
+}
+
+.focus\:border-indigo-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(99 102 241 / var(--tw-border-opacity));
 }
 
 .focus\:outline-none:focus {
@@ -1858,6 +1931,11 @@ youtube-player div:first-child {
 .focus\:ring-blue-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-indigo-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(99 102 241 / var(--tw-ring-opacity));
 }
 
 @media (min-width: 205px) {
@@ -1984,6 +2062,10 @@ youtube-player div:first-child {
     width: 80%;
   }
 
+  .sm\:w-\[95\%\] {
+    width: 95%;
+  }
+
   .sm\:w-auto {
     width: auto;
   }
@@ -2027,6 +2109,10 @@ youtube-player div:first-child {
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
 
+  .sm\:rounded-lg {
+    border-radius: 0.5rem;
+  }
+
   .sm\:rounded-md {
     border-radius: 0.375rem;
   }
@@ -2038,6 +2124,11 @@ youtube-player div:first-child {
   .sm\:py-0 {
     padding-top: 0px;
     padding-bottom: 0px;
+  }
+
+  .sm\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .sm\:text-5xl {
@@ -2067,6 +2158,11 @@ youtube-player div:first-child {
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 
   .md\:text-5xl {
@@ -2204,9 +2300,5 @@ youtube-player div:first-child {
 
   .lg\:p-8 {
     padding: 2rem;
-  }
-
-  .lg\:text-left {
-    text-align: left;
   }
 }

@@ -1,126 +1,136 @@
-<div class="flex flex-col items-center auth-wrapper pt-[60px]">
+<section class="flex flex-col items-center pt-[60px]">
   @if(selectMessageSuccessOperation$ | async; as selectMessageSuccessOperation){
-  <div class="w-[95%] max-w-sm pt-8">
+  <div class="pt-8 w-full max-w-md">
     <app-success-message-template
       [message]="selectMessageSuccessOperation"
     ></app-success-message-template>
   </div>
-
   }
-  <div class="w-[95%] max-w-sm pt-8">
-    <div class="flex-none">
-      <div class="bg-[var(--theme-color-3)] p-6 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
-        <div
-          class="flex-1 mb-4 transition-all duration-250 transform"
-          #errorContainer
-        >
-          @if(submitted && !isFormValid){
-          <div class="bg-[var(--bg-failure-container)] text-sm p-3 rounded-md">
-            <div class="flex space-x-2">
-              <div>
-                <mat-icon
-                  class="text-[var(--failure-icon-color)]"
-                  aria-hidden="false"
-                  fontIcon="error"
-                ></mat-icon>
-              </div>
-              <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
-                @if(loginForm.get('email')?.errors){
-                @if(loginForm.get('email')?.hasError('required') ){
-                <li><mat-error>Please enter your email</mat-error></li>
-                } @if(loginForm.get('email')?.hasError('email')){
-                <li><mat-error>Invalid email address</mat-error></li>
-                } } @if(loginForm.get('password')?.hasError('required') ){
-                <li><mat-error>Please enter your password</mat-error></li>
-                }
-              </ul>
+  <div class="w-full sm:w-[95%] max-w-md pt-8">
+    <div class="bg-[var(--theme-color-3)] p-8 sm:rounded-lg shadow-lg">
+      <h2 class="text-center text-3xl font-extrabold">
+        Sign in to your account
+      </h2>
+      <div class="my-4 transition-all duration-250 transform" #errorContainer>
+        @if(submitted && !isFormValid){
+        <div class="bg-[var(--bg-failure-container)] text-sm p-3 rounded-md">
+          <div class="flex space-x-2">
+            <div>
+              <mat-icon
+                class="text-[var(--failure-icon-color)]"
+                aria-hidden="false"
+                fontIcon="error"
+              ></mat-icon>
             </div>
+            <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
+              @if(loginForm.get('email')?.errors){
+              @if(loginForm.get('email')?.hasError('required') ){
+              <li><mat-error>Please enter your email</mat-error></li>
+              } @if(loginForm.get('email')?.hasError('email')){
+              <li><mat-error>Invalid email address</mat-error></li>
+              } } @if(loginForm.get('password')?.hasError('required') ){
+              <li><mat-error>Please enter your password</mat-error></li>
+              }
+            </ul>
           </div>
-          }
         </div>
-        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium" for="email">Email</label>
-            <div class="relative">
-              <input
-                [ngClass]="{
-                  'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
-                    !isEmailError,
-                  'border-1 border-red-600 focus:outline-0 ': isEmailError
-                }"
-                autocomplete="username"
-                type="email"
-                id="email"
-                formControlName="email"
-                class="pl-12 mt-1 block w-full box-border px-3 py-2 rounded-md placeholder-gray-400 sm:text-sm"
-              />
-              <div
-                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-              >
-                <mat-icon
-                  class="text-[var(--icon-color)]"
-                  aria-hidden="false"
-                  fontIcon="contact_mail"
-                ></mat-icon>
-              </div>
-            </div>
-          </div>
-          <div>
-            <label class="block text-sm font-medium" for="password"
-              >Password</label
+        }
+      </div>
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="space-y-4">
+        <div>
+          <label for="email" class="block text-sm font-medium"
+            >Email address</label
+          >
+          <div class="relative">
+            <input
+              [ngClass]="{
+                'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
+                  !isEmailError,
+                'border-1 border-red-600 focus:outline-0 ': isEmailError
+              }"
+              autocomplete="username"
+              type="email"
+              id="email"
+              formControlName="email"
+              class="pl-12 mt-1 block w-full box-border border-container px-3 py-2 rounded-md placeholder-gray-400 sm:text-sm"
+            />
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
             >
-            <div class="relative">
-              <input
-                [ngClass]="{
-                  'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
-                    !isPasswordError,
-                  'border-1 border-red-600 focus:outline-0 ': isPasswordError
-                }"
-                autocomplete="current-password"
-                type="password"
-                id="password"
-                formControlName="password"
-                class="pl-12 mt-1 block w-full box-border px-3 py-2 rounded-md placeholder-gray-400 sm:text-sm"
-              />
-              <div
-                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-              >
-                <mat-icon
-                  class="text-[var(--icon-color)]"
-                  aria-hidden="false"
-                  fontIcon="lock"
-                ></mat-icon>
-              </div>
+              <mat-icon
+                class="text-[var(--icon-color)]"
+                aria-hidden="false"
+                fontIcon="contact_mail"
+              ></mat-icon>
             </div>
           </div>
-          <div class="flex items-center justify-between">
-            <div class="text-sm">
-              <a [routerLink]="'/reset-password-request'" class="font-medium"
-                >Forgot your password?
-              </a>
+        </div>
+        <div>
+          <label class="block text-sm font-medium" for="password"
+            >Password</label
+          >
+          <div class="relative">
+            <input
+              [ngClass]="{
+                'outline-[var(--theme-color-2)] border-0 focus:outline outline-[3px]':
+                  !isEmailError,
+                'border-1 border-red-600 focus:outline-0 ': isEmailError
+              }"
+              autocomplete="current-password"
+              type="password"
+              id="password"
+              formControlName="password"
+              class="pl-12 mt-1 block w-full box-border border-container px-3 py-2 rounded-md placeholder-gray-400 sm:text-sm"
+            />
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <mat-icon
+                class="text-[var(--icon-color)]"
+                aria-hidden="false"
+                fontIcon="lock"
+              ></mat-icon>
             </div>
           </div>
-          <button class="button-mt button-mt-role-normal" type="submit">
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-[var(--text-gray)]">
+            <a [routerLink]="'/reset-password-request'" class="font-medium"
+              >Forgot your password?
+            </a>
+          </div>
+        </div>
+        <div>
+          <button
+            class="button-mt button-mt-role-normal font-medium"
+            type="submit"
+          >
             Sign in
           </button>
+        </div>
+        <div class="pt-2 space-y-4">
           <div class="border-separator"></div>
-          <div class="flex items-center justify-between">
-            <div class="text-sm">
-              <span>Don't have an account? </span>
-              <a [routerLink]="'/register'" class="font-medium"> Create one</a>
-            </div>
+
+          <div class="space-y-4">
+            <p class="text-center text-sm text-[var(--text-gray)]">
+              Don't have an account?
+              <a
+                [routerLink]="'/register'"
+                class="font-medium text-indigo-500 hover:text-indigo-400"
+                >Sign up</a
+              >
+            </p>
+            <p class="text-center text-sm text-[var(--text-gray)]">
+              Verification email not arrived?
+              <a
+                [routerLink]="'/resend-confirmation-email'"
+                class="font-medium text-indigo-500 hover:text-indigo-400"
+                >Send it again</a
+              >
+            </p>
           </div>
-          <div class="flex items-center justify-between">
-            <div class="text-sm">
-              <span>Verification email not arrived? </span>
-              <a [routerLink]="'/resend-confirmation-email'" class="font-medium"
-                >Send it again
-              </a>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
-</div>
+</section>

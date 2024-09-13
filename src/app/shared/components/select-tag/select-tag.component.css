@@ -12,5 +12,5 @@
 }
 
 .tag-selected {
-  background-color: var(--theme-color-2);
+  background-color: var(--bookmark-icon-selected);
 }

@@ -13,9 +13,9 @@ import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
 import { PersonCardComponent } from '../person-card/person-card.component';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AbstractComponent } from '../abstract/abstract-component.component';
+import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 
 @Component({
   selector: 'app-person-list-container',
@@ -24,7 +24,7 @@ import { AbstractComponent } from '../abstract/abstract-component.component';
     CommonModule,
     PersonCardComponent,
     CastCrewCardComponent,
-    MissingFieldPlaceholderComponent,
+    NoSearchFoundComponent,
     MatProgressSpinnerModule,
     InfiniteScrollModule,
   ],
@@ -45,9 +45,10 @@ export class PersonListContainerComponent
   noAdditional: boolean = false;
   @Input({ required: true })
   personList!: Person[];
-  @Input()
-  @Input()
-  placeholder!: string;
+
+  titleNotFound!: string;
+
+  captionNotFound!: string;
 
   gridCol: string = '';
   crewIdList: number[] = [];
@@ -57,7 +58,8 @@ export class PersonListContainerComponent
   }
 
   ngOnInit(): void {
-    this.placeholder = `No people were found that match your query.`;
+    this.captionNotFound = ` We couldn't find any person matching your search. Try searching with different keywords`;
+    this.titleNotFound = `No person found`;
   }
 
   discoveryAdditionalPeople() {

@@ -15,10 +15,10 @@ import {
 import { MovieData, TVData } from '../../interfaces/supabase/entities';
 import { MediaCardComponent } from '../media-card/media-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.interface';
+import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 
 @Component({
   selector: 'app-media-list-container',
@@ -27,7 +27,7 @@ import { scrollDirection } from '../../interfaces/layout.interface';
     CommonModule,
     MediaCardComponent,
     InfiniteScrollModule,
-    MissingFieldPlaceholderComponent,
+    NoSearchFoundComponent,
     MatProgressSpinnerModule,
   ],
   templateUrl: './media-list-container.component.html',
@@ -47,8 +47,10 @@ export class MediaListContainerComponent
   mediaList!: Movie[] | MovieData[] | TV[] | TVData[];
   @Input({ required: true })
   mediaType!: MediaType;
+  titleNotFound!: string;
+  captionNotFound!: string;
   @Input()
-  placeholder!: string;
+  captionNotFoundCustom!: string;
   @Input()
   scrollSelf: boolean = false;
   @Input()
@@ -69,7 +71,10 @@ export class MediaListContainerComponent
   }
 
   ngOnInit(): void {
-    this.placeholder = `No ${this.mediaType} were found that match your query.`;
+    this.captionNotFound = this.captionNotFoundCustom
+      ? this.captionNotFoundCustom
+      : `We couldn't find any ${this.mediaType} matching your search. Try searching with different keywords`;
+    this.titleNotFound = `No ${this.mediaType} found`;
   }
 
   discoveryAdditionalMedia() {

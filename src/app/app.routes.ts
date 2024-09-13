@@ -118,7 +118,7 @@ export const routes: Routes = [
         './shared/components/media-bookmark-search/media-bookmark-search.component'
       ).then((m) => m.MediaBookmarkSearchComponent),
     canActivate: [authGuard],
-    title: 'Movie Bookmarks',
+    title: 'Your Movie Bookmarks',
     children: [
       {
         path: '',
@@ -142,7 +142,7 @@ export const routes: Routes = [
         './shared/components/media-bookmark-search/media-bookmark-search.component'
       ).then((m) => m.MediaBookmarkSearchComponent),
     canActivate: [authGuard],
-    title: 'TV Bookmarks',
+    title: 'Your TV Bookmarks',
     children: [
       {
         path: '',

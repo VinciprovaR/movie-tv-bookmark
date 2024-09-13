@@ -1,17 +1,18 @@
-<section class="w-[90%] max-w-screen-2xl mx-auto pt-[60px]">
-  <div class="mt-6 block lg:hidden">
-    <h1 class="text-center">{{ title }}</h1>
+<section class="pt-[60px]">
+  <div class="bg-[var(--bg-input-search)] p-6 shadow-md">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center">
+      {{ title }}
+    </h1>
   </div>
-  <div class="flex flex-col lg:flex-row mt-6 items-center">
-    <div class="hidden lg:block lg:w-1/4">
-      <h1>{{ title }}</h1>
+  <div class="w-[90%] max-w-screen-2xl mx-auto">
+    <div class="flex flex-col mt-6 items-center">
+      <div class="ml-0 lg:ml-6 lg:mt-0">
+        <app-bookmark-navigator
+          [bookmarkNavElements]="bookmarkNavElements"
+        ></app-bookmark-navigator>
+      </div>
     </div>
-    <div class="lg:w-3/4 ml-0 lg:ml-6 lg:mt-0">
-      <app-bookmark-navigator
-        [bookmarkNavElements]="bookmarkNavElements"
-      ></app-bookmark-navigator>
-    </div>
-  </div>
 
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+  </div>
 </section>

@@ -17,6 +17,7 @@ export class PredominantImgColorService {
     headerMediaGradient: '',
     isDark: false,
     textColorBlend: '',
+    contentMediaGradient: '',
   });
   getPredominantColorObs$ = this.getPredominantColor$.asObservable();
   fac: FastAverageColor = new FastAverageColor();
@@ -32,6 +33,7 @@ export class PredominantImgColorService {
   }
 
   evaluatePredominantColor(backdropPath: string): void {
+    let contentMediaGradient = '';
     let headerMediaGradient = '';
     let isDark = false;
     let textColorBlend = '';
@@ -51,37 +53,46 @@ export class PredominantImgColorService {
             headerMediaGradient = this.getHeaderMediaGradient(
               colorResult.value
             );
+            contentMediaGradient = this.getContentMediaGradient(
+              colorResult.value
+            );
             textColorBlend = this.getTextColorBlend(colorResult.isDark);
             this.getPredominantColor$.next({
               headerMediaGradient,
               isDark,
               textColorBlend,
+              contentMediaGradient,
             });
           },
           error: (err) => {
-            isDark = false;
+            isDark = true;
             headerMediaGradient = this.getDefaultColorGradient();
-            textColorBlend = this.getTextColorBlend(false);
+            contentMediaGradient = this.getDefaultColorGradient();
+            textColorBlend = this.getTextColorBlend(isDark);
             this.getPredominantColor$.next({
               headerMediaGradient,
               isDark,
               textColorBlend,
+              contentMediaGradient,
             });
           },
         });
     } else {
-      isDark = false;
+      isDark = true;
       headerMediaGradient = this.getDefaultColorGradient();
-      textColorBlend = this.getTextColorBlend(false);
+      contentMediaGradient = this.getDefaultColorGradient();
+      textColorBlend = this.getTextColorBlend(isDark);
       this.getPredominantColor$.next({
         headerMediaGradient,
         isDark,
         textColorBlend,
+        contentMediaGradient,
       });
     }
   }
 
   getDefaultColorGradient() {
+    console.log('default color gradient');
     return `linear-gradient(to bottom, rgba(${103},${108},${128}, ${255}), rgba(${103},${108},${128}, ${255}))`;
   }
 
@@ -89,6 +100,12 @@ export class PredominantImgColorService {
     return `linear-gradient(to bottom, rgba(${rgbaValue[0]},${rgbaValue[1]},${
       rgbaValue[2]
     }, ${0.8}), rgba(${rgbaValue[0]},${rgbaValue[1]},${rgbaValue[2]}, ${0.7}))`;
+  }
+
+  getContentMediaGradient(rgbaValue: number[]) {
+    return `linear-gradient(to bottom, rgba(${rgbaValue[0]},${rgbaValue[1]},${
+      rgbaValue[2]
+    }, ${1}), rgba(${rgbaValue[0]},${rgbaValue[1]},${rgbaValue[2]}, ${1}))`;
   }
 
   getTextColorBlend(isDark: boolean) {

@@ -14,6 +14,9 @@
       [mediaType]="mediaType"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [direction]="'vertical'"
+      [captionNotFoundCustom]="
+        'We couldn\'t find any tv matching for this bookmark. Add something in this bookmark!'
+      "
     ></app-media-list-container>
   </div>
 </div>

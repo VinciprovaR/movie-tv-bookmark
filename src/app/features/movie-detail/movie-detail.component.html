@@ -33,7 +33,7 @@
               : '',
           'background-color':
             ((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024
-              ? 'var(--bg-veil-media-detail)'
+              ? 'rgba(0, 0, 0, 0.411)'
               : ''
         }"
         [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"

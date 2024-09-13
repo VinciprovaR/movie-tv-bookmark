@@ -119,6 +119,7 @@ export class TVDetailComponent
         this.isDark = predominantColor.isDark;
         this.textColorBlend = predominantColor.textColorBlend;
         this.headerMediaGradient = predominantColor.headerMediaGradient;
+        this.contentMediaGradient = predominantColor.contentMediaGradient;
         this.detectChanges();
       });
 

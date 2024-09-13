@@ -31,9 +31,11 @@
 
   } @else { @if(!isLoading){
   <div class="flex justify-center">
-    <app-missing-field-placeholder
-      [caption]="placeholder"
-    ></app-missing-field-placeholder>
+    <app-no-search-found
+      [title]="titleNotFound"
+      [caption]="captionNotFound"
+      [icon]="'tv_off'"
+    ></app-no-search-found>
   </div>
   } }
 </div>

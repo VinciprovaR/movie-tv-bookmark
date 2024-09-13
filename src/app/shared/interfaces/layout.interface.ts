@@ -10,6 +10,7 @@ export type arrowType = 'up' | 'right' | 'down' | 'left';
 
 export interface PredominantColor {
   headerMediaGradient: string;
+  contentMediaGradient: string;
   isDark: boolean;
   textColorBlend: string;
 }

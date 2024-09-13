@@ -61,7 +61,9 @@ export class VideosContainerComponent
   videoTypeFilter!: { videosType: string[]; typeFilter: 'include' | 'exlude' };
   @Input({ required: true })
   mediaType!: MediaType;
-  placeholder: string = '';
+
+  placeholderNotFound: string = '';
+  titleNotFound: string = '';
   //Others members
   private window!: Window;
   videoList: Video[] = [];
@@ -74,7 +76,7 @@ export class VideosContainerComponent
   }
 
   ngOnInit(): void {
-    this.placeholder = `No ${this.title.toLowerCase()} found for this ${
+    this.placeholderNotFound = ` We couldn't find any ${this.title.toLowerCase()} for this ${
       this.mediaType
     }`;
     this.window = window;
