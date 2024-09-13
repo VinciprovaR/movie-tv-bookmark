@@ -78,7 +78,7 @@ export class SupabaseAuthService {
             })
           );
         }
-        //session is not present in local storage, user is null, no login
+        //session is not present in local storage, user is null
         return of(null);
       })
     );
