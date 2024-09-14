@@ -9,10 +9,20 @@ export const cleanState = createAction('[Discovery-tv] Clean State');
 export const discoveryTVLanding = createAction(
   '[Discovery-tv] Discovery TV Landing Init'
 );
+export const discoveryTVLandingSuccess = createAction(
+  '[Discovery-tv] Discovery TV Landing Success',
+  props<{ tvResult: TVResult }>()
+);
+export const discoveryTVLandingFailure = createAction(
+  '[Discovery-TV] Discovery TV Landing Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+);
+
 export const discoveryTV = createAction(
   '[Discovery-tv] Discovery TV Init',
   props<{ payload: PayloadDiscoveryTV }>()
 );
+
 export const discoveryTVSuccess = createAction(
   '[Discovery-tv] Discovery TV Success',
   props<{ tvResult: TVResult }>()

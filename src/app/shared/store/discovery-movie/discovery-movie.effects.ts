@@ -36,13 +36,13 @@ export class DiscoveryMovieEffects {
             return of(movieResult);
           }),
           map((movieResult: MovieResult) => {
-            return DiscoveryMovieActions.discoveryMovieSuccess({
+            return DiscoveryMovieActions.discoveryMovieLandingSuccess({
               movieResult: movieResult,
             });
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
-              DiscoveryMovieActions.discoveryMovieFailure({
+              DiscoveryMovieActions.discoveryMovieLandingFailure({
                 httpErrorResponse,
               })
             );

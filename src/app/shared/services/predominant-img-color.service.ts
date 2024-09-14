@@ -92,7 +92,6 @@ export class PredominantImgColorService {
   }
 
   getDefaultColorGradient() {
-    console.log('default color gradient');
     return `linear-gradient(to bottom, rgba(${103},${108},${128}, ${255}), rgba(${103},${108},${128}, ${255}))`;
   }
 

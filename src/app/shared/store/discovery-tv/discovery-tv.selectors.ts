@@ -55,3 +55,8 @@ export const selectNoAdditional = createSelector(
   discoveryTVFeatureSelector,
   DiscoveryTVReducer.getNoAdditional
 );
+
+export const selectIsFirstLanding = createSelector(
+  discoveryTVFeatureSelector,
+  DiscoveryTVReducer.getIsFirstLanding
+);

@@ -9,6 +9,15 @@ export const cleanState = createAction('[Discovery-movie] Clean State');
 export const discoveryMovieLanding = createAction(
   '[Discovery-movie] Discovery Movie Landing Init'
 );
+export const discoveryMovieLandingSuccess = createAction(
+  '[Discovery-Movie] Discovery Movie Landing Success',
+  props<{ movieResult: MovieResult }>()
+);
+export const discoveryMovieLandingFailure = createAction(
+  '[Discovery-Movie] Discovery Movie Landing Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+);
+
 export const discoveryMovie = createAction(
   '[Discovery-movie] Discovery Movie Init',
   props<{ payload: PayloadDiscoveryMovie }>()

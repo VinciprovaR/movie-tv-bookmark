@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './biography.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BiographyComponent extends AbstractComponent implements OnInit {
+export class BiographyComponent extends AbstractComponent {
   @ViewChild('textContainer')
   textContainer!: ElementRef;
 
@@ -34,9 +34,6 @@ export class BiographyComponent extends AbstractComponent implements OnInit {
 
   constructor() {
     super();
-  }
-  ngOnInit(): void {
-    console.log(this.biography);
   }
 
   splitByDoubleNewline(text: string): string[] {

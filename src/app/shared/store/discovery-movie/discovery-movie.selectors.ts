@@ -56,3 +56,8 @@ export const selectNoAdditional = createSelector(
   discoveryMovieFeatureSelector,
   DiscoveryMovieReducer.getNoAdditional
 );
+
+export const selectIsFirstLanding = createSelector(
+  discoveryMovieFeatureSelector,
+  DiscoveryMovieReducer.getIsFirstLanding
+);

@@ -34,13 +34,13 @@ export class DiscoveryTVEffects {
             return of(tvResult);
           }),
           map((tvResult: TVResult) => {
-            return DiscoveryTVActions.discoveryTVSuccess({
+            return DiscoveryTVActions.discoveryTVLandingSuccess({
               tvResult: tvResult,
             });
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
-              DiscoveryTVActions.discoveryTVFailure({
+              DiscoveryTVActions.discoveryTVLandingFailure({
                 httpErrorResponse,
               })
             );

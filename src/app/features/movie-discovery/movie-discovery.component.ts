@@ -63,25 +63,34 @@ export class MovieDiscoveryComponent
   selectLanguageList$!: Observable<Language[]>;
   selectSortBy$!: Observable<OptionFilter[]>;
   selectNoAdditional$!: Observable<boolean>;
+  selectIsFirstLanding$!: Observable<boolean>;
   title = 'Movie Discovery';
   mediaType: MediaType = 'movie';
+  isFirstLanding: boolean = true;
 
   constructor() {
     super();
   }
 
   ngAfterViewInit(): void {
-    this.discoveryMovieLanding();
+    if (this.isFirstLanding) {
+      this.discoveryMovieLanding();
+    }
   }
 
   ngOnInit(): void {
     this.initSelectors();
+    this.initSubscriptions();
     this.initDataBridge();
   }
 
   initSelectors() {
     this.selectIsLoading$ = this.store.select(
       DiscoveryMovieSelectors.selectIsLoading
+    );
+
+    this.selectIsFirstLanding$ = this.store.select(
+      DiscoveryMovieSelectors.selectIsFirstLanding
     );
 
     this.selectMovieBookmarkMap$ = this.store.select(
@@ -112,6 +121,14 @@ export class MovieDiscoveryComponent
     this.selectNoAdditional$ = this.store.select(
       DiscoveryMovieSelectors.selectNoAdditional
     );
+  }
+
+  initSubscriptions() {
+    this.selectIsFirstLanding$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isFirstLanding: boolean) => {
+        this.isFirstLanding = isFirstLanding;
+      });
   }
 
   initDataBridge() {

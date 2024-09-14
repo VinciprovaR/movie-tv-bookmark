@@ -10,7 +10,7 @@ import {
 } from './shared/interfaces/navigator.interface';
 import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
 import { SupabaseAuthEventsService } from './shared/services/supabase-auth-events.service';
-import { ToggleThemeStore } from './shared/component-store';
+import { NotifierStore, ToggleThemeStore } from './shared/component-store';
 import { GlobalErrorStore } from './shared/component-store/global-error-store.service';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
@@ -112,10 +112,16 @@ export function provideInitRootServices() {
       (
         a: SupabaseAuthEventsService,
         b: GlobalErrorStore,
-        c: ToggleThemeStore
+        c: ToggleThemeStore,
+        d: NotifierStore
       ) =>
       () => {},
-    deps: [SupabaseAuthEventsService, ToggleThemeStore, GlobalErrorStore],
+    deps: [
+      SupabaseAuthEventsService,
+      ToggleThemeStore,
+      GlobalErrorStore,
+      NotifierStore,
+    ],
     multi: true,
   };
 }

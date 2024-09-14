@@ -54,35 +54,41 @@ export class TVDiscoveryComponent
   implements OnInit, AfterViewInit
 {
   private readonly bridgeDataService = inject(BridgeDataService);
-
-  title = 'TV Discovery';
-
-  mediaType: MediaType = 'tv';
-
   selectIsLoading$!: Observable<boolean>;
   selectNoAdditional$!: Observable<boolean>;
+  selectIsFirstLanding$!: Observable<boolean>;
   selectTVList$!: Observable<TV[]>;
   selectTVBookmarkMap$!: Observable<TVBookmarkMap>;
   selectCombinedDiscoveryFilters$!: Observable<[PayloadDiscoveryTV, Genre[]]>;
   selectCertificationList$!: Observable<Certification[]>;
   selectLanguageList$!: Observable<Language[]>;
   selectSortBy$!: Observable<OptionFilter[]>;
+  title = 'TV Discovery';
+  mediaType: MediaType = 'tv';
+  isFirstLanding: boolean = true;
 
   constructor() {
     super();
   }
   ngAfterViewInit(): void {
-    this.discoveryTVLanding();
+    if (this.isFirstLanding) {
+      this.discoveryTVLanding();
+    }
   }
 
   ngOnInit(): void {
     this.initSelectors();
     this.initDataBridge();
+    this.initSubscriptions();
   }
 
   initSelectors() {
     this.selectIsLoading$ = this.store.select(
       DiscoveryTVSelectors.selectIsLoading
+    );
+
+    this.selectIsFirstLanding$ = this.store.select(
+      DiscoveryTVSelectors.selectIsFirstLanding
     );
 
     this.selectTVBookmarkMap$ = this.store.select(
@@ -106,6 +112,14 @@ export class TVDiscoveryComponent
     this.selectNoAdditional$ = this.store.select(
       DiscoveryTVSelectors.selectNoAdditional
     );
+  }
+
+  initSubscriptions() {
+    this.selectIsFirstLanding$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isFirstLanding: boolean) => {
+        this.isFirstLanding = isFirstLanding;
+      });
   }
 
   initDataBridge() {
