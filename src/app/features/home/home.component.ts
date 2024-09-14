@@ -66,8 +66,10 @@ export class HomeComponent extends AbstractComponent implements OnInit {
     this.randomImage$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((imgSrc: string) => {
-        this.buildBgStyle(imgSrc);
-        this.predominantImgColorService.evaluatePredominantColor(imgSrc);
+        if (imgSrc) {
+          this.buildBgStyle(imgSrc);
+          this.predominantImgColorService.evaluatePredominantColor(imgSrc);
+        }
       });
   }
 
@@ -76,6 +78,7 @@ export class HomeComponent extends AbstractComponent implements OnInit {
   }
 
   getFullImageUrl(imgSrc: string) {
+    console.log('img src: ', imgSrc);
     return `${this.TMDB_PROFILE_1920W_1080H_IMG_URL}${imgSrc}`;
   }
 }
