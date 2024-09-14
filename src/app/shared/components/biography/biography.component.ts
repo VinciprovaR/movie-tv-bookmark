@@ -4,7 +4,6 @@ import {
   Input,
   ViewChild,
   ChangeDetectionStrategy,
-  OnInit,
 } from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract-component.component';
 import { CommonModule } from '@angular/common';
