@@ -18,9 +18,7 @@
       [ngClass]="customClasses"
       [priority]="priority"
       [placeholderConfig]="{ blur: false, }"
-      [placeholder]="
-        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-      "
+      [placeholder]="placeholderBase64"
       (error)="onError()"
     />
     } @else if(imgSrc && !priority && !imageLoadIsError){
@@ -36,9 +34,7 @@
       [ngClass]="customClasses"
       [loading]="'lazy'"
       [placeholderConfig]="{ blur: false, }"
-      [placeholder]="
-        isPlaceholderPerson ? placeholderBase64Person : placeholderBase64Media
-      "
+      [placeholder]="placeholderBase64"
       (error)="onError()"
     />
     } @else if(!imgSrc || imageLoadIsError){
