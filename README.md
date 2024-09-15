@@ -14,7 +14,7 @@
     <br>
     <br>
 <!--     <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDdpMnRiODY3MjNhOTVxamk0aG0yMnoydGphb3ZlNWZsZ2Fhd3RtMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vUoOd26zfqgHX7kS33/giphy-downsized-large.gif" alt="Demo example 2"/>  -->
-        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3pudmlrbzZubjNpanA1ZHJicHpxcXBkaThqeXM5MmFpempkemxqeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q7GVOluLthMw7Dcmkb/giphy.gif" alt="Demo example 2"/> 
+    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExandveDc5dmpocXJsM29jeWowbHlwNjZvemcxM2Q3Ym5leHlocXo2NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3txI8mrj4nQFIzTzx7/giphy-downsized-large.gif" alt="Demo example 2"/> 
     <br>
     <br>
     <a href="https://movie-tv-bookmark.netlify.app/">Movie &amp; Bookmark Demo here</a>
