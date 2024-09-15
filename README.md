@@ -13,8 +13,7 @@
     Using the <a href="https://developer.themoviedb.org/docs/getting-started" target="_blank">TMDB API</a> with millions of movies, TV shows and people in the database <a href="https://developer.themoviedb.org/docs/getting-started" target="_blank"> <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg" width="50px" eight="50px"></a>
     <br>
     <br>
-<!--     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3JqY3ZkY2x5YWlrMTlwZnlkcm1tc3d1aHJ4NHlqc2NucHMwc2p2NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xeRzTaod5A2EpbmFTa/giphy.gif" alt="Demo example"/>  -->
-    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDdpMnRiODY3MjNhOTVxamk0aG0yMnoydGphb3ZlNWZsZ2Fhd3RtMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vUoOd26zfqgHX7kS33/giphy.gif" alt="Demo example 2"/> 
+    gif here
     <br>
     <br>
     <a href="https://movie-tv-bookmark.netlify.app/">Movie &amp; Bookmark Demo here</a>
