@@ -29,6 +29,7 @@ npm start
 
 ## What's included
 
+- ✔️ Angular 17
 - ✔️ Standalone components
 - ✔️ Change detection strategy with on push 
 - ✔️ Guards
@@ -43,7 +44,7 @@ npm start
 - ✔️ <a href="https://ngrx.io/" target="_blank">NgRx</a> for state managment
 - ✔️ Using the <a href="https://developer.themoviedb.org/docs/getting-started" target="_blank">TMDB API</a> for fetching movies, TV shows and people 
 - ✔️ Responsive design with <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>
-
+- ✔️ Deployed with <a href="https://app.netlify.com/" target="_blank">Netlify</a>
 
 ## Author
 
