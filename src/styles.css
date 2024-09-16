@@ -8,8 +8,10 @@
 :root {
   --bg-button: rgb(79, 70, 229);
   --bg-button-hover: rgb(105, 99, 231);
+  --bg-button-active: rgb(122, 116, 238);
   --bg-button-warning: rgb(255, 238, 0);
   --bg-button-warning-hover: rgb(243, 252, 68);
+  --bg-button-warning-active: rgb(247, 255, 101);
   --border-radius-ext: 7.2px;
   --border-radius-int: 6.2px;
   --text-color-light: rgb(255, 255, 255);
@@ -23,6 +25,7 @@
   --failure-icon-color: rgb(186, 70, 57);
   --bg-danger: rgb(162, 13, 35);
   --bg-danger-hover: rgb(214, 16, 46);
+  --bg-danger-active: rgb(233, 35, 65);
   --bookmark-icon-selected: rgb(33, 173, 234);
   --home-bg-asbent-image: rgb(63, 78, 85);
   --disabled-bg: rgb(124, 124, 124);
@@ -219,7 +222,6 @@ button.button-mt.button-mt-role-normal {
   color: var(--text-color-light);
   background-color: var(--bg-button);
 }
-
 button.button-mt.button-mt-role-warning {
   color: var(--text-color-dark);
   background-color: var(--bg-button-warning);
@@ -245,6 +247,16 @@ button.button-mt.button-mt-role-danger {
   button.button-mt:disabled:hover {
     background-color: var(--disabled-bg);
   }
+}
+
+button.button-mt.button-mt-role-normal:active {
+  background-color: var(--bg-button-active);
+}
+button.button-mt.button-mt-role-warning:active {
+  background-color: var(--bg-button-warning-active);
+}
+button.button-mt.button-mt-role-danger:active {
+  background-color: var(--bg-danger-active);
 }
 
 button.button-mt:disabled:active {
