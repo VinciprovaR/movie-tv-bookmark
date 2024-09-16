@@ -34,6 +34,21 @@ export const discoveryMovieReducer = createReducer(
       ...initialState,
     };
   }),
+  on(DiscoveryMovieActions.resetFilters, (state): DiscoveryMovieState => {
+    return {
+      ...state,
+      payload: {
+        genreIdList: [],
+        sortBy: 'popularity.desc',
+        releaseDate: { from: '', to: '' },
+        includeMediaWithBookmark: true,
+        certification: '',
+        language: '',
+        voteAverage: { voteAverageMin: 0, voteAverageMax: 10 },
+        minVote: 0,
+      }
+    };
+  }),
   on(
     DiscoveryMovieActions.discoveryMovieLanding,
     (state): DiscoveryMovieState => {

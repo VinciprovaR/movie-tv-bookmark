@@ -14,6 +14,8 @@ import {
   TVDetail,
 } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 
+export const resetFilters = createAction('[TV-Bookmark] Reset Filters');
+
 //populate bookmark map
 export const populateTVBookmarkMapSuccess = createAction(
   '[TV-Bookmark] Populate TV Bookmark Map Success',

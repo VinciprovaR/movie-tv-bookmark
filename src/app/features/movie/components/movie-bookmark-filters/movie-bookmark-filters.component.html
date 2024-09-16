@@ -55,6 +55,17 @@
         'hidden-container': isHideFilterContainer,
       }"
     >
+    <div class="px-3 py-5 border-separator">
+      <button
+      class="button-mt button-mt-role-warning"
+      (keyup)="resetFilters()"
+      (click)="resetFilters()"
+      type="button"
+    >
+      <span class="text-lg">Clear all filters</span>
+    </button>
+    </div>
+
       <div class="px-3 py-5">
         <app-genre-filter [filterForm]="filterForm"></app-genre-filter>
       </div>

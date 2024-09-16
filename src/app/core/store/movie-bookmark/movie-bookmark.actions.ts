@@ -15,6 +15,7 @@ import {
 } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 export const cleanState = createAction('[Movie-Bookmark] Clean State');
+export const resetFilters = createAction('[Movie-Bookmark] Reset Filters');
 
 //populate bookmark map
 export const populateMovieBookmarkMapSuccess = createAction(

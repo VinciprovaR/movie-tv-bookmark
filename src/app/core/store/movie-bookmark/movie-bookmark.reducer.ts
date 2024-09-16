@@ -1,3 +1,4 @@
+
 import { createReducer, on } from '@ngrx/store';
 import { MovieBookmarkState } from '../../../shared/interfaces/store/movie-bookmark-state.interface';
 import * as MovieBookmarkActions from './movie-bookmark.actions';
@@ -21,6 +22,15 @@ export const movieBookmarkReducer = createReducer(
   on(MovieBookmarkActions.cleanState, (state): MovieBookmarkState => {
     return {
       ...initialState,
+    };
+  }),
+  on(MovieBookmarkActions.resetFilters, (state): MovieBookmarkState => {
+    return {
+      ...state,
+      payload: {
+        genreIdList: [],
+        sortBy: 'primary_release_date.desc',
+      },
     };
   }),
   on(

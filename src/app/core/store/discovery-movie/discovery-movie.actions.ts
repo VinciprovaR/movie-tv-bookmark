@@ -4,7 +4,7 @@ import { PayloadDiscoveryMovie } from '../../../shared/interfaces/store/discover
 import { MovieResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 export const cleanState = createAction('[Discovery-movie] Clean State');
-
+export const resetFilters = createAction('[Discovery-movie] Reset Filters');
 //search
 export const discoveryMovieLanding = createAction(
   '[Discovery-movie] Discovery Movie Landing Init'

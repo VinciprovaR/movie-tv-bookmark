@@ -20,6 +20,12 @@ export const tvBookmarkReducer = createReducer(
       ...initialState,
     };
   }),
+  on(TVBookmarkActions.resetFilters, (state): TVBookmarkState => {
+    return {
+      ...state,
+      payload: { genreIdList: [], sortBy: 'first_air_date.desc' },
+    };
+  }),
   on(
     TVBookmarkActions.createUpdateDeleteTVBookmark,
     TVBookmarkActions.searchTVByBookmarkLanding,

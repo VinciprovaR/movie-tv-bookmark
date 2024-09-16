@@ -34,6 +34,21 @@ export const discoveryTVReducer = createReducer(
       ...initialState,
     };
   }),
+  on(DiscoveryTVActions.resetFilters, (state): DiscoveryTVState => {
+    return {
+      ...state,
+      payload: {
+        genreIdList: [],
+        sortBy: 'popularity.desc',
+        airDate: { from: '', to: '' },
+        includeMediaWithBookmark: true,
+        language: '',
+        voteAverage: { voteAverageMin: 0, voteAverageMax: 10 },
+        minVote: 0,
+        allEpisode: true,
+      },
+    };
+  }),
   on(DiscoveryTVActions.discoveryTVLanding, (state): DiscoveryTVState => {
     return {
       ...state,

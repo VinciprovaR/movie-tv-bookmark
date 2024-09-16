@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { DiscoveryTVSelectors } from '../../../../core/store/discovery-tv';
+import { DiscoveryTVActions, DiscoveryTVSelectors } from '../../../../core/store/discovery-tv';
 import { AbstractDiscoveryFilter } from '../../../../shared/abstract/components/abstract-discovery-filter.component';
 import { CheckboxFilterComponent } from '../../../../shared/components/checkbox-filter/checkbox-filter.component';
 import { GenreFilterComponent } from '../../../../shared/components/genre-filter/genre-filter.component';
@@ -145,5 +145,9 @@ export class TVDiscoveryFiltersComponent
     return this.filterForm.controls.allEpisode.value
       ? this.filterForm.controls.allEpisode.value
       : false;
+  }
+
+  resetFilters(){
+    this.store.dispatch(DiscoveryTVActions.resetFilters());
   }
 }

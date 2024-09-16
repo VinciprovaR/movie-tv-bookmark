@@ -8,7 +8,7 @@ import {
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { DiscoveryMovieSelectors } from '../../../../core/store/discovery-movie';
+import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '../../../../core/store/discovery-movie';
 import { AbstractDiscoveryFilter } from '../../../../shared/abstract/components/abstract-discovery-filter.component';
 import { CheckboxFilterComponent } from '../../../../shared/components/checkbox-filter/checkbox-filter.component';
 import { GenreFilterComponent } from '../../../../shared/components/genre-filter/genre-filter.component';
@@ -157,5 +157,9 @@ export class MovieDiscoveryFiltersComponent
 
   buildCertificationPayload(certificationControl: FormControl<string>): string {
     return certificationControl.value ? certificationControl.value : '';
+  }
+
+  resetFilters(){
+    this.store.dispatch(DiscoveryMovieActions.resetFilters());
   }
 }
