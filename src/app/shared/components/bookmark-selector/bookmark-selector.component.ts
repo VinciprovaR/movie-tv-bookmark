@@ -64,7 +64,7 @@ export class BookmarkSelectorComponent
   bookmarkStatusElementEmitter = new EventEmitter<bookmarkEnum>();
 
   @Input({ required: true })
-  index!: number;
+  index: number = 0;
   @Input({ required: true })
   mediaType!: MediaType;
   @Input({ required: true })
@@ -88,9 +88,8 @@ export class BookmarkSelectorComponent
   }
 
   ngOnInit(): void {
-    this.idItem = this.personIdentifier
-      ? `${this.personIdentifier}_`
-      : '' + `${this.index}_${this.mediaData.id}`;
+
+    this.idItem = `${this.personIdentifier}_${this.index}_${this.mediaData.id}`;
 
     this.initSelectors();
     this.buildControl();
