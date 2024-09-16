@@ -1,5 +1,5 @@
-import { TVData } from '../supabase/entities';
 import { TVBookmarkMap } from '../supabase/supabase-bookmark.interface';
+import { TVData } from '../supabase/tv-data.entity.interface';
 import { StateMediaBookmark } from './state-media-bookmark.interface';
 
 export interface PayloadTVBookmark {

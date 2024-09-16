@@ -10,7 +10,7 @@ import {
   Renderer2,
   RendererFactory2,
 } from '@angular/core';
-import { Subject, Observable, fromEvent, takeUntil, debounceTime } from 'rxjs';
+import { debounceTime, fromEvent, Observable, Subject, takeUntil } from 'rxjs';
 
 @Directive({
   selector: '[FadeScroller]',

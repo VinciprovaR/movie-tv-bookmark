@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   OptionFilter,
   SelectTransformConfig,
 } from '../../interfaces/TMDB/tmdb-filters.interface';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-select-filter',

@@ -1,25 +1,26 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
   inject,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-  bookmarkEnum,
-  MovieBookmarkMap,
-  TVBookmarkMap,
-} from '../../interfaces/supabase/supabase-bookmark.interface';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Observable, distinctUntilChanged, filter, map, takeUntil } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { BridgeDataService } from '../../services/bridge-data.service';
-import { BookmarkOption } from '../../interfaces/supabase/DTO';
+import { Observable, distinctUntilChanged, filter, map, takeUntil } from 'rxjs';
+import { LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { scrollDirection } from '../../interfaces/layout.interface';
+import {
+  MovieBookmarkMap,
+  TVBookmarkMap,
+  bookmarkEnum,
+} from '../../interfaces/supabase/supabase-bookmark.interface';
 import {
   MediaType,
   Movie,
@@ -27,12 +28,12 @@ import {
   TV,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { BookmarkMetadataSelectors } from '../../store/bookmark-metadata';
-import { MovieData, TVData } from '../../interfaces/supabase/entities';
-import { MatIconModule } from '@angular/material/icon';
-import { LIFECYCLE_STATUS_MAP } from '../../../providers';
-import { AbstractComponent } from '../abstract/abstract-component.component';
-import { scrollDirection } from '../../interfaces/layout.interface';
+import { BridgeDataService } from '../../../core/services/bridge-data.service';
+import { BookmarkMetadataSelectors } from '../../../core/store/bookmark-metadata';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
+import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
+import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 
 @Component({
   selector: 'app-bookmark-selector',

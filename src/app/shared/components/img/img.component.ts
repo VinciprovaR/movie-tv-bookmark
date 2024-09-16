@@ -1,15 +1,15 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   Output,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FastAverageColorResult } from 'fast-average-color';
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-img',

@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   Output,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { ImgComponent } from '../img/img.component';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
 import { arrowType } from '../../interfaces/layout.interface';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+
 
 @Component({
   selector: 'app-arrow-slider',

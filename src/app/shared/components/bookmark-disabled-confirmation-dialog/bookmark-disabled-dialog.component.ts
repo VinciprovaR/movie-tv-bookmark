@@ -1,24 +1,24 @@
+import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { AbstractDialogComponent } from '../abstract/abstract-dialog.component';
-import { AbstractComponent } from '../abstract/abstract-component.component';
-import { CommonModule } from '@angular/common';
+import { takeUntil } from 'rxjs';
 import {
   scrollDirection,
   SubmitDialog,
   submitDialogType,
 } from '../../interfaces/layout.interface';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 
 @Component({
   selector: 'app-bookmark-disabled-dialog',

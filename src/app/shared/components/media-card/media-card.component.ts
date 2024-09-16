@@ -1,32 +1,33 @@
+import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnInit,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
-import { MovieData, TVData } from '../../interfaces/supabase/entities';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { map, Observable, takeUntil } from 'rxjs';
+import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import {
   MediaType,
   Movie,
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { RouterModule } from '@angular/router';
-import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
+import { BookmarkDisabledDialogComponent } from '../bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
+import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
+import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
-import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
-import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
-import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
-import { BridgeDataService } from '../../services/bridge-data.service';
-import { AuthSelectors } from '../../store/auth';
-import { map, Observable, takeUntil } from 'rxjs';
-import { BookmarkDisabledDialogComponent } from '../bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
-import { AbstractCardComponent } from '../abstract/abstract-card.component';
+import { BridgeDataService } from '../../../core/services/bridge-data.service';
+import { AuthSelectors } from '../../../core/store/auth';
+import { AbstractCardComponent } from '../../abstract/components/abstract-card.component';
+import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
+import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 
 @Component({
   selector: 'app-media-card',

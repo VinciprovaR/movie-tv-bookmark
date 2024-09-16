@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AbstractComponent } from '../abstract/abstract-component.component';
 import { MatIcon } from '@angular/material/icon';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-no-search-found',

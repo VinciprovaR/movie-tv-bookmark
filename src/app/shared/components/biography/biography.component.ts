@@ -1,14 +1,14 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
   ViewChild,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { AbstractComponent } from '../abstract/abstract-component.component';
-import { CommonModule } from '@angular/common';
-import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-biography',

@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -6,24 +8,22 @@ import {
   Output,
   QueryList,
   ViewChildren,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PersonCardComponent } from '../person-card/person-card.component';
-import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
+import { MatIconModule } from '@angular/material/icon';
 import { FadeScrollerDirective } from '../../directives/fade-scroller.directive';
-import { AbstractComponent } from '../abstract/abstract-component.component';
 import {
   CastMovie,
-  CrewMovie,
   CastTV,
+  CrewMovie,
   CrewTV,
-  Role,
   Job,
   MediaType,
+  Role,
 } from '../../interfaces/TMDB/tmdb-media.interface';
+import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-import { MatIconModule } from '@angular/material/icon';
+import { PersonCardComponent } from '../person-card/person-card.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 type castCrew = CastMovie | CrewMovie | CastTV | CrewTV;
 

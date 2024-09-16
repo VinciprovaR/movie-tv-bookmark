@@ -1,4 +1,7 @@
+import { Overlay } from '@angular/cdk/overlay';
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef,
@@ -6,24 +9,20 @@ import {
   Input,
   OnInit,
   ViewChild,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-  Videos,
-  Video,
-  MediaType,
-} from '../../interfaces/TMDB/tmdb-media.interface';
-import { CommonModule } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
-import { ImgComponent } from '../img/img.component';
-import { ArrowSliderComponent } from '../arrow-slider/arrow-slider.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Overlay } from '@angular/cdk/overlay';
+import { MatIcon } from '@angular/material/icon';
 import { SwiperContainer } from 'swiper/element';
+import {
+  MediaType,
+  Video,
+  Videos,
+} from '../../interfaces/TMDB/tmdb-media.interface';
+import { ArrowSliderComponent } from '../arrow-slider/arrow-slider.component';
+import { ImgComponent } from '../img/img.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
 import { YoutubeEmbededDialogComponent } from '../youtube-embeded-dialog/youtube-embeded-dialog.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-videos-container',

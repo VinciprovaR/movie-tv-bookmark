@@ -1,25 +1,25 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { RatingComponent } from '../rating/rating.component';
+import { RouterModule } from '@angular/router';
 import {
   CastTV,
   CrewTV,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { FormatMinutesPipe } from '../../pipes/format-minutes.pipe';
-import { RouterModule } from '@angular/router';
-import { StaticTagComponent } from '../static-tag/static-tag.component';
 import { ImdbIconComponent } from '../imdb-icon/imdb-icon.component';
-import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
-import { MediaDetailMainInfoComponent } from '../abstract/abstract-media-detail-main-info.component';
+import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { OverviewComponent } from '../overview/overview.component';
-import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
+import { RatingComponent } from '../rating/rating.component';
+import { StaticTagComponent } from '../static-tag/static-tag.component';
+import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
+import { MediaDetailMainInfoComponent } from '../../abstract/components/abstract-media-detail-main-info.component';
 
 @Component({
   selector: 'app-tv-detail-main-info',

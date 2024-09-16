@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   OnInit,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { RouterModule, RouterLinkActive } from '@angular/router';
-import { BridgeDataService } from '../../services/bridge-data.service';
-import { NavigatorComponent } from '../bookmark-navigator/bookmark-navigator.component';
-import { BookmarkNavElement } from '../../interfaces/navigator.interface';
+import { RouterLinkActive, RouterModule } from '@angular/router';
 import { LIFECYCLE_NAV_ELEMENTS } from '../../../providers';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { BookmarkNavElement } from '../../interfaces/navigator.interface';
+import { NavigatorComponent } from '../bookmark-navigator/bookmark-navigator.component';
+import { BridgeDataService } from '../../../core/services/bridge-data.service';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-media-bookmark-search',

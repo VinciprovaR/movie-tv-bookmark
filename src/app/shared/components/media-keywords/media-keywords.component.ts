@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Keyword } from '../../interfaces/TMDB/tmdb-media.interface';
-import { StaticTagComponent } from '../static-tag/static-tag.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { StaticTagComponent } from '../static-tag/static-tag.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-media-keywords',

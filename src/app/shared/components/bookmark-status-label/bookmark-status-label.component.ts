@@ -1,15 +1,14 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
-import { CommonModule } from '@angular/common';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.interface';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-bookmark-status-label',

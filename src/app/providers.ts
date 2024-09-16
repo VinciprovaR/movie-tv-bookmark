@@ -1,17 +1,15 @@
 import { APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
-import { AuthActions } from './shared/store/auth';
-import { BookmarkMetadataActions } from './shared/store/bookmark-metadata';
-import { FiltersMetadataActions } from './shared/store/filters-metadata';
-import {
-  BookmarkNavElement,
-  NavElements,
-} from './shared/interfaces/navigator.interface';
+import { GlobalErrorStore } from './core/component-store/global-error-store.service';
+import { NotifierStore } from './core/component-store/notifier-store.service';
+import { ToggleThemeStore } from './core/component-store/toggle-theme-store.service';
+import { AuthActions } from './core/store/auth';
+import { BookmarkMetadataActions } from './core/store/bookmark-metadata';
+import { FiltersMetadataActions } from './core/store/filters-metadata';
+import { SupabaseAuthEventsService } from './services/supabase-auth-events.service';
+import { BookmarkNavElement, NavElements } from './shared/interfaces/navigator.interface';
 import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
-import { SupabaseAuthEventsService } from './shared/services/supabase-auth-events.service';
-import { NotifierStore, ToggleThemeStore } from './shared/component-store';
-import { GlobalErrorStore } from './shared/component-store/global-error-store.service';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'

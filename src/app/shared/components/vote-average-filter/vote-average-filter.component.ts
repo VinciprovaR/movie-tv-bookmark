@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { VoteAverageGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-vote-average-filter',

@@ -1,24 +1,25 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   MediaType,
   Movie,
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { MovieData, TVData } from '../../interfaces/supabase/entities';
-import { MediaCardComponent } from '../media-card/media-card.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AbstractComponent } from '../abstract/abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.interface';
+import { MediaCardComponent } from '../media-card/media-card.component';
 import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
+import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 
 @Component({
   selector: 'app-media-list-container',

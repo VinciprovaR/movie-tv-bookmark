@@ -1,23 +1,23 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { RatingComponent } from '../rating/rating.component';
-import { PersonDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { RouterModule } from '@angular/router';
-import { StaticTagComponent } from '../static-tag/static-tag.component';
+import { PersonDetail } from '../../interfaces/TMDB/tmdb-media.interface';
+import { AgePipe } from '../../pipes/age';
+import { BiographyComponent } from '../biography/biography.component';
+import { ExternalInfoComponent } from '../external-info/external-info.component';
 import { ImdbIconComponent } from '../imdb-icon/imdb-icon.component';
-import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
+import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { OverviewComponent } from '../overview/overview.component';
-import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
-import { AbstractComponent } from '../abstract/abstract-component.component';
-import { BiographyComponent } from '../biography/biography.component';
-import { AgePipe } from '../../pipes/age';
-import { ExternalInfoComponent } from '../external-info/external-info.component';
+import { RatingComponent } from '../rating/rating.component';
+import { StaticTagComponent } from '../static-tag/static-tag.component';
+import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-person-detail-main-info',

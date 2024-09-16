@@ -1,15 +1,14 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { SelectTagComponent } from '../select-tag/select-tag.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { GenreGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { SelectTagComponent } from '../select-tag/select-tag.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-genre-filter',

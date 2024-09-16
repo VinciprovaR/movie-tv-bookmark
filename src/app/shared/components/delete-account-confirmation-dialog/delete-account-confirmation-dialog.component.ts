@@ -1,16 +1,13 @@
+import { OverlayModule } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   OnInit,
   Output,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { takeUntil } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
-import { AbstractDialogComponent } from '../abstract/abstract-dialog.component';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { CommonModule } from '@angular/common';
 import {
   AbstractControl,
   FormControl,
@@ -19,14 +16,17 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { AbstractAuthComponent } from '../abstract/abstract-auth.component';
 import { MatDivider } from '@angular/material/divider';
-import { DeleteAccountForm } from '../../interfaces/supabase/supabase-auth.interface';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { takeUntil } from 'rxjs';
 import {
   SubmitDialog,
   submitDialogType,
 } from '../../interfaces/layout.interface';
+import { DeleteAccountForm } from '../../interfaces/supabase/supabase-auth.interface';
+import { AbstractAuthComponent } from '../../abstract/components/abstract-auth.component';
+import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 
 @Component({
   selector: 'app-delete-account-confirmation-dialog',

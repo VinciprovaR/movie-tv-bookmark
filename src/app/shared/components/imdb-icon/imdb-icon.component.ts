@@ -1,12 +1,11 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
-
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-imdb-icon',

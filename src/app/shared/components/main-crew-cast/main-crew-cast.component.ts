@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-import { AbstractComponent } from '../abstract/abstract-component.component';
-import { MainCrewCast } from '../../interfaces/TMDB/tmdb-media.interface';
 import { RouterLink } from '@angular/router';
+import { MainCrewCast } from '../../interfaces/TMDB/tmdb-media.interface';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-main-crew-cast',

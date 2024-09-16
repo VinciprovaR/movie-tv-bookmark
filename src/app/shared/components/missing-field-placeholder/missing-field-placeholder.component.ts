@@ -1,5 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-missing-field-placeholder',

@@ -1,4 +1,8 @@
+import { OverlayModule } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -6,24 +10,20 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { takeUntil } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
-import { AbstractDialogComponent } from '../abstract/abstract-dialog.component';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatDivider } from '@angular/material/divider';
-import { AbstractComponent } from '../abstract/abstract-component.component';
-import { ImgComponent } from '../img/img.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { YouTubePlayer } from '@angular/youtube-player';
+import { takeUntil } from 'rxjs';
 import {
   SubmitDialog,
   submitDialogType,
 } from '../../interfaces/layout.interface';
+import { ImgComponent } from '../img/img.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 
 @Component({
   selector: 'app-youtube-embeded-dialog',

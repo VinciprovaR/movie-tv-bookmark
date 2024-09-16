@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -6,16 +8,14 @@ import {
   Output,
   QueryList,
   ViewChildren,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
-import { PersonCardComponent } from '../person-card/person-card.component';
-import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { AbstractComponent } from '../abstract/abstract-component.component';
+import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
+import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
+import { PersonCardComponent } from '../person-card/person-card.component';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-person-list-container',

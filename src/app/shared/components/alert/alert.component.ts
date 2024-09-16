@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -7,11 +8,10 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ChangeDetectionStrategy,
 } from '@angular/core';
-import { takeUntil, timer } from 'rxjs';
-import { AbstractComponent } from '../abstract/abstract-component.component';
 import { MatIconModule } from '@angular/material/icon';
+import { takeUntil, timer } from 'rxjs';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-alert',

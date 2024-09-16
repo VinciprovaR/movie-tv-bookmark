@@ -1,19 +1,19 @@
+import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnInit,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
-import { RouterModule } from '@angular/router';
-import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { AbstractPersonCardComponent } from '../abstract/abstract-person-card.component';
-import { ImgComponent } from '../img/img.component';
+import { RouterModule } from '@angular/router';
 import { IMG_SIZES } from '../../../providers';
+import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
+import { ImgComponent } from '../img/img.component';
+import { AbstractPersonCardComponent } from '../../abstract/components/abstract-person-card.component';
 
 @Component({
   selector: 'app-cast-crew-card',

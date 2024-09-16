@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './shared/layout/header/header.component';
-import { AlertContainerComponent } from './features/alert-container/alert-container.component';
-import { LoadingComponent } from './features/loading/loading.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AbstractComponent } from './shared/components/abstract/abstract-component.component';
-import { FooterComponent } from './shared/layout/footer/footer.component';
+import { AlertContainerComponent } from './components/alert-container/alert-container.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { AbstractComponent } from './shared/abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-root',
