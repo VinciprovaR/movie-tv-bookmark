@@ -23,7 +23,7 @@
           <span>&#8226;</span
           ><span
             >{{ personDetail.deathday | date }} ({{
-              ageAtDeath(personDetail.birthday, personDetail.deathday)
+                 toDate(personDetail.birthday) | age:personDetail.deathday
             }})
           </span>
         </li>

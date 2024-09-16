@@ -66,10 +66,4 @@ export class PersonDetailMainInfoContentComponent
     return new Date(date);
   }
 
-  ageAtDeath(birthDate: string, deathDate: string) {
-    return `${
-      this.toDate(deathDate).getFullYear() -
-      this.toDate(birthDate).getFullYear()
-    } years old `;
-  }
 }
