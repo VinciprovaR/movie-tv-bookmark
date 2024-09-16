@@ -16,6 +16,7 @@ import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 import { PersonCardComponent } from '../person-card/person-card.component';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 
 @Component({
   selector: 'app-person-list-container',
@@ -27,6 +28,7 @@ import { PersonCardComponent } from '../person-card/person-card.component';
     NoSearchFoundComponent,
     MatProgressSpinnerModule,
     InfiniteScrollModule,
+    MissingFieldPlaceholderComponent
   ],
   templateUrl: './person-list-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

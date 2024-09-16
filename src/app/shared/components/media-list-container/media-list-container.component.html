@@ -8,7 +8,7 @@
   @if( mediaList.length > 0){
 
   <ul
-    class="grid p-0 m-0 py-4"
+    class="grid p-0 m-0 py-8"
     [ngClass]="{
       'grid-cols-1 620:grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-6 620:gap-8':
         direction === 'vertical',
@@ -28,6 +28,10 @@
     </li>
     }
   </ul>
+
+  @if(noAdditional){
+    <app-missing-field-placeholder [caption]="noMoreAdditionalCaption"></app-missing-field-placeholder>
+  }
 
   } @else { @if(!isLoading){
   <div class="flex justify-center">

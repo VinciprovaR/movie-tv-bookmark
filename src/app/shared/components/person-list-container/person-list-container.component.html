@@ -8,7 +8,7 @@
   @if(personList && personList.length >0){
 
   <ul
-    class="grid grid-cols-1 620:grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-8 470:gap-10 p-0 m-0"
+    class="grid grid-cols-1 620:grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-8 470:gap-10 p-0 m-0 py-8"
   >
     @for(person of personList; track person.id){
     <li class="list-none">
@@ -17,6 +17,9 @@
     </li>
     }
   </ul>
+  @if(noAdditional){
+    <app-missing-field-placeholder [caption]="'There are no more additional person for this query'"></app-missing-field-placeholder>
+  }
   } @else { @if(!isLoading){
   <div class="flex justify-center">
     <app-no-search-found

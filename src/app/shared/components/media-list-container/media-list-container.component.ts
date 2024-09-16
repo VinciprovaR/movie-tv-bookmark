@@ -20,6 +20,7 @@ import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface
 import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 import { MediaCardComponent } from '../media-card/media-card.component';
 import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 
 @Component({
   selector: 'app-media-list-container',
@@ -30,6 +31,7 @@ import { NoSearchFoundComponent } from '../no-search-found/no-search-found.compo
     InfiniteScrollModule,
     NoSearchFoundComponent,
     MatProgressSpinnerModule,
+    MissingFieldPlaceholderComponent
   ],
   templateUrl: './media-list-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,14 +60,11 @@ export class MediaListContainerComponent
   includeScrollEvents: boolean = true;
   @Input({ required: true })
   direction: scrollDirection = 'none';
-
-  // @Input()
-  // cardSize: 'md' | 'lg' = 'md';
-
-  ulContainerClass: string = '';
-
   @Input()
   personIdentifier: string = '';
+  ulContainerClass: string = '';
+
+  noMoreAdditionalCaption: string = ''
 
   constructor() {
     super();
@@ -76,6 +75,7 @@ export class MediaListContainerComponent
       ? this.captionNotFoundCustom
       : `We couldn't find any ${this.mediaType} matching your search. Try searching with different keywords`;
     this.titleNotFound = `No ${this.mediaType} found`;
+    this.noMoreAdditionalCaption = `There are no more additional ${this.mediaType} for this query`
   }
 
   discoveryAdditionalMedia() {
