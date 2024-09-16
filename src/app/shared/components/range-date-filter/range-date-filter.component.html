@@ -14,6 +14,8 @@
             id="fromDate"
             [matDatepicker]="pickerFrom"
             [formControlName]="'from'"
+            [max]="maxDate"
+            [min]="minDate"
           />
 
           <div
@@ -43,6 +45,8 @@
             id="toDate"
             [matDatepicker]="pickerTo"
             [formControlName]="'to'"
+            [max]="maxDate"
+            [min]="minDate"
           />
 
           <div
@@ -73,7 +77,7 @@
       </div>
       <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
         @if(dateRangeGroup.controls.from.hasError('invalidFromDate')){
-        <li><mat-error>From date cannot be after to date</mat-error></li>
+        <li><mat-error>The 'To' date cannot be earlier than the 'From' date.</mat-error></li>
         }
       </ul>
     </div>

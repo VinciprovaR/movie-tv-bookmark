@@ -26,15 +26,18 @@ import { DateRangeGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
 export class RangeDateFilterComponent extends AbstractComponent {
   @Input({ required: true })
   filterForm!: FormGroup<any>;
-
   @Input({ required: true })
   customGroupName!: string;
-
   @Input({ required: true })
   rangeDateLabel!: string;
 
+  minDate: Date;
+  maxDate: Date;
+
   constructor() {
     super();
+    this.minDate = new Date(1900, 0, 1);
+    this.maxDate = new Date(2099, 11, 31); 
   }
 
   get dateRangeGroup(): FormGroup<DateRangeGroup> {
