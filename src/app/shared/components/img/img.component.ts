@@ -70,20 +70,10 @@ export class ImgComponent extends AbstractComponent {
     }
   }
 
-  // getFullSrcSet() {
-  //   return `${this.baseUrlSm}${this.imgSrc} 1x, ${this.baseUrlLg}${this.imgSrc} 2x`;
-  // }
-
   getImgBackground() {
     return this.isPlaceholderPerson
       ? `url('assets/images/glyphicons-basic-4-user-grey.svg')`
       : `url('assets/images/glyphicons-basic-38-picture-grey.svg')`;
-  }
-
-  navigateTo() {
-    if (this.link) {
-      this.router.navigate([`${this.link}`]);
-    }
   }
 
   onError() {

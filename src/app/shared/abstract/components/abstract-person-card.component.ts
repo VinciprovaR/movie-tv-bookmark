@@ -9,5 +9,6 @@ export abstract class AbstractPersonCardComponent extends AbstractCardComponent 
 
   buildDetailPath(id: number) {
     this.detailMediaPath = this.detailMediaPath.concat(`/person-detail/${id}`);
+    this.detectChanges();
   }
 }

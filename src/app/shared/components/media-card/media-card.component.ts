@@ -155,6 +155,7 @@ export class MediaCardComponent
     this.detailMediaPath = this.detailMediaPath.concat(
       `/${this.mediaType}-detail/${id}`
     );
+    this.detectChanges();
   }
 
   setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
