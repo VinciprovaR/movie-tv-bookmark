@@ -24,7 +24,6 @@ export const initialState: DiscoveryMovieState = {
     total_results: 0,
   },
   noAdditional: false,
-  isLoadingAdditional: false,
   isFirstLanding: true,
 };
 
@@ -64,7 +63,7 @@ export const discoveryMovieReducer = createReducer(
       return {
         ...state,
         error: null,
-        isLoadingAdditional: true,
+        isLoading: true,
       };
     }
   ),
@@ -111,7 +110,6 @@ export const discoveryMovieReducer = createReducer(
           results: [...currMovies, ...nextMovies],
         },
         noAdditional: false,
-        isLoadingAdditional: false,
       };
     }
   ),
@@ -139,8 +137,6 @@ export const discoveryMovieReducer = createReducer(
 
 export const getDiscoveryMovieState = (state: DiscoveryMovieState) => state;
 export const getIsLoading = (state: DiscoveryMovieState) => state.isLoading;
-export const getIsLoadingAdditional = (state: DiscoveryMovieState) =>
-  state.isLoadingAdditional;
 export const getPayload = (state: DiscoveryMovieState) => state.payload;
 export const getDiscoveryMovieError = (state: DiscoveryMovieState) =>
   state.error;
