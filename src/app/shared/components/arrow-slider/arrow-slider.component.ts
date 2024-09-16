@@ -6,9 +6,9 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { ImgComponent } from '../img/img.component';
-import { arrowType } from '../../interfaces/layout.interface';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { arrowType } from '../../interfaces/layout.interface';
+import { ImgComponent } from '../img/img.component';
 
 
 @Component({

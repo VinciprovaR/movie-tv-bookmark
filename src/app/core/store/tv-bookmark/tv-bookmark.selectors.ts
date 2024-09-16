@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as TVBookmarkReducer from './tv-bookmark.reducer';
 import { TVBookmarkState } from '../../../shared/interfaces/store/tv-bookmark-state.interface';
+import * as TVBookmarkReducer from './tv-bookmark.reducer';
 
 const TVBookmarkFeatureSelector = createFeatureSelector<TVBookmarkState>(
   TVBookmarkReducer.tvBookmarkStateFeatureKey

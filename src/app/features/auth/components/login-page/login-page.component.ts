@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { Observable, takeUntil } from 'rxjs';
-import { AuthSelectors, AuthActions } from '../../../../core/store/auth';
+import { AuthActions, AuthSelectors } from '../../../../core/store/auth';
 import { AbstractAuthComponent } from '../../../../shared/abstract/components/abstract-auth.component';
 import { SuccessMessageTemplateComponent } from '../../../../shared/components/success-message-template/success-message-template.component';
 import { LoginForm, LoginPayload } from '../../../../shared/interfaces/supabase/supabase-auth.interface';

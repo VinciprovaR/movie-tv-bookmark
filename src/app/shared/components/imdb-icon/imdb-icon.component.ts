@@ -4,8 +4,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-imdb-icon',

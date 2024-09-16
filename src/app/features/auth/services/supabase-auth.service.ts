@@ -8,11 +8,11 @@ import {
   UserResponse,
 } from '@supabase/supabase-js';
 import { map, Observable, of, switchMap, tap } from 'rxjs';
-import { STORAGE_KEY_TOKEN } from '../../../providers';
-import { SupabaseAuthDAO } from './supabase-auth.dao';
 import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse.model';
+import { STORAGE_KEY_TOKEN } from '../../../providers';
 import { WebStorageService } from '../../../services/web-storage.service';
-import { LoginPayload, RegisterPayload, PublicUserEntity } from '../../../shared/interfaces/supabase/supabase-auth.interface';
+import { LoginPayload, PublicUserEntity, RegisterPayload } from '../../../shared/interfaces/supabase/supabase-auth.interface';
+import { SupabaseAuthDAO } from './supabase-auth.dao';
 
 @Injectable({
   providedIn: 'root',

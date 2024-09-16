@@ -18,7 +18,7 @@ import { SelectFilterComponent } from '../../../../shared/components/select-filt
 import { VoteAverageFilterComponent } from '../../../../shared/components/vote-average-filter/vote-average-filter.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
 import { PayloadDiscoveryMovie } from '../../../../shared/interfaces/store/discovery-movie-state.interface';
-import { DiscoveryMovieFilterForm, Certification, SelectTransformConfig, OptionFilter, Genre } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import { Certification, DiscoveryMovieFilterForm, Genre, OptionFilter, SelectTransformConfig } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-discovery-movie-filters',

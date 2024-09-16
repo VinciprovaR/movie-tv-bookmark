@@ -5,9 +5,14 @@ import { MediaBookmarkDTO } from '../../../shared/interfaces/supabase/media-book
 import { MovieBookmark } from '../../../shared/interfaces/supabase/movie-bookmark.entity.interface';
 import { MovieData } from '../../../shared/interfaces/supabase/movie-data.entity.interface';
 import { crud_operations } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
-import { MovieBookmarkMap, bookmarkEnum } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { Movie, MovieDetail } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
-
+import {
+  MovieBookmarkMap,
+  bookmarkEnum,
+} from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
+import {
+  Movie,
+  MovieDetail,
+} from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 export const cleanState = createAction('[Movie-Bookmark] Clean State');
 

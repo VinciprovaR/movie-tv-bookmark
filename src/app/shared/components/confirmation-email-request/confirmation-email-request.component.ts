@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Observable, takeUntil } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { AuthSelectors, AuthActions } from '../../../core/store/auth';
+import { Observable, takeUntil } from 'rxjs';
+import { AuthActions, AuthSelectors } from '../../../core/store/auth';
 import { AbstractAuthComponent } from '../../abstract/components/abstract-auth.component';
 
 @Component({

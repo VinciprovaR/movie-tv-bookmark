@@ -1,4 +1,4 @@
-import { CustomHttpErrorResponseInterface } from "../shared/interfaces/customHttpErrorResponse.interface";
+import { CustomHttpErrorResponseInterface } from '../shared/interfaces/customHttpErrorResponse.interface';
 
 export class CustomHttpErrorResponse
   implements CustomHttpErrorResponseInterface

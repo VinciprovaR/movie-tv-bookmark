@@ -18,7 +18,10 @@ import { map, Observable, takeUntil } from 'rxjs';
 import { MovieDetailStore } from '../../../../core/component-store/movie-detail-store.service';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import { AuthSelectors } from '../../../../core/store/auth';
-import { MovieBookmarkSelectors, MovieBookmarkActions } from '../../../../core/store/movie-bookmark';
+import {
+  MovieBookmarkActions,
+  MovieBookmarkSelectors
+} from '../../../../core/store/movie-bookmark';
 import { AbstractMediaDetailComponent } from '../../../../shared/abstract/components/abstract-media-detail.component';
 import { BookmarkDisabledDialogComponent } from '../../../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { BookmarkSelectorComponent } from '../../../../shared/components/bookmark-selector/bookmark-selector.component';
@@ -33,10 +36,13 @@ import { MovieDetailMainInfoContentComponent } from '../../../../shared/componen
 import { PersonListContainerComponent } from '../../../../shared/components/person-list-container/person-list-container.component';
 import { VideosContainerComponent } from '../../../../shared/components/videos-container/videos-container.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
-import { PredominantColor } from '../../../../shared/interfaces/layout.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
+import {
+  MediaType,
+  MovieDetail,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { PredominantColor } from '../../../../shared/interfaces/layout.interface';
 import { bookmarkEnum } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { MovieDetail, MediaType } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-movie-detail',

@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { PersonDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { AgePipe } from '../../pipes/age';
 import { BiographyComponent } from '../biography/biography.component';
@@ -17,7 +18,6 @@ import { OverviewComponent } from '../overview/overview.component';
 import { RatingComponent } from '../rating/rating.component';
 import { StaticTagComponent } from '../static-tag/static-tag.component';
 import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-person-detail-main-info',

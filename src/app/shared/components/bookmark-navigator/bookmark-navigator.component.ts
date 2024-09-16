@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
-import { BookmarkNavElement } from '../../interfaces/navigator.interface';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { BookmarkNavElement } from '../../interfaces/navigator.interface';
 
 @Component({
   selector: 'app-bookmark-navigator',

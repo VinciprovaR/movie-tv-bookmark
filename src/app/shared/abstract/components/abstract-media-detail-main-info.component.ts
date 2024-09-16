@@ -1,8 +1,8 @@
 import { Directive, inject, Input } from '@angular/core';
 import { FastAverageColorResult } from 'fast-average-color';
 import { Observable } from 'rxjs';
-import { AbstractComponent } from './abstract-component.component';
 import { PredominantImgColorService } from '../../../services/predominant-img-color.service';
+import { AbstractComponent } from './abstract-component.component';
 
 @Directive()
 export abstract class MediaDetailMainInfoComponent extends AbstractComponent {

@@ -13,6 +13,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { SwiperContainer } from 'swiper/element';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import {
   MediaType,
   Video,
@@ -22,7 +23,6 @@ import { ArrowSliderComponent } from '../arrow-slider/arrow-slider.component';
 import { ImgComponent } from '../img/img.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { YoutubeEmbededDialogComponent } from '../youtube-embeded-dialog/youtube-embeded-dialog.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-videos-container',

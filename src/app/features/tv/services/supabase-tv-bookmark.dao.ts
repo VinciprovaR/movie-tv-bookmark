@@ -1,13 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { PostgrestSingleResponse, User } from '@supabase/supabase-js';
 import { from, map, Observable } from 'rxjs';
-import { SUPABASE_CLIENT } from '../../../providers';
 import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse.model';
+import { SUPABASE_CLIENT } from '../../../providers';
 import { PayloadTVBookmark } from '../../../shared/interfaces/store/tv-bookmark-state.interface';
+import { bookmarkEnum } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { SortyByConfig } from '../../../shared/interfaces/supabase/supabase-filter-config.interface';
 import { TVBookmark } from '../../../shared/interfaces/supabase/tv-bookmark.entity.interface';
 import { TVData } from '../../../shared/interfaces/supabase/tv-data.entity.interface';
-import { bookmarkEnum } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 
 @Injectable({
   providedIn: 'root',

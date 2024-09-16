@@ -10,12 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { takeUntil } from 'rxjs';
 import { IMG_SIZES } from '../../../providers';
+import { AbstractPersonCardComponent } from '../../abstract/components/abstract-person-card.component';
 import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
 import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
 import { ImgComponent } from '../img/img.component';
-import { takeUntil } from 'rxjs';
-import { AbstractPersonCardComponent } from '../../abstract/components/abstract-person-card.component';
 
 @Component({
   selector: 'app-person-card',

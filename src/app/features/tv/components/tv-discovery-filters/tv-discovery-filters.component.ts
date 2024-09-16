@@ -13,7 +13,10 @@ import { SelectFilterComponent } from '../../../../shared/components/select-filt
 import { VoteAverageFilterComponent } from '../../../../shared/components/vote-average-filter/vote-average-filter.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
 import { PayloadDiscoveryTV } from '../../../../shared/interfaces/store/discovery-tv-state.interface';
-import { DiscoveryTVFilterForm, Genre } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import {
+  DiscoveryTVFilterForm,
+  Genre,
+} from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-discovery-tv-filters',

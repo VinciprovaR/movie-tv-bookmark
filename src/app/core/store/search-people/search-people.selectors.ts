@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as SearchPeopleReducer from './search-people.reducer';
 import { SearchPeopleState } from '../../../shared/interfaces/store/search-people-state.interface';
+import * as SearchPeopleReducer from './search-people.reducer';
 
 const searchPeopleFeatureSelector = createFeatureSelector<SearchPeopleState>(
   SearchPeopleReducer.searchPeopleFeatureKey

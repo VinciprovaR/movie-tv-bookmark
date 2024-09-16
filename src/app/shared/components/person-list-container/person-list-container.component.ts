@@ -11,11 +11,11 @@ import {
 } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 import { PersonCardComponent } from '../person-card/person-card.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-person-list-container',

@@ -4,9 +4,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { ImgComponent } from '../../components/img/img.component';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-tmdb-icon',

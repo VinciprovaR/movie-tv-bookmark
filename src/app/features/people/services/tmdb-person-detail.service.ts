@@ -1,7 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SupabaseProxyToTMDBService } from '../../../core/services/supabase-proxy-to-tmdb.service';
-import { PersonDetail, PersonDetailMovieCredits, PersonDetailTVCredits } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  PersonDetail,
+  PersonDetailMovieCredits,
+  PersonDetailTVCredits,
+} from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TMDBPersonDetailService {

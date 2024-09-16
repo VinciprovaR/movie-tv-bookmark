@@ -13,8 +13,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { GenreControl } from '../../interfaces/TMDB/tmdb-filters.interface';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { GenreControl } from '../../interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-select-tag',

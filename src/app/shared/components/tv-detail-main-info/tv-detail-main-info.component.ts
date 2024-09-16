@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MediaDetailMainInfoComponent } from '../../abstract/components/abstract-media-detail-main-info.component';
 import {
   CastTV,
   CrewTV,
@@ -19,7 +20,6 @@ import { OverviewComponent } from '../overview/overview.component';
 import { RatingComponent } from '../rating/rating.component';
 import { StaticTagComponent } from '../static-tag/static-tag.component';
 import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
-import { MediaDetailMainInfoComponent } from '../../abstract/components/abstract-media-detail-main-info.component';
 
 @Component({
   selector: 'app-tv-detail-main-info',

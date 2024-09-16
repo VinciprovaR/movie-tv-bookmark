@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { TVBookmarkSelectors, TVBookmarkActions } from '../../../../core/store/tv-bookmark';
+import { TVBookmarkActions, TVBookmarkSelectors } from '../../../../core/store/tv-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { MissingFieldPlaceholderComponent } from '../../../../shared/components/missing-field-placeholder/missing-field-placeholder.component';

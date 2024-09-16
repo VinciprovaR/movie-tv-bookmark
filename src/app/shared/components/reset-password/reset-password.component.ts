@@ -20,7 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { map, Observable, skipWhile, takeUntil } from 'rxjs';
 import { UnauthorizedComponent } from '../../../components/unauthorized-page/unauthorized.component';
-import { AuthSelectors, AuthActions } from '../../../core/store/auth';
+import { AuthActions, AuthSelectors } from '../../../core/store/auth';
 import { SupabaseAuthEventsService } from '../../../services/supabase-auth-events.service';
 import { AbstractAuthComponent } from '../../abstract/components/abstract-auth.component';
 import { PasswordChangeForm, PasswordGroup } from '../../interfaces/supabase/supabase-auth.interface';

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { ImdbIconComponent } from '../imdb-icon/imdb-icon.component';
 import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-external-info',

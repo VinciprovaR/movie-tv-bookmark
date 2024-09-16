@@ -20,7 +20,7 @@ import { ImgComponent } from '../../../../shared/components/img/img.component';
 import { PersonCardComponent } from '../../../../shared/components/person-card/person-card.component';
 import { FadeScrollerDirective } from '../../../../shared/directives/fade-scroller.directive';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
-import { TVCredit, TVDetail, CastTV, TVDepartments, Banner, CrewTV, Role, Job } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { Banner, CastTV, CrewTV, Job, Role, TVCredit, TVDepartments, TVDetail } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-tv-detail-credits',

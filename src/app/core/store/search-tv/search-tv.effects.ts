@@ -3,10 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { SearchTVActions, SearchTVSelectors } from '.';
-import { AuthActions } from '../auth';
 import { TMDBSearchTVService } from '../../../features/tv/services/tmdb-search-tv.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
 import { TVResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class SearchTVEffects {

@@ -9,7 +9,10 @@ import { GenreFilterComponent } from '../../../../shared/components/genre-filter
 import { SelectFilterComponent } from '../../../../shared/components/select-filter/select-filter.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
 import { PayloadTVBookmark } from '../../../../shared/interfaces/store/tv-bookmark-state.interface';
-import { BookmarkTVFilterForm, Genre } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import {
+  BookmarkTVFilterForm,
+  Genre,
+} from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-tv-bookmark-filters',

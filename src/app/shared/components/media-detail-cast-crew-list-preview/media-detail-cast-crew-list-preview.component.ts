@@ -10,6 +10,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { FadeScrollerDirective } from '../../directives/fade-scroller.directive';
 import {
   CastMovie,
@@ -23,7 +24,6 @@ import {
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { PersonCardComponent } from '../person-card/person-card.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 type castCrew = CastMovie | CrewMovie | CastTV | CrewTV;
 

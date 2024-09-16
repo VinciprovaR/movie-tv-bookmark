@@ -13,9 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { Observable, takeUntil } from 'rxjs';
-import { AuthSelectors, AuthActions } from '../../../../core/store/auth';
+import { AuthActions, AuthSelectors } from '../../../../core/store/auth';
 import { AbstractAuthComponent } from '../../../../shared/abstract/components/abstract-auth.component';
-import { RegisterForm, PasswordGroup } from '../../../../shared/interfaces/supabase/supabase-auth.interface';
+import { PasswordGroup, RegisterForm } from '../../../../shared/interfaces/supabase/supabase-auth.interface';
 
 @Component({
   selector: 'app-register-page',

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import * as SearchPeopleActions from './search-people.actions';
 import { SearchPeopleState } from '../../../shared/interfaces/store/search-people-state.interface';
+import * as SearchPeopleActions from './search-people.actions';
 
 export const searchPeopleFeatureKey = 'search-people';
 

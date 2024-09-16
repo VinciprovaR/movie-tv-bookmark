@@ -8,17 +8,17 @@ import {
 } from '@angular/core';
 import { combineLatest, Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { DiscoveryMovieSelectors, DiscoveryMovieActions } from '../../../../core/store/discovery-movie';
+import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '../../../../core/store/discovery-movie';
 import { FiltersMetadataSelectors } from '../../../../core/store/filters-metadata';
-import { MovieBookmarkSelectors, MovieBookmarkActions } from '../../../../core/store/movie-bookmark';
+import { MovieBookmarkActions, MovieBookmarkSelectors } from '../../../../core/store/movie-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { PayloadDiscoveryMovie } from '../../../../shared/interfaces/store/discovery-movie-state.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { MovieBookmarkMap } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { Genre, Certification, Language, OptionFilter } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
-import { Movie, MediaType } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { Certification, Genre, Language, OptionFilter } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import { MediaType, Movie } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MovieDiscoveryFiltersComponent } from '../movie-discovery-filters/movie-discovery-filters.component';
 
 @Component({

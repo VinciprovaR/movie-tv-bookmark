@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as MovieBookmarkReducer from './movie-bookmark.reducer';
 import { MovieBookmarkState } from '../../../shared/interfaces/store/movie-bookmark-state.interface';
+import * as MovieBookmarkReducer from './movie-bookmark.reducer';
 
 const MovieBookmarkFeatureSelector = createFeatureSelector<MovieBookmarkState>(
   MovieBookmarkReducer.movieBookmarkStateFeatureKey

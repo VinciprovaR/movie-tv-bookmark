@@ -7,9 +7,9 @@ import {
   UserResponse,
 } from '@supabase/supabase-js';
 import { from, map, Observable, tap } from 'rxjs';
-import { SUPABASE_CLIENT } from '../../../providers';
 import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse.model';
-import { LoginPayload, RegisterPayload, PublicUserEntity, CustomSessionResponse } from '../../../shared/interfaces/supabase/supabase-auth.interface';
+import { SUPABASE_CLIENT } from '../../../providers';
+import { CustomSessionResponse, LoginPayload, PublicUserEntity, RegisterPayload } from '../../../shared/interfaces/supabase/supabase-auth.interface';
 
 
 @Injectable({

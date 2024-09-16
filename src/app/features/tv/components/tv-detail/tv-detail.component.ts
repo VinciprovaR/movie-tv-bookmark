@@ -15,7 +15,7 @@ import { map, Observable, takeUntil } from 'rxjs';
 import { TVDetailStore } from '../../../../core/component-store/tv-detail-store.service';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import { AuthSelectors } from '../../../../core/store/auth';
-import { TVBookmarkSelectors, TVBookmarkActions } from '../../../../core/store/tv-bookmark';
+import { TVBookmarkActions, TVBookmarkSelectors } from '../../../../core/store/tv-bookmark';
 import { AbstractMediaDetailComponent } from '../../../../shared/abstract/components/abstract-media-detail.component';
 import { BookmarkDisabledDialogComponent } from '../../../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { BookmarkSelectorComponent } from '../../../../shared/components/bookmark-selector/bookmark-selector.component';
@@ -32,7 +32,7 @@ import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/
 import { PredominantColor } from '../../../../shared/interfaces/layout.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { bookmarkEnum } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { TVDetail, MediaType } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MediaType, TVDetail } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-tv-detail',

@@ -10,13 +10,12 @@ import { MovieBookmark } from '../../../shared/interfaces/supabase/movie-bookmar
 import { MovieData } from '../../../shared/interfaces/supabase/movie-data.entity.interface';
 import { crud_operations } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { MovieBookmarkMap } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { MovieResult, MovieDetail } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MovieDetail, MovieResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { movieDetailSuccess } from '../../component-store/movie-detail-store.service';
 import { personDetailMovieCreditsSuccess } from '../../component-store/person-detail-store.service';
 import { AuthSelectors, AuthActions } from '../auth';
 import { DiscoveryMovieActions } from '../discovery-movie';
 import { SearchMovieActions } from '../search-movie';
-
 
 @Injectable()
 export class MovieBookmarkEffects {

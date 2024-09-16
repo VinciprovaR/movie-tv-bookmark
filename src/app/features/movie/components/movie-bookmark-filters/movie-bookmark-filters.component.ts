@@ -9,7 +9,10 @@ import { GenreFilterComponent } from '../../../../shared/components/genre-filter
 import { SelectFilterComponent } from '../../../../shared/components/select-filter/select-filter.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
 import { PayloadMovieBookmark } from '../../../../shared/interfaces/store/movie-bookmark-state.interface';
-import { BookmarkMovieFilterForm, Genre } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import {
+  BookmarkMovieFilterForm,
+  Genre,
+} from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-movie-bookmark-filters',

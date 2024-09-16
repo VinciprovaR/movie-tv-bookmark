@@ -11,8 +11,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { map, Observable, takeUntil } from 'rxjs';
+import { BridgeDataService } from '../../../core/services/bridge-data.service';
+import { AuthSelectors } from '../../../core/store/auth';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { AbstractCardComponent } from '../../abstract/components/abstract-card.component';
+import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
+import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 import {
   MediaType,
   Movie,
@@ -23,11 +28,6 @@ import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selecto
 import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
-import { BridgeDataService } from '../../../core/services/bridge-data.service';
-import { AuthSelectors } from '../../../core/store/auth';
-import { AbstractCardComponent } from '../../abstract/components/abstract-card.component';
-import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
-import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 
 @Component({
   selector: 'app-media-card',

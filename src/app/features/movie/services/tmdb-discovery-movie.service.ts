@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
 import { SupabaseProxyToTMDBService } from '../../../core/services/supabase-proxy-to-tmdb.service';
 import { PayloadDiscoveryMovie } from '../../../shared/interfaces/store/discovery-movie-state.interface';
 import { MovieResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { TMDBMovieParamsUtilsService } from './tmdb-movie-params-utils.service';
 
 @Injectable({
   providedIn: 'root',

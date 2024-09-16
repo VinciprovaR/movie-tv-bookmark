@@ -7,13 +7,13 @@ import {
 } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { SearchTVSelectors, SearchTVActions } from '../../../../core/store/search-tv';
-import { TVBookmarkSelectors, TVBookmarkActions } from '../../../../core/store/tv-bookmark';
+import { SearchTVActions, SearchTVSelectors } from '../../../../core/store/search-tv';
+import { TVBookmarkActions, TVBookmarkSelectors } from '../../../../core/store/tv-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
-import { TV, MediaType } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MediaType, TV } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-tv-search',

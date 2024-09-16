@@ -66,9 +66,9 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () =>
-      import('./features/auth/components/register-page/register-page.component').then(
-        (m) => m.RegisterPageComponent
-      ),
+      import(
+        './features/auth/components/register-page/register-page.component'
+      ).then((m) => m.RegisterPageComponent),
     canActivate: [nonAuthGuard],
     title: 'Register',
   },
@@ -91,17 +91,17 @@ export const routes: Routes = [
   {
     path: 'discovery-movie',
     loadComponent: () =>
-      import('./features/movie/components/movie-discovery/movie-discovery.component').then(
-        (m) => m.MovieDiscoveryComponent
-      ),
+      import(
+        './features/movie/components/movie-discovery/movie-discovery.component'
+      ).then((m) => m.MovieDiscoveryComponent),
     title: 'Discovery Movie',
   },
   {
     path: 'discovery-tv',
     loadComponent: () =>
-      import('./features/tv/components/tv-discovery/tv-discovery.component').then(
-        (m) => m.TVDiscoveryComponent
-      ),
+      import(
+        './features/tv/components/tv-discovery/tv-discovery.component'
+      ).then((m) => m.TVDiscoveryComponent),
     title: 'Discovery TV',
   },
   {
@@ -155,9 +155,9 @@ export const routes: Routes = [
   {
     path: 'movie-detail/:movieId',
     loadComponent: () =>
-      import('./features/movie/components/movie-detail/movie-detail.component').then(
-        (m) => m.MovieDetailComponent
-      ),
+      import(
+        './features/movie/components/movie-detail/movie-detail.component'
+      ).then((m) => m.MovieDetailComponent),
     title: 'Movie Detail',
   },
   {
@@ -179,25 +179,25 @@ export const routes: Routes = [
   {
     path: 'tv-credits/:tvId',
     loadComponent: () =>
-      import('./features/tv/components/tv-detail-credits/tv-detail-credits.component').then(
-        (m) => m.TVDetailCreditsComponent
-      ),
+      import(
+        './features/tv/components/tv-detail-credits/tv-detail-credits.component'
+      ).then((m) => m.TVDetailCreditsComponent),
     title: 'TV Detail Credits',
   },
   {
     path: 'people',
     loadComponent: () =>
-      import('./features/people/components/people-search/people-search.component').then(
-        (m) => m.PeopleSearchComponent
-      ),
+      import(
+        './features/people/components/people-search/people-search.component'
+      ).then((m) => m.PeopleSearchComponent),
     title: 'Search People',
   },
   {
     path: 'person-detail/:personId',
     loadComponent: () =>
-      import('./features/people/components/person-detail/person-detail.component').then(
-        (m) => m.PersonDetailComponent
-      ),
+      import(
+        './features/people/components/person-detail/person-detail.component'
+      ).then((m) => m.PersonDetailComponent),
     title: 'Person Detail',
   },
   {

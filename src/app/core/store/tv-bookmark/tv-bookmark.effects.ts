@@ -4,18 +4,18 @@ import { Store } from '@ngrx/store';
 import { User } from '@supabase/supabase-js';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { TVBookmarkActions, TVBookmarkSelectors } from '.';
-import { AuthActions, AuthSelectors } from '../auth';
-import { DiscoveryTVActions } from '../discovery-tv';
-import { SearchTVActions } from '../search-tv';
 import { SupabaseTVBookmarkService } from '../../../features/tv/services/supabase-tv-bookmark.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
 import { crud_operations } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { TVBookmarkMap } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { TVBookmark } from '../../../shared/interfaces/supabase/tv-bookmark.entity.interface';
 import { TVData } from '../../../shared/interfaces/supabase/tv-data.entity.interface';
-import { TVResult, TVDetail } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { TVDetail, TVResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { personDetailTVCreditsSuccess } from '../../component-store/person-detail-store.service';
 import { tvDetailSuccess } from '../../component-store/tv-detail-store.service';
+import { AuthSelectors, AuthActions } from '../auth';
+import { DiscoveryTVActions } from '../discovery-tv';
+import { SearchTVActions } from '../search-tv';
 
 @Injectable()
 export class TVBookmarkEffects {

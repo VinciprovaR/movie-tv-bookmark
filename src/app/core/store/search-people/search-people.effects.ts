@@ -3,10 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { SearchPeopleActions, SearchPeopleSelectors } from '.';
-import { AuthActions } from '../auth';
 import { TMDBSearchPeopleService } from '../../../features/people/services/tmdb-search-people.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
 import { PeopleResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class SearchPeopleEffects {

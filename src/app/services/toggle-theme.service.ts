@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { WebStorageService } from './web-storage.service';
 import { THEME_KEY_LOCAL_STORAGE } from '../providers';
+import { WebStorageService } from './web-storage.service';
 
 @Injectable({
   providedIn: 'root',

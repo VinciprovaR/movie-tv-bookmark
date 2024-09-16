@@ -5,13 +5,12 @@ import { SupabaseUtilsService } from '../../../core/services/supabase-utils.serv
 import { PayloadTVBookmark } from '../../../shared/interfaces/store/tv-bookmark-state.interface';
 import { MediaBookmarkDTO } from '../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { crud_operations } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
-import { mediaBookmarkDTOTVType, TVBookmarkMap } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
+import { bookmarkEnum, mediaBookmarkDTOTVType, TVBookmarkMap } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { TVBookmark } from '../../../shared/interfaces/supabase/tv-bookmark.entity.interface';
 import { TVData } from '../../../shared/interfaces/supabase/tv-data.entity.interface';
 import { TV, TVDetail, TVResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { SupabaseTVBookmarkDAO } from './supabase-tv-bookmark.dao';
 import { SupabaseTVDataDAO } from './supabase-tv-data.dao';
-import { bookmarkEnum } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 
 /**
  * SupabaseTVBookmarkService init, find, create, update, delete bookmark

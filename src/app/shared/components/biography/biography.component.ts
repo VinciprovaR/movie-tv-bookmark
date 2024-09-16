@@ -7,8 +7,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 
 @Component({
   selector: 'app-biography',

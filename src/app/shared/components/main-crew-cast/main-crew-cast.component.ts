@@ -6,9 +6,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MainCrewCast } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-main-crew-cast',

@@ -15,6 +15,17 @@ import { provideEffects } from '@ngrx/effects';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { metaReducers, reducers } from './core/store/app.store';
+import { AuthEffects } from './core/store/auth/auth.effects';
+import { BookmarkMetadataEffects } from './core/store/bookmark-metadata/bookmark-metadata.effects';
+import { DiscoveryMovieEffects } from './core/store/discovery-movie/discovery-movie.effects';
+import { DiscoveryTVEffects } from './core/store/discovery-tv/discovery-tv.effects';
+import { FiltersMetadataEffects } from './core/store/filters-metadata/filters-metadata.effects';
+import { MovieBookmarkEffects } from './core/store/movie-bookmark/movie-bookmark.effects';
+import { SearchMovieEffects } from './core/store/search-movie/search-movie.effects';
+import { SearchPeopleEffects } from './core/store/search-people/search-people.effects';
+import { SearchTVEffects } from './core/store/search-tv/search-tv.effects';
+import { TVBookmarkEffects } from './core/store/tv-bookmark/tv-bookmark.effects';
 import {
   provideBookmarkNavElements,
   provideBookmarkSelect,
@@ -28,17 +39,6 @@ import {
   provideStorageKey,
   provideSupabaseClient,
 } from './providers';
-import { reducers, metaReducers } from './core/store/app.store';
-import { AuthEffects } from './core/store/auth/auth.effects';
-import { BookmarkMetadataEffects } from './core/store/bookmark-metadata/bookmark-metadata.effects';
-import { DiscoveryMovieEffects } from './core/store/discovery-movie/discovery-movie.effects';
-import { DiscoveryTVEffects } from './core/store/discovery-tv/discovery-tv.effects';
-import { FiltersMetadataEffects } from './core/store/filters-metadata/filters-metadata.effects';
-import { MovieBookmarkEffects } from './core/store/movie-bookmark/movie-bookmark.effects';
-import { SearchMovieEffects } from './core/store/search-movie/search-movie.effects';
-import { SearchPeopleEffects } from './core/store/search-people/search-people.effects';
-import { SearchTVEffects } from './core/store/search-tv/search-tv.effects';
-import { TVBookmarkEffects } from './core/store/tv-bookmark/tv-bookmark.effects';
 import { TitleStrategyService } from './services/title-strategy.service';
 import { WebStorageService } from './services/web-storage.service';
 

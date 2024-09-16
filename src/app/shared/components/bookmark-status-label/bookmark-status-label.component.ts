@@ -6,9 +6,9 @@ import {
   Input,
 } from '@angular/core';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
-import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
-import { scrollDirection } from '../../interfaces/layout.interface';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { scrollDirection } from '../../interfaces/layout.interface';
+import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 
 @Component({
   selector: 'app-bookmark-status-label',

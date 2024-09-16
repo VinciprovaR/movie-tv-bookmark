@@ -7,13 +7,13 @@ import {
 } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { MovieBookmarkSelectors, MovieBookmarkActions } from '../../../../core/store/movie-bookmark';
-import { SearchMovieSelectors, SearchMovieActions } from '../../../../core/store/search-movie';
+import { MovieBookmarkActions, MovieBookmarkSelectors } from '../../../../core/store/movie-bookmark';
+import { SearchMovieActions, SearchMovieSelectors } from '../../../../core/store/search-movie';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
-import { Movie, MediaType } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MediaType, Movie } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-search-movie',

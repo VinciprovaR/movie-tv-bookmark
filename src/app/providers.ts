@@ -8,7 +8,10 @@ import { AuthActions } from './core/store/auth';
 import { BookmarkMetadataActions } from './core/store/bookmark-metadata';
 import { FiltersMetadataActions } from './core/store/filters-metadata';
 import { SupabaseAuthEventsService } from './services/supabase-auth-events.service';
-import { BookmarkNavElement, NavElements } from './shared/interfaces/navigator.interface';
+import {
+  BookmarkNavElement,
+  NavElements,
+} from './shared/interfaces/navigator.interface';
 import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(

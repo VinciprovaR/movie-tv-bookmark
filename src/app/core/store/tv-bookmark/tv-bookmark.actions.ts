@@ -3,11 +3,16 @@ import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/cus
 import { PayloadTVBookmark } from '../../../shared/interfaces/store/tv-bookmark-state.interface';
 import { MediaBookmarkDTO } from '../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { crud_operations } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
-import { TVBookmarkMap, bookmarkEnum } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
+import {
+  TVBookmarkMap,
+  bookmarkEnum,
+} from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { TVBookmark } from '../../../shared/interfaces/supabase/tv-bookmark.entity.interface';
 import { TVData } from '../../../shared/interfaces/supabase/tv-data.entity.interface';
-import { TV, TVDetail } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
-
+import {
+  TV,
+  TVDetail,
+} from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 //populate bookmark map
 export const populateTVBookmarkMapSuccess = createAction(

@@ -20,13 +20,13 @@ import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { takeUntil } from 'rxjs';
+import { AbstractAuthComponent } from '../../abstract/components/abstract-auth.component';
+import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 import {
   SubmitDialog,
   submitDialogType,
 } from '../../interfaces/layout.interface';
 import { DeleteAccountForm } from '../../interfaces/supabase/supabase-auth.interface';
-import { AbstractAuthComponent } from '../../abstract/components/abstract-auth.component';
-import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 
 @Component({
   selector: 'app-delete-account-confirmation-dialog',

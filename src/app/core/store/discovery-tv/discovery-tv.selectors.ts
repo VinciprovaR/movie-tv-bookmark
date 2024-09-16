@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as DiscoveryTVReducer from './discovery-tv.reducer';
 import { DiscoveryTVState } from '../../../shared/interfaces/store/discovery-tv-state.interface';
+import * as DiscoveryTVReducer from './discovery-tv.reducer';
 
 const discoveryTVFeatureSelector = createFeatureSelector<DiscoveryTVState>(
   DiscoveryTVReducer.discoveryTVFeatureKey

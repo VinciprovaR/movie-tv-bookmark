@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as SearchTVReducer from './search-tv.reducer';
 import { SearchTVState } from '../../../shared/interfaces/store/search-tv-state.interface';
+import * as SearchTVReducer from './search-tv.reducer';
 
 const searchTVFeatureSelector = createFeatureSelector<SearchTVState>(
   SearchTVReducer.searchTVFeatureKey

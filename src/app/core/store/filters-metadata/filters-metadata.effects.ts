@@ -10,13 +10,13 @@ import {
   switchMap,
 } from 'rxjs';
 import { FiltersMetadataActions } from '.';
-import { TMDBFilterMediaService } from '../../services/tmdb-filter-media.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
 import {
-  Genre,
   Certification,
+  Genre,
   Language,
 } from '../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import { TMDBFilterMediaService } from '../../services/tmdb-filter-media.service';
 
 @Injectable()
 export class FiltersMetadataEffects {

@@ -10,12 +10,12 @@ import {
 import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntil } from 'rxjs';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 import {
   SubmitDialog,
   submitDialogType,
 } from '../../interfaces/layout.interface';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
-import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 
 @Component({
   selector: 'app-change-password-confirmation-dialog',

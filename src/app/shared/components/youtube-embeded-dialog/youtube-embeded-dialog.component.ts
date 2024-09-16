@@ -17,13 +17,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { YouTubePlayer } from '@angular/youtube-player';
 import { takeUntil } from 'rxjs';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 import {
   SubmitDialog,
   submitDialogType,
 } from '../../interfaces/layout.interface';
 import { ImgComponent } from '../img/img.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
-import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 
 @Component({
   selector: 'app-youtube-embeded-dialog',

@@ -14,13 +14,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable, distinctUntilChanged, filter, map, takeUntil } from 'rxjs';
+import { BridgeDataService } from '../../../core/services/bridge-data.service';
+import { BookmarkMetadataSelectors } from '../../../core/store/bookmark-metadata';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.interface';
+import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
+import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
 import {
   MovieBookmarkMap,
   TVBookmarkMap,
   bookmarkEnum,
 } from '../../interfaces/supabase/supabase-bookmark.interface';
+import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 import {
   MediaType,
   Movie,
@@ -28,12 +34,6 @@ import {
   TV,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { BridgeDataService } from '../../../core/services/bridge-data.service';
-import { BookmarkMetadataSelectors } from '../../../core/store/bookmark-metadata';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
-import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
-import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
-import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 
 @Component({
   selector: 'app-bookmark-selector',

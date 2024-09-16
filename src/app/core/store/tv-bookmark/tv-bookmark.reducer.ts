@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import * as TVBookmarkActions from './tv-bookmark.actions';
 import { TVBookmarkState } from '../../../shared/interfaces/store/tv-bookmark-state.interface';
+import * as TVBookmarkActions from './tv-bookmark.actions';
 
 export const tvBookmarkStateFeatureKey = 'tv-bookmark';
 

@@ -1,15 +1,5 @@
 import { isDevMode } from '@angular/core';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { AuthReducers } from './auth';
-import { BookmarkMetadataReducers } from './bookmark-metadata';
-import { DiscoveryMovieReducers } from './discovery-movie';
-import { DiscoveryTVReducers } from './discovery-tv';
-import { FiltersMetadataReducers } from './filters-metadata';
-import { MovieBookmarkReducers } from './movie-bookmark';
-import { SearchMovieReducers } from './search-movie';
-import { SearchPeopleReducers } from './search-people';
-import { SearchTVReducers } from './search-tv';
-import { TVBookmarkReducers } from './tv-bookmark';
 import { AuthState } from '../../shared/interfaces/store/auth-state.interface';
 import { BookmarkMetadataState } from '../../shared/interfaces/store/bookmark-metadata-state.interface';
 import { DiscoveryMovieState } from '../../shared/interfaces/store/discovery-movie-state.interface';
@@ -20,6 +10,16 @@ import { SearchMovieState } from '../../shared/interfaces/store/search-movie-sta
 import { SearchPeopleState } from '../../shared/interfaces/store/search-people-state.interface';
 import { SearchTVState } from '../../shared/interfaces/store/search-tv-state.interface';
 import { TVBookmarkState } from '../../shared/interfaces/store/tv-bookmark-state.interface';
+import { AuthReducers } from './auth';
+import { BookmarkMetadataReducers } from './bookmark-metadata';
+import { DiscoveryMovieReducers } from './discovery-movie';
+import { DiscoveryTVReducers } from './discovery-tv';
+import { FiltersMetadataReducers } from './filters-metadata';
+import { MovieBookmarkReducers } from './movie-bookmark';
+import { SearchMovieReducers } from './search-movie';
+import { SearchPeopleReducers } from './search-people';
+import { SearchTVReducers } from './search-tv';
+import { TVBookmarkReducers } from './tv-bookmark';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;

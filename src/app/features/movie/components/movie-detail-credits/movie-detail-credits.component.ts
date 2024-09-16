@@ -20,7 +20,7 @@ import { ImgComponent } from '../../../../shared/components/img/img.component';
 import { PersonCardComponent } from '../../../../shared/components/person-card/person-card.component';
 import { FadeScrollerDirective } from '../../../../shared/directives/fade-scroller.directive';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
-import { MovieCredit, MovieDetail, CastMovie, MovieDepartments, Banner, CrewMovie } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { Banner, CastMovie, CrewMovie, MovieCredit, MovieDepartments, MovieDetail } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-movie-detail-credits',

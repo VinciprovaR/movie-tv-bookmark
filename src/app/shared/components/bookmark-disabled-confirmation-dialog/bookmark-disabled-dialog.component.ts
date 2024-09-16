@@ -12,13 +12,13 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { takeUntil } from 'rxjs';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 import {
   scrollDirection,
   SubmitDialog,
   submitDialogType,
 } from '../../interfaces/layout.interface';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
-import { AbstractDialogComponent } from '../../abstract/components/abstract-dialog.component';
 
 @Component({
   selector: 'app-bookmark-disabled-dialog',

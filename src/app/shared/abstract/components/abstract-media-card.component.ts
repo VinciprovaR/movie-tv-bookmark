@@ -1,9 +1,9 @@
 import { Directive, inject, Input } from '@angular/core';
+import { BridgeDataService } from '../../../core/services/bridge-data.service';
 import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { AbstractComponent } from './abstract-component.component';
-import { BridgeDataService } from '../../../core/services/bridge-data.service';
 
 @Directive()
 export abstract class AbstractMediaCard extends AbstractComponent {

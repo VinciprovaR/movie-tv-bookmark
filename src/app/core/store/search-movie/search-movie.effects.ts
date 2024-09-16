@@ -3,10 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { SearchMovieActions, SearchMovieSelectors } from '.';
-import { AuthActions } from '../auth';
 import { TMDBSearchMovieService } from '../../../features/movie/services/tmdb-search-movie.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
 import { MovieResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { AuthActions } from '../auth';
 
 @Injectable()
 export class SearchMovieEffects {

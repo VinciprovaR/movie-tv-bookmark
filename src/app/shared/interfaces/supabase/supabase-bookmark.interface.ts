@@ -1,6 +1,6 @@
-import { Movie, MovieDetail, TV, TVDetail } from "../TMDB/tmdb-media.interface";
-import { MovieData } from "./movie-data.entity.interface";
-import { TVData } from "./tv-data.entity.interface";
+import { Movie, MovieDetail, TV, TVDetail } from '../TMDB/tmdb-media.interface';
+import { MovieData } from './movie-data.entity.interface';
+import { TVData } from './tv-data.entity.interface';
 
 export type movieBookmarkDTOType = Movie | MovieDetail | MovieData;
 export type mediaBookmarkDTOTVType = TV | TVDetail | TVData;
@@ -10,7 +10,6 @@ export type watchListBookmark = 'watchlist';
 export type watchedBookmark = 'watched';
 export type rewatchBookmark = 'rewatch';
 export type stillWatchingBookmark = 'watching';
-
 
 export type bookmarkEnum =
   | noBookmark

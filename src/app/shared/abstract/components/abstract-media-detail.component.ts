@@ -1,7 +1,7 @@
 import { Directive, inject } from '@angular/core';
 import { IMG_SIZES } from '../../../providers';
-import { AbstractComponent } from './abstract-component.component';
 import { PredominantImgColorService } from '../../../services/predominant-img-color.service';
+import { AbstractComponent } from './abstract-component.component';
 
 @Directive()
 export abstract class AbstractMediaDetailComponent extends AbstractComponent {

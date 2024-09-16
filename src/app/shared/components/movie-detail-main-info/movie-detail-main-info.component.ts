@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MediaDetailMainInfoComponent } from '../../abstract/components/abstract-media-detail-main-info.component';
 import {
   CastMovie,
   CrewMovie,
@@ -20,7 +21,6 @@ import { OverviewComponent } from '../overview/overview.component';
 import { RatingComponent } from '../rating/rating.component';
 import { StaticTagComponent } from '../static-tag/static-tag.component';
 import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
-import { MediaDetailMainInfoComponent } from '../../abstract/components/abstract-media-detail-main-info.component';
 
 @Component({
   selector: 'app-movie-detail-main-info',

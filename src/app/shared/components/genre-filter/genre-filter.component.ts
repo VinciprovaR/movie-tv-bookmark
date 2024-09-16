@@ -6,9 +6,9 @@ import {
   Input,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { GenreGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
 import { SelectTagComponent } from '../select-tag/select-tag.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
   selector: 'app-genre-filter',

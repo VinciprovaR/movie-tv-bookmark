@@ -8,7 +8,7 @@ import {
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { SearchPeopleSelectors, SearchPeopleActions } from '../../../../core/store/search-people';
+import { SearchPeopleActions, SearchPeopleSelectors } from '../../../../core/store/search-people';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';

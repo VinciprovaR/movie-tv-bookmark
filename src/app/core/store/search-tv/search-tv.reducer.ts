@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import * as SearchTVActions from './search-tv.actions';
 import { SearchTVState } from '../../../shared/interfaces/store/search-tv-state.interface';
+import * as SearchTVActions from './search-tv.actions';
 
 export const searchTVFeatureKey = 'search-tv';
 

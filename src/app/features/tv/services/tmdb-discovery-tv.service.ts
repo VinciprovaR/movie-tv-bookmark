@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TMDBTVParamsUtilsService } from './tmdb-tv-params-utils.service';
 import { SupabaseProxyToTMDBService } from '../../../core/services/supabase-proxy-to-tmdb.service';
 import { PayloadDiscoveryTV } from '../../../shared/interfaces/store/discovery-tv-state.interface';
 import { TVResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { TMDBTVParamsUtilsService } from './tmdb-tv-params-utils.service';
 
 @Injectable({
   providedIn: 'root',

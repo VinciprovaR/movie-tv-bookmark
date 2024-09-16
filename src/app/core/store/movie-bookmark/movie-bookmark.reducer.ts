@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import * as MovieBookmarkActions from './movie-bookmark.actions';
 import { MovieBookmarkState } from '../../../shared/interfaces/store/movie-bookmark-state.interface';
+import * as MovieBookmarkActions from './movie-bookmark.actions';
 
 export const movieBookmarkStateFeatureKey = 'movie-bookmark';
 

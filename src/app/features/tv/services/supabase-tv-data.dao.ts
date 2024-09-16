@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { from, map, Observable } from 'rxjs';
-import { SUPABASE_CLIENT } from '../../../providers';
 import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse.model';
+import { SUPABASE_CLIENT } from '../../../providers';
 import { TVData } from '../../../shared/interfaces/supabase/tv-data.entity.interface';
 import { TV } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 

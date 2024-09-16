@@ -9,17 +9,17 @@ import {
 } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import {
   MediaType,
   Movie,
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { scrollDirection } from '../../interfaces/layout.interface';
-import { MediaCardComponent } from '../media-card/media-card.component';
-import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
 import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
+import { MediaCardComponent } from '../media-card/media-card.component';
+import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 
 @Component({
   selector: 'app-media-list-container',
