@@ -10,7 +10,7 @@
   <!--  -->
 
   @if((banner$|async); as banner ){
-  <div class="w-full bg-[var(--bg-page-section)] sm:bg-transparent pt-6">
+  <div class="w-full bg-[var(--bg-page-section)] sm:bg-transparent py-6">
     <div class="space-y-6">
       <div class="text-center">
         <a [routerLink]="buildDetailPath(banner.id)" [title]="banner.title">
@@ -22,6 +22,7 @@
           </h1></a
         >
       </div>
+      @if(banner.backdrop_path){
       <div>
         <a
           class="justify-center flex"
@@ -41,6 +42,7 @@
           ></div>
         </a>
       </div>
+      }
     </div>
   </div>
 
