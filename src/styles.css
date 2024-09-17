@@ -43,7 +43,6 @@ body.light-theme {
   --bg-input-search: rgb(249, 250, 251);
   --bg-bookmark-icon: rgba(255, 255, 255, 0.85);
   --header-li-color: rgb(0, 92, 187);
-  --bg-page-section: rgb(250, 250, 250);
   --text-color: var(--text-color-dark);
   --border-color-separator: rgb(132, 115, 118);
   --tag-border-color: #a5a5a5;
@@ -68,7 +67,6 @@ body.dark-theme {
   --text-gray: rgb(177, 186, 199);
   --bg-bookmark-icon: rgb(18, 20, 20, 0.85);
   --header-li-color: rgb(0, 221, 221);
-  --bg-page-section: rgb(40, 40, 40);
   --text-color: var(--text-color-light);
   --border-color-separator: rgb(136, 147, 146);
   --tag-border-color: #a5a5a5;
@@ -402,7 +400,7 @@ button.button-mt:disabled {
     background-image: linear-gradient(
       to right,
       rgba(255, 255, 255, 0) 0,
-      var(--bg-page-section) 100%
+      var(--theme-color-3) 100%
     );
   }
 }
