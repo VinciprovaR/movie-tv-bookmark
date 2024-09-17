@@ -8,11 +8,11 @@ import {
   bookmarkEnum,
 } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { TVBookmark } from '../../../shared/interfaces/supabase/tv-bookmark.entity.interface';
-import { TVData } from '../../../shared/interfaces/supabase/tv-data.entity.interface';
 import {
   TV,
   TVDetail,
 } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { TVData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
 
 export const resetFilters = createAction('[TV-Bookmark] Reset Filters');
 

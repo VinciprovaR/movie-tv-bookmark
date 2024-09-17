@@ -24,3 +24,11 @@
 .bookmark-label-wrapper-horizontal {
   bottom: 0;
 }
+
+.custom-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* For Webkit-based browsers */
+  line-clamp: 2; /* Standard property */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

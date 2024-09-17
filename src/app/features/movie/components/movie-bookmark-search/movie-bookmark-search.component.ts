@@ -9,15 +9,27 @@ import {
 import { combineLatest, filter, Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import { FiltersMetadataSelectors } from '../../../../core/store/filters-metadata';
-import { MovieBookmarkActions, MovieBookmarkSelectors } from '../../../../core/store/movie-bookmark';
+import {
+  MovieBookmarkActions,
+  MovieBookmarkSelectors,
+} from '../../../../core/store/movie-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { PayloadMovieBookmark } from '../../../../shared/interfaces/store/movie-bookmark-state.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
-import { MovieData } from '../../../../shared/interfaces/supabase/movie-data.entity.interface';
-import { bookmarkEnum, MovieBookmarkMap } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { Genre, OptionFilter } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
-import { MediaType, Movie } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { MovieData } from '../../../../shared/interfaces/supabase/media-data.entity.interface';
+import {
+  bookmarkEnum,
+  MovieBookmarkMap,
+} from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
+import {
+  Genre,
+  OptionFilter,
+} from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import {
+  MediaType,
+  Movie,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { MovieBookmarkFiltersComponent } from '../movie-bookmark-filters/movie-bookmark-filters.component';
 
 @Component({

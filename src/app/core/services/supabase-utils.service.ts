@@ -6,7 +6,10 @@ import {
   MediaBookmarkDTO,
 } from '../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { MovieBookmark } from '../../shared/interfaces/supabase/movie-bookmark.entity.interface';
-import { MovieData } from '../../shared/interfaces/supabase/movie-data.entity.interface';
+import {
+  MovieData,
+  TVData,
+} from '../../shared/interfaces/supabase/media-data.entity.interface';
 import {
   BookmarkCrudConditions,
   crud_operations,
@@ -16,7 +19,6 @@ import {
   TVBookmarkMap,
 } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { TVBookmark } from '../../shared/interfaces/supabase/tv-bookmark.entity.interface';
-import { TVData } from '../../shared/interfaces/supabase/tv-data.entity.interface';
 import { Genre } from '../../shared/interfaces/TMDB/tmdb-filters.interface';
 import {
   Movie,
@@ -76,6 +78,7 @@ export class SupabaseUtilsService {
       poster_path: movie.poster_path,
       release_date: movie.release_date,
       title: movie.title,
+      overview: movie.overview,
     };
 
     if (this.isMovieDetailEntity(movie)) {
@@ -110,6 +113,7 @@ export class SupabaseUtilsService {
       poster_path: tv.poster_path,
       first_air_date: tv.first_air_date,
       name: tv.name,
+      overview: tv.overview,
     };
 
     if (this.isTVDetailEntity(tv)) {

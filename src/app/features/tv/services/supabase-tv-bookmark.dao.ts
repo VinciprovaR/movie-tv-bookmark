@@ -7,7 +7,7 @@ import { PayloadTVBookmark } from '../../../shared/interfaces/store/tv-bookmark-
 import { bookmarkEnum } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { SortyByConfig } from '../../../shared/interfaces/supabase/supabase-filter-config.interface';
 import { TVBookmark } from '../../../shared/interfaces/supabase/tv-bookmark.entity.interface';
-import { TVData } from '../../../shared/interfaces/supabase/tv-data.entity.interface';
+import { TVData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
 
 @Injectable({
   providedIn: 'root',

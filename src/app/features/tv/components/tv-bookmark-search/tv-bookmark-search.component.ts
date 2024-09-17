@@ -9,16 +9,25 @@ import {
 import { combineLatest, filter, Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import { FiltersMetadataSelectors } from '../../../../core/store/filters-metadata';
-import { TVBookmarkActions, TVBookmarkSelectors } from '../../../../core/store/tv-bookmark';
+import {
+  TVBookmarkActions,
+  TVBookmarkSelectors,
+} from '../../../../core/store/tv-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { PayloadTVBookmark } from '../../../../shared/interfaces/store/tv-bookmark-state.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
-import { bookmarkEnum, TVBookmarkMap } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { TVData } from '../../../../shared/interfaces/supabase/tv-data.entity.interface';
-import { Genre, OptionFilter } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import {
+  bookmarkEnum,
+  TVBookmarkMap,
+} from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
+import {
+  Genre,
+  OptionFilter,
+} from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
 import { MediaType } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { TVBookmarkFiltersComponent } from '../tv-bookmark-filters/tv-bookmark-filters.component';
+import { TVData } from '../../../../shared/interfaces/supabase/media-data.entity.interface';
 
 @Component({
   selector: 'app-tv-bookmark-search',

@@ -15,9 +15,11 @@ import { BridgeDataService } from '../../../core/services/bridge-data.service';
 import { AuthSelectors } from '../../../core/store/auth';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractCardComponent } from '../../abstract/components/abstract-card.component';
-import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
+import {
+  MovieData,
+  TVData,
+} from '../../interfaces/supabase/media-data.entity.interface';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
-import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 import {
   MediaType,
   Movie,

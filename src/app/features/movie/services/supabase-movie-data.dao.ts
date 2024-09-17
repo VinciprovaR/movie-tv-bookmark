@@ -3,7 +3,7 @@ import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { from, map, Observable } from 'rxjs';
 import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse.model';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { MovieData } from '../../../shared/interfaces/supabase/movie-data.entity.interface';
+import { MovieData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
 import { Movie } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Injectable({
@@ -42,6 +42,7 @@ export class SupabaseMovieDataDAO {
           release_date: movieDataDTO.release_date,
           title: movieDataDTO.title,
           genre_ids: movieDataDTO.genre_ids,
+          overview: movieDataDTO.overview,
         })
         .select()
     ).pipe(

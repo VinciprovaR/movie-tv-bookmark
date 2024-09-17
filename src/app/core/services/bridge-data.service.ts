@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { MediaBookmarkDTO } from '../../shared/interfaces/supabase/media-bookmark.DTO.interface';
-import { MovieData } from '../../shared/interfaces/supabase/movie-data.entity.interface';
+import {
+  MovieData,
+  TVData,
+} from '../../shared/interfaces/supabase/media-data.entity.interface';
 import {
   MovieBookmarkMap,
   TVBookmarkMap,
 } from '../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { TVData } from '../../shared/interfaces/supabase/tv-data.entity.interface';
 import {
   MediaType,
   Movie,

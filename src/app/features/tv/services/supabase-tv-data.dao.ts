@@ -3,8 +3,8 @@ import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { from, map, Observable } from 'rxjs';
 import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse.model';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { TVData } from '../../../shared/interfaces/supabase/tv-data.entity.interface';
 import { TV } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import { TVData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +39,7 @@ export class SupabaseTVDataDAO {
           first_air_date: tvDataDTO.first_air_date,
           name: tvDataDTO.name,
           genre_ids: tvDataDTO.genre_ids,
+          overview: tvDataDTO.overview,
         })
         .select()
     ).pipe(

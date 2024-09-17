@@ -7,10 +7,13 @@ import { MovieBookmarkActions, MovieBookmarkSelectors } from '.';
 import { SupabaseMovieBookmarkService } from '../../../features/movie/services/supabase-movie-bookmark.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
 import { MovieBookmark } from '../../../shared/interfaces/supabase/movie-bookmark.entity.interface';
-import { MovieData } from '../../../shared/interfaces/supabase/movie-data.entity.interface';
+import { MovieData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
 import { crud_operations } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import { MovieBookmarkMap } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { MovieDetail, MovieResult } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  MovieDetail,
+  MovieResult,
+} from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { movieDetailSuccess } from '../../component-store/movie-detail-store.service';
 import { personDetailMovieCreditsSuccess } from '../../component-store/person-detail-store.service';
 import { AuthSelectors, AuthActions } from '../auth';

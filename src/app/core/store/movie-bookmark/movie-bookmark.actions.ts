@@ -3,7 +3,7 @@ import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/cus
 import { PayloadMovieBookmark } from '../../../shared/interfaces/store/movie-bookmark-state.interface';
 import { MediaBookmarkDTO } from '../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { MovieBookmark } from '../../../shared/interfaces/supabase/movie-bookmark.entity.interface';
-import { MovieData } from '../../../shared/interfaces/supabase/movie-data.entity.interface';
+import { MovieData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
 import { crud_operations } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import {
   MovieBookmarkMap,

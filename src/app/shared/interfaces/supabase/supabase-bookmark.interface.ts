@@ -1,6 +1,5 @@
 import { Movie, MovieDetail, TV, TVDetail } from '../TMDB/tmdb-media.interface';
-import { MovieData } from './movie-data.entity.interface';
-import { TVData } from './tv-data.entity.interface';
+import { MovieData, TVData } from './media-data.entity.interface';
 
 export type movieBookmarkDTOType = Movie | MovieDetail | MovieData;
 export type mediaBookmarkDTOTVType = TV | TVDetail | TVData;

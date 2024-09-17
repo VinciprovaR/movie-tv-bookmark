@@ -20,13 +20,15 @@ import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.interface';
 import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
-import { MovieData } from '../../interfaces/supabase/movie-data.entity.interface';
+import {
+  MovieData,
+  TVData,
+} from '../../interfaces/supabase/media-data.entity.interface';
 import {
   MovieBookmarkMap,
   TVBookmarkMap,
   bookmarkEnum,
 } from '../../interfaces/supabase/supabase-bookmark.interface';
-import { TVData } from '../../interfaces/supabase/tv-data.entity.interface';
 import {
   MediaType,
   Movie,
@@ -88,7 +90,6 @@ export class BookmarkSelectorComponent
   }
 
   ngOnInit(): void {
-
     this.idItem = `${this.personIdentifier}_${this.index}_${this.mediaData.id}`;
 
     this.initSelectors();

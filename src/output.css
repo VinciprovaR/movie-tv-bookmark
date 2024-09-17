@@ -449,8 +449,20 @@
   max-height: 5rem;
 }
 
+.max-h-\[158px\] {
+  max-height: 158px;
+}
+
 .max-h-\[60px\] {
   max-height: 60px;
+}
+
+.max-h-\[170px\] {
+  max-height: 170px;
+}
+
+.max-h-\[180px\] {
+  max-height: 180px;
 }
 
 .min-h-\[158px\] {
@@ -463,6 +475,14 @@
 
 .min-h-\[66px\] {
   min-height: 66px;
+}
+
+.min-h-\[170px\] {
+  min-height: 170px;
+}
+
+.min-h-\[180px\] {
+  min-height: 180px;
 }
 
 .w-0 {
@@ -527,6 +547,14 @@
 
 .w-full {
   width: 100%;
+}
+
+.w-64 {
+  width: 16rem;
+}
+
+.w-\[120px\] {
+  width: 120px;
 }
 
 .min-w-\[66px\] {
@@ -780,6 +808,10 @@
   text-overflow: ellipsis;
 }
 
+.text-clip {
+  text-overflow: clip;
+}
+
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -832,10 +864,6 @@
 
 .bg-\[var\(--bg-input-search\)\] {
   background-color: var(--bg-input-search);
-}
-
-.bg-\[var\(--bg-page-section\)\] {
-  background-color: var(--bg-page-section);
 }
 
 .bg-\[var\(--bg-success-container\)\] {
@@ -1438,7 +1466,8 @@ h4 {
   font-weight: 600;
 }
 
-h5 {
+h5,
+.overview-card {
   font-size: 0.9rem;
   font-weight: 250;
   margin: 0px;
@@ -2018,6 +2047,14 @@ youtube-player div:first-child {
 @media (min-width: 620px) {
   .\36 20\:relative {
     position: relative;
+  }
+
+  .\36 20\:hidden {
+    display: none;
+  }
+
+  .\36 20\:max-h-\[none\] {
+    max-height: none;
   }
 
   .\36 20\:w-full {

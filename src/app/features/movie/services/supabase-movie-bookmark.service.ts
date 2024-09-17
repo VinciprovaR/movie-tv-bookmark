@@ -5,8 +5,8 @@ import { SupabaseUtilsService } from '../../../core/services/supabase-utils.serv
 import { PayloadMovieBookmark } from '../../../shared/interfaces/store/movie-bookmark-state.interface';
 import { MediaBookmarkDTO } from '../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { MovieBookmark } from '../../../shared/interfaces/supabase/movie-bookmark.entity.interface';
-import { MovieData } from '../../../shared/interfaces/supabase/movie-data.entity.interface';
-import { crud_operations,  } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
+import { MovieData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
+import { crud_operations } from '../../../shared/interfaces/supabase/supabase-bookmark-crud-cases.interface';
 import {
   Movie,
   MovieDetail,
@@ -14,7 +14,11 @@ import {
 } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { SupabaseMovieBookmarkDAO } from './supabase-movie-bookmark.dao';
 import { SupabaseMovieDataDAO } from './supabase-movie-data.dao';
-import { MovieBookmarkMap, movieBookmarkDTOType, bookmarkEnum } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
+import {
+  MovieBookmarkMap,
+  movieBookmarkDTOType,
+  bookmarkEnum,
+} from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 
 /**
  * SupabaseMovieBookmarkService init, find, create, update, delete bookmark

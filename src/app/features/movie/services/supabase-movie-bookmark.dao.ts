@@ -5,7 +5,7 @@ import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse
 import { SUPABASE_CLIENT } from '../../../providers';
 import { PayloadMovieBookmark } from '../../../shared/interfaces/store/movie-bookmark-state.interface';
 import { MovieBookmark } from '../../../shared/interfaces/supabase/movie-bookmark.entity.interface';
-import { MovieData } from '../../../shared/interfaces/supabase/movie-data.entity.interface';
+import { MovieData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
 import { bookmarkEnum } from '../../../shared/interfaces/supabase/supabase-bookmark.interface';
 import { SortyByConfig } from '../../../shared/interfaces/supabase/supabase-filter-config.interface';
 
