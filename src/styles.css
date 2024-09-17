@@ -28,7 +28,6 @@
   --bg-danger-active: rgb(233, 35, 65);
   --bookmark-icon-selected: rgb(33, 173, 234);
   --home-bg-asbent-image: rgb(63, 78, 85);
-  --disabled-bg: rgb(124, 124, 124);
   --disabled-text-color: rgb(176, 176, 176);
 }
 
@@ -55,6 +54,7 @@ body.light-theme {
   --scroll-thumb-hover-color: rgb(136, 136, 136);
   --scroll-thumb-color: rgb(120, 120, 120);
   --bg-color-arrow-slider: rgba(18, 18, 18, 0.45);
+  --disabled-bg: rgb(216, 216, 216);
 }
 body.dark-theme {
   --theme-color-1: rgb(17, 24, 39);
@@ -79,6 +79,7 @@ body.dark-theme {
   --scroll-thumb-hover-color: rgb(112, 112, 112);
   --scroll-thumb-color: rgb(96, 96, 96);
   --bg-color-arrow-slider: rgba(87, 87, 87, 0.45);
+  --disabled-bg: rgb(124, 124, 124);
 }
 /****************** End ******************/
 
@@ -295,7 +296,7 @@ button.button-mt:disabled {
   border-radius: 9999px;
 }
 
-.border-container-no-color {
+.radius-container-int {
   border-radius: var(--border-radius-int);
 }
 
