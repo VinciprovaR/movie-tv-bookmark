@@ -9,9 +9,7 @@ import {
 } from '@angular/router';
 import { provideStore } from '@ngrx/store';
 import { routes } from './app.routes';
-
 import { provideEffects } from '@ngrx/effects';
-
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';

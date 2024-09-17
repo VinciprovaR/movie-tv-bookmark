@@ -129,7 +129,6 @@ export function provideInitRootServices() {
 
 export function provideImgUrl() {
   const endPointMedia = 'https://media.themoviedb.org/';
-
   return [
     {
       provide: IMG_SIZES.TMDB_ORIGINAL_IMG_URL,
