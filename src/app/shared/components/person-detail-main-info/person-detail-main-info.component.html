@@ -10,6 +10,7 @@
         <li class="list-none flex flex-wrap space-x-2 mr-2">
           <span>{{ genders[personDetail.gender] }}</span>
         </li>
+        @if(personDetail.birthday){
         <li class="list-none flex flex-wrap space-x-2 mr-2">
           <span>&#8226;</span
           ><span
@@ -28,7 +29,7 @@
           </span>
         </li>
         }
-
+      }
         <li class="list-none flex flex-wrap space-x-2 mr-2">
           <span>&#8226;</span><span>{{ personDetail.place_of_birth }}</span>
         </li>
