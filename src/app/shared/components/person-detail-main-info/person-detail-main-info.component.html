@@ -3,13 +3,13 @@
     <div class="flex flex-wrap">
       <h1 class="mr-2">{{ personDetail.name }}</h1>
     </div>
-
     <div>
       <ul class="flex flex-wrap m-0 p-0 text-sm lg:text-md">
+        @if(personDetail.gender > 0){
         <li class="list-none flex flex-wrap space-x-2 mr-2">
           <span>{{ genders[personDetail.gender] }}</span>
         </li>
-        @if(personDetail.birthday){
+        } @if(personDetail.birthday ){
         <li class="list-none flex flex-wrap space-x-2 mr-2">
           <span>&#8226;</span
           ><span
@@ -23,19 +23,20 @@
           <span>&#8226;</span
           ><span
             >{{ personDetail.deathday | date }} ({{
-                 toDate(personDetail.birthday) | age:personDetail.deathday
+              toDate(personDetail.birthday) | age : personDetail.deathday
             }})
           </span>
         </li>
-        }
-      }
+        } } @if(personDetail.place_of_birth){
         <li class="list-none flex flex-wrap space-x-2 mr-2">
           <span>&#8226;</span><span>{{ personDetail.place_of_birth }}</span>
         </li>
+        } @if(personDetail.known_for_department){
         <li class="list-none flex flex-wrap space-x-2 mr-2">
           <span>&#8226;</span
           ><span>{{ personDetail.known_for_department }}</span>
         </li>
+        }
       </ul>
     </div>
   </div>
