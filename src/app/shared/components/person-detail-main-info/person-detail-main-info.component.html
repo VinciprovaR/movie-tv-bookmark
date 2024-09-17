@@ -1,5 +1,4 @@
 <div class="space-y-10 p-4 lg:p-0 w-[90%]" #contentContainer>
-  <!-- Title and Main infos -->
   <div class="space-y-2">
     <div class="flex flex-wrap">
       <h1 class="mr-2">{{ personDetail.name }}</h1>
@@ -40,14 +39,11 @@
       </ul>
     </div>
   </div>
-  <!-- Biography -->
   <div>
     <app-biography [biography]="personDetail.biography"></app-biography>
   </div>
-
   <div class="hidden lg:block">
     <h2 class="mb-4">For more info go to</h2>
-
     <app-external-info
       [tmdbId]="personDetail.id"
       [imdbId]="personDetail.imdb_id"
