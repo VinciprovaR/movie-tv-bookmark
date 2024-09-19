@@ -1,5 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-/src/output.css
+
 # Compiled output
 /dist
 /tmp
@@ -37,7 +37,7 @@ yarn-error.log
 testem.log
 /typings
 TO-DO.txt
-
+/src/output.css
 
 # System files
 .DS_Store
