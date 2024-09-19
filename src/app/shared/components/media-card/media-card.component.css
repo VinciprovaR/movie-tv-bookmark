@@ -1,4 +1,4 @@
-@media (min-width: 620px) {
+@media (min-width: 621px) {
   .bookmark-selector-wrapper-vertical {
     position: absolute;
   }
@@ -8,7 +8,7 @@
   }
 }
 
-@media (max-width: 619.99px) {
+@media (max-width: 620px) {
   .bookmark-selector-wrapper-vertical {
     position: relative;
     max-width: 40px;
