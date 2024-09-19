@@ -15,10 +15,14 @@ import { ExternalInfoComponent } from '../../../../shared/components/external-in
 import { ImgComponent } from '../../../../shared/components/img/img.component';
 import { PersonDetailMainInfoContentComponent } from '../../../../shared/components/person-detail-main-info/person-detail-main-info.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
-import { MediaType, PersonDetail, PersonDetailMovieCredits, PersonDetailTVCredits } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  MediaType,
+  PersonDetail,
+  PersonDetailMovieCredits,
+  PersonDetailTVCredits,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { PersonMoviesComponent } from '../person-movies/person-movies.component';
 import { PersonTVsComponent } from '../person-tv/person-tvs.component';
-
 
 @Component({
   selector: 'app-person-detail',
@@ -32,7 +36,6 @@ import { PersonTVsComponent } from '../person-tv/person-tvs.component';
     PersonDetailMainInfoContentComponent,
     ErrorMessageTemplateComponent,
   ],
-
   templateUrl: './person-detail.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

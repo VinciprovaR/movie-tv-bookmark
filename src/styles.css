@@ -35,6 +35,7 @@ body.light-theme {
   --theme-color-1: rgb(243, 244, 246);
   --theme-color-2: rgb(165, 180, 252);
   --theme-color-3: rgb(255, 255, 255);
+  --theme-color-4: rgb(168, 168, 168);
   --theme-color-sub-menu: rgb(226, 226, 226);
   --border-color: rgba(209, 213, 219);
   --link-color: rgb(99, 102, 241);
@@ -60,6 +61,7 @@ body.dark-theme {
   --theme-color-2: rgb(28, 44, 66);
   --border-color: rgba(55, 65, 81);
   --theme-color-3: rgb(31, 41, 55);
+  --theme-color-4: rgb(21, 29, 39);
   --theme-color-sub-menu: rgb(47, 61, 82);
   --bg-input-search: rgb(31, 41, 55);
   --link-color: rgb(99, 102, 241);
