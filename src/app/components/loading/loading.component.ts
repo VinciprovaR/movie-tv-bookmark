@@ -127,54 +127,90 @@ export class LoadingComponent
     this.authSelectIsLoadingForPasswordValidation$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       });
 
     this.movieSearchSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       });
 
     this.movieBookmarksSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       });
 
     this.TVSearchSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       }
     );
 
     this.TVBookmarksSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       }
     );
 
     this.personSearchSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       });
 
     this.authSelectIsLoadingForCurrentUser$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       });
 
     this.movieDiscoverySelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       });
 
     this.TVDiscoverySelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        this.checkIsLoading(isLoading);
+        if (isLoading) {
+          this.startIsLoading();
+        } else {
+          this.endIsLoading();
+        }
       }
     );
 
@@ -182,49 +218,65 @@ export class LoadingComponent
     this.authSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading, true);
+        if (isLoading) {
+          this.startIsLoading(true);
+        } else {
+          this.endIsLoading(true);
+        }
       });
 
     this.movieDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading, true);
+        if (isLoading) {
+          this.startIsLoading(true);
+        } else {
+          this.endIsLoading(true);
+        }
       });
 
     this.movieDetailCreditsSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading, true);
+        if (isLoading) {
+          this.startIsLoading(true);
+        } else {
+          this.endIsLoading(true);
+        }
       });
 
     this.TVDetailSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        this.checkIsLoading(isLoading, true);
+        if (isLoading) {
+          this.startIsLoading(true);
+        } else {
+          this.endIsLoading(true);
+        }
       }
     );
 
     this.TVDetailCreditsSelectIsLoading$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((isLoading) => {
-      this.checkIsLoading(isLoading, true);
+      if (isLoading) {
+        this.startIsLoading(true);
+      } else {
+        this.endIsLoading(true);
+      }
     });
 
     this.personDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.checkIsLoading(isLoading, true);
+        if (isLoading) {
+          this.startIsLoading(true);
+        } else {
+          this.endIsLoading(true);
+        }
       });
   }
 
-  checkIsLoading(isLoading: boolean, isLanding: boolean = false) {
-    if (isLoading) {
-      this.startIsLoading(isLanding);
-    } else {
-      this.endIsLoading(isLanding);
-    }
-  }
-
-  startIsLoading(isLanding: boolean) {
+  startIsLoading(isLanding: boolean = false) {
     if (isLanding) {
       this.renderer.removeClass(this.loadingBarLanding.nativeElement, 'hidden');
       this.renderer.addClass(this.loadingBarLanding.nativeElement, 'block');
