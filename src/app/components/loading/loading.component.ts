@@ -126,119 +126,119 @@ export class LoadingComponent
     //not landing
     this.authSelectIsLoadingForPasswordValidation$
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((isLoadingForPasswordValidation) => {
-        this.toggleLoadingBar(isLoadingForPasswordValidation);
+      .subscribe((isLoading) => {
+        this.checkIsLoading(isLoading);
       });
 
     this.movieSearchSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading);
+        this.checkIsLoading(isLoading);
       });
 
     this.movieBookmarksSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading);
+        this.checkIsLoading(isLoading);
       });
 
     this.TVSearchSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        this.toggleLoadingBar(isLoading);
+        this.checkIsLoading(isLoading);
       }
     );
 
     this.TVBookmarksSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        this.toggleLoadingBar(isLoading);
+        this.checkIsLoading(isLoading);
       }
     );
 
     this.personSearchSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading);
+        this.checkIsLoading(isLoading);
       });
 
     this.authSelectIsLoadingForCurrentUser$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading);
+        this.checkIsLoading(isLoading);
       });
 
-      this.movieDiscoverySelectIsLoading$
+    this.movieDiscoverySelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading);
+        this.checkIsLoading(isLoading);
       });
 
-      this.TVDiscoverySelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
-        (isLoading) => {
-          this.toggleLoadingBar(isLoading);
-        }
-      );
-  
+    this.TVDiscoverySelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
+      (isLoading) => {
+        this.checkIsLoading(isLoading);
+      }
+    );
+
     //landing
     this.authSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading, true);
+        this.checkIsLoading(isLoading, true);
       });
 
     this.movieDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading, true);
+        this.checkIsLoading(isLoading, true);
       });
 
     this.movieDetailCreditsSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading, true);
+        this.checkIsLoading(isLoading, true);
       });
 
     this.TVDetailSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        this.toggleLoadingBar(isLoading, true);
+        this.checkIsLoading(isLoading, true);
       }
     );
 
     this.TVDetailCreditsSelectIsLoading$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((isLoading) => {
-      this.toggleLoadingBar(isLoading, true);
+      this.checkIsLoading(isLoading, true);
     });
 
     this.personDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        this.toggleLoadingBar(isLoading, true);
+        this.checkIsLoading(isLoading, true);
       });
   }
 
-  toggleLoadingBar(isLoading: boolean, isLanding: boolean = false) {
+  checkIsLoading(isLoading: boolean, isLanding: boolean = false) {
     if (isLoading) {
-      if (isLanding) {
-        this.renderer.removeClass(
-          this.loadingBarLanding.nativeElement,
-          'hidden'
-        );
-        this.renderer.addClass(this.loadingBarLanding.nativeElement, 'block');
-      }
-
-      this.renderer.removeClass(this.loadingBar.nativeElement, 'hidden');
-      this.renderer.addClass(this.loadingBar.nativeElement, 'block');
+      this.startIsLoading(isLanding);
     } else {
-      if (isLanding) {
-        this.renderer.addClass(this.loadingBarLanding.nativeElement, 'hidden');
-        this.renderer.removeClass(
-          this.loadingBarLanding.nativeElement,
-          'block'
-        );
-      }
-
-      this.renderer.removeClass(this.loadingBar.nativeElement, 'block');
-      this.renderer.addClass(this.loadingBar.nativeElement, 'hidden');
+      this.endIsLoading(isLanding);
     }
+  }
+
+  startIsLoading(isLanding: boolean) {
+    if (isLanding) {
+      this.renderer.removeClass(this.loadingBarLanding.nativeElement, 'hidden');
+      this.renderer.addClass(this.loadingBarLanding.nativeElement, 'block');
+    }
+    this.renderer.removeClass(this.loadingBar.nativeElement, 'hidden');
+    this.renderer.addClass(this.loadingBar.nativeElement, 'block');
+  }
+
+  endIsLoading(isLanding: boolean = false) {
+    if (isLanding) {
+      this.renderer.addClass(this.loadingBarLanding.nativeElement, 'hidden');
+      this.renderer.removeClass(this.loadingBarLanding.nativeElement, 'block');
+    }
+    this.renderer.removeClass(this.loadingBar.nativeElement, 'block');
+    this.renderer.addClass(this.loadingBar.nativeElement, 'hidden');
   }
 }
