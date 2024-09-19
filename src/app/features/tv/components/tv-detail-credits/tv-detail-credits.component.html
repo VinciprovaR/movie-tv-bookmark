@@ -61,8 +61,12 @@
           (keyup)="toggleCast()"
           (click)="toggleCast()"
         >
-          <h2>TV Cast</h2>
-          <h5 class="content-center">{{ castList.length }}</h5>
+          <div
+            class="flex hover:cursor-pointer lg:hover:cursor-default space-x-4"
+          >
+            <h2>Movie Cast</h2>
+            <h5 class="content-center">{{ castList.length }}</h5>
+          </div>
           <div class="lg:hidden">
             <mat-icon
               aria-hidden="false"
@@ -99,16 +103,20 @@
     >
       <div class="px-4 py-6">
         <div
-          class="w-full flex justify-between hover:cursor-pointer lg:hover:cursor-default"
+          class="flex justify-between hover:cursor-pointer lg:hover:cursor-default"
           (keyup)="toggleCrew()"
           (click)="toggleCrew()"
         >
-          <h2>TV Crew</h2>
-          <h5 class="content-center">{{ crewLength }}</h5>
+          <div
+            class="flex hover:cursor-pointer lg:hover:cursor-default space-x-4"
+          >
+            <h2>Movie Crew</h2>
+            <h5 class="content-center">{{ crewLength }}</h5>
+          </div>
           <div class="lg:hidden">
             <mat-icon
               aria-hidden="false"
-              [fontIcon]="isHideCrewContainer ? 'expand_more' : 'chevron_right'"
+              [fontIcon]="isHideCastContainer ? 'expand_more' : 'chevron_right'"
             ></mat-icon>
           </div>
         </div>

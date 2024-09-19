@@ -20,7 +20,16 @@ import { ImgComponent } from '../../../../shared/components/img/img.component';
 import { PersonCardComponent } from '../../../../shared/components/person-card/person-card.component';
 import { FadeScrollerDirective } from '../../../../shared/directives/fade-scroller.directive';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
-import { Banner, CastTV, CrewTV, Job, Role, TVCredit, TVDepartments, TVDetail } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  Banner,
+  CastTV,
+  CrewTV,
+  Job,
+  Role,
+  TVCredit,
+  TVDepartments,
+  TVDetail,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-tv-detail-credits',
@@ -60,20 +69,12 @@ export class TVDetailCreditsComponent
   error$!: Observable<CustomHttpErrorResponseInterface | null>;
   yearSub$ = new BehaviorSubject<string>('');
   year$!: Observable<string>;
-
-  errorTitle: string = `Oops! We can't find the page you're looking for`;
-  errorMessage: string = `It seems that this tv detail credits you're searching for doesn't exist.`;
-
   @Input()
   tvId: number = 0;
-
-  isHideCastContainer: boolean = false;
-  isHideCrewContainer: boolean = false;
-
+  errorTitle: string = `Oops! We can't find the page you're looking for`;
+  errorMessage: string = `It seems that this tv detail credits you're searching for doesn't exist.`;
   detailMediaPath: string = '';
-
   crewLength: number = 0;
-
   departments: TVDepartments[] = [
     { key: 'Directing', value: [] },
     { key: 'Writing', value: [] },
@@ -87,9 +88,6 @@ export class TVDetailCreditsComponent
     { key: 'Crew', value: [] },
   ];
 
-  t1: number = 0;
-  t2: number = 0;
-
   constructor() {
     super();
     this.initSelectors();
@@ -101,7 +99,6 @@ export class TVDetailCreditsComponent
   }
 
   initRouteSubscription() {
-    this.t1 = new Date().getTime();
     this.routerEvent$.pipe(takeUntil(this.destroyed$)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const currentNavigation = this.router.getCurrentNavigation();
@@ -245,17 +242,6 @@ export class TVDetailCreditsComponent
         release_date: tvDetail.first_air_date,
       },
     };
-  }
-
-  toggleCast() {
-    if (window.innerWidth < 640) {
-      this.isHideCastContainer = !this.isHideCastContainer;
-    }
-  }
-  toggleCrew() {
-    if (window.innerWidth < 640) {
-      this.isHideCrewContainer = !this.isHideCrewContainer;
-    }
   }
 
   resetHideContainers() {

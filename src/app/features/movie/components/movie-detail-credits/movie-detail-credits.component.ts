@@ -20,7 +20,14 @@ import { ImgComponent } from '../../../../shared/components/img/img.component';
 import { PersonCardComponent } from '../../../../shared/components/person-card/person-card.component';
 import { FadeScrollerDirective } from '../../../../shared/directives/fade-scroller.directive';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
-import { Banner, CastMovie, CrewMovie, MovieCredit, MovieDepartments, MovieDetail } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  Banner,
+  CastMovie,
+  CrewMovie,
+  MovieCredit,
+  MovieDepartments,
+  MovieDetail,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-movie-detail-credits',
@@ -65,8 +72,6 @@ export class MovieDetailCreditsComponent
   movieId: number = 0;
   errorTitle: string = `Oops! We can't find the page you're looking for`;
   errorMessage: string = `It seems that this movie detail credits you're searching for doesn't exist.`;
-  isHideCastContainer: boolean = false;
-  isHideCrewContainer: boolean = false;
   detailMediaPath: string = '';
   crewLength: number = 0;
   departments: MovieDepartments[] = [
@@ -239,17 +244,6 @@ export class MovieDetailCreditsComponent
         release_date: movieDetail.release_date,
       },
     };
-  }
-
-  toggleCast() {
-    if (window.innerWidth < 640) {
-      this.isHideCastContainer = !this.isHideCastContainer;
-    }
-  }
-  toggleCrew() {
-    if (window.innerWidth < 640) {
-      this.isHideCrewContainer = !this.isHideCrewContainer;
-    }
   }
 
   resetHideContainers() {

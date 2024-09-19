@@ -12,7 +12,21 @@ export abstract class AbstractMediaDetailCreditsComponent extends AbstractCompon
     IMG_SIZES.TMDB_PROFILE_1000W_450H_IMG_URL
   );
 
+  isHideCastContainer: boolean = false;
+  isHideCrewContainer: boolean = false;
+
   constructor() {
     super();
+  }
+
+  toggleCast() {
+    if (window.innerWidth < 1024) {
+      this.isHideCastContainer = !this.isHideCastContainer;
+    }
+  }
+  toggleCrew() {
+    if (window.innerWidth < 1024) {
+      this.isHideCrewContainer = !this.isHideCrewContainer;
+    }
   }
 }
