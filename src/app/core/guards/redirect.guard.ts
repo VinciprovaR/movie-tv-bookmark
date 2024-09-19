@@ -10,7 +10,7 @@ export const redirectGuard: CanMatchFn = () => {
   const router = inject(Router);
 
   return store.select(AuthSelectors.selectAuth).pipe(
-    skipWhile((authState: AuthState) => authState.isLoading),
+    skipWhile((authState: AuthState) => authState.isLoadingCurrentUser),
     map((authState: AuthState) => {
       if (!!authState.user && authState.user?.confirmed_at) {
         return router.parseUrl('/home');
