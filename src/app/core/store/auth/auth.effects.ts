@@ -171,15 +171,37 @@ export class AuthEffects {
 
   requestResetPassword$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AuthActions.requestResetPassword),
-      switchMap((credentials) => {
-        return this.supabaseAuthService.sendMailResetPassword(credentials).pipe(
+      ofType(
+        AuthActions.requestResetPassword,
+        AuthActions.requestResetPasswordAuthenticated
+      ),
+      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+      switchMap((metadata) => {
+        let [action, user] = metadata;
+        user = user as User;
+        let email = '';
+        if (action.type === AuthActions.requestResetPassword.type) {
+          email = action.email;
+        } else if (
+          action.type === AuthActions.requestResetPasswordAuthenticated.type
+        ) {
+          email = user.email as string;
+        }
+
+        return this.supabaseAuthService.sendMailResetPassword({ email }).pipe(
           tap(() => {
+            if (
+              action.type === AuthActions.requestResetPasswordAuthenticated.type
+            ) {
+              this.store.dispatch(
+                AuthActions.logoutGlobal({ scope: 'global' })
+              );
+            }
             this.router.navigate(['/login']);
           }),
           map(() => {
             return AuthActions.requestResetPasswordSuccess({
-              email: credentials.email,
+              email,
             });
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
@@ -208,34 +230,34 @@ export class AuthEffects {
     );
   });
 
-  requestResetPasswordAuthenticated$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(AuthActions.requestResetPasswordAuthenticated),
-      withLatestFrom(this.store.select(AuthSelectors.selectUser)),
-      tap((action) => {
-        let [, user] = action;
-        user = user as User;
-        this.store.dispatch(AuthActions.logoutGlobal({ scope: 'global' }));
-        this.store.dispatch(
-          AuthActions.requestResetPassword({ email: user.email as string })
-        );
-      }),
-      map((action) => {
-        let [, user] = action;
-        user = user as User;
-        return AuthActions.requestResetPasswordAuthenticatedSuccess({
-          email: user.email as string,
-        });
-      }),
-      catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-        return of(
-          AuthActions.requestResetPasswordAuthenticatedFailure({
-            httpErrorResponse,
-          })
-        );
-      })
-    );
-  });
+  // requestResetPasswordAuthenticated$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(AuthActions.requestResetPasswordAuthenticated),
+  //     withLatestFrom(this.store.select(AuthSelectors.selectUser)),
+  //     tap((action) => {
+  //       let [, user] = action;
+  //       user = user as User;
+  //       this.store.dispatch(AuthActions.logoutGlobal({ scope: 'global' }));
+  //       this.store.dispatch(
+  //         AuthActions.requestResetPassword({ email: user.email as string })
+  //       );
+  //     }),
+  //     map((action) => {
+  //       let [, user] = action;
+  //       user = user as User;
+  //       return AuthActions.requestResetPasswordAuthenticatedSuccess({
+  //         email: user.email as string,
+  //       });
+  //     }),
+  //     catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
+  //       return of(
+  //         AuthActions.requestResetPasswordAuthenticatedFailure({
+  //           httpErrorResponse,
+  //         })
+  //       );
+  //     })
+  //   );
+  // });
 
   deleteUserAccount$ = createEffect(() => {
     return this.actions$.pipe(

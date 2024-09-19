@@ -11,7 +11,11 @@ import { map, Observable, of, switchMap, tap } from 'rxjs';
 import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse.model';
 import { STORAGE_KEY_TOKEN } from '../../../providers';
 import { WebStorageService } from '../../../services/web-storage.service';
-import { LoginPayload, PublicUserEntity, RegisterPayload } from '../../../shared/interfaces/supabase/supabase-auth.interface';
+import {
+  LoginPayload,
+  PublicUserEntity,
+  RegisterPayload,
+} from '../../../shared/interfaces/supabase/supabase-auth.interface';
 import { SupabaseAuthDAO } from './supabase-auth.dao';
 
 @Injectable({

@@ -9,8 +9,12 @@ import {
 import { from, map, Observable, tap } from 'rxjs';
 import { CustomHttpErrorResponse } from '../../../models/customHttpErrorResponse.model';
 import { SUPABASE_CLIENT } from '../../../providers';
-import { CustomSessionResponse, LoginPayload, PublicUserEntity, RegisterPayload } from '../../../shared/interfaces/supabase/supabase-auth.interface';
-
+import {
+  CustomSessionResponse,
+  LoginPayload,
+  PublicUserEntity,
+  RegisterPayload,
+} from '../../../shared/interfaces/supabase/supabase-auth.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -101,7 +105,7 @@ export class SupabaseAuthDAO {
     return from(
       this.supabase.auth.resetPasswordForEmail(credentials.email)
     ).pipe(
-      tap((result: any) => {
+      map((result: any) => {
         if (result.error) {
           throw new CustomHttpErrorResponse({
             error: result.error,

@@ -32,17 +32,13 @@ export const authReducer = createReducer(
       };
     }
   ),
-  on(
-    AuthActions.currentUser,
-
-    (state): AuthState => {
-      return {
-        ...state,
-        error: null,
-        isLoadingCurrentUser: true,
-      };
-    }
-  ),
+  on(AuthActions.currentUser, (state): AuthState => {
+    return {
+      ...state,
+      error: null,
+      isLoadingCurrentUser: true,
+    };
+  }),
   on(AuthActions.deleteAccount, (state): AuthState => {
     return {
       ...state,
