@@ -11,7 +11,7 @@
       @if(canRender(navElement.value.needAuth, navElement.value.onlyNonAuth) ){
       @if(navElement.value.single){
 
-      <li class="el-hover mb-3">
+      <li class="mb-3">
         <a
           [ngClass]="{
             'disabled': hiddenNavMenu,
@@ -28,7 +28,7 @@
         <ul class="list-none p-0">
           @for(subMenuEl of navElement.value.subMenu ; track subMenuEl.path){
           @if(canRender(subMenuEl.needAuth) ){
-          <li class="el-hover">
+          <li class="">
             @if(subMenuEl.path === 'logout'){
             <a
               href="javascript:void(0);"

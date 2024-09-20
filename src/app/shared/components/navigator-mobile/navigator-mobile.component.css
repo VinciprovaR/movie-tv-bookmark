@@ -10,11 +10,3 @@ nav {
   opacity: 1;
   visibility: visible;
 }
-
-mat-icon#mobile-menu-btn {
-  color: var(--icon-color);
-}
-
-a {
-  color: var(--text-color);
-}

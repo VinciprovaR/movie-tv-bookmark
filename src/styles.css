@@ -55,6 +55,7 @@ body.light-theme {
   --scroll-thumb-color: rgb(120, 120, 120);
   --bg-color-arrow-slider: rgba(18, 18, 18, 0.45);
   --disabled-bg: rgb(216, 216, 216);
+  --text-active: rgb(126, 133, 141);
 }
 body.dark-theme {
   --theme-color-1: rgb(17, 24, 39);
@@ -80,6 +81,7 @@ body.dark-theme {
   --scroll-thumb-color: rgb(96, 96, 96);
   --bg-color-arrow-slider: rgba(87, 87, 87, 0.45);
   --disabled-bg: rgb(124, 124, 124);
+  --text-active: rgb(172, 182, 196);
 }
 /****************** End ******************/
 
@@ -156,6 +158,10 @@ a:hover {
 a.disabled {
   pointer-events: none;
   cursor: default;
+}
+
+a:active {
+  color: var(--text-active);
 }
 
 img {
