@@ -21,6 +21,17 @@
   <app-missing-field-placeholder
     [caption]="'There are no more additional person for this query'"
   ></app-missing-field-placeholder>
+  }@else {
+  <div class="px-3 py-5">
+    <button
+      class="button-mt button-mt-role-normal"
+      (keyup)="discoveryAdditionalPeople()"
+      (click)="discoveryAdditionalPeople()"
+    >
+      <span class="text-lg">{{ searchAdditionalButtonLabel }}</span>
+    </button>
+  </div>
+
   } } @else { @if(!isLoading){
   <div class="flex justify-center">
     <app-no-search-found

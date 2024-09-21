@@ -28,7 +28,7 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
     NoSearchFoundComponent,
     MatProgressSpinnerModule,
     InfiniteScrollModule,
-    MissingFieldPlaceholderComponent
+    MissingFieldPlaceholderComponent,
   ],
   templateUrl: './person-list-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,13 +47,11 @@ export class PersonListContainerComponent
   noAdditional: boolean = false;
   @Input({ required: true })
   personList!: Person[];
-
   titleNotFound!: string;
-
   captionNotFound!: string;
-
   gridCol: string = '';
   crewIdList: number[] = [];
+  searchAdditionalButtonLabel = `Search for additional people`;
 
   constructor() {
     super();

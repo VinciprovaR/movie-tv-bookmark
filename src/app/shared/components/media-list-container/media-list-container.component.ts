@@ -65,14 +65,15 @@ export class MediaListContainerComponent
   @Input()
   personIdentifier: string = '';
   ulContainerClass: string = '';
-
   noMoreAdditionalCaption: string = '';
+  searchAdditionalButtonLabel: string = '';
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
+    this.searchAdditionalButtonLabel = `Search for additional ${this.mediaType}`;
     this.captionNotFound = this.captionNotFoundCustom
       ? this.captionNotFoundCustom
       : `We couldn't find any ${this.mediaType} matching your search. Try searching with different keywords`;

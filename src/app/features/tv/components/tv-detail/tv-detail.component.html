@@ -1,7 +1,7 @@
 <section class="w-full mb-20">
   <div class="m-auto pt-[60px] overflow-hidden">
     @if(error$ | async; as error){
-    <div class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto py-8">
+    <div class="w-full lg:w-[80%] max-w-[1024px] lg:mx-auto py-8">
       <app-error-message-template
         [title]="errorTitle"
         [message]="errorMessage"
@@ -108,7 +108,7 @@
     }
 
     <div
-      class="w-full lg:w-[80%] max-w-[1536px] lg:mx-auto flex flex-col lg:flex-row-reverse"
+      class="w-full lg:w-[80%] max-w-[1024px] lg:mx-auto flex flex-col lg:flex-row-reverse"
     >
       <div class="w-full lg:w-[25%] space-y-4 lg:space-y-8 mb-4 lg:mb-0">
         <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
