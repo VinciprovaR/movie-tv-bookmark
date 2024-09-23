@@ -29,7 +29,7 @@ import { PersonDetailTVCredits, TV } from '../../../../shared/interfaces/TMDB/tm
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonTVsComponent extends AbstractComponent implements OnInit {
-  title: string = 'TV partecipated in';
+  title: string = 'TV shows partecipated in as';
 
   private readonly bridgeDataService = inject(BridgeDataService);
 
