@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -27,7 +26,7 @@ import { AbstractComponent } from '../../shared/abstract/components/abstract-com
 @Component({
   selector: 'app-loading',
   standalone: true,
-  imports: [CommonModule, MatProgressBarModule],
+  imports: [MatProgressBarModule],
   templateUrl: './loading.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
