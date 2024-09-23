@@ -29,7 +29,7 @@ import { Movie, PersonDetailMovieCredits } from '../../../../shared/interfaces/T
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonMoviesComponent extends AbstractComponent implements OnInit {
-  title: string = 'Movie partecipated in';
+  title: string = 'Movies partecipated in as';
 
   private readonly bridgeDataService = inject(BridgeDataService);
 
