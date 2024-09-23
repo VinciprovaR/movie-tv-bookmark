@@ -2,7 +2,7 @@
   @if(personDetailMovieCredits$ | async; as personDetailMovieCredits){
 
   <div>
-    <h2 class="mb-4 pl-4">Movie partecipated in as Cast</h2>
+    <h2 class="mb-4 pl-4">{{title}} Cast</h2>
     @if(personDetailMovieCredits.cast.length > 0){
     <app-media-list-container
       [scrollSelf]="true"
@@ -22,7 +22,7 @@
   </div>
 
   <div>
-    <h2 class="mb-4 pl-4">Movie partecipated in as Crew</h2>
+    <h2 class="mb-4 pl-4">{{title}} Crew</h2>
     @if(personDetailMovieCredits.crew.length > 0){
     <app-media-list-container
       [scrollSelf]="true"
