@@ -230,35 +230,6 @@ export class AuthEffects {
     );
   });
 
-  // requestResetPasswordAuthenticated$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(AuthActions.requestResetPasswordAuthenticated),
-  //     withLatestFrom(this.store.select(AuthSelectors.selectUser)),
-  //     tap((action) => {
-  //       let [, user] = action;
-  //       user = user as User;
-  //       this.store.dispatch(AuthActions.logoutGlobal({ scope: 'global' }));
-  //       this.store.dispatch(
-  //         AuthActions.requestResetPassword({ email: user.email as string })
-  //       );
-  //     }),
-  //     map((action) => {
-  //       let [, user] = action;
-  //       user = user as User;
-  //       return AuthActions.requestResetPasswordAuthenticatedSuccess({
-  //         email: user.email as string,
-  //       });
-  //     }),
-  //     catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-  //       return of(
-  //         AuthActions.requestResetPasswordAuthenticatedFailure({
-  //           httpErrorResponse,
-  //         })
-  //       );
-  //     })
-  //   );
-  // });
-
   deleteUserAccount$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.deleteAccount),

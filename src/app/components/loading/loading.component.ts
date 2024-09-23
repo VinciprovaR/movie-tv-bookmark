@@ -39,6 +39,10 @@ export class LoadingComponent
   loadingBar!: ElementRef;
   @ViewChild('loadingBarLanding')
   loadingBarLanding!: ElementRef;
+  evaluateToggle: any = {
+    true: { remove: 'hidden', add: 'block' },
+    false: { remove: 'block', add: 'hidden' },
+  };
 
   //Auth
   authSelectIsLoading$!: Observable<boolean>;
@@ -70,6 +74,7 @@ export class LoadingComponent
   constructor() {
     super();
   }
+
   ngAfterViewInit(): void {
     this.initSelectors();
     this.initSubscriptions();
@@ -94,13 +99,13 @@ export class LoadingComponent
     this.movieDiscoverySelectIsLoading$ = this.store.select(
       DiscoveryMovieSelectors.selectIsLoading
     );
-
     this.movieBookmarksSelectIsLoading$ = this.store.select(
       MovieBookmarkSelectors.selectIsLoading
     );
     this.movieDetailSelectIsLoading$ = this.movieDetailStore.selectIsLoading$;
     this.movieDetailCreditsSelectIsLoading$ =
       this.movieDetailCreditsStore.selectIsLoading$;
+
     //TV
     this.TVSearchSelectIsLoading$ = this.store.select(
       SearchTVSelectors.selectIsLoading
@@ -108,7 +113,6 @@ export class LoadingComponent
     this.TVDiscoverySelectIsLoading$ = this.store.select(
       DiscoveryTVSelectors.selectIsLoading
     );
-
     this.TVBookmarksSelectIsLoading$ = this.store.select(
       TVBookmarkSelectors.selectIsLoading
     );
@@ -127,90 +131,54 @@ export class LoadingComponent
     this.authSelectIsLoadingForPasswordValidation$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       });
 
     this.movieSearchSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       });
 
     this.movieBookmarksSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       });
 
     this.TVSearchSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       }
     );
 
     this.TVBookmarksSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       }
     );
 
     this.personSearchSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       });
 
     this.authSelectIsLoadingForCurrentUser$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       });
 
     this.movieDiscoverySelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       });
 
     this.TVDiscoverySelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        if (isLoading) {
-          this.startIsLoading();
-        } else {
-          this.endIsLoading();
-        }
+        this.toggleIsLoading(isLoading);
       }
     );
 
@@ -218,79 +186,58 @@ export class LoadingComponent
     this.authSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading(true);
-        } else {
-          this.endIsLoading(true);
-        }
+        this.toggleIsLoading(isLoading, true);
       });
 
     this.movieDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading(true);
-        } else {
-          this.endIsLoading(true);
-        }
+        this.toggleIsLoading(isLoading, true);
       });
 
     this.movieDetailCreditsSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading(true);
-        } else {
-          this.endIsLoading(true);
-        }
+        this.toggleIsLoading(isLoading, true);
       });
 
     this.TVDetailSelectIsLoading$.pipe(takeUntil(this.destroyed$)).subscribe(
       (isLoading) => {
-        if (isLoading) {
-          this.startIsLoading(true);
-        } else {
-          this.endIsLoading(true);
-        }
+        this.toggleIsLoading(isLoading, true);
       }
     );
 
     this.TVDetailCreditsSelectIsLoading$.pipe(
       takeUntil(this.destroyed$)
     ).subscribe((isLoading) => {
-      if (isLoading) {
-        this.startIsLoading(true);
-      } else {
-        this.endIsLoading(true);
-      }
+      this.toggleIsLoading(isLoading, true);
     });
 
     this.personDetailSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
-        if (isLoading) {
-          this.startIsLoading(true);
-        } else {
-          this.endIsLoading(true);
-        }
+        this.toggleIsLoading(isLoading, true);
       });
   }
 
-  startIsLoading(isLanding: boolean = false) {
+  toggleIsLoading(isLoading: boolean, isLanding: boolean = false) {
     if (isLanding) {
-      this.renderer.removeClass(this.loadingBarLanding.nativeElement, 'hidden');
-      this.renderer.addClass(this.loadingBarLanding.nativeElement, 'block');
+      this.renderer.removeClass(
+        this.loadingBarLanding.nativeElement,
+        this.evaluateToggle[isLoading.toString()].remove
+      );
+      this.renderer.addClass(
+        this.loadingBarLanding.nativeElement,
+        this.evaluateToggle[isLoading.toString()].add
+      );
     }
-    this.renderer.removeClass(this.loadingBar.nativeElement, 'hidden');
-    this.renderer.addClass(this.loadingBar.nativeElement, 'block');
-  }
-
-  endIsLoading(isLanding: boolean = false) {
-    if (isLanding) {
-      this.renderer.addClass(this.loadingBarLanding.nativeElement, 'hidden');
-      this.renderer.removeClass(this.loadingBarLanding.nativeElement, 'block');
-    }
-    this.renderer.removeClass(this.loadingBar.nativeElement, 'block');
-    this.renderer.addClass(this.loadingBar.nativeElement, 'hidden');
+    this.renderer.removeClass(
+      this.loadingBar.nativeElement,
+      this.evaluateToggle[isLoading.toString()].remove
+    );
+    this.renderer.addClass(
+      this.loadingBar.nativeElement,
+      this.evaluateToggle[isLoading.toString()].add
+    );
   }
 }

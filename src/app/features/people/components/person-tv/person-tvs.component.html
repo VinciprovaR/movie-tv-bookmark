@@ -2,7 +2,7 @@
   @if(personDetailTVCredits$ | async; as personDetailTVCredits){
 
   <div>
-    <h2 class="mb-4 pl-4">{{title}} Cast</h2>
+    <h2 class="mb-4 pl-4">{{ title }} Cast</h2>
     @if(personDetailTVCredits.cast.length > 0){
     <app-media-list-container
       [scrollSelf]="true"
@@ -12,6 +12,7 @@
       [includeScrollEvents]="false"
       [direction]="'horizontal'"
       [personIdentifier]="'cast'"
+      [allowButtonAdditionalMedia]="false"
     ></app-media-list-container>
 
     }@else {
@@ -22,7 +23,7 @@
   </div>
 
   <div>
-    <h2 class="mb-4 pl-4">{{title}} Crew</h2>
+    <h2 class="mb-4 pl-4">{{ title }} Crew</h2>
     @if(personDetailTVCredits.crew.length > 0){
     <app-media-list-container
       [scrollSelf]="true"
@@ -32,6 +33,7 @@
       [includeScrollEvents]="false"
       [direction]="'horizontal'"
       [personIdentifier]="'cast'"
+      [allowButtonAdditionalMedia]="false"
     ></app-media-list-container>
 
     }@else {

@@ -33,7 +33,7 @@
   <app-missing-field-placeholder
     [caption]="noMoreAdditionalCaption"
   ></app-missing-field-placeholder>
-  }@else if(direction === 'vertical') {
+  }@else if(allowButtonAdditionalMedia) {
   <div class="px-3 py-5">
     <button
       class="button-mt button-mt-role-normal"
@@ -52,5 +52,5 @@
       [icon]="'tv_off'"
     ></app-no-search-found>
   </div>
-  } 
+  }
 </div>

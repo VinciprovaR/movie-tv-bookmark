@@ -64,6 +64,8 @@ export class MediaListContainerComponent
   direction: scrollDirection = 'none';
   @Input()
   personIdentifier: string = '';
+  @Input({ required: true })
+  allowButtonAdditionalMedia!: boolean;
   ulContainerClass: string = '';
   noMoreAdditionalCaption: string = '';
   searchAdditionalButtonLabel: string = '';
