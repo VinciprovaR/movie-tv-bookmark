@@ -66,6 +66,7 @@ export class MovieBookmarkEffects {
         SearchMovieActions.searchAdditionalMovieSuccess,
         DiscoveryMovieActions.discoveryMovieSuccess,
         DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
+        DiscoveryMovieActions.discoveryMovieLandingSuccess,
         personDetailMovieCreditsSuccess
       ),
       switchMap((action) => {

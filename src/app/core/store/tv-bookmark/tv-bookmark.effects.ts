@@ -65,6 +65,7 @@ export class TVBookmarkEffects {
         SearchTVActions.searchAdditionalTVSuccess,
         DiscoveryTVActions.discoveryTVSuccess,
         DiscoveryTVActions.discoveryAdditionalTVSuccess,
+        DiscoveryTVActions.discoveryTVLandingSuccess,
         personDetailTVCreditsSuccess
       ),
       switchMap((action) => {
