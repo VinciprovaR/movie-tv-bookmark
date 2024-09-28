@@ -13,6 +13,12 @@ import {
   TV,
   TVResult,
 } from '../../shared/interfaces/TMDB/tmdb-media.interface';
+import { createAction, props, Store } from '@ngrx/store';
+
+export const randomImageInitializerFailure = createAction(
+  '[Random-Image] Random Image Initializer Failure',
+  props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
+);
 
 /**
  * RandomImageStore select a random image from the
@@ -24,7 +30,7 @@ export class RandomImageStore extends ComponentStore<RandomImageState> {
   private readonly TMDBTrendingTVService = inject(TMDBTrendingTVService);
   readonly actions$ = inject(Actions);
   private readonly TMDBTrendingMovieService = inject(TMDBTrendingMovieService);
-
+  readonly store = inject(Store);
   readonly push$ = new BehaviorSubject<null>(null);
   readonly selectRandomImage$ = this.select((state) => state.randomImage);
   readonly selectMediaResult$ = this.select((state) => state.mediaResult);
@@ -95,7 +101,7 @@ export class RandomImageStore extends ComponentStore<RandomImageState> {
           this.get().mediaResult[0].length > 0 &&
           this.get().mediaResult[1].length > 0
         ) {
-          return of('').pipe(
+          return _.pipe(
             tap(() => {
               const randomImage = this.getRandomMediaImage([
                 this.get().mediaResult[0],
@@ -123,9 +129,12 @@ export class RandomImageStore extends ComponentStore<RandomImageState> {
             );
           }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(null).pipe(
+            return of(_).pipe(
               tap(() => {
                 this.randomImageInitializerFailure(httpErrorResponse);
+                this.store.dispatch(
+                  randomImageInitializerFailure({ httpErrorResponse })
+                );
               })
             );
           })
