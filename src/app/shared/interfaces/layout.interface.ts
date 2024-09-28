@@ -29,3 +29,7 @@ export interface SubmitDialog {
   typeSubmit: submitDialogType;
   payload?: any;
 }
+
+export interface Themes {
+  [key: string]: { key: string; icon: string; class: string };
+}

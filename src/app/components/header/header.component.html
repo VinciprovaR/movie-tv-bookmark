@@ -34,9 +34,9 @@
             aria-hidden="false"
             class="hover:cursor-pointer"
             [ngClass]="{
-              'text-yellow-400': (isDarkTheme$ | async) ? true : false
+              'text-yellow-400': isDarkTheme
             }"
-            [fontIcon]="(icon$ | async) ?? 'light_mode'"
+            [fontIcon]="icon"
           ></mat-icon>
         </span>
       </div>

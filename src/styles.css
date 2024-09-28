@@ -31,7 +31,7 @@
   --disabled-text-color: rgb(176, 176, 176);
 }
 
-body.light-theme {
+body.light {
   --theme-color-1: rgb(243, 244, 246);
   --theme-color-2: rgb(165, 180, 252);
   --theme-color-3: rgb(255, 255, 255);
@@ -57,7 +57,7 @@ body.light-theme {
   --disabled-bg: rgb(216, 216, 216);
   --text-active: rgb(126, 133, 141);
 }
-body.dark-theme {
+body.dark {
   --theme-color-1: rgb(17, 24, 39);
   --theme-color-2: rgb(28, 44, 66);
   --border-color: rgba(55, 65, 81);

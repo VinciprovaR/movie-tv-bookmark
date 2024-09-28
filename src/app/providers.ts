@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { GlobalErrorStore } from './core/component-store/global-error-store.service';
 import { NotifierStore } from './core/component-store/notifier-store.service';
-import { ToggleThemeStore } from './core/component-store/toggle-theme-store.service';
 import { AuthActions } from './core/store/auth';
 import { BookmarkMetadataActions } from './core/store/bookmark-metadata';
 import { FiltersMetadataActions } from './core/store/filters-metadata';
@@ -13,6 +12,7 @@ import {
   NavElements,
 } from './shared/interfaces/navigator.interface';
 import { BookmarkStatusMap } from './shared/interfaces/supabase/supabase-bookmark.interface';
+import { ToggleThemeService } from './services/toggle-theme.service';
 
 export const SUPABASE_CLIENT = new InjectionToken<SupabaseClient>(
   'supabase-client'
@@ -113,15 +113,15 @@ export function provideInitRootServices() {
       (
         a: SupabaseAuthEventsService,
         b: GlobalErrorStore,
-        c: ToggleThemeStore,
-        d: NotifierStore
+        c: NotifierStore,
+        d: ToggleThemeService
       ) =>
       () => {},
     deps: [
       SupabaseAuthEventsService,
-      ToggleThemeStore,
       GlobalErrorStore,
       NotifierStore,
+      ToggleThemeService,
     ],
     multi: true,
   };
@@ -237,7 +237,7 @@ export function provideSelectFilters() {
 export function provideDarkThemeLocalStorageKey() {
   return {
     provide: THEME_KEY_LOCAL_STORAGE,
-    useValue: 'isdt',
+    useValue: 'darkTheme',
   };
 }
 

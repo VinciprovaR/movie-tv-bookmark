@@ -2,15 +2,16 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   OnInit,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLinkActive, RouterModule } from '@angular/router';
-import { map, Observable } from 'rxjs';
-import { ToggleThemeStore } from '../../core/component-store/toggle-theme-store.service';
+import { map } from 'rxjs';
 import { AuthSelectors } from '../../core/store/auth';
 import { HEADER_NAV_ELEMENTS } from '../../providers';
+import { ToggleThemeService } from '../../services/toggle-theme.service';
 import { AbstractComponent } from '../../shared/abstract/components/abstract-component.component';
 import { AppLogoComponent } from '../../shared/components/app-logo/app-logo.component';
 import { ImgComponent } from '../../shared/components/img/img.component';
@@ -35,34 +36,34 @@ import { NavigatorMobileComponent } from '../../shared/components/navigator-mobi
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent extends AbstractComponent implements OnInit {
-  private readonly toggleThemeStore = inject(ToggleThemeStore);
+  private readonly toggleThemeService = inject(ToggleThemeService);
   readonly navElements = inject(HEADER_NAV_ELEMENTS);
 
   readonly isUserAuthenticated$ = this.store
     .select(AuthSelectors.selectUser)
     .pipe(map((user) => !!user));
 
-  icon$!: Observable<string>;
-  isDarkTheme$!: Observable<boolean>;
-  toggleThemeIcon: string = '';
+  icon = '';
+  isDarkTheme = false;
   hiddenNavMenu: boolean = true;
   private lastScrollTop = 0;
 
   constructor() {
     super();
+    this.registerEffects();
   }
 
   ngOnInit(): void {
-    this.initSelectors();
-
     window.addEventListener('scroll', (e) => {
       this.windowScrollEvent();
     });
   }
 
-  initSelectors() {
-    this.icon$ = this.toggleThemeStore.selectIcon$;
-    this.isDarkTheme$ = this.toggleThemeStore.selectIsDarkTheme$;
+  registerEffects() {
+    effect(() => {
+      this.isDarkTheme = this.toggleThemeService.$isDarkTheme();
+      this.icon = this.toggleThemeService.$icon();
+    });
   }
 
   //@HostListener('window:scroll', ['$event.target'])
@@ -80,7 +81,7 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   }
 
   toggleTheme() {
-    this.toggleThemeStore.toggleTheme();
+    this.toggleThemeService.toggleTheme();
   }
 
   toggleNavMenuMobile() {
