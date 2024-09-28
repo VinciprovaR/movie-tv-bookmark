@@ -2,10 +2,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   Input,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Event, NavigationEnd, RouterLink } from '@angular/router';
@@ -51,7 +51,7 @@ import {
 })
 export class MovieDetailCreditsComponent
   extends AbstractMediaDetailCreditsComponent
-  implements OnInit, OnDestroy
+  implements OnDestroy
 {
   private readonly movieDetailCreditsStore = inject(MovieDetailCreditsStore);
   readonly movieDetailstore = inject(MovieDetailStore);
@@ -91,10 +91,7 @@ export class MovieDetailCreditsComponent
     super();
     this.initSelectors();
     this.initRouteSubscription();
-  }
-
-  ngOnInit(): void {
-    this.initSubscriptions();
+    this.registerEffects();
   }
 
   initRouteSubscription() {
@@ -179,14 +176,12 @@ export class MovieDetailCreditsComponent
     this.error$ = this.movieDetailstore.selectError$;
   }
 
-  initSubscriptions() {
-    this.pageEventService.windowInnerWidth$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((innerWidth) => {
-        if (innerWidth > 640) {
-          this.resetHideContainers();
-        }
-      });
+  registerEffects() {
+    effect(() => {
+      if (this.pageEventService.$windowInnerWidth() > 640) {
+        this.resetHideContainers();
+      }
+    });
   }
 
   initDynamicSelectors(

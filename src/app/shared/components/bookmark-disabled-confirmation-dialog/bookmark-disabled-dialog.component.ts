@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   EventEmitter,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,10 +28,7 @@ import {
   styleUrl: './bookmark-disabled-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookmarkDisabledDialogComponent
-  extends AbstractDialogComponent
-  implements OnInit
-{
+export class BookmarkDisabledDialogComponent extends AbstractDialogComponent {
   @Input({ required: true })
   direction: scrollDirection = 'none';
   @Input({ required: true })
@@ -49,17 +46,15 @@ export class BookmarkDisabledDialogComponent
 
   constructor() {
     super();
-  }
-  ngOnInit(): void {
-    this.initSubscriptions();
+    this.registerEffects();
   }
 
-  initSubscriptions(): void {
-    this.pageEventService.resizeEvent$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        this.onWindowResize();
-      });
+  registerEffects() {
+    effect(() => {
+      this.pageEventService.$windowInnerHeight();
+      this.pageEventService.$windowInnerWidth();
+      this.onWindowResize();
+    });
   }
 
   override initContent() {

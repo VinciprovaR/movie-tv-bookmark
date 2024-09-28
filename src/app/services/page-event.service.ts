@@ -1,4 +1,6 @@
-import { DestroyRef, inject, Injectable } from '@angular/core';
+//
+
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import {
   BehaviorSubject,
   debounceTime,
@@ -14,10 +16,8 @@ import {
 })
 export class PageEventService {
   destroyed$ = new Subject();
-
-  private window$ = new BehaviorSubject<Window>(window);
-  resizeEvent$ = this.window$.asObservable();
-  windowInnerWidth$!: Observable<number>;
+  $windowInnerWidth = signal(window.innerWidth);
+  $windowInnerHeight = signal(window.innerHeight);
 
   resize$!: Observable<any>;
 
@@ -27,20 +27,15 @@ export class PageEventService {
       this.destroyed$.complete();
     });
 
-    this.initSelectors();
+    this.initSubscription();
   }
 
-  initSelectors() {
+  initSubscription() {
     fromEvent(window, 'resize')
-      .pipe(takeUntil(this.destroyed$), debounceTime(150))
+      .pipe(takeUntil(this.destroyed$), debounceTime(50))
       .subscribe(() => {
-        this.window$.next(window);
+        this.$windowInnerWidth.set(window.innerWidth);
+        this.$windowInnerHeight.set(window.innerHeight);
       });
-
-    this.windowInnerWidth$ = this.window$.pipe(
-      map((window: Window) => {
-        return window.innerWidth;
-      })
-    );
   }
 }

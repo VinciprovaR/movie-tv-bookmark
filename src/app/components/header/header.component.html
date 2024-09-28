@@ -7,7 +7,7 @@
     </div>
 
     <div class="mx-auto 244:flex 244:justify-between items-center space-x-6">
-      @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 640) {
+      @if(pageEventService.$windowInnerWidth() >= 640) {
       <app-navigator-desktop
         [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
         [navElements]="navElements"
@@ -15,7 +15,7 @@
       }
 
       <div class="flex items-center justify-between space-x-6 mt-2 mb-2">
-        @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 640) {
+        @if(pageEventService.$windowInnerWidth() < 640) {
         <span class="sm:hidden">
           <mat-icon
             id="mobile-menu-btn"
@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 640) {
+  @if(pageEventService.$windowInnerWidth() < 640) {
   <app-navigator-mobile
     [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
     [navElements]="navElements"

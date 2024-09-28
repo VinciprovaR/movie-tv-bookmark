@@ -2,6 +2,7 @@ import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   Input,
   OnInit,
@@ -10,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { takeUntil } from 'rxjs';
 import { IMG_SIZES } from '../../../providers';
 import { AbstractPersonCardComponent } from '../../abstract/components/abstract-person-card.component';
 import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
@@ -49,17 +49,19 @@ export class PersonCardComponent
   @Input({ required: true })
   person!: Person;
 
+  constructor() {
+    super();
+    this.registerEffects();
+  }
+
   override ngOnInit(): void {
-    this.initSubscriptions();
     this.buildDetailPath(this.person.id);
   }
 
-  initSubscriptions(): void {
-    this.pageEventService.windowInnerWidth$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((windowWidth) => {
-        this.evaluateCustomClasses(windowWidth);
-      });
+  registerEffects() {
+    effect(() => {
+      this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
+    });
   }
 
   isPersonEntity(person: object): person is Person {

@@ -3,8 +3,8 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   EventEmitter,
-  OnInit,
   Output,
 } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
@@ -24,24 +24,18 @@ import {
   templateUrl: './change-password-confirmation-dialog.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangePasswordConfirmationDialogComponent
-  extends AbstractDialogComponent
-  implements OnInit
-{
+export class ChangePasswordConfirmationDialogComponent extends AbstractDialogComponent {
   constructor() {
     super();
+    this.registerEffects();
   }
 
-  ngOnInit(): void {
-    this.initSubscriptions();
-  }
-
-  initSubscriptions(): void {
-    this.pageEventService.resizeEvent$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        this.onWindowResize();
-      });
+  registerEffects() {
+    effect(() => {
+      this.pageEventService.$windowInnerHeight();
+      this.pageEventService.$windowInnerWidth();
+      this.onWindowResize();
+    });
   }
 
   override initContent() {

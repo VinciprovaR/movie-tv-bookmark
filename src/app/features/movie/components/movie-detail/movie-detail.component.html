@@ -28,11 +28,11 @@
         class="flex flex-row h-full w-full p-4 justify-center lg:p-8 space-x-8"
         [ngStyle]="{
           'background-image':
-            ((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024
+            pageEventService.$windowInnerWidth() >= 1024
               ? headerMediaGradient
               : '',
           'background-color':
-            ((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024
+            pageEventService.$windowInnerWidth() < 1024
               ? 'rgba(0, 0, 0, 0.411)'
               : ''
         }"
@@ -78,7 +78,7 @@
           </div>
         </div>
 
-        @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
+        @if(pageEventService.$windowInnerWidth() >= 1024) {
         <div class="hidden lg:block max-w-[1100px] py-8">
           <app-movie-detail-main-info
             [textColorBlend]="textColorBlend"
@@ -95,7 +95,7 @@
       </div>
     </div>
 
-    @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
+    @if(pageEventService.$windowInnerWidth() < 1024){
     <div class="block lg:hidden h-full">
       <app-movie-detail-main-info
         [textColorBlend]="textColorBlend"

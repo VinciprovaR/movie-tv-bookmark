@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   Input,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Event, NavigationEnd, RouterLink } from '@angular/router';
@@ -51,7 +51,7 @@ import {
 })
 export class TVDetailCreditsComponent
   extends AbstractMediaDetailCreditsComponent
-  implements OnInit, OnDestroy
+  implements OnDestroy
 {
   private readonly tvDetailCreditsStore = inject(TVDetailCreditsStore);
   readonly tvDetailstore = inject(TVDetailStore);
@@ -92,10 +92,7 @@ export class TVDetailCreditsComponent
     super();
     this.initSelectors();
     this.initRouteSubscription();
-  }
-
-  ngOnInit(): void {
-    this.initSubscriptions();
+    this.registerEffects();
   }
 
   initRouteSubscription() {
@@ -173,14 +170,12 @@ export class TVDetailCreditsComponent
     this.error$ = this.tvDetailstore.selectError$;
   }
 
-  initSubscriptions() {
-    this.pageEventService.windowInnerWidth$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((innerWidth) => {
-        if (innerWidth > 640) {
-          this.resetHideContainers();
-        }
-      });
+  registerEffects() {
+    effect(() => {
+      if (this.pageEventService.$windowInnerWidth() > 640) {
+        this.resetHideContainers();
+      }
+    });
   }
 
   initDynamicSelectors(

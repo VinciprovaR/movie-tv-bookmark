@@ -33,7 +33,7 @@
           ></app-img>
         </div>
 
-        @if(((pageEventService.windowInnerWidth$ | async) ?? 0) >= 1024) {
+        @if(pageEventService.$windowInnerWidth() >= 1024) {
         <div class="hidden lg:block max-w-[1100px]">
           <app-person-detail-main-info [personDetail]="personDetail">
           </app-person-detail-main-info>
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    @if(((pageEventService.windowInnerWidth$ | async) ?? 0) < 1024){
+    @if(pageEventService.$windowInnerWidth() < 1024){
     <div class="block lg:hidden h-full bg-[var(--theme-color-3)] mb-4">
       <app-person-detail-main-info [personDetail]="personDetail">
       </app-person-detail-main-info>

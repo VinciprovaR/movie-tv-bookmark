@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   EventEmitter,
-  OnInit,
   Output,
 } from '@angular/core';
 import {
@@ -35,24 +35,18 @@ import { DeleteAccountForm } from '../../interfaces/supabase/supabase-auth.inter
   templateUrl: './delete-account-confirmation-dialog.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DeleteAccountConfirmationDialogComponent
-  extends AbstractDialogComponent
-  implements OnInit
-{
+export class DeleteAccountConfirmationDialogComponent extends AbstractDialogComponent {
   constructor() {
     super();
+    this.registerEffects();
   }
 
-  ngOnInit(): void {
-    this.initSubscriptions();
-  }
-
-  initSubscriptions(): void {
-    this.pageEventService.resizeEvent$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        this.onWindowResize();
-      });
+  registerEffects() {
+    effect(() => {
+      this.pageEventService.$windowInnerHeight();
+      this.pageEventService.$windowInnerWidth();
+      this.onWindowResize();
+    });
   }
 
   override initContent() {

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   ElementRef,
   EventEmitter,
   Input,
@@ -49,21 +50,21 @@ export class YoutubeEmbededDialogComponent
 
   constructor() {
     super();
+    this.registerEffects();
   }
 
   ngOnInit(): void {
     this.scrollStrategiesTypeSelected = 'noop';
     this.backdropClass = 'backdrop-class-youtube-dialog';
     this.getYouTubeThumbnail();
-    this.initSubscriptions();
   }
 
-  initSubscriptions(): void {
-    this.pageEventService.resizeEvent$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        this.onWindowResize();
-      });
+  registerEffects() {
+    effect(() => {
+      this.pageEventService.$windowInnerHeight();
+      this.pageEventService.$windowInnerWidth();
+      this.onWindowResize();
+    });
   }
 
   getYouTubeThumbnail() {
@@ -127,10 +128,7 @@ export class YoutubeEmbededDialogComponent
   styleUrl: './youtube-embeded-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class YoutubeEmbededDialogContentComponent
-  extends AbstractComponent
-  implements OnInit
-{
+export class YoutubeEmbededDialogContentComponent extends AbstractComponent {
   @ViewChild('videoContentContainer')
   videoContentContainer!: ElementRef;
 
@@ -151,6 +149,7 @@ export class YoutubeEmbededDialogContentComponent
 
   constructor() {
     super();
+    this.registerEffects();
   }
 
   confirm() {
@@ -167,16 +166,12 @@ export class YoutubeEmbededDialogContentComponent
     });
   }
 
-  ngOnInit(): void {
-    this.initSubscriptions();
-  }
-
-  initSubscriptions(): void {
-    this.pageEventService.resizeEvent$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        this.calculateSize();
-      });
+  registerEffects() {
+    effect(() => {
+      this.pageEventService.$windowInnerHeight();
+      this.pageEventService.$windowInnerWidth();
+      this.calculateSize();
+    });
   }
 
   calculateSize() {

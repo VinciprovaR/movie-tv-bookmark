@@ -2,6 +2,7 @@ import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   Input,
   OnInit,
@@ -10,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { map, Observable, takeUntil } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { BridgeDataService } from '../../../core/services/bridge-data.service';
 import { AuthSelectors } from '../../../core/store/auth';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
@@ -94,11 +95,11 @@ export class MediaCardComponent
 
   constructor() {
     super();
+    this.registerEffects();
   }
 
   ngOnInit(): void {
     this.initSelectors();
-    this.initSubscriptions();
     this.buildDetailPath(this.media.id);
   }
 
@@ -108,12 +109,10 @@ export class MediaCardComponent
       .pipe(map((user) => !!user));
   }
 
-  initSubscriptions(): void {
-    this.pageEventService.windowInnerWidth$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((windowWidth) => {
-        this.evaluateCustomClasses(windowWidth);
-      });
+  registerEffects() {
+    effect(() => {
+      this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
+    });
   }
 
   get voteAverage(): number | null {
