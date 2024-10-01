@@ -24,9 +24,10 @@ import { SupabaseAuthDAO } from './supabase-auth.dao';
 export class SupabaseAuthService {
   private readonly storageKey = inject(STORAGE_KEY_TOKEN);
   private readonly webStorageService = inject(WebStorageService);
+  private readonly supabaseAuthDAO = inject(SupabaseAuthDAO);
   private readonly router = inject(Router);
 
-  constructor(private supabaseAuthDAO: SupabaseAuthDAO) {}
+  constructor() {}
 
   login(credentials: LoginPayload): Observable<AuthTokenResponsePassword> {
     return this.supabaseAuthDAO.signInWithPassword(credentials);

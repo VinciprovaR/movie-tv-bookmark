@@ -13,8 +13,7 @@ import { SUPABASE_CLIENT } from '../providers';
   providedIn: 'root',
 })
 export class SupabaseAuthEventsService {
-  private supabase;
-
+  private readonly supabase = inject(SUPABASE_CLIENT);
   private readonly isPasswordRecovery$ = new BehaviorSubject<boolean>(false);
   readonly isPasswordRecoveryObs$ = this.isPasswordRecovery$.asObservable();
 
@@ -31,7 +30,6 @@ export class SupabaseAuthEventsService {
   );
 
   constructor() {
-    this.supabase = inject(SUPABASE_CLIENT);
     this.initListeners();
   }
 

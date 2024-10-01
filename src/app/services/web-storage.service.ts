@@ -4,18 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class WebStorageService {
-  getRememberMe(): boolean {
-    return 'true' === window.localStorage['remember-me'];
-  }
-
-  saveRememberMe(remember: boolean): void {
-    window.localStorage['remember-me'] = remember;
-  }
-
-  destroyRemember(): void {
-    window.localStorage.removeItem('remember-me');
-  }
-
   getItem(key: string): string {
     return window.localStorage[key];
   }

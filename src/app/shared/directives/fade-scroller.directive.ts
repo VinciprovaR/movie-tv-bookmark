@@ -21,17 +21,11 @@ export class FadeScrollerDirective implements AfterViewInit {
   private readonly zone = inject(NgZone);
   private renderer!: Renderer2;
   private readonly rendererFactory = inject(RendererFactory2);
-
-  destroyed$ = new Subject();
-  onScroll$!: Observable<Event>;
-
   @HostBinding('class')
   elementClass = 'should_fade ';
-
-  @Input()
-  private offSetPercentage: number = 6;
-  @Input()
-  private offSetPercenPixel: number = 40;
+  destroyed$ = new Subject();
+  onScroll$!: Observable<Event>;
+  private readonly offSetPercentPixel: number = 40;
 
   constructor() {
     inject(DestroyRef).onDestroy(() => {
@@ -63,7 +57,7 @@ export class FadeScrollerDirective implements AfterViewInit {
       this.el.nativeElement.clientWidth -
       this.el.nativeElement.scrollLeft;
 
-    if (spaceRemaining <= this.offSetPercenPixel) {
+    if (spaceRemaining <= this.offSetPercentPixel) {
       this.renderer.addClass(this.el.nativeElement, 'is_hidden');
     } else {
       this.renderer.removeClass(this.el.nativeElement, 'is_hidden');

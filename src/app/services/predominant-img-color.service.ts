@@ -12,13 +12,15 @@ import { PredominantColor } from '../shared/interfaces/layout.interface';
 @Injectable({ providedIn: 'root' })
 export class PredominantImgColorService {
   private readonly destroyRef$ = inject(DestroyRef);
-  private destroyed$ = new Subject();
-  private getPredominantColor$ = new BehaviorSubject<PredominantColor>({
-    headerMediaGradient: '',
-    isDark: false,
-    textColorBlend: '',
-    contentMediaGradient: '',
-  });
+  private readonly destroyed$ = new Subject();
+  private readonly getPredominantColor$ = new BehaviorSubject<PredominantColor>(
+    {
+      headerMediaGradient: '',
+      isDark: false,
+      textColorBlend: '',
+      contentMediaGradient: '',
+    }
+  );
   getPredominantColorObs$ = this.getPredominantColor$.asObservable();
   fac: FastAverageColor = new FastAverageColor();
   readonly TMDB_PROFILE_92W_IMG_URL = inject(
