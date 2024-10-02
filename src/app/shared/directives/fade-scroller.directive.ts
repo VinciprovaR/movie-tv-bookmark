@@ -5,7 +5,6 @@ import {
   ElementRef,
   HostBinding,
   inject,
-  Input,
   NgZone,
   Renderer2,
   RendererFactory2,
