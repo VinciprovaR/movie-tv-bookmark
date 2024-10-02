@@ -41,7 +41,8 @@ body.light {
   --link-color: rgb(99, 102, 241);
   --link-color-hover: rgb(134, 136, 240);
   --text-gray: rgb(75, 85, 99);
-  --bg-input-search: rgb(249, 250, 251);
+  --bg-input-search: rgba(255, 255, 255, 0.5);
+  --bg-filter: rgba(255, 255, 255, 0.5);
   --bg-bookmark-icon: rgba(255, 255, 255, 0.85);
   --header-li-color: rgb(0, 92, 187);
   --text-color: var(--text-color-dark);
@@ -64,7 +65,8 @@ body.dark {
   --theme-color-3: rgb(31, 41, 55);
   --theme-color-4: rgb(21, 29, 39);
   --theme-color-sub-menu: rgb(47, 61, 82);
-  --bg-input-search: rgb(31, 41, 55);
+  --bg-input-search: rgba(31, 41, 55, 0.4);
+  --bg-filter: rgba(31, 41, 55, 0.6);
   --link-color: rgb(99, 102, 241);
   --link-color-hover: rgb(134, 136, 240);
   --text-gray: rgb(177, 186, 199);
@@ -519,6 +521,10 @@ youtube-player div:first-child {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.blur-color-search {
+  @apply absolute w-full h-[500px] bg-gradient-to-br from-pink-400 to-[#0055D1] blur-3xl opacity-40 -z-50;
 }
 /****************** End ******************/
 

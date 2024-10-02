@@ -1,8 +1,7 @@
 <section class="w-full pt-[60px]">
-  <div class="bg-[var(--bg-input-search)] p-6 shadow-md">
+  <div class="blur-color-search"></div>
+  <div class="bg-[var(--bg-input-search)] p-6 rounded-b-2xl">
     <h1 class="text-4xl font-bold text-center">Search for People</h1>
-  </div>
-  <div class="w-[90%] md:w-[95%] max-w-5xl m-auto">
     <div class="mt-6">
       <app-input-query
         [placeholder]="'Search for a person...'"
@@ -10,6 +9,8 @@
         (queryEmitter)="searchPeople($event)"
       ></app-input-query>
     </div>
+  </div>
+  <div class="w-[90%] md:w-[95%] max-w-5xl m-auto">
     <div class="mt-6">
       <app-person-list-container
         #peopleListContainer

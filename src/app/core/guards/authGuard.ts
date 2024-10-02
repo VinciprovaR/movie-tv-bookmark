@@ -15,9 +15,9 @@ export const authGuard: CanMatchFn = () => {
     skipWhile((authState: AuthState) => authState.isLoadingCurrentUser),
     map((authState: AuthState) => {
       if (!authState.user) {
-        return router.parseUrl('/login');
+        return router.parseUrl('/home');
       } else if (!authState.user?.confirmed_at) {
-        return router.parseUrl('/login');
+        return router.parseUrl('/home');
       } else {
         return true;
       }

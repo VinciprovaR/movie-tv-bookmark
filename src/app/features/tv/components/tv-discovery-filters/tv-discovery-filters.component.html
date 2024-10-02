@@ -1,7 +1,7 @@
 @if(filterForm){
 
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
-  <div class="box-border border-container mb-4">
+  <div class="box-border border-container mb-4 bg-[var(--bg-filter)]">
     <div
       class="p-3 flex justify-between hover:cursor-pointer"
       (keyup)="toggleMenuSort()"
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="box-border border-container mb-4">
+  <div class="box-border border-container mb-4 bg-[var(--bg-filter)]">
     <div
       class="p-3 flex justify-between hover:cursor-pointer"
       [ngClass]="{
@@ -55,16 +55,16 @@
         'hidden-container': isHideFilterContainer
       }"
     >
-    <div class="px-3 py-5 border-separator">
-      <button
-      class="button-mt button-mt-role-warning"
-      (keyup)="resetFilters()"
-      (click)="resetFilters()"
-      type="button"
-    >
-      <span class="text-lg">Clear all filters</span>
-    </button>
-    </div>
+      <div class="px-3 py-5 border-separator">
+        <button
+          class="button-mt button-mt-role-warning"
+          (keyup)="resetFilters()"
+          (click)="resetFilters()"
+          type="button"
+        >
+          <span class="text-lg">Clear all filters</span>
+        </button>
+      </div>
 
       <div class="px-3 py-5 border-separator">
         <app-genre-filter [filterForm]="filterForm"></app-genre-filter>
@@ -116,7 +116,7 @@
         </app-vote-average-filter>
       </div>
 
-      <div class="px-3 py-5 ">
+      <div class="px-3 py-5">
         <app-min-vote-filter [filterForm]="filterForm"> </app-min-vote-filter>
       </div>
     </div>

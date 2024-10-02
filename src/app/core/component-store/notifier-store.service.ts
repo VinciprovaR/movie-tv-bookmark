@@ -24,16 +24,11 @@ export class NotifierStore extends ComponentStore<AlertState> {
     return type.toLowerCase().includes('failure');
   };
 
-  readonly isLoading = (action: any) => {
-    let { type }: { type: string } = action;
-    return type.toLowerCase().includes('is loading');
-  };
-
   readonly isNotify = (action: any) => {
     let { type }: { type: string } = action;
-
     return type.toLowerCase().includes('notify');
   };
+
   constructor() {
     super({ alerts: [] });
   }
