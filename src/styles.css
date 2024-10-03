@@ -256,6 +256,7 @@ button.button-mt.button-mt-role-danger {
   }
   button.button-mt:disabled:hover {
     background-color: var(--disabled-bg);
+    @apply cursor-not-allowed;
   }
 }
 
