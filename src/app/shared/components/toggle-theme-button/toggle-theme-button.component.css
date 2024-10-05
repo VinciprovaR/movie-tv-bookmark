@@ -1,0 +1,19 @@
+.translate-x {
+  transform: translate(1.25rem, 0);
+  -webkit-transform: translateX(1.25rem, 0);
+}
+
+.transition {
+  -webkit-transition: opacity 0.3s, fill 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, fill 0.3s, -webkit-transform 0.3s;
+  transition: transform 0.3s, opacity 0.3s, fill 0.3s;
+  transition: transform 0.3s, opacity 0.3s, fill 0.3s, -webkit-transform 0.3s;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-1 {
+  opacity: 1;
+}

@@ -1,20 +1,20 @@
-<header class="fixed w-full shadow-lg top-0 z-30 max-h-[60px]">
-  <div class="mx-4 lg:mx-24 py-2 flex justify-between items-center space-x-1">
+<header class="fixed w-full shadow-lg top-0 z-30 h-[60px]">
+  <div class="h-full flex justify-between items-center px-4 sm:px-10 lg:px-20">
     <div>
       <a (click)="closeNavMenuMobile()" [routerLink]="'/home'">
         <app-logo></app-logo>
       </a>
     </div>
 
-    <div class="mx-auto 244:flex 244:justify-between items-center space-x-6">
+    <div class="flex items-center">
       @if(pageEventService.$windowInnerWidth() >= 640) {
       <app-navigator-desktop
         [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
         [navElements]="navElements"
       ></app-navigator-desktop>
-      }
+      } @else { }
 
-      <div class="flex items-center justify-between space-x-6 mt-2 mb-2">
+      <div class="flex items-center justify-between">
         @if(pageEventService.$windowInnerWidth() < 640) {
         <span class="sm:hidden">
           <mat-icon
@@ -26,28 +26,27 @@
             class="focus:outline-none hover:cursor-pointer"
           ></mat-icon> </span
         >}
-
-        <span>
-          <mat-icon
-            (keyup)="toggleTheme()"
-            (click)="toggleTheme()"
-            aria-hidden="false"
-            class="hover:cursor-pointer"
-            [ngClass]="{
-              'text-yellow-400': isDarkTheme
-            }"
-            [fontIcon]="icon"
-          ></mat-icon>
-        </span>
+      </div>
+      <div class="sm:ml-3">
+        <app-toggle-theme-button></app-toggle-theme-button>
       </div>
     </div>
   </div>
   @if(pageEventService.$windowInnerWidth() < 640) {
-  <app-navigator-mobile
-    [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
-    [navElements]="navElements"
-    [hiddenNavMenu]="hiddenNavMenu"
-    (closeNavMenuMobile)="closeNavMenuMobile()"
-  ></app-navigator-mobile>
+  <div
+    class="fixed w-full"
+    [ngClass]="{
+    'header-mobile-show': showNavMenuMobile,
+    'header-mobile-hidden': !showNavMenuMobile,
+  }"
+  >
+    <app-navigator-mobile
+      [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
+      [navElements]="navElements"
+      [showNavMenuMobile]="showNavMenuMobile"
+      (closeNavMenuMobile)="closeNavMenuMobile()"
+    ></app-navigator-mobile>
+  </div>
+
   }
 </header>

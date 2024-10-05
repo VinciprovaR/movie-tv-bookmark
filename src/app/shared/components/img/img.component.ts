@@ -25,9 +25,7 @@ export class ImgComponent extends AbstractComponent {
   @Input({ required: true })
   imgSrc: string = '';
   @Input({ required: true })
-  baseUrlSm: string = '';
-  @Input({ required: true })
-  baseUrlLg: string = '';
+  baseUrl: string = '';
   @Input()
   width!: number;
   @Input()
@@ -63,11 +61,7 @@ export class ImgComponent extends AbstractComponent {
   }
 
   getFullSrc() {
-    if (window.innerWidth < this.breakpointSm) {
-      return `${this.baseUrlSm}${this.imgSrc}`;
-    } else {
-      return `${this.baseUrlLg}${this.imgSrc}`;
-    }
+    return `${this.baseUrl}${this.imgSrc}`;
   }
 
   getImgBackground() {

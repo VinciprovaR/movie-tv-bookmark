@@ -1,6 +1,5 @@
 header {
   transition: top 0.5s;
-
   color: var(--text-color);
   max-height: 70px;
 }
@@ -15,4 +14,14 @@ header a {
 
 .text-home {
   color: var(--header-li-color);
+}
+
+.header-mobile-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.header-mobile-hidden {
+  opacity: 0;
+  visibility: hidden;
 }

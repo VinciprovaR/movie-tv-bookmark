@@ -1,0 +1,29 @@
+<button
+  id="theme-toggle"
+  class="relative bg-transparent border-0 flex p-0 sm:pt-1"
+  (click)="toggleTheme()"
+>
+  <div #moon>
+    <img
+      class="transition"
+      aria-hidden="true"
+      src="/assets/images/moon.svg"
+      decoding="async"
+      alt="sun"
+      width="20"
+      height="20"
+    />
+  </div>
+
+  <div #sun>
+    <img
+      class="transition"
+      aria-hidden="true"
+      src="/assets/images/sun.svg"
+      decoding="async"
+      alt="sun"
+      width="20"
+      height="20"
+    />
+  </div>
+</button>

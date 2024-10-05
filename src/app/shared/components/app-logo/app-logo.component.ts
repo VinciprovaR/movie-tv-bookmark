@@ -11,17 +11,7 @@ import { ImgComponent } from '../img/img.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppLogoComponent extends AbstractComponent {
-  showLogo = true;
-
   constructor() {
     super();
-    this.registerEffects();
-  }
-
-  registerEffects() {
-    effect(() => {
-      this.showLogo = this.pageEventService.$windowInnerWidth() >= 320;
-      this.detectChanges();
-    });
   }
 }

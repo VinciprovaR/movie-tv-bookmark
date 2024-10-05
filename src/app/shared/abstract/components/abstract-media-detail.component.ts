@@ -6,22 +6,12 @@ import { AbstractComponent } from './abstract-component.component';
 @Directive()
 export abstract class AbstractMediaDetailComponent extends AbstractComponent {
   readonly predominantImgColorService = inject(PredominantImgColorService);
-
-  readonly W_780_IMG_URL = inject(IMG_SIZES.W_780_IMG_URL);
-  readonly W_500_IMG_URL = inject(IMG_SIZES.W_500_IMG_URL);
-  readonly TMDB_PROFILE_300W_450H_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_300W_450H_IMG_URL
+  readonly TMDB_BACKDROP_W_1280_IMG_URL = inject(
+    IMG_SIZES.TMDB_BACKDROP_W_1280_IMG_URL
   );
-  readonly TMDB_PROFILE_600W_900H_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_600W_900H_IMG_URL
+  readonly TMDB_POSTER_W_342_IMG_URL = inject(
+    IMG_SIZES.TMDB_POSTER_W_342_IMG_URL
   );
-  readonly TMDB_PROFILE_1000W_450H_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_1000W_450H_IMG_URL
-  );
-  readonly TMDB_PROFILE_1920W_800H_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_1920W_800H_IMG_URL
-  );
-  readonly TMDB_ORIGINAL_IMG_URL = inject(IMG_SIZES.TMDB_ORIGINAL_IMG_URL);
 
   headerMediaGradient: string = '';
   contentMediaGradient: string = '';

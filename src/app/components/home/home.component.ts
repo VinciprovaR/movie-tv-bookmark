@@ -30,8 +30,8 @@ export class HomeComponent extends AbstractComponent implements OnInit {
     PredominantImgColorService
   );
   private readonly randomImageStore = inject(RandomImageStore);
-  private readonly TMDB_PROFILE_1920W_1080H_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_1920W_1080H_IMG_URL
+  private readonly TMDB_BACKDROP_W_1280_IMG_URL = inject(
+    IMG_SIZES.TMDB_BACKDROP_W_1280_IMG_URL
   );
   selectUser$!: Observable<User | null>;
   randomImage$!: Observable<string>;
@@ -78,6 +78,6 @@ export class HomeComponent extends AbstractComponent implements OnInit {
   }
 
   getFullImageUrl(imgSrc: string) {
-    return `${this.TMDB_PROFILE_1920W_1080H_IMG_URL}${imgSrc}`;
+    return `${this.TMDB_BACKDROP_W_1280_IMG_URL}${imgSrc}`;
   }
 }

@@ -17,6 +17,7 @@ import { AppLogoComponent } from '../../shared/components/app-logo/app-logo.comp
 import { ImgComponent } from '../../shared/components/img/img.component';
 import { NavigatorDesktopComponent } from '../../shared/components/navigator-desktop/navigator-desktop.component';
 import { NavigatorMobileComponent } from '../../shared/components/navigator-mobile/navigator-mobile.component';
+import { ToggleThemeButtonComponent } from '../../shared/components/toggle-theme-button/toggle-theme-button.component';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,7 @@ import { NavigatorMobileComponent } from '../../shared/components/navigator-mobi
     NavigatorDesktopComponent,
     ImgComponent,
     AppLogoComponent,
+    ToggleThemeButtonComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
@@ -45,7 +47,7 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
 
   icon = '';
   isDarkTheme = false;
-  hiddenNavMenu: boolean = true;
+  showNavMenuMobile: boolean = false;
   private lastScrollTop = 0;
 
   constructor() {
@@ -54,9 +56,9 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.addEventListener('scroll', (e) => {
-      this.windowScrollEvent();
-    });
+    // window.addEventListener('scroll', (e) => {
+    //   this.windowScrollEvent();
+    // });
   }
 
   registerEffects() {
@@ -71,7 +73,7 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
     let scrollTop = window.document.documentElement.scrollTop;
     if (scrollTop > this.lastScrollTop) {
       this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
-      if (!this.hiddenNavMenu) {
+      if (this.showNavMenuMobile) {
         this.toggleNavMenuMobile();
       }
     } else {
@@ -80,17 +82,17 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
     this.lastScrollTop = scrollTop;
   }
 
-  toggleTheme() {
-    this.toggleThemeService.toggleTheme();
-  }
+  // toggleTheme() {
+  //   this.toggleThemeService.toggleTheme();
+  // }
 
   toggleNavMenuMobile() {
-    this.hiddenNavMenu = !this.hiddenNavMenu;
+    this.showNavMenuMobile = !this.showNavMenuMobile;
     this.changeDetectorRef.detectChanges();
   }
 
   closeNavMenuMobile() {
-    this.hiddenNavMenu = true;
+    this.showNavMenuMobile = false;
     this.changeDetectorRef.detectChanges();
   }
 }

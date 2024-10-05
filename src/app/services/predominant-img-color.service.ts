@@ -23,8 +23,8 @@ export class PredominantImgColorService {
   );
   getPredominantColorObs$ = this.getPredominantColor$.asObservable();
   fac: FastAverageColor = new FastAverageColor();
-  readonly TMDB_PROFILE_92W_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_92W_IMG_URL
+  readonly TMDB_EVAL_COLOR_92W_IMG_URL = inject(
+    IMG_SIZES.TMDB_EVAL_COLOR_92W_IMG_URL
   );
 
   constructor() {
@@ -42,7 +42,7 @@ export class PredominantImgColorService {
     if (backdropPath) {
       from(
         this.fac.getColorAsync(
-          `${this.TMDB_PROFILE_92W_IMG_URL}${backdropPath}`,
+          `${this.TMDB_EVAL_COLOR_92W_IMG_URL}${backdropPath}`,
           {
             algorithm: 'simple',
           }

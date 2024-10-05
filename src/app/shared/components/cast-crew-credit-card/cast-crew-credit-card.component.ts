@@ -37,10 +37,6 @@ export class CastCrewCreditCardComponent
   extends AbstractPersonCardComponent
   implements OnInit
 {
-  protected readonly TMDB_PROFILE_66W_66H_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_66W_66H_IMG_URL
-  );
-
   protected readonly TMDB_PROFILE_132W_132H_IMG_URL = inject(
     IMG_SIZES.TMDB_PROFILE_132W_132H_IMG_URL
   );

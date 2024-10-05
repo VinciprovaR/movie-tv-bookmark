@@ -18,14 +18,13 @@
         class="flex flex-row h-full w-full lg:w-[80%] max-w-[1920px] m-0 lg:m-auto p-4 lg:p-8 space-x-8"
       >
         <div
-          class="h-[300px] lg:h-[80vh] aspect-[2/3] m-auto lg:m-0 w-xxxsm relative"
+          class="w-[200px] lg:w-[342px] aspect-[2/3] m-auto lg:m-0 w-xxxsm relative"
         >
           <app-img
             [alt]="personDetail.name"
             [title]="personDetail.name"
             [imgSrc]="personDetail.profile_path"
-            [baseUrlLg]="W_780_IMG_URL"
-            [baseUrlSm]="W_500_IMG_URL"
+            [baseUrl]="TMDB_POSTER_W_342_IMG_URL"
             [priority]="true"
             [customClasses]="'radius-container-int '"
             [isPlaceholderPerson]="true"

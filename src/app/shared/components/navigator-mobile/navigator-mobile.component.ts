@@ -17,7 +17,6 @@ import { NavElements } from '../../interfaces/navigator.interface';
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navigator-mobile.component.html',
-  styleUrl: './navigator-mobile.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorMobileComponent
@@ -27,7 +26,7 @@ export class NavigatorMobileComponent
   @Input({ required: true })
   navElements!: NavElements;
   @Input({ required: true })
-  hiddenNavMenu: boolean = true;
+  showNavMenuMobile: boolean = false;
   @Output()
   toggleNavMenuMobile = new EventEmitter<null>();
   @Output()

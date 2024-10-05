@@ -29,14 +29,13 @@
           [routerLink]="buildDetailPath(banner.id)"
         >
           <div
-            class="bg-cover bg-no-repeat bg-center overflow-hidden aspect-[50/22] w-full lg:w-[700px] lg:rounded-md lg:radius-container-int"
+            class="bg-cover bg-no-repeat bg-center overflow-hidden aspect-[16/9] w-[300px] lg:rounded-md lg:radius-container-int"
           >
             <app-img
               [alt]="banner.title"
               [title]="banner.title"
               [imgSrc]="banner.backdrop_path"
-              [baseUrlLg]="TMDB_PROFILE_1000W_450H_IMG_URL"
-              [baseUrlSm]="TMDB_PROFILE_1000W_450H_IMG_URL"
+              [baseUrl]="TMDB_BACKDROP_W_300_IMG_URL"
               [priority]="true"
               [isPlaceholderPerson]="false"
               [breakpointSm]="1024"

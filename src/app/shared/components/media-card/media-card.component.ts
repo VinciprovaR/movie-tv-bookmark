@@ -59,12 +59,8 @@ export class MediaCardComponent
 {
   protected readonly bridgeDataService = inject(BridgeDataService);
 
-  protected readonly TMDB_PROFILE_440W_660H_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_440W_660H_IMG_URL
-  );
-
-  protected readonly TMDB_PROFILE_260W_390H_IMG_URL = inject(
-    IMG_SIZES.TMDB_PROFILE_260W_390H_IMG_URL
+  protected readonly TMDB_POSTER_W_342_IMG_URL = inject(
+    IMG_SIZES.TMDB_POSTER_W_342_IMG_URL
   );
 
   protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
