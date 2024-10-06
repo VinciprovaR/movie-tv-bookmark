@@ -22,6 +22,8 @@
   --bg-success-container: rgb(195, 255, 196);
   --success-icon-color: rgb(34, 141, 18);
   --bg-failure-container: rgb(253, 168, 168);
+  --bg-warning-container: rgb(238, 201, 86);
+  --warning-icon-color: rgb(219, 118, 23);
   --failure-icon-color: rgb(186, 70, 57);
   --bg-danger: rgb(162, 13, 35);
   --bg-danger-hover: rgb(214, 16, 46);

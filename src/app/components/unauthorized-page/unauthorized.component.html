@@ -1,4 +1,4 @@
-<div class="mt-4 space-y-6">
+<div class="mt-4 space-y-10">
   @if(!(isLoading$ | async)){
   <div class="bg-[var(--bg-failure-container)] text-sm p-3 rounded-md">
     <div class="flex space-x-2">
@@ -10,12 +10,10 @@
         ></mat-icon>
       </div>
       <div class="text-[var(--text-color-dark)]">
-        <h4>
-          Error 403 - You don't have permission to access {{ pageName }} page.
-        </h4>
+        <h4>You don't have permission to access {{ pageName }} page.</h4>
         <ul class="list-none p-0 m-0">
           @if(params){
-          <li>{{ params.error_description }}.</li>
+          <li>{{ params.error_description }}</li>
           } @if(!(isUserAuthenticated$ | async) && (canForceLogOut)){
           <li>
             For security reason you have been logged out, if your account was
@@ -27,25 +25,38 @@
       </div>
     </div>
   </div>
-  <div class="flex space-x-4 px-10">
-    @if(!(isUserAuthenticated$ | async)){
-    <button
-      class="button-mt button-mt-role-normal"
-      type="button"
-      (keyup)="redirectTo('/login')"
-      (click)="redirectTo('/login')"
-    >
-      Sign In
-    </button>
-    } @else {
-    <button
-      class="button-mt button-mt-role-normal"
-      type="button"
-      (keyup)="redirectTo('/home')"
-      (click)="redirectTo('/home')"
-    >
-      Home</button
-    >}
+  @if(forDisabledFeature){
+  <div>
+    <h4 class="font-normal">
+      You've tried to request a page that requires you to be logged in. If you
+      want to use features of {{ pageName }} page, just
+      <a
+        [routerLink]="'/login'"
+        class="font-medium text-[var(--header-li-color)] hover:underline"
+      >
+        Sign In</a
+      >
+      with your account, or
+      <a
+        [routerLink]="'/register'"
+        class="font-medium text-[var(--header-li-color)] hover:underline"
+        >Sign Up</a
+      >
+    </h4>
+  </div>
+  }
+
+  <div class="flex justify-center">
+    <div class="w-[50%]">
+      <button
+        class="button-mt button-mt-role-normal"
+        type="button"
+        (keyup)="redirectTo('/home')"
+        (click)="redirectTo('/home')"
+      >
+        Home
+      </button>
+    </div>
   </div>
   }
 </div>

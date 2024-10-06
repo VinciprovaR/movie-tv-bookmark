@@ -10,12 +10,17 @@ import { BridgeDataService } from '../../../core/services/bridge-data.service';
 import { LIFECYCLE_NAV_ELEMENTS } from '../../../providers';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { BookmarkNavElement } from '../../interfaces/navigator.interface';
-import { NavigatorComponent } from '../bookmark-navigator/bookmark-navigator.component';
+import { BookmarkNavigatorComponent } from '../bookmark-navigator/bookmark-navigator.component';
 
 @Component({
   selector: 'app-media-bookmark-search',
   standalone: true,
-  imports: [RouterModule, CommonModule, RouterLinkActive, NavigatorComponent],
+  imports: [
+    RouterModule,
+    CommonModule,
+    RouterLinkActive,
+    BookmarkNavigatorComponent,
+  ],
   providers: [BridgeDataService],
   templateUrl: './media-bookmark-search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

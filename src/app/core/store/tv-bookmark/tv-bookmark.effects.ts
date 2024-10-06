@@ -19,6 +19,7 @@ import { AuthSelectors, AuthActions } from '../auth';
 import { DiscoveryTVActions } from '../discovery-tv';
 import { SearchTVActions } from '../search-tv';
 import { TVData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
+import { AskAiActions } from '../ask-ai';
 
 @Injectable()
 export class TVBookmarkEffects {
@@ -66,6 +67,7 @@ export class TVBookmarkEffects {
         DiscoveryTVActions.discoveryTVSuccess,
         DiscoveryTVActions.discoveryAdditionalTVSuccess,
         DiscoveryTVActions.discoveryTVLandingSuccess,
+        AskAiActions.askAiTVSuccess,
         personDetailTVCreditsSuccess
       ),
       switchMap((action) => {

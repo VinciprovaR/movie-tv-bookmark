@@ -8,11 +8,20 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+
+export interface InputQueryForm {
+  inputQuery: FormControl<string>;
+}
 
 @Component({
   selector: 'app-input-query',
@@ -25,39 +34,53 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
 export class InputQueryComponent extends AbstractComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
 
-  searchControl: FormControl<string> = this.fb.control<string>('', {
-    validators: [],
-    nonNullable: true,
-  });
-
   @Output()
   queryEmitter: EventEmitter<string> = new EventEmitter<string>();
-
   @Input()
   placeholder!: string;
-
   @Input()
-  set query(query: string) {
-    this.searchControl.setValue(query, { emitEvent: false });
-  }
+  query: string = '';
+  @Input()
+  clickSubmit: boolean = false;
+  @Input()
+  maxLength: number = 80;
+  submitted = false;
+  inputQueryForm!: FormGroup<InputQueryForm>;
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
+    this.buildForm();
     this.initSubscriptions();
   }
 
   initSubscriptions(): void {
-    this.searchControl.valueChanges
-      .pipe(
-        takeUntil(this.destroyed$),
-        debounceTime(500),
-        distinctUntilChanged()
-      )
-      .subscribe((query) => {
-        this.queryEmitter.emit(query);
-      });
+    if (!this.clickSubmit) {
+      this.inputQueryForm.valueChanges
+        .pipe(
+          takeUntil(this.destroyed$),
+          debounceTime(500),
+          distinctUntilChanged()
+        )
+        .subscribe((query) => {
+          this.onSubmit();
+        });
+    }
+  }
+
+  buildForm(): void {
+    this.inputQueryForm = new FormGroup<InputQueryForm>({
+      inputQuery: this.fb.control<string>(this.query, {
+        validators: [],
+        nonNullable: true,
+      }),
+    });
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.queryEmitter.emit(this.inputQueryForm.controls.inputQuery.value);
   }
 }

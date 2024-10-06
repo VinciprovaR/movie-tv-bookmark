@@ -1,0 +1,21 @@
+<section class="pt-[60px]">
+  <p>media-search works!</p>
+
+  <div class="flex">
+    <a
+      routerLinkActive="active"
+      [routerLink]="'movie'"
+      class="block p-2 text-[var(--text-color)]"
+      >movie</a
+    >
+
+    <a
+      routerLinkActive="active"
+      [routerLink]="'tv'"
+      class="block p-2 text-[var(--text-color)]"
+      >tv</a
+    >
+  </div>
+
+  <router-outlet></router-outlet>
+</section>

@@ -1,12 +1,17 @@
 <div class="w-full lg:w-[80%] m-auto">
-  <div class="relative max-w-[640px] m-auto">
+  <form
+    [formGroup]="inputQueryForm"
+    (ngSubmit)="onSubmit()"
+    class="relative max-w-[640px] m-auto"
+  >
     <!-- Search input -->
     <input
       type="text"
       id="search"
-      [formControl]="searchControl"
+      formControlName="inputQuery"
       [placeholder]="placeholder"
       class="w-full box-border px-3 py-4 bg-[var(--theme-color-3)] pl-10 border-container shadow-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+      [maxlength]="maxLength"
     />
     <!-- Magnifying glass icon -->
     <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
@@ -25,5 +30,8 @@
         />
       </svg>
     </div>
-  </div>
+    @if(clickSubmit){
+    <button type="submit">Search</button>
+    }
+  </form>
 </div>

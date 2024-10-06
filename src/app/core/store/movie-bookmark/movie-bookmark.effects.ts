@@ -19,6 +19,7 @@ import { personDetailMovieCreditsSuccess } from '../../component-store/person-de
 import { AuthSelectors, AuthActions } from '../auth';
 import { DiscoveryMovieActions } from '../discovery-movie';
 import { SearchMovieActions } from '../search-movie';
+import { AskAiActions } from '../ask-ai';
 
 @Injectable()
 export class MovieBookmarkEffects {
@@ -67,6 +68,7 @@ export class MovieBookmarkEffects {
         DiscoveryMovieActions.discoveryMovieSuccess,
         DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
         DiscoveryMovieActions.discoveryMovieLandingSuccess,
+        AskAiActions.askAiMovieSuccess,
         personDetailMovieCreditsSuccess
       ),
       switchMap((action) => {

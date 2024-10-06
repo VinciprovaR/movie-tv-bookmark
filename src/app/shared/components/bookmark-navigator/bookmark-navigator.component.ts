@@ -11,7 +11,7 @@ import { BookmarkNavElement } from '../../interfaces/navigator.interface';
   templateUrl: './bookmark-navigator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigatorComponent extends AbstractComponent {
+export class BookmarkNavigatorComponent extends AbstractComponent {
   @Input({ required: true })
   bookmarkNavElements!: BookmarkNavElement[];
 

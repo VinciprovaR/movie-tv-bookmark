@@ -199,36 +199,31 @@ export function provideHeaderNavElements() {
   return {
     provide: HEADER_NAV_ELEMENTS,
     useValue: {
-      a_movie: {
-        single: false,
-        label: 'Movie',
-        paths: ['/movie', '/discovery-movie', '/movie-bookmark-search'],
-        subMenu: [
-          { label: 'Search', path: 'movie', needAuth: false },
-          { label: 'Discovery', path: 'discovery-movie', needAuth: false },
-          { label: 'Bookmarks', path: 'movie-bookmark-search', needAuth: true },
-        ],
+      a_search: {
+        single: true,
+        label: 'Search',
+        paths: ['/media-search'],
         needAuth: false,
       },
-      b_tv: {
-        single: false,
-        label: 'TV Shows',
-        paths: ['/tv', '/discovery-tv', '/tv-bookmark-search'],
-        subMenu: [
-          { label: 'Search', path: 'tv', needAuth: false },
-          { label: 'Discovery', path: 'discovery-tv', needAuth: false },
-          { label: 'Bookmarks', path: 'tv-bookmark-search', needAuth: true },
-        ],
+      b_discovery: {
+        single: true,
+        label: 'Discovery',
+        paths: ['/media-discovery'],
         needAuth: false,
       },
-      c_people: {
-        single: false,
-        label: 'People',
-        paths: ['/people'],
-        subMenu: [{ label: 'Search', path: 'people', needAuth: false }],
+      c_bookmark: {
+        single: true,
+        label: 'Bookmarks',
+        paths: ['/media-bookmark'],
         needAuth: false,
       },
-      d_profile: {
+      d_ai: {
+        single: true,
+        label: 'AI',
+        paths: ['/ask'],
+        needAuth: false,
+      },
+      e_profile: {
         single: false,
         label: 'Profile',
         paths: ['/settings', '/logout'],
@@ -238,7 +233,7 @@ export function provideHeaderNavElements() {
         ],
         needAuth: true,
       },
-      d_signIn: {
+      e_signIn: {
         single: true,
         label: 'Sign In',
         paths: ['/login'],

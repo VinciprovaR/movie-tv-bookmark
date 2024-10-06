@@ -52,8 +52,6 @@ export class MediaListContainerComponent
   mediaList!: Movie[] | MovieData[] | TV[] | TVData[];
   @Input({ required: true })
   mediaType!: MediaType;
-  titleNotFound!: string;
-  captionNotFound!: string;
   @Input()
   captionNotFoundCustom!: string;
   @Input()
@@ -66,6 +64,10 @@ export class MediaListContainerComponent
   personIdentifier: string = '';
   @Input({ required: true })
   allowButtonAdditionalMedia!: boolean;
+  @Input()
+  isMulti = false;
+  titleNotFound!: string;
+  captionNotFound!: string;
   ulContainerClass: string = '';
   noMoreAdditionalCaption: string = '';
   searchAdditionalButtonLabel: string = '';
@@ -75,17 +77,33 @@ export class MediaListContainerComponent
   }
 
   ngOnInit(): void {
-    this.searchAdditionalButtonLabel = `Search for additional ${this.mediaType}`;
+    const mediaTypeLbl = this.isMulti ? 'movies or tv shows' : this.mediaType;
+    this.searchAdditionalButtonLabel = `Search for additional ${mediaTypeLbl}`;
     this.captionNotFound = this.captionNotFoundCustom
       ? this.captionNotFoundCustom
-      : `We couldn't find any ${this.mediaType} matching your search. Try searching with different keywords`;
-    this.titleNotFound = `No ${this.mediaType} found`;
-    this.noMoreAdditionalCaption = `There are no more additional ${this.mediaType} for this query`;
+      : `We couldn't find any ${mediaTypeLbl} matching your search. Try searching with different keywords`;
+    this.titleNotFound = `No ${mediaTypeLbl} found`;
+    this.noMoreAdditionalCaption = `There are no more additional ${mediaTypeLbl} for this query`;
   }
 
   discoveryAdditionalMedia() {
     if (this.mediaList.length && !this.noAdditional) {
       this.emitDiscoveryAdditionalMedia.emit(this.mediaList.length);
     }
+  }
+
+  evaluateMediaType(media: Movie | MovieData | TV | TVData): MediaType {
+    if (this.isMulti && this.isMovie(media)) {
+    } else {
+    }
+
+    return this.mediaType;
+  }
+
+  isMovie(media: object): media is Movie | MovieData {
+    return (
+      (media as Movie).title !== undefined ||
+      (media as MovieData).title !== undefined
+    );
   }
 }

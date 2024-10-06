@@ -1,0 +1,31 @@
+<section class="pt-[60px]">
+  @if(!(isUserAuthenticated$| async)){
+  <div class="flex flex-col items-center">
+    <div class="max-w-2xl px-4 py-6">
+      <app-unauthorized
+        [pageName]="'Bookmarks'"
+        [forDisabledFeature]="true"
+      ></app-unauthorized>
+    </div>
+  </div>
+
+  } @else {
+
+  <div class="flex">
+    <a
+      routerLinkActive="active"
+      [routerLink]="'movie'"
+      class="block p-2 text-[var(--text-color)]"
+      >movie</a
+    >
+
+    <a
+      routerLinkActive="active"
+      [routerLink]="'tv'"
+      class="block p-2 text-[var(--text-color)]"
+      >tv</a
+    >
+  </div>
+
+  <router-outlet></router-outlet>}
+</section>
