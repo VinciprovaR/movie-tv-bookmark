@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { ImgComponent } from '../img/img.component';
 
