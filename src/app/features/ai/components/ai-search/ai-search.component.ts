@@ -16,6 +16,7 @@ import { InputQueryComponent } from '../../../../shared/components/input-query/i
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import {
+  MediaType,
   Movie,
   TV,
 } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
@@ -36,7 +37,7 @@ export class AiSearchComponent extends AbstractComponent implements OnInit {
   selectMediaList$!: Observable<Movie[] & TV[]>;
 
   title = 'Ask Ai';
-  // mediaType: MediaType = 'movie';
+  mediaType: MediaType = 'multi';
 
   constructor() {
     super();
@@ -53,6 +54,7 @@ export class AiSearchComponent extends AbstractComponent implements OnInit {
       .select(MovieBookmarkSelectors.selectMovieBookmarkMap)
       .pipe(takeUntil(this.destroyed$))
       .subscribe((movieBookmarkMap) => {
+        console.log(movieBookmarkMap);
         this.bridgeDataService.pushMediaBookmarkMap(movieBookmarkMap);
       });
     // data from bookmark-selector

@@ -16,10 +16,10 @@
         direction === 'horizontal'
     }"
   >
-    @for(media of mediaList; track media.id;){
-    <li class="list-none w-full">
+    @for(media of mediaList; track media.id){
+    <li class="list-none w-full" #itemsLi>
       <app-media-card
-        [mediaType]="mediaType"
+        [mediaType]="evaluateMediaType(media)"
         [index]="$index"
         [media]="media"
         [personIdentifier]="personIdentifier"
@@ -52,5 +52,5 @@
       [icon]="'tv_off'"
     ></app-no-search-found>
   </div>
-  }
+  } @else { loading... }
 </div>

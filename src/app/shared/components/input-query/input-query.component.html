@@ -1,9 +1,5 @@
-<div class="w-full lg:w-[80%] m-auto">
-  <form
-    [formGroup]="inputQueryForm"
-    (ngSubmit)="onSubmit()"
-    class="relative max-w-[640px] m-auto"
-  >
+<div class="w-full">
+  <form [formGroup]="inputQueryForm" (ngSubmit)="onSubmit()" class="relative">
     <!-- Search input -->
     <input
       type="text"

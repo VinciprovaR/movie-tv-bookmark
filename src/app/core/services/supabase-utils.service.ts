@@ -64,7 +64,7 @@ export class SupabaseUtilsService {
   movieBookmarkMapFactory(
     movieBookmarkEntityList: MovieBookmark[] | (MovieBookmark[] & MovieData[])
   ): MovieBookmarkMap {
-    let movieBookmarkMap: MovieBookmarkMap = {};
+    let movieBookmarkMap: MovieBookmarkMap = { mediaType: 'movie' };
     movieBookmarkEntityList.forEach((movieBookmarkEntity) => {
       movieBookmarkMap[movieBookmarkEntity.movie_id] =
         movieBookmarkEntity.bookmark_enum;
@@ -100,7 +100,7 @@ export class SupabaseUtilsService {
   tvBookmarkMapFactory(
     tvBookmarkEntityList: TVBookmark[] | (TVBookmark[] & TVData[])
   ): TVBookmarkMap {
-    let tvBookmarkMap: TVBookmarkMap = {};
+    let tvBookmarkMap: TVBookmarkMap = { mediaType: 'tv' };
     tvBookmarkEntityList.forEach((tvBookmarkEntity) => {
       tvBookmarkMap[tvBookmarkEntity.tv_id] = tvBookmarkEntity.bookmark_enum;
     });

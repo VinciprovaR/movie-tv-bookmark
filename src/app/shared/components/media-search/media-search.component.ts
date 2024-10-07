@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterModule, RouterLinkActive } from '@angular/router';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { RouterLinkActive, RouterModule } from '@angular/router';
+import { AbstractMediaComponent } from '../../abstract/components/abstract-media.component';
 
 @Component({
   selector: 'app-media-search',
@@ -11,4 +11,8 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   styleUrl: './media-search.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MediaSearchComponent extends AbstractComponent {}
+export class MediaSearchComponent extends AbstractMediaComponent {
+  constructor() {
+    super();
+  }
+}

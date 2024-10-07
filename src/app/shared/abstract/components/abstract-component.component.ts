@@ -7,6 +7,7 @@ import {
   NgZone,
   Renderer2,
   RendererFactory2,
+  ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -25,7 +26,6 @@ export abstract class AbstractComponent {
   protected readonly pageEventService = inject(PageEventService);
   protected readonly router = inject(Router);
   protected readonly route = inject(ActivatedRoute);
-
   destroyed$ = new Subject();
 
   constructor() {
@@ -41,11 +41,19 @@ export abstract class AbstractComponent {
     this.changeDetectorRef.detectChanges();
   }
 
-  scroll(elSm: HTMLElement, elXl: HTMLElement) {
+  scroll(
+    elSm: HTMLElement,
+    elXl: HTMLElement,
+    offSetXl: number = 80,
+    offSetSm: number = 80
+  ) {
     if (window.innerWidth <= 1024) {
-      elSm.scrollIntoView();
+      const y = elSm.getBoundingClientRect().top + window.scrollY - offSetSm;
+
+      window.scrollTo({ top: y, behavior: 'smooth' });
     } else {
-      elXl.scrollIntoView();
+      const y = elXl.getBoundingClientRect().top + window.scrollY - offSetXl;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   }
 

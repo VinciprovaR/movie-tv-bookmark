@@ -1,16 +1,10 @@
-import { UnauthorizedComponent } from './../../../components/unauthorized-page/unauthorized.component';
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
-import { map, Observable, skipWhile } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthSelectors } from '../../../core/store/auth';
-import { SupabaseAuthEventsService } from '../../../services/supabase-auth-events.service';
-import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { AbstractMediaComponent } from '../../abstract/components/abstract-media.component';
+import { UnauthorizedComponent } from './../../../components/unauthorized-page/unauthorized.component';
 
 @Component({
   selector: 'app-media-bookmark',
@@ -26,13 +20,9 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaBookmarkComponent
-  extends AbstractComponent
+  extends AbstractMediaComponent
   implements OnInit
 {
-  private readonly supabaseAuthEventsService = inject(
-    SupabaseAuthEventsService
-  );
-
   ngOnInit(): void {
     this.initSelectors();
   }

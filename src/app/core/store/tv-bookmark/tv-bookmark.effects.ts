@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { User } from '@supabase/supabase-js';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { TVBookmarkActions, TVBookmarkSelectors } from '.';
 import { SupabaseTVBookmarkService } from '../../../features/tv/services/supabase-tv-bookmark.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
@@ -327,6 +327,9 @@ export class TVBookmarkEffects {
               return TVBookmarkActions.searchTVByBookmarkSubmitSuccess({
                 tvList,
               });
+            }),
+            tap(() => {
+              TVBookmarkSelectors.scrollTo$.next(null);
             }),
             catchError(
               (httpErrorResponse: CustomHttpErrorResponseInterface) => {

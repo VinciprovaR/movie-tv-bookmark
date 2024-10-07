@@ -1,4 +1,11 @@
-import { Movie, MovieDetail, TV, TVDetail } from '../TMDB/tmdb-media.interface';
+import {
+  movie,
+  Movie,
+  MovieDetail,
+  tv,
+  TV,
+  TVDetail,
+} from '../TMDB/tmdb-media.interface';
 import { MovieData, TVData } from './media-data.entity.interface';
 
 export type movieBookmarkDTOType = Movie | MovieDetail | MovieData;
@@ -35,5 +42,9 @@ export interface BookmarkStatusMap {
   watched: BookmarkStatus;
 }
 
-export type MovieBookmarkMap = MediaBookmarkMap;
-export type TVBookmarkMap = MediaBookmarkMap;
+export interface MovieBookmarkMap extends MediaBookmarkMap {
+  mediaType: movie;
+}
+export interface TVBookmarkMap extends MediaBookmarkMap {
+  mediaType: tv;
+}

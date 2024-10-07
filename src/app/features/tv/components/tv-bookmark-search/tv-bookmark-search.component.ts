@@ -46,20 +46,18 @@ export class TVBookmarkSearchComponent
   extends AbstractComponent
   implements OnInit
 {
-  title: string = 'TV Bookmarks';
-
   private readonly bridgeDataService = inject(BridgeDataService);
-
-  @Input()
-  bookmarkType!: bookmarkEnum;
-  mediaType: MediaType = 'tv';
-
   selectIsLoading$!: Observable<boolean>;
   selectTVBookmarkMap$!: Observable<TVBookmarkMap>;
   selectTVList$!: Observable<TVData[]>;
-
   selectSortBy$!: Observable<OptionFilter[]>;
   selectCombinedBookmarkFilters$!: Observable<[PayloadTVBookmark, Genre[]]>;
+  selectScrollTo$!: Observable<null>;
+  @Input()
+  bookmarkType!: bookmarkEnum;
+  mediaType: MediaType = 'tv';
+  elXl: HTMLElement = window.document.body;
+  title: string = 'TV Bookmarks';
 
   constructor() {
     super();
@@ -106,6 +104,8 @@ export class TVBookmarkSearchComponent
       .subscribe(() => {
         this.searchTVByBookmarkLanding();
       });
+
+    this.selectScrollTo$ = TVBookmarkSelectors.scrollToObs$;
   }
 
   initBridgeData() {

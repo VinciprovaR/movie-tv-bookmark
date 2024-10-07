@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { DiscoveryTVState } from '../../../shared/interfaces/store/discovery-tv-state.interface';
 import * as DiscoveryTVReducer from './discovery-tv.reducer';
+import { Subject, Observable } from 'rxjs';
 
 const discoveryTVFeatureSelector = createFeatureSelector<DiscoveryTVState>(
   DiscoveryTVReducer.discoveryTVFeatureKey
@@ -15,7 +16,6 @@ export const selectIsLoading = createSelector(
   discoveryTVFeatureSelector,
   DiscoveryTVReducer.getIsLoading
 );
-
 
 export const selectPayload = createSelector(
   discoveryTVFeatureSelector,
@@ -56,3 +56,5 @@ export const selectIsFirstLanding = createSelector(
   discoveryTVFeatureSelector,
   DiscoveryTVReducer.getIsFirstLanding
 );
+export const scrollTo$ = new Subject<null>();
+export const scrollToObs$: Observable<null> = scrollTo$.asObservable();

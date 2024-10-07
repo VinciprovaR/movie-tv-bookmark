@@ -11,21 +11,29 @@
 
   } @else {
 
-  <div class="flex">
-    <a
-      routerLinkActive="active"
-      [routerLink]="'movie'"
-      class="block p-2 text-[var(--text-color)]"
-      >movie</a
-    >
-
-    <a
-      routerLinkActive="active"
-      [routerLink]="'tv'"
-      class="block p-2 text-[var(--text-color)]"
-      >tv</a
-    >
+  <div class="p-6">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center">
+      Your {{ mediaTypeLbl }} Bookmarks
+    </h1>
   </div>
-
-  <router-outlet></router-outlet>}
+  <div class="w-[90%] lg:w-[80%] max-w-[1536px] m-auto space-y-4">
+    <div class="flex justify-start gap-4">
+      <a
+        routerLinkActive="active"
+        [routerLink]="'movie'"
+        class="block text-[var(--text-color)]"
+        >Movie</a
+      >
+      <a
+        routerLinkActive="active"
+        [routerLink]="'tv'"
+        class="block text-[var(--text-color)]"
+        >Tv</a
+      >
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  }
 </section>

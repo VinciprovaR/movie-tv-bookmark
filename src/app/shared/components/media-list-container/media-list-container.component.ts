@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  QueryList,
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -21,8 +26,9 @@ import {
   TVData,
 } from '../../interfaces/supabase/media-data.entity.interface';
 import { MediaCardComponent } from '../media-card/media-card.component';
-import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
+import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
+import { Observable, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-media-list-container',
@@ -65,25 +71,56 @@ export class MediaListContainerComponent
   @Input({ required: true })
   allowButtonAdditionalMedia!: boolean;
   @Input()
-  isMulti = false;
+  elSm!: HTMLElement;
+  @Input()
+  elXl!: HTMLElement;
+  @Input()
+  selectScrollTo$!: Observable<null>;
+  @ViewChildren('itemsLi') itemsLi!: QueryList<ElementRef>;
   titleNotFound!: string;
   captionNotFound!: string;
   ulContainerClass: string = '';
   noMoreAdditionalCaption: string = '';
   searchAdditionalButtonLabel: string = '';
+  scrollTo = false;
 
   constructor() {
     super();
   }
 
   ngOnInit(): void {
-    const mediaTypeLbl = this.isMulti ? 'movies or tv shows' : this.mediaType;
+    const mediaTypeLbl =
+      this.mediaType === 'multi' ? 'movies or tv shows' : this.mediaType;
     this.searchAdditionalButtonLabel = `Search for additional ${mediaTypeLbl}`;
     this.captionNotFound = this.captionNotFoundCustom
       ? this.captionNotFoundCustom
       : `We couldn't find any ${mediaTypeLbl} matching your search. Try searching with different keywords`;
     this.titleNotFound = `No ${mediaTypeLbl} found`;
     this.noMoreAdditionalCaption = `There are no more additional ${mediaTypeLbl} for this query`;
+    this.initSubscriptions();
+  }
+
+  ngAfterViewInit(): void {
+    this.checkRenderingStatus();
+  }
+
+  ngAfterViewChecked(): void {
+    this.checkRenderingStatus();
+  }
+
+  private checkRenderingStatus(): void {
+    if (this.itemsLi.length === this.mediaList.length && this.scrollTo) {
+      this.scrollTo = false;
+      this.scroll(this.elSm, this.elXl, 80);
+    }
+  }
+
+  initSubscriptions() {
+    if (this.elSm && this.elXl) {
+      this.selectScrollTo$.pipe(takeUntil(this.destroyed$)).subscribe(() => {
+        this.scrollTo = true;
+      });
+    }
   }
 
   discoveryAdditionalMedia() {
@@ -93,8 +130,11 @@ export class MediaListContainerComponent
   }
 
   evaluateMediaType(media: Movie | MovieData | TV | TVData): MediaType {
-    if (this.isMulti && this.isMovie(media)) {
-    } else {
+    if (this.mediaType === 'multi') {
+      if (this.isMovie(media)) {
+        return 'movie';
+      }
+      return 'tv';
     }
 
     return this.mediaType;

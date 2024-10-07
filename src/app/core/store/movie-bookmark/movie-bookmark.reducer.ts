@@ -1,4 +1,3 @@
-
 import { createReducer, on } from '@ngrx/store';
 import { MovieBookmarkState } from '../../../shared/interfaces/store/movie-bookmark-state.interface';
 import * as MovieBookmarkActions from './movie-bookmark.actions';
@@ -8,7 +7,7 @@ export const movieBookmarkStateFeatureKey = 'movie-bookmark';
 export const initialState: MovieBookmarkState = {
   isLoading: false,
   error: null,
-  movieBookmarkMap: {},
+  movieBookmarkMap: { mediaType: 'movie' },
   movieList: [],
   updateSearch: false,
   payload: {

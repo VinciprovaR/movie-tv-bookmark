@@ -61,10 +61,10 @@ export class BookmarkSelectorComponent
   readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
   bookmarkOptions$!: Observable<BookmarkOption[]>;
+  mediaBookmarkMapObs$!: Observable<MovieBookmarkMap | TVBookmarkMap>;
 
   @Output()
   bookmarkStatusElementEmitter = new EventEmitter<bookmarkEnum>();
-
   @Input({ required: true })
   index: number = 0;
   @Input({ required: true })
@@ -75,15 +75,11 @@ export class BookmarkSelectorComponent
   personIdentifier: string = '';
   @Input({ required: true })
   direction: scrollDirection = 'none';
-
-  idItem!: string;
-
-  bookmarkControl!: FormControl<bookmarkEnum>;
-
-  bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
-
   @Input({ required: true })
   isDetail!: boolean;
+  idItem!: string;
+  bookmarkControl!: FormControl<bookmarkEnum>;
+  bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
 
   constructor() {
     super();
@@ -101,10 +97,17 @@ export class BookmarkSelectorComponent
     this.bookmarkOptions$ = this.store.select(
       BookmarkMetadataSelectors.selectBookmarkOptions
     );
+
+    if (this.mediaType === 'movie') {
+      this.mediaBookmarkMapObs$ =
+        this.bridgeDataService.mediaBookmarkMapMovieObs$;
+    } else if (this.mediaType === 'tv') {
+      this.mediaBookmarkMapObs$ = this.bridgeDataService.mediaBookmarkMapTVObs$;
+    }
   }
 
   initDataBridge() {
-    this.bridgeDataService.mediaBookmarkMapObs$
+    this.mediaBookmarkMapObs$
       .pipe(
         takeUntil(this.destroyed$),
         distinctUntilChanged(),

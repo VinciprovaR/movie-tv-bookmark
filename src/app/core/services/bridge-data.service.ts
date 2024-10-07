@@ -27,11 +27,16 @@ type mediaBookmarkDTOMovieType = Movie | MovieDetail | MovieData;
 @Injectable()
 export class BridgeDataService {
   //mediaBookmarkMap
-  private readonly mediaBookmarkMap$ = new BehaviorSubject<
-    MovieBookmarkMap | TVBookmarkMap
-  >({});
-  readonly mediaBookmarkMapObs$: Observable<MovieBookmarkMap | TVBookmarkMap> =
-    this.mediaBookmarkMap$.asObservable();
+  private readonly mediaBookmarkMapMovie$ =
+    new BehaviorSubject<MovieBookmarkMap>({ mediaType: 'movie' });
+  private readonly mediaBookmarkMapTV$ = new BehaviorSubject<TVBookmarkMap>({
+    mediaType: 'tv',
+  });
+  readonly mediaBookmarkMapMovieObs$: Observable<MovieBookmarkMap> =
+    this.mediaBookmarkMapMovie$.asObservable();
+
+  readonly mediaBookmarkMapTVObs$: Observable<TVBookmarkMap> =
+    this.mediaBookmarkMapTV$.asObservable();
 
   //inputBookmarkOptions TV
   private readonly tvInputBookmarkOptions$ = new Subject<
@@ -50,7 +55,11 @@ export class BridgeDataService {
   > = this.movieInputBookmarkOptions$.asObservable();
 
   pushMediaBookmarkMap(mediaBookmarkMap: MovieBookmarkMap | TVBookmarkMap) {
-    this.mediaBookmarkMap$.next(mediaBookmarkMap);
+    if (mediaBookmarkMap.mediaType === 'movie') {
+      this.mediaBookmarkMapMovie$.next(mediaBookmarkMap);
+    } else if (mediaBookmarkMap.mediaType === 'tv') {
+      this.mediaBookmarkMapTV$.next(mediaBookmarkMap);
+    }
   }
 
   pushInputBookmarkOptions(

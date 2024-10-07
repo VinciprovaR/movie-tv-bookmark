@@ -15,22 +15,20 @@
   </div>
   <div class="w-[90%] xl:w-[80%] 1485:w-[60%] max-w-[1024px] m-auto">
     <div class="mt-6">
-      @if((selectMediaList$ | async); as mediaList){ @for(media of mediaList;
+      <!-- @if((selectMediaList$ | async); as mediaList){ @for(media of mediaList;
       track media){ @if(media){ @if(media.title != undefined){
       <p>Movie: {{ media.title }}</p>
       } @else {
       <p>TV: {{ media.name }}</p>
-      } } } }
+      } } } } -->
 
-      <!-- <app-media-list-container
+      <app-media-list-container
         [isLoading]="(selectIsLoading$ | async) ?? false"
-        [mediaList]="(selectMovieList$ | async) ?? []"
-        (emitDiscoveryAdditionalMedia)="searchAdditionalMovie()"
+        [mediaList]="(selectMediaList$ | async) ?? []"
         [mediaType]="mediaType"
-        [noAdditional]="(selectNoAdditional$ | async) ?? false"
         [direction]="'vertical'"
-        [allowButtonAdditionalMedia]="true"
-      ></app-media-list-container> -->
+        [allowButtonAdditionalMedia]="false"
+      ></app-media-list-container>
     </div>
   </div>
 </section>
