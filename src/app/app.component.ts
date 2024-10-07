@@ -23,4 +23,8 @@ import { AbstractComponent } from './shared/abstract/components/abstract-compone
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent extends AbstractComponent {}
+export class AppComponent extends AbstractComponent {
+  constructor() {
+    super();
+  }
+}
