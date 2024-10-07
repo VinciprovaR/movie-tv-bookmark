@@ -1,23 +1,19 @@
-<section class="w-full pt-[60px]">
-  <div class="bg-[var(--bg-input-search)] p-6 rounded-b-2xl">
-    <h1 class="text-4xl font-bold text-center">Search for People</h1>
-    <div class="mt-6">
-      <app-input-query
-        [placeholder]="'Search for a person...'"
-        [query]="(selectQuery$ | async) ?? ''"
-        (queryEmitter)="searchPeople($event)"
-      ></app-input-query>
-    </div>
+<div class="space-y-8">
+  <div>
+    <app-input-query
+      [placeholder]="'Search for a person...'"
+      [query]="(selectQuery$ | async) ?? ''"
+      (queryEmitter)="searchPeople($event)"
+    ></app-input-query>
   </div>
-  <div class="w-[90%] md:w-[95%] max-w-5xl m-auto">
-    <div class="mt-6">
-      <app-person-list-container
-        #peopleListContainer
-        [isLoading]="(selectIsLoading$ | async) ?? false"
-        [personList]="(selectPeopleList$ | async) ?? []"
-        (emitDiscoveryAdditionalMedia)="searchAdditionalPeople()"
-        [noAdditional]="(selectNoAdditional$ | async) ?? false"
-      ></app-person-list-container>
-    </div>
+
+  <div>
+    <app-person-list-container
+      #peopleListContainer
+      [isLoading]="(selectIsLoading$ | async) ?? false"
+      [personList]="(selectPeopleList$ | async) ?? []"
+      (emitDiscoveryAdditionalMedia)="searchAdditionalPeople()"
+      [noAdditional]="(selectNoAdditional$ | async) ?? false"
+    ></app-person-list-container>
   </div>
-</section>
+</div>

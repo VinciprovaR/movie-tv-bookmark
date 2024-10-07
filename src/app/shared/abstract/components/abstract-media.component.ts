@@ -24,6 +24,8 @@ export abstract class AbstractMediaComponent extends AbstractComponent {
           this.mediaTypeLbl = 'Movies';
         } else if (url.includes('tv')) {
           this.mediaTypeLbl = 'TV Shows';
+        } else if (url.includes('people')) {
+          this.mediaTypeLbl = 'People';
         }
       });
   }

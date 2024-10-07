@@ -498,12 +498,6 @@ youtube-player div:first-child {
   text-decoration: underline;
 }
 
-@media (max-width: 205px) {
-  .w-xxxsm {
-    width: 100%;
-  }
-}
-
 .clickable-icon {
   color: var(--text-color-light);
 }
