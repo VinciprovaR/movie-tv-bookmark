@@ -1,0 +1,26 @@
+<div
+  #bookmark
+  class="font-bold text-sm flex justify-center items-center bg-[rgb(37,_37,_37)] rounded-lg w-[80%] m-auto"
+  [ngClass]="bookmarkColorClass$ | async"
+>
+  <span> {{ bookmarkEnumSelectedLabel }}</span>
+  <div class="">
+    @if(isUserAuthenticated$ | async; as isUserAuthenticated){
+    <app-bookmark-selector
+      (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
+      [mediaData]="media"
+      [index]="index"
+      [mediaType]="mediaType"
+      [personIdentifier]="personIdentifier"
+      [direction]="direction"
+      [isDetail]="false"
+      [bookmarkColorClass]="(bookmarkColorClass$ | async) ?? 'noBookmark-color'"
+    ></app-bookmark-selector>
+    } @else {
+    <app-bookmark-disabled-dialog
+      [direction]="direction"
+      [isDetail]="false"
+    ></app-bookmark-disabled-dialog>
+    }
+  </div>
+</div>

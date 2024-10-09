@@ -1,20 +1,18 @@
 <section class="w-full mb-20">
   <div class="m-auto pt-[60px] overflow-hidden">
     @if(error$ | async; as error){
-
-    <div class="w-full lg:w-[80%] max-w-[1920px] lg:mx-auto py-8">
+    <div class="w-full 1024:w-[80%] max-w-[1920px] 1024:mx-auto py-8">
       <app-error-message-template
         [title]="errorTitle"
         [message]="errorMessage"
       ></app-error-message-template>
     </div>
-
     } @else {
     <!--  -->
     @if(movieDetail$ | async; as movieDetail){
 
     <div
-      class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden mb-0 lg:mb-8"
+      class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden mb-0 1024:mb-8"
       [ngStyle]="{
         'background-image': movieDetail.backdrop_path
           ? 'url(' +
@@ -25,7 +23,7 @@
       }"
     >
       <div
-        class="flex flex-row h-full w-full p-4 justify-center lg:p-8 space-x-8"
+        class="flex flex-row h-full w-full justify-center p-4 1024:p-8"
         [ngStyle]="{
           'background-image':
             pageEventService.$windowInnerWidth() >= 1024
@@ -38,8 +36,10 @@
         }"
         [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"
       >
-        <div class="max-w-[1920px]">
-          <div class="w-[200px] lg:w-[342px] aspect-[2/3] relative">
+        <div
+          class="w-full 1024:w-[80%] max-w-[1920px] 1024:mx-auto flex space-x-8 justify-center 1024:justify-normal"
+        >
+          <div class="h-[300px] 1024:h-[600px] aspect-[2/3] relative">
             <app-img
               [alt]="movieDetail.title"
               [title]="movieDetail.title"
@@ -48,54 +48,53 @@
               [priority]="true"
               [customClasses]="'radius-container-int'"
               [isPlaceholderPerson]="false"
-              [breakpointSm]="1024"
             ></app-img>
-            @if(isUserAuthenticated$ | async; as isUserAuthenticated){
-            <app-bookmark-selector
-              (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
-              [mediaData]="movieDetail"
-              [index]="0"
-              [mediaType]="'movie'"
-              [isDetail]="true"
-              [direction]="'none'"
-            ></app-bookmark-selector>
+            <!-- @if(isUserAuthenticated$ | async; as isUserAuthenticated){
+          <app-bookmark-selector
+            (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
+            [mediaData]="movieDetail"
+            [index]="0"
+            [mediaType]="'movie'"
+            [isDetail]="true"
+            [direction]="'none'"
+          ></app-bookmark-selector>
 
-            <div
-              class="w-full absolute bottom-0 bg-label-detail border-bookmark-label-detail"
-            >
-              <app-bookmark-status-label
-                [bookmarkEnumSelected]="bookmarkEnumSelected"
-                [direction]="'none'"
-              ></app-bookmark-status-label>
-            </div>
-            } @else {
-            <app-bookmark-disabled-dialog
-              [isDetail]="true"
+          <div
+            class="w-full absolute bottom-0 bg-label-detail border-bookmark-label-detail"
+          >
+            <app-bookmark
+              [bookmarkEnumSelected]="bookmarkEnumSelected"
               [direction]="'none'"
-            ></app-bookmark-disabled-dialog
-            >}
+            ></app-bookmark>
           </div>
-        </div>
+          } @else {
+          <app-bookmark-disabled-dialog
+            [isDetail]="true"
+            [direction]="'none'"
+          ></app-bookmark-disabled-dialog
+          >} -->
+          </div>
 
-        @if(pageEventService.$windowInnerWidth() >= 1024) {
-        <div class="hidden lg:block max-w-[1100px]">
-          <app-movie-detail-main-info
-            [textColorBlend]="textColorBlend"
-            [isDark]="isDark"
-            [movieData]="movieDetail"
-            [releaseDate]="movieDetail.release_date"
-            [mediaTitle]="movieDetail.title"
-            [runtime]="movieDetail.runtime"
-            [cast]="movieDetail.credits.cast"
-            [crew]="movieDetail.credits.crew"
-          ></app-movie-detail-main-info>
+          @if(pageEventService.$windowInnerWidth() >= 1024) {
+          <div class="hidden 1024:block">
+            <app-movie-detail-main-info
+              [textColorBlend]="textColorBlend"
+              [isDark]="isDark"
+              [movieData]="movieDetail"
+              [releaseDate]="movieDetail.release_date"
+              [mediaTitle]="movieDetail.title"
+              [runtime]="movieDetail.runtime"
+              [cast]="movieDetail.credits.cast"
+              [crew]="movieDetail.credits.crew"
+            ></app-movie-detail-main-info>
+          </div>
+          }
         </div>
-        }
       </div>
     </div>
 
     @if(pageEventService.$windowInnerWidth() < 1024){
-    <div class="block lg:hidden h-full">
+    <div class="block 1024:hidden h-full">
       <app-movie-detail-main-info
         [textColorBlend]="textColorBlend"
         [isDark]="isDark"
@@ -112,10 +111,10 @@
     }
 
     <div
-      class="w-full lg:w-[80%] max-w-[1920px] lg:mx-auto flex flex-col lg:flex-row-reverse"
+      class="w-full 1024:w-[80%] max-w-[1920px] 1024:mx-auto flex flex-col 1024:flex-row-reverse"
     >
-      <div class="w-full lg:w-[25%] space-y-4 lg:space-y-8 mb-4 lg:mb-0">
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
+      <div class="w-full 1024:w-[25%] space-y-4 1024:space-y-8 mb-4 1024:mb-0">
+        <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
           <h2 class="mb-4 pl-4">For more info go to</h2>
           <div class="pl-4">
             <app-external-info
@@ -127,7 +126,7 @@
         </div>
 
         <div
-          class="bg-[var(--theme-color-3)] lg:bg-transparent py-4 mb-4 hidden lg:block"
+          class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4 mb-4 hidden 1024:block"
         >
           <div class="pl-4">
             <app-media-keywords
@@ -136,8 +135,10 @@
           </div>
         </div>
       </div>
-      <div class="w-full lg:w-[75%] space-y-4 lg:space-y-8 lg:mr-12">
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4 mb-4 flex">
+      <div class="w-full 1024:w-[75%] space-y-4 1024:space-y-8 1024:mr-12">
+        <div
+          class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4 mb-4 flex"
+        >
           <a
             [title]="'Full Cast \u0026 Crew'"
             routerLinkActive="active"
@@ -155,7 +156,7 @@
             </div>
           </a>
         </div>
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
+        <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
           <app-media-detail-cast-crew-list-preview
             [isLoading]="(isLoading$ | async) ?? false"
             [castCrewList]="movieDetail.credits.cast"
@@ -164,7 +165,7 @@
             (navigateToCreditsEmitter)="navigateToCredits(movieDetail)"
           ></app-media-detail-cast-crew-list-preview>
         </div>
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
+        <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
           <app-media-detail-cast-crew-list-preview
             [isLoading]="(isLoading$ | async) ?? false"
             [castCrewList]="movieDetail.credits.crew"
@@ -174,7 +175,7 @@
           ></app-media-detail-cast-crew-list-preview>
         </div>
 
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
+        <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
           <app-videos-container
             [videos]="movieDetail.videos"
             [videoTypeFilter]="{
@@ -186,7 +187,7 @@
           ></app-videos-container>
         </div>
 
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
+        <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
           <app-videos-container
             [videos]="movieDetail.videos"
             [videoTypeFilter]="{
@@ -199,7 +200,7 @@
         </div>
 
         <div
-          class="bg-[var(--theme-color-3)] lg:bg-transparent py-4 block lg:hidden"
+          class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4 block 1024:hidden"
         >
           <div class="pl-4">
             <app-media-keywords

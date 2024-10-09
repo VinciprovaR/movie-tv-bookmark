@@ -2,7 +2,6 @@ import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   inject,
   Input,
   OnInit,
@@ -11,9 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { map, Observable } from 'rxjs';
-import { BridgeDataService } from '../../../core/services/bridge-data.service';
-import { AuthSelectors } from '../../../core/store/auth';
 import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractCardComponent } from '../../abstract/components/abstract-card.component';
 import {
@@ -26,9 +22,8 @@ import {
   Movie,
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { BookmarkDisabledDialogComponent } from '../bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
-import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
+import { BookmarkComponent } from '../bookmark/bookmark.component';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
 
@@ -46,8 +41,7 @@ import { RatingComponent } from '../rating/rating.component';
     MatIconModule,
     ImgComponent,
     RatingComponent,
-    BookmarkStatusLabelComponent,
-    BookmarkDisabledDialogComponent,
+    BookmarkComponent,
   ],
   templateUrl: './media-card.component.html',
   styleUrl: './media-card.component.css',
@@ -57,59 +51,44 @@ export class MediaCardComponent
   extends AbstractCardComponent
   implements OnInit
 {
-  protected readonly bridgeDataService = inject(BridgeDataService);
-
   protected readonly TMDB_POSTER_W_342_IMG_URL = inject(
     IMG_SIZES.TMDB_POSTER_W_342_IMG_URL
   );
 
-  protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
+  protected readonly TMDB_POSTER_W_780_IMG_URL = inject(
+    IMG_SIZES.TMDB_POSTER_W_780_IMG_URL
+  );
 
-  isUserAuthenticated$!: Observable<boolean>;
+  protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
 
   @Input({ required: true })
   media!: Movie | MovieData | TV | TVData;
   @Input({ required: true })
   index: number = 0;
-
   @Input({ required: true })
   mediaType!: MediaType;
   @Input()
   personIdentifier: string = '';
   @Input()
   isDetail: boolean = false;
-
   detailMediaPath: string = '';
-
-  bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
-
   voteIcon: string = '';
-
   bookmarkSelectorAbsentIsOpen = false;
-
-  override borderImgClassSm: string = 'border-img-card-media-sm';
 
   constructor() {
     super();
-    this.registerEffects();
+    // this.registerEffects();
   }
 
   ngOnInit(): void {
-    this.initSelectors();
     this.buildDetailPath(this.media.id);
   }
 
-  initSelectors(): void {
-    this.isUserAuthenticated$ = this.store
-      .select(AuthSelectors.selectUser)
-      .pipe(map((user) => !!user));
-  }
-
-  registerEffects() {
-    effect(() => {
-      this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
-    });
-  }
+  // registerEffects() {
+  //   effect(() => {
+  //     this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
+  //   });
+  // }
 
   get voteAverage(): number | null {
     if (this.isTmdbMedia(this.media)) {
@@ -153,10 +132,6 @@ export class MediaCardComponent
       `/${this.mediaType}-detail/${id}`
     );
     this.detectChanges();
-  }
-
-  setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
-    this.bookmarkEnumSelected = bookmarkEnumSelected;
   }
 
   toggleBookmarkAbsent() {

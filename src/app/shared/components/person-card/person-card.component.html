@@ -9,12 +9,10 @@
       [baseUrl]="TMDB_POSTER_W_342_IMG_URL"
       [link]="detailMediaPath"
       [state]="person"
-      [customClasses]="borderImgClass"
       [isPlaceholderPerson]="true"
-      [breakpointSm]="621"
     ></app-img>
   </div>
-  <div class="card-content">
+  <div class="pt-4">
     <h4>
       <a [routerLink]="detailMediaPath" [title]="person.name">{{
         person.name

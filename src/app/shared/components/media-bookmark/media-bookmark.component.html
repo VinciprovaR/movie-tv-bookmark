@@ -1,22 +1,12 @@
-<section class="pt-[60px]">
-  @if(!(isUserAuthenticated$| async)){
-  <div class="flex flex-col items-center">
-    <div class="max-w-2xl px-4 py-6">
-      <app-unauthorized
-        [pageName]="'Bookmarks'"
-        [forDisabledFeature]="true"
-      ></app-unauthorized>
-    </div>
-  </div>
-
-  } @else {
+<section class="pt-[92px] px-4 1024:px-8">
+  @if((isUserAuthenticated$| async)){
 
   <div class="p-6">
-    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center">
+    <h1 class="text-2xl 640:text-3xl 768:text-4xl font-bold text-center">
       Your {{ mediaTypeLbl }} Bookmarks
     </h1>
   </div>
-  <div class="w-[90%] lg:w-[80%] max-w-[1536px] m-auto space-y-4">
+  <div class="w-[90%] 1024:w-[80%] max-w-[1536px] m-auto space-y-4">
     <div class="flex justify-start gap-4">
       <a
         routerLinkActive="active"
@@ -35,5 +25,17 @@
       <router-outlet></router-outlet>
     </div>
   </div>
+
+  } @else {
+
+  <div class="flex flex-col items-center">
+    <div class="max-w-2xl px-4 py-6">
+      <app-unauthorized
+        [pageName]="'Bookmarks'"
+        [forDisabledFeature]="true"
+      ></app-unauthorized>
+    </div>
+  </div>
+
   }
 </section>

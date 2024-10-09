@@ -15,7 +15,7 @@
   --border-radius-ext: 7.2px;
   --border-radius-int: 6.2px;
   --text-color-light: rgb(255, 255, 255);
-  --text-color-dark: rgb(0, 27, 63);
+  --text-color-dark: rgb(0, 15, 34);
   --bg-veil-media-detail: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(49, 51, 53);
   --link-color-light: rgb(236, 239, 243);
@@ -42,10 +42,9 @@ body.light {
   --border-color: rgba(209, 213, 219);
   --link-color: rgb(99, 102, 241);
   --link-color-hover: rgb(134, 136, 240);
-  --text-gray: rgb(75, 85, 99);
+  --text-gray: rgb(84, 90, 97);
   --bg-input-search: rgba(255, 255, 255, 0.5);
   --bg-filter: rgba(255, 255, 255, 0.5);
-  --bg-bookmark-icon: rgba(255, 255, 255, 0.85);
   --header-li-color: rgb(0, 92, 187);
   --text-color: var(--text-color-dark);
   --border-color-separator: rgb(132, 115, 118);
@@ -59,6 +58,7 @@ body.light {
   --bg-color-arrow-slider: rgba(18, 18, 18, 0.45);
   --disabled-bg: rgb(216, 216, 216);
   --text-active: rgb(126, 133, 141);
+  --shadow-card: rgba(0, 0, 0, 0.8);
 }
 body.dark {
   --theme-color-1: rgb(17, 24, 39);
@@ -72,7 +72,6 @@ body.dark {
   --link-color: rgb(99, 102, 241);
   --link-color-hover: rgb(134, 136, 240);
   --text-gray: rgb(177, 186, 199);
-  --bg-bookmark-icon: rgb(18, 20, 20, 0.85);
   --header-li-color: rgb(0, 221, 221);
   --text-color: var(--text-color-light);
   --border-color-separator: rgb(136, 147, 146);
@@ -86,6 +85,7 @@ body.dark {
   --bg-color-arrow-slider: rgba(87, 87, 87, 0.45);
   --disabled-bg: rgb(124, 124, 124);
   --text-active: rgb(172, 182, 196);
+  --shadow-card: rgba(0, 0, 0, 0.8);
 }
 /****************** End ******************/
 
@@ -197,7 +197,7 @@ h3 {
   font-weight: 600;
 }
 h4 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
 }
 h5,
@@ -313,8 +313,7 @@ button.button-mt:disabled {
 }
 
 .border-img-card {
-  border-top-left-radius: var(--border-radius-int);
-  border-top-right-radius: var(--border-radius-int);
+  @apply rounded-lg;
 }
 
 .border-img-card-sm {
@@ -347,34 +346,13 @@ button.button-mt:disabled {
 .border-separator {
   border-bottom: 1px solid var(--border-color-separator);
 }
+
 /****************** End ******************/
 
 /********************************************************/
 /****************** Bookmark ****************************/
 /********************************************************/
-@media (min-width: 621px) {
-  .bg-bookmark-vertical {
-    transform: scale(1);
-    background-color: var(--bg-bookmark-icon);
-  }
-}
 
-@media (max-width: 620px) {
-  .bg-bookmark-vertical {
-    transform: scale(1.25);
-    background-color: transparent;
-  }
-}
-
-.bg-bookmark-horizontal {
-  transform: scale(1);
-  background-color: var(--bg-bookmark-icon);
-}
-
-.bg-bookmark-detail {
-  transform: scale(1.25);
-  background-color: var(--bg-bookmark-icon);
-}
 .noBookmark-color {
   color: rgb(158, 158, 158);
 }
@@ -394,6 +372,7 @@ button.button-mt:disabled {
 .watched-color {
   color: rgb(199, 65, 65);
 }
+
 /****************** End ******************/
 
 /********************************************************/
@@ -477,14 +456,6 @@ youtube-player div:first-child {
   margin-top: -25px;
 }
 
-.card-content {
-  padding: 14px 14px 0px 14px;
-}
-
-.card-content:last-child {
-  padding-bottom: 16px;
-}
-
 .hidden-container {
   opacity: 0;
   overflow: hidden;
@@ -523,6 +494,7 @@ youtube-player div:first-child {
 .blur-color-search {
   @apply absolute w-full h-[500px] bg-gradient-to-br from-pink-400 to-[#0055D1] blur-3xl opacity-40 -z-50;
 }
+
 /****************** End ******************/
 
 /********************************************************/

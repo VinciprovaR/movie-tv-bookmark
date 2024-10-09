@@ -77,6 +77,8 @@ export class BookmarkSelectorComponent
   direction: scrollDirection = 'none';
   @Input({ required: true })
   isDetail!: boolean;
+  @Input({ required: true })
+  bookmarkColorClass: string = 'noBookmark-color';
   idItem!: string;
   bookmarkControl!: FormControl<bookmarkEnum>;
   bookmarkEnumSelected: bookmarkEnum = 'noBookmark';

@@ -17,12 +17,4 @@ export class RatingComponent extends AbstractComponent {
   constructor() {
     super();
   }
-
-  getVoteIconMetadata(voteAverage: number): { icon: string; color: string } {
-    if (voteAverage < 6) {
-      return { icon: 'thumb_down_alt', color: 'red' };
-    } else {
-      return { icon: 'thumb_up_alt', color: 'green' };
-    }
-  }
 }

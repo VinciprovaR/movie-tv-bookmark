@@ -20,12 +20,12 @@ import { BridgeDataService } from '../../../../core/services/bridge-data.service
 import { AuthSelectors } from '../../../../core/store/auth';
 import {
   MovieBookmarkActions,
-  MovieBookmarkSelectors
+  MovieBookmarkSelectors,
 } from '../../../../core/store/movie-bookmark';
 import { AbstractMediaDetailComponent } from '../../../../shared/abstract/components/abstract-media-detail.component';
 import { BookmarkDisabledDialogComponent } from '../../../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { BookmarkSelectorComponent } from '../../../../shared/components/bookmark-selector/bookmark-selector.component';
-import { BookmarkStatusLabelComponent } from '../../../../shared/components/bookmark-status-label/bookmark-status-label.component';
+import { BookmarkComponent } from '../../../../shared/components/bookmark/bookmark.component';
 import { ErrorMessageTemplateComponent } from '../../../../shared/components/error-message-template/error-message-template.component';
 import { ExternalInfoComponent } from '../../../../shared/components/external-info/external-info.component';
 import { ImgComponent } from '../../../../shared/components/img/img.component';
@@ -54,7 +54,7 @@ import { bookmarkEnum } from '../../../../shared/interfaces/supabase/supabase-bo
     ImgComponent,
     MovieDetailMainInfoContentComponent,
     BookmarkSelectorComponent,
-    BookmarkStatusLabelComponent,
+    BookmarkComponent,
     MatIconModule,
     ExternalInfoComponent,
     VideosContainerComponent,

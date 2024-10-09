@@ -4,7 +4,7 @@
     <!-- From -->
 
     <div class="flex justify-between space-x-10 244:flex-nowrap flex-wrap">
-      <label for="fromDate" class="w-[100px] lg:w-[55px]">From</label>
+      <label for="fromDate" class="w-[100px] 1024:w-[55px]">From</label>
       <div class="w-full">
         <div class="relative">
           <input
@@ -35,7 +35,7 @@
     </div>
     <!-- To -->
     <div class="flex justify-between space-x-10 244:flex-nowrap flex-wrap">
-      <label for="toDate" class="w-[100px] lg:w-[55px]">To</label>
+      <label for="toDate" class="w-[100px] 1024:w-[55px]">To</label>
       <div class="w-full">
         <div class="relative">
           <input
@@ -77,7 +77,11 @@
       </div>
       <ul class="list-none p-0 m-0 text-[var(--text-color-dark)]">
         @if(dateRangeGroup.controls.from.hasError('invalidFromDate')){
-        <li><mat-error>The 'To' date cannot be earlier than the 'From' date.</mat-error></li>
+        <li>
+          <mat-error
+            >The 'To' date cannot be earlier than the 'From' date.</mat-error
+          >
+        </li>
         }
       </ul>
     </div>

@@ -15,11 +15,14 @@ import { map, Observable, takeUntil } from 'rxjs';
 import { TVDetailStore } from '../../../../core/component-store/tv-detail-store.service';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import { AuthSelectors } from '../../../../core/store/auth';
-import { TVBookmarkActions, TVBookmarkSelectors } from '../../../../core/store/tv-bookmark';
+import {
+  TVBookmarkActions,
+  TVBookmarkSelectors,
+} from '../../../../core/store/tv-bookmark';
 import { AbstractMediaDetailComponent } from '../../../../shared/abstract/components/abstract-media-detail.component';
 import { BookmarkDisabledDialogComponent } from '../../../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { BookmarkSelectorComponent } from '../../../../shared/components/bookmark-selector/bookmark-selector.component';
-import { BookmarkStatusLabelComponent } from '../../../../shared/components/bookmark-status-label/bookmark-status-label.component';
+import { BookmarkComponent } from '../../../../shared/components/bookmark/bookmark.component';
 import { ErrorMessageTemplateComponent } from '../../../../shared/components/error-message-template/error-message-template.component';
 import { ExternalInfoComponent } from '../../../../shared/components/external-info/external-info.component';
 import { ImgComponent } from '../../../../shared/components/img/img.component';
@@ -32,7 +35,10 @@ import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/
 import { PredominantColor } from '../../../../shared/interfaces/layout.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { bookmarkEnum } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { MediaType, TVDetail } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  MediaType,
+  TVDetail,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-tv-detail',
@@ -44,7 +50,7 @@ import { MediaType, TVDetail } from '../../../../shared/interfaces/TMDB/tmdb-med
     ImgComponent,
     TVDetailMainInfoContentComponent,
     BookmarkSelectorComponent,
-    BookmarkStatusLabelComponent,
+    BookmarkComponent,
     MatIconModule,
     ExternalInfoComponent,
     VideosContainerComponent,

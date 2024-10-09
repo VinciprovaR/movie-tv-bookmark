@@ -47,18 +47,18 @@ export class PersonCardComponent
 
   constructor() {
     super();
-    this.registerEffects();
+    // this.registerEffects();
   }
 
   override ngOnInit(): void {
     this.buildDetailPath(this.person.id);
   }
 
-  registerEffects() {
-    effect(() => {
-      this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
-    });
-  }
+  // registerEffects() {
+  //   effect(() => {
+  //     this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
+  //   });
+  // }
 
   isPersonEntity(person: object): person is Person {
     return (person as Person).known_for !== undefined;

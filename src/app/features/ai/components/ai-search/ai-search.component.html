@@ -1,27 +1,29 @@
-<section class="w-full pt-[60px]">
+<section class="pt-[60px]">
   <div class="p-6">
-    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center">
+    <h1 class="text-2xl 640:text-3xl 768:text-4xl font-bold text-center">
       {{ title }}
     </h1>
-    <div class="mt-6">
-      <app-input-query
-        [clickSubmit]="true"
-        [placeholder]="'Ask ai...'"
-        [query]="(selectQuery$ | async) ?? ''"
-        (queryEmitter)="askOpenAi($event)"
-        [maxLength]="50"
-      ></app-input-query>
-    </div>
   </div>
-  <div class="w-[90%] xl:w-[80%] 1485:w-[60%] max-w-[1024px] m-auto">
-    <div class="mt-6">
-      <app-media-list-container
-        [isLoading]="(selectIsLoading$ | async) ?? false"
-        [mediaList]="(selectMediaList$ | async) ?? []"
-        [mediaType]="mediaType"
-        [direction]="'vertical'"
-        [allowButtonAdditionalMedia]="false"
-      ></app-media-list-container>
+  <div class="w-full max-w-[1024px] m-auto space-y-4">
+    <div class="space-y-8">
+      <div>
+        <app-input-query
+          [clickSubmit]="true"
+          [placeholder]="'Ask ai...'"
+          [query]="(selectQuery$ | async) ?? ''"
+          (queryEmitter)="askOpenAi($event)"
+          [maxLength]="50"
+        ></app-input-query>
+      </div>
+      <div>
+        <app-media-list-container
+          [isLoading]="(selectIsLoading$ | async) ?? false"
+          [mediaList]="(selectMediaList$ | async) ?? []"
+          [mediaType]="mediaType"
+          [direction]="'vertical'"
+          [allowButtonAdditionalMedia]="false"
+        ></app-media-list-container>
+      </div>
     </div>
   </div>
 </section>

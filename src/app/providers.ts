@@ -43,6 +43,9 @@ export const IMG_SIZES = {
   TMDB_POSTER_W_342_IMG_URL: new InjectionToken<string>(
     'TMDB_POSTER_W_342_IMG_URL'
   ),
+  TMDB_POSTER_W_780_IMG_URL: new InjectionToken<string>(
+    'TMDB_POSTER_W_780_IMG_URL'
+  ),
 
   TMDB_BACKDROP_W_300_IMG_URL: new InjectionToken<string>(
     'TMDB_BACKDROP_W_300_IMG_URL'
@@ -123,6 +126,10 @@ export function provideImgUrl() {
     {
       provide: IMG_SIZES.TMDB_POSTER_W_342_IMG_URL,
       useValue: `${endPointMedia}t/p/w342`,
+    },
+    {
+      provide: IMG_SIZES.TMDB_POSTER_W_780_IMG_URL,
+      useValue: `${endPointMedia}t/p/w780`,
     },
     {
       provide: IMG_SIZES.TMDB_PROFILE_W_185_IMG_URL,
@@ -250,7 +257,7 @@ export function provideBookmarkStatusList() {
     useValue: {
       noBookmark: {
         key: 'noBookmark',
-        label: 'No bookmark',
+        label: 'Select one',
         description: 'No bookmark',
       },
       watchlist: {
@@ -265,7 +272,7 @@ export function provideBookmarkStatusList() {
       },
       watching: {
         key: 'watching',
-        label: 'Still Watching',
+        label: 'Watching',
         description: "I'd like to finish it!",
       },
       watched: {

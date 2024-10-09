@@ -1,19 +1,5 @@
-<div
-  class="top-2 right-2 border-none p-1 rounded-full absolute z-10"
-  [ngClass]="{
-    'bg-bookmark-vertical':
-      direction === 'vertical' ,
-    'bg-bookmark-horizontal': direction === 'horizontal' ,
-    'bg-bookmark-detail': direction === 'none' && isDetail,
-  }"
->
-  <div
-    class="text-[var(--text-color)] h-[24px]"
-    [ngClass]="{
-      'text-[var(--text-color)]': bookmarkEnumSelected === 'noBookmark',
-      'text-[var(--bookmark-icon-selected)]': bookmarkEnumSelected !== 'noBookmark',
-    }"
-  >
+<div class="border-none p-1 z-10">
+  <div class="text-[var(--text-color)] h-[24px]" [ngClass]="bookmarkColorClass">
     <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
   </div>
 

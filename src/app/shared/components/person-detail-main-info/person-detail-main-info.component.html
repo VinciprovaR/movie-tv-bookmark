@@ -1,10 +1,10 @@
-<div class="space-y-10 p-4 lg:p-0 w-[90%]" #contentContainer>
+<div class="space-y-10 p-4 1024:p-0 w-[90%]" #contentContainer>
   <div class="space-y-2">
     <div class="flex flex-wrap">
       <h1 class="mr-2">{{ personDetail.name }}</h1>
     </div>
     <div>
-      <ul class="flex flex-wrap m-0 p-0 text-sm lg:text-md">
+      <ul class="flex flex-wrap m-0 p-0 text-sm 1024:text-md">
         @if(personDetail.gender > 0){
         <li class="list-none flex flex-wrap space-x-2 mr-2">
           <span>{{ genders[personDetail.gender] }}</span>
@@ -43,7 +43,7 @@
   <div>
     <app-biography [biography]="personDetail.biography"></app-biography>
   </div>
-  <div class="hidden lg:block">
+  <div class="hidden 1024:block">
     <h2 class="mb-4">For more info go to</h2>
     <app-external-info
       [tmdbId]="personDetail.id"
