@@ -2,7 +2,6 @@ import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   inject,
   Input,
   OnInit,
@@ -38,8 +37,8 @@ export class PersonCardComponent
   extends AbstractPersonCardComponent
   implements OnInit
 {
-  protected readonly TMDB_POSTER_W_342_IMG_URL = inject(
-    IMG_SIZES.TMDB_POSTER_W_342_IMG_URL
+  protected readonly TMDB_POSTER_W_780_IMG_URL = inject(
+    IMG_SIZES.TMDB_POSTER_W_780_IMG_URL
   );
 
   @Input({ required: true })

@@ -250,36 +250,3 @@ export function provideHeaderNavElements() {
     },
   };
 }
-
-export function provideBookmarkStatusList() {
-  return {
-    provide: LIFECYCLE_STATUS_MAP,
-    useValue: {
-      noBookmark: {
-        key: 'noBookmark',
-        label: 'Select one',
-        description: 'No bookmark',
-      },
-      watchlist: {
-        key: 'watchlist',
-        label: 'Watchlist',
-        description: "I'd like to watch it!",
-      },
-      rewatch: {
-        key: 'rewatch',
-        label: 'Rewatch',
-        description: "I'd like to watch it again!",
-      },
-      watching: {
-        key: 'watching',
-        label: 'Watching',
-        description: "I'd like to finish it!",
-      },
-      watched: {
-        key: 'watched',
-        label: 'Watched',
-        description: "I've already watched it!",
-      },
-    },
-  };
-}

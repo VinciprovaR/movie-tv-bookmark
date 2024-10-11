@@ -1,19 +1,21 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  inject,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
-import { map, Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable, takeUntil } from 'rxjs';
 import { AuthSelectors } from '../../../core/store/auth';
-import { LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { BookmarkMetadataSelectors } from '../../../core/store/bookmark-metadata';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.interface';
+import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
+import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
 import {
   MovieData,
   TVData,
@@ -38,13 +40,15 @@ import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selecto
   templateUrl: './bookmark.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookmarkComponent
-  extends AbstractComponent
-  implements OnInit, AfterViewInit
-{
-  readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
+export class BookmarkComponent extends AbstractComponent implements OnInit {
+  bookmarkTypeIdMap!: BookmarkTypeIdMap;
+  bookmarkTypeIdMap$!: Observable<BookmarkTypeIdMap>;
   isUserAuthenticated$!: Observable<boolean>;
-  bookmarkColorClass$ = new BehaviorSubject<string>('noBookmark-color');
+  bookmarkOptions$!: Observable<BookmarkOption[]>;
+
+  @Output()
+  bookmarkLabelEmitter = new EventEmitter<BookmarkOption>();
+
   @Input()
   customClass: string = '';
   @Input({ required: true })
@@ -57,9 +61,6 @@ export class BookmarkComponent
   personIdentifier: string = '';
   @Input({ required: true })
   direction: scrollDirection = 'none';
-  @ViewChild('bookmark') bookmarkRef!: ElementRef;
-  bookmarkStatusMapKey = 'noBookmark';
-  bookmarkEnumSelectedLabel: string = this.bookmarkStatusMap.noBookmark.label;
 
   constructor() {
     super();
@@ -67,28 +68,38 @@ export class BookmarkComponent
 
   ngOnInit(): void {
     this.initSelectors();
-  }
-
-  ngAfterViewInit(): void {
-    console.log('after init');
-    this.bookmarkColorClass$.next(`${this.bookmarkStatusMapKey}-color`);
+    this.initSubscriptions();
   }
 
   initSelectors() {
     this.isUserAuthenticated$ = this.store
       .select(AuthSelectors.selectUser)
       .pipe(map((user) => !!user));
+
+    this.bookmarkOptions$ = this.store.select(
+      BookmarkMetadataSelectors.selectBookmarkOptions
+    );
+
+    this.bookmarkTypeIdMap$ = this.store.select(
+      BookmarkMetadataSelectors.selectBookmarkTypeIdMap
+    );
+  }
+
+  initSubscriptions() {
+    this.bookmarkTypeIdMap$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((bookmarkTypeIdMap: BookmarkTypeIdMap) => {
+        this.bookmarkTypeIdMap = bookmarkTypeIdMap;
+
+        this.bookmarkLabelEmitter.emit(this.bookmarkTypeIdMap['noBookmark']);
+      });
   }
 
   setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
-    console.log(bookmarkEnumSelected);
-    this.bookmarkStatusMapKey =
-      this.bookmarkStatusMap[bookmarkEnumSelected].key;
-    this.bookmarkColorClass$.next(`${this.bookmarkStatusMapKey}-color`);
+    this.bookmarkLabelEmitter.emit(
+      this.bookmarkTypeIdMap[bookmarkEnumSelected]
+    );
 
-    this.bookmarkEnumSelectedLabel =
-      this.bookmarkStatusMap[bookmarkEnumSelected].label;
-
-    this.detectChanges();
+    //this.detectChanges();
   }
 }

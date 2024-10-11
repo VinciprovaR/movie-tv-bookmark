@@ -10,13 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { IMG_SIZES } from '../../../providers';
 import { AbstractCardComponent } from '../../abstract/components/abstract-card.component';
 import {
   MovieData,
   TVData,
 } from '../../interfaces/supabase/media-data.entity.interface';
-import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import {
   MediaType,
   Movie,
@@ -26,6 +25,7 @@ import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selecto
 import { BookmarkComponent } from '../bookmark/bookmark.component';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
+import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
 
 @Component({
   selector: 'app-media-card',
@@ -44,7 +44,6 @@ import { RatingComponent } from '../rating/rating.component';
     BookmarkComponent,
   ],
   templateUrl: './media-card.component.html',
-  styleUrl: './media-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaCardComponent
@@ -59,8 +58,6 @@ export class MediaCardComponent
     IMG_SIZES.TMDB_POSTER_W_780_IMG_URL
   );
 
-  protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
-
   @Input({ required: true })
   media!: Movie | MovieData | TV | TVData;
   @Input({ required: true })
@@ -74,21 +71,16 @@ export class MediaCardComponent
   detailMediaPath: string = '';
   voteIcon: string = '';
   bookmarkSelectorAbsentIsOpen = false;
+  bookmarkLabel: string = '';
+  bookmarkClass: string = '';
 
   constructor() {
     super();
-    // this.registerEffects();
   }
 
   ngOnInit(): void {
     this.buildDetailPath(this.media.id);
   }
-
-  // registerEffects() {
-  //   effect(() => {
-  //     this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
-  //   });
-  // }
 
   get voteAverage(): number | null {
     if (this.isTmdbMedia(this.media)) {
@@ -136,5 +128,10 @@ export class MediaCardComponent
 
   toggleBookmarkAbsent() {
     this.bookmarkSelectorAbsentIsOpen = !this.bookmarkSelectorAbsentIsOpen;
+  }
+
+  setBookmarkLabel(bookmarkOption: BookmarkOption) {
+    this.bookmarkLabel = bookmarkOption.label;
+    this.bookmarkClass = bookmarkOption.class;
   }
 }

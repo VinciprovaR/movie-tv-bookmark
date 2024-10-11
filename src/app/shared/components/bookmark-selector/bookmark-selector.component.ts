@@ -16,7 +16,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { Observable, distinctUntilChanged, filter, map, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../core/services/bridge-data.service';
 import { BookmarkMetadataSelectors } from '../../../core/store/bookmark-metadata';
-import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.interface';
 import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
@@ -36,6 +35,7 @@ import {
   TV,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
+import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
 
 @Component({
   selector: 'app-bookmark-selector',
@@ -49,7 +49,6 @@ import {
     MatIconModule,
   ],
   templateUrl: './bookmark-selector.component.html',
-  styleUrl: './bookmark-selector.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkSelectorComponent
@@ -58,13 +57,11 @@ export class BookmarkSelectorComponent
 {
   private readonly fb = inject(FormBuilder);
   private readonly bridgeDataService = inject(BridgeDataService);
-  readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
-
-  bookmarkOptions$!: Observable<BookmarkOption[]>;
   mediaBookmarkMapObs$!: Observable<MovieBookmarkMap | TVBookmarkMap>;
-
   @Output()
   bookmarkStatusElementEmitter = new EventEmitter<bookmarkEnum>();
+  @Input({ required: true })
+  bookmarkOptions!: BookmarkOption[];
   @Input({ required: true })
   index: number = 0;
   @Input({ required: true })
@@ -78,7 +75,7 @@ export class BookmarkSelectorComponent
   @Input({ required: true })
   isDetail!: boolean;
   @Input({ required: true })
-  bookmarkColorClass: string = 'noBookmark-color';
+  bookmarkTypeIdMap!: BookmarkTypeIdMap;
   idItem!: string;
   bookmarkControl!: FormControl<bookmarkEnum>;
   bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
@@ -96,10 +93,6 @@ export class BookmarkSelectorComponent
   }
 
   initSelectors() {
-    this.bookmarkOptions$ = this.store.select(
-      BookmarkMetadataSelectors.selectBookmarkOptions
-    );
-
     if (this.mediaType === 'movie') {
       this.mediaBookmarkMapObs$ =
         this.bridgeDataService.mediaBookmarkMapMovieObs$;

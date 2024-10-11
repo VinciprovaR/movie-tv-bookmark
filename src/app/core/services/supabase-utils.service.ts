@@ -54,8 +54,16 @@ export class SupabaseUtilsService {
     let bookmarkOptions: BookmarkOption[] = [];
     let bookmarkTypeIdMap: BookmarkTypeIdMap = {};
     mediaBookmarkOptions.forEach((lc) => {
-      bookmarkOptions.push({ label: lc.label, value: lc.enum });
-      bookmarkTypeIdMap[lc.enum] = lc.enum;
+      bookmarkOptions.push({
+        label: lc.label,
+        value: lc.enum,
+        class: lc.enum + '-color',
+      });
+      bookmarkTypeIdMap[lc.enum] = {
+        label: lc.label,
+        value: lc.enum,
+        class: lc.enum + '-color',
+      };
     });
 
     return { bookmarkOptions, bookmarkTypeIdMap };

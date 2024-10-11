@@ -1,5 +1,12 @@
-<div [ngClass]="customContainerHeightClass" class="w-full">
+<div
+  [ngClass]="customContainerHeightClass"
+  class="w-full"
+  tabindex="-1"
+  value="tabindex set to -1"
+>
   <div
+    tabindex="-1"
+    value="tabindex set to -1"
     class="relative overflow-hidden h-full"
     [ngClass]="{
     'pointer-events-none': !link ,
@@ -23,6 +30,8 @@
     } @else if(imgSrc && !priority && !imageLoadIsError){
 
     <img
+      tabindex="-1"
+      value="tabindex set to -1"
       class="placeholder-bg-center"
       [alt]="alt"
       [title]="title"
@@ -38,6 +47,8 @@
     } @else if(!imgSrc || imageLoadIsError){
 
     <div
+      tabindex="-1"
+      value="tabindex set to -1"
       [title]="title"
       [routerLink]="link"
       [ngClass]="customClasses"

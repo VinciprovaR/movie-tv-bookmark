@@ -8,4 +8,5 @@ export interface MediaBookmarkDTO<T> {
 export interface BookmarkOption {
   label: string;
   value: bookmarkEnum;
+  class: string;
 }

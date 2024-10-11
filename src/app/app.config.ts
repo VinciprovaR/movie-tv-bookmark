@@ -27,7 +27,6 @@ import { TVBookmarkEffects } from './core/store/tv-bookmark/tv-bookmark.effects'
 import {
   provideBookmarkNavElements,
   provideBookmarkSelect,
-  provideBookmarkStatusList,
   provideCurrentUser,
   provideDarkThemeLocalStorageKey,
   provideHeaderNavElements,
@@ -55,7 +54,6 @@ export const appConfig: ApplicationConfig = {
     provideImgUrl(),
     provideBookmarkNavElements(),
     provideHeaderNavElements(),
-    provideBookmarkStatusList(),
     provideDarkThemeLocalStorageKey(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([])),

@@ -1,6 +1,5 @@
 import { Directive, inject, Input } from '@angular/core';
 import { BridgeDataService } from '../../../core/services/bridge-data.service';
-import { LIFECYCLE_STATUS_MAP } from '../../../providers';
 import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { AbstractComponent } from './abstract-component.component';
@@ -9,15 +8,11 @@ import { AbstractComponent } from './abstract-component.component';
 export abstract class AbstractMediaCard extends AbstractComponent {
   protected readonly bridgeDataService = inject(BridgeDataService);
 
-  protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
-
   @Input({ required: true })
   mediaType!: MediaType;
   @Input()
   personId: string = '';
-
   detailMediaPath: string = '';
-
   bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
 
   constructor() {

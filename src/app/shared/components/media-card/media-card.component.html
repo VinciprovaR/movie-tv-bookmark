@@ -1,50 +1,49 @@
-<div class="relative card-wrapper">
-  <div class="absolute z-10 w-full -top-[15px] hover:cursor-pointer">
+<div class="relative card-container">
+  <div class="absolute z-10 top-5 right-0 hover:cursor-pointer">
     <app-bookmark
       [media]="media"
       [mediaType]="mediaType"
       [personIdentifier]="personIdentifier"
       [index]="index"
       [direction]="direction"
+      (bookmarkLabelEmitter)="setBookmarkLabel($event)"
     ></app-bookmark>
   </div>
-
-  <a
-    tabindex="-1"
-    value="tabindex set to -1"
-    [routerLink]="[detailMediaPath]"
-    [title]="title"
-  >
+  <a [routerLink]="[detailMediaPath]" [title]="title">
     <div
-      class="text-[var(--text-color)] 1024:text-[var(--text-gray)] 1024:hover:text-[var(--text-color)] transition-colors card-container"
+      class="text-[var(--text-color)] 1024:text-[var(--text-gray)] 1024:hover:text-[var(--text-color)] transition-colors relative shadow-img-card"
     >
-      <div class="h-full box-border img-card-container rounded-lg">
+      <div class="h-full box-border img-card-container rounded-lg" id="img-w">
         <div
-          class="w-full aspect-[2/3] hover:cursor-pointer shadow-img-card rounded-lg"
+          class="text-center font-semibold rounded-t-lg border-t-2"
+          [ngClass]="bookmarkClass"
+        >
+          {{ bookmarkLabel }}
+        </div>
+        <div
+          class="w-full aspect-[2/3] hover:cursor-pointer rounded-lg"
+          id="img-c"
         >
           <app-img
             [alt]="title"
             [title]="title"
             [imgSrc]="media.poster_path"
             [baseUrl]="TMDB_POSTER_W_780_IMG_URL"
-            [customClasses]="'border-img-card '"
+            [customClasses]="'border-b-img-card '"
           ></app-img>
         </div>
       </div>
-
-      <div class="w-full">
-        <div class="pt-4 1024:pt-6 space-y-1">
-          <span class="text-[0.95rem] font-[600]">
-            {{ title }}
+    </div>
+    <div class="w-full">
+      <div class="pt-4 1024:pt-6 space-y-1">
+        <span class="text-[0.95rem] font-[600] text-[var(--text-color)]">
+          {{ title }}
+        </span>
+        <div class="flex text-[0.85rem] font-[400] text-[var(--text-gray)]">
+          <span>
+            {{ releaseDate | date : "yyyy" }} @if(voteAverage){
+            <span>&#8226;</span> {{ voteAverage.toPrecision(2) }}}
           </span>
-          <div
-            class="flex text-[0.85rem] font-[400] text-[var(--text-gray)] 1024:text-inherit"
-          >
-            <span>
-              {{ releaseDate | date : "yyyy" }} @if(voteAverage){
-              <span>&#8226;</span> {{ voteAverage.toPrecision(2) }}}
-            </span>
-          </div>
         </div>
       </div>
     </div>

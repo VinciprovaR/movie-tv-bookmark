@@ -25,7 +25,6 @@ import {
   standalone: true,
   imports: [MatIconModule, OverlayModule, CommonModule],
   templateUrl: './bookmark-disabled-dialog.component.html',
-  styleUrl: './bookmark-disabled-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkDisabledDialogComponent extends AbstractDialogComponent {
@@ -79,14 +78,14 @@ export class BookmarkDisabledDialogComponent extends AbstractDialogComponent {
   standalone: true,
   imports: [MatIconModule, OverlayModule, RouterLink],
   template: `<div class="p-4">
-    <div class="p-4 overlay-bg rounded-md">
+    <div class="p-4 bg-[var(--theme-color-1)] rounded-md">
       <div>
         To use the bookmark feature
         <a
           (keyup)="cancel()"
           (click)="cancel()"
           [routerLink]="'/login'"
-          class="font-medium"
+          class="font-medium text-[var(--link-color)]"
         >
           Sign In</a
         >
@@ -95,13 +94,13 @@ export class BookmarkDisabledDialogComponent extends AbstractDialogComponent {
           (keyup)="cancel()"
           (click)="cancel()"
           [routerLink]="'/register'"
-          class="font-medium"
+          class="font-medium text-[var(--link-color)]"
           >Sign Up</a
         >
       </div>
     </div>
   </div> `,
-  styleUrl: './bookmark-disabled-dialog.component.css',
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkDisabledDialogContentComponent extends AbstractComponent {

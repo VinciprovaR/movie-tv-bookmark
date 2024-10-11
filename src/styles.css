@@ -6,6 +6,7 @@
 /************* Variables *****************/
 /*****************************************/
 :root {
+  --test: #deb510;
   --bg-button: rgb(79, 70, 229);
   --bg-button-hover: rgb(105, 99, 231);
   --bg-button-active: rgb(122, 116, 238);
@@ -59,6 +60,7 @@ body.light {
   --disabled-bg: rgb(216, 216, 216);
   --text-active: rgb(126, 133, 141);
   --shadow-card: rgba(0, 0, 0, 0.8);
+  --bg-bookmark: rgb(3, 7, 18);
 }
 body.dark {
   --theme-color-1: rgb(17, 24, 39);
@@ -86,6 +88,7 @@ body.dark {
   --disabled-bg: rgb(124, 124, 124);
   --text-active: rgb(172, 182, 196);
   --shadow-card: rgba(0, 0, 0, 0.8);
+  --bg-bookmark: rgb(3, 7, 18);
 }
 /****************** End ******************/
 
@@ -292,6 +295,65 @@ button.button-mt:disabled {
 /****************** End ******************/
 
 /*********************************************/
+/***************** Media/Person Card *******************/
+/*********************************************/
+.shadow-img-card {
+  @apply rounded-lg bg-[var(--bg-bookmark)];
+  box-shadow: 0px 14px 20px 0px var(--shadow-card);
+}
+
+.img-card-container {
+  transition: transform 300ms ease;
+}
+
+.img-card-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent;
+  outline: 3px solid var(--text-color);
+  outline-offset: 3px;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.card-container {
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+.card-container:hover #img-w::before {
+  opacity: 1;
+}
+
+.card-container:focus #img-w::before {
+  opacity: 1;
+}
+
+.card-container:focus-within #img-w::before {
+  opacity: 1;
+}
+
+.card-container:hover #img-c {
+  opacity: 0.85;
+}
+
+.card-container:focus #img-c {
+  opacity: 0.85;
+}
+
+.card-container:focus-within #img-c {
+  opacity: 0.85;
+}
+/****************** End ******************/
+
+/*********************************************/
 /***************** Borders *******************/
 /*********************************************/
 .border-container {
@@ -314,6 +376,10 @@ button.button-mt:disabled {
 
 .border-img-card {
   @apply rounded-lg;
+}
+
+.border-b-img-card {
+  @apply rounded-b-lg;
 }
 
 .border-img-card-sm {
@@ -354,23 +420,23 @@ button.button-mt:disabled {
 /********************************************************/
 
 .noBookmark-color {
-  color: rgb(158, 158, 158);
+  color: #808fa5;
 }
 
 .watchlist-color {
-  color: rgb(110, 184, 88);
+  color: #22c55e;
 }
 
 .rewatch-color {
-  color: rgb(72, 85, 202);
+  color: #2563eb;
 }
 
 .watching-color {
-  color: rgb(188, 65, 192);
+  color: #a855f7;
 }
 
 .watched-color {
-  color: rgb(199, 65, 65);
+  color: #dc2626;
 }
 
 /****************** End ******************/
