@@ -1,4 +1,4 @@
-<div class="space-y-8 1024:space-y-16">
+<div class="space-y-8">
   <div>
     <app-input-query
       [placeholder]="'Search for a movie...'"
@@ -8,6 +8,7 @@
   </div>
   <div>
     <app-media-list-container
+      [query]="(selectQuery$ | async) ?? ''"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="(selectMovieList$ | async) ?? []"
       (emitDiscoveryAdditionalMedia)="searchAdditionalMovie()"

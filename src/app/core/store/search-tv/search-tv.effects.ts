@@ -19,16 +19,23 @@ export class SearchTVEffects {
       ofType(SearchTVActions.searchTV),
       switchMap((action) => {
         let { query } = action;
-        return this.TMDBSearchTVService.tvSearchInit(query).pipe(
-          map((tvResult: TVResult) => {
-            return SearchTVActions.searchTVSuccess({
-              tvResult: tvResult,
-            });
-          }),
-          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(SearchTVActions.searchTVFailure({ httpErrorResponse }));
-          })
-        );
+        if (query) {
+          return this.TMDBSearchTVService.tvSearchInit(query).pipe(
+            map((tvResult: TVResult) => {
+              return SearchTVActions.searchTVSuccess({
+                tvResult: tvResult,
+              });
+            }),
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  SearchTVActions.searchTVFailure({ httpErrorResponse })
+                );
+              }
+            )
+          );
+        }
+        return of(SearchTVActions.cleanState());
       })
     );
   });

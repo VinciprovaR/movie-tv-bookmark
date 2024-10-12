@@ -15,7 +15,8 @@
   --bg-button-warning-active: rgb(247, 255, 101);
   --border-radius-ext: 7.2px;
   --border-radius-int: 6.2px;
-  --text-color-light: rgb(255, 255, 255);
+  /* --text-color-light: rgb(255, 255, 255); */
+  --text-color-light: rgb(209, 213, 219);
   --text-color-dark: rgb(0, 15, 34);
   --bg-veil-media-detail: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(49, 51, 53);
@@ -35,10 +36,19 @@
 }
 
 body.light {
-  --theme-color-1: rgb(243, 244, 246);
+  /* --theme-color-1: rgb(243, 244, 246);
   --theme-color-2: rgb(165, 180, 252);
   --theme-color-3: rgb(255, 255, 255);
-  --theme-color-4: rgb(168, 168, 168);
+  --theme-color-complementary: rgb(249, 115, 22); */
+
+  /*  */
+  --theme-color-1: rgb(240, 243, 246);
+  --theme-color-2: rgb(197, 213, 229);
+  --theme-color-3: rgb(255, 255, 255);
+  --theme-color-complementary: rgb(180, 40, 40);
+
+  /*  */
+
   --theme-color-sub-menu: rgb(226, 226, 226);
   --border-color: rgba(209, 213, 219);
   --link-color: rgb(99, 102, 241);
@@ -63,11 +73,18 @@ body.light {
   --bg-bookmark: rgb(3, 7, 18);
 }
 body.dark {
-  --theme-color-1: rgb(17, 24, 39);
+  /* --theme-color-1: rgb(17, 24, 39);
   --theme-color-2: rgb(28, 44, 66);
-  --border-color: rgba(55, 65, 81);
   --theme-color-3: rgb(31, 41, 55);
-  --theme-color-4: rgb(21, 29, 39);
+  --theme-color-complementary: rgb(249, 115, 22); */
+  /*  */
+  --theme-color-1: rgb(20, 20, 25);
+  --theme-color-2: rgb(35, 40, 50);
+  --theme-color-3: rgb(31, 35, 44);
+  --theme-color-complementary: rgb(138, 3, 3);
+
+  --text-color: var(--text-color-light);
+  --border-color: rgba(55, 65, 81);
   --theme-color-sub-menu: rgb(47, 61, 82);
   --bg-input-search: rgba(31, 41, 55, 0.4);
   --bg-filter: rgba(31, 41, 55, 0.6);
@@ -75,7 +92,7 @@ body.dark {
   --link-color-hover: rgb(134, 136, 240);
   --text-gray: rgb(177, 186, 199);
   --header-li-color: rgb(0, 221, 221);
-  --text-color: var(--text-color-light);
+
   --border-color-separator: rgb(136, 147, 146);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(185, 185, 185);
@@ -104,7 +121,7 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   background-color: var(--theme-color-1);
   color: var(--text-color);
-  transition: all 0.1s;
+  @apply transition-all duration-500;
   min-width: 320px;
 }
 
@@ -292,6 +309,30 @@ button.button-mt:disabled {
   color: var(--disabled-text-color);
   cursor: auto;
 }
+
+.active-link-line::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--theme-color-complementary);
+  border-radius: 2px;
+  transform: scaleX(1);
+  transition: transform 0.2s ease-in-out;
+}
+
+a:not(.active-link)::after {
+  transform: scaleX(0);
+  transition: transform 0.2s ease-in-out;
+}
+
+div:not(.active-link)::after {
+  transform: scaleX(0);
+  transition: transform 0.2s ease-in-out;
+}
+
 /****************** End ******************/
 
 /*********************************************/
@@ -442,7 +483,7 @@ button.button-mt:disabled {
 /****************** End ******************/
 
 /********************************************************/
-/********************** Fade ****************************/
+/********************** Effects ****************************/
 /********************************************************/
 
 @media (min-width: 1024px) {
@@ -479,6 +520,28 @@ button.button-mt:disabled {
 .is_hidden:after {
   transition: linear 0.3s;
   opacity: 0;
+}
+
+.loading-text {
+  background: linear-gradient(
+    90deg,
+    var(--text-color),
+    var(--theme-color-complementary)
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: slide-bg 1s linear infinite;
+}
+
+@keyframes slide-bg {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 
 /****************** End ******************/

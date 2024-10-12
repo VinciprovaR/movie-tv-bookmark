@@ -8,12 +8,18 @@ import {
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { SearchPeopleActions, SearchPeopleSelectors } from '../../../../core/store/search-people';
+import {
+  SearchPeopleActions,
+  SearchPeopleSelectors,
+} from '../../../../core/store/search-people';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { PersonListContainerComponent } from '../../../../shared/components/person-list-container/person-list-container.component';
-import { Person } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  MediaType,
+  Person,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-search-people',
@@ -33,9 +39,8 @@ export class PeopleSearchComponent extends AbstractComponent implements OnInit {
   protected readonly bridgeDataService = inject(BridgeDataService);
 
   title = 'People Search';
-
+  mediaType: MediaType = 'person';
   peopleListLength: number = 0;
-
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectPeopleList$!: Observable<Person[]>;

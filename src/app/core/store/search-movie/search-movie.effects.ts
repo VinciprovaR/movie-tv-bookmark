@@ -19,18 +19,23 @@ export class SearchMovieEffects {
       ofType(SearchMovieActions.searchMovie),
       switchMap((action) => {
         let { query } = action;
-        return this.TMDBSearchMovieService.movieSearchInit(query).pipe(
-          map((movieResult: MovieResult) => {
-            return SearchMovieActions.searchMovieSuccess({
-              movieResult: movieResult,
-            });
-          }),
-          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(
-              SearchMovieActions.searchMovieFailure({ httpErrorResponse })
-            );
-          })
-        );
+        if (query) {
+          return this.TMDBSearchMovieService.movieSearchInit(query).pipe(
+            map((movieResult: MovieResult) => {
+              return SearchMovieActions.searchMovieSuccess({
+                movieResult: movieResult,
+              });
+            }),
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  SearchMovieActions.searchMovieFailure({ httpErrorResponse })
+                );
+              }
+            )
+          );
+        }
+        return of(SearchMovieActions.cleanState());
       })
     );
   });

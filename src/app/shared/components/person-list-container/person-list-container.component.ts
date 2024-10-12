@@ -12,11 +12,13 @@ import {
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
-import { Person } from '../../interfaces/TMDB/tmdb-media.interface';
+import { MediaType, Person } from '../../interfaces/TMDB/tmdb-media.interface';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 import { PersonCardComponent } from '../person-card/person-card.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
+import { TypeSuggestionComponent } from '../type-suggestion/type-suggestion.component';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-person-list-container',
@@ -29,6 +31,8 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
     MatProgressSpinnerModule,
     InfiniteScrollModule,
     MissingFieldPlaceholderComponent,
+    TypeSuggestionComponent,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './person-list-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,10 +47,14 @@ export class PersonListContainerComponent
   emitDiscoveryAdditionalMedia = new EventEmitter<number>();
   @Input()
   isLoading: boolean = false;
+  @Input({ required: true })
+  mediaType!: MediaType;
   @Input()
   noAdditional: boolean = false;
   @Input({ required: true })
   personList!: Person[];
+  @Input()
+  query!: string;
   titleNotFound!: string;
   captionNotFound!: string;
   gridCol: string = '';

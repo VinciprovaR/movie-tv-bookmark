@@ -64,7 +64,7 @@ export class NavigatorDesktopComponent
     if (this.urlAfterRedirects) {
       return paths.indexOf(this.urlAfterRedirects) != -1;
     }
-
+    console.log(false);
     return false;
   }
 }

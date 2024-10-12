@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -9,11 +8,11 @@ import {
   OnInit,
   Output,
   QueryList,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { Observable, takeUntil } from 'rxjs';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import {
   MediaType,
@@ -28,7 +27,8 @@ import {
 import { MediaCardComponent } from '../media-card/media-card.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
-import { Observable, takeUntil } from 'rxjs';
+import { TypeSuggestionComponent } from '../type-suggestion/type-suggestion.component';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-media-list-container',
@@ -40,6 +40,8 @@ import { Observable, takeUntil } from 'rxjs';
     NoSearchFoundComponent,
     MatProgressSpinnerModule,
     MissingFieldPlaceholderComponent,
+    TypeSuggestionComponent,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './media-list-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -76,6 +78,10 @@ export class MediaListContainerComponent
   elXl!: HTMLElement;
   @Input()
   selectScrollTo$!: Observable<null>;
+  @Input()
+  query!: string;
+  @Input()
+  loadingSpinnerText: string = 'Loading...';
   @ViewChildren('itemsLi') itemsLi!: QueryList<ElementRef>;
   titleNotFound!: string;
   captionNotFound!: string;

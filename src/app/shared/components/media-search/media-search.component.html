@@ -1,25 +1,28 @@
-<section class="pt-[92px] px-4">
-  <div class="w-full max-w-[1280px] m-auto space-y-4">
-    <div class="flex justify-center 640:justify-start gap-4 640:text-[1.2rem]">
+<section class="pt-[90px] px-4">
+  <div class="w-full max-w-[1200px] m-auto space-y-4">
+    <nav
+      class="flex justify-center 1024:justify-start space-x-6 1024:space-x-8 text-md 1024:text-xl font-medium"
+    >
       <a
-        routerLinkActive="active"
         [routerLink]="'movie'"
-        class="block text-[var(--text-color)]"
+        routerLinkActive="active-link"
+        class="relative active-link-line hover:text-[var(--theme-color-complementary)]"
         >Movies</a
       >
       <a
-        routerLinkActive="active"
+        routerLinkActive="active-link"
         [routerLink]="'tv'"
-        class="block text-[var(--text-color)]"
-        >Tv Shows</a
+        class="relative active-link-line hover:text-[var(--theme-color-complementary)]"
+        >TV Shows</a
       >
       <a
-        routerLinkActive="active"
+        routerLinkActive="active-link"
         [routerLink]="'people'"
-        class="block text-[var(--text-color)]"
+        class="relative active-link-line hover:text-[var(--theme-color-complementary)]"
         >People</a
       >
-    </div>
+    </nav>
+
     <div>
       <router-outlet></router-outlet>
     </div>

@@ -17,6 +17,7 @@
       </div>
       <div>
         <app-media-list-container
+          [loadingSpinnerText]="'Ai is thinking...'"
           [isLoading]="(selectIsLoading$ | async) ?? false"
           [mediaList]="(selectMediaList$ | async) ?? []"
           [mediaType]="mediaType"

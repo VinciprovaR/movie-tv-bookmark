@@ -18,7 +18,12 @@ module.exports = {
       1280: "1280px",
       1485: "1485px",
     },
-    extend: {},
+    extend: {
+      animation: {
+        "spin-slow": "spin 2s linear infinite", // Slower spin
+        "spin-fast": "spin 500ms linear infinite", // Faster spin
+      },
+    },
   },
   plugins: [],
   corePlugins: {

@@ -1,7 +1,11 @@
 <app-alert-container></app-alert-container>
 <app-loading></app-loading>
 <app-header></app-header>
-<div class="page-wrapper">
-  <main><router-outlet></router-outlet></main>
+<div class="page-wrapper" [@routeAnimations]="prepareRoute(outlet)">
+  <main>
+    <div>
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </main>
   <app-footer></app-footer>
 </div>

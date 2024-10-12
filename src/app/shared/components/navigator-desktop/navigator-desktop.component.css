@@ -12,7 +12,3 @@
 li .sub-el:hover {
   background-color: var(--bg-li-hover);
 }
-
-.main-li-desktop {
-  color: var(--header-li-color);
-}

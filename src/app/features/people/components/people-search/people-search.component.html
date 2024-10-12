@@ -1,7 +1,7 @@
-<div class="space-y-8 1024:space-y-16">
+<div class="space-y-8">
   <div>
     <app-input-query
-      [placeholder]="'Search for a person...'"
+      [placeholder]="'Search for people...'"
       [query]="(selectQuery$ | async) ?? ''"
       (queryEmitter)="searchPeople($event)"
     ></app-input-query>
@@ -9,6 +9,8 @@
 
   <div>
     <app-person-list-container
+      [mediaType]="mediaType"
+      [query]="(selectQuery$ | async) ?? ''"
       #peopleListContainer
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [personList]="(selectPeopleList$ | async) ?? []"

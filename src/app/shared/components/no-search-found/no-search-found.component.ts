@@ -8,7 +8,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   standalone: true,
   imports: [CommonModule, MatIcon],
   templateUrl: './no-search-found.component.html',
-  styleUrl: './no-search-found.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoSearchFoundComponent extends AbstractComponent {

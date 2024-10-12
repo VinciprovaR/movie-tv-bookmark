@@ -19,18 +19,23 @@ export class SearchPeopleEffects {
       ofType(SearchPeopleActions.searchPeople),
       switchMap((action) => {
         let { query } = action;
-        return this.TMDBSearchPeopleService.peopleSearchInit(query).pipe(
-          map((peopleResult: PeopleResult) => {
-            return SearchPeopleActions.searchPeopleSuccess({
-              peopleResult: peopleResult,
-            });
-          }),
-          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(
-              SearchPeopleActions.searchPeopleFailure({ httpErrorResponse })
-            );
-          })
-        );
+        if (query) {
+          return this.TMDBSearchPeopleService.peopleSearchInit(query).pipe(
+            map((peopleResult: PeopleResult) => {
+              return SearchPeopleActions.searchPeopleSuccess({
+                peopleResult: peopleResult,
+              });
+            }),
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(
+                  SearchPeopleActions.searchPeopleFailure({ httpErrorResponse })
+                );
+              }
+            )
+          );
+        }
+        return of(SearchPeopleActions.cleanState());
       })
     );
   });
