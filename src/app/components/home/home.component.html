@@ -14,16 +14,16 @@
         }"
       >
         <h1
-          class="text-4xl sm:text-5xl md:text-6xl mb-4 text-white text-center"
+          class="text-4xl 640:text-5xl 768:text-6xl mb-4 text-white text-center"
         >
           Movie &amp; TV Bookmark
         </h1>
         <div class="px-4">
-          <p class="text-lg md:text-2xl mb-8 text-white text-center">
+          <p class="text-lg 768:text-2xl mb-8 text-white text-center">
             Search, discover, and save your favorite movies and tv shows.
           </p>
         </div>
-        <!-- text-lg md:text-xl -->
+        <!-- text-lg 768:text-xl -->
         <div class="w-[20%] min-w-[8rem] max-w-[12rem]">
           <button
             class="button-mt button-mt-role-normal"
@@ -39,8 +39,8 @@
   <div class="max-w-6xl m-auto space-y-8">
     <!-- Main Features Section -->
     <div #features class="py-8 px-4 text-center">
-      <h2 class="text-3xl md:text-5xl font-bold mb-12">Main Features</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <h2 class="text-3xl 768:text-5xl font-bold mb-12">Main Features</h2>
+      <div class="grid grid-cols-1 768:grid-cols-3 gap-8">
         <div class="p-6 border-container">
           <h3 class="text-2xl font-semibold mb-4">Extensive Database</h3>
           <p>
@@ -66,10 +66,10 @@
 
     <!-- About Section -->
     <div id="about" class="py-8 px-4">
-      <h2 class="text-3xl md:text-5xl font-bold mb-8 text-center">
+      <h2 class="text-3xl 768:text-5xl font-bold mb-8 text-center">
         About Movie &amp; TV Bookmark
       </h2>
-      <p class="text-lg md:text-xl mb-8 text-center">
+      <p class="text-lg 768:text-xl mb-8 text-center">
         A simple skill showcase web-app for searching and saving movies and tv
         shows in dedicated bookmarks. Explore and update your movies and tv
         shows saved in the bookmarks section as you wish! You can also remove a
@@ -82,9 +82,7 @@
               <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
             </span>
             <div class="ml-4">
-              <h3 class="text-xl font-medium watchlist-color">
-                Watchlist Bookmark
-              </h3>
+              <h3 class="text-xl font-medium">Watchlist Bookmark</h3>
               <p class="mt-1">
                 Save movies and tv shows that you'd like to watch someday!
               </p>
@@ -95,9 +93,7 @@
               <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
             </span>
             <div class="ml-4">
-              <h3 class="text-xl font-medium watched-color">
-                Watched Bookmark
-              </h3>
+              <h3 class="text-xl font-medium">Watched Bookmark</h3>
               <p class="mt-1">
                 A list of movies and tv show that you've already watched, just
                 to keep in mind!
@@ -109,9 +105,7 @@
               <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
             </span>
             <div class="ml-4">
-              <h3 class="text-xl font-medium rewatch-color">
-                Rewatch Bookmark
-              </h3>
+              <h3 class="text-xl font-medium">Rewatch Bookmark</h3>
               <p class="mt-1">
                 A list of movies and tv show that you'd like to watch again!
               </p>
@@ -122,9 +116,7 @@
               <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
             </span>
             <div class="ml-4">
-              <h3 class="text-xl font-medium watching-color">
-                Still Watching Bookmark
-              </h3>
+              <h3 class="text-xl font-medium">Still Watching Bookmark</h3>
               <p class="mt-1">
                 A list of movies and tv show that you haven't finished yet!
               </p>
@@ -138,10 +130,10 @@
 
     <!-- Powered by -->
     <div class="py-8 px-4">
-      <h2 class="text-3xl md:text-5xl font-bold mb-8 text-center">
+      <h2 class="text-3xl 768:text-5xl font-bold mb-8 text-center">
         Powered by
       </h2>
-      <p class="text-lg md:text-xl mb-8 text-center">
+      <p class="text-lg 768:text-xl mb-8 text-center">
         Movie &amp; TV Bookmark uses the TMDB API but is not endorsed or
         certified by TMDB.
       </p>
@@ -157,7 +149,6 @@
             [customClasses]="'radius-container-int'"
             [isPlaceholderPerson]="false"
             [baseUrl]="''"
-            [breakpointSm]="0"
           ></app-img
         ></a>
       </div>

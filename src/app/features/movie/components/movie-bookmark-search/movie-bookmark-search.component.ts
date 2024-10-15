@@ -55,10 +55,12 @@ export class MovieBookmarkSearchComponent
   selectIsLoading$!: Observable<boolean>;
   selectSortBy$!: Observable<OptionFilter[]>;
   selectCombinedBookmarkFilters$!: Observable<[PayloadMovieBookmark, Genre[]]>;
+  selectScrollTo$!: Observable<null>;
   @Input()
   bookmarkType!: bookmarkEnum;
   mediaType: MediaType = 'movie';
   title: string = '';
+  elXl: HTMLElement = window.document.body;
 
   constructor() {
     super();
@@ -107,6 +109,8 @@ export class MovieBookmarkSearchComponent
       .subscribe(() => {
         this.searchMovieByBookmarkLanding();
       });
+
+    this.selectScrollTo$ = MovieBookmarkSelectors.scrollToObs$;
   }
 
   initBridgeData() {

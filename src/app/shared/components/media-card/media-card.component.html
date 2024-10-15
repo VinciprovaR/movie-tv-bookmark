@@ -1,88 +1,51 @@
-<div
-  class="h-full border-container box-border 621:relative"
-  [ngClass]="{
-  'relative': direction === 'vertical',
-}"
->
-  <div
-    class="flex"
-    [ngClass]="{
-      '621:relative flex-row 621:flex-col': direction === 'vertical',
-      'relative flex-col': direction === 'horizontal'
-    }"
-  >
-    <div class="flex">
-      <div
-        class="aspect-[2/3] hover:opacity-80 active:opacity-65 transition-opacity ease-in-out delay-50 hover:cursor-pointer"
-        [ngClass]="{
-          'w-[100px] 621:w-full min-h-[150px] max-h-[150px] 621:max-h-[none]':
-            direction === 'vertical',
-          'w-full': direction === 'horizontal'
-        }"
-      >
-        <app-img
-          [alt]="title"
-          [title]="title"
-          [imgSrc]="media.poster_path"
-          [baseUrl]="TMDB_POSTER_W_342_IMG_URL"
-          [link]="detailMediaPath"
-          [customClasses]="borderImgClass"
-          [breakpointSm]="621"
-        ></app-img>
+<div class="relative card-container">
+  <div class="absolute z-10 top-[25px] right-[2px] hover:cursor-pointer">
+    <app-bookmark
+      [media]="media"
+      [mediaType]="mediaType"
+      [personIdentifier]="personIdentifier"
+      [index]="index"
+      [direction]="direction"
+      (bookmarkLabelEmitter)="setBookmarkLabel($event)"
+    ></app-bookmark>
+  </div>
+  <a [routerLink]="[detailMediaPath]" [title]="title">
+    <div
+      class="text-[var(--text-color)] 1024:text-[var(--text-gray)] 1024:hover:text-[var(--text-color)] transition-colors relative shadow-img-card"
+    >
+      <div class="h-full box-border img-card-container rounded-lg" id="img-w">
+        <div
+          class="text-center font-semibold rounded-t-lg border-t-2 text-[var(--text-color-light)]"
+          [ngClass]="bookmarkClass"
+        >
+          {{ bookmarkLabel }}
+        </div>
+        <div
+          class="w-full aspect-[2/3] hover:cursor-pointer rounded-lg"
+          id="img-c"
+        >
+          <app-img
+            [alt]="title"
+            [title]="title"
+            [imgSrc]="media.poster_path"
+            [baseUrl]="TMDB_POSTER_W_780_IMG_URL"
+            [customClasses]="'border-b-img-card '"
+          ></app-img>
+        </div>
       </div>
     </div>
     <div class="w-full">
-      @if(isUserAuthenticated$ | async; as isUserAuthenticated){
-      <div class="w-full">
-        <app-bookmark-status-label
-          [bookmarkEnumSelected]="bookmarkEnumSelected"
-          [customClass]="borderBookmarkLabelClass"
-          [direction]="direction"
-        ></app-bookmark-status-label>
-      </div>
-      }
-
-      <div class="card-content space-y-1">
-        <div>
-          <h4>
-            <a [routerLink]="[detailMediaPath]" [title]="title">{{ title }}</a>
-          </h4>
-
-          <h5>
-            {{ releaseDate | date : "longDate" }}
-          </h5>
+      <div class="pt-4 1024:pt-6 space-y-1">
+        <span class="text-[0.95rem] font-[600] text-[var(--text-color)]">
+          {{ title }}
+        </span>
+        <div class="flex text-[0.85rem] font-[400] text-[var(--text-gray)]">
+          <span>
+            {{ releaseDate | date : "yyyy" }} @if(voteAverage){
+            <span>&#8226;</span> {{ voteAverage.toPrecision(2) }}}
+          </span>
         </div>
-        @if(voteAverage){
-        <div>
-          <app-rating [voteAverage]="voteAverage"></app-rating>
-        </div>
-        }
       </div>
     </div>
-    <div
-      class="w-full bookmark-selector-wrapper"
-      [ngClass]="{
-      'bookmark-selector-wrapper-vertical':
-        direction === 'vertical' ,
-      'bookmark-selector-wrapper-horizontal': direction === 'horizontal' ,
-    }"
-    >
-      @if(isUserAuthenticated$ | async; as isUserAuthenticated){
-      <app-bookmark-selector
-        (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
-        [mediaData]="media"
-        [index]="index"
-        [mediaType]="mediaType"
-        [personIdentifier]="personIdentifier"
-        [direction]="direction"
-        [isDetail]="false"
-      ></app-bookmark-selector>
-      } @else {
-      <app-bookmark-disabled-dialog
-        [direction]="direction"
-        [isDetail]="false"
-      ></app-bookmark-disabled-dialog>
-      }
-    </div>
-  </div>
+  </a>
 </div>

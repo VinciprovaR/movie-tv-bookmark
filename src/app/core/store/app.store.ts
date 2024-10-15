@@ -20,6 +20,8 @@ import { SearchMovieReducers } from './search-movie';
 import { SearchPeopleReducers } from './search-people';
 import { SearchTVReducers } from './search-tv';
 import { TVBookmarkReducers } from './tv-bookmark';
+import { AskAiReducers } from './ask-ai';
+import { AskAiState } from '../../shared/interfaces/store/ask-ai-state.interface';
 
 interface State {
   [AuthReducers.authFeatureKey]: AuthState;
@@ -32,6 +34,7 @@ interface State {
   [BookmarkMetadataReducers.bookmarkMetadataStateFeatureKey]: BookmarkMetadataState;
   [FiltersMetadataReducers.filtersMetadataFeatureKey]: FiltersMetadataState;
   [SearchPeopleReducers.searchPeopleFeatureKey]: SearchPeopleState;
+  [AskAiReducers.askAiFeatureKey]: AskAiState;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -53,6 +56,7 @@ export const reducers: ActionReducerMap<State> = {
     FiltersMetadataReducers.filtersMetadataReducer,
   [SearchPeopleReducers.searchPeopleFeatureKey]:
     SearchPeopleReducers.searchPeopleReducer,
+  [AskAiReducers.askAiFeatureKey]: AskAiReducers.askAiReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [logger] : [];

@@ -6,6 +6,7 @@
 /************* Variables *****************/
 /*****************************************/
 :root {
+  --test: #deb510;
   --bg-button: rgb(79, 70, 229);
   --bg-button-hover: rgb(105, 99, 231);
   --bg-button-active: rgb(122, 116, 238);
@@ -14,14 +15,16 @@
   --bg-button-warning-active: rgb(247, 255, 101);
   --border-radius-ext: 7.2px;
   --border-radius-int: 6.2px;
-  --text-color-light: rgb(255, 255, 255);
-  --text-color-dark: rgb(0, 27, 63);
+  --text-color-light: rgb(243, 243, 243);
+  --text-color-dark: rgb(0, 15, 34);
   --bg-veil-media-detail: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(49, 51, 53);
-  --link-color-light: rgb(236, 239, 243);
+  --link-color-light: rgb(255, 255, 255);
   --bg-success-container: rgb(195, 255, 196);
   --success-icon-color: rgb(34, 141, 18);
   --bg-failure-container: rgb(253, 168, 168);
+  --bg-warning-container: rgb(238, 201, 86);
+  --warning-icon-color: rgb(219, 118, 23);
   --failure-icon-color: rgb(186, 70, 57);
   --bg-danger: rgb(162, 13, 35);
   --bg-danger-hover: rgb(214, 16, 46);
@@ -32,18 +35,18 @@
 }
 
 body.light {
-  --theme-color-1: rgb(243, 244, 246);
-  --theme-color-2: rgb(165, 180, 252);
+  --theme-color-1: rgb(245, 245, 245);
+  --theme-color-2: rgb(184, 207, 231);
   --theme-color-3: rgb(255, 255, 255);
-  --theme-color-4: rgb(168, 168, 168);
+  --theme-color-complementary: rgb(0, 122, 255);
+  --theme-color-complementary-op: rgb(83, 146, 213);
   --theme-color-sub-menu: rgb(226, 226, 226);
   --border-color: rgba(209, 213, 219);
   --link-color: rgb(99, 102, 241);
   --link-color-hover: rgb(134, 136, 240);
-  --text-gray: rgb(75, 85, 99);
+  --text-gray: rgb(84, 90, 97);
   --bg-input-search: rgba(255, 255, 255, 0.5);
   --bg-filter: rgba(255, 255, 255, 0.5);
-  --bg-bookmark-icon: rgba(255, 255, 255, 0.85);
   --header-li-color: rgb(0, 92, 187);
   --text-color: var(--text-color-dark);
   --border-color-separator: rgb(132, 115, 118);
@@ -57,22 +60,24 @@ body.light {
   --bg-color-arrow-slider: rgba(18, 18, 18, 0.45);
   --disabled-bg: rgb(216, 216, 216);
   --text-active: rgb(126, 133, 141);
+  --shadow-card: rgba(0, 0, 0, 0.8);
+  --bg-bookmark: rgb(80, 123, 168);
 }
 body.dark {
-  --theme-color-1: rgb(17, 24, 39);
-  --theme-color-2: rgb(28, 44, 66);
+  --theme-color-1: rgb(20, 20, 20);
+  --theme-color-2: rgb(35, 40, 50);
+  --theme-color-3: rgb(31, 35, 44);
+  --theme-color-complementary: rgb(138, 3, 3);
+  --theme-color-complementary-op: rgb(138, 31, 31);
+  --text-color: var(--text-color-light);
   --border-color: rgba(55, 65, 81);
-  --theme-color-3: rgb(31, 41, 55);
-  --theme-color-4: rgb(21, 29, 39);
   --theme-color-sub-menu: rgb(47, 61, 82);
   --bg-input-search: rgba(31, 41, 55, 0.4);
   --bg-filter: rgba(31, 41, 55, 0.6);
   --link-color: rgb(99, 102, 241);
   --link-color-hover: rgb(134, 136, 240);
   --text-gray: rgb(177, 186, 199);
-  --bg-bookmark-icon: rgb(18, 20, 20, 0.85);
   --header-li-color: rgb(0, 221, 221);
-  --text-color: var(--text-color-light);
   --border-color-separator: rgb(136, 147, 146);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(185, 185, 185);
@@ -84,6 +89,8 @@ body.dark {
   --bg-color-arrow-slider: rgba(87, 87, 87, 0.45);
   --disabled-bg: rgb(124, 124, 124);
   --text-active: rgb(172, 182, 196);
+  --shadow-card: rgba(0, 0, 0, 0.8);
+  --bg-bookmark: rgb(35, 44, 50);
 }
 /****************** End ******************/
 
@@ -99,7 +106,7 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   background-color: var(--theme-color-1);
   color: var(--text-color);
-  transition: all 0.1s;
+  @apply transition-all duration-500;
   min-width: 320px;
 }
 
@@ -195,7 +202,7 @@ h3 {
   font-weight: 600;
 }
 h4 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
 }
 h5,
@@ -287,6 +294,89 @@ button.button-mt:disabled {
   color: var(--disabled-text-color);
   cursor: auto;
 }
+
+.active-link-line::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--theme-color-complementary);
+  border-radius: 2px;
+  transform: scaleX(1);
+  transition: transform 0.2s ease-in-out;
+}
+
+a:not(.active-link)::after {
+  transform: scaleX(0);
+  transition: transform 0.2s ease-in-out;
+}
+
+div:not(.active-link)::after {
+  transform: scaleX(0);
+  transition: transform 0.2s ease-in-out;
+}
+
+/****************** End ******************/
+
+/*********************************************/
+/***************** Media/Person Card *******************/
+/*********************************************/
+.shadow-img-card {
+  @apply rounded-lg bg-[var(--theme-color-complementary-op)];
+  box-shadow: 0px 14px 20px 0px var(--shadow-card);
+}
+
+.img-card-container {
+  transition: transform 300ms ease;
+}
+
+.img-card-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent;
+  outline: 3px solid var(--text-color);
+  outline-offset: 3px;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.card-container {
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+.card-container:hover #img-w::before {
+  opacity: 1;
+}
+
+.card-container:focus #img-w::before {
+  opacity: 1;
+}
+
+.card-container:focus-within #img-w::before {
+  opacity: 1;
+}
+
+.card-container:hover #img-c {
+  opacity: 0.83;
+}
+
+.card-container:focus #img-c {
+  opacity: 0.83;
+}
+
+.card-container:focus-within #img-c {
+  opacity: 0.83;
+}
 /****************** End ******************/
 
 /*********************************************/
@@ -311,8 +401,11 @@ button.button-mt:disabled {
 }
 
 .border-img-card {
-  border-top-left-radius: var(--border-radius-int);
-  border-top-right-radius: var(--border-radius-int);
+  @apply rounded-lg;
+}
+
+.border-b-img-card {
+  @apply rounded-b-lg;
 }
 
 .border-img-card-sm {
@@ -345,57 +438,37 @@ button.button-mt:disabled {
 .border-separator {
   border-bottom: 1px solid var(--border-color-separator);
 }
+
 /****************** End ******************/
 
 /********************************************************/
 /****************** Bookmark ****************************/
 /********************************************************/
-@media (min-width: 621px) {
-  .bg-bookmark-vertical {
-    transform: scale(1);
-    background-color: var(--bg-bookmark-icon);
-  }
-}
 
-@media (max-width: 620px) {
-  .bg-bookmark-vertical {
-    transform: scale(1.25);
-    background-color: transparent;
-  }
-}
-
-.bg-bookmark-horizontal {
-  transform: scale(1);
-  background-color: var(--bg-bookmark-icon);
-}
-
-.bg-bookmark-detail {
-  transform: scale(1.25);
-  background-color: var(--bg-bookmark-icon);
-}
 .noBookmark-color {
-  color: rgb(158, 158, 158);
+  color: rgb(177, 186, 199);
 }
 
-.watchlist-color {
-  color: rgb(110, 184, 88);
+/* .watchlist-color {
+  color: #22c55e;
 }
 
 .rewatch-color {
-  color: rgb(72, 85, 202);
+  color: #2563eb;
 }
 
 .watching-color {
-  color: rgb(188, 65, 192);
+  color: #a855f7;
 }
 
 .watched-color {
-  color: rgb(199, 65, 65);
-}
+  color: #dc2626;
+} */
+
 /****************** End ******************/
 
 /********************************************************/
-/********************** Fade ****************************/
+/********************** Effects ****************************/
 /********************************************************/
 
 @media (min-width: 1024px) {
@@ -432,6 +505,28 @@ button.button-mt:disabled {
 .is_hidden:after {
   transition: linear 0.3s;
   opacity: 0;
+}
+
+.loading-text {
+  background: linear-gradient(
+    90deg,
+    var(--text-color),
+    var(--theme-color-complementary)
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: slide-bg 1s linear infinite;
+}
+
+@keyframes slide-bg {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 
 /****************** End ******************/
@@ -475,14 +570,6 @@ youtube-player div:first-child {
   margin-top: -25px;
 }
 
-.card-content {
-  padding: 14px 14px 0px 14px;
-}
-
-.card-content:last-child {
-  padding-bottom: 16px;
-}
-
 .hidden-container {
   opacity: 0;
   overflow: hidden;
@@ -494,12 +581,6 @@ youtube-player div:first-child {
 .active {
   font-weight: 700;
   text-decoration: underline;
-}
-
-@media (max-width: 205px) {
-  .w-xxxsm {
-    width: 100%;
-  }
 }
 
 .clickable-icon {
@@ -527,6 +608,7 @@ youtube-player div:first-child {
 .blur-color-search {
   @apply absolute w-full h-[500px] bg-gradient-to-br from-pink-400 to-[#0055D1] blur-3xl opacity-40 -z-50;
 }
+
 /****************** End ******************/
 
 /********************************************************/

@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { TVBookmarkState } from '../../../shared/interfaces/store/tv-bookmark-state.interface';
 import * as TVBookmarkReducer from './tv-bookmark.reducer';
+import { Observable, Subject } from 'rxjs';
 
 const TVBookmarkFeatureSelector = createFeatureSelector<TVBookmarkState>(
   TVBookmarkReducer.tvBookmarkStateFeatureKey
@@ -40,3 +41,5 @@ export const selectTVBookmarkError = createSelector(
   TVBookmarkFeatureSelector,
   TVBookmarkReducer.getSearchTVBookmarkError
 );
+export const scrollTo$ = new Subject<null>();
+export const scrollToObs$: Observable<null> = scrollTo$.asObservable();

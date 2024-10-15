@@ -1,4 +1,4 @@
-<section class="w-full lg:w-[70%] mx-auto max-w-[1024px] pt-[60px]">
+<section class="w-full 1024:w-[70%] mx-auto max-w-[1024px] pt-[60px]">
   @if(error$ | async; as error){
   <div class="w-full py-8 flex justify-center">
     <app-error-message-template
@@ -10,7 +10,7 @@
   <!--  -->
 
   @if((banner$|async); as banner ){
-  <div class="w-full bg-[var(--theme-color-3)] lg:bg-transparent py-6">
+  <div class="w-full bg-[var(--theme-color-3)] 1024:bg-transparent py-6">
     <div class="space-y-6">
       <div class="text-center">
         <a [routerLink]="buildDetailPath(banner.id)" [title]="banner.title">
@@ -29,7 +29,7 @@
           [routerLink]="buildDetailPath(banner.id)"
         >
           <div
-            class="bg-cover bg-no-repeat bg-center overflow-hidden aspect-[16/9] w-[300px] lg:rounded-md lg:radius-container-int"
+            class="bg-cover bg-no-repeat bg-center overflow-hidden aspect-[16/9] w-[300px] 1024:rounded-md 1024:radius-container-int"
           >
             <app-img
               [alt]="banner.title"
@@ -38,7 +38,6 @@
               [baseUrl]="TMDB_BACKDROP_W_300_IMG_URL"
               [priority]="true"
               [isPlaceholderPerson]="false"
-              [breakpointSm]="1024"
             ></app-img>
           </div>
         </a>
@@ -49,25 +48,25 @@
 
   }
 
-  <div class="w-full lg:flex lg:flex-row lg:space-y-0 space-y-4 py-4">
+  <div class="w-full 1024:flex 1024:flex-row 1024:space-y-0 space-y-4 py-4">
     @if((castList$|async); as castList ){
     <div
-      class="w-full lg:w-[50%] bg-[var(--theme-color-3)] lg:bg-transparent pb-6"
+      class="w-full 1024:w-[50%] bg-[var(--theme-color-3)] 1024:bg-transparent pb-6"
     >
       <div>
         <div class="px-4 py-6">
           <div
-            class="flex justify-between hover:cursor-pointer lg:hover:cursor-default"
+            class="flex justify-between hover:cursor-pointer 1024:hover:cursor-default"
             (keyup)="toggleCast()"
             (click)="toggleCast()"
           >
             <div
-              class="flex hover:cursor-pointer lg:hover:cursor-default space-x-4"
+              class="flex hover:cursor-pointer 1024:hover:cursor-default space-x-4"
             >
               <h2>Movie Cast</h2>
               <h5 class="content-center">{{ castList.length }}</h5>
             </div>
-            <div class="lg:hidden">
+            <div class="1024:hidden">
               <mat-icon
                 aria-hidden="false"
                 [fontIcon]="
@@ -104,21 +103,21 @@
     </div>
     } @if((departments$ | async); as departments){
     <div
-      class="w-full lg:w-[50%] bg-[var(--theme-color-3)] lg:bg-transparent pb-6"
+      class="w-full 1024:w-[50%] bg-[var(--theme-color-3)] 1024:bg-transparent pb-6"
     >
       <div class="px-4 py-6">
         <div
-          class="flex justify-between hover:cursor-pointer lg:hover:cursor-default"
+          class="flex justify-between hover:cursor-pointer 1024:hover:cursor-default"
           (keyup)="toggleCrew()"
           (click)="toggleCrew()"
         >
           <div
-            class="flex hover:cursor-pointer lg:hover:cursor-default space-x-4"
+            class="flex hover:cursor-pointer 1024:hover:cursor-default space-x-4"
           >
             <h2>Movie Crew</h2>
             <h5 class="content-center">{{ crewLength }}</h5>
           </div>
-          <div class="lg:hidden">
+          <div class="1024:hidden">
             <mat-icon
               aria-hidden="false"
               [fontIcon]="isHideCastContainer ? 'expand_more' : 'chevron_right'"

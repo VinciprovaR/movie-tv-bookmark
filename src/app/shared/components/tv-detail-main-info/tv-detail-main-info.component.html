@@ -1,5 +1,5 @@
 <div
-  class="space-y-10 p-4 lg:p-0"
+  class="space-y-10 p-4 1024:p-0"
   #contentContainer
   [ngStyle]="{
     'background-image': contentMediaGradient,
@@ -14,7 +14,7 @@
 
     <div>
       <ul
-        class="flex flex-wrap space-y-1 space-x-2 m-0 p-0 text-sm lg:text-md"
+        class="flex flex-wrap space-y-1 space-x-2 m-0 p-0 text-sm 1024:text-md"
         [ngClass]="{ 'text-gray-400': isDark, 'text-gray-600': !isDark }"
       >
         @if(rating){
@@ -36,7 +36,7 @@
     </div>
     <div><app-rating [voteAverage]="tvData.vote_average"></app-rating></div>
     <div>
-      <ul class="flex flex-wrap list-none p-0 m-0 lg:items-center">
+      <ul class="flex flex-wrap list-none p-0 m-0 1024:items-center">
         @for(genre of tvData.genres; track genre.id){
         <li class="list-none mr-2">
           <app-static-tag

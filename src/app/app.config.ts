@@ -27,7 +27,6 @@ import { TVBookmarkEffects } from './core/store/tv-bookmark/tv-bookmark.effects'
 import {
   provideBookmarkNavElements,
   provideBookmarkSelect,
-  provideBookmarkStatusList,
   provideCurrentUser,
   provideDarkThemeLocalStorageKey,
   provideHeaderNavElements,
@@ -39,6 +38,7 @@ import {
 } from './providers';
 import { TitleStrategyService } from './services/title-strategy.service';
 import { WebStorageService } from './services/web-storage.service';
+import { AskAiEffects } from './core/store/ask-ai/ask-ai.effects';
 
 registerLocaleData(en);
 
@@ -54,7 +54,6 @@ export const appConfig: ApplicationConfig = {
     provideImgUrl(),
     provideBookmarkNavElements(),
     provideHeaderNavElements(),
-    provideBookmarkStatusList(),
     provideDarkThemeLocalStorageKey(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([])),
@@ -77,6 +76,7 @@ export const appConfig: ApplicationConfig = {
       BookmarkMetadataEffects,
       FiltersMetadataEffects,
       SearchPeopleEffects,
+      AskAiEffects,
     ]),
     WebStorageService,
     {

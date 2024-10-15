@@ -1,5 +1,9 @@
 export type TimeWindow = 'day' | 'week';
-export type MediaType = 'movie' | 'tv' | 'person';
+export type movie = 'movie';
+export type tv = 'tv';
+export type person = 'person';
+export type multi = 'multi';
+export type MediaType = movie | tv | person | multi;
 
 export interface MediaResult {
   page: number;
@@ -57,9 +61,7 @@ export interface MediaDetail {
   tagline: string;
   vote_average: number;
   vote_count: number;
-
   video: boolean;
-
   videos: Videos;
 }
 

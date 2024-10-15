@@ -54,8 +54,16 @@ export class SupabaseUtilsService {
     let bookmarkOptions: BookmarkOption[] = [];
     let bookmarkTypeIdMap: BookmarkTypeIdMap = {};
     mediaBookmarkOptions.forEach((lc) => {
-      bookmarkOptions.push({ label: lc.label, value: lc.enum });
-      bookmarkTypeIdMap[lc.enum] = lc.enum;
+      bookmarkOptions.push({
+        label: lc.label,
+        value: lc.enum,
+        class: lc.enum + '-color',
+      });
+      bookmarkTypeIdMap[lc.enum] = {
+        label: lc.label,
+        value: lc.enum,
+        class: lc.enum + '-color',
+      };
     });
 
     return { bookmarkOptions, bookmarkTypeIdMap };
@@ -64,7 +72,7 @@ export class SupabaseUtilsService {
   movieBookmarkMapFactory(
     movieBookmarkEntityList: MovieBookmark[] | (MovieBookmark[] & MovieData[])
   ): MovieBookmarkMap {
-    let movieBookmarkMap: MovieBookmarkMap = {};
+    let movieBookmarkMap: MovieBookmarkMap = { mediaType: 'movie' };
     movieBookmarkEntityList.forEach((movieBookmarkEntity) => {
       movieBookmarkMap[movieBookmarkEntity.movie_id] =
         movieBookmarkEntity.bookmark_enum;
@@ -100,7 +108,7 @@ export class SupabaseUtilsService {
   tvBookmarkMapFactory(
     tvBookmarkEntityList: TVBookmark[] | (TVBookmark[] & TVData[])
   ): TVBookmarkMap {
-    let tvBookmarkMap: TVBookmarkMap = {};
+    let tvBookmarkMap: TVBookmarkMap = { mediaType: 'tv' };
     tvBookmarkEntityList.forEach((tvBookmarkEntity) => {
       tvBookmarkMap[tvBookmarkEntity.tv_id] = tvBookmarkEntity.bookmark_enum;
     });

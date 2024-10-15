@@ -56,9 +56,9 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // window.addEventListener('scroll', (e) => {
-    //   this.windowScrollEvent();
-    // });
+    window.addEventListener('scroll', (e) => {
+      this.windowScrollEvent();
+    });
   }
 
   registerEffects() {
@@ -72,19 +72,22 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   windowScrollEvent() {
     let scrollTop = window.document.documentElement.scrollTop;
     if (scrollTop > this.lastScrollTop) {
-      this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
-      if (this.showNavMenuMobile) {
-        this.toggleNavMenuMobile();
+      if (scrollTop - this.lastScrollTop > 1) {
+        this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
+        if (this.showNavMenuMobile) {
+          this.toggleNavMenuMobile();
+        }
       }
     } else {
-      this.renderer.removeClass(this.el.nativeElement.firstChild, 'header-up');
+      if (this.lastScrollTop - scrollTop > 1) {
+        this.renderer.removeClass(
+          this.el.nativeElement.firstChild,
+          'header-up'
+        );
+      }
     }
     this.lastScrollTop = scrollTop;
   }
-
-  // toggleTheme() {
-  //   this.toggleThemeService.toggleTheme();
-  // }
 
   toggleNavMenuMobile() {
     this.showNavMenuMobile = !this.showNavMenuMobile;

@@ -9,24 +9,24 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable, map, takeUntil } from 'rxjs';
 import { AuthSelectors } from '../../core/store/auth';
 import { AbstractComponent } from '../../shared/abstract/components/abstract-component.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-unauthorized',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, RouterLink],
   templateUrl: './unauthorized.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnauthorizedComponent extends AbstractComponent implements OnInit {
   isUserAuthenticated$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;
-
   @Input()
   canForceLogOut: boolean = false;
-
   @Input({ required: true })
   pageName!: string;
-
+  @Input()
+  forDisabledFeature = false;
   params: any = null;
 
   constructor() {

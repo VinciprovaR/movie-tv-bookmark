@@ -1,15 +1,15 @@
-<section
-  class="flex flex-col items-center justify-center h-64 space-y-4 text-[var(--text-gray)]"
->
+<div class="text-center mt-8 space-y-2">
   <div>
     <mat-icon
       aria-hidden="false"
-      class="icon-size"
+      class="scale-[2]"
       [fontIcon]="icon"
     ></mat-icon>
   </div>
-  <h3 class="text-lg font-semibold">{{ title }}</h3>
-  <p class="text-center">
+  <p class="text-sm 768:text-lg">
+    {{ title }}
+  </p>
+  <p class="text-sm 768:text-md text-[var(--text-gray)]">
     {{ caption }}
   </p>
-</section>
+</div>

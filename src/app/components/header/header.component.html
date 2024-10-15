@@ -1,5 +1,7 @@
 <header class="fixed w-full shadow-lg top-0 z-30 h-[60px]">
-  <div class="h-full flex justify-between items-center px-4 sm:px-10 lg:px-20">
+  <div
+    class="h-full flex justify-between items-center px-4 700:px-10 1024:px-20"
+  >
     <div>
       <a (click)="closeNavMenuMobile()" [routerLink]="'/home'">
         <app-logo></app-logo>
@@ -7,7 +9,7 @@
     </div>
 
     <div class="flex items-center">
-      @if(pageEventService.$windowInnerWidth() >= 640) {
+      @if(pageEventService.$windowInnerWidth() >= 700) {
       <app-navigator-desktop
         [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
         [navElements]="navElements"
@@ -15,8 +17,8 @@
       } @else { }
 
       <div class="flex items-center justify-between">
-        @if(pageEventService.$windowInnerWidth() < 640) {
-        <span class="sm:hidden">
+        @if(pageEventService.$windowInnerWidth() < 700) {
+        <span class="700:hidden">
           <mat-icon
             id="mobile-menu-btn"
             aria-hidden="false"
@@ -27,12 +29,12 @@
           ></mat-icon> </span
         >}
       </div>
-      <div class="sm:ml-3">
+      <div class="700:ml-3">
         <app-toggle-theme-button></app-toggle-theme-button>
       </div>
     </div>
   </div>
-  @if(pageEventService.$windowInnerWidth() < 640) {
+  @if(pageEventService.$windowInnerWidth() < 700) {
   <div
     class="fixed w-full"
     [ngClass]="{

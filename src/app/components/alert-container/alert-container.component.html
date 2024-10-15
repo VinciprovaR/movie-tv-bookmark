@@ -1,8 +1,8 @@
 <div
-  class="fixed top-[20px] space-y-2 z-[9999] sm:right-4 w-full sm:w-auto sm:max-w-[65%] sm:items-end flex flex-col"
+  class="fixed top-[20px] space-y-2 z-[9999] 640:right-4 w-full 640:w-auto 640:max-w-[65%] 640:items-end flex flex-col"
 >
   @if(selectAlerts$ | async; as alerts){ @for(alert of alerts; track alert){
-  <div class="sm:w-fit w-full sm:w-auto m-auto sm:m-0">
+  <div class="640:w-fit w-full 640:w-auto m-auto 640:m-0">
     <app-alert
       [message]="alert.message"
       [type]="alert.type"

@@ -1,27 +1,32 @@
-<div
-  class="top-2 right-2 border-none p-1 rounded-full absolute z-10"
-  [ngClass]="{
-    'bg-bookmark-vertical':
-      direction === 'vertical' ,
-    'bg-bookmark-horizontal': direction === 'horizontal' ,
-    'bg-bookmark-detail': direction === 'none' && isDetail,
-  }"
->
-  <div
-    class="text-[var(--text-color)] h-[24px]"
-    [ngClass]="{
-      'text-[var(--text-color)]': bookmarkEnumSelected === 'noBookmark',
-      'text-[var(--bookmark-icon-selected)]': bookmarkEnumSelected !== 'noBookmark',
-    }"
+<div class="inline-block">
+  <select
+    [formControl]="bookmarkControl"
+    [id]="idItem"
+    tabindex="-1"
+    value="tabindex set to -1"
+    class="appearance-none cursor-pointer absolute inset-0 opacity-0"
   >
-    <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
-  </div>
-
-  <select [formControl]="bookmarkControl" [id]="idItem" class="cursor-pointer">
-    @for (option of bookmarkOptions$|async; track option) {
-    <option [value]="option.value">
+    <!--       [ngClass]="option.class" -->
+    @for (option of bookmarkOptions; track option) {
+    <option class="font-semibold" [value]="option.value">
       {{ option.label }}
     </option>
     }
   </select>
+
+  <div class="cursor-pointer">
+    <svg
+      class="w-14 h-14 text-[var(--link-color-light)] hover:text-red-400"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10 10.5H14M12 8.5V12.5M8.25 5H15.75C16.4404 5 17 5.58763 17 6.3125V19L12 15.5L7 19V6.3125C7 5.58763 7.55964 5 8.25 5Z"
+        stroke="#464455"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
 </div>

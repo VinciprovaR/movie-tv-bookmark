@@ -6,27 +6,26 @@
   class="box-border"
 >
   @if( mediaList.length > 0){
-
   <ul
     class="grid p-0 m-0"
     [ngClass]="{
-      'grid-cols-1 621:grid-cols-[repeat(auto-fill,_minmax(170px,_1fr))] gap-6 621:gap-8':
+      'grid-cols-[repeat(2,_minmax(0,_1fr))] 621:grid-cols-[repeat(3,_minmax(0,_1fr))] 896:grid-cols-[repeat(4,_minmax(0,_1fr))] 1200:grid-cols-[repeat(5,_minmax(0,_1fr))] grid-tiers gap-x-6 1024:gap-x-8 gap-y-8':
         direction === 'vertical',
-      'grid-flow-col grid-columns auto-cols-[160px] sm:auto-cols-[180px] overflow-x-scroll overflow-y-hidden pl-6 gap-8':
+      'grid-flow-col grid-columns auto-cols-[160px] 640:auto-cols-[180px] overflow-x-scroll overflow-y-hidden pl-6 gap-8':
         direction === 'horizontal'
     }"
   >
-    @for(media of mediaList; track media.id;){
-    <li class="list-none w-full">
+    @for(media of mediaList; track media){ @if(media){
+    <li class="list-none w-full" #itemsLi>
       <app-media-card
-        [mediaType]="mediaType"
+        [mediaType]="evaluateMediaType(media)"
         [index]="$index"
         [media]="media"
         [personIdentifier]="personIdentifier"
         [direction]="direction"
       ></app-media-card>
     </li>
-    }
+    } }
   </ul>
 
   @if(noAdditional){
@@ -45,12 +44,21 @@
   </div>
 
   } } @else if(!isLoading){
+
   <div class="flex justify-center">
+    @if(query){
+
     <app-no-search-found
       [title]="titleNotFound"
       [caption]="captionNotFound"
       [icon]="'tv_off'"
     ></app-no-search-found>
+
+    } @else {
+
+    <app-type-suggestion [mediaType]="mediaType"></app-type-suggestion>
+    }
   </div>
-  }
+  } @else {
+  <app-loading-spinner [text]="loadingSpinnerText"></app-loading-spinner> }
 </div>

@@ -2,7 +2,6 @@ import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   inject,
   Input,
   OnInit,
@@ -11,26 +10,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { map, Observable } from 'rxjs';
-import { BridgeDataService } from '../../../core/services/bridge-data.service';
-import { AuthSelectors } from '../../../core/store/auth';
-import { IMG_SIZES, LIFECYCLE_STATUS_MAP } from '../../../providers';
+import { IMG_SIZES } from '../../../providers';
 import { AbstractCardComponent } from '../../abstract/components/abstract-card.component';
 import {
   MovieData,
   TVData,
 } from '../../interfaces/supabase/media-data.entity.interface';
-import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interface';
 import {
   MediaType,
   Movie,
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { BookmarkDisabledDialogComponent } from '../bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
-import { BookmarkStatusLabelComponent } from '../bookmark-status-label/bookmark-status-label.component';
+import { BookmarkComponent } from '../bookmark/bookmark.component';
 import { ImgComponent } from '../img/img.component';
 import { RatingComponent } from '../rating/rating.component';
+import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
 
 @Component({
   selector: 'app-media-card',
@@ -46,69 +41,45 @@ import { RatingComponent } from '../rating/rating.component';
     MatIconModule,
     ImgComponent,
     RatingComponent,
-    BookmarkStatusLabelComponent,
-    BookmarkDisabledDialogComponent,
+    BookmarkComponent,
   ],
   templateUrl: './media-card.component.html',
-  styleUrl: './media-card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaCardComponent
   extends AbstractCardComponent
   implements OnInit
 {
-  protected readonly bridgeDataService = inject(BridgeDataService);
-
   protected readonly TMDB_POSTER_W_342_IMG_URL = inject(
     IMG_SIZES.TMDB_POSTER_W_342_IMG_URL
   );
 
-  protected readonly bookmarkStatusMap = inject(LIFECYCLE_STATUS_MAP);
-
-  isUserAuthenticated$!: Observable<boolean>;
+  protected readonly TMDB_POSTER_W_780_IMG_URL = inject(
+    IMG_SIZES.TMDB_POSTER_W_780_IMG_URL
+  );
 
   @Input({ required: true })
   media!: Movie | MovieData | TV | TVData;
   @Input({ required: true })
   index: number = 0;
-
   @Input({ required: true })
   mediaType!: MediaType;
   @Input()
   personIdentifier: string = '';
   @Input()
   isDetail: boolean = false;
-
   detailMediaPath: string = '';
-
-  bookmarkEnumSelected: bookmarkEnum = 'noBookmark';
-
   voteIcon: string = '';
-
   bookmarkSelectorAbsentIsOpen = false;
-
-  override borderImgClassSm: string = 'border-img-card-media-sm';
+  bookmarkLabel: string = '';
+  bookmarkClass: string = '';
 
   constructor() {
     super();
-    this.registerEffects();
   }
 
   ngOnInit(): void {
-    this.initSelectors();
     this.buildDetailPath(this.media.id);
-  }
-
-  initSelectors(): void {
-    this.isUserAuthenticated$ = this.store
-      .select(AuthSelectors.selectUser)
-      .pipe(map((user) => !!user));
-  }
-
-  registerEffects() {
-    effect(() => {
-      this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
-    });
   }
 
   get voteAverage(): number | null {
@@ -155,11 +126,12 @@ export class MediaCardComponent
     this.detectChanges();
   }
 
-  setBookmarkStatusElement(bookmarkEnumSelected: bookmarkEnum) {
-    this.bookmarkEnumSelected = bookmarkEnumSelected;
-  }
-
   toggleBookmarkAbsent() {
     this.bookmarkSelectorAbsentIsOpen = !this.bookmarkSelectorAbsentIsOpen;
+  }
+
+  setBookmarkLabel(bookmarkOption: BookmarkOption) {
+    this.bookmarkLabel = bookmarkOption.label;
+    this.bookmarkClass = bookmarkOption.class;
   }
 }

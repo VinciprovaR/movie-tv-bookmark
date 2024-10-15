@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { User } from '@supabase/supabase-js';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { MovieBookmarkActions, MovieBookmarkSelectors } from '.';
 import { SupabaseMovieBookmarkService } from '../../../features/movie/services/supabase-movie-bookmark.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
@@ -19,6 +19,7 @@ import { personDetailMovieCreditsSuccess } from '../../component-store/person-de
 import { AuthSelectors, AuthActions } from '../auth';
 import { DiscoveryMovieActions } from '../discovery-movie';
 import { SearchMovieActions } from '../search-movie';
+import { AskAiActions } from '../ask-ai';
 
 @Injectable()
 export class MovieBookmarkEffects {
@@ -67,6 +68,7 @@ export class MovieBookmarkEffects {
         DiscoveryMovieActions.discoveryMovieSuccess,
         DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
         DiscoveryMovieActions.discoveryMovieLandingSuccess,
+        AskAiActions.askAiMovieSuccess,
         personDetailMovieCreditsSuccess
       ),
       switchMap((action) => {
@@ -326,6 +328,9 @@ export class MovieBookmarkEffects {
               return MovieBookmarkActions.searchMovieByBookmarkSubmitSuccess({
                 movieList,
               });
+            }),
+            tap(() => {
+              MovieBookmarkSelectors.scrollTo$.next(null);
             }),
             catchError(
               (httpErrorResponse: CustomHttpErrorResponseInterface) => {

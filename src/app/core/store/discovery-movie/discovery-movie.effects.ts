@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '.';
 import { SupabaseMovieBookmarkService } from '../../../features/movie/services/supabase-movie-bookmark.service';
 import { TMDBDiscoveryMovieService } from '../../../features/movie/services/tmdb-discovery-movie.service';
@@ -71,6 +71,9 @@ export class DiscoveryMovieEffects {
               movieResult: movieResult,
             });
           }),
+          tap(() => {
+            DiscoveryMovieSelectors.scrollTo$.next(null);
+          }),
           catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
             return of(
               DiscoveryMovieActions.discoveryMovieFailure({
@@ -111,6 +114,7 @@ export class DiscoveryMovieEffects {
                 movieResult: movieResult,
               });
             }),
+
             catchError(
               (httpErrorResponse: CustomHttpErrorResponseInterface) => {
                 return of(

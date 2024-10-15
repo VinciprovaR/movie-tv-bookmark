@@ -43,6 +43,9 @@ export const IMG_SIZES = {
   TMDB_POSTER_W_342_IMG_URL: new InjectionToken<string>(
     'TMDB_POSTER_W_342_IMG_URL'
   ),
+  TMDB_POSTER_W_780_IMG_URL: new InjectionToken<string>(
+    'TMDB_POSTER_W_780_IMG_URL'
+  ),
 
   TMDB_BACKDROP_W_300_IMG_URL: new InjectionToken<string>(
     'TMDB_BACKDROP_W_300_IMG_URL'
@@ -125,6 +128,10 @@ export function provideImgUrl() {
       useValue: `${endPointMedia}t/p/w342`,
     },
     {
+      provide: IMG_SIZES.TMDB_POSTER_W_780_IMG_URL,
+      useValue: `${endPointMedia}t/p/w780`,
+    },
+    {
       provide: IMG_SIZES.TMDB_PROFILE_W_185_IMG_URL,
       useValue: `${endPointMedia}t/p/w185`,
     },
@@ -199,36 +206,31 @@ export function provideHeaderNavElements() {
   return {
     provide: HEADER_NAV_ELEMENTS,
     useValue: {
-      a_movie: {
-        single: false,
-        label: 'Movie',
-        paths: ['/movie', '/discovery-movie', '/movie-bookmark-search'],
-        subMenu: [
-          { label: 'Search', path: 'movie', needAuth: false },
-          { label: 'Discovery', path: 'discovery-movie', needAuth: false },
-          { label: 'Bookmarks', path: 'movie-bookmark-search', needAuth: true },
-        ],
+      a_search: {
+        single: true,
+        label: 'Search',
+        paths: ['/media-search'],
         needAuth: false,
       },
-      b_tv: {
-        single: false,
-        label: 'TV Shows',
-        paths: ['/tv', '/discovery-tv', '/tv-bookmark-search'],
-        subMenu: [
-          { label: 'Search', path: 'tv', needAuth: false },
-          { label: 'Discovery', path: 'discovery-tv', needAuth: false },
-          { label: 'Bookmarks', path: 'tv-bookmark-search', needAuth: true },
-        ],
+      b_discovery: {
+        single: true,
+        label: 'Discovery',
+        paths: ['/media-discovery'],
         needAuth: false,
       },
-      c_people: {
-        single: false,
-        label: 'People',
-        paths: ['/people'],
-        subMenu: [{ label: 'Search', path: 'people', needAuth: false }],
+      c_bookmark: {
+        single: true,
+        label: 'Bookmarks',
+        paths: ['/media-bookmark'],
         needAuth: false,
       },
-      d_profile: {
+      d_ai: {
+        single: true,
+        label: 'AI',
+        paths: ['/ask'],
+        needAuth: false,
+      },
+      e_profile: {
         single: false,
         label: 'Profile',
         paths: ['/settings', '/logout'],
@@ -238,45 +240,12 @@ export function provideHeaderNavElements() {
         ],
         needAuth: true,
       },
-      d_signIn: {
+      e_signIn: {
         single: true,
         label: 'Sign In',
         paths: ['/login'],
         needAuth: false,
         onlyNonAuth: true,
-      },
-    },
-  };
-}
-
-export function provideBookmarkStatusList() {
-  return {
-    provide: LIFECYCLE_STATUS_MAP,
-    useValue: {
-      noBookmark: {
-        key: 'noBookmark',
-        label: 'No bookmark',
-        description: 'No bookmark',
-      },
-      watchlist: {
-        key: 'watchlist',
-        label: 'Watchlist',
-        description: "I'd like to watch it!",
-      },
-      rewatch: {
-        key: 'rewatch',
-        label: 'Rewatch',
-        description: "I'd like to watch it again!",
-      },
-      watching: {
-        key: 'watching',
-        label: 'Still Watching',
-        description: "I'd like to finish it!",
-      },
-      watched: {
-        key: 'watched',
-        label: 'Watched',
-        description: "I've already watched it!",
       },
     },
   };

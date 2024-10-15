@@ -7,7 +7,7 @@ export const tvBookmarkStateFeatureKey = 'tv-bookmark';
 export const initialState: TVBookmarkState = {
   isLoading: false,
   error: null,
-  tvBookmarkMap: {},
+  tvBookmarkMap: { mediaType: 'tv' },
   tvList: [],
   updateSearch: false,
   payload: { genreIdList: [], sortBy: 'first_air_date.desc' },

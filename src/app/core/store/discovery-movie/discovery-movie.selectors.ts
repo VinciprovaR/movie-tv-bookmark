@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { DiscoveryMovieState } from '../../../shared/interfaces/store/discovery-movie-state.interface';
 import * as DiscoveryMovieReducer from './discovery-movie.reducer';
+import { Observable, Subject } from 'rxjs';
 
 const discoveryMovieFeatureSelector =
   createFeatureSelector<DiscoveryMovieState>(
@@ -56,3 +57,6 @@ export const selectIsFirstLanding = createSelector(
   discoveryMovieFeatureSelector,
   DiscoveryMovieReducer.getIsFirstLanding
 );
+
+export const scrollTo$ = new Subject<null>();
+export const scrollToObs$: Observable<null> = scrollTo$.asObservable();

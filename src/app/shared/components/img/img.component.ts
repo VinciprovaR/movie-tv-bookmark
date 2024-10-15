@@ -21,8 +21,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
 })
 export class ImgComponent extends AbstractComponent {
   @Input({ required: true })
-  breakpointSm!: number;
-  @Input({ required: true })
   imgSrc: string = '';
   @Input({ required: true })
   baseUrl: string = '';

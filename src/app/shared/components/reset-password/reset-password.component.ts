@@ -23,7 +23,10 @@ import { UnauthorizedComponent } from '../../../components/unauthorized-page/una
 import { AuthActions, AuthSelectors } from '../../../core/store/auth';
 import { SupabaseAuthEventsService } from '../../../services/supabase-auth-events.service';
 import { AbstractAuthComponent } from '../../abstract/components/abstract-auth.component';
-import { PasswordChangeForm, PasswordGroup } from '../../interfaces/supabase/supabase-auth.interface';
+import {
+  PasswordChangeForm,
+  PasswordGroup,
+} from '../../interfaces/supabase/supabase-auth.interface';
 import { SuccessMessageTemplateComponent } from '../success-message-template/success-message-template.component';
 
 @Component({
@@ -49,14 +52,11 @@ export class ResetPasswordComponent
   private readonly supabaseAuthEventsService = inject(
     SupabaseAuthEventsService
   );
-
   isUserAuthenticated$!: Observable<boolean>;
   isAuthorized$!: Observable<boolean>;
   passwordResetForm!: FormGroup<PasswordChangeForm>;
   selectIsLoading$!: Observable<boolean>;
-
   selectMessageSuccessOperation$!: Observable<string>;
-
   submitted = false;
 
   constructor() {

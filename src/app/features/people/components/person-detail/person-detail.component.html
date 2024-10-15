@@ -1,7 +1,7 @@
 <section class="w-full mb-20">
   <div class="m-auto pt-[60px] overflow-hidden">
     @if(error$ | async; as error){
-    <div class="w-full lg:w-[80%] lg:mx-auto py-8">
+    <div class="w-full 1024:w-[80%] max-w-[1920px] 1024:mx-auto py-8">
       <app-error-message-template
         [title]="errorTitle"
         [message]="errorMessage"
@@ -12,28 +12,25 @@
     @if(selectPersonDetail$ | async; as personDetail){
 
     <div
-      class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden lg:min-h-[55vh] mb-0 lg:mb-8 bg-[var(--theme-color-4)] lg:bg-[var(--theme-color-3)]"
+      class="flex bg-cover bg-no-repeat bg-center items-center overflow-hidden mb-0 1024:mb-8 bg-[var(--theme-color-2)] 1024:bg-[var(--theme-color-3)] p-4 1024:p-8"
     >
       <div
-        class="flex flex-row h-full w-full lg:w-[80%] max-w-[1920px] m-0 lg:m-auto p-4 lg:p-8 space-x-8"
+        class="w-full 1024:w-[80%] max-w-[1920px] 1024:mx-auto flex space-x-8 justify-center h-full 1024:justify-normal"
       >
-        <div
-          class="w-[200px] lg:w-[342px] aspect-[2/3] m-auto lg:m-0 w-xxxsm relative"
-        >
+        <div class="h-[300px] 1024:h-[400px] aspect-[2/3] relative">
           <app-img
             [alt]="personDetail.name"
             [title]="personDetail.name"
             [imgSrc]="personDetail.profile_path"
-            [baseUrl]="TMDB_POSTER_W_342_IMG_URL"
+            [baseUrl]="TMDB_POSTER_W_780_IMG_URL"
             [priority]="true"
             [customClasses]="'radius-container-int '"
             [isPlaceholderPerson]="true"
-            [breakpointSm]="1024"
           ></app-img>
         </div>
 
         @if(pageEventService.$windowInnerWidth() >= 1024) {
-        <div class="hidden lg:block max-w-[1100px]">
+        <div class="hidden 1024:block max-w-[1100px]">
           <app-person-detail-main-info [personDetail]="personDetail">
           </app-person-detail-main-info>
         </div>
@@ -42,16 +39,16 @@
     </div>
 
     @if(pageEventService.$windowInnerWidth() < 1024){
-    <div class="block lg:hidden h-full bg-[var(--theme-color-3)] mb-4">
+    <div class="block 1024:hidden h-full bg-[var(--theme-color-3)] mb-4">
       <app-person-detail-main-info [personDetail]="personDetail">
       </app-person-detail-main-info>
     </div>
 
     }
 
-    <div class="w-full lg:w-[80%] max-w-[1920px] lg:mx-auto">
-      <div class="w-full lg:hidden space-y-4 lg:space-y-8 mb-4 lg:mb-0">
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
+    <div class="w-full 1024:w-[80%] max-w-[1920px] 1024:mx-auto">
+      <div class="w-full 1024:hidden space-y-4 1024:space-y-8 mb-4 1024:mb-0">
+        <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
           <h2 class="mb-4 pl-4">For more info go to</h2>
           <div class="pl-4">
             <app-external-info
@@ -62,14 +59,14 @@
           </div>
         </div>
       </div>
-      <div class="w-full space-y-4 lg:space-y-8 lg:mr-12">
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
+      <div class="w-full space-y-4 1024:space-y-8 1024:mr-12">
+        <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
           <app-person-movies
             [personId]="personId"
             [personDetailMovieCredits$]="personDetailMovieCredits$"
           ></app-person-movies>
         </div>
-        <div class="bg-[var(--theme-color-3)] lg:bg-transparent py-4">
+        <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
           <app-person-tvs
             [personId]="personId"
             [personDetailTVCredits$]="personDetailTVCredits$"
