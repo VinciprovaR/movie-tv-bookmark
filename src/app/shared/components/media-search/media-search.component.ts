@@ -8,7 +8,6 @@ import { AbstractMediaComponent } from '../../abstract/components/abstract-media
   standalone: true,
   imports: [RouterModule, CommonModule, RouterLinkActive],
   templateUrl: './media-search.component.html',
-  styleUrl: './media-search.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaSearchComponent extends AbstractMediaComponent {

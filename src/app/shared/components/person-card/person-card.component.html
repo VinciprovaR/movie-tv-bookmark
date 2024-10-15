@@ -1,46 +1,3 @@
-<!-- <div class="h-full border-container flex box-border flex-row 621:flex-col">
-  <div
-    class="max-h-[150px] 621:max-h-[none] aspect-[2/3] hover:opacity-80 active:opacity-65 transition-opacity ease-in-out delay-50 w-[100px] 621:w-full min-h-[150px] hover:cursor-pointer"
-  >
-    <app-img
-      [alt]="person.name"
-      [title]="person.name"
-      [imgSrc]="person.profile_path"
-      [baseUrl]="TMDB_POSTER_W_342_IMG_URL"
-      [link]="detailMediaPath"
-      [state]="person"
-      [isPlaceholderPerson]="true"
-    ></app-img>
-  </div>
-  <div class="pt-4">
-    <h4>
-      <a [routerLink]="detailMediaPath" [title]="person.name">{{
-        person.name
-      }}</a>
-    </h4>
-
-    <p>
-      <span>{{ person.known_for_department }}</span>
-    </p>
-    <div class="mt-1">
-      <h5>
-        @if(isPersonEntity(person)){ @for(knowFor of
-        person.known_for.slice(0,3); track knowFor){
-
-        <span>
-          {{
-            $index < person.known_for.length - 1
-              ? (knowFor.title ? knowFor.title : knowFor.name) + ", "
-              : knowFor.title
-              ? knowFor.title
-              : knowFor.name
-          }}</span
-        >
-        } }
-      </h5>
-    </div>
-  </div>
-</div> -->
 <div class="relative card-container">
   <a [routerLink]="[detailMediaPath]" [title]="person.name">
     <div
@@ -91,18 +48,5 @@
         </h5>
       </div>
     </div>
-    <!-- <div class="w-full">
-      <div class="pt-4 1024:pt-6 space-y-1">
-        <span class="text-[0.95rem] font-[600] text-[var(--text-color)]">
-          {{ title }}
-        </span>
-        <div class="flex text-[0.85rem] font-[400] text-[var(--text-gray)]">
-          <span>
-            {{ releaseDate | date : "yyyy" }} @if(voteAverage){
-            <span>&#8226;</span> {{ voteAverage.toPrecision(2) }}}
-          </span>
-        </div>
-      </div>
-    </div> -->
   </a>
 </div>

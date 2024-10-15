@@ -7,7 +7,6 @@ import {
   NgZone,
   Renderer2,
   RendererFactory2,
-  ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';

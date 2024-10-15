@@ -78,13 +78,8 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
           this.toggleNavMenuMobile();
         }
       }
-    } else {
-      if (this.lastScrollTop - scrollTop > 1) {
-        this.renderer.removeClass(
-          this.el.nativeElement.firstChild,
-          'header-up'
-        );
-      }
+    } else if (this.lastScrollTop - scrollTop > 1) {
+      this.renderer.removeClass(this.el.nativeElement.firstChild, 'header-up');
     }
     this.lastScrollTop = scrollTop;
   }

@@ -15,9 +15,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable, distinctUntilChanged, filter, map, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../core/services/bridge-data.service';
-import { BookmarkMetadataSelectors } from '../../../core/store/bookmark-metadata';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { scrollDirection } from '../../interfaces/layout.interface';
+import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
 import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
 import {
   MovieData,
@@ -35,7 +35,6 @@ import {
   TV,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-state.interface';
 
 @Component({
   selector: 'app-bookmark-selector',

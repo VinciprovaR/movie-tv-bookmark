@@ -37,6 +37,6 @@ import { AbstractComponent } from './shared/abstract/components/abstract-compone
 })
 export class AppComponent extends AbstractComponent {
   prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData;
+    return outlet?.activatedRouteData;
   }
 }

@@ -16,7 +16,6 @@ import { UnauthorizedComponent } from './../../../components/unauthorized-page/u
     UnauthorizedComponent,
   ],
   templateUrl: './media-bookmark.component.html',
-  styleUrl: './media-bookmark.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaBookmarkComponent

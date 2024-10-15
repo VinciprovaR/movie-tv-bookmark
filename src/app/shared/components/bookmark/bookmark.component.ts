@@ -2,14 +2,12 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, map, Observable, takeUntil } from 'rxjs';
+import { map, Observable, takeUntil } from 'rxjs';
 import { AuthSelectors } from '../../../core/store/auth';
 import { BookmarkMetadataSelectors } from '../../../core/store/bookmark-metadata';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';

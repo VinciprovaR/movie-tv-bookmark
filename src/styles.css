@@ -449,22 +449,6 @@ div:not(.active-link)::after {
   color: rgb(177, 186, 199);
 }
 
-/* .watchlist-color {
-  color: #22c55e;
-}
-
-.rewatch-color {
-  color: #2563eb;
-}
-
-.watching-color {
-  color: #a855f7;
-}
-
-.watched-color {
-  color: #dc2626;
-} */
-
 /****************** End ******************/
 
 /********************************************************/

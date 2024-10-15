@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { AskAiActions, AskAiSelectors } from '.';
+import { catchError, map, of, switchMap } from 'rxjs';
+import { AskAiActions } from '.';
 
+import { SupabaseAskOpenAiService } from '../../../features/ai/services/supabase-ask-openai.service';
 import { CustomHttpErrorResponseInterface } from '../../../shared/interfaces/customHttpErrorResponse.interface';
 import {
   Movie,
@@ -12,7 +13,6 @@ import {
   TVResult,
 } from '../../../shared/interfaces/TMDB/tmdb-media.interface';
 import { AuthActions } from '../auth';
-import { SupabaseAskOpenAiService } from '../../../features/ai/services/supabase-ask-openai.service';
 
 @Injectable()
 export class AskAiEffects {
