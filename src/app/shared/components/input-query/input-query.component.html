@@ -27,7 +27,15 @@
       </svg>
     </div>
     @if(clickSubmit){
-    <button type="submit">Search</button>
+    <div class="absolute right-0 px-1 top-1/2 transform -translate-y-1/2">
+      <button
+        type="submit"
+        [disabled]="isLoading$ | async"
+        class="button-mt button-mt-role-normal font-medium"
+      >
+        Ask AI
+      </button>
+    </div>
     }
   </form>
 </div>

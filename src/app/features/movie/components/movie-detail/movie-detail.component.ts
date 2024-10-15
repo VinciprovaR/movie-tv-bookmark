@@ -36,13 +36,13 @@ import { MovieDetailMainInfoContentComponent } from '../../../../shared/componen
 import { PersonListContainerComponent } from '../../../../shared/components/person-list-container/person-list-container.component';
 import { VideosContainerComponent } from '../../../../shared/components/videos-container/videos-container.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
+import { PredominantColor } from '../../../../shared/interfaces/layout.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
+import { bookmarkEnum } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
 import {
   MediaType,
   MovieDetail,
 } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
-import { PredominantColor } from '../../../../shared/interfaces/layout.interface';
-import { bookmarkEnum } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
 
 @Component({
   selector: 'app-movie-detail',

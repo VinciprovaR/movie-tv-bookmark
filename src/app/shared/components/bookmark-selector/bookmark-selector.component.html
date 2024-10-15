@@ -6,12 +6,9 @@
     value="tabindex set to -1"
     class="appearance-none cursor-pointer absolute inset-0 opacity-0"
   >
+    <!--       [ngClass]="option.class" -->
     @for (option of bookmarkOptions; track option) {
-    <option
-      class="font-semibold"
-      [ngClass]="option.class"
-      [value]="option.value"
-    >
+    <option class="font-semibold" [value]="option.value">
       {{ option.label }}
     </option>
     }
@@ -19,7 +16,7 @@
 
   <div class="cursor-pointer">
     <svg
-      class="w-14 h-14 text-[var(--link-color-light)]"
+      class="w-14 h-14 text-[var(--link-color-light)] hover:text-red-400"
       viewBox="0 0 24 24"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"

@@ -25,25 +25,21 @@ export class AskAiEffects {
       ofType(AskAiActions.askAi),
       switchMap((action) => {
         let { query } = action;
-        if (!query) {
-          return of([]).pipe(
+        if (query) {
+          return this.SupabaseAskOpenAiService.askOpenAi(query).pipe(
             map((mediaResult: Movie[] & TV[]) => {
               return AskAiActions.askAiSuccess({
                 mediaResult,
               });
-            })
+            }),
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of(AskAiActions.askAiFailure({ httpErrorResponse }));
+              }
+            )
           );
         }
-        return this.SupabaseAskOpenAiService.askOpenAi(query).pipe(
-          map((mediaResult: Movie[] & TV[]) => {
-            return AskAiActions.askAiSuccess({
-              mediaResult,
-            });
-          }),
-          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(AskAiActions.askAiFailure({ httpErrorResponse }));
-          })
-        );
+        return of(AskAiActions.cleanState());
       })
     );
   });

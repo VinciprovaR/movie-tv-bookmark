@@ -24,7 +24,9 @@ import { bookmarkEnum } from '../../interfaces/supabase/supabase-bookmark.interf
 import {
   MediaType,
   Movie,
+  MovieDetail,
   TV,
+  TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { BookmarkDisabledDialogComponent } from '../bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
 import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
@@ -52,7 +54,7 @@ export class BookmarkComponent extends AbstractComponent implements OnInit {
   @Input()
   customClass: string = '';
   @Input({ required: true })
-  media!: Movie | MovieData | TV | TVData;
+  media!: Movie | MovieData | TV | TVData | MovieDetail | TVDetail;
   @Input({ required: true })
   index: number = 0;
   @Input({ required: true })

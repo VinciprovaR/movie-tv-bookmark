@@ -1,5 +1,5 @@
 <div class="relative card-container">
-  <div class="absolute z-10 top-5 right-0 hover:cursor-pointer">
+  <div class="absolute z-10 top-[25px] right-[2px] hover:cursor-pointer">
     <app-bookmark
       [media]="media"
       [mediaType]="mediaType"
@@ -15,7 +15,7 @@
     >
       <div class="h-full box-border img-card-container rounded-lg" id="img-w">
         <div
-          class="text-center font-semibold rounded-t-lg border-t-2"
+          class="text-center font-semibold rounded-t-lg border-t-2 text-[var(--text-color-light)]"
           [ngClass]="bookmarkClass"
         >
           {{ bookmarkLabel }}

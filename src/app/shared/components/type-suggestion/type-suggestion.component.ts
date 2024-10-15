@@ -25,6 +25,7 @@ export class TypeSuggestionComponent
     movie: 'movies',
     tv: 'tv shows',
     person: 'people',
+    multi: 'movies or tv shows',
   };
   media: string = '';
 

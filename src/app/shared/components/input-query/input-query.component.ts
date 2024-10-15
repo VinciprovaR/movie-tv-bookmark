@@ -16,7 +16,12 @@ import {
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Observable,
+  takeUntil,
+} from 'rxjs';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 export interface InputQueryForm {
@@ -44,6 +49,8 @@ export class InputQueryComponent extends AbstractComponent implements OnInit {
   clickSubmit: boolean = false;
   @Input()
   maxLength: number = 80;
+  @Input()
+  isLoading$!: Observable<boolean>;
   submitted = false;
   inputQueryForm!: FormGroup<InputQueryForm>;
 

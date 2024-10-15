@@ -2,6 +2,7 @@ import { Directive, inject } from '@angular/core';
 import { IMG_SIZES } from '../../../providers';
 import { PredominantImgColorService } from '../../../services/predominant-img-color.service';
 import { AbstractComponent } from './abstract-component.component';
+import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
 
 @Directive()
 export abstract class AbstractMediaDetailComponent extends AbstractComponent {
@@ -9,14 +10,15 @@ export abstract class AbstractMediaDetailComponent extends AbstractComponent {
   readonly TMDB_BACKDROP_W_1280_IMG_URL = inject(
     IMG_SIZES.TMDB_BACKDROP_W_1280_IMG_URL
   );
-  readonly TMDB_POSTER_W_342_IMG_URL = inject(
-    IMG_SIZES.TMDB_POSTER_W_342_IMG_URL
+  readonly TMDB_POSTER_W_780_IMG_URL = inject(
+    IMG_SIZES.TMDB_POSTER_W_780_IMG_URL
   );
-
   headerMediaGradient: string = '';
   contentMediaGradient: string = '';
   textColorBlend: string = '';
   isDark: boolean = false;
+  bookmarkLabel: string = '';
+  bookmarkClass: string = '';
 
   constructor() {
     super();
@@ -43,5 +45,10 @@ export abstract class AbstractMediaDetailComponent extends AbstractComponent {
       return 'var(--text-color-light) !important';
     }
     return 'var(--text-color-dark) !important';
+  }
+
+  setBookmarkLabel(bookmarkOption: BookmarkOption) {
+    this.bookmarkLabel = bookmarkOption.label;
+    this.bookmarkClass = bookmarkOption.class;
   }
 }

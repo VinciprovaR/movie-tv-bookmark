@@ -1,55 +1,49 @@
 @if(navElements){
 
-<nav class="overflow-hidden bg-[var(--theme-color-3)] transition-all">
+<nav class="overflow-hidden bg-[var(--theme-color-3)] transition-all py-2">
   <div class="flex justify-center">
     <ul class="list-none p-0 text-center m-0 transition">
       @for(navElement of navElements | keyvalue; track navElement.key){
       @if(canRender(navElement.value.needAuth, navElement.value.onlyNonAuth) ){
       @if(navElement.value.single){
 
-      <li class="mb-3">
+      <li class="mb-2">
         <a
           [ngClass]="{
             'disabled': !showNavMenuMobile,
           }"
-          routerLinkActive="active"
+          routerLinkActive="active-link"
           [routerLink]="navElement.value.paths[0]"
-          class="block"
+          class="relative active-link-line"
           >{{ navElement.value.label }}</a
         >
       </li>
+      } @else { @for(subMenuEl of navElement.value.subMenu ; track
+      subMenuEl.path){ @if(canRender(subMenuEl.needAuth) ){ @if(subMenuEl.path
+      === 'logout'){
+      <li class="mb-2">
+        <a
+          href="javascript:void(0);"
+          (keyup)="logout()"
+          (click)="logout()"
+          class="block text-[var(--text-color)]"
+          >{{ subMenuEl.label }}</a
+        >
+      </li>
       } @else {
-      <li class="mb-3">
-        <h4 class="m-0 text-lg">{{ navElement.value.label }}</h4>
-        <ul class="list-none p-0">
-          @for(subMenuEl of navElement.value.subMenu ; track subMenuEl.path){
-          @if(canRender(subMenuEl.needAuth) ){
-          <li class="">
-            @if(subMenuEl.path === 'logout'){
-            <a
-              href="javascript:void(0);"
-              (keyup)="logout()"
-              (click)="logout()"
-              class="block p-2 text-[var(--text-color)]"
-              >{{ subMenuEl.label }}</a
-            >
-            } @else {
-            <a
-              [ngClass]="{
+      <li class="mb-2">
+        <a
+          [ngClass]="{
                     'disabled': !showNavMenuMobile,
                     
                   }"
-              routerLinkActive="active"
-              [routerLink]="subMenuEl.path"
-              class="block"
-              >{{ subMenuEl.label }}</a
-            >
-            }
-          </li>
-          } }
-        </ul>
+          routerLinkActive="active-link-line"
+          [routerLink]="subMenuEl.path"
+          class="relative active-link-line"
+          >{{ subMenuEl.label }}</a
+        >
       </li>
-      } }}
+      } } } } }}
     </ul>
   </div>
 

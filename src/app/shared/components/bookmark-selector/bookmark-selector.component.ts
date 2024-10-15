@@ -49,6 +49,7 @@ import { BookmarkTypeIdMap } from '../../interfaces/store/bookmark-metadata-stat
     MatIconModule,
   ],
   templateUrl: './bookmark-selector.component.html',
+  styleUrl: 'bookmark-selector.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkSelectorComponent
@@ -85,7 +86,7 @@ export class BookmarkSelectorComponent
   }
 
   ngOnInit(): void {
-    this.idItem = `${this.personIdentifier}_${this.index}_${this.mediaData.id}`;
+    this.idItem = `${this.index}_${this.mediaData.id}`;
 
     this.initSelectors();
     this.buildControl();

@@ -15,7 +15,7 @@
         direction === 'horizontal'
     }"
   >
-    @for(media of mediaList; track media.id){
+    @for(media of mediaList; track media){ @if(media){
     <li class="list-none w-full" #itemsLi>
       <app-media-card
         [mediaType]="evaluateMediaType(media)"
@@ -25,7 +25,7 @@
         [direction]="direction"
       ></app-media-card>
     </li>
-    }
+    } }
   </ul>
 
   @if(noAdditional){

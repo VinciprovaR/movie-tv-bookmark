@@ -1,5 +1,5 @@
 @if(this.navElements){
-<nav class="hidden 640:flex justify-between items-center">
+<nav class="hidden 700:flex justify-between items-center">
   <ul class="list-none flex space-x-8 pl-0 m-0">
     @for(navElement of this.navElements |keyvalue; track navElement.key){
     @if(canRender(navElement.value.needAuth, navElement.value.onlyNonAuth) ){

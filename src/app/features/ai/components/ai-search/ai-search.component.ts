@@ -27,7 +27,6 @@ import {
   imports: [CommonModule, InputQueryComponent, MediaListContainerComponent],
   providers: [BridgeDataService],
   templateUrl: './ai-search.component.html',
-  styleUrl: './ai-search.component.css',
 })
 export class AiSearchComponent extends AbstractComponent implements OnInit {
   private readonly bridgeDataService = inject(BridgeDataService);
@@ -36,7 +35,7 @@ export class AiSearchComponent extends AbstractComponent implements OnInit {
   selectIsLoading$!: Observable<boolean>;
   selectMediaList$!: Observable<Movie[] & TV[]>;
 
-  title = 'Ask Ai';
+  title = "What's up to your mind?";
   mediaType: MediaType = 'multi';
 
   constructor() {
@@ -54,7 +53,6 @@ export class AiSearchComponent extends AbstractComponent implements OnInit {
       .select(MovieBookmarkSelectors.selectMovieBookmarkMap)
       .pipe(takeUntil(this.destroyed$))
       .subscribe((movieBookmarkMap) => {
-        console.log(movieBookmarkMap);
         this.bridgeDataService.pushMediaBookmarkMap(movieBookmarkMap);
       });
     // data from bookmark-selector
@@ -106,7 +104,7 @@ export class AiSearchComponent extends AbstractComponent implements OnInit {
   }
 
   askOpenAi(query: string) {
-    console.log('Ask ai, user query: ', query);
+    this.store.dispatch(AskAiActions.cleanState());
     this.store.dispatch(AskAiActions.askAi({ query }));
   }
 }

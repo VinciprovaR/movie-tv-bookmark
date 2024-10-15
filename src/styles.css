@@ -15,12 +15,11 @@
   --bg-button-warning-active: rgb(247, 255, 101);
   --border-radius-ext: 7.2px;
   --border-radius-int: 6.2px;
-  /* --text-color-light: rgb(255, 255, 255); */
-  --text-color-light: rgb(209, 213, 219);
+  --text-color-light: rgb(243, 243, 243);
   --text-color-dark: rgb(0, 15, 34);
   --bg-veil-media-detail: rgba(0, 0, 0, 0.411);
   --link-color-dark: rgb(49, 51, 53);
-  --link-color-light: rgb(236, 239, 243);
+  --link-color-light: rgb(255, 255, 255);
   --bg-success-container: rgb(195, 255, 196);
   --success-icon-color: rgb(34, 141, 18);
   --bg-failure-container: rgb(253, 168, 168);
@@ -36,19 +35,11 @@
 }
 
 body.light {
-  /* --theme-color-1: rgb(243, 244, 246);
-  --theme-color-2: rgb(165, 180, 252);
+  --theme-color-1: rgb(245, 245, 245);
+  --theme-color-2: rgb(184, 207, 231);
   --theme-color-3: rgb(255, 255, 255);
-  --theme-color-complementary: rgb(249, 115, 22); */
-
-  /*  */
-  --theme-color-1: rgb(240, 243, 246);
-  --theme-color-2: rgb(197, 213, 229);
-  --theme-color-3: rgb(255, 255, 255);
-  --theme-color-complementary: rgb(180, 40, 40);
-
-  /*  */
-
+  --theme-color-complementary: rgb(0, 122, 255);
+  --theme-color-complementary-op: rgb(83, 146, 213);
   --theme-color-sub-menu: rgb(226, 226, 226);
   --border-color: rgba(209, 213, 219);
   --link-color: rgb(99, 102, 241);
@@ -70,19 +61,14 @@ body.light {
   --disabled-bg: rgb(216, 216, 216);
   --text-active: rgb(126, 133, 141);
   --shadow-card: rgba(0, 0, 0, 0.8);
-  --bg-bookmark: rgb(3, 7, 18);
+  --bg-bookmark: rgb(80, 123, 168);
 }
 body.dark {
-  /* --theme-color-1: rgb(17, 24, 39);
-  --theme-color-2: rgb(28, 44, 66);
-  --theme-color-3: rgb(31, 41, 55);
-  --theme-color-complementary: rgb(249, 115, 22); */
-  /*  */
-  --theme-color-1: rgb(20, 20, 25);
+  --theme-color-1: rgb(20, 20, 20);
   --theme-color-2: rgb(35, 40, 50);
   --theme-color-3: rgb(31, 35, 44);
   --theme-color-complementary: rgb(138, 3, 3);
-
+  --theme-color-complementary-op: rgb(138, 31, 31);
   --text-color: var(--text-color-light);
   --border-color: rgba(55, 65, 81);
   --theme-color-sub-menu: rgb(47, 61, 82);
@@ -92,7 +78,6 @@ body.dark {
   --link-color-hover: rgb(134, 136, 240);
   --text-gray: rgb(177, 186, 199);
   --header-li-color: rgb(0, 221, 221);
-
   --border-color-separator: rgb(136, 147, 146);
   --tag-border-color: #a5a5a5;
   --icon-color: rgb(185, 185, 185);
@@ -105,7 +90,7 @@ body.dark {
   --disabled-bg: rgb(124, 124, 124);
   --text-active: rgb(172, 182, 196);
   --shadow-card: rgba(0, 0, 0, 0.8);
-  --bg-bookmark: rgb(3, 7, 18);
+  --bg-bookmark: rgb(35, 44, 50);
 }
 /****************** End ******************/
 
@@ -339,7 +324,7 @@ div:not(.active-link)::after {
 /***************** Media/Person Card *******************/
 /*********************************************/
 .shadow-img-card {
-  @apply rounded-lg bg-[var(--bg-bookmark)];
+  @apply rounded-lg bg-[var(--theme-color-complementary-op)];
   box-shadow: 0px 14px 20px 0px var(--shadow-card);
 }
 
@@ -382,15 +367,15 @@ div:not(.active-link)::after {
 }
 
 .card-container:hover #img-c {
-  opacity: 0.85;
+  opacity: 0.83;
 }
 
 .card-container:focus #img-c {
-  opacity: 0.85;
+  opacity: 0.83;
 }
 
 .card-container:focus-within #img-c {
-  opacity: 0.85;
+  opacity: 0.83;
 }
 /****************** End ******************/
 
@@ -461,10 +446,10 @@ div:not(.active-link)::after {
 /********************************************************/
 
 .noBookmark-color {
-  color: #808fa5;
+  color: rgb(177, 186, 199);
 }
 
-.watchlist-color {
+/* .watchlist-color {
   color: #22c55e;
 }
 
@@ -478,7 +463,7 @@ div:not(.active-link)::after {
 
 .watched-color {
   color: #dc2626;
-}
+} */
 
 /****************** End ******************/
 

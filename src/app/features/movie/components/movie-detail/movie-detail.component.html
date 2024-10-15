@@ -39,40 +39,36 @@
         <div
           class="w-full 1024:w-[80%] max-w-[1920px] 1024:mx-auto flex space-x-8 justify-center 1024:justify-normal"
         >
-          <div class="h-[300px] 1024:h-[600px] aspect-[2/3] relative">
-            <app-img
-              [alt]="movieDetail.title"
-              [title]="movieDetail.title"
-              [imgSrc]="movieDetail.poster_path"
-              [baseUrl]="TMDB_POSTER_W_342_IMG_URL"
-              [priority]="true"
-              [customClasses]="'radius-container-int'"
-              [isPlaceholderPerson]="false"
-            ></app-img>
-            <!-- @if(isUserAuthenticated$ | async; as isUserAuthenticated){
-          <app-bookmark-selector
-            (bookmarkStatusElementEmitter)="setBookmarkStatusElement($event)"
-            [mediaData]="movieDetail"
-            [index]="0"
-            [mediaType]="'movie'"
-            [isDetail]="true"
-            [direction]="'none'"
-          ></app-bookmark-selector>
+          <div class="relative">
+            <div
+              class="absolute z-10 top-[25px] right-[2px] hover:cursor-pointer"
+            >
+              <app-bookmark
+                [media]="movieDetail"
+                [mediaType]="mediaType"
+                [index]="0"
+                [direction]="'none'"
+                (bookmarkLabelEmitter)="setBookmarkLabel($event)"
+              ></app-bookmark>
+            </div>
 
-          <div
-            class="w-full absolute bottom-0 bg-label-detail border-bookmark-label-detail"
-          >
-            <app-bookmark
-              [bookmarkEnumSelected]="bookmarkEnumSelected"
-              [direction]="'none'"
-            ></app-bookmark>
-          </div>
-          } @else {
-          <app-bookmark-disabled-dialog
-            [isDetail]="true"
-            [direction]="'none'"
-          ></app-bookmark-disabled-dialog
-          >} -->
+            <div
+              class="text-center font-semibold rounded-t-lg border-t-2 text-[var(--text-color-light)] bg-[var(--theme-color-complementary-op)]"
+              [ngClass]="bookmarkClass"
+            >
+              {{ bookmarkLabel }}
+            </div>
+            <div class="h-[322px] 1024:h-[500px] aspect-[2/3] relative">
+              <app-img
+                [alt]="movieDetail.title"
+                [title]="movieDetail.title"
+                [imgSrc]="movieDetail.poster_path"
+                [baseUrl]="TMDB_POSTER_W_780_IMG_URL"
+                [priority]="true"
+                [customClasses]="'border-b-img-card '"
+                [isPlaceholderPerson]="false"
+              ></app-img>
+            </div>
           </div>
 
           @if(pageEventService.$windowInnerWidth() >= 1024) {
