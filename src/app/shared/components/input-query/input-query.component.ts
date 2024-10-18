@@ -51,6 +51,8 @@ export class InputQueryComponent extends AbstractComponent implements OnInit {
   maxLength: number = 80;
   @Input()
   isLoading$!: Observable<boolean>;
+  @Input()
+  buttonLabel = 'Search';
   submitted = false;
   inputQueryForm!: FormGroup<InputQueryForm>;
 
