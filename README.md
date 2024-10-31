@@ -1,9 +1,5 @@
 # 🎥 Movie &amp; TV Bookmark - Personal skill showcase webapp
-  <p align="center">
-    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExandveDc5dmpocXJsM29jeWowbHlwNjZvemcxM2Q3Ym5leHlocXo2NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3txI8mrj4nQFIzTzx7/giphy-downsized-large.gif" alt="Demo example 2"/> 
 
-
-  </p>
   <p>
     A front-end skill showcase web-app for searching and saving movie and tv shows.
     <br>
