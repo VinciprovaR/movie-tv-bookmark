@@ -2,8 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
+import { Action, Store } from '@ngrx/store';
+
 import { filter, tap } from 'rxjs/operators';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
 import { GlobalErrorState } from '../../shared/interfaces/store/global-error.interface';
@@ -16,15 +16,13 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
 
   readonly selectError$ = this.select((state) => state.error);
 
-  readonly isFailure = (
-    action: CustomHttpErrorResponseInterface & TypedAction<string>
-  ) => {
-    let { type }: { type: string } = action;
+  readonly isFailure = (action: CustomHttpErrorResponseInterface & Action) => {
+    let type: string = action.type;
     return type.toLowerCase().includes('failure');
   };
 
-  readonly isSuccess = (action: any) => {
-    let { type }: { type: string } = action;
+  readonly isSuccess = (action: unknown & Action) => {
+    let type: string = action.type;
     return type.toLowerCase().includes('success');
   };
   constructor() {

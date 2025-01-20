@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
+import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import {
@@ -57,12 +56,12 @@ export class NotifierStore extends ComponentStore<AlertState> {
       tap(
         (action: {
           httpErrorResponse: CustomHttpErrorResponseInterface;
-          type: TypedAction<string>;
+          type: Action;
         }) => {
           let msg = action.httpErrorResponse.message
             ? action.httpErrorResponse.message
             : 'Error, something went wrong';
-          this.notify(action, msg, 'error');
+          this.notify(msg, 'error');
         }
       )
     );
@@ -73,7 +72,7 @@ export class NotifierStore extends ComponentStore<AlertState> {
       filter(this.isNotify),
       tap((action: any) => {
         if (action['notifyMsg']) {
-          this.notify(action, action['notifyMsg'], 'success');
+          this.notify(action['notifyMsg'], 'success');
         }
       })
     );
@@ -87,7 +86,7 @@ export class NotifierStore extends ComponentStore<AlertState> {
     );
   });
 
-  private notify(action: any, message: string, type: notificationType) {
+  private notify(message: string, type: notificationType) {
     this.addAlert({
       message,
       type,
