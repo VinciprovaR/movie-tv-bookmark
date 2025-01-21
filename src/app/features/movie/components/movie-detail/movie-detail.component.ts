@@ -9,11 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  NavigationExtras,
-  RouterLink,
-  RouterLinkActive,
-} from '@angular/router';
+import { NavigationExtras, RouterLinkActive } from '@angular/router';
 import { map, Observable, takeUntil } from 'rxjs';
 import { MovieDetailStore } from '../../../../core/component-store/movie-detail-store.service';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
@@ -23,17 +19,13 @@ import {
   MovieBookmarkSelectors,
 } from '../../../../core/store/movie-bookmark';
 import { AbstractMediaDetailComponent } from '../../../../shared/abstract/components/abstract-media-detail.component';
-import { BookmarkDisabledDialogComponent } from '../../../../shared/components/bookmark-disabled-confirmation-dialog/bookmark-disabled-dialog.component';
-import { BookmarkSelectorComponent } from '../../../../shared/components/bookmark-selector/bookmark-selector.component';
 import { BookmarkComponent } from '../../../../shared/components/bookmark/bookmark.component';
 import { ErrorMessageTemplateComponent } from '../../../../shared/components/error-message-template/error-message-template.component';
 import { ExternalInfoComponent } from '../../../../shared/components/external-info/external-info.component';
 import { ImgComponent } from '../../../../shared/components/img/img.component';
 import { MediaDetailCastCrewListPreviewComponent } from '../../../../shared/components/media-detail-cast-crew-list-preview/media-detail-cast-crew-list-preview.component';
 import { MediaKeywordsComponent } from '../../../../shared/components/media-keywords/media-keywords.component';
-import { MissingFieldPlaceholderComponent } from '../../../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
-import { MovieDetailMainInfoContentComponent } from '../../../../shared/components/movie-detail-main-info/movie-detail-main-info.component';
-import { PersonListContainerComponent } from '../../../../shared/components/person-list-container/person-list-container.component';
+import { MovieDetailMainInfoComponent } from '../../../../shared/components/movie-detail-main-info/movie-detail-main-info.component';
 import { VideosContainerComponent } from '../../../../shared/components/videos-container/videos-container.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
 import { PredominantColor } from '../../../../shared/interfaces/layout.interface';
@@ -49,20 +41,15 @@ import {
   standalone: true,
   imports: [
     CommonModule,
-    PersonListContainerComponent,
     MediaDetailCastCrewListPreviewComponent,
     ImgComponent,
-    MovieDetailMainInfoContentComponent,
-    BookmarkSelectorComponent,
+    MovieDetailMainInfoComponent,
     BookmarkComponent,
     MatIconModule,
     ExternalInfoComponent,
     VideosContainerComponent,
     MediaKeywordsComponent,
-    RouterLink,
     RouterLinkActive,
-    MissingFieldPlaceholderComponent,
-    BookmarkDisabledDialogComponent,
     ErrorMessageTemplateComponent,
   ],
   providers: [BridgeDataService],

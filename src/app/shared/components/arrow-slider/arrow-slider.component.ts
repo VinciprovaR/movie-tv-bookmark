@@ -8,13 +8,11 @@ import {
 } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { arrowType } from '../../interfaces/layout.interface';
-import { ImgComponent } from '../img/img.component';
-
 
 @Component({
   selector: 'app-arrow-slider',
   standalone: true,
-  imports: [CommonModule, ImgComponent],
+  imports: [CommonModule],
   templateUrl: './arrow-slider.component.html',
   styleUrl: './arrow-slider.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

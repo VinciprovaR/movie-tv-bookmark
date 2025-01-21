@@ -11,7 +11,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatIcon } from '@angular/material/icon';
 import { SwiperContainer } from 'swiper/element';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import {
@@ -20,7 +19,6 @@ import {
   Videos,
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { ArrowSliderComponent } from '../arrow-slider/arrow-slider.component';
-import { ImgComponent } from '../img/img.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { YoutubeEmbededDialogComponent } from '../youtube-embeded-dialog/youtube-embeded-dialog.component';
 
@@ -30,8 +28,6 @@ import { YoutubeEmbededDialogComponent } from '../youtube-embeded-dialog/youtube
   imports: [
     YoutubeEmbededDialogComponent,
     CommonModule,
-    MatIcon,
-    ImgComponent,
     ArrowSliderComponent,
     MissingFieldPlaceholderComponent,
   ],
@@ -45,7 +41,6 @@ export class VideosContainerComponent
   implements OnInit
 {
   //Injections
-
   readonly dialog = inject(MatDialog);
   private readonly overlay = inject(Overlay);
 

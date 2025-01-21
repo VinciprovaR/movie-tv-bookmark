@@ -13,7 +13,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { YouTubePlayer } from '@angular/youtube-player';
@@ -24,7 +23,6 @@ import {
   SubmitDialog,
   submitDialogType,
 } from '../../interfaces/layout.interface';
-import { ImgComponent } from '../img/img.component';
 
 @Component({
   selector: 'app-youtube-embeded-dialog',
@@ -120,8 +118,6 @@ export class YoutubeEmbededDialogComponent
     CommonModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatDivider,
-    ImgComponent,
     YouTubePlayer,
   ],
   templateUrl: './youtube-embeded-dialog-content.component.html',

@@ -7,7 +7,6 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntil } from 'rxjs';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
@@ -59,7 +58,7 @@ export class ChangePasswordConfirmationDialogComponent extends AbstractDialogCom
 @Component({
   selector: 'app-confirmation-dialog-content',
   standalone: true,
-  imports: [MatIconModule, OverlayModule, MatDivider],
+  imports: [MatIconModule, OverlayModule],
   templateUrl: './change-password-dialog-content.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

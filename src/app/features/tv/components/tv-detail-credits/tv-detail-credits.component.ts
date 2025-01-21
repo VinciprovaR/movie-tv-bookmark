@@ -13,12 +13,9 @@ import { BehaviorSubject, map, Observable, takeUntil } from 'rxjs';
 import { TVDetailCreditsStore } from '../../../../core/component-store/tv-detail-credits.store.service';
 import { TVDetailStore } from '../../../../core/component-store/tv-detail-store.service';
 import { AbstractMediaDetailCreditsComponent } from '../../../../shared/abstract/components/abstract-media-detail-credits.component';
-import { CastCrewCardComponent } from '../../../../shared/components/cast-crew-card/cast-crew-card.component';
 import { CastCrewCreditCardComponent } from '../../../../shared/components/cast-crew-credit-card/cast-crew-credit-card.component';
 import { ErrorMessageTemplateComponent } from '../../../../shared/components/error-message-template/error-message-template.component';
 import { ImgComponent } from '../../../../shared/components/img/img.component';
-import { PersonCardComponent } from '../../../../shared/components/person-card/person-card.component';
-import { FadeScrollerDirective } from '../../../../shared/directives/fade-scroller.directive';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
 import {
   Banner,
@@ -36,9 +33,6 @@ import {
   standalone: true,
   imports: [
     CommonModule,
-    PersonCardComponent,
-    CastCrewCardComponent,
-    FadeScrollerDirective,
     CastCrewCreditCardComponent,
     MatIconModule,
     ImgComponent,

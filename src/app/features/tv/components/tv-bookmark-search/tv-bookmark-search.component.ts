@@ -1,4 +1,4 @@
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -36,7 +36,6 @@ import { TVData } from '../../../../shared/interfaces/supabase/media-data.entity
     MediaListContainerComponent,
     CommonModule,
     TVBookmarkFiltersComponent,
-    TitleCasePipe,
   ],
   providers: [BridgeDataService],
   templateUrl: './tv-bookmark-search.component.html',

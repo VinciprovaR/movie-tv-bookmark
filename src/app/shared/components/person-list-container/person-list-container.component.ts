@@ -26,7 +26,6 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
   imports: [
     CommonModule,
     PersonCardComponent,
-    CastCrewCardComponent,
     NoSearchFoundComponent,
     MatProgressSpinnerModule,
     InfiniteScrollModule,

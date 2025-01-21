@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { IMG_SIZES } from '../../../providers';
 import { AbstractPersonCardComponent } from '../../abstract/components/abstract-person-card.component';
-import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
 import { ImgComponent } from '../img/img.component';
 
 @Component({
@@ -20,12 +19,9 @@ import { ImgComponent } from '../img/img.component';
   standalone: true,
   imports: [
     CommonModule,
-    DatePipe,
     MatCardModule,
     MatButtonModule,
-    BookmarkSelectorComponent,
     RouterModule,
-    PercentPipe,
     MatIconModule,
     ImgComponent,
   ],

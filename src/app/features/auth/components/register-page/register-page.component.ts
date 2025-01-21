@@ -8,14 +8,16 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { Observable, takeUntil } from 'rxjs';
 import { AuthActions, AuthSelectors } from '../../../../core/store/auth';
 import { AbstractAuthComponent } from '../../../../shared/abstract/components/abstract-auth.component';
-import { PasswordGroup, RegisterForm } from '../../../../shared/interfaces/supabase/supabase-auth.interface';
+import {
+  PasswordGroup,
+  RegisterForm,
+} from '../../../../shared/interfaces/supabase/supabase-auth.interface';
 
 @Component({
   selector: 'app-register-page',
@@ -25,7 +27,6 @@ import { PasswordGroup, RegisterForm } from '../../../../shared/interfaces/supab
     ReactiveFormsModule,
     RouterModule,
     MatInputModule,
-    MatDivider,
     MatIconModule,
   ],
   templateUrl: './register-page.component.html',

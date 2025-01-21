@@ -18,7 +18,6 @@ import {
   TVBookmarkSelectors,
 } from '../../../../core/store/tv-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
-import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { PayloadDiscoveryTV } from '../../../../shared/interfaces/store/discovery-tv-state.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
@@ -40,7 +39,6 @@ import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discover
   standalone: true,
   imports: [
     CommonModule,
-    InputQueryComponent,
     MediaListContainerComponent,
     TVDiscoveryFiltersComponent,
   ],

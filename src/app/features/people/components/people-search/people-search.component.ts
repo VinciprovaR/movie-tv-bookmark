@@ -14,7 +14,6 @@ import {
 } from '../../../../core/store/search-people';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
-import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { PersonListContainerComponent } from '../../../../shared/components/person-list-container/person-list-container.component';
 import {
   MediaType,
@@ -27,7 +26,6 @@ import {
   imports: [
     CommonModule,
     InputQueryComponent,
-    MediaListContainerComponent,
     PersonListContainerComponent,
     InfiniteScrollModule,
   ],

@@ -14,7 +14,6 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
@@ -37,7 +36,6 @@ import { SuccessMessageTemplateComponent } from '../success-message-template/suc
     ReactiveFormsModule,
     RouterModule,
     MatInputModule,
-    MatDivider,
     MatIconModule,
     UnauthorizedComponent,
     SuccessMessageTemplateComponent,

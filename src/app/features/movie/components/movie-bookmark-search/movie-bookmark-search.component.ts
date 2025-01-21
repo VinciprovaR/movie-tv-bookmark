@@ -1,4 +1,4 @@
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -39,7 +39,6 @@ import { MovieBookmarkFiltersComponent } from '../movie-bookmark-filters/movie-b
     MediaListContainerComponent,
     CommonModule,
     MovieBookmarkFiltersComponent,
-    TitleCasePipe,
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-bookmark-search.component.html',

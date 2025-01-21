@@ -12,14 +12,11 @@ import {
   CrewTV,
   TVDetail,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { FormatMinutesPipe } from '../../pipes/format-minutes.pipe';
-import { ImdbIconComponent } from '../imdb-icon/imdb-icon.component';
 import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 import { OverviewComponent } from '../overview/overview.component';
 import { RatingComponent } from '../rating/rating.component';
 import { StaticTagComponent } from '../static-tag/static-tag.component';
-import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
 
 @Component({
   selector: 'app-tv-detail-main-info',
@@ -27,11 +24,8 @@ import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
   imports: [
     CommonModule,
     RatingComponent,
-    FormatMinutesPipe,
     RouterModule,
     StaticTagComponent,
-    ImdbIconComponent,
-    TmdbIconComponent,
     MissingFieldPlaceholderComponent,
     OverviewComponent,
     MainCrewCastComponent,
@@ -39,7 +33,7 @@ import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
   templateUrl: './tv-detail-main-info.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TVDetailMainInfoContentComponent
+export class TVDetailMainInfoComponent
   extends MediaDetailMainInfoComponent
   implements OnInit
 {

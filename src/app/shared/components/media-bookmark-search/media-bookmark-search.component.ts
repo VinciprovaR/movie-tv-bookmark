@@ -5,7 +5,7 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { RouterLinkActive, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { BridgeDataService } from '../../../core/services/bridge-data.service';
 import { LIFECYCLE_NAV_ELEMENTS } from '../../../providers';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
@@ -15,12 +15,7 @@ import { BookmarkNavigatorComponent } from '../bookmark-navigator/bookmark-navig
 @Component({
   selector: 'app-media-bookmark-search',
   standalone: true,
-  imports: [
-    RouterModule,
-    CommonModule,
-    RouterLinkActive,
-    BookmarkNavigatorComponent,
-  ],
+  imports: [RouterModule, CommonModule, BookmarkNavigatorComponent],
   providers: [BridgeDataService],
   templateUrl: './media-bookmark-search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

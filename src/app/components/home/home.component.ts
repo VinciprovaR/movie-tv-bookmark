@@ -5,7 +5,6 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { User } from '@supabase/supabase-js';
 import { Observable, takeUntil } from 'rxjs';
@@ -20,7 +19,7 @@ import { PredominantColor } from '../../shared/interfaces/layout.interface';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ImgComponent, MatIcon, MatDivider],
+  imports: [CommonModule, ImgComponent, MatIcon],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

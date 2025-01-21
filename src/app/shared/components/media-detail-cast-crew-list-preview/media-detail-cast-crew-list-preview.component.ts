@@ -23,7 +23,6 @@ import {
 } from '../../interfaces/TMDB/tmdb-media.interface';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-import { PersonCardComponent } from '../person-card/person-card.component';
 
 type castCrew = CastMovie | CrewMovie | CastTV | CrewTV;
 
@@ -32,7 +31,6 @@ type castCrew = CastMovie | CrewMovie | CastTV | CrewTV;
   standalone: true,
   imports: [
     CommonModule,
-    PersonCardComponent,
     CastCrewCardComponent,
     FadeScrollerDirective,
     MissingFieldPlaceholderComponent,

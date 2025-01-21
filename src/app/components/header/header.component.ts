@@ -7,14 +7,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLinkActive, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthSelectors } from '../../core/store/auth';
 import { HEADER_NAV_ELEMENTS } from '../../providers';
 import { ToggleThemeService } from '../../services/toggle-theme.service';
 import { AbstractComponent } from '../../shared/abstract/components/abstract-component.component';
 import { AppLogoComponent } from '../../shared/components/app-logo/app-logo.component';
-import { ImgComponent } from '../../shared/components/img/img.component';
 import { NavigatorDesktopComponent } from '../../shared/components/navigator-desktop/navigator-desktop.component';
 import { NavigatorMobileComponent } from '../../shared/components/navigator-mobile/navigator-mobile.component';
 import { ToggleThemeButtonComponent } from '../../shared/components/toggle-theme-button/toggle-theme-button.component';
@@ -24,12 +23,10 @@ import { ToggleThemeButtonComponent } from '../../shared/components/toggle-theme
   standalone: true,
   imports: [
     CommonModule,
-    RouterLinkActive,
     RouterModule,
     MatIconModule,
     NavigatorMobileComponent,
     NavigatorDesktopComponent,
-    ImgComponent,
     AppLogoComponent,
     ToggleThemeButtonComponent,
   ],

@@ -11,7 +11,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
@@ -19,7 +18,10 @@ import { Observable, takeUntil } from 'rxjs';
 import { AuthActions, AuthSelectors } from '../../../../core/store/auth';
 import { AbstractAuthComponent } from '../../../../shared/abstract/components/abstract-auth.component';
 import { SuccessMessageTemplateComponent } from '../../../../shared/components/success-message-template/success-message-template.component';
-import { LoginForm, LoginPayload } from '../../../../shared/interfaces/supabase/supabase-auth.interface';
+import {
+  LoginForm,
+  LoginPayload,
+} from '../../../../shared/interfaces/supabase/supabase-auth.interface';
 
 @Component({
   selector: 'app-login-page',
@@ -30,7 +32,6 @@ import { LoginForm, LoginPayload } from '../../../../shared/interfaces/supabase/
     RouterModule,
     MatInputModule,
     MatIconModule,
-    MatDivider,
     SuccessMessageTemplateComponent,
   ],
   templateUrl: './login-page.component.html',

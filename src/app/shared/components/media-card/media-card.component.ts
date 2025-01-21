@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe, PercentPipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,10 +21,8 @@ import {
   Movie,
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selector.component';
 import { BookmarkComponent } from '../bookmark/bookmark.component';
 import { ImgComponent } from '../img/img.component';
-import { RatingComponent } from '../rating/rating.component';
 import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
 
 @Component({
@@ -35,12 +33,9 @@ import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.int
     DatePipe,
     MatCardModule,
     MatButtonModule,
-    BookmarkSelectorComponent,
     RouterModule,
-    PercentPipe,
     MatIconModule,
     ImgComponent,
-    RatingComponent,
     BookmarkComponent,
   ],
   templateUrl: './media-card.component.html',

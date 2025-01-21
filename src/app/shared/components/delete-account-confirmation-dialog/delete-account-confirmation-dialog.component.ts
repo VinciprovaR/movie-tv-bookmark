@@ -16,7 +16,6 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { takeUntil } from 'rxjs';
@@ -77,7 +76,6 @@ export class DeleteAccountConfirmationDialogComponent extends AbstractDialogComp
     CommonModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatDivider,
   ],
   templateUrl: 'delete-account-dialog-content.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

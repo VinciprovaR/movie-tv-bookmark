@@ -18,7 +18,6 @@ import {
   MovieBookmarkSelectors,
 } from '../../../../core/store/movie-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
-import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { PayloadDiscoveryMovie } from '../../../../shared/interfaces/store/discovery-movie-state.interface';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
@@ -40,7 +39,6 @@ import { MovieDiscoveryFiltersComponent } from '../movie-discovery-filters/movie
   standalone: true,
   imports: [
     CommonModule,
-    InputQueryComponent,
     MediaListContainerComponent,
     MovieDiscoveryFiltersComponent,
   ],

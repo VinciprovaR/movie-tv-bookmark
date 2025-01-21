@@ -11,28 +11,14 @@ import { PersonDetail } from '../../interfaces/TMDB/tmdb-media.interface';
 import { AgePipe } from '../../pipes/age';
 import { BiographyComponent } from '../biography/biography.component';
 import { ExternalInfoComponent } from '../external-info/external-info.component';
-import { ImdbIconComponent } from '../imdb-icon/imdb-icon.component';
-import { MainCrewCastComponent } from '../main-crew-cast/main-crew-cast.component';
-import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-import { OverviewComponent } from '../overview/overview.component';
-import { RatingComponent } from '../rating/rating.component';
-import { StaticTagComponent } from '../static-tag/static-tag.component';
-import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
 
 @Component({
   selector: 'app-person-detail-main-info',
   standalone: true,
   imports: [
     CommonModule,
-    RatingComponent,
     DatePipe,
     RouterModule,
-    StaticTagComponent,
-    ImdbIconComponent,
-    TmdbIconComponent,
-    MissingFieldPlaceholderComponent,
-    OverviewComponent,
-    MainCrewCastComponent,
     BiographyComponent,
     AgePipe,
     ExternalInfoComponent,
@@ -40,7 +26,7 @@ import { TmdbIconComponent } from '../tmdb-icon/tmdb-icon.component';
   templateUrl: './person-detail-main-info.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PersonDetailMainInfoContentComponent
+export class PersonDetailMainInfoComponent
   extends AbstractComponent
   implements OnInit
 {
