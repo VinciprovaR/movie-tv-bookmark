@@ -13,7 +13,7 @@ import { AbstractMediaDetailComponent } from '../../../../shared/abstract/compon
 import { ErrorMessageTemplateComponent } from '../../../../shared/components/error-message-template/error-message-template.component';
 import { ExternalInfoComponent } from '../../../../shared/components/external-info/external-info.component';
 import { ImgComponent } from '../../../../shared/components/img/img.component';
-import { PersonDetailMainInfoContentComponent } from '../../../../shared/components/person-detail-main-info/person-detail-main-info.component';
+import { PersonDetailMainInfoComponent } from '../../../../shared/components/person-detail-main-info/person-detail-main-info.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
 import {
   MediaType,
@@ -33,7 +33,7 @@ import { PersonTVsComponent } from '../person-tv/person-tvs.component';
     PersonTVsComponent,
     ImgComponent,
     ExternalInfoComponent,
-    PersonDetailMainInfoContentComponent,
+    PersonDetailMainInfoComponent,
     ErrorMessageTemplateComponent,
   ],
   templateUrl: './person-detail.component.html',
