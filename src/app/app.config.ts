@@ -1,5 +1,9 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideExperimentalZonelessChangeDetection,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   TitleStrategy,
@@ -44,6 +48,7 @@ registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideExperimentalZonelessChangeDetection(),
     provideStorageKey(),
     provideSupabaseClient(),
     provideInitRootServices(),

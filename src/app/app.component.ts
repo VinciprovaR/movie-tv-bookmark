@@ -33,10 +33,10 @@ import { AbstractComponent } from './shared/abstract/components/abstract-compone
       ]),
     ]),
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent extends AbstractComponent {
   prepareRoute(outlet: RouterOutlet) {
     return outlet?.activatedRouteData;
   }
 }
+// changeDetection: ChangeDetectionStrategy.OnPush,

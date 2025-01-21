@@ -8,7 +8,10 @@ import {
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { DiscoveryMovieActions, DiscoveryMovieSelectors } from '../../../../core/store/discovery-movie';
+import {
+  DiscoveryMovieActions,
+  DiscoveryMovieSelectors,
+} from '../../../../core/store/discovery-movie';
 import { AbstractDiscoveryFilter } from '../../../../shared/abstract/components/abstract-discovery-filter.component';
 import { CheckboxFilterComponent } from '../../../../shared/components/checkbox-filter/checkbox-filter.component';
 import { GenreFilterComponent } from '../../../../shared/components/genre-filter/genre-filter.component';
@@ -18,7 +21,13 @@ import { SelectFilterComponent } from '../../../../shared/components/select-filt
 import { VoteAverageFilterComponent } from '../../../../shared/components/vote-average-filter/vote-average-filter.component';
 import { CustomHttpErrorResponseInterface } from '../../../../shared/interfaces/customHttpErrorResponse.interface';
 import { PayloadDiscoveryMovie } from '../../../../shared/interfaces/store/discovery-movie-state.interface';
-import { Certification, DiscoveryMovieFilterForm, Genre, OptionFilter, SelectTransformConfig } from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
+import {
+  Certification,
+  DiscoveryMovieFilterForm,
+  Genre,
+  OptionFilter,
+  SelectTransformConfig,
+} from '../../../../shared/interfaces/TMDB/tmdb-filters.interface';
 
 @Component({
   selector: 'app-discovery-movie-filters',
@@ -159,7 +168,7 @@ export class MovieDiscoveryFiltersComponent
     return certificationControl.value ? certificationControl.value : '';
   }
 
-  resetFilters(){
+  resetFilters() {
     this.store.dispatch(DiscoveryMovieActions.resetFilters());
   }
 }

@@ -4,13 +4,13 @@
     <div
       class="bg-cover bg-top home-header"
       [ngStyle]="{
-        'background-image': backgroundImageStyle
+        'background-image': $backgroundImageStyle()
       }"
     >
       <div
         class="h-full inset-0 flex flex-col justify-center items-center"
         [ngStyle]="{
-          'background-image': headerMediaGradient
+          'background-image': $headerMediaGradient()
         }"
       >
         <h1

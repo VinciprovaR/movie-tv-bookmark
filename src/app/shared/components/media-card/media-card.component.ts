@@ -1,5 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
   inject,
@@ -118,7 +119,6 @@ export class MediaCardComponent
     this.detailMediaPath = this.detailMediaPath.concat(
       `/${this.mediaType}-detail/${id}`
     );
-    this.detectChanges();
   }
 
   toggleBookmarkAbsent() {

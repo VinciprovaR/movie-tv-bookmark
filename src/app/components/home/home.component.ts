@@ -4,6 +4,8 @@ import {
   Component,
   inject,
   OnInit,
+  Signal,
+  signal,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { User } from '@supabase/supabase-js';
@@ -22,7 +24,6 @@ import { PredominantColor } from '../../shared/interfaces/layout.interface';
   imports: [CommonModule, ImgComponent, MatIcon],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends AbstractComponent implements OnInit {
   private readonly predominantImgColorService = inject(
@@ -34,9 +35,9 @@ export class HomeComponent extends AbstractComponent implements OnInit {
   );
   selectUser$!: Observable<User | null>;
   randomImage$!: Observable<string>;
-  headerMediaGradient: string = '';
-  textColorBlend: string = '';
-  backgroundImageStyle: string = '';
+  $headerMediaGradient = signal('');
+  $textColorBlend = signal('');
+  $backgroundImageStyle = signal('');
   v!: number;
 
   constructor() {
@@ -53,13 +54,13 @@ export class HomeComponent extends AbstractComponent implements OnInit {
     this.selectUser$ = this.store.select(AuthSelectors.selectUser);
     this.randomImage$ = this.randomImageStore.selectRandomImage$;
   }
+
   initSubscriptions(): void {
     this.predominantImgColorService.getPredominantColorObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((predominantColor: PredominantColor) => {
-        this.textColorBlend = predominantColor.textColorBlend;
-        this.headerMediaGradient = predominantColor.headerMediaGradient;
-        this.detectChanges();
+        this.$textColorBlend.set(predominantColor.textColorBlend);
+        this.$headerMediaGradient.set(predominantColor.headerMediaGradient);
       });
 
     this.randomImage$
@@ -73,7 +74,7 @@ export class HomeComponent extends AbstractComponent implements OnInit {
   }
 
   buildBgStyle(imgSrc: string) {
-    this.backgroundImageStyle = `url('${this.getFullImageUrl(imgSrc)}')`;
+    this.$backgroundImageStyle.set(`url('${this.getFullImageUrl(imgSrc)}')`);
   }
 
   getFullImageUrl(imgSrc: string) {
