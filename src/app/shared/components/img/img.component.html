@@ -12,7 +12,7 @@
     'pointer-events-none': !link ,
   }"
   >
-    @if(imgSrc && priority && !imageLoadIsError){
+    @if(imgSrc && priority && !$imageLoadIsError()){
 
     <img
       class="placeholder-bg-center"
@@ -27,7 +27,7 @@
       [placeholder]="placeholderBase64"
       (error)="onError()"
     />
-    } @else if(imgSrc && !priority && !imageLoadIsError){
+    } @else if(imgSrc && !priority && !$imageLoadIsError()){
 
     <img
       tabindex="-1"
@@ -44,7 +44,7 @@
       [placeholder]="placeholderBase64"
       (error)="onError()"
     />
-    } @else if(!imgSrc || imageLoadIsError){
+    } @else if(!imgSrc || $imageLoadIsError()){
 
     <div
       tabindex="-1"

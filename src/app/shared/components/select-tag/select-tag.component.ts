@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -29,7 +28,6 @@ import { GenreControl } from '../../interfaces/TMDB/tmdb-filters.interface';
   ],
   templateUrl: './select-tag.component.html',
   styleUrl: './select-tag.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectTagComponent
   extends AbstractComponent

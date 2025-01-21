@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PersonDetailStore } from '../../../../core/component-store/person-detail-store.service';
 import { AbstractMediaDetailComponent } from '../../../../shared/abstract/components/abstract-media-detail.component';
@@ -37,7 +30,6 @@ import { PersonTVsComponent } from '../person-tv/person-tvs.component';
     ErrorMessageTemplateComponent,
   ],
   templateUrl: './person-detail.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonDetailComponent
   extends AbstractMediaDetailComponent

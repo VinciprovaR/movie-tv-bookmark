@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { arrowType } from '../../interfaces/layout.interface';
 
@@ -15,7 +9,6 @@ import { arrowType } from '../../interfaces/layout.interface';
   imports: [CommonModule],
   templateUrl: './arrow-slider.component.html',
   styleUrl: './arrow-slider.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArrowSliderComponent extends AbstractComponent {
   @Output()

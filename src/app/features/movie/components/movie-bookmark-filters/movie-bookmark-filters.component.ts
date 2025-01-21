@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { filter, Observable, takeUntil } from 'rxjs';
-import { MovieBookmarkActions, MovieBookmarkSelectors } from '../../../../core/store/movie-bookmark';
+import { delay, filter, Observable, takeUntil } from 'rxjs';
+import {
+  MovieBookmarkActions,
+  MovieBookmarkSelectors,
+} from '../../../../core/store/movie-bookmark';
 import { AbstractBookmarkFilters } from '../../../../shared/abstract/components/abstract-bookmark-filters.component';
 import { GenreFilterComponent } from '../../../../shared/components/genre-filter/genre-filter.component';
 import { SelectFilterComponent } from '../../../../shared/components/select-filter/select-filter.component';
@@ -25,7 +28,6 @@ import {
     MatIconModule,
   ],
   templateUrl: './movie-bookmark-filters.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
   PayloadMovieBookmark,
@@ -73,6 +75,7 @@ export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
       genres: this.initGenreGroup(filterSelected.genreIdList, genreList),
       sortBy: this.initSortByControl(filterSelected.sortBy),
     });
+
     this.registerBehaviourValueChange();
     this.detectChanges();
   }
@@ -94,7 +97,7 @@ export class MovieBookmarkFiltersComponent extends AbstractBookmarkFilters<
     };
   }
 
-  resetFilters(){
+  resetFilters() {
     this.store.dispatch(MovieBookmarkActions.resetFilters());
   }
 }

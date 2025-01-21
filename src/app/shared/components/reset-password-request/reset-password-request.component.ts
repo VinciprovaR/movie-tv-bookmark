@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,7 +18,6 @@ import { AbstractAuthComponent } from '../../abstract/components/abstract-auth.c
   imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatIconModule],
   templateUrl: './reset-password-request.component.html',
   styleUrl: './reset-password-request.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordRequestComponent extends AbstractAuthComponent {
   private readonly fb = inject(FormBuilder);

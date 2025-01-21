@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -37,7 +36,6 @@ type castCrew = CastMovie | CrewMovie | CastTV | CrewTV;
     MatIconModule,
   ],
   templateUrl: './media-detail-cast-crew-list-preview.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaDetailCastCrewListPreviewComponent
   extends AbstractComponent

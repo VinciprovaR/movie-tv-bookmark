@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 
@@ -12,7 +7,6 @@ import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
   standalone: true,
   imports: [],
   templateUrl: './imdb-icon.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImdbIconComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })

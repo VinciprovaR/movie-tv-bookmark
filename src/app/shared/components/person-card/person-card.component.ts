@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +21,6 @@ import { ImgComponent } from '../img/img.component';
     ImgComponent,
   ],
   templateUrl: './person-card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonCardComponent
   extends AbstractPersonCardComponent
@@ -42,18 +35,11 @@ export class PersonCardComponent
 
   constructor() {
     super();
-    // this.registerEffects();
   }
 
   override ngOnInit(): void {
     this.buildDetailPath(this.person.id);
   }
-
-  // registerEffects() {
-  //   effect(() => {
-  //     this.evaluateCustomClasses(this.pageEventService.$windowInnerWidth());
-  //   });
-  // }
 
   isPersonEntity(person: object): person is Person {
     return (person as Person).known_for !== undefined;

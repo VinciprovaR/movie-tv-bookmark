@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import {
@@ -12,7 +12,6 @@ import {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './select-filter.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectFilterComponent extends AbstractComponent {
   @Input({ required: true })

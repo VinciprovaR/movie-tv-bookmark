@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  Signal,
-  signal,
-} from '@angular/core';
+import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { User } from '@supabase/supabase-js';
 import { Observable, takeUntil } from 'rxjs';

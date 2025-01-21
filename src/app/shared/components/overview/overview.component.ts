@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
 
@@ -8,7 +8,6 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
   standalone: true,
   imports: [CommonModule, MissingFieldPlaceholderComponent],
   templateUrl: './overview.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OverviewComponent extends AbstractComponent {
   @Input({ required: true })

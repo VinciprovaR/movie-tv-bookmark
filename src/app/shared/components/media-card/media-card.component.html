@@ -16,9 +16,8 @@
       <div class="h-full box-border img-card-container rounded-lg" id="img-w">
         <div
           class="text-center font-semibold rounded-t-lg border-t-2 text-[var(--text-color-light)]"
-          [ngClass]="bookmarkClass"
         >
-          {{ bookmarkLabel }}
+          {{ $bookmarkLabel() }}
         </div>
         <div
           class="w-full aspect-[2/3] hover:cursor-pointer rounded-lg"

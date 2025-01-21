@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
 @Component({
@@ -6,7 +6,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   standalone: true,
   imports: [],
   templateUrl: './missing-field-placeholder.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MissingFieldPlaceholderComponent extends AbstractComponent {
   @Input({ required: true })

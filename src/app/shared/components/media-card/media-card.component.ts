@@ -1,11 +1,12 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import {
   AfterContentInit,
-  ChangeDetectionStrategy,
   Component,
   inject,
   Input,
   OnInit,
+  signal,
+  WritableSignal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -40,7 +41,6 @@ import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.int
     BookmarkComponent,
   ],
   templateUrl: './media-card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaCardComponent
   extends AbstractCardComponent
@@ -67,8 +67,8 @@ export class MediaCardComponent
   detailMediaPath: string = '';
   voteIcon: string = '';
   bookmarkSelectorAbsentIsOpen = false;
-  bookmarkLabel: string = '';
-  bookmarkClass: string = '';
+  $bookmarkLabel: WritableSignal<string> = signal('');
+  //  bookmarkClass: string = '';
 
   constructor() {
     super();
@@ -126,7 +126,7 @@ export class MediaCardComponent
   }
 
   setBookmarkLabel(bookmarkOption: BookmarkOption) {
-    this.bookmarkLabel = bookmarkOption.label;
-    this.bookmarkClass = bookmarkOption.class;
+    this.$bookmarkLabel.set(bookmarkOption.label);
+    // this.bookmarkClass = bookmarkOption.class;
   }
 }

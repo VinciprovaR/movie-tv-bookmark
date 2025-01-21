@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -16,7 +15,6 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatIconModule],
   templateUrl: './toggle-theme-button.component.html',
   styleUrl: './toggle-theme-button.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToggleThemeButtonComponent implements AfterViewInit {
   private readonly toggleThemeService = inject(ToggleThemeService);

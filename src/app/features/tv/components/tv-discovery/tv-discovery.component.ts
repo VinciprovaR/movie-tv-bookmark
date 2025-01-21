@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { combineLatest, Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import {
@@ -44,7 +38,6 @@ import { TVDiscoveryFiltersComponent } from '../tv-discovery-filters/tv-discover
   ],
   providers: [BridgeDataService],
   templateUrl: './tv-discovery.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDiscoveryComponent
   extends AbstractComponent

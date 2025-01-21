@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import {
@@ -25,7 +20,6 @@ import {
   imports: [CommonModule, InputQueryComponent, PersonListContainerComponent],
   providers: [BridgeDataService],
   templateUrl: './people-search.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PeopleSearchComponent extends AbstractComponent implements OnInit {
   protected readonly bridgeDataService = inject(BridgeDataService);

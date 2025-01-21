@@ -2,7 +2,6 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   effect,
   ElementRef,
@@ -30,7 +29,6 @@ import {
   imports: [MatIconModule, OverlayModule],
   templateUrl: './youtube-embeded-dialog.component.html',
   styleUrl: './youtube-embeded-dialog.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YoutubeEmbededDialogComponent
   extends AbstractDialogComponent
@@ -122,7 +120,6 @@ export class YoutubeEmbededDialogComponent
   ],
   templateUrl: './youtube-embeded-dialog-content.component.html',
   styleUrl: './youtube-embeded-dialog.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YoutubeEmbededDialogContentComponent extends AbstractComponent {
   @ViewChild('videoContentContainer')
@@ -186,6 +183,5 @@ export class YoutubeEmbededDialogContentComponent extends AbstractComponent {
     }
     this.videoContentWidth =
       calculatedWidth < maxWidth ? calculatedWidth : maxWidth;
-    this.detectChanges();
   }
 }

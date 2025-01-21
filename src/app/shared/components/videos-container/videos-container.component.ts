@@ -1,7 +1,6 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef,
@@ -34,7 +33,6 @@ import { YoutubeEmbededDialogComponent } from '../youtube-embeded-dialog/youtube
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './videos-container.component.html',
   styleUrl: './videos-container.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideosContainerComponent
   extends AbstractComponent

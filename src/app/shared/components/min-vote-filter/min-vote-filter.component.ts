@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
@@ -10,7 +10,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   imports: [CommonModule, ReactiveFormsModule, MatSliderModule],
   templateUrl: './min-vote-filter.component.html',
   styleUrl: './min-vote-filter.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MinVoteFilterComponent extends AbstractComponent {
   @Input({ required: true })

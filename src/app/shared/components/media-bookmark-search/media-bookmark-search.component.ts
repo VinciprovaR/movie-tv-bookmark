@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BridgeDataService } from '../../../core/services/bridge-data.service';
 import { LIFECYCLE_NAV_ELEMENTS } from '../../../providers';
@@ -18,7 +13,6 @@ import { BookmarkNavigatorComponent } from '../bookmark-navigator/bookmark-navig
   imports: [RouterModule, CommonModule, BookmarkNavigatorComponent],
   providers: [BridgeDataService],
   templateUrl: './media-bookmark-search.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaBookmarkSearchComponent
   extends AbstractComponent

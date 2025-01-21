@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { combineLatest, filter, Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import { FiltersMetadataSelectors } from '../../../../core/store/filters-metadata';
@@ -42,7 +36,6 @@ import { MovieBookmarkFiltersComponent } from '../movie-bookmark-filters/movie-b
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-bookmark-search.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieBookmarkSearchComponent
   extends AbstractComponent

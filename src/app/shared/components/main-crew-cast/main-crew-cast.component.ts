@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MainCrewCast } from '../../interfaces/TMDB/tmdb-media.interface';
@@ -15,7 +10,6 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
   standalone: true,
   imports: [CommonModule, MissingFieldPlaceholderComponent, RouterLink],
   templateUrl: './main-crew-cast.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainCrewCastComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })

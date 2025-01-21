@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
@@ -16,7 +10,6 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
   imports: [CommonModule, MissingFieldPlaceholderComponent, MatIconModule],
   templateUrl: './biography.component.html',
   styleUrl: './biography.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BiographyComponent extends AbstractComponent {
   @ViewChild('textContainer')

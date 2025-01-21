@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable, map, takeUntil } from 'rxjs';
 import { AuthSelectors } from '../../core/store/auth';
@@ -16,7 +11,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, MatIconModule, RouterLink],
   templateUrl: './unauthorized.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnauthorizedComponent extends AbstractComponent implements OnInit {
   isUserAuthenticated$!: Observable<boolean>;

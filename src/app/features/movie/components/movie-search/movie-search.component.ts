@@ -1,19 +1,23 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { MovieBookmarkActions, MovieBookmarkSelectors } from '../../../../core/store/movie-bookmark';
-import { SearchMovieActions, SearchMovieSelectors } from '../../../../core/store/search-movie';
+import {
+  MovieBookmarkActions,
+  MovieBookmarkSelectors,
+} from '../../../../core/store/movie-bookmark';
+import {
+  SearchMovieActions,
+  SearchMovieSelectors,
+} from '../../../../core/store/search-movie';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { InputQueryComponent } from '../../../../shared/components/input-query/input-query.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
-import { MediaType, Movie } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  MediaType,
+  Movie,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-search-movie',
@@ -21,7 +25,6 @@ import { MediaType, Movie } from '../../../../shared/interfaces/TMDB/tmdb-media.
   imports: [CommonModule, InputQueryComponent, MediaListContainerComponent],
   providers: [BridgeDataService],
   templateUrl: './movie-search.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieSearchComponent extends AbstractComponent implements OnInit {
   private readonly bridgeDataService = inject(BridgeDataService);

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
@@ -8,7 +8,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   standalone: true,
   imports: [CommonModule, MatIcon],
   templateUrl: './no-search-found.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoSearchFoundComponent extends AbstractComponent {
   @Input({ required: true })

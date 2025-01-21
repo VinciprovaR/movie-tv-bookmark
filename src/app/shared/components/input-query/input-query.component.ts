@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -34,7 +33,6 @@ export interface InputQueryForm {
   imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatInputModule],
   templateUrl: './input-query.component.html',
   styleUrl: './input-query.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputQueryComponent extends AbstractComponent implements OnInit {
   private readonly fb = inject(FormBuilder);

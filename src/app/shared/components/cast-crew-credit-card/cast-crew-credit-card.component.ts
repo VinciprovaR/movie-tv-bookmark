@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +21,6 @@ import { ImgComponent } from '../img/img.component';
   ],
   templateUrl: './cast-crew-credit-card.component.html',
   styleUrl: './cast-crew-credit-card.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CastCrewCreditCardComponent
   extends AbstractPersonCardComponent

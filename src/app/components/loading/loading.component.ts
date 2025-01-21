@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -28,7 +27,6 @@ import { AbstractComponent } from '../../shared/abstract/components/abstract-com
   standalone: true,
   imports: [MatProgressBarModule],
   templateUrl: './loading.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingComponent
   extends AbstractComponent

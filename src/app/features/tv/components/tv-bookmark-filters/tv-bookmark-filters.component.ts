@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { filter, Observable, takeUntil } from 'rxjs';
-import { TVBookmarkActions, TVBookmarkSelectors } from '../../../../core/store/tv-bookmark';
+import {
+  TVBookmarkActions,
+  TVBookmarkSelectors,
+} from '../../../../core/store/tv-bookmark';
 import { AbstractBookmarkFilters } from '../../../../shared/abstract/components/abstract-bookmark-filters.component';
 import { GenreFilterComponent } from '../../../../shared/components/genre-filter/genre-filter.component';
 import { SelectFilterComponent } from '../../../../shared/components/select-filter/select-filter.component';
@@ -25,7 +28,6 @@ import {
     MatIconModule,
   ],
   templateUrl: './tv-bookmark-filters.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVBookmarkFiltersComponent extends AbstractBookmarkFilters<
   PayloadTVBookmark,
@@ -94,7 +96,7 @@ export class TVBookmarkFiltersComponent extends AbstractBookmarkFilters<
     };
   }
 
-  resetFilters(){
+  resetFilters() {
     this.store.dispatch(TVBookmarkActions.resetFilters());
   }
 }

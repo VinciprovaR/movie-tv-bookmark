@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { User } from '@supabase/supabase-js';
 import { Observable, map } from 'rxjs';
@@ -19,8 +19,6 @@ import { SubmitDialog } from '../../shared/interfaces/layout.interface';
     MatIconModule,
   ],
   templateUrl: './settings.component.html',
-
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent extends AbstractComponent implements OnInit {
   userSelector$!: Observable<User | null>;

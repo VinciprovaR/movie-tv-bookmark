@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter, map, takeUntil, timer } from 'rxjs';
 import { AbstractNavComponent } from '../../abstract/components/abstract-nav.component';
@@ -18,7 +11,6 @@ import { NavElements } from '../../interfaces/navigator.interface';
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navigator-desktop.component.html',
   styleUrl: './navigator-desktop.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorDesktopComponent
   extends AbstractNavComponent

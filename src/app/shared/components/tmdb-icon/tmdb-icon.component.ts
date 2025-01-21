@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { ImgComponent } from '../../components/img/img.component';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
@@ -13,7 +8,6 @@ import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
   standalone: true,
   imports: [ImgComponent],
   templateUrl: './tmdb-icon.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TmdbIconComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })

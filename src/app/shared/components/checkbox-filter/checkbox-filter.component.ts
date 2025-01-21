@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
@@ -8,7 +8,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './checkbox-filter.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxFilterComponent extends AbstractComponent {
   @Input()

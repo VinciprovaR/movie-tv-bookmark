@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavigationStart } from '@angular/router';
 import { filter, Observable, takeUntil } from 'rxjs';
 import { NotifierStore } from '../../core/component-store/notifier-store.service';
@@ -16,7 +11,6 @@ import { AlertComponent } from '../../shared/components/alert/alert.component';
   standalone: true,
   imports: [CommonModule, AlertComponent],
   templateUrl: './alert-container.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertContainerComponent
   extends AbstractComponent

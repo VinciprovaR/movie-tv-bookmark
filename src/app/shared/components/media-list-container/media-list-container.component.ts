@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -44,7 +43,6 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
     LoadingSpinnerComponent,
   ],
   templateUrl: './media-list-container.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaListContainerComponent
   extends AbstractComponent

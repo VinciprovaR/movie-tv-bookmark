@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -49,7 +48,6 @@ import {
   ],
   templateUrl: './bookmark-selector.component.html',
   styleUrl: 'bookmark-selector.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkSelectorComponent
   extends AbstractComponent

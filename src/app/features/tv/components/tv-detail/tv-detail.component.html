@@ -24,14 +24,14 @@
         [ngStyle]="{
           'background-image':
             pageEventService.$windowInnerWidth() >= 1024
-              ? headerMediaGradient
+              ? $headerMediaGradient()
               : '',
           'background-color':
             pageEventService.$windowInnerWidth() < 1024
               ? 'rgba(0, 0, 0, 0.411)'
               : ''
         }"
-        [ngClass]="{ 'backdrop-blur-xl': headerMediaGradient === '' }"
+        [ngClass]="{ 'backdrop-blur-xl': $headerMediaGradient() === '' }"
       >
         <div
           class="w-full 1024:w-[80%] max-w-[1920px] 1024:mx-auto flex space-x-8 justify-center 1024:justify-normal"
@@ -51,9 +51,8 @@
 
             <div
               class="text-center font-semibold rounded-t-lg border-t-2 text-[var(--text-color-light)] bg-[var(--theme-color-complementary-op)]"
-              [ngClass]="bookmarkClass"
             >
-              {{ bookmarkLabel }}
+              {{ $bookmarkLabel() }}
             </div>
             <div class="h-[300px] 1024:h-[600px] aspect-[2/3] relative">
               <app-img
@@ -71,8 +70,8 @@
           @if(pageEventService.$windowInnerWidth() >= 1024) {
           <div class="hidden 1024:block">
             <app-tv-detail-main-info
-              [textColorBlend]="textColorBlend"
-              [isDark]="isDark"
+              [textColorBlend]="$textColorBlend()"
+              [isDark]="$isDark()"
               [tvData]="tvDetail"
               [releaseDate]="tvDetail.first_air_date"
               [mediaTitle]="tvDetail.name"
@@ -88,9 +87,9 @@
     @if(pageEventService.$windowInnerWidth() < 1024){
     <div class="block 1024:hidden h-full">
       <app-tv-detail-main-info
-        [textColorBlend]="textColorBlend"
-        [isDark]="isDark"
-        [contentMediaGradient]="contentMediaGradient"
+        [textColorBlend]="$textColorBlend()"
+        [isDark]="$isDark()"
+        [contentMediaGradient]="$contentMediaGradient()"
         [tvData]="tvDetail"
         [releaseDate]="tvDetail.first_air_date"
         [mediaTitle]="tvDetail.name"

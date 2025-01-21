@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -41,7 +35,6 @@ import { SuccessMessageTemplateComponent } from '../success-message-template/suc
     SuccessMessageTemplateComponent,
   ],
   templateUrl: './reset-password.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordComponent
   extends AbstractAuthComponent

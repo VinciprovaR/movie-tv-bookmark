@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -34,7 +33,6 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
     LoadingSpinnerComponent,
   ],
   templateUrl: './person-list-container.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonListContainerComponent
   extends AbstractComponent

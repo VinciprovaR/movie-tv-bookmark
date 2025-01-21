@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -31,7 +31,6 @@ import {
   ],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPageComponent extends AbstractAuthComponent {
   registerForm!: FormGroup<RegisterForm>;

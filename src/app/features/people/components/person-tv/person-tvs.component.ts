@@ -1,20 +1,20 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { TVBookmarkActions, TVBookmarkSelectors } from '../../../../core/store/tv-bookmark';
+import {
+  TVBookmarkActions,
+  TVBookmarkSelectors,
+} from '../../../../core/store/tv-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { MissingFieldPlaceholderComponent } from '../../../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { TVBookmarkMap } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { PersonDetailTVCredits, TV } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  PersonDetailTVCredits,
+  TV,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-person-tvs',
@@ -26,7 +26,6 @@ import { PersonDetailTVCredits, TV } from '../../../../shared/interfaces/TMDB/tm
   ],
   providers: [BridgeDataService],
   templateUrl: './person-tvs.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonTVsComponent extends AbstractComponent implements OnInit {
   title: string = 'TV shows partecipated in as';

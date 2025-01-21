@@ -23,7 +23,7 @@
       FadeScroller
       class="grid grid-flow-col grid-columns auto-cols-[160px] gap-4 1024:gap-8 p-0 pl-4 my-0 overflow-y-hidden"
     >
-      @for(castCrew of castCrewList.slice(0,15); track castCrew.id){
+      @for(castCrew of castCrewList.slice(0,15); track $index){
 
       <li class="list-none w-full">
         <app-cast-crew-card

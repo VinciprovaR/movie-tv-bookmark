@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { map } from 'rxjs';
@@ -32,7 +26,6 @@ import { ToggleThemeButtonComponent } from '../../shared/components/toggle-theme
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent extends AbstractComponent implements OnInit {
   private readonly toggleThemeService = inject(ToggleThemeService);

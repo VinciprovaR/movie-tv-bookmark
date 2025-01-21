@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
@@ -11,7 +11,6 @@ import { VoteAverageGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
   imports: [CommonModule, ReactiveFormsModule, MatSliderModule],
   templateUrl: './vote-average-filter.component.html',
   styleUrl: './vote-average-filter.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VoteAverageFilterComponent extends AbstractComponent {
   @Input({ required: true })

@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MediaDetailMainInfoComponent } from '../../abstract/components/abstract-media-detail-main-info.component';
 import {
@@ -34,7 +29,6 @@ import { StaticTagComponent } from '../static-tag/static-tag.component';
     MainCrewCastComponent,
   ],
   templateUrl: './movie-detail-main-info.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailMainInfoComponent
   extends MediaDetailMainInfoComponent

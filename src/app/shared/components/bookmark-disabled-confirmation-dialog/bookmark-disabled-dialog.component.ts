@@ -1,14 +1,7 @@
 import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, effect, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { takeUntil } from 'rxjs';
@@ -25,7 +18,6 @@ import {
   standalone: true,
   imports: [MatIconModule, OverlayModule, CommonModule],
   templateUrl: './bookmark-disabled-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkDisabledDialogComponent extends AbstractDialogComponent {
   @Input({ required: true })
@@ -100,8 +92,6 @@ export class BookmarkDisabledDialogComponent extends AbstractDialogComponent {
       </div>
     </div>
   </div> `,
-
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkDisabledDialogContentComponent extends AbstractComponent {
   @Output()

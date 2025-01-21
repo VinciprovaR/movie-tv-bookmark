@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { map, Observable, takeUntil } from 'rxjs';
 import { AuthSelectors } from '../../../core/store/auth';
 import { BookmarkMetadataSelectors } from '../../../core/store/bookmark-metadata';
@@ -38,7 +31,6 @@ import { BookmarkSelectorComponent } from '../bookmark-selector/bookmark-selecto
     BookmarkDisabledDialogComponent,
   ],
   templateUrl: './bookmark.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkComponent extends AbstractComponent implements OnInit {
   bookmarkTypeIdMap!: BookmarkTypeIdMap;
@@ -99,7 +91,5 @@ export class BookmarkComponent extends AbstractComponent implements OnInit {
     this.bookmarkLabelEmitter.emit(
       this.bookmarkTypeIdMap[bookmarkEnumSelected]
     );
-
-    //this.detectChanges();
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthActions } from '../../../../core/store/auth';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 
@@ -8,8 +8,6 @@ import { AbstractComponent } from '../../../../shared/abstract/components/abstra
   standalone: true,
   imports: [CommonModule],
   templateUrl: './logout.component.html',
-
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoutComponent extends AbstractComponent implements OnInit {
   constructor() {

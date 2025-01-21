@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { filter, Observable, takeUntil } from 'rxjs';
@@ -44,7 +39,6 @@ import {
     MatIconModule,
   ],
   templateUrl: './movie-discovery-filters.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDiscoveryFiltersComponent
   extends AbstractDiscoveryFilter<

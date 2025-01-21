@@ -1,10 +1,11 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   Output,
+  signal,
+  WritableSignal,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
@@ -17,7 +18,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   imports: [RouterModule, MatCardModule, CommonModule, NgOptimizedImage],
   templateUrl: './img.component.html',
   styleUrl: './img.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImgComponent extends AbstractComponent {
   @Input({ required: true })
@@ -47,7 +47,7 @@ export class ImgComponent extends AbstractComponent {
   @Output()
   predominantColor = new EventEmitter<FastAverageColorResult>();
 
-  imageLoadIsError: boolean = false;
+  $imageLoadIsError: WritableSignal<boolean> = signal(false);
 
   placeholderSrc: string = '';
 
@@ -69,7 +69,6 @@ export class ImgComponent extends AbstractComponent {
   }
 
   onError() {
-    this.imageLoadIsError = true;
-    this.detectChanges();
+    this.$imageLoadIsError.set(true);
   }
 }

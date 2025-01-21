@@ -1,12 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, effect, EventEmitter, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { takeUntil } from 'rxjs';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
@@ -21,7 +15,6 @@ import {
   standalone: true,
   imports: [MatIconModule, OverlayModule],
   templateUrl: './change-password-confirmation-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordConfirmationDialogComponent extends AbstractDialogComponent {
   constructor() {
@@ -60,7 +53,6 @@ export class ChangePasswordConfirmationDialogComponent extends AbstractDialogCom
   standalone: true,
   imports: [MatIconModule, OverlayModule],
   templateUrl: './change-password-dialog-content.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordDialogContentComponent extends AbstractComponent {
   @Output()

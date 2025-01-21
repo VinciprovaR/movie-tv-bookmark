@@ -1,20 +1,20 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
-import { MovieBookmarkActions, MovieBookmarkSelectors } from '../../../../core/store/movie-bookmark';
+import {
+  MovieBookmarkActions,
+  MovieBookmarkSelectors,
+} from '../../../../core/store/movie-bookmark';
 import { AbstractComponent } from '../../../../shared/abstract/components/abstract-component.component';
 import { MediaListContainerComponent } from '../../../../shared/components/media-list-container/media-list-container.component';
 import { MissingFieldPlaceholderComponent } from '../../../../shared/components/missing-field-placeholder/missing-field-placeholder.component';
 import { MediaBookmarkDTO } from '../../../../shared/interfaces/supabase/media-bookmark.DTO.interface';
 import { MovieBookmarkMap } from '../../../../shared/interfaces/supabase/supabase-bookmark.interface';
-import { Movie, PersonDetailMovieCredits } from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
+import {
+  Movie,
+  PersonDetailMovieCredits,
+} from '../../../../shared/interfaces/TMDB/tmdb-media.interface';
 
 @Component({
   selector: 'app-person-movies',
@@ -26,7 +26,6 @@ import { Movie, PersonDetailMovieCredits } from '../../../../shared/interfaces/T
   ],
   providers: [BridgeDataService],
   templateUrl: './person-movies.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonMoviesComponent extends AbstractComponent implements OnInit {
   title: string = 'Movies partecipated in as';

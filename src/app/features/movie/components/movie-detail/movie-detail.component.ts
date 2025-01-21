@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -54,7 +53,6 @@ import {
   ],
   providers: [BridgeDataService],
   templateUrl: './movie-detail.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailComponent
   extends AbstractMediaDetailComponent
@@ -107,11 +105,7 @@ export class MovieDetailComponent
     this.predominantImgColorService.getPredominantColorObs$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((predominantColor: PredominantColor) => {
-        this.isDark = predominantColor.isDark;
-        this.textColorBlend = predominantColor.textColorBlend;
-        this.headerMediaGradient = predominantColor.headerMediaGradient;
-        this.contentMediaGradient = predominantColor.contentMediaGradient;
-        this.detectChanges();
+        this.setDetailTone(predominantColor);
       });
 
     this.movieDetail$

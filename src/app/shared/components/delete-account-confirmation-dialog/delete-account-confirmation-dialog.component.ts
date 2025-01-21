@@ -1,13 +1,7 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, effect, EventEmitter, Output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -32,7 +26,6 @@ import { DeleteAccountForm } from '../../interfaces/supabase/supabase-auth.inter
   standalone: true,
   imports: [MatIconModule, OverlayModule],
   templateUrl: './delete-account-confirmation-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeleteAccountConfirmationDialogComponent extends AbstractDialogComponent {
   constructor() {
@@ -78,7 +71,6 @@ export class DeleteAccountConfirmationDialogComponent extends AbstractDialogComp
     ReactiveFormsModule,
   ],
   templateUrl: 'delete-account-dialog-content.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeleteAccountDialogContentComponent extends AbstractAuthComponent {
   @Output()

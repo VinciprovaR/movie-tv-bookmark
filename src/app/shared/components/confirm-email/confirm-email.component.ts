@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Observable, map, takeUntil } from 'rxjs';
@@ -22,7 +17,6 @@ import { SuccessMessageTemplateComponent } from '../success-message-template/suc
     SuccessMessageTemplateComponent,
   ],
   templateUrl: './confirm-email.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmEmailComponent extends AbstractComponent implements OnInit {
   isUserAuthenticated$!: Observable<boolean>;

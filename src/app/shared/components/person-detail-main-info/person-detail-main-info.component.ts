@@ -1,10 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { PersonDetail } from '../../interfaces/TMDB/tmdb-media.interface';
@@ -24,7 +19,6 @@ import { ExternalInfoComponent } from '../external-info/external-info.component'
     ExternalInfoComponent,
   ],
   templateUrl: './person-detail-main-info.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonDetailMainInfoComponent
   extends AbstractComponent

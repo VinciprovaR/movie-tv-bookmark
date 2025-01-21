@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { BookmarkNavElement } from '../../interfaces/navigator.interface';
@@ -9,7 +9,6 @@ import { BookmarkNavElement } from '../../interfaces/navigator.interface';
   standalone: true,
   imports: [RouterModule, CommonModule, RouterLinkActive],
   templateUrl: './bookmark-navigator.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarkNavigatorComponent extends AbstractComponent {
   @Input({ required: true })

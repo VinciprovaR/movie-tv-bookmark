@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 
@@ -8,7 +8,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './rating.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RatingComponent extends AbstractComponent {
   @Input({ required: true })

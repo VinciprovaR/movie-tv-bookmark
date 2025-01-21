@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnDestroy,
-} from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -36,7 +31,6 @@ import {
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent
   extends AbstractAuthComponent

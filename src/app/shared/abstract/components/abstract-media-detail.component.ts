@@ -1,8 +1,9 @@
-import { Directive, inject } from '@angular/core';
+import { Directive, inject, signal, WritableSignal } from '@angular/core';
 import { IMG_SIZES } from '../../../providers';
 import { PredominantImgColorService } from '../../../services/predominant-img-color.service';
 import { AbstractComponent } from './abstract-component.component';
 import { BookmarkOption } from '../../interfaces/supabase/media-bookmark.DTO.interface';
+import { PredominantColor } from '../../interfaces/layout.interface';
 
 @Directive()
 export abstract class AbstractMediaDetailComponent extends AbstractComponent {
@@ -13,12 +14,13 @@ export abstract class AbstractMediaDetailComponent extends AbstractComponent {
   readonly TMDB_POSTER_W_780_IMG_URL = inject(
     IMG_SIZES.TMDB_POSTER_W_780_IMG_URL
   );
-  headerMediaGradient: string = '';
-  contentMediaGradient: string = '';
-  textColorBlend: string = '';
-  isDark: boolean = false;
-  bookmarkLabel: string = '';
-  bookmarkClass: string = '';
+  $headerMediaGradient: WritableSignal<string> = signal('');
+  $contentMediaGradient: WritableSignal<string> = signal('');
+  $textColorBlend: WritableSignal<string> = signal('');
+  $isDark: WritableSignal<boolean> = signal(false);
+
+  $bookmarkLabel: WritableSignal<string> = signal('');
+  //bookmarkClass: string = '';
 
   constructor() {
     super();
@@ -48,7 +50,14 @@ export abstract class AbstractMediaDetailComponent extends AbstractComponent {
   }
 
   setBookmarkLabel(bookmarkOption: BookmarkOption) {
-    this.bookmarkLabel = bookmarkOption.label;
-    this.bookmarkClass = bookmarkOption.class;
+    this.$bookmarkLabel.set(bookmarkOption.label);
+    // this.bookmarkClass = bookmarkOption.class;
+  }
+
+  setDetailTone(predominantColor: PredominantColor) {
+    this.$isDark.set(predominantColor.isDark);
+    this.$textColorBlend.set(predominantColor.textColorBlend);
+    this.$headerMediaGradient.set(predominantColor.headerMediaGradient);
+    this.$contentMediaGradient.set(predominantColor.contentMediaGradient);
   }
 }

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -19,7 +18,6 @@ import { AbstractComponent } from '../../abstract/components/abstract-component.
   imports: [CommonModule, MatIconModule],
   templateUrl: 'alert.component.html',
   styleUrl: 'alert.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertComponent extends AbstractComponent implements OnInit {
   @ViewChild('alert')

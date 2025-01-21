@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { AuthSelectors } from '../../../core/store/auth';
@@ -16,7 +16,6 @@ import { UnauthorizedComponent } from './../../../components/unauthorized-page/u
     UnauthorizedComponent,
   ],
   templateUrl: './media-bookmark.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaBookmarkComponent
   extends AbstractMediaComponent

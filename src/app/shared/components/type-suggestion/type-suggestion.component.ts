@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatIconModule],
   templateUrl: './type-suggestion.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TypeSuggestionComponent
   extends AbstractComponent

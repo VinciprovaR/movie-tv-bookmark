@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -21,7 +21,6 @@ import { DateRangeGroup } from '../../interfaces/TMDB/tmdb-filters.interface';
   providers: [provideNativeDateAdapter()],
   templateUrl: './range-date-filter.component.html',
   styleUrl: './range-date-filter.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RangeDateFilterComponent extends AbstractComponent {
   @Input({ required: true })
@@ -37,7 +36,7 @@ export class RangeDateFilterComponent extends AbstractComponent {
   constructor() {
     super();
     this.minDate = new Date(1900, 0, 1);
-    this.maxDate = new Date(2099, 11, 31); 
+    this.maxDate = new Date(2099, 11, 31);
   }
 
   get dateRangeGroup(): FormGroup<DateRangeGroup> {

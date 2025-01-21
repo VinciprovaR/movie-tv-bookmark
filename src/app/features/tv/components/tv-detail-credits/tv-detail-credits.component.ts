@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  Input,
-  OnDestroy,
-} from '@angular/core';
+import { Component, effect, inject, Input, OnDestroy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Event, NavigationEnd, RouterLink } from '@angular/router';
 import { BehaviorSubject, map, Observable, takeUntil } from 'rxjs';
@@ -40,8 +33,6 @@ import {
     ErrorMessageTemplateComponent,
   ],
   templateUrl: './tv-detail-credits.component.html',
-
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TVDetailCreditsComponent
   extends AbstractMediaDetailCreditsComponent

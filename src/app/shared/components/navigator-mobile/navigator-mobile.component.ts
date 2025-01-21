@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationStart, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter, takeUntil } from 'rxjs';
 import { AbstractNavComponent } from '../../abstract/components/abstract-nav.component';
@@ -17,7 +10,6 @@ import { NavElements } from '../../interfaces/navigator.interface';
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navigator-mobile.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigatorMobileComponent
   extends AbstractNavComponent
