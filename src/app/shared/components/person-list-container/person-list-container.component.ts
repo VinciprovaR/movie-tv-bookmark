@@ -10,7 +10,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MediaType, Person } from '../../interfaces/TMDB/tmdb-media.interface';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
@@ -28,7 +28,7 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
     PersonCardComponent,
     NoSearchFoundComponent,
     MatProgressSpinnerModule,
-    InfiniteScrollModule,
+    InfiniteScrollDirective,
     MissingFieldPlaceholderComponent,
     TypeSuggestionComponent,
     LoadingSpinnerComponent,

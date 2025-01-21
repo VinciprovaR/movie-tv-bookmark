@@ -5,7 +5,6 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { BridgeDataService } from '../../../../core/services/bridge-data.service';
 import {
@@ -23,12 +22,7 @@ import {
 @Component({
   selector: 'app-search-people',
   standalone: true,
-  imports: [
-    CommonModule,
-    InputQueryComponent,
-    PersonListContainerComponent,
-    InfiniteScrollModule,
-  ],
+  imports: [CommonModule, InputQueryComponent, PersonListContainerComponent],
   providers: [BridgeDataService],
   templateUrl: './people-search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

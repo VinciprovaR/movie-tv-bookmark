@@ -11,7 +11,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable, takeUntil } from 'rxjs';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import {
@@ -29,6 +28,7 @@ import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/m
 import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 import { TypeSuggestionComponent } from '../type-suggestion/type-suggestion.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-media-list-container',
@@ -36,7 +36,7 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
   imports: [
     CommonModule,
     MediaCardComponent,
-    InfiniteScrollModule,
+    InfiniteScrollDirective,
     NoSearchFoundComponent,
     MatProgressSpinnerModule,
     MissingFieldPlaceholderComponent,
