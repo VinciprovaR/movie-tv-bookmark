@@ -15,9 +15,9 @@ export interface PredominantColor {
   textColorBlend: string;
 }
 
-export interface RandomImageState extends StateMediaBookmark {
+export interface TrendingMediaState extends StateMediaBookmark {
   randomImage: string;
-  mediaResult: [Movie[], TV[]];
+  mediaResult: { movie: Movie[]; tv: TV[] };
 }
 
 export interface ToggleThemeState {

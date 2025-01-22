@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  effect,
+  HostListener,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { map } from 'rxjs';
@@ -38,6 +46,7 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   icon = '';
   isDarkTheme = false;
   showNavMenuMobile: boolean = false;
+  $isScrolled: WritableSignal<boolean> = signal(false);
   private lastScrollTop = 0;
 
   constructor() {
@@ -47,7 +56,8 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('scroll', (e) => {
-      this.windowScrollEvent();
+      //this.windowScrollEvent();
+      this.onWindowScroll();
     });
   }
 
@@ -58,20 +68,27 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
     });
   }
 
-  //@HostListener('window:scroll', ['$event.target'])
-  windowScrollEvent() {
-    let scrollTop = window.document.documentElement.scrollTop;
-    if (scrollTop > this.lastScrollTop) {
-      if (scrollTop - this.lastScrollTop > 1) {
-        this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
-        if (this.showNavMenuMobile) {
-          this.toggleNavMenuMobile();
-        }
-      }
-    } else if (this.lastScrollTop - scrollTop > 1) {
-      this.renderer.removeClass(this.el.nativeElement.firstChild, 'header-up');
-    }
-    this.lastScrollTop = scrollTop;
+  // //@HostListener('window:scroll', ['$event.target'])
+  // windowScrollEvent() {
+  //   let scrollTop = window.document.documentElement.scrollTop;
+  //   if (scrollTop > this.lastScrollTop) {
+  //     if (scrollTop - this.lastScrollTop > 1) {
+  //       this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
+  //       if (this.showNavMenuMobile) {
+  //         this.toggleNavMenuMobile();
+  //       }
+  //     }
+  //   } else if (this.lastScrollTop - scrollTop > 1) {
+  //     this.renderer.removeClass(this.el.nativeElement.firstChild, 'header-up');
+  //   }
+  //   this.lastScrollTop = scrollTop;
+  // }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.$isScrolled.set(scrollTop > 0);
   }
 
   toggleNavMenuMobile() {

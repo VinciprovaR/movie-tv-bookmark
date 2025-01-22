@@ -1,4 +1,10 @@
-<header class="fixed w-full shadow-lg top-0 z-30 h-[60px]">
+<header
+  class="fixed w-full top-0 z-30 h-[60px]"
+  [ngClass]="{
+    'header-bg-visible': $isScrolled(),
+    'header-bg-trasparent': !$isScrolled()
+  }"
+>
   <div
     class="h-full flex justify-between items-center px-4 700:px-10 1024:px-20"
   >
@@ -51,4 +57,5 @@
   </div>
 
   }
+  <!-- <div class="absolute inset-x-0 bottom-0 h-[1px] bottom-decoration"></div> -->
 </header>

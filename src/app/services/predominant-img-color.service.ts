@@ -101,6 +101,9 @@ export class PredominantImgColorService {
     return `linear-gradient(to bottom, rgba(${rgbaValue[0]},${rgbaValue[1]},${
       rgbaValue[2]
     }, ${0.8}), rgba(${rgbaValue[0]},${rgbaValue[1]},${rgbaValue[2]}, ${0.7}))`;
+    // return `linear-gradient(to bottom, rgba(${rgbaValue[0]},${rgbaValue[1]},${
+    //   rgbaValue[2]
+    // }, ${0.05}), var(--theme-color-1))`;
   }
 
   getContentMediaGradient(rgbaValue: number[]) {

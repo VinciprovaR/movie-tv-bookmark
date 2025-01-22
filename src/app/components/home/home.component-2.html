@@ -1,0 +1,29 @@
+<!-- <div class="mt-[64px] ">
+  <div
+    class="grid grid-cols-[repeat(2,_minmax(0,_1fr))] 621:grid-cols-[repeat(3,_minmax(0,_1fr))] 896:grid-cols-[repeat(4,_minmax(0,_1fr))] 1200:grid-cols-[repeat(5,_minmax(0,_1fr))]"
+  >
+    @for(box of [1,2,3,4,5,6]; track box){
+
+    <div
+      class="w-full aspect-[9/16] bg-cover"
+      [ngStyle]="{
+          'background-image': $backgroundImageStyle()
+        }"
+    ></div>
+    }
+  </div>
+</div> -->
+
+<div
+  class="mt-[64px] max-h-[600px] max-w-[1280px] grid grid-cols-2 768:grid-cols-3 1280:grid-cols-6 place-items-center"
+>
+  @for(box of [1,2,3,4,5,6]; track box){
+
+  <div
+    class="h-[200px] aspect-[9/16] bg-cover"
+    [ngStyle]="{
+          'background-image': $backgroundImageStyle()
+        }"
+  ></div>
+  }
+</div>

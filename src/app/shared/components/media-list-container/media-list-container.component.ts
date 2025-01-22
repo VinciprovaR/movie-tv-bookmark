@@ -80,6 +80,8 @@ export class MediaListContainerComponent
   query!: string;
   @Input()
   loadingSpinnerText: string = 'Loading...';
+  @Input()
+  enableLoadingSpinner: boolean = true;
   @ViewChildren('itemsLi') itemsLi!: QueryList<ElementRef>;
   titleNotFound!: string;
   captionNotFound!: string;

@@ -25,8 +25,8 @@ export const STORAGE_KEY_TOKEN = new InjectionToken<string>(
 );
 
 export const IMG_SIZES = {
-  TMDB_1920W_1080H_IMG_URL: new InjectionToken<string>(
-    'TMDB_1920W_1080H_IMG_URL'
+  TMDB_BACKDROP_ORIGINAL_IMG_URL: new InjectionToken<string>(
+    'TMDB_BACKDROP_ORIGINAL_IMG_URL'
   ),
   TMDB_EVAL_COLOR_92W_IMG_URL: new InjectionToken<string>(
     'TMDB_EVAL_COLOR_92W_IMG_URL'
@@ -52,6 +52,9 @@ export const IMG_SIZES = {
   ),
   TMDB_BACKDROP_W_1280_IMG_URL: new InjectionToken<string>(
     'TMDB_BACKDROP_W_1280_IMG_URL'
+  ),
+  TMDB_POSTER_W_520_H_900_SMART_IMG_URL: new InjectionToken<string>(
+    'TMDB_POSTER_W_520_H_900_SMART_IMG_URL'
   ),
 };
 
@@ -116,6 +119,10 @@ export function provideImgUrl() {
   const endPointMedia = 'https://media.themoviedb.org/';
   return [
     {
+      provide: IMG_SIZES.TMDB_BACKDROP_ORIGINAL_IMG_URL,
+      useValue: `${endPointMedia}t/p/original`,
+    },
+    {
       provide: IMG_SIZES.TMDB_EVAL_COLOR_92W_IMG_URL,
       useValue: `${endPointMedia}t/p/w92`,
     },
@@ -146,6 +153,10 @@ export function provideImgUrl() {
     {
       provide: IMG_SIZES.TMDB_BACKDROP_W_1280_IMG_URL,
       useValue: `${endPointMedia}t/p/w1280`,
+    },
+    {
+      provide: IMG_SIZES.TMDB_POSTER_W_520_H_900_SMART_IMG_URL,
+      useValue: `${endPointMedia}t/p/w520_and_h900_smart`,
     },
   ];
 }

@@ -1,20 +1,19 @@
-<section class="w-full max-w-screen-3xl pt-[60px] space-y-8">
-  <!-- Header Section -->
-  <div class="bg-[var(--home-bg-asbent-image)]">
+<section class="m-auto w-full max-w-[1920px] space-y-8">
+  <div
+    class="bg-cover bg-top h-[100vh]"
+    [ngStyle]="{
+      'background-image': $backgroundImageStyle()
+    }"
+  >
     <div
-      class="bg-cover bg-top home-header"
+      class="h-full inset-0 flex flex-col items-center"
       [ngStyle]="{
-        'background-image': $backgroundImageStyle()
+        'background-image': $headerMediaGradient()
       }"
     >
-      <div
-        class="h-full inset-0 flex flex-col justify-center items-center"
-        [ngStyle]="{
-          'background-image': $headerMediaGradient()
-        }"
-      >
+      <div>
         <h1
-          class="text-4xl 640:text-5xl 768:text-6xl mb-4 text-white text-center"
+          class="text-4xl 640:text-5xl 768:text-6xl mb-4 mt-32 text-white text-center"
         >
           Movie &amp; TV Bookmark
         </h1>
@@ -23,21 +22,42 @@
             Search, discover, and save your favorite movies and tv shows.
           </p>
         </div>
-        <!-- text-lg 768:text-xl -->
-        <div class="w-[20%] min-w-[8rem] max-w-[12rem]">
-          <button
-            class="button-mt button-mt-role-normal"
-            (keyup)="scroll(features, features)"
-            (click)="scroll(features, features)"
-          >
-            Explore Now
-          </button>
-        </div>
       </div>
     </div>
   </div>
-  <div class="max-w-6xl m-auto space-y-8">
-    <!-- Main Features Section -->
+  <div class="mx-1 768:mx-4 1024:mx-16 space-y-8">
+    <div class="w-full">
+      <h2 class="px-6">Popular Movie</h2>
+      <app-media-list-container
+        [enableLoadingSpinner]="false"
+        [scrollSelf]="true"
+        [isLoading]="(trendingMediaLoading$ | async) ?? false"
+        [mediaList]="(trendingMediaMovieList$ | async) ?? []"
+        [mediaType]="'movie'"
+        [includeScrollEvents]="false"
+        [direction]="'horizontal'"
+        [personIdentifier]="'cast'"
+        [allowButtonAdditionalMedia]="false"
+      ></app-media-list-container>
+    </div>
+    <div class="w-full">
+      <h2 class="px-6">Popular TV</h2>
+      <app-media-list-container
+        [enableLoadingSpinner]="false"
+        [scrollSelf]="true"
+        [isLoading]="(trendingMediaLoading$ | async) ?? false"
+        [mediaList]="(trendingMediaTVList$ | async) ?? []"
+        [mediaType]="'movie'"
+        [includeScrollEvents]="false"
+        [direction]="'horizontal'"
+        [personIdentifier]="'cast'"
+        [allowButtonAdditionalMedia]="false"
+      ></app-media-list-container>
+    </div>
+  </div>
+
+  <!-- <div class="max-w-6xl m-auto space-y-8">
+   
     <div #features class="py-8 px-4 text-center">
       <h2 class="text-3xl 768:text-5xl font-bold mb-12">Main Features</h2>
       <div class="grid grid-cols-1 768:grid-cols-3 gap-8">
@@ -64,7 +84,7 @@
 
     <div class="border-separator"></div>
 
-    <!-- About Section -->
+
     <div id="about" class="py-8 px-4">
       <h2 class="text-3xl 768:text-5xl font-bold mb-8 text-center">
         About Movie &amp; TV Bookmark
@@ -128,7 +148,7 @@
 
     <div class="border-separator"></div>
 
-    <!-- Powered by -->
+
     <div class="py-8 px-4">
       <h2 class="text-3xl 768:text-5xl font-bold mb-8 text-center">
         Powered by
@@ -153,5 +173,5 @@
         ></a>
       </div>
     </div>
-  </div>
+  </div> -->
 </section>

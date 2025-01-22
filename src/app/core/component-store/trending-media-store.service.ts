@@ -1,12 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Actions } from '@ngrx/effects';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { TMDBTrendingMovieService } from '../../features/movie/services/tmdb-trending-movie.service';
 import { TMDBTrendingTVService } from '../../features/tv/services/tmdb-trending-tv.service';
 import { CustomHttpErrorResponseInterface } from '../../shared/interfaces/customHttpErrorResponse.interface';
-import { RandomImageState } from '../../shared/interfaces/layout.interface';
+import { TrendingMediaState } from '../../shared/interfaces/layout.interface';
 import {
   Movie,
   MovieResult,
@@ -21,12 +21,10 @@ export const randomImageInitializerFailure = createAction(
 );
 
 /**
- * RandomImageStore select a random image from the
- * trending movie or tv of a window of day or week
- *
+ * TrendingMediaStore retrive a list of trending Movies and Tvs of the week
  */
 @Injectable({ providedIn: 'root' })
-export class RandomImageStore extends ComponentStore<RandomImageState> {
+export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
   private readonly TMDBTrendingTVService = inject(TMDBTrendingTVService);
   readonly actions$ = inject(Actions);
   private readonly TMDBTrendingMovieService = inject(TMDBTrendingMovieService);
@@ -35,17 +33,19 @@ export class RandomImageStore extends ComponentStore<RandomImageState> {
   readonly selectRandomImage$ = this.select((state) => state.randomImage);
   readonly selectMediaResult$ = this.select((state) => state.mediaResult);
   readonly selectIsLoading$ = this.select((state) => state.isLoading);
+  readonly selectMovie$ = this.select((state) => state.mediaResult['movie']);
+  readonly selectTV$ = this.select((state) => state.mediaResult['tv']);
 
   constructor() {
     super({
       randomImage: '',
       isLoading: false,
       error: null,
-      mediaResult: [[], []],
+      mediaResult: { movie: [], tv: [] },
     });
   }
 
-  private readonly randomImageInitializerInit = this.updater((state) => {
+  private readonly tredingMediaInitializerInit = this.updater((state) => {
     return {
       ...state,
       isLoading: true,
@@ -53,13 +53,13 @@ export class RandomImageStore extends ComponentStore<RandomImageState> {
     };
   });
 
-  private readonly randomImageInitializerSuccess = this.updater(
+  private readonly tredingMediaInitializerSuccess = this.updater(
     (
       state,
       {
         randomImage,
         mediaResult,
-      }: { randomImage: string; mediaResult: [Movie[], TV[]] }
+      }: { randomImage: string; mediaResult: { movie: Movie[]; tv: TV[] } }
     ) => {
       return {
         isLoading: false,
@@ -70,7 +70,7 @@ export class RandomImageStore extends ComponentStore<RandomImageState> {
     }
   );
 
-  private readonly randomImageInitializerFailure = this.updater(
+  private readonly tredingMediaInitializerFailure = this.updater(
     (state, { error }: { error: CustomHttpErrorResponseInterface }) => {
       return {
         ...state,
@@ -91,57 +91,64 @@ export class RandomImageStore extends ComponentStore<RandomImageState> {
     }
   );
 
-  readonly randomImageInitializer = this.effect((_) => {
-    return _.pipe(
-      tap(() => {
-        this.randomImageInitializerInit();
-      }),
-      switchMap(() => {
-        if (
-          this.get().mediaResult[0].length > 0 &&
-          this.get().mediaResult[1].length > 0
-        ) {
-          return _.pipe(
-            tap(() => {
-              const randomImage = this.getRandomMediaImage([
-                this.get().mediaResult[0],
-                this.get().mediaResult[1],
-              ]);
-              this.randomImageSuccess({
-                randomImage,
-              });
-            })
-          );
-        }
-        return this.TMDBTrendingMovieService.trendingMovie('week').pipe(
-          switchMap((movieResult: MovieResult) => {
-            return this.TMDBTrendingTVService.trendingTV('week').pipe(
-              tap((tvResult: TVResult) => {
+  readonly tredingMediaInitializer = this.effect(
+    (value$: Observable<number>) => {
+      return value$.pipe(
+        tap(() => {
+          this.tredingMediaInitializerInit();
+        }),
+        switchMap(() => {
+          if (
+            this.get().mediaResult['movie'].length > 0 &&
+            this.get().mediaResult['tv'].length > 0
+          ) {
+            return of(Date.now()).pipe(
+              tap(() => {
                 const randomImage = this.getRandomMediaImage([
-                  movieResult.results,
-                  tvResult.results,
+                  this.get().mediaResult['movie'],
+                  this.get().mediaResult['tv'],
                 ]);
-                this.randomImageInitializerSuccess({
+                this.randomImageSuccess({
                   randomImage,
-                  mediaResult: [movieResult.results, tvResult.results],
                 });
               })
             );
-          }),
-          catchError((httpErrorResponse: CustomHttpErrorResponseInterface) => {
-            return of(_).pipe(
-              tap(() => {
-                this.randomImageInitializerFailure(httpErrorResponse);
-                this.store.dispatch(
-                  randomImageInitializerFailure({ httpErrorResponse })
+          }
+          return this.TMDBTrendingMovieService.trendingMovie('week').pipe(
+            switchMap((movieResult: MovieResult) => {
+              return this.TMDBTrendingTVService.trendingTV('week').pipe(
+                tap((tvResult: TVResult) => {
+                  const randomImage = this.getRandomMediaImage([
+                    movieResult.results,
+                    tvResult.results,
+                  ]);
+                  this.tredingMediaInitializerSuccess({
+                    randomImage,
+                    mediaResult: {
+                      movie: movieResult.results,
+                      tv: tvResult.results,
+                    },
+                  });
+                })
+              );
+            }),
+            catchError(
+              (httpErrorResponse: CustomHttpErrorResponseInterface) => {
+                return of().pipe(
+                  tap(() => {
+                    this.tredingMediaInitializerFailure(httpErrorResponse);
+                    this.store.dispatch(
+                      randomImageInitializerFailure({ httpErrorResponse })
+                    );
+                  })
                 );
-              })
-            );
-          })
-        );
-      })
-    );
-  });
+              }
+            )
+          );
+        })
+      );
+    }
+  );
 
   private getRandomMediaImage(mediaLists: [Movie[], TV[]]): string {
     return mediaLists[Math.floor(Math.random() * 2)][
@@ -151,7 +158,7 @@ export class RandomImageStore extends ComponentStore<RandomImageState> {
     ].backdrop_path;
   }
 
-  logState(state: RandomImageState, action: string) {
+  logState(state: TrendingMediaState, action: string) {
     console.log(action, state);
   }
 }

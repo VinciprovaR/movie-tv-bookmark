@@ -30,7 +30,7 @@
   --bg-danger-hover: rgb(214, 16, 46);
   --bg-danger-active: rgb(233, 35, 65);
   --bookmark-icon-selected: rgb(33, 173, 234);
-  --home-bg-asbent-image: rgb(63, 78, 85);
+  --home-bg-absent-image: rgb(63, 78, 85);
   --disabled-text-color: rgb(176, 176, 176);
 }
 
@@ -38,6 +38,16 @@ body.light {
   --theme-color-1: rgb(245, 245, 245);
   --theme-color-2: rgb(184, 207, 231);
   --theme-color-3: rgb(255, 255, 255);
+  --header-bg-top: rgba(237, 241, 245, 0.8);
+  --header-bg: rgb(219, 226, 234);
+  --header-bottom-decoraration: linear-gradient(
+    to right,
+    #93c5fd,
+    #38bdf8,
+    #2563eb
+  );
+  --header-bg-gradient: rgba(245, 245, 245, 0.7);
+  --footer: rgb(219, 226, 234);
   --theme-color-complementary: rgb(0, 122, 255);
   --theme-color-complementary-op: rgb(83, 146, 213);
   --theme-color-sub-menu: rgb(226, 226, 226);
@@ -63,10 +73,21 @@ body.light {
   --shadow-card: rgba(0, 0, 0, 0.8);
   --bg-bookmark: rgb(80, 123, 168);
 }
+
 body.dark {
-  --theme-color-1: rgb(20, 20, 20);
+  --theme-color-1: rgb(25, 25, 25);
   --theme-color-2: rgb(35, 40, 50);
   --theme-color-3: rgb(31, 35, 44);
+  --header-bg-top: rgba(15, 15, 15, 0.8);
+  --header-bg: rgba(15, 15, 15, 1);
+  --header-bottom-decoraration: linear-gradient(
+    to right,
+    #ef5656,
+    #d93d3d,
+    #812929
+  );
+  --header-bg-gradient: rgba(25, 25, 25, 0.3);
+  --footer: rgba(15, 15, 15, 1);
   --theme-color-complementary: rgb(138, 3, 3);
   --theme-color-complementary-op: rgb(138, 31, 31);
   --text-color: var(--text-color-light);
@@ -110,9 +131,8 @@ body {
   min-width: 320px;
 }
 
-header,
 footer {
-  background-color: var(--theme-color-2);
+  background-color: var(--footer);
 }
 
 h1,
@@ -591,6 +611,14 @@ youtube-player div:first-child {
 
 .blur-color-search {
   @apply absolute w-full h-[500px] bg-gradient-to-br from-pink-400 to-[#0055D1] blur-3xl opacity-40 -z-50;
+}
+
+mat-progress-bar .mdc-linear-progress__secondary-bar {
+  color: var(--theme-color-complementary);
+}
+
+mat-progress-bar .mdc-linear-progress__primary-bar {
+  color: rgba(0, 0, 0, 0);
 }
 
 /****************** End ******************/

@@ -1,7 +1,3 @@
-.home-header {
-  height: calc(100vh - 60px);
-}
-
 .border-feature {
   border-color: var(--border-color);
   border-style: solid;

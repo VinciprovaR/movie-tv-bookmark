@@ -9,9 +9,9 @@
   <ul
     class="grid p-0 m-0"
     [ngClass]="{
-      'grid-cols-[repeat(2,_minmax(0,_1fr))] 621:grid-cols-[repeat(3,_minmax(0,_1fr))] 896:grid-cols-[repeat(4,_minmax(0,_1fr))] 1200:grid-cols-[repeat(5,_minmax(0,_1fr))] grid-tiers gap-x-6 1024:gap-x-8 gap-y-8':
+      'grid-cols-[repeat(2,_minmax(0,_1fr))] 621:grid-cols-[repeat(3,_minmax(0,_1fr))] 896:grid-cols-[repeat(4,_minmax(0,_1fr))] 1200:grid-cols-[repeat(5,_minmax(0,_1fr))]  gap-x-6 1024:gap-x-8 gap-y-8':
         direction === 'vertical',
-      'grid-flow-col grid-columns auto-cols-[160px] 640:auto-cols-[180px] overflow-x-scroll overflow-y-hidden pl-6 py-6 gap-8':
+      'grid-flow-col grid-columns auto-cols-[160px] 640:auto-cols-[180px] overflow-x-scroll overflow-y-hidden p-6 gap-8':
         direction === 'horizontal'
     }"
   >
@@ -59,6 +59,7 @@
     <app-type-suggestion [mediaType]="mediaType"></app-type-suggestion>
     }
   </div>
-  } @else {
-  <app-loading-spinner [text]="loadingSpinnerText"></app-loading-spinner> }
+  } @else { @if(enableLoadingSpinner){
+  <app-loading-spinner [text]="loadingSpinnerText"></app-loading-spinner>
+  } }
 </div>
