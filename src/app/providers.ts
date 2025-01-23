@@ -1,4 +1,9 @@
-import { APP_INITIALIZER, InjectionToken } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  inject,
+  InjectionToken,
+  provideAppInitializer,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { GlobalErrorStore } from './core/component-store/global-error-store.service';
@@ -95,24 +100,16 @@ export function provideSupabaseClient() {
 }
 
 export function provideInitRootServices() {
-  return {
-    provide: APP_INITIALIZER,
-    useFactory:
-      (
-        a: SupabaseAuthEventsService,
-        b: GlobalErrorStore,
-        c: NotifierStore,
-        d: ToggleThemeService
-      ) =>
-      () => {},
-    deps: [
-      SupabaseAuthEventsService,
-      GlobalErrorStore,
-      NotifierStore,
-      ToggleThemeService,
-    ],
-    multi: true,
-  };
+  return provideAppInitializer(() => {
+    inject(SupabaseAuthEventsService);
+    inject(GlobalErrorStore);
+    inject(NotifierStore);
+    inject(ToggleThemeService);
+    const store = inject(Store);
+    store.dispatch(AuthActions.currentUser());
+    store.dispatch(BookmarkMetadataActions.retriveBookmarkMetadata());
+    store.dispatch(FiltersMetadataActions.getFiltersMetadata());
+  });
 }
 
 export function provideImgUrl() {
@@ -159,39 +156,6 @@ export function provideImgUrl() {
       useValue: `${endPointMedia}t/p/w520_and_h900_smart`,
     },
   ];
-}
-
-export function provideCurrentUser() {
-  return {
-    provide: APP_INITIALIZER,
-    useFactory: (store: Store) => () => {
-      store.dispatch(AuthActions.currentUser());
-    },
-    deps: [Store],
-    multi: true,
-  };
-}
-
-export function provideBookmarkSelect() {
-  return {
-    provide: APP_INITIALIZER,
-    useFactory: (store: Store) => () => {
-      store.dispatch(BookmarkMetadataActions.retriveBookmarkMetadata());
-    },
-    deps: [Store],
-    multi: true,
-  };
-}
-
-export function provideSelectFilters() {
-  return {
-    provide: APP_INITIALIZER,
-    useFactory: (store: Store) => () => {
-      store.dispatch(FiltersMetadataActions.getFiltersMetadata());
-    },
-    deps: [Store],
-    multi: true,
-  };
 }
 
 export function provideDarkThemeLocalStorageKey() {

@@ -20,6 +20,7 @@ import { DiscoveryTVActions } from '../discovery-tv';
 import { SearchTVActions } from '../search-tv';
 import { TVData } from '../../../shared/interfaces/supabase/media-data.entity.interface';
 import { AskAiActions } from '../ask-ai';
+import { trendingTVSuccess } from '../../component-store/trending-media-store.service';
 
 @Injectable()
 export class TVBookmarkEffects {
@@ -68,7 +69,8 @@ export class TVBookmarkEffects {
         DiscoveryTVActions.discoveryAdditionalTVSuccess,
         DiscoveryTVActions.discoveryTVLandingSuccess,
         AskAiActions.askAiTVSuccess,
-        personDetailTVCreditsSuccess
+        personDetailTVCreditsSuccess,
+        trendingTVSuccess
       ),
       switchMap((action) => {
         let { tvResult }: { tvResult: TVResult } = action;

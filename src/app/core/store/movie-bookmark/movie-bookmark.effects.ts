@@ -20,6 +20,7 @@ import { AuthSelectors, AuthActions } from '../auth';
 import { DiscoveryMovieActions } from '../discovery-movie';
 import { SearchMovieActions } from '../search-movie';
 import { AskAiActions } from '../ask-ai';
+import { trendingMovieSuccess } from '../../component-store/trending-media-store.service';
 
 @Injectable()
 export class MovieBookmarkEffects {
@@ -69,7 +70,8 @@ export class MovieBookmarkEffects {
         DiscoveryMovieActions.discoveryAdditionalMovieSuccess,
         DiscoveryMovieActions.discoveryMovieLandingSuccess,
         AskAiActions.askAiMovieSuccess,
-        personDetailMovieCreditsSuccess
+        personDetailMovieCreditsSuccess,
+        trendingMovieSuccess
       ),
       switchMap((action) => {
         let { movieResult }: { movieResult: MovieResult } = action;

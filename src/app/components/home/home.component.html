@@ -26,33 +26,17 @@
     </div>
   </div>
   <div class="mx-1 768:mx-4 1024:mx-16 space-y-8">
-    <div class="w-full">
-      <h2 class="px-6">Popular Movie</h2>
-      <app-media-list-container
-        [enableLoadingSpinner]="false"
-        [scrollSelf]="true"
-        [isLoading]="(trendingMediaLoading$ | async) ?? false"
-        [mediaList]="(trendingMediaMovieList$ | async) ?? []"
-        [mediaType]="'movie'"
-        [includeScrollEvents]="false"
-        [direction]="'horizontal'"
-        [personIdentifier]="'cast'"
-        [allowButtonAdditionalMedia]="false"
-      ></app-media-list-container>
+    <div>
+      <app-popular-movie
+        [isLoading]="(trendingMediaIsLoading$ | async) ?? false"
+        [trendingMediaMovieList]="(trendingMediaMovieList$ | async) ?? []"
+      ></app-popular-movie>
     </div>
-    <div class="w-full">
-      <h2 class="px-6">Popular TV</h2>
-      <app-media-list-container
-        [enableLoadingSpinner]="false"
-        [scrollSelf]="true"
-        [isLoading]="(trendingMediaLoading$ | async) ?? false"
-        [mediaList]="(trendingMediaTVList$ | async) ?? []"
-        [mediaType]="'movie'"
-        [includeScrollEvents]="false"
-        [direction]="'horizontal'"
-        [personIdentifier]="'cast'"
-        [allowButtonAdditionalMedia]="false"
-      ></app-media-list-container>
+    <div>
+      <app-popular-tv
+        [isLoading]="(trendingMediaIsLoading$ | async) ?? false"
+        [trendingMediaTVList]="(trendingMediaTVList$ | async) ?? []"
+      ></app-popular-tv>
     </div>
   </div>
 

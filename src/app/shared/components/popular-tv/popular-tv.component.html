@@ -1,0 +1,14 @@
+<div class="w-full">
+  <h2 class="px-6">Popular TV</h2>
+  <app-media-list-container
+    [enableLoadingSpinner]="false"
+    [scrollSelf]="true"
+    [isLoading]="isLoading"
+    [mediaList]="trendingMediaTVList"
+    [mediaType]="'tv'"
+    [includeScrollEvents]="false"
+    [direction]="'horizontal'"
+    [personIdentifier]="'cast'"
+    [allowButtonAdditionalMedia]="false"
+  ></app-media-list-container>
+</div>

@@ -1,6 +1,7 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
+  provideAppInitializer,
   provideExperimentalZonelessChangeDetection,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -30,13 +31,10 @@ import { SearchTVEffects } from './core/store/search-tv/search-tv.effects';
 import { TVBookmarkEffects } from './core/store/tv-bookmark/tv-bookmark.effects';
 import {
   provideBookmarkNavElements,
-  provideBookmarkSelect,
-  provideCurrentUser,
   provideDarkThemeLocalStorageKey,
   provideHeaderNavElements,
   provideImgUrl,
   provideInitRootServices,
-  provideSelectFilters,
   provideStorageKey,
   provideSupabaseClient,
 } from './providers';
@@ -52,9 +50,6 @@ export const appConfig: ApplicationConfig = {
     provideStorageKey(),
     provideSupabaseClient(),
     provideInitRootServices(),
-    provideCurrentUser(),
-    provideBookmarkSelect(),
-    provideSelectFilters(),
     provideAnimations(),
     provideImgUrl(),
     provideBookmarkNavElements(),

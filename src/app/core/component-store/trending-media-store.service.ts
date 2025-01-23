@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { Actions } from '@ngrx/effects';
+import { Actions, createEffect } from '@ngrx/effects';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { TMDBTrendingMovieService } from '../../features/movie/services/tmdb-trending-movie.service';
@@ -20,6 +20,14 @@ export const randomImageInitializerFailure = createAction(
   props<{ httpErrorResponse: CustomHttpErrorResponseInterface }>()
 );
 
+export const trendingTVSuccess = createAction(
+  '[Trending-tv] Trending TV Success',
+  props<{ tvResult: TVResult }>()
+);
+export const trendingMovieSuccess = createAction(
+  '[Trending-movie] Trending Movie Success',
+  props<{ movieResult: MovieResult }>()
+);
 /**
  * TrendingMediaStore retrive a list of trending Movies and Tvs of the week
  */
@@ -129,6 +137,8 @@ export class TrendingMediaStore extends ComponentStore<TrendingMediaState> {
                       tv: tvResult.results,
                     },
                   });
+                  this.store.dispatch(trendingMovieSuccess({ movieResult }));
+                  this.store.dispatch(trendingTVSuccess({ tvResult }));
                 })
               );
             }),
