@@ -1,9 +1,4 @@
-import {
-  APP_INITIALIZER,
-  inject,
-  InjectionToken,
-  provideAppInitializer,
-} from '@angular/core';
+import { inject, InjectionToken, provideAppInitializer } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { GlobalErrorStore } from './core/component-store/global-error-store.service';

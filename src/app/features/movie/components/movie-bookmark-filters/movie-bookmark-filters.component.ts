@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { delay, filter, Observable, takeUntil } from 'rxjs';
+import { filter, Observable, takeUntil } from 'rxjs';
 import {
   MovieBookmarkActions,
   MovieBookmarkSelectors,

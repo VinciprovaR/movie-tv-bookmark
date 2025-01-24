@@ -16,7 +16,7 @@ import { LoadingService } from '../../services/loading.service';
   templateUrl: './loading.component.html',
 })
 export class LoadingComponent extends AbstractComponent implements OnInit {
-  private loadingService = inject(LoadingService);
+  readonly loadingService = inject(LoadingService);
 
   toggleIsLoading$ = this.loadingService.toggleIsLoading$;
 

@@ -51,7 +51,6 @@ export abstract class AbstractMediaDetailComponent extends AbstractComponent {
 
   setBookmarkLabel(bookmarkOption: BookmarkOption) {
     this.$bookmarkLabel.set(bookmarkOption.label);
-    // this.bookmarkClass = bookmarkOption.class;
   }
 
   setDetailTone(predominantColor: PredominantColor) {

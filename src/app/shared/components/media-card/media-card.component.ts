@@ -1,6 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import {
-  AfterContentInit,
   Component,
   inject,
   Input,
@@ -68,7 +67,6 @@ export class MediaCardComponent
   voteIcon: string = '';
   bookmarkSelectorAbsentIsOpen = false;
   $bookmarkLabel: WritableSignal<string> = signal('');
-  //  bookmarkClass: string = '';
 
   constructor() {
     super();
@@ -127,6 +125,5 @@ export class MediaCardComponent
 
   setBookmarkLabel(bookmarkOption: BookmarkOption) {
     this.$bookmarkLabel.set(bookmarkOption.label);
-    // this.bookmarkClass = bookmarkOption.class;
   }
 }

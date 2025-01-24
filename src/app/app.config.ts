@@ -1,9 +1,7 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
-  provideAppInitializer,
   provideExperimentalZonelessChangeDetection,
-  provideZoneChangeDetection,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {

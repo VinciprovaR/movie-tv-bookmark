@@ -47,7 +47,6 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   isDarkTheme = false;
   showNavMenuMobile: boolean = false;
   $isScrolled: WritableSignal<boolean> = signal(false);
-  private lastScrollTop = 0;
 
   constructor() {
     super();
@@ -56,7 +55,6 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('scroll', (e) => {
-      //this.windowScrollEvent();
       this.onWindowScroll();
     });
   }
@@ -67,22 +65,6 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
       this.icon = this.toggleThemeService.$icon();
     });
   }
-
-  // //@HostListener('window:scroll', ['$event.target'])
-  // windowScrollEvent() {
-  //   let scrollTop = window.document.documentElement.scrollTop;
-  //   if (scrollTop > this.lastScrollTop) {
-  //     if (scrollTop - this.lastScrollTop > 1) {
-  //       this.renderer.addClass(this.el.nativeElement.firstChild, 'header-up');
-  //       if (this.showNavMenuMobile) {
-  //         this.toggleNavMenuMobile();
-  //       }
-  //     }
-  //   } else if (this.lastScrollTop - scrollTop > 1) {
-  //     this.renderer.removeClass(this.el.nativeElement.firstChild, 'header-up');
-  //   }
-  //   this.lastScrollTop = scrollTop;
-  // }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {

@@ -21,7 +21,7 @@ export class GlobalErrorStore extends ComponentStore<GlobalErrorState> {
     return type.toLowerCase().includes('failure');
   };
 
-  readonly isSuccess = (action: unknown & Action) => {
+  readonly isSuccess = (action: Action) => {
     let type: string = action.type;
     return type.toLowerCase().includes('success');
   };
