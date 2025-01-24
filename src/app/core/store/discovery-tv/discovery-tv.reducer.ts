@@ -25,6 +25,7 @@ export const initialState: DiscoveryTVState = {
   },
   noAdditional: false,
   isfirstLanding: true,
+  infiniteScrollDisabled: true,
 };
 
 export const discoveryTVReducer = createReducer(
@@ -74,6 +75,7 @@ export const discoveryTVReducer = createReducer(
       ...state,
       error: null,
       isLoading: true,
+      infiniteScrollDisabled: false,
     };
   }),
   on(DiscoveryTVActions.discoveryTV, (state, { payload }): DiscoveryTVState => {
@@ -82,6 +84,7 @@ export const discoveryTVReducer = createReducer(
       payload,
       error: null,
       isLoading: true,
+      infiniteScrollDisabled: false,
     };
   }),
   on(
@@ -149,3 +152,5 @@ export const getTVResultTotalPages = (state: DiscoveryTVState) =>
 export const getNoAdditional = (state: DiscoveryTVState) => state.noAdditional;
 export const getIsFirstLanding = (state: DiscoveryTVState) =>
   state.isfirstLanding;
+export const getInfiniteScrollDisabled = (state: DiscoveryTVState) =>
+  state.infiniteScrollDisabled;

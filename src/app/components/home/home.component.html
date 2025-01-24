@@ -1,161 +1,53 @@
 <section class="m-auto w-full max-w-[1920px] space-y-8">
   <div
-    class="bg-cover bg-top h-[100vh]"
+    class="bg-cover bg-top h-[80vh]"
     [ngStyle]="{
       'background-image': $backgroundImageStyle()
     }"
   >
     <div
-      class="h-full inset-0 flex flex-col items-center"
+      class="h-full background-placeholder inset-0 flex flex-col justify-center items-center"
       [ngStyle]="{
         'background-image': $headerMediaGradient()
       }"
     >
-      <div>
+      <div class="text-center py-8 px-6">
         <h1
-          class="text-4xl 640:text-5xl 768:text-6xl mb-4 mt-32 text-white text-center"
+          class="text-5xl 640:text-6xl 768:text-7xl 1024:text-8xl mb-4 text-gradient font-extrabold stroke-black drop-shadow-md"
+          [ngClass]="{
+            'text-gradient-light': $predominantColorIsDark(),
+            'text-gradient-dark': !$predominantColorIsDark()
+          }"
         >
           Movie &amp; TV Bookmark
         </h1>
-        <div class="px-4">
-          <p class="text-lg 768:text-2xl mb-8 text-white text-center">
-            Search, discover, and save your favorite movies and tv shows.
-          </p>
-        </div>
+        <p
+          class="text-lg 768:text-xl 1024:text-2xl max-w-4xl mx-auto"
+          [ngClass]="{
+            'header-text-gray-light': $predominantColorIsDark(),
+            'header-text-gray-dark': !$predominantColorIsDark()
+          }"
+        >
+          Search, explore, and save your movies and TV shows. Discover more with
+          AI-powered prompts.
+        </p>
       </div>
     </div>
   </div>
-  <div class="mx-1 768:mx-4 1024:mx-16 space-y-8">
-    <div>
-      <app-popular-movie
-        [isLoading]="(trendingMediaIsLoading$ | async) ?? false"
-        [trendingMediaMovieList]="(trendingMediaMovieList$ | async) ?? []"
-      ></app-popular-movie>
-    </div>
-    <div>
-      <app-popular-tv
-        [isLoading]="(trendingMediaIsLoading$ | async) ?? false"
-        [trendingMediaTVList]="(trendingMediaTVList$ | async) ?? []"
-      ></app-popular-tv>
+  <div class="">
+    <div class="mx-4 768:mx-14 1024:mx-20 space-y-8">
+      <div>
+        <app-popular-movie
+          [isLoading]="(trendingMediaIsLoading$ | async) ?? false"
+          [trendingMediaMovieList]="(trendingMediaMovieList$ | async) ?? []"
+        ></app-popular-movie>
+      </div>
+      <div>
+        <app-popular-tv
+          [isLoading]="(trendingMediaIsLoading$ | async) ?? false"
+          [trendingMediaTVList]="(trendingMediaTVList$ | async) ?? []"
+        ></app-popular-tv>
+      </div>
     </div>
   </div>
-
-  <!-- <div class="max-w-6xl m-auto space-y-8">
-   
-    <div #features class="py-8 px-4 text-center">
-      <h2 class="text-3xl 768:text-5xl font-bold mb-12">Main Features</h2>
-      <div class="grid grid-cols-1 768:grid-cols-3 gap-8">
-        <div class="p-6 border-container">
-          <h3 class="text-2xl font-semibold mb-4">Extensive Database</h3>
-          <p>
-            Access thousands of movies and TV shows, searching by title, genre,
-            year or other available filters.
-          </p>
-        </div>
-        <div class="p-6 border-container">
-          <h3 class="text-2xl font-semibold mb-4">Save to Bookmarks</h3>
-          <p>Easily save and organize your favorite movies or tv shows.</p>
-        </div>
-        <div class="p-6 border-container">
-          <h3 class="text-2xl font-semibold mb-4">Search by cast or crew</h3>
-          <p>
-            You can also search cast and crew to view in which movies or tv
-            shows they have partecipated.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="border-separator"></div>
-
-
-    <div id="about" class="py-8 px-4">
-      <h2 class="text-3xl 768:text-5xl font-bold mb-8 text-center">
-        About Movie &amp; TV Bookmark
-      </h2>
-      <p class="text-lg 768:text-xl mb-8 text-center">
-        A simple skill showcase web-app for searching and saving movies and tv
-        shows in dedicated bookmarks. Explore and update your movies and tv
-        shows saved in the bookmarks section as you wish! You can also remove a
-        media from the bookmark.
-      </p>
-      <div class="flex justify-center">
-        <ul class="space-y-6 p-0">
-          <li class="flex">
-            <span class="flex-shrink-0 h-8 w-8">
-              <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
-            </span>
-            <div class="ml-4">
-              <h3 class="text-xl font-medium">Watchlist Bookmark</h3>
-              <p class="mt-1">
-                Save movies and tv shows that you'd like to watch someday!
-              </p>
-            </div>
-          </li>
-          <li class="flex">
-            <span class="flex-shrink-0 h-8 w-8">
-              <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
-            </span>
-            <div class="ml-4">
-              <h3 class="text-xl font-medium">Watched Bookmark</h3>
-              <p class="mt-1">
-                A list of movies and tv show that you've already watched, just
-                to keep in mind!
-              </p>
-            </div>
-          </li>
-          <li class="flex">
-            <span class="flex-shrink-0 h-8 w-8">
-              <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
-            </span>
-            <div class="ml-4">
-              <h3 class="text-xl font-medium">Rewatch Bookmark</h3>
-              <p class="mt-1">
-                A list of movies and tv show that you'd like to watch again!
-              </p>
-            </div>
-          </li>
-          <li class="flex">
-            <span class="flex-shrink-0 h-8 w-8">
-              <mat-icon aria-hidden="false" fontIcon="bookmark"></mat-icon>
-            </span>
-            <div class="ml-4">
-              <h3 class="text-xl font-medium">Still Watching Bookmark</h3>
-              <p class="mt-1">
-                A list of movies and tv show that you haven't finished yet!
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="border-separator"></div>
-
-
-    <div class="py-8 px-4">
-      <h2 class="text-3xl 768:text-5xl font-bold mb-8 text-center">
-        Powered by
-      </h2>
-      <p class="text-lg 768:text-xl mb-8 text-center">
-        Movie &amp; TV Bookmark uses the TMDB API but is not endorsed or
-        certified by TMDB.
-      </p>
-      <div class="w-[50%] aspect-[2/1] items-center m-auto">
-        <a [href]="'https://www.themoviedb.org/'" target="_blank">
-          <app-img
-            [alt]="'TMDB logo'"
-            [title]="'TMDB logo'"
-            [imgSrc]="
-              'https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg'
-            "
-            [priority]="true"
-            [customClasses]="'radius-container-int'"
-            [isPlaceholderPerson]="false"
-            [baseUrl]="''"
-          ></app-img
-        ></a>
-      </div>
-    </div>
-  </div> -->
 </section>

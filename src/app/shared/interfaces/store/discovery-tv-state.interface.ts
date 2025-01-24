@@ -18,4 +18,5 @@ export interface DiscoveryTVState extends StateMediaBookmark {
   tvResult: TVResult;
   noAdditional: boolean;
   isfirstLanding: boolean;
+  infiniteScrollDisabled: boolean;
 }

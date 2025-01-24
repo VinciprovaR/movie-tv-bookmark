@@ -201,7 +201,7 @@ export function provideHeaderNavElements() {
       },
       d_ai: {
         single: true,
-        label: 'AI',
+        label: 'Ask AI',
         paths: ['/ask'],
         needAuth: false,
       },
@@ -221,6 +221,12 @@ export function provideHeaderNavElements() {
         paths: ['/login'],
         needAuth: false,
         onlyNonAuth: true,
+      },
+      f_about: {
+        single: true,
+        label: 'About',
+        paths: ['/about'],
+        needAuth: false,
       },
     },
   };

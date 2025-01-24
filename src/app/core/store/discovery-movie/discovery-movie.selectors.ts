@@ -58,5 +58,10 @@ export const selectIsFirstLanding = createSelector(
   DiscoveryMovieReducer.getIsFirstLanding
 );
 
+export const selectInfiniteScrollDisabled = createSelector(
+  discoveryMovieFeatureSelector,
+  DiscoveryMovieReducer.getInfiniteScrollDisabled
+);
+
 export const scrollTo$ = new Subject<null>();
 export const scrollToObs$: Observable<null> = scrollTo$.asObservable();

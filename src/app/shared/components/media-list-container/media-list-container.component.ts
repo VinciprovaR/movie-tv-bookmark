@@ -82,6 +82,8 @@ export class MediaListContainerComponent
   loadingSpinnerText: string = 'Loading...';
   @Input()
   enableLoadingSpinner: boolean = true;
+  @Input()
+  infiniteScrollDisabled: boolean = true;
   @ViewChildren('itemsLi') itemsLi!: QueryList<ElementRef>;
   titleNotFound!: string;
   captionNotFound!: string;
@@ -104,6 +106,7 @@ export class MediaListContainerComponent
     this.titleNotFound = `No ${mediaTypeLbl} found`;
     this.noMoreAdditionalCaption = `There are no more additional ${mediaTypeLbl} for this query`;
     this.initSubscriptions();
+    console.log('infiniteScrollDisabled: ' + this.infiniteScrollDisabled);
   }
 
   ngAfterViewInit(): void {

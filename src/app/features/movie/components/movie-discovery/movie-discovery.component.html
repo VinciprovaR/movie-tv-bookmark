@@ -12,6 +12,7 @@
   </div>
   <div class="1024:w-3/4 ml-0 1024:ml-6 mt-6 1024:mt-0" #elSm>
     <app-media-list-container
+      [infiniteScrollDisabled]="(selectInfiniteScrollDisabled$ | async) ?? true"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="(selectMovieList$ | async) ?? []"
       (emitDiscoveryAdditionalMedia)="discoveryAdditionalMovie()"

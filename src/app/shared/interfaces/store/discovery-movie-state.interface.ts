@@ -18,4 +18,5 @@ export interface DiscoveryMovieState extends StateMediaBookmark {
   movieResult: MovieResult;
   noAdditional: boolean;
   isFirstLanding: boolean;
+  infiniteScrollDisabled: boolean;
 }

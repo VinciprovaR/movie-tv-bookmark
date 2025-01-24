@@ -11,11 +11,17 @@ import { PredominantColor } from '../../shared/interfaces/layout.interface';
 import { Movie, TV } from '../../shared/interfaces/TMDB/tmdb-media.interface';
 import { PopularMovieComponent } from '../../shared/components/popular-movie/popular-movie.component';
 import { PopularTVComponent } from '../../shared/components/popular-tv/popular-tv.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, PopularMovieComponent, PopularTVComponent],
+  imports: [
+    CommonModule,
+    PopularMovieComponent,
+    PopularTVComponent,
+    RouterModule,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -37,7 +43,7 @@ export class HomeComponent extends AbstractComponent implements OnInit {
   $headerMediaGradient = signal('');
   $textColorBlend = signal('');
   $backgroundImageStyle = signal('');
-  v!: number;
+  $predominantColorIsDark = signal(false);
 
   constructor() {
     super();
@@ -63,6 +69,7 @@ export class HomeComponent extends AbstractComponent implements OnInit {
       .subscribe((predominantColor: PredominantColor) => {
         this.$textColorBlend.set(predominantColor.textColorBlend);
         this.$headerMediaGradient.set(predominantColor.headerMediaGradient);
+        this.$predominantColorIsDark.set(predominantColor.isDark);
       });
 
     this.randomImage$

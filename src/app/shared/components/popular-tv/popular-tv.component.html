@@ -1,6 +1,7 @@
 <div class="w-full">
-  <h2 class="px-6">Popular TV</h2>
+  <h2 class="px-6">Trending TV Shows</h2>
   <app-media-list-container
+    [infiniteScrollDisabled]="true"
     [enableLoadingSpinner]="false"
     [scrollSelf]="true"
     [isLoading]="isLoading"

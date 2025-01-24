@@ -1,7 +1,7 @@
 <div
   infinite-scroll
   (scrolled)="discoveryAdditionalMedia()"
-  [infiniteScrollDisabled]="isLoading"
+  [infiniteScrollDisabled]="isLoading || infiniteScrollDisabled"
   [infiniteScrollDistance]="0.4"
   class="box-border"
 >

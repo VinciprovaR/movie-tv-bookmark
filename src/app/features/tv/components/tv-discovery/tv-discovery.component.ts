@@ -58,6 +58,7 @@ export class TVDiscoveryComponent
   mediaType: MediaType = 'tv';
   isFirstLanding: boolean = true;
   elXl: HTMLElement = window.document.body;
+  selectInfiniteScrollDisabled$!: Observable<boolean>;
 
   constructor() {
     super();
@@ -106,6 +107,10 @@ export class TVDiscoveryComponent
     );
 
     this.selectScrollTo$ = DiscoveryTVSelectors.scrollToObs$;
+
+    this.selectInfiniteScrollDisabled$ = this.store.select(
+      DiscoveryTVSelectors.selectInfiniteScrollDisabled
+    );
   }
 
   initSubscriptions() {

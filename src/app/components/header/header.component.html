@@ -15,16 +15,18 @@
     </div>
 
     <div class="flex items-center">
-      @if(pageEventService.$windowInnerWidth() >= 700) {
+      @if(pageEventService.$windowInnerWidth() >= 820) {
       <app-navigator-desktop
         [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
         [navElements]="navElements"
       ></app-navigator-desktop>
-      } @else { }
-
+      } @else {
       <div class="flex items-center justify-between">
-        @if(pageEventService.$windowInnerWidth() < 700) {
-        <span class="700:hidden">
+        <span
+          [ngClass]="{
+            hidden: pageEventService.$windowInnerWidth() >= 820
+          }"
+        >
           <mat-icon
             id="mobile-menu-btn"
             aria-hidden="false"
@@ -32,15 +34,17 @@
             (keyup)="toggleNavMenuMobile()"
             (click)="toggleNavMenuMobile()"
             class="focus:outline-none hover:cursor-pointer"
-          ></mat-icon> </span
-        >}
+          ></mat-icon>
+        </span>
       </div>
+      }
+
       <div class="700:ml-3">
         <app-toggle-theme-button></app-toggle-theme-button>
       </div>
     </div>
   </div>
-  @if(pageEventService.$windowInnerWidth() < 700) {
+  @if(pageEventService.$windowInnerWidth() < 820) {
   <div
     class="fixed w-full"
     [ngClass]="{
@@ -57,5 +61,4 @@
   </div>
 
   }
-  <!-- <div class="absolute inset-x-0 bottom-0 h-[1px] bottom-decoration"></div> -->
 </header>

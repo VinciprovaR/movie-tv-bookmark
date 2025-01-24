@@ -8,6 +8,7 @@
   </div>
   <div>
     <app-media-list-container
+      [infiniteScrollDisabled]="false"
       [query]="(selectQuery$ | async) ?? ''"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="(selectTVList$ | async) ?? []"

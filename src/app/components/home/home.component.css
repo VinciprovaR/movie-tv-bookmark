@@ -4,3 +4,40 @@
   border-width: 1px;
   border-radius: var(--border-radius-ext);
 }
+
+.background-placeholder {
+  background-image: linear-gradient(var(--theme-color-1), var(--theme-color-1));
+}
+
+.text-gradient {
+  background-size: 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-light {
+  background-image: linear-gradient(
+    to bottom right,
+    #d1d5db 0%,
+    #a8adb7 50%,
+    #6c757d 100%
+  );
+}
+
+.text-gradient-dark {
+  background-image: linear-gradient(
+    to bottom right,
+    #6c757d 0%,
+    #495057 50%,
+    #343a40 100%
+  );
+}
+
+.header-text-gray-light {
+  color: rgb(209, 213, 219);
+}
+
+.header-text-gray-dark {
+  color: rgb(5, 5, 5);
+}

@@ -25,6 +25,7 @@ export const initialState: DiscoveryMovieState = {
   },
   noAdditional: false,
   isFirstLanding: true,
+  infiniteScrollDisabled: true,
 };
 
 export const discoveryMovieReducer = createReducer(
@@ -46,7 +47,7 @@ export const discoveryMovieReducer = createReducer(
         language: '',
         voteAverage: { voteAverageMin: 0, voteAverageMax: 10 },
         minVote: 0,
-      }
+      },
     };
   }),
   on(
@@ -79,6 +80,7 @@ export const discoveryMovieReducer = createReducer(
         ...state,
         error: null,
         isLoading: true,
+        infiniteScrollDisabled: false,
       };
     }
   ),
@@ -90,6 +92,7 @@ export const discoveryMovieReducer = createReducer(
         payload,
         error: null,
         isLoading: true,
+        infiniteScrollDisabled: false,
       };
     }
   ),
@@ -166,3 +169,5 @@ export const getNoAdditional = (state: DiscoveryMovieState) =>
   state.noAdditional;
 export const getIsFirstLanding = (state: DiscoveryMovieState) =>
   state.isFirstLanding;
+export const getInfiniteScrollDisabled = (state: DiscoveryMovieState) =>
+  state.infiniteScrollDisabled;

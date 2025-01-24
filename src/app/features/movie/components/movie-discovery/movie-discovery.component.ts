@@ -56,6 +56,7 @@ export class MovieDiscoveryComponent
   selectNoAdditional$!: Observable<boolean>;
   selectIsFirstLanding$!: Observable<boolean>;
   selectScrollTo$!: Observable<null>;
+  selectInfiniteScrollDisabled$!: Observable<boolean>;
   title = 'Movie Discovery';
   mediaType: MediaType = 'movie';
   isFirstLanding: boolean = true;
@@ -116,6 +117,10 @@ export class MovieDiscoveryComponent
     );
 
     this.selectScrollTo$ = DiscoveryMovieSelectors.scrollToObs$;
+
+    this.selectInfiniteScrollDisabled$ = this.store.select(
+      DiscoveryMovieSelectors.selectInfiniteScrollDisabled
+    );
   }
 
   initSubscriptions() {

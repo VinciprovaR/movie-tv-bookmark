@@ -267,6 +267,14 @@ export const routes: Routes = [
     title: 'Reset Password ',
   },
   {
+    path: 'about',
+    loadComponent: () =>
+      import('./components/about/about.component').then(
+        (m) => m.AboutComponent
+      ),
+    title: 'About',
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full',
