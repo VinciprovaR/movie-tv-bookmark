@@ -106,7 +106,6 @@ export class MediaListContainerComponent
     this.titleNotFound = `No ${mediaTypeLbl} found`;
     this.noMoreAdditionalCaption = `There are no more additional ${mediaTypeLbl} for this query`;
     this.initSubscriptions();
-    console.log('infiniteScrollDisabled: ' + this.infiniteScrollDisabled);
   }
 
   ngAfterViewInit(): void {

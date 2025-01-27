@@ -34,7 +34,6 @@ export class AiSearchComponent extends AbstractComponent implements OnInit {
   selectQuery$!: Observable<string>;
   selectIsLoading$!: Observable<boolean>;
   selectMediaList$!: Observable<Movie[] & TV[]>;
-
   title = "What's up to your mind?";
   mediaType: MediaType = 'multi';
 
