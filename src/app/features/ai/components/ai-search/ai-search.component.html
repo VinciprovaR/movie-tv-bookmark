@@ -20,6 +20,8 @@
         </div>
         <div>
           <app-media-list-container
+            [query]="(selectQuery$ | async) ?? ''"
+            [searchType]="'AI'"
             [loadingSpinnerText]="'Ai is thinking...'"
             [isLoading]="(selectIsLoading$ | async) ?? false"
             [mediaList]="(selectMediaList$ | async) ?? []"

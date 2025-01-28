@@ -7,6 +7,16 @@ export type cancel = 'cancel';
 export type submitDialogType = confirm | cancel;
 export type scrollStrategies = 'block' | 'close' | 'noop' | 'reposition';
 export type arrowType = 'up' | 'right' | 'down' | 'left';
+export type searchType =
+  | 'search'
+  | 'discovery'
+  | 'bookmark'
+  | 'AI'
+  | 'person-movie-cast'
+  | 'person-tv-cast'
+  | 'person-movie-crew'
+  | 'person-tv-crew'
+  | 'no-hint';
 
 export interface PredominantColor {
   headerMediaGradient: string;

@@ -3,8 +3,9 @@
 
   <div>
     <h2 class="mb-4 pl-4">{{ title }} Cast</h2>
-    @if(personDetailMovieCredits.cast.length > 0){
+
     <app-media-list-container
+      [searchType]="'person-movie-cast'"
       [scrollSelf]="true"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="personDetailMovieCredits.cast"
@@ -14,18 +15,13 @@
       [personIdentifier]="'cast'"
       [allowButtonAdditionalMedia]="false"
     ></app-media-list-container>
-
-    }@else {
-    <app-missing-field-placeholder
-      [caption]="'No movies as cast found for this person'"
-    ></app-missing-field-placeholder
-    >}
   </div>
 
   <div>
     <h2 class="mb-4 pl-4">{{ title }} Crew</h2>
-    @if(personDetailMovieCredits.crew.length > 0){
+
     <app-media-list-container
+      [searchType]="'person-movie-crew'"
       [scrollSelf]="true"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="removeDuplicateCrewMovie(personDetailMovieCredits.crew)"
@@ -35,12 +31,6 @@
       [personIdentifier]="'crew'"
       [allowButtonAdditionalMedia]="false"
     ></app-media-list-container>
-
-    }@else {
-    <app-missing-field-placeholder
-      [caption]="'No movies as crew found for this person'"
-    ></app-missing-field-placeholder
-    >}
   </div>
 
   } @else {

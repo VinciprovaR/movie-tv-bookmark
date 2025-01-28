@@ -8,14 +8,12 @@
   </div>
   <div class="1024:w-3/4 ml-0 1024:ml-6 mt-6 1024:mt-0" #elSm>
     <app-media-list-container
+      [searchType]="'bookmark'"
       [infiniteScrollDisabled]="false"
       [mediaList]="(selectTVList$ | async) ?? []"
       [mediaType]="mediaType"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [direction]="'vertical'"
-      [captionNotFoundCustom]="
-        'Couldn\'t find any tv matching for this bookmark.'
-      "
       [allowButtonAdditionalMedia]="false"
       [elSm]="elSm"
       [elXl]="elXl"

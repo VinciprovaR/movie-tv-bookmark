@@ -1,0 +1,35 @@
+@if(searchType === 'search' || searchType === 'AI'){ @if(query){
+<app-no-search-found
+  [mediaType]="mediaType"
+  [mediaTypeLbl]="mediaTypeLbl"
+  [searchType]="searchType"
+></app-no-search-found>
+} @else {
+<app-type-suggestion
+  [searchType]="searchType"
+  [mediaType]="mediaType"
+  [mediaTypeLbl]="mediaTypeLbl"
+></app-type-suggestion>
+} } @if(searchType === 'discovery' || searchType === 'bookmark'){
+<app-no-search-found
+  [mediaType]="mediaType"
+  [mediaTypeLbl]="mediaTypeLbl"
+  [searchType]="searchType"
+></app-no-search-found>
+} @if(searchType === 'person-movie-cast'){
+{{
+  "It seems this person hasn't appeared in any Movies yet. Check back later for updates!"
+}}
+} @if(searchType === 'person-tv-cast'){
+{{
+  "It seems this person hasn't appeared in any TV Shows yet. Check back later for updates!"
+}}
+} @if(searchType === 'person-movie-crew'){
+{{
+  "It seems this person hasn't contributed to any Movies as part of the crew. Check back later for updates!"
+}}
+} @if(searchType === 'person-tv-crew'){
+{{
+  "It seems this person hasn't contributed to any TV Shows as part of the crew. Check back later for updates!"
+}}
+}

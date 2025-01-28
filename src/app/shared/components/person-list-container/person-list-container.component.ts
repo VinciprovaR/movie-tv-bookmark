@@ -13,11 +13,11 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { MediaType, Person } from '../../interfaces/TMDB/tmdb-media.interface';
 import { CastCrewCardComponent } from '../cast-crew-card/cast-crew-card.component';
-import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
 import { PersonCardComponent } from '../person-card/person-card.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-import { TypeSuggestionComponent } from '../type-suggestion/type-suggestion.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { NoMediaComponent } from '../no-media/no-media.component';
+import { searchType } from '../../interfaces/layout.interface';
 
 @Component({
   selector: 'app-person-list-container',
@@ -25,19 +25,15 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
   imports: [
     CommonModule,
     PersonCardComponent,
-    NoSearchFoundComponent,
+    NoMediaComponent,
     MatProgressSpinnerModule,
     InfiniteScrollDirective,
     MissingFieldPlaceholderComponent,
-    TypeSuggestionComponent,
     LoadingSpinnerComponent,
   ],
   templateUrl: './person-list-container.component.html',
 })
-export class PersonListContainerComponent
-  extends AbstractComponent
-  implements OnInit
-{
+export class PersonListContainerComponent extends AbstractComponent {
   @ViewChildren('crewCast')
   castCrewCardComponentList!: QueryList<CastCrewCardComponent>;
   @Output()
@@ -52,19 +48,14 @@ export class PersonListContainerComponent
   personList!: Person[];
   @Input()
   query!: string;
-  titleNotFound!: string;
-  captionNotFound!: string;
+  @Input({ required: true })
+  searchType!: searchType;
   gridCol: string = '';
   crewIdList: number[] = [];
   searchAdditionalButtonLabel = `Search for additional people`;
 
   constructor() {
     super();
-  }
-
-  ngOnInit(): void {
-    this.captionNotFound = ` We couldn't find any person matching your search. Try searching with different keywords`;
-    this.titleNotFound = `No person found`;
   }
 
   discoveryAdditionalPeople() {

@@ -17,17 +17,16 @@ import {
   Movie,
   TV,
 } from '../../interfaces/TMDB/tmdb-media.interface';
-import { scrollDirection } from '../../interfaces/layout.interface';
+import { scrollDirection, searchType } from '../../interfaces/layout.interface';
 import {
   MovieData,
   TVData,
 } from '../../interfaces/supabase/media-data.entity.interface';
 import { MediaCardComponent } from '../media-card/media-card.component';
 import { MissingFieldPlaceholderComponent } from '../missing-field-placeholder/missing-field-placeholder.component';
-import { NoSearchFoundComponent } from '../no-search-found/no-search-found.component';
-import { TypeSuggestionComponent } from '../type-suggestion/type-suggestion.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { NoMediaComponent } from '../no-media/no-media.component';
 
 @Component({
   selector: 'app-media-list-container',
@@ -36,10 +35,9 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
     CommonModule,
     MediaCardComponent,
     InfiniteScrollDirective,
-    NoSearchFoundComponent,
+    NoMediaComponent,
     MatProgressSpinnerModule,
     MissingFieldPlaceholderComponent,
-    TypeSuggestionComponent,
     LoadingSpinnerComponent,
   ],
   templateUrl: './media-list-container.component.html',
@@ -58,8 +56,6 @@ export class MediaListContainerComponent
   mediaList!: Movie[] | MovieData[] | TV[] | TVData[];
   @Input({ required: true })
   mediaType!: MediaType;
-  @Input()
-  captionNotFoundCustom!: string;
   @Input()
   scrollSelf: boolean = false;
   @Input()
@@ -84,27 +80,29 @@ export class MediaListContainerComponent
   enableLoadingSpinner: boolean = true;
   @Input()
   infiniteScrollDisabled: boolean = true;
+  @Input({ required: true })
+  searchType!: searchType;
   @ViewChildren('itemsLi') itemsLi!: QueryList<ElementRef>;
-  titleNotFound!: string;
-  captionNotFound!: string;
   ulContainerClass: string = '';
   noMoreAdditionalCaption: string = '';
   searchAdditionalButtonLabel: string = '';
   scrollTo = false;
-
+  mediaTypeLbl: string = '';
   constructor() {
     super();
   }
 
   ngOnInit(): void {
-    const mediaTypeLbl =
-      this.mediaType === 'multi' ? 'movies or tv shows' : this.mediaType;
-    this.searchAdditionalButtonLabel = `Search for additional ${mediaTypeLbl}`;
-    this.captionNotFound = this.captionNotFoundCustom
-      ? this.captionNotFoundCustom
-      : `We couldn't find any ${mediaTypeLbl} matching your search. Try searching with different keywords`;
-    this.titleNotFound = `No ${mediaTypeLbl} found`;
-    this.noMoreAdditionalCaption = `There are no more additional ${mediaTypeLbl} for this query`;
+    if (this.mediaType === 'multi') {
+      this.mediaTypeLbl = 'Movies or TV Shows';
+    } else if (this.mediaType === 'movie') {
+      this.mediaTypeLbl = 'Movies';
+    } else if (this.mediaType === 'tv') {
+      this.mediaTypeLbl = 'TV Shows';
+    }
+
+    this.searchAdditionalButtonLabel = `Search for additional ${this.mediaTypeLbl}`;
+    this.noMoreAdditionalCaption = `There are no more additional ${this.mediaTypeLbl} for this query`;
     this.initSubscriptions();
   }
 

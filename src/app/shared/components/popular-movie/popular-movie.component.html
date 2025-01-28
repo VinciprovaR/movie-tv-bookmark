@@ -1,6 +1,7 @@
 <div class="w-full">
   <h2 class="px-6">Trending Movies</h2>
   <app-media-list-container
+    [searchType]="'no-hint'"
     [infiniteScrollDisabled]="true"
     [enableLoadingSpinner]="false"
     [scrollSelf]="true"

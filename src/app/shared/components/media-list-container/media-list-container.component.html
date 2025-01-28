@@ -46,18 +46,12 @@
   } } @else if(!isLoading){
 
   <div class="flex justify-center">
-    @if(query){
-
-    <app-no-search-found
-      [title]="titleNotFound"
-      [caption]="captionNotFound"
-      [icon]="'tv_off'"
-    ></app-no-search-found>
-
-    } @else {
-
-    <app-type-suggestion [mediaType]="mediaType"></app-type-suggestion>
-    }
+    <app-no-media
+      [query]="query"
+      [searchType]="searchType"
+      [mediaType]="mediaType"
+      [mediaTypeLbl]="mediaTypeLbl"
+    ></app-no-media>
   </div>
   } @else { @if(enableLoadingSpinner){
   <app-loading-spinner [text]="loadingSpinnerText"></app-loading-spinner>

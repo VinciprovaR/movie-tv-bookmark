@@ -3,8 +3,9 @@
 
   <div>
     <h2 class="mb-4 pl-4">{{ title }} Cast</h2>
-    @if(personDetailTVCredits.cast.length > 0){
+
     <app-media-list-container
+      [searchType]="'person-tv-cast'"
       [scrollSelf]="true"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="personDetailTVCredits.cast"
@@ -14,18 +15,13 @@
       [personIdentifier]="'cast'"
       [allowButtonAdditionalMedia]="false"
     ></app-media-list-container>
-
-    }@else {
-    <app-missing-field-placeholder
-      [caption]="'No tvs as cast found for this person'"
-    ></app-missing-field-placeholder
-    >}
   </div>
 
   <div>
     <h2 class="mb-4 pl-4">{{ title }} Crew</h2>
-    @if(personDetailTVCredits.crew.length > 0){
+
     <app-media-list-container
+      [searchType]="'person-tv-crew'"
       [scrollSelf]="true"
       [isLoading]="(selectIsLoading$ | async) ?? false"
       [mediaList]="removeDuplicateCrewTV(personDetailTVCredits.crew)"
@@ -35,12 +31,6 @@
       [personIdentifier]="'cast'"
       [allowButtonAdditionalMedia]="false"
     ></app-media-list-container>
-
-    }@else {
-    <app-missing-field-placeholder
-      [caption]="'No tvs as crew found for this person'"
-    ></app-missing-field-placeholder
-    >}
   </div>
 
   } @else {

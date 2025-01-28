@@ -34,18 +34,12 @@
 
   } } @else if(!isLoading){
   <div class="flex justify-center">
-    @if(query){
-
-    <app-no-search-found
-      [title]="titleNotFound"
-      [caption]="captionNotFound"
-      [icon]="'person_off'"
-    ></app-no-search-found>
-
-    } @else {
-
-    <app-type-suggestion [mediaType]="mediaType"></app-type-suggestion>
-    }
+    <app-no-media
+      [query]="query"
+      [searchType]="searchType"
+      [mediaType]="mediaType"
+      [mediaTypeLbl]="'People'"
+    ></app-no-media>
   </div>
   } @else {
   <app-loading-spinner></app-loading-spinner>
