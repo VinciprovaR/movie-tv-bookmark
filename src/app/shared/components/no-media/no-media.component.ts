@@ -10,9 +10,8 @@ import { MediaType } from '../../interfaces/TMDB/tmdb-media.interface';
   selector: 'app-no-media',
   imports: [CommonModule, NoSearchFoundComponent, TypeSuggestionComponent],
   templateUrl: './no-media.component.html',
-  styleUrl: './no-media.component.css',
 })
-export class NoMediaComponent extends AbstractComponent implements OnInit {
+export class NoMediaComponent extends AbstractComponent {
   @Input({ required: true })
   searchType!: searchType;
   @Input({ required: true })
@@ -22,6 +21,4 @@ export class NoMediaComponent extends AbstractComponent implements OnInit {
   @Input({ required: true })
   mediaTypeLbl!: string;
   noSearchFoundIcon!: string;
-
-  ngOnInit(): void {}
 }
