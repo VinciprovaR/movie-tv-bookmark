@@ -79,7 +79,7 @@ export class MediaListContainerComponent
   @Input()
   enableLoadingSpinner: boolean = true;
   @Input()
-  infiniteScrollDisabled: boolean = true;
+  infiniteScrollDisabled: boolean = false;
   @Input({ required: true })
   searchType!: searchType;
   @ViewChildren('itemsLi') itemsLi!: QueryList<ElementRef>;
