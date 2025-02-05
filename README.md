@@ -4,12 +4,11 @@
     A front-end skill showcase web-app for searching and saving movie and tv shows.
     <br>
     <br>
-    Made with Angular 17, Standalone Components, Tailwind CSS, NgRx state managment. 
+    Made with Angular 19, Standalone Components, Tailwind CSS, NgRx state managment. 
     <br>
     <br>
     <a href="https://movie-tv-bookmark.netlify.app/">Movie &amp; TV Bookmark Demo here</a>
   </p>
-
 
 ## Setup
 
@@ -22,23 +21,22 @@ npm start
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=VinciprovaR_movie-tv-bookmark&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=VinciprovaR_movie-tv-bookmark)
 
-
 ## What's included
 
-- ✔️ Angular 17
+- ✔️ Angular 19
 - ✔️ Standalone components
-- ✔️ Change detection strategy with on push 
+- ✔️ Change detection strategy with on push
 - ✔️ Guards
 - ✔️ Lazy loading routing
 - ✔️ Use of [NgOptimizedImage](https://angular.io/guide/image-directive)
-- ✔️ Server with <a href="https://supabase.com/" target="_blank">Supabase</a>:  
-    - CRUD operation for bookmarks movies and tv shows
-    - JWT authentication
-    - Database Functions
-    - Edge Functions (Used as proxy to mask the TMDB API key)
-    - Email verification during the creation new account flow or for change password
+- ✔️ Server with <a href="https://supabase.com/" target="_blank">Supabase</a>:
+  - CRUD operation for bookmarks movies and tv shows
+  - JWT authentication
+  - Database Functions
+  - Edge Functions (Used as proxy to mask the TMDB API key)
+  - Email verification during the creation new account flow or for change password
 - ✔️ <a href="https://ngrx.io/" target="_blank">NgRx</a> for state managment
-- ✔️ Using the <a href="https://developer.themoviedb.org/docs/getting-started" target="_blank">TMDB API</a> for fetching movies, TV shows and people 
+- ✔️ Using the <a href="https://developer.themoviedb.org/docs/getting-started" target="_blank">TMDB API</a> for fetching movies, TV shows and people
 - ✔️ Responsive design with <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>
 - ✔️ Deployed with <a href="https://app.netlify.com/" target="_blank">Netlify</a>
 
