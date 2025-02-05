@@ -3,9 +3,7 @@ import {
   ElementRef,
   inject,
   OnInit,
-  signal,
   ViewChild,
-  WritableSignal,
 } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AbstractComponent } from '../../shared/abstract/components/abstract-component.component';

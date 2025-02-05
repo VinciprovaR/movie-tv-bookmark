@@ -25,7 +25,7 @@ export class LoadingService {
   protected readonly destroyRef$ = inject(DestroyRef);
   protected readonly trendingMediaStore = inject(TrendingMediaStore);
 
-  private toggleIsLoading$: Subject<{
+  private readonly toggleIsLoading$: Subject<{
     isLoading: boolean;
     isLanding: boolean;
   }> = new Subject<{ isLoading: boolean; isLanding: boolean }>();
