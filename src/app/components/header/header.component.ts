@@ -45,7 +45,7 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
 
   icon = '';
   isDarkTheme = false;
-  showNavMenuMobile: boolean = false;
+  $showNavMenuMobile: WritableSignal<boolean> = signal(false);
   $isScrolled: WritableSignal<boolean> = signal(false);
 
   constructor() {
@@ -74,12 +74,10 @@ export class HeaderComponent extends AbstractComponent implements OnInit {
   }
 
   toggleNavMenuMobile() {
-    this.showNavMenuMobile = !this.showNavMenuMobile;
-    this.changeDetectorRef.detectChanges();
+    this.$showNavMenuMobile.set(!this.$showNavMenuMobile());
   }
 
   closeNavMenuMobile() {
-    this.showNavMenuMobile = false;
-    this.changeDetectorRef.detectChanges();
+    this.$showNavMenuMobile.set(false);
   }
 }

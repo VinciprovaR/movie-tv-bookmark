@@ -8,8 +8,9 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { AbstractComponent } from '../../shared/abstract/components/abstract-component.component';
-import { LoadingService } from '../../services/loading.service';
+import { AbstractComponent } from '../../abstract/components/abstract-component.component';
+import { LoadingService } from '../../../services/loading.service';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,7 +21,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LoadingComponent extends AbstractComponent implements OnInit {
   readonly loadingService = inject(LoadingService);
-  toggleIsLoadingObs$ = this.loadingService.toggleIsLoadingObs$;
+  toggleIsLoading$ = this.loadingService.toggleIsLoading$;
 
   @ViewChild('loadingBar')
   loadingBar!: ElementRef;
@@ -30,16 +31,20 @@ export class LoadingComponent extends AbstractComponent implements OnInit {
     true: { remove: 'hidden', add: 'block' },
     false: { remove: 'block', add: 'hidden' },
   };
+  $isHome: WritableSignal<boolean> = signal(false);
 
   constructor() {
     super();
   }
   ngOnInit(): void {
+    console.log(this.router.url);
+    this.router.url === '/' ? this.$isHome.set(true) : this.$isHome.set(false);
+
     this.initSubscriptions();
   }
 
   initSubscriptions() {
-    this.toggleIsLoadingObs$.subscribe(
+    this.toggleIsLoading$.subscribe(
       (toggle: { isLoading: boolean; isLanding: boolean }) => {
         let { isLoading, isLanding } = toggle;
         this.toggleIsLoading(isLoading, isLanding);

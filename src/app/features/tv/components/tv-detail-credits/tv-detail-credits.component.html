@@ -68,7 +68,9 @@
           <div class="1024:hidden">
             <mat-icon
               aria-hidden="false"
-              [fontIcon]="isHideCastContainer ? 'expand_more' : 'chevron_right'"
+              [fontIcon]="
+                $isHideCastContainer() ? 'expand_more' : 'chevron_right'
+              "
             ></mat-icon>
           </div>
         </div>
@@ -77,7 +79,7 @@
       <div
         class="px-4"
         [ngClass]="{
-          'hidden-container': isHideCastContainer
+          'hidden-container': $isHideCastContainer()
         }"
       >
         <ul class="p-0 m-0 space-y-4">
@@ -114,7 +116,9 @@
           <div class="1024:hidden">
             <mat-icon
               aria-hidden="false"
-              [fontIcon]="isHideCastContainer ? 'expand_more' : 'chevron_right'"
+              [fontIcon]="
+                $isHideCastContainer() ? 'expand_more' : 'chevron_right'
+              "
             ></mat-icon>
           </div>
         </div>
@@ -123,7 +127,7 @@
       <div
         class="px-4 space-y-8"
         [ngClass]="{
-          'hidden-container': isHideCrewContainer
+          'hidden-container': $isHideCrewContainer()
         }"
       >
         @if((departments$ | async); as departments){ @for(department of

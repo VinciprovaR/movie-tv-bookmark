@@ -1,4 +1,4 @@
-import { Directive, inject } from '@angular/core';
+import { Directive, inject, signal, WritableSignal } from '@angular/core';
 import { IMG_SIZES } from '../../../providers';
 import { AbstractComponent } from './abstract-component.component';
 
@@ -8,8 +8,8 @@ export abstract class AbstractMediaDetailCreditsComponent extends AbstractCompon
     IMG_SIZES.TMDB_BACKDROP_W_300_IMG_URL
   );
 
-  isHideCastContainer: boolean = false;
-  isHideCrewContainer: boolean = false;
+  $isHideCastContainer: WritableSignal<boolean> = signal(false);
+  $isHideCrewContainer: WritableSignal<boolean> = signal(false);
 
   constructor() {
     super();
@@ -17,12 +17,17 @@ export abstract class AbstractMediaDetailCreditsComponent extends AbstractCompon
 
   toggleCast() {
     if (window.innerWidth < 1024) {
-      this.isHideCastContainer = !this.isHideCastContainer;
+      this.$isHideCastContainer.set(!this.$isHideCastContainer());
     }
   }
   toggleCrew() {
     if (window.innerWidth < 1024) {
-      this.isHideCrewContainer = !this.isHideCrewContainer;
+      this.$isHideCrewContainer.set(!this.$isHideCrewContainer());
     }
+  }
+
+  resetHideContainers() {
+    this.$isHideCastContainer.set(false);
+    this.$isHideCrewContainer.set(false);
   }
 }

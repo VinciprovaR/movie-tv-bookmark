@@ -226,12 +226,6 @@ export class MovieDetailCreditsComponent
     };
   }
 
-  resetHideContainers() {
-    this.isHideCastContainer = false;
-    this.isHideCrewContainer = false;
-    this.changeDetectorRef.detectChanges();
-  }
-
   buildDetailPath(id: number) {
     return `/movie-detail/${id}`;
   }

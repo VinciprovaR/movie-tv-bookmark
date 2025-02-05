@@ -61,16 +61,20 @@
       </div>
       <div class="w-full space-y-4 1024:space-y-8 1024:mr-12">
         <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
-          <app-person-movies
-            [personId]="personId"
-            [personDetailMovieCredits$]="personDetailMovieCredits$"
-          ></app-person-movies>
+          <div class="px-6">
+            <app-person-movies
+              [personId]="personId"
+              [personDetailMovieCredits$]="personDetailMovieCredits$"
+            ></app-person-movies>
+          </div>
         </div>
         <div class="bg-[var(--theme-color-3)] 1024:bg-transparent py-4">
-          <app-person-tvs
-            [personId]="personId"
-            [personDetailTVCredits$]="personDetailTVCredits$"
-          ></app-person-tvs>
+          <div class="px-6">
+            <app-person-tvs
+              [personId]="personId"
+              [personDetailTVCredits$]="personDetailTVCredits$"
+            ></app-person-tvs>
+          </div>
         </div>
       </div>
     </div>

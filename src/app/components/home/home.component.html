@@ -1,10 +1,15 @@
-<section class="m-auto w-full max-w-[1920px] space-y-8">
+<section class="m-auto w-full max-w-[1920px]">
   <div
-    class="bg-cover bg-top h-[80vh]"
+    class="bg-cover bg-top h-screen relative"
     [ngStyle]="{
       'background-image': $backgroundImageStyle()
     }"
   >
+    <div class="absolute inset-0 pointer-events-none">
+      <div
+        class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--theme-color-1)] to-transparent"
+      ></div>
+    </div>
     <div
       class="h-full background-placeholder inset-0 flex flex-col justify-center items-center"
       [ngStyle]="{
@@ -34,8 +39,8 @@
       </div>
     </div>
   </div>
-  <div class="">
-    <div class="mx-4 768:mx-14 1024:mx-20 space-y-8">
+  <div class="relative z-20 -mt-32">
+    <div class="px-4 768:px-8 1024:px-16 space-y-8">
       <div>
         <app-popular-movie
           [isLoading]="(trendingMediaIsLoading$ | async) ?? false"

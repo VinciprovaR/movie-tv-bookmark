@@ -224,12 +224,6 @@ export class TVDetailCreditsComponent
     };
   }
 
-  resetHideContainers() {
-    this.isHideCastContainer = false;
-    this.isHideCrewContainer = false;
-    this.changeDetectorRef.detectChanges();
-  }
-
   buildCharacterTV(roles: Role[]): string {
     let roleResult = '';
     roles.forEach((role: Role, i, array) => {

@@ -1,8 +1,8 @@
 <header
   class="fixed w-full top-0 z-30 h-[60px]"
   [ngClass]="{
-    'header-bg-visible': $isScrolled(),
-    'header-bg-trasparent': !$isScrolled()
+    'header-bg-visible': $isScrolled() || $showNavMenuMobile(),
+    'header-bg-trasparent': !$isScrolled() || !$showNavMenuMobile()
   }"
 >
   <div
@@ -48,14 +48,14 @@
   <div
     class="fixed w-full"
     [ngClass]="{
-    'header-mobile-show': showNavMenuMobile,
-    'header-mobile-hidden': !showNavMenuMobile,
+    'header-mobile-show': $showNavMenuMobile(),
+    'header-mobile-hidden': !$showNavMenuMobile(),
   }"
   >
     <app-navigator-mobile
       [isUserAuthenticated]="(isUserAuthenticated$ | async) ?? false"
       [navElements]="navElements"
-      [showNavMenuMobile]="showNavMenuMobile"
+      [showNavMenuMobile]="$showNavMenuMobile()"
       (closeNavMenuMobile)="closeNavMenuMobile()"
     ></app-navigator-mobile>
   </div>

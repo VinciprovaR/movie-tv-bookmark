@@ -1,5 +1,5 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { MovieDetailCreditsStore } from '../core/component-store/movie-detail-credits.store.service';
 import { MovieDetailStore } from '../core/component-store/movie-detail-store.service';
 import { PersonDetailStore } from '../core/component-store/person-detail-store.service';
@@ -14,6 +14,7 @@ import { SearchPeopleSelectors } from '../core/store/search-people';
 import { SearchTVSelectors } from '../core/store/search-tv';
 import { TVBookmarkSelectors } from '../core/store/tv-bookmark';
 import { Store } from '@ngrx/store';
+import { TrendingMediaStore } from '../core/component-store/trending-media-store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,12 +23,14 @@ export class LoadingService {
   protected readonly store = inject(Store);
   destroyed$ = new Subject();
   protected readonly destroyRef$ = inject(DestroyRef);
+  protected readonly trendingMediaStore = inject(TrendingMediaStore);
 
-  toggleIsLoading$: Subject<{ isLoading: boolean; isLanding: boolean }> =
-    new Subject<{ isLoading: boolean; isLanding: boolean }>();
+  private toggleIsLoading$: Subject<{
+    isLoading: boolean;
+    isLanding: boolean;
+  }> = new Subject<{ isLoading: boolean; isLanding: boolean }>();
   toggleIsLoadingObs$: Observable<{ isLoading: boolean; isLanding: boolean }> =
     this.toggleIsLoading$.asObservable();
-
   //Auth
   authSelectIsLoading$!: Observable<boolean>;
   authSelectIsLoadingForPasswordValidation$!: Observable<boolean>;
@@ -54,6 +57,9 @@ export class LoadingService {
   private readonly personDetailStore = inject(PersonDetailStore);
   personSearchSelectIsLoading$!: Observable<boolean>;
   personDetailSelectIsLoading$!: Observable<boolean>;
+
+  //Trending movie-tv
+  trendingMediaSelectIsLoading$!: Observable<boolean>;
 
   constructor() {
     this.destroyRef$.onDestroy(() => {
@@ -109,6 +115,10 @@ export class LoadingService {
       SearchPeopleSelectors.selectIsLoading
     );
     this.personDetailSelectIsLoading$ = this.personDetailStore.selectIsLoading$;
+
+    //Trending movie-tv
+    this.trendingMediaSelectIsLoading$ =
+      this.trendingMediaStore.selectIsLoading$;
   }
   initSubscriptions(): void {
     //not landing
@@ -198,6 +208,12 @@ export class LoadingService {
     });
 
     this.personDetailSelectIsLoading$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((isLoading) => {
+        this.toggleIsLoading(isLoading, true);
+      });
+
+    this.trendingMediaSelectIsLoading$
       .pipe(takeUntil(this.destroyed$))
       .subscribe((isLoading) => {
         this.toggleIsLoading(isLoading, true);

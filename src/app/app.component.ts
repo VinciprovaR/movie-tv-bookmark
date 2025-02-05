@@ -1,12 +1,13 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AlertContainerComponent } from './components/alert-container/alert-container.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AbstractComponent } from './shared/abstract/components/abstract-component.component';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -39,4 +40,3 @@ export class AppComponent extends AbstractComponent {
     return outlet?.activatedRouteData;
   }
 }
-// changeDetection: ChangeDetectionStrategy.OnPush,
