@@ -1,5 +1,5 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { MovieDetailCreditsStore } from '../core/component-store/movie-detail-credits.store.service';
 import { MovieDetailStore } from '../core/component-store/movie-detail-store.service';
 import { PersonDetailStore } from '../core/component-store/person-detail-store.service';

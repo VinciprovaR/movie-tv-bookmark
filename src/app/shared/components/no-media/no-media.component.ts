@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractComponent } from '../../abstract/components/abstract-component.component';
 import { searchType } from '../../interfaces/layout.interface';
 import { CommonModule } from '@angular/common';
